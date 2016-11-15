@@ -1,0 +1,14 @@
+{
+	"category" : "Brick-Theme",
+	"classinstvars" : [
+		 ],
+	"classvars" : [
+		 ],
+	"commentStamp" : "",
+	"instvars" : [
+		"backgroundColor" ],
+	"name" : "BrIconPalette",
+	"pools" : [
+		 ],
+	"super" : "BrColorPalette",
+	"type" : "normal" }

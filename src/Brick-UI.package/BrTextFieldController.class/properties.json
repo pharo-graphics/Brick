@@ -1,0 +1,14 @@
+{
+	"category" : "Brick-UI-TextInput",
+	"classinstvars" : [
+		 ],
+	"classvars" : [
+		 ],
+	"commentStamp" : "",
+	"instvars" : [
+		 ],
+	"name" : "BrTextFieldController",
+	"pools" : [
+		 ],
+	"super" : "BrTextInputController",
+	"type" : "normal" }

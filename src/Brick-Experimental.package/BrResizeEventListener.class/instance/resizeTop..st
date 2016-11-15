@@ -1,0 +1,7 @@
+resizing
+resizeTop: aPosition
+	| lPos |
+	lPos := target globalPointToLocal: aPosition.
+	self root extent: self root width @ (self root height - lPos y).
+	self root windowPosition: self root windowPosition x@ aPosition y.
+	

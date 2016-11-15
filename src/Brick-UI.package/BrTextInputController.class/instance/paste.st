@@ -1,0 +1,3 @@
+selection
+paste
+	widget paste

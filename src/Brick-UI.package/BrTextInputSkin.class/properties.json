@@ -1,0 +1,20 @@
+{
+	"category" : "Brick-UI-TextInput",
+	"classinstvars" : [
+		 ],
+	"classvars" : [
+		 ],
+	"commentStamp" : "",
+	"instvars" : [
+		"text",
+		"caret",
+		"selectionShapes",
+		"placeholderText",
+		"textContainer",
+		"prevSelection",
+		"innerContainer" ],
+	"name" : "BrTextInputSkin",
+	"pools" : [
+		 ],
+	"super" : "BrSkin",
+	"type" : "normal" }

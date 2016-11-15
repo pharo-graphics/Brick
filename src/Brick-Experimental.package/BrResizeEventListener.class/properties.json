@@ -1,0 +1,19 @@
+{
+	"category" : "Brick-Experimental-Window",
+	"classinstvars" : [
+		 ],
+	"classvars" : [
+		 ],
+	"commentStamp" : "",
+	"instvars" : [
+		"isTop",
+		"isBottom",
+		"isLeft",
+		"isRight",
+		"target",
+		"isDragging" ],
+	"name" : "BrResizeEventListener",
+	"pools" : [
+		 ],
+	"super" : "BlElementEventListener",
+	"type" : "normal" }

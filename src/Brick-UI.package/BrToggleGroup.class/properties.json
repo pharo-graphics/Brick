@@ -1,0 +1,14 @@
+{
+	"category" : "Brick-UI-Toggle",
+	"classinstvars" : [
+		 ],
+	"classvars" : [
+		 ],
+	"commentStamp" : "",
+	"instvars" : [
+		"toggles" ],
+	"name" : "BrToggleGroup",
+	"pools" : [
+		 ],
+	"super" : "Object",
+	"type" : "normal" }

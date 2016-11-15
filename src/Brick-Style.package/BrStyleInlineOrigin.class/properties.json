@@ -1,0 +1,14 @@
+{
+	"category" : "Brick-Style-CSS",
+	"classinstvars" : [
+		 ],
+	"classvars" : [
+		 ],
+	"commentStamp" : "",
+	"instvars" : [
+		 ],
+	"name" : "BrStyleInlineOrigin",
+	"pools" : [
+		 ],
+	"super" : "BrStyleOrigin",
+	"type" : "normal" }

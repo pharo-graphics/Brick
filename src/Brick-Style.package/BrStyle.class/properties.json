@@ -1,0 +1,17 @@
+{
+	"category" : "Brick-Style-Util",
+	"classinstvars" : [
+		 ],
+	"classvars" : [
+		 ],
+	"commentStamp" : "",
+	"instvars" : [
+		"selector",
+		"declaration",
+		"conditions",
+		"ordinal" ],
+	"name" : "BrStyle",
+	"pools" : [
+		 ],
+	"super" : "Object",
+	"type" : "normal" }

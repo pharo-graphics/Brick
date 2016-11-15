@@ -1,0 +1,20 @@
+{
+	"category" : "Brick-UI-Scrollbar",
+	"classinstvars" : [
+		 ],
+	"classvars" : [
+		 ],
+	"commentStamp" : "",
+	"instvars" : [
+		"thumb",
+		"thumbLength",
+		"trackLength",
+		"incrementButton",
+		"decrementButton",
+		"track",
+		"slideDelta" ],
+	"name" : "BrScrollbarSkin",
+	"pools" : [
+		 ],
+	"super" : "BrSkin",
+	"type" : "normal" }

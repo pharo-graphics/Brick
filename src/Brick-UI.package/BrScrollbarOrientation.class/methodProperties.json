@@ -1,0 +1,17 @@
+{
+	"class" : {
+		 },
+	"instance" : {
+		"breadthOf:" : "GlenCavarle 8/5/2016 15:38",
+		"defaultLayout" : "GlenCavarle 8/5/2016 15:39",
+		"for:breadth:" : "GlenCavarle 8/5/2016 15:38",
+		"for:length:" : "GlenCavarle 8/5/2016 15:38",
+		"imageRotate:" : "GlenCavarle 8/5/2016 15:38",
+		"layoutDecButton:" : "GlenCavarle 8/5/2016 15:38",
+		"layoutIncButton:" : "GlenCavarle 8/5/2016 15:39",
+		"layoutTrack:" : "GlenCavarle 8/5/2016 15:39",
+		"layoutWidget:" : "GlenCavarle 8/6/2016 14:01",
+		"lengthOf:" : "GlenCavarle 8/5/2016 15:39",
+		"minLengthOf:" : "GlenCavarle 8/5/2016 15:39",
+		"positionFromPoint:" : "GlenCavarle 8/5/2016 15:39",
+		"translate:by:" : "GlenCavarle 8/5/2016 15:39" } }

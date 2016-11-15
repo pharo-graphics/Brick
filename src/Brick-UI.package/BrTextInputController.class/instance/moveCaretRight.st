@@ -1,0 +1,3 @@
+caret position
+moveCaretRight
+	widget moveCaretRight

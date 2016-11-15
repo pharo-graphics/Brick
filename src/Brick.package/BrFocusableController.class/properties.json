@@ -1,0 +1,14 @@
+{
+	"category" : "Brick-Controller",
+	"classinstvars" : [
+		 ],
+	"classvars" : [
+		 ],
+	"commentStamp" : "",
+	"instvars" : [
+		 ],
+	"name" : "BrFocusableController",
+	"pools" : [
+		 ],
+	"super" : "BrInteractiveController",
+	"type" : "normal" }

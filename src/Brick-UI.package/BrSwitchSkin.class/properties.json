@@ -1,0 +1,16 @@
+{
+	"category" : "Brick-UI-Switch",
+	"classinstvars" : [
+		 ],
+	"classvars" : [
+		 ],
+	"commentStamp" : "",
+	"instvars" : [
+		"thumb",
+		"bar",
+		"box" ],
+	"name" : "BrSwitchSkin",
+	"pools" : [
+		 ],
+	"super" : "BrLabeledSkin",
+	"type" : "normal" }

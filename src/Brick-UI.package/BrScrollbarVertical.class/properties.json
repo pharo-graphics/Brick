@@ -1,0 +1,14 @@
+{
+	"category" : "Brick-UI-Scrollbar",
+	"classinstvars" : [
+		 ],
+	"classvars" : [
+		 ],
+	"commentStamp" : "",
+	"instvars" : [
+		 ],
+	"name" : "BrScrollbarVertical",
+	"pools" : [
+		 ],
+	"super" : "BrScrollbarOrientation",
+	"type" : "normal" }

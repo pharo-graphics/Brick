@@ -1,0 +1,14 @@
+{
+	"category" : "Brick-Experimental-SidePane",
+	"classinstvars" : [
+		 ],
+	"classvars" : [
+		 ],
+	"commentStamp" : "",
+	"instvars" : [
+		"menu" ],
+	"name" : "BrSideNavigation",
+	"pools" : [
+		 ],
+	"super" : "BrPane",
+	"type" : "normal" }

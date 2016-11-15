@@ -1,0 +1,14 @@
+{
+	"category" : "Brick-Material-Theme",
+	"classinstvars" : [
+		 ],
+	"classvars" : [
+		 ],
+	"commentStamp" : "",
+	"instvars" : [
+		 ],
+	"name" : "BrMdTheme",
+	"pools" : [
+		 ],
+	"super" : "BrTheme",
+	"type" : "normal" }

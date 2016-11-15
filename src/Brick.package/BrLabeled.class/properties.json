@@ -1,0 +1,18 @@
+{
+	"category" : "Brick-Widget",
+	"classinstvars" : [
+		 ],
+	"classvars" : [
+		 ],
+	"commentStamp" : "",
+	"instvars" : [
+		"text",
+		"icon",
+		"fontColor",
+		"fontSize",
+		"fontFamily" ],
+	"name" : "BrLabeled",
+	"pools" : [
+		 ],
+	"super" : "BrWidget",
+	"type" : "normal" }

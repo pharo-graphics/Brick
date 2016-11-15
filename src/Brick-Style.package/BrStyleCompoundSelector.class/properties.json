@@ -1,0 +1,15 @@
+{
+	"category" : "Brick-Style-CSS",
+	"classinstvars" : [
+		 ],
+	"classvars" : [
+		 ],
+	"commentStamp" : "",
+	"instvars" : [
+		"selectors",
+		"relationships" ],
+	"name" : "BrStyleCompoundSelector",
+	"pools" : [
+		 ],
+	"super" : "BrStyleSelector",
+	"type" : "normal" }

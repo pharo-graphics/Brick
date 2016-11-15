@@ -1,0 +1,3 @@
+initialization
+defaultController
+	^ BrScrollPaneController new 

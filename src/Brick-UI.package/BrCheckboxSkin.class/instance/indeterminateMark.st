@@ -1,0 +1,3 @@
+accessing
+indeterminateMark
+	^ BrMdIcons checkIndeterminateSvg

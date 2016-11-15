@@ -1,0 +1,3 @@
+selection
+selectWord
+	widget selectWord

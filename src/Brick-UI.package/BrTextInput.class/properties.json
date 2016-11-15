@@ -1,0 +1,22 @@
+{
+	"category" : "Brick-UI-TextInput",
+	"classinstvars" : [
+		 ],
+	"classvars" : [
+		 ],
+	"commentStamp" : "",
+	"instvars" : [
+		"textModel",
+		"editorModel",
+		"placeholder",
+		"selection",
+		"fontColor",
+		"fontSize",
+		"fontFamily",
+		"highlightColor",
+		"highlightTextColor" ],
+	"name" : "BrTextInput",
+	"pools" : [
+		 ],
+	"super" : "BrWidget",
+	"type" : "normal" }

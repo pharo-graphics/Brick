@@ -1,0 +1,28 @@
+{
+	"class" : {
+		 },
+	"instance" : {
+		"=" : "GlennCavarle 5/9/2016 09:29",
+		"id" : "GlennCavarle 9/6/2015 15:28",
+		"id:" : "GlennCavarle 9/6/2015 15:28",
+		"idCount" : "GlennCavarle 9/11/2015 22:34",
+		"initialize" : "GlennCavarle 9/20/2015 00:17",
+		"isSimpleSelector" : "GlennCavarle 9/6/2015 15:48",
+		"matchesPseudoClasseState:" : "GlennCavarle 9/20/2015 00:41",
+		"matchesStyleClasses:" : "GlennCavarle 9/13/2015 18:43",
+		"matchesStyleable:" : "GlennCavarle 5/9/2016 09:14",
+		"matchesStyleable:pseudoClassStates:" : "GlennCavarle 9/12/2015 16:53",
+		"matchesStyleable:pseudoClassStates:selectorIndex:" : "GlennCavarle 11/16/2016 00:13",
+		"name" : "GlennCavarle 9/6/2015 15:28",
+		"name:" : "GlennCavarle 9/6/2015 15:28",
+		"nameCount" : "GlennCavarle 9/11/2015 22:34",
+		"nameMatches:" : "GlennCavarle 9/11/2015 19:55",
+		"printOn:" : "GlennCavarle 11/9/2015 03:13",
+		"pseudoClassCount" : "GlennCavarle 9/13/2015 19:45",
+		"pseudoClasses" : "GlennCavarle 9/6/2015 17:21",
+		"pseudoClasses:" : "GlennCavarle 9/6/2015 17:21",
+		"styleClassCount" : "GlennCavarle 9/11/2015 22:34",
+		"styleClasses" : "GlennCavarle 11/9/2015 03:12",
+		"styleClasses:" : "GlennCavarle 9/6/2015 15:28",
+		"updateMatching" : "GlennCavarle 9/17/2015 01:34",
+		"updateSpecificity" : "GlennCavarle 11/9/2015 03:13" } }

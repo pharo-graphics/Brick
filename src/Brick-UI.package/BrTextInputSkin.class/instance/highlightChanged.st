@@ -1,0 +1,3 @@
+change reporting
+highlightChanged
+	self selectionChanged

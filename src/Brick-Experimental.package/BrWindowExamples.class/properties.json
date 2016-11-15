@@ -1,0 +1,14 @@
+{
+	"category" : "Brick-Experimental-Examples",
+	"classinstvars" : [
+		 ],
+	"classvars" : [
+		 ],
+	"commentStamp" : "",
+	"instvars" : [
+		 ],
+	"name" : "BrWindowExamples",
+	"pools" : [
+		 ],
+	"super" : "Object",
+	"type" : "normal" }

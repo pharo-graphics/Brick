@@ -1,0 +1,14 @@
+{
+	"category" : "Brick-UI-TextInput",
+	"classinstvars" : [
+		 ],
+	"classvars" : [
+		 ],
+	"commentStamp" : "",
+	"instvars" : [
+		 ],
+	"name" : "BrTextFieldSkin",
+	"pools" : [
+		 ],
+	"super" : "BrTextInputSkin",
+	"type" : "normal" }

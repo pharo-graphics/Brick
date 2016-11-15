@@ -1,0 +1,25 @@
+{
+	"class" : {
+		 },
+	"instance" : {
+		"activateState:" : "GlennCavarle 5/8/2016 19:46",
+		"deactivateState:" : "GlennCavarle 5/8/2016 19:46",
+		"defaultState" : "GlennCavarle 5/8/2016 19:46",
+		"hasActiveState:" : "GlennCavarle 5/8/2016 19:46",
+		"initialize" : "GlennCavarle 7/21/2016 01:41",
+		"initializeController" : "GlennCavarle 7/21/2016 02:06",
+		"initializeKeyBindings" : "GlennCavarle 7/21/2016 01:32",
+		"keyBindings" : "GlennCavarle 7/21/2016 01:51",
+		"onBlur:" : "GlennCavarle 7/1/2016 17:40",
+		"onFocus:" : "GlennCavarle 7/1/2016 17:40",
+		"onInstalledIn:" : "GlennCavarle 7/21/2016 01:32",
+		"onMouseDown:" : "GlennCavarle 6/26/2016 01:22",
+		"onMouseEnter:" : "GlennCavarle 6/26/2016 01:22",
+		"onMouseLeave:" : "GlennCavarle 6/26/2016 01:22",
+		"onMouseUp:" : "GlennCavarle 6/26/2016 01:22",
+		"onStateChanged" : "GlennCavarle 7/2/2016 14:21",
+		"onUninstalledIn:" : "GlennCavarle 7/1/2016 17:50",
+		"performActionForEvent:" : "GlennCavarle 7/22/2016 15:37",
+		"states" : "GlennCavarle 7/1/2016 17:50",
+		"toggleState:" : "GlennCavarle 5/14/2016 17:30",
+		"wantsEvent:" : "GlennCavarle 7/21/2016 02:10" } }

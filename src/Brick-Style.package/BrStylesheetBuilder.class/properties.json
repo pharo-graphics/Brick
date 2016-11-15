@@ -1,0 +1,16 @@
+{
+	"category" : "Brick-Style-Util",
+	"classinstvars" : [
+		 ],
+	"classvars" : [
+		 ],
+	"commentStamp" : "",
+	"instvars" : [
+		"stylesheet",
+		"rules",
+		"selectors" ],
+	"name" : "BrStylesheetBuilder",
+	"pools" : [
+		 ],
+	"super" : "Object",
+	"type" : "normal" }

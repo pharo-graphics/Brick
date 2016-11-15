@@ -1,0 +1,23 @@
+{
+	"category" : "Brick-Style-Styler",
+	"classinstvars" : [
+		"DefaultStylesheet" ],
+	"classvars" : [
+		 ],
+	"commentStamp" : "",
+	"instvars" : [
+		"styleable",
+		"styles",
+		"styleProperties",
+		"transitions",
+		"children",
+		"styleClasses",
+		"styleId",
+		"stylesheets",
+		"pseudoClassStates",
+		"inlineOrdinalCnt" ],
+	"name" : "BrCssStyler",
+	"pools" : [
+		 ],
+	"super" : "BlAbstractStyler",
+	"type" : "normal" }

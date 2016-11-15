@@ -1,0 +1,3 @@
+accessing
+textOffset
+	^ textContainer position

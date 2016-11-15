@@ -1,0 +1,14 @@
+{
+	"category" : "Brick-Examples",
+	"classinstvars" : [
+		 ],
+	"classvars" : [
+		 ],
+	"commentStamp" : "",
+	"instvars" : [
+		 ],
+	"name" : "BrBasicExamples",
+	"pools" : [
+		 ],
+	"super" : "Object",
+	"type" : "normal" }

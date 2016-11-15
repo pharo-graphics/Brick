@@ -1,0 +1,14 @@
+{
+	"category" : "Brick-Style-Value",
+	"classinstvars" : [
+		 ],
+	"classvars" : [
+		 ],
+	"commentStamp" : "",
+	"instvars" : [
+		 ],
+	"name" : "BrSymbolValue",
+	"pools" : [
+		 ],
+	"super" : "BrStyleValue",
+	"type" : "normal" }

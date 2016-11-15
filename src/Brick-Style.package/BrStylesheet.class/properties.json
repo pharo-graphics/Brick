@@ -1,0 +1,18 @@
+{
+	"category" : "Brick-Style-CSS",
+	"classinstvars" : [
+		 ],
+	"classvars" : [
+		 ],
+	"commentStamp" : "",
+	"instvars" : [
+		"name",
+		"file",
+		"rules",
+		"medias",
+		"origin" ],
+	"name" : "BrStylesheet",
+	"pools" : [
+		 ],
+	"super" : "Object",
+	"type" : "normal" }

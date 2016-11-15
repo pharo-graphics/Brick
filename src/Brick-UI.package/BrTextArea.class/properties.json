@@ -1,0 +1,14 @@
+{
+	"category" : "Brick-UI-TextInput",
+	"classinstvars" : [
+		 ],
+	"classvars" : [
+		 ],
+	"commentStamp" : "",
+	"instvars" : [
+		"wrapText" ],
+	"name" : "BrTextArea",
+	"pools" : [
+		 ],
+	"super" : "BrTextInput",
+	"type" : "normal" }

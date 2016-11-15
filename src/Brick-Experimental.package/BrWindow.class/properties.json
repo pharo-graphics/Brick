@@ -1,0 +1,18 @@
+{
+	"category" : "Brick-Experimental-Window",
+	"classinstvars" : [
+		 ],
+	"classvars" : [
+		 ],
+	"commentStamp" : "",
+	"instvars" : [
+		"title",
+		"borderless",
+		"resizable",
+		"fullscreen",
+		"root" ],
+	"name" : "BrWindow",
+	"pools" : [
+		 ],
+	"super" : "BrWidget",
+	"type" : "normal" }

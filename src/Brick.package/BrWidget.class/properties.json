@@ -1,0 +1,23 @@
+{
+	"category" : "Brick-Widget",
+	"classinstvars" : [
+		 ],
+	"classvars" : [
+		 ],
+	"commentStamp" : "",
+	"instvars" : [
+		"view",
+		"controller",
+		"disabled",
+		"backgroundColor",
+		"borderColor",
+		"borderWidth",
+		"borderRadius",
+		"contextMenu",
+		"tooltip",
+		"skin" ],
+	"name" : "BrWidget",
+	"pools" : [
+		 ],
+	"super" : "BlElement",
+	"type" : "normal" }

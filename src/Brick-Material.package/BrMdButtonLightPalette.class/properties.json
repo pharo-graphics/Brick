@@ -1,0 +1,14 @@
+{
+	"category" : "Brick-Material-Palette",
+	"classinstvars" : [
+		 ],
+	"classvars" : [
+		 ],
+	"commentStamp" : "",
+	"instvars" : [
+		 ],
+	"name" : "BrMdButtonLightPalette",
+	"pools" : [
+		 ],
+	"super" : "BrMdButtonPalette",
+	"type" : "normal" }

@@ -1,0 +1,14 @@
+{
+	"category" : "Brick-UI-Button",
+	"classinstvars" : [
+		 ],
+	"classvars" : [
+		 ],
+	"commentStamp" : "",
+	"instvars" : [
+		 ],
+	"name" : "BrButtonController",
+	"pools" : [
+		 ],
+	"super" : "BrButtonBaseController",
+	"type" : "normal" }

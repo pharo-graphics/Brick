@@ -1,0 +1,14 @@
+{
+	"category" : "Brick-Experimental-Dialog",
+	"classinstvars" : [
+		 ],
+	"classvars" : [
+		 ],
+	"commentStamp" : "",
+	"instvars" : [
+		 ],
+	"name" : "BrDialogController",
+	"pools" : [
+		 ],
+	"super" : "BrController",
+	"type" : "normal" }

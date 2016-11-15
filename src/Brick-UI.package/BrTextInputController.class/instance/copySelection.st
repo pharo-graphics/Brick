@@ -1,0 +1,3 @@
+selection
+copySelection
+	widget copySelection

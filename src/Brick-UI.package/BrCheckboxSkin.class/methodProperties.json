@@ -1,0 +1,13 @@
+{
+	"class" : {
+		 },
+	"instance" : {
+		"checkedMark" : "GlennCavarle 11/13/2016 11:27",
+		"createBox" : "GlenCavarle 8/7/2016 19:56",
+		"createMarkGraphics" : "GlennCavarle 11/11/2016 20:46",
+		"indeterminateMark" : "GlennCavarle 11/13/2016 11:27",
+		"initializeBox" : "GlennCavarle 7/30/2016 15:40",
+		"initializeSkin" : "GlenCavarle 8/7/2016 20:01",
+		"markChanged" : "GlennCavarle 8/3/2016 15:00",
+		"mouseUpEvent:" : "GlennCavarle 7/25/2016 01:05",
+		"updateChildren" : "GlenCavarle 8/7/2016 20:01" } }

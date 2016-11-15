@@ -1,0 +1,15 @@
+{
+	"category" : "Brick-UI-Radio",
+	"classinstvars" : [
+		 ],
+	"classvars" : [
+		 ],
+	"commentStamp" : "",
+	"instvars" : [
+		"box",
+		"mark" ],
+	"name" : "BrRadioButtonSkin",
+	"pools" : [
+		 ],
+	"super" : "BrLabeledSkin",
+	"type" : "normal" }

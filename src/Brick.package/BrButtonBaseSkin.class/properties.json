@@ -1,0 +1,14 @@
+{
+	"category" : "Brick-Skin",
+	"classinstvars" : [
+		 ],
+	"classvars" : [
+		 ],
+	"commentStamp" : "",
+	"instvars" : [
+		"touchRipple" ],
+	"name" : "BrButtonBaseSkin",
+	"pools" : [
+		 ],
+	"super" : "BrLabeledSkin",
+	"type" : "normal" }

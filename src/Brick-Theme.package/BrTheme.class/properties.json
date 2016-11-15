@@ -1,0 +1,14 @@
+{
+	"category" : "Brick-Theme",
+	"classinstvars" : [
+		 ],
+	"classvars" : [
+		 ],
+	"commentStamp" : "",
+	"instvars" : [
+		 ],
+	"name" : "BrTheme",
+	"pools" : [
+		 ],
+	"super" : "Object",
+	"type" : "normal" }

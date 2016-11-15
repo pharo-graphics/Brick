@@ -1,0 +1,3 @@
+initialization
+defaultSkin
+	^ BrScrollPaneSkin new

@@ -1,0 +1,14 @@
+{
+	"category" : "Brick-UI-LayoutPane",
+	"classinstvars" : [
+		 ],
+	"classvars" : [
+		 ],
+	"commentStamp" : "",
+	"instvars" : [
+		 ],
+	"name" : "BrHBoxPane",
+	"pools" : [
+		 ],
+	"super" : "BrPane",
+	"type" : "normal" }

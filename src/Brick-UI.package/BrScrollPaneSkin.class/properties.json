@@ -1,0 +1,18 @@
+{
+	"category" : "Brick-UI-ScrollPane",
+	"classinstvars" : [
+		 ],
+	"classvars" : [
+		 ],
+	"commentStamp" : "",
+	"instvars" : [
+		"vbar",
+		"hbar",
+		"viewport",
+		"positionX",
+		"positionY" ],
+	"name" : "BrScrollPaneSkin",
+	"pools" : [
+		 ],
+	"super" : "BrSkin",
+	"type" : "normal" }

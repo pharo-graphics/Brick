@@ -1,0 +1,14 @@
+{
+	"category" : "Brick-Experimental-Toolbar",
+	"classinstvars" : [
+		 ],
+	"classvars" : [
+		 ],
+	"commentStamp" : "",
+	"instvars" : [
+		 ],
+	"name" : "BrActionItem",
+	"pools" : [
+		 ],
+	"super" : "BrButton",
+	"type" : "normal" }

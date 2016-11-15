@@ -1,0 +1,14 @@
+{
+	"category" : "Brick-Theme",
+	"classinstvars" : [
+		 ],
+	"classvars" : [
+		 ],
+	"commentStamp" : "",
+	"instvars" : [
+		 ],
+	"name" : "BrButtonPalette",
+	"pools" : [
+		 ],
+	"super" : "BrLabeledPalette",
+	"type" : "normal" }

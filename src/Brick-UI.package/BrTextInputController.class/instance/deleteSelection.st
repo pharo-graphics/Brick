@@ -1,0 +1,4 @@
+selection
+deleteSelection
+	widget deleteSelection
+	

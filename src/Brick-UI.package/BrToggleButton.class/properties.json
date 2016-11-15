@@ -1,0 +1,15 @@
+{
+	"category" : "Brick-UI-Toggle",
+	"classinstvars" : [
+		 ],
+	"classvars" : [
+		 ],
+	"commentStamp" : "",
+	"instvars" : [
+		"groupProperty",
+		"selectedProperty" ],
+	"name" : "BrToggleButton",
+	"pools" : [
+		 ],
+	"super" : "BrButtonBase",
+	"type" : "normal" }

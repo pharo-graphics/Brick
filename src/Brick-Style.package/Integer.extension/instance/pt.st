@@ -1,0 +1,3 @@
+*Brick-Style
+pt
+	^self

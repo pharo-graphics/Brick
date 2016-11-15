@@ -1,0 +1,14 @@
+{
+	"category" : "Brick-Experimental-Window",
+	"classinstvars" : [
+		 ],
+	"classvars" : [
+		 ],
+	"commentStamp" : "",
+	"instvars" : [
+		 ],
+	"name" : "BrTitleBar",
+	"pools" : [
+		 ],
+	"super" : "BrToolbar",
+	"type" : "normal" }

@@ -1,0 +1,10 @@
+{
+	"class" : {
+		 },
+	"instance" : {
+		"createBlinkAnimation" : "GlennCavarle 8/26/2016 21:13",
+		"initialize" : "GlennCavarle 8/3/2016 13:03",
+		"isBlinking" : "GlennCavarle 7/6/2016 18:02",
+		"startBlinking" : "GlennCavarle 7/6/2016 18:52",
+		"stopBlinking" : "GlennCavarle 7/6/2016 18:53",
+		"toggleVisiblity" : "GlennCavarle 7/6/2016 18:08" } }

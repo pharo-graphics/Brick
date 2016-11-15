@@ -1,0 +1,15 @@
+{
+	"class" : {
+		"initialize" : "GlennCavarle 11/11/2016 20:45",
+		"reset" : "GlennCavarle 11/11/2016 20:45",
+		"uniqueInstance" : "GlennCavarle 11/11/2016 20:45" },
+	"instance" : {
+		"atColor:add:" : "GlennCavarle 11/11/2016 20:48",
+		"color:intensity:" : "GlennCavarle 11/11/2016 20:45",
+		"initialize" : "GlennCavarle 11/11/2016 20:45",
+		"loadBlue" : "GlennCavarle 11/11/2016 20:45",
+		"loadGreen" : "GlennCavarle 11/11/2016 20:45",
+		"loadGrey" : "GlennCavarle 11/11/2016 20:45",
+		"loadPink" : "GlennCavarle 11/11/2016 20:45",
+		"loadPurple" : "GlennCavarle 11/11/2016 20:45",
+		"loadRed" : "GlennCavarle 11/11/2016 20:45" } }

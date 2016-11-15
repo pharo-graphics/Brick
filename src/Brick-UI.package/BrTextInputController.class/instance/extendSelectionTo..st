@@ -1,0 +1,3 @@
+selection
+extendSelectionTo: aTextPosition
+	widget extendSelectionTo: aTextPosition

@@ -1,0 +1,14 @@
+{
+	"category" : "Brick-Material-Support",
+	"classinstvars" : [
+		 ],
+	"classvars" : [
+		 ],
+	"commentStamp" : "",
+	"instvars" : [
+		 ],
+	"name" : "BrMdIcons",
+	"pools" : [
+		 ],
+	"super" : "Object",
+	"type" : "normal" }

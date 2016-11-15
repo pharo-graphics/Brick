@@ -1,0 +1,14 @@
+{
+	"category" : "Brick-Experimental-Menu",
+	"classinstvars" : [
+		 ],
+	"classvars" : [
+		 ],
+	"commentStamp" : "",
+	"instvars" : [
+		 ],
+	"name" : "BrMenu",
+	"pools" : [
+		 ],
+	"super" : "BrPane",
+	"type" : "normal" }

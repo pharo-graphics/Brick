@@ -1,0 +1,3 @@
+text operations
+removeNextChar
+	widget removeNextChar

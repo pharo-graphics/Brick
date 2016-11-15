@@ -1,0 +1,14 @@
+{
+	"category" : "Brick-UI-ScrollPane",
+	"classinstvars" : [
+		 ],
+	"classvars" : [
+		 ],
+	"commentStamp" : "",
+	"instvars" : [
+		 ],
+	"name" : "BrScrollbarNeverPolicy",
+	"pools" : [
+		 ],
+	"super" : "BrScrollbarPolicy",
+	"type" : "normal" }

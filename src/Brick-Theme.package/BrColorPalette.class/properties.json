@@ -1,0 +1,16 @@
+{
+	"category" : "Brick-Theme",
+	"classinstvars" : [
+		 ],
+	"classvars" : [
+		 ],
+	"commentStamp" : "",
+	"instvars" : [
+		"hovered",
+		"disabled",
+		"pressed" ],
+	"name" : "BrColorPalette",
+	"pools" : [
+		 ],
+	"super" : "Object",
+	"type" : "normal" }

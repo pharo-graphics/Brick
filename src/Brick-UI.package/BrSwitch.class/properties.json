@@ -1,0 +1,14 @@
+{
+	"category" : "Brick-UI-Switch",
+	"classinstvars" : [
+		 ],
+	"classvars" : [
+		 ],
+	"commentStamp" : "",
+	"instvars" : [
+		"checked" ],
+	"name" : "BrSwitch",
+	"pools" : [
+		 ],
+	"super" : "BrButtonBase",
+	"type" : "normal" }

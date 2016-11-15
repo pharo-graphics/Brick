@@ -1,0 +1,14 @@
+{
+	"category" : "Brick-UI-Radio",
+	"classinstvars" : [
+		 ],
+	"classvars" : [
+		 ],
+	"commentStamp" : "",
+	"instvars" : [
+		 ],
+	"name" : "BrRadioButton",
+	"pools" : [
+		 ],
+	"super" : "BrToggleButton",
+	"type" : "normal" }

@@ -1,0 +1,15 @@
+{
+	"category" : "Brick-Controller",
+	"classinstvars" : [
+		 ],
+	"classvars" : [
+		 ],
+	"commentStamp" : "",
+	"instvars" : [
+		"widget",
+		"keyBindings" ],
+	"name" : "BrController",
+	"pools" : [
+		 ],
+	"super" : "Object",
+	"type" : "normal" }
