@@ -5,7 +5,7 @@ baseline: spec
 			postLoadDoIt: #postLoadActions:;
 		
 		   baseline: 'Bloc' with: [ spec
-				loads: #(#'core' );
+				loads: #(#'core' 'Bloc-Animation');
 				repository: 'github://pharo-graphics/Bloc/src' ];
 			
 			project: 'PetitCSS' with: [ spec
@@ -14,7 +14,7 @@ baseline: spec
 				repository: 'http://smalltalkhub.com/mc/GlennCavarle/PetitCSS/main/' ];
 			
 			
-			package: #Brick with: [ spec requires: #('Bloc' 'Bloc-Animation'). ];
+			package: #Brick with: [ spec requires: #('Bloc'). ];
 			package: #'Brick-Style' with: [ spec requires: #('Brick'). ];
 			package: #'Brick-Theme' with: [ spec requires: #('Brick-Style' ). ];
 			package: #'Brick-Material' with: [ spec requires: #('Brick-Theme' ). ];
