@@ -1,11 +1,11 @@
-as yet unclassified
+actions
 postLoadGit: aSpecLoader
 	|group loadDirective packages|
 
 	group := (aSpecLoader spec required difference: aSpecLoader spec packages keys) asArray first asSymbol.
 	group := group last: (group size - (group indexOf: $:)).
 	loadDirective := Metacello new
-  		baseline: 'Bloc';
+  		baseline: 'Brick';
   		repository: aSpecLoader spec versionSpec repositories map keys first;
   		fetch: group.
 

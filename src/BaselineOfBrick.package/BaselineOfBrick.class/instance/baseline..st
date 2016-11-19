@@ -19,8 +19,8 @@ baseline: spec
 			package: #'Brick-Theme' with: [ spec requires: #('Brick-Style' ). ];
 			package: #'Brick-Material' with: [ spec requires: #('Brick-Theme' ). ];
 			package: #'Brick-UI' with: [ spec requires: #(#Brick  'Brick-Theme'). ];
-			package: #'Brick-Examples' with: [ spec requires: #('Brick-UI' ). ];
-			package: #'Brick-Experimental' with: [ spec requires: #('Brick-UI' ). ];
+			package: #'Brick-Examples' with: [ spec requires: #('Brick-UI' 'Brick-Material'). ];
+			package: #'Brick-Experimental' with: [ spec requires: #('Brick-UI' 'Brick-Material'). ];
 			
 			
 			"default groups"
