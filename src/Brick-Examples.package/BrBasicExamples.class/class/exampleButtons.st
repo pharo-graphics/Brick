@@ -42,7 +42,7 @@ exampleButtons
 		geometry: BlEllipse new.	
 	
 	box := BrHBoxPane new
-		layoutDo:[:l| l alignCenter];
+		layoutDo: [:l| l alignCenter];
 		constraintsDo:[:c| 
 			c vertical matchParent.
 			c horizontal matchParent.];

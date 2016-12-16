@@ -1,4 +1,4 @@
-as yet unclassified
+examples
 exampleCheckbox
 <example>
 	| b1 b2 b3 b4 b5 box space|
@@ -36,7 +36,7 @@ exampleCheckbox
 		constraintsDo:[:c| 
 			c horizontal matchParent.
 			c vertical matchParent.];
-		addChildren:{b1. b2. b3. b4. b5}.
+		addChildren: { b1. b2. b3. b4. b5}.
 	
 	space := BlSpace new.
 	space root addChild: box.

@@ -1,4 +1,4 @@
-as yet unclassified
+examples
 exampleRadio
 <example>
 	| b1 b2 b3 b4 grp box space|

@@ -1,4 +1,4 @@
-as yet unclassified
+examples
 exampleScrollPane
 <example>
 	| spane box space|
@@ -14,7 +14,7 @@ exampleScrollPane
 		constraintsDo:[:c| 
 			c vertical matchParent.
 			c horizontal matchParent.];
-		addChildren:{spane}.
+		addChildren: { spane }.
 	
 	space := BlSpace new.
 	space root addChild: box.

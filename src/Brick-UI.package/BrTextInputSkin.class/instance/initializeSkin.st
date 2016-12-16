@@ -1,7 +1,8 @@
 initialization
 initializeSkin
 	super initializeSkin.
-	widget constraints vhFitContent.
+	widget constraints horizontal fitContent.
+	widget constraints vertical fitContent. .
 	widget minExtent: 25 @ 25.
 	widget border: (BlBorder color: Color veryVeryLightGray width: 1 radius:2).
 	widget  background: (BlBackground fill: Color white).

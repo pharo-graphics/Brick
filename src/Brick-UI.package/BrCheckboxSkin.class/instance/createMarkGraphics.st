@@ -1,6 +1,6 @@
 as yet unclassified
 createMarkGraphics
-| icon |
+	| icon |
 	icon := BlElement new.
 	icon addStyleClass: #mark.
 	icon background: Color black.

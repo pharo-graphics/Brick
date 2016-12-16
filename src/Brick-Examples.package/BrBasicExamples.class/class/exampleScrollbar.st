@@ -1,4 +1,4 @@
-as yet unclassified
+examples
 exampleScrollbar
 <example>
 	| sb box space|

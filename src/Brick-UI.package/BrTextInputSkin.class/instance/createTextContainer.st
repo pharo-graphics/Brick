@@ -2,4 +2,6 @@ initialization
 createTextContainer
 	^ BlElement new
 		layout: BlFrameLayout new;
-		constraintsDo:[:c| c vhFitContent]
+		constraintsDo: [ :c |
+			c horizontal fitContent.
+			c vertical fitContent ]

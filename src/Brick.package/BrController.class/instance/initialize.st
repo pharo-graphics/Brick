@@ -1,4 +1,4 @@
 initialization
 initialize
 	super initialize.
-	keyBindings := BlKeyBindingRegistry new
+	keyBindings := BlShortcutRegistry new
