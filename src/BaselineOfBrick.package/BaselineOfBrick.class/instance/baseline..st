@@ -2,17 +2,17 @@ baselines
 baseline: spec
 	<baseline>
 	spec for: #common do: [ spec
-			postLoadDoIt: #postLoadActions:;
-		
+			preLoadDoIt:  #preLoadActions:;
+			postLoadDoIt: #postLoadBrick:;
 		   baseline: 'Bloc' with: [ spec
-				loads: #(#'core' 'Bloc-Animation');
+				postLoadDoIt: #postLoadBloc:;
+				loads: #(stub); "Stub does not load anything here. We load Bloc in postLoadBloc:"
 				repository: 'github://pharo-graphics/Bloc/src' ];
-			
+
 			project: 'PetitCSS' with: [ spec
 				className: #ConfigurationOfPetitCSS;
 				versionString: '1.1';
 				repository: 'http://smalltalkhub.com/mc/GlennCavarle/PetitCSS/main/' ];
-			
 			
 			package: #Brick with: [ spec requires: #('Bloc'). ];
 			package: #'Brick-Style' with: [ spec requires: #('Brick'). ];
@@ -22,15 +22,19 @@ baseline: spec
 			package: #'Brick-Examples' with: [ spec requires: #('Brick-UI' 'Brick-Material'). ];
 			package: #'Brick-Experimental' with: [ spec requires: #('Brick-UI' 'Brick-Material'). ];
 			
-			
 			"default groups"
 			group: 'core' 
 				with: #( 'Brick-UI' 'Brick-Examples' 'Brick-Experimental' );
 			group: 'development' with: #('core');
 			
+			group: 'file:core' with: #('core');
+			group: 'file:development' with: #('development');
+			
 			"groups with git support"
 			group: 'git:core' with: #('core');
 			group: 'git:development' with: #('development');
-			
+
+			group: 'stub' with: #();
 			group: 'default' with: #('core')
+			
 		].
