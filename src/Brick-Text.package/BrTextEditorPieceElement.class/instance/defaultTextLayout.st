@@ -1,0 +1,3 @@
+initialization
+defaultTextLayout
+	^ SpSingleLineTextLayout new

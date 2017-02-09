@@ -1,0 +1,15 @@
+{
+	"commentStamp" : "AliakseiSyrel 1/18/2017 23:19",
+	"super" : "Object",
+	"category" : "Brick-Text-Model",
+	"classinstvars" : [ ],
+	"pools" : [ ],
+	"classvars" : [ ],
+	"instvars" : [
+		"segments",
+		"interval",
+		"subject"
+	],
+	"name" : "BrTextEditorIterator",
+	"type" : "normal"
+}

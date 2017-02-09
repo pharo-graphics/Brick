@@ -1,0 +1,3 @@
+initialization
+defaultIterator
+	^ BrTextEditorIterator new

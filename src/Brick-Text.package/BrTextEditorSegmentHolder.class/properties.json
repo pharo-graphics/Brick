@@ -1,0 +1,13 @@
+{
+	"commentStamp" : "AliakseiSyrel 1/18/2017 20:46",
+	"super" : "BlInfiniteElementHolder",
+	"category" : "Brick-Text-UI",
+	"classinstvars" : [ ],
+	"pools" : [ ],
+	"classvars" : [ ],
+	"instvars" : [
+		"segment"
+	],
+	"name" : "BrTextEditorSegmentHolder",
+	"type" : "normal"
+}
