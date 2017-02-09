@@ -1,16 +1,15 @@
 {
-	"category" : "Brick-Style-CSS",
-	"classinstvars" : [
-		 ],
-	"classvars" : [
-		 ],
 	"commentStamp" : "",
+	"super" : "BrStyleDeclaration",
+	"category" : "Brick-Style-CSS",
+	"classinstvars" : [ ],
+	"pools" : [ ],
+	"classvars" : [ ],
 	"instvars" : [
 		"duration",
 		"timingFunction",
-		"delay" ],
+		"delay"
+	],
 	"name" : "BrStyleTransitionDeclaration",
-	"pools" : [
-		 ],
-	"super" : "BrStyleDeclaration",
-	"type" : "normal" }
+	"type" : "normal"
+}

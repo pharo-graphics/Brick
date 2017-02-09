@@ -1,14 +1,11 @@
 {
-	"category" : "Brick-UI-Toggle",
-	"classinstvars" : [
-		 ],
-	"classvars" : [
-		 ],
 	"commentStamp" : "",
-	"instvars" : [
-		 ],
-	"name" : "BrToggleButtonSkin",
-	"pools" : [
-		 ],
 	"super" : "BrButtonBaseSkin",
-	"type" : "normal" }
+	"category" : "Brick-UI-Toggle",
+	"classinstvars" : [ ],
+	"pools" : [ ],
+	"classvars" : [ ],
+	"instvars" : [ ],
+	"name" : "BrToggleButtonSkin",
+	"type" : "normal"
+}

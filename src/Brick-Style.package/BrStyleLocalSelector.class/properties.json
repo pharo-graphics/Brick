@@ -1,14 +1,13 @@
 {
-	"category" : "Brick-Style-Util",
-	"classinstvars" : [
-		 ],
-	"classvars" : [
-		 ],
 	"commentStamp" : "",
-	"instvars" : [
-		"target" ],
-	"name" : "BrStyleLocalSelector",
-	"pools" : [
-		 ],
 	"super" : "BrStyleSimpleSelector",
-	"type" : "normal" }
+	"category" : "Brick-Style-Util",
+	"classinstvars" : [ ],
+	"pools" : [ ],
+	"classvars" : [ ],
+	"instvars" : [
+		"target"
+	],
+	"name" : "BrStyleLocalSelector",
+	"type" : "normal"
+}

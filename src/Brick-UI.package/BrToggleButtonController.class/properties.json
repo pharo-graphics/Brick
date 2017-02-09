@@ -1,14 +1,11 @@
 {
-	"category" : "Brick-UI-Toggle",
-	"classinstvars" : [
-		 ],
-	"classvars" : [
-		 ],
 	"commentStamp" : "",
-	"instvars" : [
-		 ],
-	"name" : "BrToggleButtonController",
-	"pools" : [
-		 ],
 	"super" : "BrButtonBaseController",
-	"type" : "normal" }
+	"category" : "Brick-UI-Toggle",
+	"classinstvars" : [ ],
+	"pools" : [ ],
+	"classvars" : [ ],
+	"instvars" : [ ],
+	"name" : "BrToggleButtonController",
+	"type" : "normal"
+}

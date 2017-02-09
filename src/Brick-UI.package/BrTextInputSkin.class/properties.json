@@ -1,10 +1,10 @@
 {
-	"category" : "Brick-UI-TextInput",
-	"classinstvars" : [
-		 ],
-	"classvars" : [
-		 ],
 	"commentStamp" : "",
+	"super" : "BrSkin",
+	"category" : "Brick-UI-TextInput",
+	"classinstvars" : [ ],
+	"pools" : [ ],
+	"classvars" : [ ],
 	"instvars" : [
 		"text",
 		"caret",
@@ -12,9 +12,8 @@
 		"placeholderText",
 		"textContainer",
 		"prevSelection",
-		"innerContainer" ],
+		"innerContainer"
+	],
 	"name" : "BrTextInputSkin",
-	"pools" : [
-		 ],
-	"super" : "BrSkin",
-	"type" : "normal" }
+	"type" : "normal"
+}

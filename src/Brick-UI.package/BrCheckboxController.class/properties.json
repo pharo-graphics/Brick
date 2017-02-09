@@ -1,14 +1,11 @@
 {
-	"category" : "Brick-UI-Checkbox",
-	"classinstvars" : [
-		 ],
-	"classvars" : [
-		 ],
 	"commentStamp" : "",
-	"instvars" : [
-		 ],
-	"name" : "BrCheckboxController",
-	"pools" : [
-		 ],
 	"super" : "BrButtonBaseController",
-	"type" : "normal" }
+	"category" : "Brick-UI-Checkbox",
+	"classinstvars" : [ ],
+	"pools" : [ ],
+	"classvars" : [ ],
+	"instvars" : [ ],
+	"name" : "BrCheckboxController",
+	"type" : "normal"
+}

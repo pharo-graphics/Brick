@@ -7,6 +7,6 @@ apply
 			[ self styleProperties do: [ :p | |newVal|
 					newVal := nil.
 					matchingStyles at: p ifPresent: [ :v | newVal := v transition: (matchingTransitions at: p ifAbsent: [ nil ])].
-					self perform: (p,':') asSymbol with: (newVal)
+					self perform: p asSymbol asMutator with: newVal
 					 ]].
 	self children do: [ :each | each apply ].

@@ -1,14 +1,13 @@
 {
-	"category" : "Brick-Style-Util",
-	"classinstvars" : [
-		 ],
-	"classvars" : [
-		 ],
 	"commentStamp" : "",
-	"instvars" : [
-		"styleMap" ],
-	"name" : "BrStyleManager",
-	"pools" : [
-		 ],
 	"super" : "Object",
-	"type" : "normal" }
+	"category" : "Brick-Style-Util",
+	"classinstvars" : [ ],
+	"pools" : [ ],
+	"classvars" : [ ],
+	"instvars" : [
+		"styleMap"
+	],
+	"name" : "BrStyleManager",
+	"type" : "normal"
+}

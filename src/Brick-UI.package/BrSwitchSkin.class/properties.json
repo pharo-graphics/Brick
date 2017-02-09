@@ -1,16 +1,15 @@
 {
-	"category" : "Brick-UI-Switch",
-	"classinstvars" : [
-		 ],
-	"classvars" : [
-		 ],
 	"commentStamp" : "",
+	"super" : "BrLabeledSkin",
+	"category" : "Brick-UI-Switch",
+	"classinstvars" : [ ],
+	"pools" : [ ],
+	"classvars" : [ ],
 	"instvars" : [
 		"thumb",
 		"bar",
-		"box" ],
+		"box"
+	],
 	"name" : "BrSwitchSkin",
-	"pools" : [
-		 ],
-	"super" : "BrLabeledSkin",
-	"type" : "normal" }
+	"type" : "normal"
+}

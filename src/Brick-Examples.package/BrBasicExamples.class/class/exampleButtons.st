@@ -35,7 +35,7 @@ exampleButtons
 		text: 'disabled';
 		disabled: true;
 		margin:(BlInsets all:5).	
-	
+
 	b7 := BrButton new 
 		icon:  (BrMdIcons checkSvg extent:32@32);
 		margin:(BlInsets all:5);

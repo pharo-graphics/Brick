@@ -1,3 +1,3 @@
 as yet unclassified
 styleProperties
-	^ #(#backgroundColor #borderRadius #borderColor #borderWidth #boxShadow)
+	^ #(#backgroundColor #borderColor #borderWidth #boxShadow)

@@ -1,14 +1,11 @@
 {
-	"category" : "Brick-UI-LayoutPane",
-	"classinstvars" : [
-		 ],
-	"classvars" : [
-		 ],
 	"commentStamp" : "",
-	"instvars" : [
-		 ],
-	"name" : "BrGridPane",
-	"pools" : [
-		 ],
 	"super" : "BrPane",
-	"type" : "normal" }
+	"category" : "Brick-UI-LayoutPane",
+	"classinstvars" : [ ],
+	"pools" : [ ],
+	"classvars" : [ ],
+	"instvars" : [ ],
+	"name" : "BrGridPane",
+	"type" : "normal"
+}

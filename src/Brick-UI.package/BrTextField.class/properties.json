@@ -1,15 +1,14 @@
 {
-	"category" : "Brick-UI-TextInput",
-	"classinstvars" : [
-		 ],
-	"classvars" : [
-		 ],
 	"commentStamp" : "",
+	"super" : "BrTextInput",
+	"category" : "Brick-UI-TextInput",
+	"classinstvars" : [ ],
+	"pools" : [ ],
+	"classvars" : [ ],
 	"instvars" : [
 		"leftIcon",
-		"rightIcon" ],
+		"rightIcon"
+	],
 	"name" : "BrTextField",
-	"pools" : [
-		 ],
-	"super" : "BrTextInput",
-	"type" : "normal" }
+	"type" : "normal"
+}

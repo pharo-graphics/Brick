@@ -1,14 +1,13 @@
 {
-	"category" : "Brick-Material-Palette",
-	"classinstvars" : [
-		 ],
-	"classvars" : [
-		 ],
 	"commentStamp" : "",
-	"instvars" : [
-		"name" ],
-	"name" : "BrMdButtonPalette",
-	"pools" : [
-		 ],
 	"super" : "BrButtonPalette",
-	"type" : "normal" }
+	"category" : "Brick-Material-Palette",
+	"classinstvars" : [ ],
+	"pools" : [ ],
+	"classvars" : [ ],
+	"instvars" : [
+		"name"
+	],
+	"name" : "BrMdButtonPalette",
+	"type" : "normal"
+}

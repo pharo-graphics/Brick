@@ -1,14 +1,13 @@
 {
-	"category" : "Brick-UI-Switch",
-	"classinstvars" : [
-		 ],
-	"classvars" : [
-		 ],
 	"commentStamp" : "",
-	"instvars" : [
-		"checked" ],
-	"name" : "BrSwitch",
-	"pools" : [
-		 ],
 	"super" : "BrButtonBase",
-	"type" : "normal" }
+	"category" : "Brick-UI-Switch",
+	"classinstvars" : [ ],
+	"pools" : [ ],
+	"classvars" : [ ],
+	"instvars" : [
+		"checked"
+	],
+	"name" : "BrSwitch",
+	"type" : "normal"
+}

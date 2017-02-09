@@ -1,14 +1,13 @@
 {
-	"category" : "Brick-Material-Support",
-	"classinstvars" : [
-		 ],
-	"classvars" : [
-		 ],
 	"commentStamp" : "",
-	"instvars" : [
-		"colorName" ],
-	"name" : "BrMdColor",
-	"pools" : [
-		 ],
 	"super" : "Color",
-	"type" : "normal" }
+	"category" : "Brick-Material-Support",
+	"classinstvars" : [ ],
+	"pools" : [ ],
+	"classvars" : [ ],
+	"instvars" : [
+		"colorName"
+	],
+	"name" : "BrMdColor",
+	"type" : "normal"
+}

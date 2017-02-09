@@ -1,3 +1,3 @@
-as yet unclassified
+accessing
 borderColor
 	^ self styleable border stroke paint color asBrStyleValue

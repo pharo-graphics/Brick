@@ -1,15 +1,14 @@
 {
-	"category" : "Brick-Skin",
-	"classinstvars" : [
-		 ],
-	"classvars" : [
-		 ],
 	"commentStamp" : "",
+	"super" : "BlElementEventListener",
+	"category" : "Brick-Skin",
+	"classinstvars" : [ ],
+	"pools" : [ ],
+	"classvars" : [ ],
 	"instvars" : [
 		"widget",
-		"controller" ],
+		"controller"
+	],
 	"name" : "BrSkin",
-	"pools" : [
-		 ],
-	"super" : "BlElementEventListener",
-	"type" : "normal" }
+	"type" : "normal"
+}

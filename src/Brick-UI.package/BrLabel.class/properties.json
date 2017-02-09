@@ -1,14 +1,11 @@
 {
-	"category" : "Brick-UI-Label",
-	"classinstvars" : [
-		 ],
-	"classvars" : [
-		 ],
 	"commentStamp" : "",
-	"instvars" : [
-		 ],
-	"name" : "BrLabel",
-	"pools" : [
-		 ],
 	"super" : "BrLabeled",
-	"type" : "normal" }
+	"category" : "Brick-UI-Label",
+	"classinstvars" : [ ],
+	"pools" : [ ],
+	"classvars" : [ ],
+	"instvars" : [ ],
+	"name" : "BrLabel",
+	"type" : "normal"
+}

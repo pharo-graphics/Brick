@@ -1,14 +1,13 @@
 {
-	"category" : "Brick-Style-EventListener",
-	"classinstvars" : [
-		 ],
-	"classvars" : [
-		 ],
 	"commentStamp" : "",
-	"instvars" : [
-		"styleable" ],
-	"name" : "BrStyleEventListener",
-	"pools" : [
-		 ],
 	"super" : "BlElementEventListener",
-	"type" : "normal" }
+	"category" : "Brick-Style-EventListener",
+	"classinstvars" : [ ],
+	"pools" : [ ],
+	"classvars" : [ ],
+	"instvars" : [
+		"styleable"
+	],
+	"name" : "BrStyleEventListener",
+	"type" : "normal"
+}

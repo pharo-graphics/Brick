@@ -6,7 +6,6 @@ button: aStylesheet
 		cls:#button style:[ :b | b
 			
 				declare: #backgroundColor -> BrMdColor grey100;
-				declare: #borderRadius -> 2 asBrPx;
 				declare: #borderWidth -> 1 asBrPx;
 				declare: #borderColor -> BrMdColor grey200;
 				declare: #color -> BrMdColor grey900;

@@ -9,7 +9,6 @@ checkbox: aStylesheet
 			
 			cls: #box style:[ :cb | cb
 				declare: #backgroundColor -> BrMdColor white;
-				declare: #borderRadius -> 2 asBrPx;
 				declare: #borderWidth -> 2 asBrPx;
 				declare: #borderColor -> BrMdColor grey500
 			];	

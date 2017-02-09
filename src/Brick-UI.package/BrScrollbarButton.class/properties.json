@@ -1,14 +1,11 @@
 {
-	"category" : "Brick-UI-Scrollbar",
-	"classinstvars" : [
-		 ],
-	"classvars" : [
-		 ],
 	"commentStamp" : "",
-	"instvars" : [
-		 ],
-	"name" : "BrScrollbarButton",
-	"pools" : [
-		 ],
 	"super" : "BlElement",
-	"type" : "normal" }
+	"category" : "Brick-UI-Scrollbar",
+	"classinstvars" : [ ],
+	"pools" : [ ],
+	"classvars" : [ ],
+	"instvars" : [ ],
+	"name" : "BrScrollbarButton",
+	"type" : "normal"
+}

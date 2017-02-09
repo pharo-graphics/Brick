@@ -1,14 +1,11 @@
 {
-	"category" : "Brick-UI-ScrollPane",
-	"classinstvars" : [
-		 ],
-	"classvars" : [
-		 ],
 	"commentStamp" : "",
-	"instvars" : [
-		 ],
-	"name" : "BrScrollPaneController",
-	"pools" : [
-		 ],
 	"super" : "BrController",
-	"type" : "normal" }
+	"category" : "Brick-UI-ScrollPane",
+	"classinstvars" : [ ],
+	"pools" : [ ],
+	"classvars" : [ ],
+	"instvars" : [ ],
+	"name" : "BrScrollPaneController",
+	"type" : "normal"
+}

@@ -1,10 +1,9 @@
 initialization
 initializeSkin
 	super initializeSkin.
-	text := BlText new
+	text := BlTextElement new
 	 	styleClass: #text;
-		zIndex:20.
-	"text constraints horizontal matchParent."
+		zIndex: 20.
 	widget constraints horizontal fitContent.
 	widget constraints vertical fitContent.
 	widget minExtent: 25@25.

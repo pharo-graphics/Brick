@@ -1,15 +1,14 @@
 {
-	"category" : "Brick-UI-TextInput",
-	"classinstvars" : [
-		 ],
-	"classvars" : [
-		 ],
 	"commentStamp" : "",
+	"super" : "BlElement",
+	"category" : "Brick-UI-TextInput",
+	"classinstvars" : [ ],
+	"pools" : [ ],
+	"classvars" : [ ],
 	"instvars" : [
 		"blinking",
-		"blinkAnimation" ],
+		"blinkAnimation"
+	],
 	"name" : "BrCaretCursor",
-	"pools" : [
-		 ],
-	"super" : "BlElement",
-	"type" : "normal" }
+	"type" : "normal"
+}

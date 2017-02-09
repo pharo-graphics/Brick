@@ -1,16 +1,15 @@
 {
-	"category" : "Brick-Style-Value",
-	"classinstvars" : [
-		 ],
-	"classvars" : [
-		 ],
 	"commentStamp" : "",
+	"super" : "Object",
+	"category" : "Brick-Style-Value",
+	"classinstvars" : [ ],
+	"pools" : [ ],
+	"classvars" : [ ],
 	"instvars" : [
 		"value",
 		"transition",
-		"animation" ],
+		"animation"
+	],
 	"name" : "BrStyleValue",
-	"pools" : [
-		 ],
-	"super" : "Object",
-	"type" : "normal" }
+	"type" : "normal"
+}

@@ -17,7 +17,6 @@ radio: aStylesheet
 		
 			cls:#box style:[ :rb | rb 
 				declare: #backgroundColor -> BrMdColor white;
-				declare: #borderRadius -> 2 asBrPx;
 				declare: #borderWidth -> 2 asBrPx;
 				declare: #borderColor -> BrMdColor grey500
 			];

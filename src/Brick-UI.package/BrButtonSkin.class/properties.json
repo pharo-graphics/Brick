@@ -1,15 +1,14 @@
 {
-	"category" : "Brick-UI-Button",
-	"classinstvars" : [
-		 ],
-	"classvars" : [
-		 ],
 	"commentStamp" : "",
+	"super" : "BrButtonBaseSkin",
+	"category" : "Brick-UI-Button",
+	"classinstvars" : [ ],
+	"pools" : [ ],
+	"classvars" : [ ],
 	"instvars" : [
 		"ripple",
-		"rippleAnimation" ],
+		"rippleAnimation"
+	],
 	"name" : "BrButtonSkin",
-	"pools" : [
-		 ],
-	"super" : "BrButtonBaseSkin",
-	"type" : "normal" }
+	"type" : "normal"
+}

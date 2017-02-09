@@ -1,5 +1,3 @@
-as yet unclassified
+accessing
 borderColor: aBlColorValue
-	self styleable border: (BlBorder stroke:
-					(self styleable border stroke
-						copyWithColor: (aBlColorValue value ifNil: [ Color transparent ])))
+	self styleable border: (self styleable border copyWithPaint: (aBlColorValue value ifNil: [ Color transparent ]))

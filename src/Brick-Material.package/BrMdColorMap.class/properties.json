@@ -1,14 +1,15 @@
 {
+	"commentStamp" : "",
+	"super" : "Object",
 	"category" : "Brick-Material-Support",
 	"classinstvars" : [
-		"uniqueInstance" ],
-	"classvars" : [
-		 ],
-	"commentStamp" : "",
+		"uniqueInstance"
+	],
+	"pools" : [ ],
+	"classvars" : [ ],
 	"instvars" : [
-		"colorMap" ],
+		"colorMap"
+	],
 	"name" : "BrMdColorMap",
-	"pools" : [
-		 ],
-	"super" : "Object",
-	"type" : "normal" }
+	"type" : "normal"
+}

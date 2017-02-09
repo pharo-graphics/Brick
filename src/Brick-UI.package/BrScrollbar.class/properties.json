@@ -1,10 +1,10 @@
 {
-	"category" : "Brick-UI-Scrollbar",
-	"classinstvars" : [
-		 ],
-	"classvars" : [
-		 ],
 	"commentStamp" : "",
+	"super" : "BrWidget",
+	"category" : "Brick-UI-Scrollbar",
+	"classinstvars" : [ ],
+	"pools" : [ ],
+	"classvars" : [ ],
 	"instvars" : [
 		"scrollValue",
 		"min",
@@ -13,9 +13,8 @@
 		"blockIncrement",
 		"visibleAmount",
 		"orientation",
-		"withButtons" ],
+		"withButtons"
+	],
 	"name" : "BrScrollbar",
-	"pools" : [
-		 ],
-	"super" : "BrWidget",
-	"type" : "normal" }
+	"type" : "normal"
+}

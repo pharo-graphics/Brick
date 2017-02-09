@@ -1,4 +1,4 @@
-as yet unclassified
+accessing
 borderWidth
 	self styleable border stroke width asBrStyleValue.
 	

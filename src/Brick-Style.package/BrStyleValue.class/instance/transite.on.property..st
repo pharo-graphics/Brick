@@ -8,4 +8,5 @@ transite: aValue on: aTarget property: aSymbol
 		to: aValue;
 		easing:(BlEasing perform:self transition timingFunction);
 		onStepDo: [ :v |self apply: v on: aTarget property: aSymbol ].
+	anim isRunning ifTrue: [ anim stop ].
 	anim start.

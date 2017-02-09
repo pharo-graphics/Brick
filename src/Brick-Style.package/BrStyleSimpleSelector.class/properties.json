@@ -1,10 +1,10 @@
 {
-	"category" : "Brick-Style-CSS",
-	"classinstvars" : [
-		 ],
-	"classvars" : [
-		 ],
 	"commentStamp" : "",
+	"super" : "BrStyleSelector",
+	"category" : "Brick-Style-CSS",
+	"classinstvars" : [ ],
+	"pools" : [ ],
+	"classvars" : [ ],
 	"instvars" : [
 		"name",
 		"styleClasses",
@@ -13,9 +13,8 @@
 		"idCount",
 		"styleClassCount",
 		"nameCount",
-		"pseudoClassCount" ],
+		"pseudoClassCount"
+	],
 	"name" : "BrStyleSimpleSelector",
-	"pools" : [
-		 ],
-	"super" : "BrStyleSelector",
-	"type" : "normal" }
+	"type" : "normal"
+}

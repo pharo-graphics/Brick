@@ -1,14 +1,11 @@
 {
-	"category" : "Brick-UI-ScrollPane",
-	"classinstvars" : [
-		 ],
-	"classvars" : [
-		 ],
 	"commentStamp" : "",
-	"instvars" : [
-		 ],
-	"name" : "BrScrollPaneViewport",
-	"pools" : [
-		 ],
 	"super" : "BlElement",
-	"type" : "normal" }
+	"category" : "Brick-UI-ScrollPane",
+	"classinstvars" : [ ],
+	"pools" : [ ],
+	"classvars" : [ ],
+	"instvars" : [ ],
+	"name" : "BrScrollPaneViewport",
+	"type" : "normal"
+}

@@ -1,17 +1,18 @@
 {
-	"category" : "Brick-Style-Util",
-	"classinstvars" : [
-		 ],
-	"classvars" : [
-		"AkStyleTransition" ],
 	"commentStamp" : "",
+	"super" : "Object",
+	"category" : "Brick-Style-Util",
+	"classinstvars" : [ ],
+	"pools" : [ ],
+	"classvars" : [
+		"AkStyleTransition"
+	],
 	"instvars" : [
 		"selector",
 		"declarations",
 		"transitions",
-		"conditions" ],
+		"conditions"
+	],
 	"name" : "BrMatchedRule",
-	"pools" : [
-		 ],
-	"super" : "Object",
-	"type" : "normal" }
+	"type" : "normal"
+}

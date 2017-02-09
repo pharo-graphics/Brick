@@ -1,19 +1,18 @@
 {
-	"category" : "Brick-UI-Checkbox",
-	"classinstvars" : [
-		 ],
-	"classvars" : [
-		 ],
 	"commentStamp" : "",
+	"super" : "BrLabeledSkin",
+	"category" : "Brick-UI-Checkbox",
+	"classinstvars" : [ ],
+	"pools" : [ ],
+	"classvars" : [ ],
 	"instvars" : [
 		"box",
 		"mark",
 		"indeterminateMark",
 		"checkedMark",
 		"ripple",
-		"rippleAnimation" ],
+		"rippleAnimation"
+	],
 	"name" : "BrCheckboxSkin",
-	"pools" : [
-		 ],
-	"super" : "BrLabeledSkin",
-	"type" : "normal" }
+	"type" : "normal"
+}

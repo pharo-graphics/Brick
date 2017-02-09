@@ -1,14 +1,11 @@
 {
-	"category" : "Brick-Style-Styler",
-	"classinstvars" : [
-		 ],
-	"classvars" : [
-		 ],
 	"commentStamp" : "",
-	"instvars" : [
-		 ],
-	"name" : "BrRootStyler",
-	"pools" : [
-		 ],
 	"super" : "BrCssStyler",
-	"type" : "normal" }
+	"category" : "Brick-Style-Styler",
+	"classinstvars" : [ ],
+	"pools" : [ ],
+	"classvars" : [ ],
+	"instvars" : [ ],
+	"name" : "BrRootStyler",
+	"type" : "normal"
+}

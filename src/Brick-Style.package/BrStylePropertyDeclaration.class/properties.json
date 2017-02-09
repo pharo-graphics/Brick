@@ -1,14 +1,13 @@
 {
-	"category" : "Brick-Style-CSS",
-	"classinstvars" : [
-		 ],
-	"classvars" : [
-		 ],
 	"commentStamp" : "",
-	"instvars" : [
-		"value" ],
-	"name" : "BrStylePropertyDeclaration",
-	"pools" : [
-		 ],
 	"super" : "BrStyleDeclaration",
-	"type" : "normal" }
+	"category" : "Brick-Style-CSS",
+	"classinstvars" : [ ],
+	"pools" : [ ],
+	"classvars" : [ ],
+	"instvars" : [
+		"value"
+	],
+	"name" : "BrStylePropertyDeclaration",
+	"type" : "normal"
+}

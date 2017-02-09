@@ -1,4 +1,4 @@
-as yet unclassified
+updating
 updateChildren
 	super updateChildren.
 	widget addChild: ripple

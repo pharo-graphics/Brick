@@ -1,14 +1,13 @@
 {
-	"category" : "Brick-Style-Util",
-	"classinstvars" : [
-		 ],
-	"classvars" : [
-		 ],
 	"commentStamp" : "",
-	"instvars" : [
-		"styleable" ],
-	"name" : "BrPseudoClassStates",
-	"pools" : [
-		 ],
 	"super" : "OrderedCollection",
-	"type" : "normal" }
+	"category" : "Brick-Style-Util",
+	"classinstvars" : [ ],
+	"pools" : [ ],
+	"classvars" : [ ],
+	"instvars" : [
+		"styleable"
+	],
+	"name" : "BrPseudoClassStates",
+	"type" : "normal"
+}

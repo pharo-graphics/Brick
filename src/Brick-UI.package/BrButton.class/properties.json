@@ -1,14 +1,11 @@
 {
-	"category" : "Brick-UI-Button",
-	"classinstvars" : [
-		 ],
-	"classvars" : [
-		 ],
 	"commentStamp" : "",
-	"instvars" : [
-		 ],
-	"name" : "BrButton",
-	"pools" : [
-		 ],
 	"super" : "BrButtonBase",
-	"type" : "normal" }
+	"category" : "Brick-UI-Button",
+	"classinstvars" : [ ],
+	"pools" : [ ],
+	"classvars" : [ ],
+	"instvars" : [ ],
+	"name" : "BrButton",
+	"type" : "normal"
+}

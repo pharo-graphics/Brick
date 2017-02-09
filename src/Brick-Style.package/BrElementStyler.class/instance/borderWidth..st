@@ -1,4 +1,3 @@
-as yet unclassified
+accessing
 borderWidth: anBlValue
-	self styleable border: (BlBorder stroke:
-					(self styleable border stroke copyWithWidth: (anBlValue value ifNil: [ 0 ])))
+	self styleable border: (self styleable border copyWithWidth: (anBlValue value ifNil: [ 0 ]))

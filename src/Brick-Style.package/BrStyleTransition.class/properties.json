@@ -1,14 +1,11 @@
 {
-	"category" : "Brick-Style-Util",
-	"classinstvars" : [
-		 ],
-	"classvars" : [
-		 ],
 	"commentStamp" : "GlennCavarle 5/9/2016 00:52",
-	"instvars" : [
-		 ],
-	"name" : "BrStyleTransition",
-	"pools" : [
-		 ],
 	"super" : "BrStyle",
-	"type" : "normal" }
+	"category" : "Brick-Style-Util",
+	"classinstvars" : [ ],
+	"pools" : [ ],
+	"classvars" : [ ],
+	"instvars" : [ ],
+	"name" : "BrStyleTransition",
+	"type" : "normal"
+}
