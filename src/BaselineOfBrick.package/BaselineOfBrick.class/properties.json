@@ -1,14 +1,13 @@
 {
-	"category" : "BaselineOfBrick",
-	"classinstvars" : [
-		 ],
-	"classvars" : [
-		 ],
 	"commentStamp" : "AliakseiSyrel 12/22/2016 11:23",
-	"instvars" : [
-		"group" ],
-	"name" : "BaselineOfBrick",
-	"pools" : [
-		 ],
 	"super" : "BaselineOf",
-	"type" : "normal" }
+	"category" : "BaselineOfBrick",
+	"classinstvars" : [ ],
+	"pools" : [ ],
+	"classvars" : [ ],
+	"instvars" : [
+		"group"
+	],
+	"name" : "BaselineOfBrick",
+	"type" : "normal"
+}
