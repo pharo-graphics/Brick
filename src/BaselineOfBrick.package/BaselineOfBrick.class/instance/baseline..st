@@ -21,6 +21,8 @@ baseline: spec
 			package: #'Brick-UI' with: [ spec requires: #(#Brick  'Brick-Theme'). ];
 			package: #'Brick-Text' with: [ spec requires: #(#Brick  'Brick-Theme'). ];
 			package: #'Brick-Text-Tests' with: [ spec requires: #(#Brick 'Brick-Text' 'Brick-Theme'). ];
+			package: #'Brick-TextEditor' with: [ spec requires: #(Brick 'Brick-Text' 'Brick-Theme'). ];
+			package: #'Brick-Sparta' with: [ spec requires: #(Brick 'Brick-Text' 'Brick-Theme'). ];
 			package: #'Brick-Examples' with: [ spec requires: #('Brick-UI' 'Brick-Material'). ];
 			package: #'Brick-Experimental' with: [ spec requires: #('Brick-UI' 'Brick-Material'). ];
 			
