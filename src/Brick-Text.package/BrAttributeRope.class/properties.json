@@ -1,0 +1,14 @@
+{
+	"commentStamp" : "",
+	"super" : "BrRope",
+	"category" : "Brick-Text-Rope",
+	"classinstvars" : [ ],
+	"pools" : [ ],
+	"classvars" : [ ],
+	"instvars" : [
+		"attributes",
+		"rope"
+	],
+	"name" : "BrAttributeRope",
+	"type" : "normal"
+}

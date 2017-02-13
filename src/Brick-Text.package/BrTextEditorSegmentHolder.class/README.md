@@ -1,1 +1,0 @@
-I implement an Element Holder pattern used by Infinite element.

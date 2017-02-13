@@ -1,5 +1,5 @@
 SystemOrganization addCategory: #'Brick-Text'!
-SystemOrganization addCategory: 'Brick-Text-Examples'!
-SystemOrganization addCategory: 'Brick-Text-Layout'!
-SystemOrganization addCategory: 'Brick-Text-Model'!
-SystemOrganization addCategory: 'Brick-Text-UI'!
+SystemOrganization addCategory: 'Brick-Text-Rope'!
+SystemOrganization addCategory: 'Brick-Text-Text'!
+SystemOrganization addCategory: 'Brick-Text-Text-Attributes'!
+SystemOrganization addCategory: 'Brick-Text-Text-Styler'!

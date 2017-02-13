@@ -1,3 +1,3 @@
 *Brick-Style
 defaultStyler
-	^ BrTextStyler on:self
+	^ BrTextElementStyler on:self

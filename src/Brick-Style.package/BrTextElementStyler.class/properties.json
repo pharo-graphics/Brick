@@ -1,0 +1,11 @@
+{
+	"commentStamp" : "",
+	"super" : "BrElementStyler",
+	"category" : "Brick-Style-Styler",
+	"classinstvars" : [ ],
+	"pools" : [ ],
+	"classvars" : [ ],
+	"instvars" : [ ],
+	"name" : "BrTextElementStyler",
+	"type" : "normal"
+}
