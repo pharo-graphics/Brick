@@ -1,0 +1,17 @@
+{
+	"commentStamp" : "",
+	"super" : "BlElementEventListener",
+	"category" : "Brick-TextEditor",
+	"classinstvars" : [ ],
+	"pools" : [ ],
+	"classvars" : [ ],
+	"instvars" : [
+		"origin",
+		"corner",
+		"scrollingElement",
+		"scrollingAction",
+		"scrollingDelta"
+	],
+	"name" : "BrSelectionHandler",
+	"type" : "normal"
+}

@@ -1,0 +1,13 @@
+{
+	"commentStamp" : "",
+	"super" : "BrTextEditorSubject",
+	"category" : "Brick-TextEditor-Model",
+	"classinstvars" : [ ],
+	"pools" : [ ],
+	"classvars" : [ ],
+	"instvars" : [
+		"rope"
+	],
+	"name" : "MlRopeSubject",
+	"type" : "normal"
+}

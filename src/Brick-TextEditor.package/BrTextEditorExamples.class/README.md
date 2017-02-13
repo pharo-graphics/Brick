@@ -1,0 +1,1 @@
+I contain a set of editor examples on class side

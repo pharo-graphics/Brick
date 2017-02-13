@@ -1,0 +1,3 @@
+initialization
+defaultTextLayout
+	^ BrSingleLineTextParagraph new

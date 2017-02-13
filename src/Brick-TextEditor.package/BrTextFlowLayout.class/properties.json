@@ -1,0 +1,13 @@
+{
+	"commentStamp" : "AliakseiSyrel 1/20/2017 16:12",
+	"super" : "BlLayout",
+	"category" : "Brick-TextEditor-Layout",
+	"classinstvars" : [ ],
+	"pools" : [ ],
+	"classvars" : [ ],
+	"instvars" : [
+		"lines"
+	],
+	"name" : "BrTextFlowLayout",
+	"type" : "normal"
+}

@@ -1,0 +1,18 @@
+{
+	"commentStamp" : "AliakseiSyrel 1/20/2017 15:53",
+	"super" : "Object",
+	"category" : "Brick-TextEditor-Layout",
+	"classinstvars" : [ ],
+	"pools" : [ ],
+	"classvars" : [ ],
+	"instvars" : [
+		"elements",
+		"maxWidth",
+		"availableWidth",
+		"nextLine",
+		"width",
+		"height"
+	],
+	"name" : "BrTextFlowLine",
+	"type" : "normal"
+}
