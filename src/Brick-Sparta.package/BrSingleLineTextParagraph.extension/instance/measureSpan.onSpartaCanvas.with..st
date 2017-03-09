@@ -1,5 +1,5 @@
-initialize-release
-initializeSpan: aSpan on: aCanvas with: aContext
+*Brick-Sparta
+measureSpan: aSpan onSpartaCanvas: aSpartaCanvas with: aContext
 	| attributes aTextPainter aLength aStart aTransformation anInvertedTransformation aMetricsProvider aTextRun aMetrics |
 	self
 		assert: [ aSpan isNotEmpty ]
@@ -15,13 +15,13 @@ initializeSpan: aSpan on: aCanvas with: aContext
 		ifTrue: [ aTransformation := nil ]
 		ifFalse: [ aTransformation inverted ].
 	"nil transform and inverted transform means that we don't have any transformation.
-		Please note, that this is done to prevent unneseccary object creation and not needed
+		Please note, that this is done to prevent unneseccary object creation and
 		garbage collection in the future. Text measurement must be optimized as much as possible
 		in terms of object creation. It is also important to mention that a single text editor
 		expanded on full screen may contain a few thousands of small text pieces where each of them
 		own a text layout. It means that with such a simple optimization we prevent many thousands
 		of matrix objects from being created and later garbage collected. Worth it!"
-	aTextPainter := self createPainter: aSpan on: aCanvas.
+	aTextPainter := self createPainter: aSpan on: aSpartaCanvas.
 	"Since I am a single line layout we want to force disable breaks in order
 	to prevent hyphenation computations which is rather slow"
 	aTextPainter breakNone.
@@ -59,7 +59,7 @@ initializeSpan: aSpan on: aCanvas with: aContext
 			span := (aTransformation isNil
 				or: [ anInvertedTransformation isNil ])
 				ifTrue: [ SpTextSpan
-						rope: rope
+						rope: text
 						segment: aSpan
 						start: aStart
 						end: anEnd
@@ -69,7 +69,7 @@ initializeSpan: aSpan on: aCanvas with: aContext
 						textRun: aTextRun
 						attributes: attributes	"should be in string buffer coordinates (respecting 1 vs 2 vs 4 bits per character)"	"should be in string buffer coordinates (respecting 1 vs 2 vs 4 bits per character)" ]
 				ifFalse: [ SpTextSpan
-						rope: rope
+						rope: text
 						segment: aSpan
 						start: aStart
 						end: anEnd

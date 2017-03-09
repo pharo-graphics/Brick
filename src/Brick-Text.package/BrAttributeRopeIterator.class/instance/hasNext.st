@@ -1,3 +1,3 @@
-testing
+iterator - testing
 hasNext
 	^ subIterator hasNext

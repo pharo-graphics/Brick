@@ -4,5 +4,5 @@ rope: aRope from: aStart to: anEnd
 		ifTrue: [ self error: 'Iterator interval out of bounds!' ].
 
 	rope := aRope.
-	start := aStart.
-	end := anEnd.
+	start := aStart min: anEnd.
+	end := anEnd max: aStart.

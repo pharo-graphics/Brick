@@ -1,5 +1,5 @@
 instance creation
 text: aRopedText
 	^ self new
-		text: aRopedText;
+		rope: aRopedText rope;
 		yourself

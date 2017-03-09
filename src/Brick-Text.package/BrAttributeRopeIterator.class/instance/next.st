@@ -1,3 +1,3 @@
-as yet unclassified
+iterator - enumeration
 next
 	^ subIterator next

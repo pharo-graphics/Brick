@@ -6,7 +6,8 @@
 	"pools" : [ ],
 	"classvars" : [ ],
 	"instvars" : [
-		"text"
+		"rope",
+		"iterator"
 	],
 	"name" : "BrRopedTextIterator",
 	"type" : "normal"

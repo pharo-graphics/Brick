@@ -16,7 +16,7 @@ measureOnSpartaCanvas: aSpartaCanvas
 		so can do the same with position"
 		aContext movePosition: anIterator position.
 		aSpan := anIterator nextSpan.
-		self initializeSpan: aSpan on: aSpartaCanvas with: aContext ].
+		self measureSpan: aSpan onSpartaCanvas: aSpartaCanvas with: aContext ].
 
 	height := 0.
 	width := 0.

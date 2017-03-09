@@ -1,10 +1,12 @@
 iterator - enumeration
 next
-	| anItem |	
+	| anItem aPosition |	
 	position >= 0
 		ifFalse: [ self error: 'Index out of bounds: ', position asString ].
-
-	anItem := rope collection at: (position max: 1).
-	position := position + 1.
+	
+	aPosition := position max: 1.
+	
+	anItem := rope collection at: aPosition.
+	position := aPosition + 1.
 
 	^ anItem
