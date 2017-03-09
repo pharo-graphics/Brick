@@ -1,3 +1,0 @@
-*Brick-Sparta
-measureOnSpartaCanvas: aSpartaCanvas
-	self subclassResponsibility
