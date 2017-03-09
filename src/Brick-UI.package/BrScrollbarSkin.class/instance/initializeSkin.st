@@ -1,9 +1,9 @@
-as yet unclassified
+initialization
 initializeSkin
 	super initializeSkin.
 	widget
 		styleClass: #scrollbar;
-		extent:10@10;
+		size: 10@10;
 		layout: self orientation defaultLayout.
 	self orientation layoutWidget: widget.
 	self orientation for: widget length: 10.

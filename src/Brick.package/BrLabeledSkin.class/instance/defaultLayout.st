@@ -1,4 +1,3 @@
 initialization
 defaultLayout
-	^ BlLinearLayout horizontal
-		alignCenter
+	^ BlLinearLayout horizontal alignCenter

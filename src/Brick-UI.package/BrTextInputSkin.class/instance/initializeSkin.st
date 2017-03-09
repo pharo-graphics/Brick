@@ -4,7 +4,7 @@ initializeSkin
 	widget constraints horizontal fitContent.
 	widget constraints vertical fitContent. .
 	widget minExtent: 25 @ 25.
-	widget border: (BlBorder color: Color veryVeryLightGray width: 1 radius:2).
+	widget border: (BlBorder paint: Color veryVeryLightGray width: 1).
 	widget  background: (BlBackground fill: Color white).
 	innerContainer := self createInnerContainer.
 	textContainer := self createTextContainer.

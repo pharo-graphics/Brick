@@ -8,7 +8,7 @@ exampleCheckbox
 	b1 := BrCheckbox new 
 		text: (BrRopedText string: 'check me');
 		margin:(BlInsets all:5).
-		
+
 	b1 checkedProperty onChangedDo: [:v| b1 text: (BrRopedText string: 'i am checked: ', v asString)].
 	
 	b2 := BrCheckbox new 

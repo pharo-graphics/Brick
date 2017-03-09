@@ -9,7 +9,7 @@ button: aStylesheet
 				declare: #borderWidth -> 1 asBrPx;
 				declare: #borderColor -> BrMdColor grey200;
 				declare: #color -> BrMdColor grey900;
-				declare:#fontSize -> 12 asBrPx;
+				declare: #fontSize -> 12 asBrPx;
 				declare: #boxShadow -> {1 asBrPx. 2 asBrPx. 2 asBrPx. BrMdColor grey400};
 				declareTransition: #backgroundColor -> {100 asBrMs. #linear };
 				

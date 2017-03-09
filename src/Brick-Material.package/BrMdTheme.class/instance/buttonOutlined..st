@@ -1,8 +1,7 @@
 instance creation
 buttonOutlined: aStylesheet
-	<stylesheet:#buttonOutlined priority:80>
+	<stylesheet: #buttonOutlined priority: 80>
 	(BrStylesheetBuilder on: aStylesheet)
-		
 		cls:#(button outlined) style:[:bo| bo
 			
 			declare: #backgroundColor -> BrMdColor transparent;

@@ -2,20 +2,20 @@ examples
 exampleButtons
 	<example>
 	| b1 b2 b3 b4 b5 b6 box space b7 |
-	
+
 	BrMdTheme load.
 
 	b1 := BrButton new 
-		text: (BrRopedText string: 'click me!');
+		text: (BrRopedText string: 'click me');
 		margin: (BlInsets all: 5);
-		addEventHandler: (BlOnClickHandler do:[:evt| evt currentTarget text: (BrRopedText string: 'good job!')]).
-	
+		addEventHandler: (BlOnClickHandler do: [ :evt | evt currentTarget text: (BrRopedText string: 'good job!') ]).
+
 	b2 := BrButton new 
 		text: (BrRopedText string: 'cool button',String cr,'with icon');
 		addStyleClass: #blue;
 		margin:(BlInsets all:5);
 		icon: (BrMdIcons checkSvg extent: 20@20).
-	
+
 	b3 := BrButton new 
 		text: (BrRopedText string: 'button outlined');
 		addStyleClass: #outlined;
