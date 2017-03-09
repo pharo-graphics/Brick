@@ -1,13 +1,18 @@
 initialization
 initializeSkin
 	super initializeSkin.
+
 	text := BlTextElement new
 	 	styleClass: #text;
 		zIndex: 20.
-	widget constraints horizontal fitContent.
-	widget constraints vertical fitContent.
-	widget minExtent: 25@25.
-	text margin: (BlInsets top: 6 right: 6 bottom: 3 left: 6).
+	text constraintsDo: [ :c |
+		c margin: (BlInsets all: 6) ].
+
+	widget layout: BlLinearLayout horizontal alignCenter.
+	widget constraintsDo: [ :c |
+		c horizontal fitContent.
+		c vertical fitContent ].
+
 	widget textProperty onChangedDo: [ self textChanged ].
 	widget iconProperty onChangedDo: [ self graphicChanged ].
 	widget fontFamilyProperty onChangedDo: [ self fontChanged ].
