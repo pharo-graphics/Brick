@@ -1,1 +1,0 @@
-I represent a homogeneous styled piece of text where every character has the same set of attributes
