@@ -1,11 +1,11 @@
 {
 	"commentStamp" : "",
-	"super" : "BrController",
-	"category" : "Brick-Experimental-Window",
+	"super" : "BrPane",
+	"category" : "Brick-UI-LayoutPane",
 	"classinstvars" : [ ],
 	"pools" : [ ],
 	"classvars" : [ ],
 	"instvars" : [ ],
-	"name" : "BrWindowController",
+	"name" : "BrFlowPane",
 	"type" : "normal"
 }

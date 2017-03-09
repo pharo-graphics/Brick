@@ -5,7 +5,7 @@ initialize
 	self root: BlElement new.
 	self constraints horizontal fitContent.
 	self constraints vertical fitContent.
-	self border: (BlBorder color: (Color black alpha: 0.2) width: 2 radius: 2).
+	self border: (BlBorder paint: (Color black alpha: 0.2) width: 2).
 	"self padding: (BlInsets all: 1)."
 	"self
 		effect:

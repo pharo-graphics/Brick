@@ -1,14 +1,11 @@
 {
-	"category" : "Brick-Experimental-Toolbar",
-	"classinstvars" : [
-		 ],
-	"classvars" : [
-		 ],
 	"commentStamp" : "",
-	"instvars" : [
-		 ],
-	"name" : "BrToolbarController",
-	"pools" : [
-		 ],
 	"super" : "BrController",
-	"type" : "normal" }
+	"category" : "Brick-Experimental-Toolbar",
+	"classinstvars" : [ ],
+	"pools" : [ ],
+	"classvars" : [ ],
+	"instvars" : [ ],
+	"name" : "BrToolbarController",
+	"type" : "normal"
+}

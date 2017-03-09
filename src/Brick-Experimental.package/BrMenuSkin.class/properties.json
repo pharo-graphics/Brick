@@ -1,14 +1,11 @@
 {
-	"category" : "Brick-Experimental-Menu",
-	"classinstvars" : [
-		 ],
-	"classvars" : [
-		 ],
 	"commentStamp" : "",
-	"instvars" : [
-		 ],
-	"name" : "BrMenuSkin",
-	"pools" : [
-		 ],
 	"super" : "BrSkin",
-	"type" : "normal" }
+	"category" : "Brick-Experimental-Menu",
+	"classinstvars" : [ ],
+	"pools" : [ ],
+	"classvars" : [ ],
+	"instvars" : [ ],
+	"name" : "BrMenuSkin",
+	"type" : "normal"
+}

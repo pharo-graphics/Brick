@@ -1,17 +1,16 @@
 {
-	"category" : "Brick-Experimental-Dialog",
-	"classinstvars" : [
-		 ],
-	"classvars" : [
-		 ],
 	"commentStamp" : "",
+	"super" : "BrSkin",
+	"category" : "Brick-Experimental-Dialog",
+	"classinstvars" : [ ],
+	"pools" : [ ],
+	"classvars" : [ ],
 	"instvars" : [
 		"text",
 		"textBox",
 		"btnBar",
-		"closeBtn" ],
+		"closeBtn"
+	],
 	"name" : "BrDialogSkin",
-	"pools" : [
-		 ],
-	"super" : "BrSkin",
-	"type" : "normal" }
+	"type" : "normal"
+}

@@ -1,14 +1,11 @@
 {
-	"category" : "Brick-Experimental-Toolbar",
-	"classinstvars" : [
-		 ],
-	"classvars" : [
-		 ],
 	"commentStamp" : "",
-	"instvars" : [
-		 ],
-	"name" : "BrToolbarSkin",
-	"pools" : [
-		 ],
 	"super" : "BrSkin",
-	"type" : "normal" }
+	"category" : "Brick-Experimental-Toolbar",
+	"classinstvars" : [ ],
+	"pools" : [ ],
+	"classvars" : [ ],
+	"instvars" : [ ],
+	"name" : "BrToolbarSkin",
+	"type" : "normal"
+}

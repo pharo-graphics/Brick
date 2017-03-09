@@ -9,7 +9,7 @@ exampleWinWithSpace
 	p root
 		addChild:
 			(BrButton new
-				text: 'open menu';
+				text: (BrRopedText string: 'open menu');
 				addEventHandler: (BlOnClickHandler do:[:evt|
 					BrMenu new 
 					openAt:evt screenPosition])).

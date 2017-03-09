@@ -5,7 +5,7 @@ initialize
 	self height: 25.
 
 	label := BrLabel new
-		text: '';
+		text: (BrRopedText string: ' ');
 		fontColor: Color white;
 		fontSize: 10;
 		constraintsDo: [ :c | c linear vertical alignCenter ].

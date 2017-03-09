@@ -1,14 +1,11 @@
 {
-	"category" : "Brick-Experimental-Window",
-	"classinstvars" : [
-		 ],
-	"classvars" : [
-		 ],
 	"commentStamp" : "",
-	"instvars" : [
-		 ],
-	"name" : "BrTitleBar",
-	"pools" : [
-		 ],
 	"super" : "BrToolbar",
-	"type" : "normal" }
+	"category" : "Brick-Experimental-Window",
+	"classinstvars" : [ ],
+	"pools" : [ ],
+	"classvars" : [ ],
+	"instvars" : [ ],
+	"name" : "BrTitleBar",
+	"type" : "normal"
+}

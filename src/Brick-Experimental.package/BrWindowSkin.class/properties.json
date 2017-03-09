@@ -1,17 +1,16 @@
 {
-	"category" : "Brick-Experimental-Window",
-	"classinstvars" : [
-		 ],
-	"classvars" : [
-		 ],
 	"commentStamp" : "",
+	"super" : "BrSkin",
+	"category" : "Brick-Experimental-Window",
+	"classinstvars" : [ ],
+	"pools" : [ ],
+	"classvars" : [ ],
 	"instvars" : [
 		"systemBar",
 		"toolbar",
 		"root",
-		"sidepane" ],
+		"sidepane"
+	],
 	"name" : "BrWindowSkin",
-	"pools" : [
-		 ],
-	"super" : "BrSkin",
-	"type" : "normal" }
+	"type" : "normal"
+}

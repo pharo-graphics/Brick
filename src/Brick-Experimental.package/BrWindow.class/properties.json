@@ -1,18 +1,17 @@
 {
-	"category" : "Brick-Experimental-Window",
-	"classinstvars" : [
-		 ],
-	"classvars" : [
-		 ],
 	"commentStamp" : "",
+	"super" : "BrWidget",
+	"category" : "Brick-Experimental-Window",
+	"classinstvars" : [ ],
+	"pools" : [ ],
+	"classvars" : [ ],
 	"instvars" : [
 		"title",
 		"borderless",
 		"resizable",
 		"fullscreen",
-		"root" ],
+		"root"
+	],
 	"name" : "BrWindow",
-	"pools" : [
-		 ],
-	"super" : "BrWidget",
-	"type" : "normal" }
+	"type" : "normal"
+}

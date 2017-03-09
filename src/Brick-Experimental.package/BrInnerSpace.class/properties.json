@@ -1,17 +1,16 @@
 {
-	"category" : "Brick-Experimental-Window",
-	"classinstvars" : [
-		 ],
-	"classvars" : [
-		 ],
 	"commentStamp" : "",
+	"super" : "BlElement",
+	"category" : "Brick-Experimental-Window",
+	"classinstvars" : [ ],
+	"pools" : [ ],
+	"classvars" : [ ],
 	"instvars" : [
 		"fullscreen",
 		"resizable",
 		"previousRootExtent",
-		"previousPosition" ],
+		"previousPosition"
+	],
 	"name" : "BrInnerSpace",
-	"pools" : [
-		 ],
-	"super" : "BlElement",
-	"type" : "normal" }
+	"type" : "normal"
+}

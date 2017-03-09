@@ -1,4 +1,4 @@
-as yet unclassified
+initialization
 initializeSkin
 	super initializeSkin.
 	widget constraints horizontal matchParent.
@@ -7,9 +7,9 @@ initializeSkin
 	text := BrLabel new
 		fontColor: Color black;
 		fontSize: 11;
-		text: 'Lorem ipsum dolor sit amet,',String cr,'consectetur adipiscing elit.',String cr,
+		text: (BrRopedText string: 'Lorem ipsum dolor sit amet,',String cr,'consectetur adipiscing elit.',String cr,
 		'Curabitur eget risus feugiat,',String cr,'mattis odio vitae, efficitur est.',String cr,
-		'In rutrum efficitur orci at tristique.',String cr,'Aliquam at imperdiet massa. ';
+		'In rutrum efficitur orci at tristique.',String cr,'Aliquam at imperdiet massa. ');
 		constraintsDo: [ :c| 
 			c frame horizontal alignCenter.
 			c frame vertical alignCenter. ].
@@ -28,7 +28,7 @@ initializeSkin
 			c frame vertical alignBottom ].
 		
 	closeBtn := BrButton new
-		text: 'CLOSE';
+		text: (BrRopedText string: 'CLOSE');
 		constraintsDo: [ :c | 
 			c linear vertical alignCenter.
 			c linear horizontal alignRight ];
