@@ -1,14 +1,15 @@
 {
-	"commentStamp" : "",
-	"super" : "BrSkin",
 	"category" : "Brick-Skin",
-	"classinstvars" : [ ],
-	"pools" : [ ],
-	"classvars" : [ ],
+	"classinstvars" : [
+		 ],
+	"classvars" : [
+		 ],
+	"commentStamp" : "",
 	"instvars" : [
 		"graphic",
-		"text"
-	],
+		"text" ],
 	"name" : "BrLabeledSkin",
-	"type" : "normal"
-}
+	"pools" : [
+		 ],
+	"super" : "BrSkin",
+	"type" : "normal" }

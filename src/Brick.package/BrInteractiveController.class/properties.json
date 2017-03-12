@@ -1,11 +1,14 @@
 {
-	"commentStamp" : "",
-	"super" : "BrController",
 	"category" : "Brick-Controller",
-	"classinstvars" : [ ],
-	"pools" : [ ],
-	"classvars" : [ ],
-	"instvars" : [ ],
+	"classinstvars" : [
+		 ],
+	"classvars" : [
+		 ],
+	"commentStamp" : "",
+	"instvars" : [
+		 ],
 	"name" : "BrInteractiveController",
-	"type" : "normal"
-}
+	"pools" : [
+		 ],
+	"super" : "BrController",
+	"type" : "normal" }

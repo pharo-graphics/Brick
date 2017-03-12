@@ -1,10 +1,10 @@
 {
-	"commentStamp" : "",
-	"super" : "BlElement",
 	"category" : "Brick-Widget",
-	"classinstvars" : [ ],
-	"pools" : [ ],
-	"classvars" : [ ],
+	"classinstvars" : [
+		 ],
+	"classvars" : [
+		 ],
+	"commentStamp" : "",
 	"instvars" : [
 		"view",
 		"controller",
@@ -14,8 +14,9 @@
 		"borderWidth",
 		"contextMenu",
 		"tooltip",
-		"skin"
-	],
+		"skin" ],
 	"name" : "BrWidget",
-	"type" : "normal"
-}
+	"pools" : [
+		 ],
+	"super" : "BlElement",
+	"type" : "normal" }

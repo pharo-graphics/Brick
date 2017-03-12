@@ -5,8 +5,6 @@ initializeSkin
 	text := BlTextElement new
 	 	styleClass: #text;
 		zIndex: 20.
-	text constraintsDo: [ :c |
-		c margin: (BlInsets all: 6) ].
 	
 	widget constraintsDo: [ :c |
 		c horizontal fitContent.

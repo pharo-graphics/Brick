@@ -1,17 +1,18 @@
 {
-	"commentStamp" : "",
-	"super" : "BrWidget",
 	"category" : "Brick-Widget",
-	"classinstvars" : [ ],
-	"pools" : [ ],
-	"classvars" : [ ],
+	"classinstvars" : [
+		 ],
+	"classvars" : [
+		 ],
+	"commentStamp" : "",
 	"instvars" : [
 		"text",
 		"icon",
 		"fontColor",
 		"fontSize",
-		"fontFamily"
-	],
+		"fontFamily" ],
 	"name" : "BrLabeled",
-	"type" : "normal"
-}
+	"pools" : [
+		 ],
+	"super" : "BrWidget",
+	"type" : "normal" }

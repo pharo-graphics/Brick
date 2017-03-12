@@ -1,11 +1,14 @@
 {
-	"commentStamp" : "",
-	"super" : "BrLabeled",
 	"category" : "Brick-Widget",
-	"classinstvars" : [ ],
-	"pools" : [ ],
-	"classvars" : [ ],
-	"instvars" : [ ],
+	"classinstvars" : [
+		 ],
+	"classvars" : [
+		 ],
+	"commentStamp" : "",
+	"instvars" : [
+		 ],
 	"name" : "BrButtonBase",
-	"type" : "normal"
-}
+	"pools" : [
+		 ],
+	"super" : "BrLabeled",
+	"type" : "normal" }
