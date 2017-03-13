@@ -1,3 +1,0 @@
-selection
-copySelection
-	widget copySelection

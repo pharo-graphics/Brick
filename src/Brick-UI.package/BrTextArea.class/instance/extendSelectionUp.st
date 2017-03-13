@@ -1,4 +1,0 @@
-selection
-extendSelectionUp
-	self editorModel extendSelectionUp.
-	self selectionProperty notifyValueChanged

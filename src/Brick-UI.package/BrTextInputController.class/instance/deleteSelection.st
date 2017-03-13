@@ -1,4 +1,0 @@
-selection
-deleteSelection
-	widget deleteSelection
-	

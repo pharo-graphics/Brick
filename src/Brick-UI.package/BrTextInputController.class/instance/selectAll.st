@@ -1,3 +1,0 @@
-selection
-selectAll
-	widget selectAll

@@ -1,3 +1,0 @@
-selection
-extendSelectionUp
-	widget extendSelectionUp

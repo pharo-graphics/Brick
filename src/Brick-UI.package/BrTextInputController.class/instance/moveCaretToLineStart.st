@@ -1,3 +1,0 @@
-caret position
-moveCaretToLineStart
-	widget  moveCaretToLineStart

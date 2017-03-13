@@ -1,3 +1,0 @@
-selection
-paste
-	widget paste

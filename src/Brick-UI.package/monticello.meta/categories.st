@@ -7,5 +7,4 @@ SystemOrganization addCategory: 'Brick-UI-Radio'!
 SystemOrganization addCategory: 'Brick-UI-ScrollPane'!
 SystemOrganization addCategory: 'Brick-UI-Scrollbar'!
 SystemOrganization addCategory: 'Brick-UI-Switch'!
-SystemOrganization addCategory: 'Brick-UI-TextInput'!
 SystemOrganization addCategory: 'Brick-UI-Toggle'!

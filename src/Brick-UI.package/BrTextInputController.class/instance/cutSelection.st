@@ -1,4 +1,0 @@
-selection
-cutSelection
-	widget cutSelection
-	

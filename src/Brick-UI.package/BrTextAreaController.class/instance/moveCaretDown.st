@@ -1,3 +1,0 @@
-caret position
-moveCaretDown
-	widget moveCaretDown

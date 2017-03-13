@@ -1,3 +1,0 @@
-text operations
-removePrevChar
-	widget removePrevChar

@@ -1,3 +1,0 @@
-text operations
-insertNewLine
-	widget insertNewLine

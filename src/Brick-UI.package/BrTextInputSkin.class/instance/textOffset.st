@@ -1,3 +1,0 @@
-accessing
-textOffset
-	^ textContainer position
