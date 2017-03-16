@@ -1,5 +1,10 @@
 initialization
 initialize
+	| text |
 	super initialize.
-	
-	self subject: (MlRopeSubject new rope: (SpRope from: (String loremIpsum: 1000000)))
+
+	text := BrRopedText string: (Morph>>#fullDrawOn:) sourceCode.
+	BrRBTextStyler new classOrMetaClass: BrTextEditor; style: text.
+	text attributes: { BrFontGenericFamilyAttribute monospace }.
+
+	self subject: (MlRopeSubject new rope: text)
