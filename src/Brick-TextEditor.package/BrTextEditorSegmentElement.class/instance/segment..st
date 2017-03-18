@@ -36,10 +36,8 @@ segment: aSegment
 			BrTextEditorPieceElement new
 				constraintsDo: [ :c |
 					c horizontal fitContent.
-					c vertical fitContent.
-					c grid horizontal alignCenter ];
+					c vertical fitContent ];
 				addEventHandlerOn: BrSelectionEvent do: [ :anEvent |
-					"anEvent currentTarget background: Color red."
 					anEvent currentTarget effect: (BlOverlayBelowEffect new paint: ((Color r: 0.674 g: 0.807 b: 0.969 alpha: 1.0))).
 					anEvent currentTarget invalidate ];
 			"BlElement new

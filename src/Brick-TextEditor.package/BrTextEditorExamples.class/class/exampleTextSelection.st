@@ -18,6 +18,6 @@ exampleTextSelection
 			(BlEventHandler
 				on: BlDblClickEvent
 				do: [ :evt | BlElementSelection on: evt target ]).
-	space root
-		addChild: (BlBenchmarkConsole on: space).
+	"space root
+		addChild: (BlBenchmarkConsole on: space)."
 	space show

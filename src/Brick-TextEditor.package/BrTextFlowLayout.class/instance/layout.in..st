@@ -20,4 +20,4 @@ layout: anElement in: aRectangle
 			aLeft := aLeft + aWidth + aChildElement margin right ].
 		"prepare values for the next line"
 		aLeft := anOffsetX.
-		aTop := aTop + aLine height. ]
+		aTop := aTop + aLine height + lineSpacing ]

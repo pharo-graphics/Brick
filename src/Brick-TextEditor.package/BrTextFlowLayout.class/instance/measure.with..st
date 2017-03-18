@@ -18,5 +18,6 @@ measure: anElement with: anExtentSpec
 	"compute total extent to measure layout's owner element"	
 	totalContentWidth := anElement padding width + lines totalWidth.
 	totalContentHeight := anElement padding height + lines totalHeight.
+	totalContentHeight := totalContentHeight + ((lines count - 1) * lineSpacing).
 
 	anElement measuredExtent: (anExtentSpec sizeFor: totalContentWidth @ totalContentHeight)
