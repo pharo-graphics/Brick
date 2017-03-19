@@ -1,13 +1,13 @@
 builder - segments
-segmentsIn: aSegmentCollector for: aSubject
+segmentsIn: aSegmentCollector for: anObject
 	| aCollection |
-	
-	aCollection := self displayBlock cull: aSubject.
-	aCollection do: [ :anObject |
+
+	aCollection := self displayedValue: anObject.
+	aCollection do: [ :each |
 		self builders do: [ :aBuilder | 
 			aSegmentCollector wantsMore
 				ifFalse: [ ^ self ].
 
 			aBuilder
 				segmentsIn: aSegmentCollector
-				for: anObject ] ]
+				for: each ] ]

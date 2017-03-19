@@ -5,14 +5,7 @@
 	"classinstvars" : [ ],
 	"pools" : [ ],
 	"classvars" : [ ],
-	"instvars" : [
-		"segmentsBlock",
-		"segmentsIteratorBlock",
-		"itemsBlock",
-		"itemsIteratorBlock",
-		"itemsIteratorWhileBlock",
-		"segmentsIteratorWhileBlock"
-	],
+	"instvars" : [ ],
 	"name" : "BrEditorTextBuilder",
 	"type" : "normal"
 }

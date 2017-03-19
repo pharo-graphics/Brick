@@ -3,7 +3,7 @@ initialize
 	super initialize.
 	
 	displayBlock := #yourself.
-	layoutBlock := [ BrEditorFlowLayout new ].
-	segmentBlock := [ BrEditorSegmentElement new ].
-	itemBlock := [ BlElement new ].
-	bindBlock := [  ]
+	segmentElementBlock := [ BrEditorSegmentElement new ].
+	itemElementBlock := [ BlElement new ].
+	bindBlock := [  ].
+	inlined := false

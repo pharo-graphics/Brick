@@ -1,17 +1,19 @@
 example
 exampleText
-	| space editor |
+	| space editorElement |
 	space := BlSpace new
 		extent: 800 @ 650;
 		title: 'Moldable editor'.
 	
-	editor := BrEditorElement new
+	editorElement := BrEditorElement new
 		constraintsDo: [ :c |
 			c horizontal matchParent.
 			c vertical matchParent ];
 		yourself.
+		
+	editorElement editor subject: Morph>>#fullDrawOn:.
 
-	space root addChild: editor.
+	space root addChild: editorElement.
 	space root addEventHandler:
 			(BlEventHandler
 				on: BlDblClickEvent

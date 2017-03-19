@@ -7,10 +7,10 @@
 	"classvars" : [ ],
 	"instvars" : [
 		"displayBlock",
-		"layoutBlock",
-		"segmentBlock",
 		"bindBlock",
-		"itemBlock"
+		"inlined",
+		"segmentElementBlock",
+		"itemElementBlock"
 	],
 	"name" : "BrEditorBuilder",
 	"type" : "normal"

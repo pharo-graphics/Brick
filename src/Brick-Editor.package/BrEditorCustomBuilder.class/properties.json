@@ -1,0 +1,19 @@
+{
+	"commentStamp" : "AliakseiSyrel 3/19/2017 18:40",
+	"super" : "BrEditorBuilder",
+	"category" : "Brick-Editor-Framework",
+	"classinstvars" : [ ],
+	"pools" : [ ],
+	"classvars" : [ ],
+	"instvars" : [
+		"itemValueBlock",
+		"segmentValueIteratorBlock",
+		"hasItemValueBlock",
+		"segmentValueBlock",
+		"displayedValueIteratorBlock",
+		"hasSegmentValueBlock",
+		"layoutBlock"
+	],
+	"name" : "BrEditorCustomBuilder",
+	"type" : "normal"
+}

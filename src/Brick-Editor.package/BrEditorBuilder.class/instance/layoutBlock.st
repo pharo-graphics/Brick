@@ -1,3 +1,0 @@
-accessing
-layoutBlock
-	^ layoutBlock
