@@ -1,0 +1,11 @@
+{
+	"commentStamp" : "AliakseiSyrel 3/19/2017 12:30",
+	"super" : "BrEditorCompositeBuilder",
+	"category" : "Brick-Editor-Framework",
+	"classinstvars" : [ ],
+	"pools" : [ ],
+	"classvars" : [ ],
+	"instvars" : [ ],
+	"name" : "BrEditorListBuilder",
+	"type" : "normal"
+}

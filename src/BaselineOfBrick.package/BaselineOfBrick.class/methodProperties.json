@@ -1,0 +1,19 @@
+{
+	"instance" : {
+		"gitLoad:from:" : " 3/13/2017 10:10:13",
+		"gitBranch" : " 3/13/2017 10:10:13",
+		"baseline:" : "AliakseiSyrel 3/19/2017 13:53",
+		"hasDirective" : " 3/13/2017 10:10:13",
+		"preLoadActions:" : " 3/13/2017 10:10:13",
+		"load:from:" : " 3/13/2017 10:10:13",
+		"icebergLoad:from:" : " 3/13/2017 10:10:13",
+		"ensureIceberg" : " 3/13/2017 10:10:13",
+		"group" : " 3/13/2017 10:10:13",
+		"target" : " 3/13/2017 10:10:13",
+		"postLoadBrick:" : " 3/13/2017 10:10:13",
+		"groupOf:" : " 3/13/2017 10:10:13",
+		"directive" : " 3/13/2017 10:10:13",
+		"postLoadBloc:" : " 3/13/2017 10:10:13"
+	},
+	"class" : { }
+}

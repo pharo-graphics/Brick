@@ -1,0 +1,14 @@
+{
+	"commentStamp" : "",
+	"super" : "Object",
+	"category" : "Brick-Editor-Model",
+	"classinstvars" : [ ],
+	"pools" : [ ],
+	"classvars" : [ ],
+	"instvars" : [
+		"segments",
+		"limit"
+	],
+	"name" : "BrEditorSegmentCollector",
+	"type" : "normal"
+}

@@ -1,0 +1,14 @@
+{
+	"instance" : {
+		"builders" : "AliakseiSyrel 3/18/2017 19:20",
+		"custom:" : "AliakseiSyrel 3/19/2017 13:09",
+		"defaultBuildersCollection" : "AliakseiSyrel 3/18/2017 19:21",
+		"initialize" : "AliakseiSyrel 3/18/2017 19:22",
+		"listBuilder" : "AliakseiSyrel 3/19/2017 13:47",
+		"segmentsIn:for:" : "AliakseiSyrel 3/19/2017 11:45",
+		"list" : "AliakseiSyrel 3/19/2017 13:47",
+		"textBuilder" : "AliakseiSyrel 3/19/2017 13:47",
+		"text" : "AliakseiSyrel 3/19/2017 13:47"
+	},
+	"class" : { }
+}

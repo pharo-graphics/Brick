@@ -1,0 +1,15 @@
+{
+	"commentStamp" : "AliakseiSyrel 3/18/2017 19:26",
+	"super" : "Object",
+	"category" : "Brick-Editor-Framework",
+	"classinstvars" : [ ],
+	"pools" : [ ],
+	"classvars" : [ ],
+	"instvars" : [
+		"displayBlock",
+		"layoutBlock",
+		"segmentBlock"
+	],
+	"name" : "BrEditorBuilder",
+	"type" : "normal"
+}

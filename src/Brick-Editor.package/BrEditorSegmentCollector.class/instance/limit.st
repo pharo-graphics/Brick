@@ -1,0 +1,3 @@
+collector - accessing
+limit
+	^ limit

@@ -1,0 +1,11 @@
+{
+	"commentStamp" : "",
+	"super" : "BrEditorIterator",
+	"category" : "Brick-Editor-Model",
+	"classinstvars" : [ ],
+	"pools" : [ ],
+	"classvars" : [ ],
+	"instvars" : [ ],
+	"name" : "BrEditorNullIterator",
+	"type" : "normal"
+}
