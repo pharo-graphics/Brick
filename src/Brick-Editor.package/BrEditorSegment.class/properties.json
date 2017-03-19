@@ -9,7 +9,8 @@
 		"items",
 		"entity",
 		"type",
-		"layout"
+		"builder",
+		"size"
 	],
 	"name" : "BrEditorSegment",
 	"type" : "normal"

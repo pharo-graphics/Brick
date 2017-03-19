@@ -8,7 +8,9 @@
 	"instvars" : [
 		"displayBlock",
 		"layoutBlock",
-		"segmentBlock"
+		"segmentBlock",
+		"bindBlock",
+		"itemBlock"
 	],
 	"name" : "BrEditorBuilder",
 	"type" : "normal"
