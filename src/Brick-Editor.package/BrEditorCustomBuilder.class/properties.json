@@ -12,7 +12,9 @@
 		"segmentValueBlock",
 		"displayedValueIteratorBlock",
 		"hasSegmentValueBlock",
-		"layoutBlock"
+		"layoutBlock",
+		"bindBlock",
+		"itemElementBlock"
 	],
 	"name" : "BrEditorCustomBuilder",
 	"type" : "normal"

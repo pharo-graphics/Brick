@@ -28,9 +28,12 @@ brickEditorColorIn: aComposite
 					c horizontal matchParent.
 					c vertical fitContent ];
 				addChildren: { BlTextElement new constraintsDo: [ :c | c minWidth: 300 ] . BlTextElement new } ];
-		bind: [ :anItemElement :anItem |
+		bind: [ :anItem :anItemElement  |
 			anItemElement children first text: (BrRopedText string: anItem key).
 			anItemElement children second text: (BrRopedText string: anItem value) ].
-		
+
+	aComposite element
+		display: [ :aColor | BlElement new size: 200@100; background: self ].
+
 	aComposite text
-		display: [ :aColor | BrRopedText string: aColor class comment ] 
+		display: [ :aColor | BrRopedText string: aColor class comment ]

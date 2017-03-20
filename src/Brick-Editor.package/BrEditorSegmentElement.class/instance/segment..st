@@ -9,12 +9,14 @@ segment: aSegment
 	self layout: segment layout.
 
 	theItemElements := Array streamContents: [ :aStream |
-		
 		segment itemsDo: [ :anItem :aBuilder |
 			| anItemElement |
-			anItemElement := aBuilder itemBlock cull: anItem.
-			aBuilder bindBlock cull: anItemElement cull: anItem.
+			
+			anItemElement := aBuilder itemElement: anItem.
+			aBuilder bindItem: anItem to: anItemElement.
+			
 			aStream nextPut: anItemElement ] ].
 	
 	self removeChildren.
+	theItemElements do: [ :anElement | anElement removeFromParent ].
 	self addChildren: theItemElements

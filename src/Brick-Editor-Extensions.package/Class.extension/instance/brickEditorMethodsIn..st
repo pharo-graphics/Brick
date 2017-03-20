@@ -2,7 +2,7 @@
 brickEditorMethodsIn: aComposite
 	<brickEditorOrder: 0>
 
-	aComposite list
+	aComposite repeat
 		display: [ :aClass | aClass methods sorted: [ :a :b | a selector < b selector ] ];
 		text: [ :aBuilder | aBuilder
 			display: [ :aCompiledMethod |
