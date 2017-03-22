@@ -1,3 +1,3 @@
 builder - items
-itemElement: anItemValue
+itemElements: anItemValue
 	^ itemElementBlock cull: anItemValue

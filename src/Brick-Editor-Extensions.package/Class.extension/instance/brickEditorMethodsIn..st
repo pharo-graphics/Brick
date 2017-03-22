@@ -5,6 +5,8 @@ brickEditorMethodsIn: aComposite
 	aComposite repeat
 		display: [ :aClass | aClass methods sorted: [ :a :b | a selector < b selector ] ];
 		text: [ :aBuilder | aBuilder
+			display: [ :aCompiledMethod | (BrRopedText string: aCompiledMethod selector asString) ] ];
+		text: [ :aBuilder | aBuilder
 			display: [ :aCompiledMethod |
 				| text |
 				text := (BrRopedText string: aCompiledMethod sourceCode)

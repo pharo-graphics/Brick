@@ -1,3 +1,3 @@
 builder - items
-itemElement: anItemValue
+itemElements: anItemValue
 	^ BrEditorTextPieceElement new

@@ -2,6 +2,9 @@ builder - enumeration
 segmentsCollect: aBlock of: aObject in: aSegmentsCollector
 	| aDisplayedValue aDisplayedValueIterator aSegmentIndex |
 
+	aSegmentsCollector wantsMore
+		ifFalse: [ ^ self ].
+
 	aDisplayedValue := self displayedValue: aObject.
 	aDisplayedValueIterator := self displayedValueIterator: aDisplayedValue.
 

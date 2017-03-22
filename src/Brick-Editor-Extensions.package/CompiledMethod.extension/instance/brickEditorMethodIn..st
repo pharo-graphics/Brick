@@ -3,7 +3,6 @@ brickEditorMethodIn: aComposite
 	<brickEditorOrder: 0>
 	
 	aComposite text
-		inline;
 		display: [ :aCompiledMethod | BrRopedText string: self methodClass name, '>>#', self selector asString ].
 
 	aComposite element
@@ -20,7 +19,6 @@ brickEditorMethodIn: aComposite
 			background: Color green ].
 
 	aComposite text
-		inline;
 		display: [ :aCompiledMethod |
 			| text |
 			text := (BrRopedText string: aCompiledMethod sourceCode)
@@ -30,10 +28,18 @@ brickEditorMethodIn: aComposite
 
 	aComposite element
 		display: [ BlElement new
-			size: 60@20;
+			size: 600@200;
 			margin: (BlInsets all: 3);
-			background: Color blue ];
-		inline.
+			background: Color blue ].
+	
+	aComposite text
+		display: [ :aCompiledMethod |
+			| text |
+			text := (BrRopedText string: aCompiledMethod sourceCode)
+				attributes: { BrFontFamilyAttribute named: 'Source Code Pro' }.
+			BrRBTextStyler new classOrMetaClass: aCompiledMethod methodClass; style: text.
+			text ].
+
 
 	aComposite element
 		display: [ BlTextElement new
