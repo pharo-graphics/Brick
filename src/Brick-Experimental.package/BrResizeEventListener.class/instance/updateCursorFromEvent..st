@@ -8,14 +8,14 @@ updateCursorFromEvent: anEvent
 	isRight := (lPos x >  (target width - 8)).
 	
 	isTop ifTrue:[
-			isLeft ifTrue:[^ target cursor: BlCursor resizeTopLeft ].
-			isRight ifTrue:[^ target cursor: BlCursor resizeTopRight ].
-			^ target cursor: BlCursor resizeTop 
+			isLeft ifTrue:[^ target mouseCursor: BlCursor resizeTopLeft ].
+			isRight ifTrue:[^ target mouseCursor: BlCursor resizeTopRight ].
+			^ target mouseCursor: BlCursor resizeTop 
 		].
 	isBottom ifTrue:[
-			isLeft ifTrue:[^ target cursor: BlCursor resizeBottomLeft ].
-			isRight ifTrue:[^ target cursor: BlCursor resizeBottomRight ].
-			^ target cursor: BlCursor resizeBottom 
+			isLeft ifTrue:[^ target mouseCursor: BlCursor resizeBottomLeft ].
+			isRight ifTrue:[^ target mouseCursor: BlCursor resizeBottomRight ].
+			^ target mouseCursor: BlCursor resizeBottom 
 		].
-	isLeft ifTrue:[^ target cursor: BlCursor resizeLeft].
-	isRight ifTrue:[^ target cursor: BlCursor resizeRight]
+	isLeft ifTrue:[^ target mouseCursor: BlCursor resizeLeft].
+	isRight ifTrue:[^ target mouseCursor: BlCursor resizeRight]

@@ -1,6 +1,6 @@
 {
 	"commentStamp" : "AliakseiSyrel 1/20/2017 16:48",
-	"super" : "BlTextElement",
+	"super" : "BlTextEditElement",
 	"category" : "Brick-Editor-Text-UI",
 	"classinstvars" : [ ],
 	"pools" : [ ],

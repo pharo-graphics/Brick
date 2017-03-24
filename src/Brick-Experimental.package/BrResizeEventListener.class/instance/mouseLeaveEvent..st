@@ -1,3 +1,3 @@
 mouse handlers
 mouseLeaveEvent: anEvent
-	target cursor: BlCursor default
+	target mouseCursor: BlCursor default
