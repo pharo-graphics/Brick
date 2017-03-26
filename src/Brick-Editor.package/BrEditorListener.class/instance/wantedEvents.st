@@ -1,3 +1,3 @@
 events
 wantedEvents
-	^ { BlTextCursorLeftBoundReached }
+	^ { BlTextCursorLeftBoundReached . BlTextCursorRightBoundReached }

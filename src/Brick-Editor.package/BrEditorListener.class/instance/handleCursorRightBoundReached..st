@@ -1,5 +1,5 @@
 event handling
-handleCursorLeftBoundReached: anEvent
+handleCursorRightBoundReached: anEvent
 	| aTextEditElement aTextEditIndex |
 
 	aTextEditElement := anEvent target.
@@ -7,9 +7,9 @@ handleCursorLeftBoundReached: anEvent
 	
 	aTextEditIndex := aTextEditElement parent children indexOf: aTextEditElement.
 	
-	(aTextEditIndex - 1 to: 1 by: -1)
+	(aTextEditIndex + 1 to: aTextEditElement parent childrenCount)
 		detect: [ :anElementIndex | (aTextEditElement parent children at: anElementIndex) hasFocusable ]
 		ifFound: [ :anElementIndex |
-			| aPreviousElement |
-			aPreviousElement := aTextEditElement parent children at: anElementIndex.
-			aPreviousElement dispatchEvent: (BlTextCursorEntersFromRightBound new) ]
+			| aNextElement |
+			aNextElement := aTextEditElement parent children at: anElementIndex.
+			aNextElement dispatchEvent: (BlTextCursorEntersFromLeftBound new) ]
