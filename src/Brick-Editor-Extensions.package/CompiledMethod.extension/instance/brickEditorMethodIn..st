@@ -23,6 +23,7 @@ brickEditorMethodIn: aComposite
 			| text |
 			text := (BrRopedText string: aCompiledMethod sourceCode)
 				attributes: { BrFontFamilyAttribute named: 'Source Code Pro' }.
+			text attributes: { BrTextReplacementAttribute new } from: 19 to: 22.
 			BrRBTextStyler new classOrMetaClass: aCompiledMethod methodClass; style: text.
 			text ].
 

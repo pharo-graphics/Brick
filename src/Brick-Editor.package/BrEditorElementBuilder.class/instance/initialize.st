@@ -2,4 +2,7 @@ initialization
 initialize
 	super initialize.
 	
-	displayBlock := #yourself
+	displayBlock := #yourself.
+	initializeElementBlock := [ BlElement new ].
+	bindBlock := [  ].
+	styledBlock := [  ]

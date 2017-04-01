@@ -1,16 +1,13 @@
 {
 	"commentStamp" : "",
-	"super" : "Object",
+	"super" : "BrEditorElementBuilder",
 	"category" : "Brick-Editor-Framework",
 	"classinstvars" : [ ],
 	"pools" : [ ],
 	"classvars" : [ ],
 	"instvars" : [
-		"displayBlock",
-		"initializeElementBlock",
-		"bindBlock",
-		"styledBlock"
+		"builders"
 	],
-	"name" : "BrEditorElementBuilder",
+	"name" : "BrEditorCompositeElementBuilder",
 	"type" : "normal"
 }
