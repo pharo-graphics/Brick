@@ -10,7 +10,8 @@
 		"entity",
 		"type",
 		"builder",
-		"size"
+		"size",
+		"index"
 	],
 	"name" : "BrEditorSegment",
 	"type" : "normal"

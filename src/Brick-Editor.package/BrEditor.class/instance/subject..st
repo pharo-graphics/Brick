@@ -12,6 +12,4 @@ subject: anObject
 	builder := BrEditorCompositeBuilder new.
 	pragmas first method valueWithReceiver: anObject arguments: { builder }.
 
-	iterator := self defaultIterator editor: self.
-
-	self notifyChanged
+	self changed

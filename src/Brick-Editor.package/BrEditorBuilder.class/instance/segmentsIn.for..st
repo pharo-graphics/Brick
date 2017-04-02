@@ -5,6 +5,6 @@ segmentsIn: aSegmentCollector for: aSubject
 	Segments can contain one or more items"
 
 	self
-		segmentsCollect: [ :aSegment :aValue | aSegment items: (self segmentItems: aValue) from: self ]
+		segmentsCollect: [ :aSegment :aValue | aSegment items: (self segmentItems: aValue) from: self for: aValue ]
 		of: aSubject
 		in: aSegmentCollector

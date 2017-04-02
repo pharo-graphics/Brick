@@ -1,0 +1,3 @@
+accessing
+end
+	^ segment end

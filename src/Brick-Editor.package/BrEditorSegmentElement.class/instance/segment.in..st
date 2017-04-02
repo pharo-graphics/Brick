@@ -1,5 +1,5 @@
 accessing
-segment: aSegment
+segment: aSegment in: anEditor
 	| theElements |
 
 	segment := aSegment.
@@ -8,7 +8,7 @@ segment: aSegment
 
 	theElements := Array streamContents: [ :aStream |
 		segment itemsDo: [ :anItem :aBuilder |
-			(aBuilder itemElements: anItem) asOrderedCollection do: [ :anItemElement |
+			(aBuilder itemElements: anItem in: anEditor for: aSegment) asOrderedCollection do: [ :anItemElement |
 				aBuilder bindItem: anItem to: anItemElement.
 				aStream nextPut: anItemElement ] ] ].
 

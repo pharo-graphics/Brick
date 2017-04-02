@@ -1,0 +1,13 @@
+{
+	"commentStamp" : "",
+	"super" : "BlElement",
+	"category" : "Brick-Editor-UI",
+	"classinstvars" : [ ],
+	"pools" : [ ],
+	"classvars" : [ ],
+	"instvars" : [
+		"form"
+	],
+	"name" : "BrFormElement",
+	"type" : "normal"
+}

@@ -1,7 +1,9 @@
 builder - items
 itemValues: aBrText at: anIndex iterator: aBrTextIterator
-	"Items are words within a text line (segment)"
-	<return: #BrText>
+	"Items are words within a text line (segment). There is no guarantee that returned
+	object is of type BrText, since replacement attribute may replace a part of text
+	with multiple arbitrary objects"
+	<return: #SequenceableCollection of: #BrText or: #Object>
 	| initialAttribute initialValue aSegment |
 
 	initialAttribute := aBrTextIterator
@@ -20,7 +22,9 @@ itemValues: aBrText at: anIndex iterator: aBrTextIterator
 					ifNil: [ self itemValueType: item ]
 					ifNotNil: [ initialValue ] ]
 				ifFalse: [ #different ] ].
-
+	
+	editor addPiece: aSegment for: aBrText.
+	
 	^ initialAttribute
 		ifNil: [ aSegment ]
 		ifNotNil: [ :anAttribute | anAttribute replace: aSegment ]

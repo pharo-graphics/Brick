@@ -15,4 +15,4 @@ segmentItems: aSegmentValue
 			| theItems |
 			theItems := (self itemValues: aSegmentValue at: anItemIndex iterator: aSegmentValueIterator) asOrderedCollection.
 			aStream nextPutAll: theItems.
-			anItemIndex := anItemIndex + theItems size ] ]
+			anItemIndex := anItemIndex + 1 ] ]

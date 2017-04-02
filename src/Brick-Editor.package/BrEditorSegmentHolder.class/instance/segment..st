@@ -1,4 +1,7 @@
 accessing
 segment: anEditorSegment
+	| anEditor |
+	
 	segment := anEditorSegment.
-	itemElement segment: segment
+	anEditor := self infiniteElement dataSource.
+	itemElement segment: segment in: anEditor

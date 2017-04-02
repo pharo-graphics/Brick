@@ -1,0 +1,16 @@
+{
+	"commentStamp" : "",
+	"super" : "Object",
+	"category" : "Brick-Editor-Text-Builder",
+	"classinstvars" : [ ],
+	"pools" : [ ],
+	"classvars" : [ ],
+	"instvars" : [
+		"text",
+		"cursor",
+		"segments",
+		"lastSegment"
+	],
+	"name" : "BrTextEditor",
+	"type" : "normal"
+}

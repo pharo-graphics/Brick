@@ -5,7 +5,11 @@
 	"classinstvars" : [ ],
 	"pools" : [ ],
 	"classvars" : [ ],
-	"instvars" : [ ],
+	"instvars" : [
+		"stylerBlock",
+		"editor",
+		"styler"
+	],
 	"name" : "BrEditorTextBuilder",
 	"type" : "normal"
 }

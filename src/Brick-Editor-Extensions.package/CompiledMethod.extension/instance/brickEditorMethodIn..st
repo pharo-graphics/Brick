@@ -12,41 +12,11 @@ brickEditorMethodIn: aComposite
 				c vertical exact: 2 ];
 			background: Color gray ].
 
-	aComposite element
-		display: [ BlElement new
-			size: 60@20;
-			margin: (BlInsets all: 3);
-			background: Color green ].
-
 	aComposite text
 		display: [ :aCompiledMethod |
 			| text |
 			text := (BrRopedText string: aCompiledMethod sourceCode)
 				attributes: { BrFontFamilyAttribute named: 'Source Code Pro' }.
-			text attributes: { BrTextReplacementAttribute new } from: 19 to: 22.
-			BrRBTextStyler new classOrMetaClass: aCompiledMethod methodClass; style: text.
-			text ].
-
-	aComposite element
-		display: [ BlElement new
-			size: 600@200;
-			margin: (BlInsets all: 3);
-			background: Color blue ].
-	
-	aComposite text
-		display: [ :aCompiledMethod |
-			| text |
-			text := (BrRopedText string: aCompiledMethod sourceCode)
-				attributes: { BrFontFamilyAttribute named: 'Source Code Pro' }.
-			BrRBTextStyler new classOrMetaClass: aCompiledMethod methodClass; style: text.
-			text ].
-
-
-	aComposite element
-		display: [ BlTextElement new
-			text: (BrRopedText string: 'I am a snippet visualisation');
-			constraintsDo: [ :c |
-				c horizontal matchParent.
-				c vertical exact: 150.
-				c margin: (BlInsets all: 15) ];
-			background: Color paleOrange ].
+			"text attributes: { BrTextReplacementAttribute new } from: 19 to: 22."
+			text ];
+		styler: (BrRBTextStyler new classOrMetaClass: self methodClass)

@@ -1,14 +1,13 @@
 builder - enumeration
-segmentsCollect: aBlock of: aObject in: aSegmentsCollector
-	| aDisplayedValue aDisplayedValueIterator aSegmentIndex |
+segmentsCollect: aBlock displayedValue: aDisplayedValue in: aSegmentsCollector
+	| aDisplayedValueIterator aSegmentIndex |
 
+	aSegmentIndex := aSegmentsCollector removeSegmentsFor: self.
+	
 	aSegmentsCollector wantsMore
 		ifFalse: [ ^ self ].
 
-	aDisplayedValue := self displayedValue: aObject.
 	aDisplayedValueIterator := self displayedValueIterator: aDisplayedValue.
-
-	aSegmentIndex := 1.
 
 	[ aSegmentsCollector wantsMore and: [ (self hasSegmentValue: aDisplayedValue at: aSegmentIndex iterator: aDisplayedValueIterator) ] ] whileTrue: [ 
 		| aSegmentValue aSegment |
@@ -16,9 +15,9 @@ segmentsCollect: aBlock of: aObject in: aSegmentsCollector
 		aSegmentValue := self segmentValue: aDisplayedValue at: aSegmentIndex iterator: aDisplayedValueIterator.
 
 		aSegment := (aSegmentIndex = 1 and: [ aSegmentsCollector isNotEmpty and: [ self inlined ] ])
-			ifTrue: [ aSegmentsCollector segments last ]
+			ifTrue: [ aSegmentsCollector segments at: aSegmentIndex ]
 			ifFalse: [
-				(aSegmentsCollector segment: aSegmentValue for: self)
+				(aSegmentsCollector segment: aSegmentValue for: self at: aSegmentIndex)
 					type: BrEditorSegmentType uniqueInstance ].
 
 		aBlock cull: aSegment cull: aSegmentValue cull: aSegmentIndex.
