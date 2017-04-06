@@ -1,0 +1,11 @@
+{
+	"commentStamp" : "",
+	"super" : "BlMouseEvent",
+	"category" : "Brick-Editor",
+	"classinstvars" : [ ],
+	"pools" : [ ],
+	"classvars" : [ ],
+	"instvars" : [ ],
+	"name" : "BrDeselectionEvent",
+	"type" : "normal"
+}

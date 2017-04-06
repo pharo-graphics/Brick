@@ -6,6 +6,13 @@ itemValues: aBrText at: anIndex iterator: aBrTextIterator
 	<return: #SequenceableCollection of: #BrText or: #Object>
 	| initialAttribute initialValue aSegment |
 
+	replacedSegments isNotEmpty
+		ifTrue: [ aBrText = replacedSegments top
+			ifTrue: [
+				replacedSegments size = 1
+					ifTrue: [ replacedSegmentsCleaned := true ].
+				^ replacedSegments pop ] ].
+
 	initialAttribute := aBrTextIterator
 			detectAttribute: #isReplacement
 			ifFound: #yourself
@@ -27,4 +34,10 @@ itemValues: aBrText at: anIndex iterator: aBrTextIterator
 	
 	^ initialAttribute
 		ifNil: [ aSegment ]
-		ifNotNil: [ :anAttribute | anAttribute replace: aSegment ]
+		ifNotNil: [ :anAttribute | 
+			anAttribute wantsNewSegment
+				ifTrue: [ 
+					replacedSegments push: (anAttribute replace: aSegment).
+					replacedSegmentsCleaned := false.
+					aSegment ]
+				ifFalse: [ anAttribute replace: aSegment ] ]

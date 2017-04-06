@@ -4,6 +4,9 @@ segmentValue: aBrText at: anIndex iterator: aBrTextIterator
 	<return: #BrSubText>
 	| lineFound initialValue aSegment aSegmentStartIndex |
 	
+	replacedSegments isNotEmpty
+		ifTrue: [ ^ replacedSegments top ].
+	
 	aSegmentStartIndex := aBrTextIterator position.
 	
 	initialValue := aBrTextIterator isNewLine: aBrTextIterator peek.

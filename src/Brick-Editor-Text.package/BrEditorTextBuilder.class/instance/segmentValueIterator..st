@@ -5,4 +5,6 @@ segmentValueIterator: aBrText
 	aSegmentValue is a transformed object (displayed value)"
 	<return: #BrTextIterator>
 
-	^ aBrText iterator
+	^ (replacedSegments isNotEmpty and: [ aBrText = replacedSegments top ])
+		ifFalse: [ aBrText iterator ]
+		ifTrue: [ aBrText ]

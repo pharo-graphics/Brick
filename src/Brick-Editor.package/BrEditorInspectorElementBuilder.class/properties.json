@@ -1,0 +1,14 @@
+{
+	"commentStamp" : "",
+	"super" : "BrEditorElementBuilder",
+	"category" : "Brick-Editor-Framework",
+	"classinstvars" : [ ],
+	"pools" : [ ],
+	"classvars" : [ ],
+	"instvars" : [
+		"selector",
+		"extent"
+	],
+	"name" : "BrEditorInspectorElementBuilder",
+	"type" : "normal"
+}

@@ -1,6 +1,6 @@
 *Brick-Editor-Extensions
 brickEditorMethodIn: aComposite
-	<brickEditorOrder: 0>
+	<brickEditorOrder: 100>
 	
 	aComposite text
 		display: [ :aCompiledMethod | BrRopedText string: self methodClass name, '>>#', self selector asString ].

@@ -2,4 +2,6 @@ initialization
 initialize
 	super initialize.
 	
-	editor := BrTextEditor new
+	editor := BrTextEditor new.
+	replacedSegments := Stack new.
+	replacedSegmentsCleaned := false

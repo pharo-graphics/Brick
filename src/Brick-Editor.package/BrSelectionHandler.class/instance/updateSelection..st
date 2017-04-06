@@ -18,8 +18,8 @@ updateSelection: anElement
 	
 	(aBoundsInSpace left > aSelectionArea right and: [ aBoundsInSpace bottom  > aSelectionArea bottom ])
 		ifTrue: [ ^ self ].
-	
-	anElement fireEvent: (BrSelectionEvent new
-		area: self selectionArea).
+
+	anElement
+		dispatchEvent: (BrSelectionEvent new area: self selectionArea).
 
 	anElement childrenDo: [ :each | self updateSelection: each ]

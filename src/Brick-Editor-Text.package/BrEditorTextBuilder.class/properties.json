@@ -8,7 +8,9 @@
 	"instvars" : [
 		"stylerBlock",
 		"editor",
-		"styler"
+		"styler",
+		"replacedSegments",
+		"replacedSegmentsCleaned"
 	],
 	"name" : "BrEditorTextBuilder",
 	"type" : "normal"
