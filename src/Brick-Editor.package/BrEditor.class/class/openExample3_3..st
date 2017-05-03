@@ -20,10 +20,10 @@ openExample3_3: anObject
 	
 	"space root layout: BlFrameLayout new."
 	space root addChild: editor.
-	"space root addEventHandler:
+	space root addEventHandler:
 			(BlEventHandler
 				on: BlDblClickEvent
-				do: [ :evt | BlElementSelection on: evt target ])."
+				do: [ :evt | BlElementSelection on: evt target ]).
 	space show.
 	
 	space root forceLayout.
