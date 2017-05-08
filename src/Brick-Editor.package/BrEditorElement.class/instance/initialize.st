@@ -7,8 +7,8 @@ initialize
 	
 	bindings := {
 		#aDate -> self aDate.
-		#aFile -> self aFile.
-		#folder -> self folder.
-		#allMessages -> self allMessages.
+		"#aFile -> self aFile."
+		"#folder -> self folder."
+		"#allMessages -> self allMessages.
 		#latestMessages -> self latestMessages.
-		#groupedMessages -> self groupedMessages } asDictionary
+		#groupedMessages -> self groupedMessages" } asDictionary
