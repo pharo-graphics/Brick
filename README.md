@@ -7,37 +7,24 @@ Main maintainers : [Glenn Cavarlé](https://github.com/GlennCavarle) & [Aliaksei
 
 # Installation
 
-
-## All-in-one "developer" versions 
-[Brick](https://github.com/pharo-graphics/Bloc) + [Bloc](https://github.com/pharo-graphics/Bloc) + [Iceberg](https://github.com/npasserini/iceberg)
-
-```smalltalk
-Metacello new
-    baseline: 'Brick';
-    repository: 'github://pharo-graphics/Brick/src';
-    load:#git:core
-```
-
-```smalltalk
-Metacello new
-    baseline: 'Brick';
-    repository: 'github://pharo-graphics/Brick/src';
-    load:#git:development
-```
-## All-in-one "user" versions 
+## All-in-one versions 
 [Brick](https://github.com/pharo-graphics/Bloc) + [Bloc](https://github.com/pharo-graphics/Bloc)
 
-```smalltalk
-Metacello new
-    baseline: 'Brick';
-    repository: 'github://pharo-graphics/Brick/src';
-    load:#core
-```
+The following installs #core version of Brick and Bloc **without** tests, development tools and experimental features
 
 ```smalltalk
 Metacello new
     baseline: 'Brick';
     repository: 'github://pharo-graphics/Brick/src';
-    load:#development
+    load: #core
+```
+
+The following installs #development version of Brick and Bloc **including** tests, development tools and experimental features
+
+```smalltalk
+Metacello new
+    baseline: 'Brick';
+    repository: 'github://pharo-graphics/Brick/src';
+    load: #development
 ```
 
