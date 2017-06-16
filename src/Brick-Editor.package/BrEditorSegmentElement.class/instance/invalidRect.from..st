@@ -1,5 +1,5 @@
 change reporting
-invalidRect: aSpartaRectangle from: anElement
-	super invalidRect: aSpartaRectangle from: anElement.
+invalidRect: aBlBounds from: anElement
+	super invalidRect: aBlBounds from: anElement.
 	
 	self releaseCaches
