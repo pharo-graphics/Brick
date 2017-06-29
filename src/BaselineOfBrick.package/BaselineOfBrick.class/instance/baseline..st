@@ -3,7 +3,6 @@ baseline: spec
 	<baseline>
 	spec for: #common do: [ spec
 			preLoadDoIt:  #preLoadActions:;
-			postLoadDoIt: #postLoadBrick:;
 		   baseline: 'Bloc' with: [ spec
 				postLoadDoIt: #postLoadBloc:;
 				loads: #(stub); "Stub does not load anything here. We load Bloc in postLoadBloc:"
@@ -27,16 +26,16 @@ baseline: spec
 			package: #'Brick-Experimental' with: [ spec requires: #('Brick-UI' 'Brick-Material'). ];
 			
 			"default groups"
-			group: 'core' 
-				with: #( 'Brick-UI' 'Brick-Examples' 'Brick-Editor' 'Brick-Editor-Text' 'Brick-Editor-Extensions' 'Brick-Sparta' 'Brick-Experimental');
+			group: 'core' with: #(
+				'Brick-UI'
+				'Brick-Examples'
+				'Brick-Editor'
+				'Brick-Editor-Text'
+				'Brick-Editor-Extensions'
+				'Brick-Sparta'
+				'Brick-Experimental');
+				
 			group: 'development' with: #('core');
-			
-			group: 'file:core' with: #('core');
-			group: 'file:development' with: #('development');
-			
-			"groups with git support"
-			group: 'git:core' with: #('core');
-			group: 'git:development' with: #('development');
 
 			group: 'stub' with: #();
 			group: 'default' with: #('core')
