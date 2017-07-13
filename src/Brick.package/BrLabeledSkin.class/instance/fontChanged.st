@@ -1,4 +1,7 @@
 change reporting
-fontChanged
-	text font: (LogicalFont familyName: widget fontFamily pointSize: widget fontSize).
-	text textForeground: widget fontColor
+fontChanged	
+	text text: (text text attributes: {
+		BrFontFamilyAttribute named: widget fontFamily.
+		BrFontSizeAttribute size: widget fontSize.
+		BrTextForegroundAttribute paint: widget fontColor
+	})

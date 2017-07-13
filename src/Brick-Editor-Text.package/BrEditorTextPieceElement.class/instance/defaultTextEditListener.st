@@ -1,0 +1,3 @@
+initialization
+defaultTextEditListener
+	^ BrEditorTextPieceListener new

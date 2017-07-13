@@ -1,0 +1,11 @@
+{
+	"commentStamp" : "",
+	"super" : "BlTextEditListener",
+	"category" : "Brick-Editor-Text-UI",
+	"classinstvars" : [ ],
+	"pools" : [ ],
+	"classvars" : [ ],
+	"instvars" : [ ],
+	"name" : "BrEditorTextPieceListener",
+	"type" : "normal"
+}

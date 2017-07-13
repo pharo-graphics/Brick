@@ -4,7 +4,7 @@ itemValues: aBrText at: anIndex iterator: aBrTextIterator
 	object is of type BrText, since replacement attribute may replace a part of text
 	with multiple arbitrary objects"
 	<return: #SequenceableCollection of: #BrText or: #Object>
-	| initialAttribute initialValue aSegment |
+	| initialAttribute initialValue aSubText |
 
 	replacedSegments isNotEmpty
 		ifTrue: [ aBrText = replacedSegments top
@@ -20,7 +20,7 @@ itemValues: aBrText at: anIndex iterator: aBrTextIterator
 
 	initialValue := self itemValueType: aBrTextIterator peek.
 
-	aSegment := aBrTextIterator nextSegment: [ :item |
+	aSubText := aBrTextIterator nextSegment: [ :item |
 		initialAttribute = (aBrTextIterator
 			detectAttribute: #isReplacement
 			ifFound: #yourself
@@ -30,14 +30,14 @@ itemValues: aBrText at: anIndex iterator: aBrTextIterator
 					ifNotNil: [ initialValue ] ]
 				ifFalse: [ #different ] ].
 	
-	editor addPiece: aSegment for: aBrText.
+	editor addPiece: aSubText for: aBrText.
 	
 	^ initialAttribute
-		ifNil: [ aSegment ]
+		ifNil: [ aSubText ]
 		ifNotNil: [ :anAttribute | 
 			anAttribute wantsNewSegment
 				ifTrue: [ 
-					replacedSegments push: (anAttribute replace: aSegment).
+					replacedSegments push: (anAttribute replace: aSubText).
 					replacedSegmentsCleaned := false.
-					aSegment ]
-				ifFalse: [ anAttribute replace: aSegment ] ]
+					aSubText ]
+				ifFalse: [ anAttribute replace: aSubText ] ]

@@ -1,4 +1,5 @@
-as yet unclassified
+initialization
 initializeSkin
 	super initializeSkin.
-	widget addStyleClass: #button.
+
+	widget addStyleClass: #button

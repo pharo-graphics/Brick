@@ -1,9 +1,6 @@
 initialization
 initializeSkin
-	
 	super initializeSkin.
-	
-	
 	
 	ripple := (BlEllipse diameter: 30) asElement
 		styleClass: #ripple;

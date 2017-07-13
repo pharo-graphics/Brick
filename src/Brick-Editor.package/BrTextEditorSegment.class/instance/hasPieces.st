@@ -1,0 +1,3 @@
+testing
+hasPieces
+	^ pieces isNotNil

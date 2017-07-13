@@ -1,10 +1,9 @@
 accessing structure variables
 button: aStylesheet
 	<stylesheet:#button priority:90>
+		
 	(BrStylesheetBuilder on: aStylesheet)
-	
-		cls:#button style:[ :b | b
-			
+		cls: #button style:[ :b | b
 				declare: #backgroundColor -> BrMdColor grey100;
 				declare: #borderWidth -> 1 asBrPx;
 				declare: #borderColor -> BrMdColor grey200;

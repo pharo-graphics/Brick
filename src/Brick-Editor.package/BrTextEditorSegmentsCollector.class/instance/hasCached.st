@@ -1,0 +1,3 @@
+testing
+hasCached
+	^ subText isNotNil
