@@ -1,13 +1,15 @@
 accessing
 segment: anEditorSegment
-	| anEditor pieceElements |
+	| pieceElements |
 
 	segment := anEditorSegment.
-	anEditor := self infiniteElement dataSource.
-	
+
 	pieceElements := segment pieces
-		collect: [ :aText | self pieceElementFor: aText ].
-	
-	itemElement layout: BrEditorFlowLayout new.
+		collect: [ :aText | self createPiece: aText ].
+
 	itemElement removeChildren.
-	itemElement addChildren: pieceElements
+	itemElement addChildren: pieceElements.
+	
+	self dataSourcePosition odd
+		ifTrue: [ itemElement background: Color veryVeryLightGray lighter ]
+		ifFalse: [ itemElement background: Color transparent ]

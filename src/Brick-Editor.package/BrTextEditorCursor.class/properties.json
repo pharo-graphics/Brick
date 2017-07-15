@@ -1,15 +1,13 @@
 {
 	"commentStamp" : "",
-	"super" : "BlInfiniteDataSource",
+	"super" : "Object",
 	"category" : "Brick-Editor-Framework2",
 	"classinstvars" : [ ],
 	"pools" : [ ],
 	"classvars" : [ ],
 	"instvars" : [
-		"text",
-		"collector",
-		"cursor"
+		"position"
 	],
-	"name" : "BrTextEditor",
+	"name" : "BrTextEditorCursor",
 	"type" : "normal"
 }

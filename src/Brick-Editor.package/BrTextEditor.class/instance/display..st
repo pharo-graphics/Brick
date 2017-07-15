@@ -1,2 +1,0 @@
-SCRIPT
-display: aBlock

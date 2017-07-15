@@ -1,2 +1,0 @@
-SCRIPT
-styler: aBlock
