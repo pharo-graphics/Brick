@@ -31,7 +31,7 @@ segmentOld: aSegment
 	theChildren := #().
 	itemsSize > aSize ifTrue: [
 		theChildren := (1 to: itemsSize - aSize) collect: [ :anIndex |
-			BrEditorTextPieceElement new
+			BrTextEditorPieceElement new
 				constraintsDo: [ :c |
 					c horizontal fitContent.
 					c vertical fitContent ];

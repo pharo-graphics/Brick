@@ -8,7 +8,8 @@
 	"instvars" : [
 		"text",
 		"collector",
-		"cursor"
+		"cursor",
+		"textEditListener"
 	],
 	"name" : "BrTextEditor",
 	"type" : "normal"

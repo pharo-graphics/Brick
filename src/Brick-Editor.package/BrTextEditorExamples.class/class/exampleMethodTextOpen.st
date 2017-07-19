@@ -12,5 +12,8 @@ exampleMethodTextOpen
 		c vertical matchParent ].
 
 	space := BlSpace new.
+	space extent: 800@400.
 	space root addChild: editorElement.
-	space show
+	space show.
+	
+	"editorElement editor cursor inspect"

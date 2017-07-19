@@ -2,7 +2,6 @@ initialization
 initialize
 	super initialize.
 	
-	self addEventHandler: BrEditorListener new.
 	self addEventHandler: BrSelectionHandler new.
 	
 	bindings := {

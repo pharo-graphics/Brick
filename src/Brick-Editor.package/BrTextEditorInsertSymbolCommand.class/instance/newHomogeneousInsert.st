@@ -1,0 +1,3 @@
+instance creation
+newHomogeneousInsert
+	^ BrTextEditorInsertHomogeneousCommand new

@@ -27,10 +27,10 @@ computeForwardAt: anIndex
 
 		(currentIndex >= actualStart)
 			ifTrue: [
-				textSegment := BrTextEditorSegment new.
+				textSegment := self newSegment.
 				textSegment index: currentIndex.
 				textSegment segment: lineText.
 				segments add: textSegment ] ].
 		
 	interval := cachedInterval first to: currentIndex.
-	subText := text from: segments first segment start to: segments last segment end
+	self updateSubText

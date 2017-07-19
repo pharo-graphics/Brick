@@ -2,7 +2,10 @@ instance creation
 initializePiece: aTextElement
 	| aCursor |
 	
+	aTextElement editListener: self editor textEditListener.
+
 	aCursor := self editor cursor.
-	self flag: 'Implement cursor binding'.
-	"(aCursor insideSubText: aTextElement text)
-		ifTrue: [ aTextElement background: Color red ]"
+	(aCursor insideSubText: aTextElement text of: segment)
+		ifTrue: [
+			aTextElement showCursorAt: aCursor position - aTextElement text start + 1.
+			aTextElement requestFocus ]

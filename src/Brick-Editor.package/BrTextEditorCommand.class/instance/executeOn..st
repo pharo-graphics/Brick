@@ -1,0 +1,3 @@
+executing
+executeOn: aTextEditor
+	self subclassResponsibility
