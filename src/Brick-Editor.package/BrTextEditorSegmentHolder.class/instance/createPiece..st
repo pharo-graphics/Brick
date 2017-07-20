@@ -5,8 +5,7 @@ createPiece: aBrText
 	textElement := self newPiece.
 	textElement
 		text: aBrText;
+		editListener: self editor textEditListener;
 		yourself.
-
-	self initializePiece: textElement.
 
 	^ textElement

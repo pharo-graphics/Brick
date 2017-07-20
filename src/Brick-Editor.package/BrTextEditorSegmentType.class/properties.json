@@ -1,8 +1,10 @@
 {
 	"commentStamp" : "",
-	"super" : "BrEditorSegmentType",
-	"category" : "Brick-Editor-Framework2",
-	"classinstvars" : [ ],
+	"super" : "BlInfiniteItemType",
+	"category" : "Brick-Editor-Model",
+	"classinstvars" : [
+		"uniqueInstance"
+	],
 	"pools" : [ ],
 	"classvars" : [ ],
 	"instvars" : [ ],

@@ -1,3 +1,0 @@
-accessing
-segmentCount
-	^ 0

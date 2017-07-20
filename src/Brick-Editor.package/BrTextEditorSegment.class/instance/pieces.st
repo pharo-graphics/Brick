@@ -1,6 +1,6 @@
 accessing
 pieces
-	<return: #OrderedCollection>
+	<return: #Array of: #BrSubText>
 
 	^ self hasPieces
 		ifTrue: [ pieces ]

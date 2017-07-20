@@ -1,13 +1,14 @@
 {
 	"commentStamp" : "",
 	"super" : "BlInfiniteElementHolder",
-	"category" : "Brick-Editor-Framework2",
+	"category" : "Brick-Editor-Model",
 	"classinstvars" : [ ],
 	"pools" : [ ],
 	"classvars" : [ ],
 	"instvars" : [
 		"segment",
-		"pieces"
+		"pieces",
+		"pieceElements"
 	],
 	"name" : "BrTextEditorSegmentHolder",
 	"type" : "normal"

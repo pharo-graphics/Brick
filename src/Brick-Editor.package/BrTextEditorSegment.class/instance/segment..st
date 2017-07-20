@@ -1,3 +1,4 @@
 accessing
 segment: aSubText
-	segment := aSubText
+	segment := aSubText.
+	self invalidate

@@ -1,1 +1,0 @@
-I am editor builder with support of multiple editable presentations

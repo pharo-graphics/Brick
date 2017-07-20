@@ -6,9 +6,8 @@
 	"pools" : [ ],
 	"classvars" : [ ],
 	"instvars" : [
-		"character",
 		"index"
 	],
-	"name" : "BrTextEditorInsertNonhomogeneousCommand",
+	"name" : "BrTextEditorDeleteSymbolCommand",
 	"type" : "normal"
 }

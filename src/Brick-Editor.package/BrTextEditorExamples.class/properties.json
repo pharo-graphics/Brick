@@ -1,7 +1,7 @@
 {
 	"commentStamp" : "",
 	"super" : "TestCase",
-	"category" : "Brick-Editor-Framework2",
+	"category" : "Brick-Editor-Examples",
 	"classinstvars" : [
 		"loremIpsum"
 	],

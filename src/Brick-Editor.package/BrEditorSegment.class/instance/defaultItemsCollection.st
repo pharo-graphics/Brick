@@ -1,3 +1,0 @@
-initialization
-defaultItemsCollection
-	^ OrderedCollection

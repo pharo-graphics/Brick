@@ -1,7 +1,7 @@
 {
 	"commentStamp" : "",
 	"super" : "BrTextEditorCommand",
-	"category" : "Brick-Editor-Framework2",
+	"category" : "Brick-Editor-Commands",
 	"classinstvars" : [ ],
 	"pools" : [ ],
 	"classvars" : [ ],

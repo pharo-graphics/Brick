@@ -1,7 +1,7 @@
 {
 	"commentStamp" : "",
 	"super" : "BlInfiniteDataSource",
-	"category" : "Brick-Editor-Framework2",
+	"category" : "Brick-Editor-Model",
 	"classinstvars" : [ ],
 	"pools" : [ ],
 	"classvars" : [ ],

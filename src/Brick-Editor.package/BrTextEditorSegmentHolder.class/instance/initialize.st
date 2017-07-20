@@ -2,7 +2,7 @@ initialization
 initialize
 	super initialize.
 	
-	itemElement := BrEditorSegmentElement new
+	itemElement := BrTextEditorSegmentElement new
 		layout: BrEditorFlowLayout new;
 		focusability: BlFocusability after;
 		margin: (BlInsets bottom: 5);

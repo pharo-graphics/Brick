@@ -1,11 +1,9 @@
 pieces - computation
 computedPieces
-	| segmentIterator |
-
-	pieces := self newPieces.
-	segmentIterator := segment iterator.
+	pieces := Array streamContents: [ :aStream |
+		| segmentIterator |
+		segmentIterator := segment iterator.
 	
-	[ segmentIterator hasNext ] whileTrue: [ 
-		pieces add: segmentIterator nextWord ].
-	
+		[ segmentIterator hasNext ] whileTrue: [ 
+			aStream nextPut: segmentIterator nextWord ] ].
 	^ pieces

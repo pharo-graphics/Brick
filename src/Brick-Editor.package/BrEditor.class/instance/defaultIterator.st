@@ -1,3 +1,0 @@
-initialization
-defaultIterator
-	^ BrEditorIterator new

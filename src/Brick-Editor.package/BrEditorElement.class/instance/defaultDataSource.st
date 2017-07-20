@@ -1,3 +1,0 @@
-initialization
-defaultDataSource
-	^ BrEditor new
