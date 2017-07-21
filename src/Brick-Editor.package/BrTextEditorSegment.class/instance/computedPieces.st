@@ -6,4 +6,8 @@ computedPieces
 	
 		[ segmentIterator hasNext ] whileTrue: [ 
 			aStream nextPut: segmentIterator nextWord ] ].
+	
+	pieces ifEmpty: [
+		pieces := { BrRopedText string: '' } ].
+	
 	^ pieces

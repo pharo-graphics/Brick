@@ -9,7 +9,7 @@ executeOn: aTextEditor
 	aCommand := (aTextEditor text at: self fromIndex) isLineBreak
 		ifTrue: [ self newDeleteLineCommand ]
 		ifFalse: [ self newDeleteSymbolCommand ].
-		
+
 	aCommand index: self fromIndex.
 	
 	aTextEditor enqueueCommand: aCommand

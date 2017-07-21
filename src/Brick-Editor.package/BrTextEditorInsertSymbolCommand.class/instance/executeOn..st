@@ -1,10 +1,8 @@
 executing
 executeOn: aTextEditor
-	| aPreviousCharacter aCommand |
-	
-	aPreviousCharacter := aTextEditor text at: self index.
+	| aCommand |
 
-	aCommand := (aPreviousCharacter isSeparator not and: [ aPreviousCharacter isLineBreak not ])
+	aCommand := (self isHomogeneIn: aTextEditor)
 		ifTrue: [ self newHomogeneousInsert ]
 		ifFalse: [ self newNonhomogeneousInsert ].
 

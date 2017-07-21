@@ -8,7 +8,7 @@ cachedSegmentAt: aTextIndex ifFound: aFoundBlock ifNotFound: aNotFoundBlock
 	segmentIndex isZero
 		"we should handle the case when text was inserted at index before a #start
 		of the first segment. when it happens we need to move all cached segments"
-		ifTrue: [ ^ aNotFoundBlock value ].
+		ifTrue: [ ^ aNotFoundBlock cull: self ].
 
 	self
 		"Make sure that returned value makes sense and cache is not broken"

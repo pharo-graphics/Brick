@@ -10,7 +10,7 @@ executeOn: aTextEditor
 				to: self index.
 
 			previousSegment := aTextEditor collector cachedAt: aSegment index - 1.
-			
+
 			"merge two segments in one"
 			previousSegment segment: (aTextEditor text from: previousSegment start to: aSegment end - 1).
 			previousSegment invalidate.

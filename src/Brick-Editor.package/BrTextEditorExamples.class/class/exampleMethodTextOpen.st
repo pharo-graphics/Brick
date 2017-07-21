@@ -1,7 +1,7 @@
 examples
 exampleMethodTextOpen
 	| space editorElement |
-	
+
 	editorElement := (self >> #element:editorMethodText:) gtExample returnValue.
 	editorElement editor text attributes: {
 		BrFontSizeAttribute size: 18.
@@ -16,4 +16,4 @@ exampleMethodTextOpen
 	space root addChild: editorElement.
 	space show.
 	
-	"editorElement editor cursor inspect"
+	"editorElement inspect"

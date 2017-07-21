@@ -1,16 +1,16 @@
 executing
 executeOn: aTextEditor
+	| aString |
+	
+	aString := self character asString.
+
+	aTextEditor text
+		insertString: aString
+		at: self index.
+
 	aTextEditor collector
 		cachedSegmentAt: self index
 		ifFound: [ :aSegment |
-			| aString |
-	
-			aString := self character asString.
-
-			aTextEditor text
-				insertString: aString
-				at: self index.
-		
 			aSegment end: aSegment end + 1.
 			aSegment invalidate.
 
@@ -18,4 +18,7 @@ executeOn: aTextEditor
 			aTextEditor collector moveTextBy: 1 after: aSegment.
 	
 			aTextEditor notifyItemsChanged: (aSegment index to: aSegment index) ]
-		ifNotFound: [ self shouldBeImplemented ]
+		ifNotFound: [ :aCollector |
+			(self index < aCollector start)
+				ifTrue: [ aCollector moveTextBy: 1 ]
+		]

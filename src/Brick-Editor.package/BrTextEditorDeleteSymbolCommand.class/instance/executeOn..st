@@ -10,5 +10,7 @@ executeOn: aTextEditor
 			aSegment moveTextBy: -1 after: self index.
 			
 			aTextEditor collector moveTextBy: -1 after: aSegment.
-			aTextEditor notifyItemsChanged: (aSegment index to: aSegment index) ]
+			aTextEditor notifyItemsChanged: (aSegment index to: aSegment index)
+		
+		]
 		ifNotFound: [ self shouldBeImplemented ]

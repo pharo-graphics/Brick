@@ -20,4 +20,9 @@ measure: anElement with: anExtentSpec
 	totalContentHeight := anElement padding height + lines totalHeight.
 	totalContentHeight := totalContentHeight + ((lines count - 1) * lineSpacing).
 
-	anElement measuredExtent: (anExtentSpec sizeFor: totalContentWidth @ totalContentHeight)
+	anElement measuredExtent: (anExtentSpec sizeFor: totalContentWidth @ totalContentHeight).
+	
+	lines do: [ :aLine |
+		aLine elements ifNotEmpty: [ :theElements |
+			theElements last measure: (BlExtentMeasurementSpec exact:
+				theElements last measuredExtent + (((anElement measuredWidth - aLine width) max: 0) @ 0)) ] ]
