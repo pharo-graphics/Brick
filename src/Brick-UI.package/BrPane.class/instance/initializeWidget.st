@@ -1,4 +1,4 @@
 as yet unclassified
 initializeWidget
 	super initializeWidget.
-	self background: (BlBackground fill: Color white)
+	self background: (BlBackground paint: Color white)

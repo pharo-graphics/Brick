@@ -2,7 +2,7 @@ initialization
 initializeSkin
 	systemBar := BrSystemBar new
 		space: widget;
-		background: (BlBackground fill: Color blue).
+		background: (BlBackground paint: Color blue).
 	systemBar constraintsDo: [ :c | c linear vertical alignTop.
 		c linear horizontal alignCenter ].
 	

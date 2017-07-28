@@ -3,7 +3,7 @@ initializeSkin
 	super initializeSkin.
 	widget constraints horizontal matchParent.
 	widget constraints vertical matchParent.
-	widget background: (BlBackground fill: Color white).
+	widget background: (BlBackground paint: Color white).
 	text := BrLabel new
 		fontColor: Color black;
 		fontSize: 11;
