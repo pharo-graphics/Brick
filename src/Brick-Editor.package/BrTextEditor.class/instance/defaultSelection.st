@@ -1,0 +1,3 @@
+initialization
+defaultSelection
+	^ BrTextEditorSelection new

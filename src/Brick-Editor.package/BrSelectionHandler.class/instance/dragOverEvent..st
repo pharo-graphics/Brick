@@ -10,7 +10,7 @@ dragOverEvent: anEvent
 	corner := anEvent position.
 
 	aScrollingArea := self scrollingElement boundsInSpace.
-	
+
 	anOverDragLimit := 75.
 	anOverDrag := (aScrollingArea bottom - corner y) abs.
 

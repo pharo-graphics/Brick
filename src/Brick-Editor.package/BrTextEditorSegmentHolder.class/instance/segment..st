@@ -1,6 +1,6 @@
 accessing
 segment: anEditorSegment
-	| mayRebind aCursor |
+	| mayRebind aCursor aSelectionInterval |
 	
 	mayRebind := (segment == anEditorSegment
 		and: [ anEditorSegment hasPieces
@@ -17,4 +17,15 @@ segment: anEditorSegment
 		detect: [ :aTextElement | aCursor insideSubText: aTextElement text of: segment ]
 		ifFound: [ :aTextElement |
 			aTextElement showCursorAt: aCursor position - aTextElement text start + 1.
-			aTextElement requestFocus ]
+			aTextElement requestFocus ].
+	
+	aSelectionInterval := self editor selection interval.
+	pieceElements
+		select: [ :aTextElement |
+			(aSelectionInterval rangeIncludes: aTextElement text start)
+				or: [ (aSelectionInterval rangeIncludes: aTextElement text end) ] ]
+		thenDo: [ :aTextElement |
+			| localSelection |
+			localSelection := ((aSelectionInterval first - aTextElement text start) max: 0)
+				to: ((aSelectionInterval last - aTextElement text start) min: aTextElement text size + 1).
+			aTextElement select: localSelection first to: localSelection last ]
