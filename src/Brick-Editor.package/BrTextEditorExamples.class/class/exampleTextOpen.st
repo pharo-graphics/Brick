@@ -10,7 +10,12 @@ exampleTextOpen
 	editorElement constraintsDo: [ :c |
 		c horizontal matchParent.
 		c vertical matchParent ].
-
+	editorElement addEventHandler: BlSelectionHandler new.
+	
 	space := BlSpace new.
 	space root addChild: editorElement.
+	space root addEventHandler:
+			(BlEventHandler
+				on: BlDblClickEvent
+				do: [ :evt | BlElementSelection on: evt target ]).
 	space show

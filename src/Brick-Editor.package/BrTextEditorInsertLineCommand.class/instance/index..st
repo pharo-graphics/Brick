@@ -1,3 +1,3 @@
 accessing
-index: anObject
-	index := anObject
+index: aNumber
+	index := aNumber

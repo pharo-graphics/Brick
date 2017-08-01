@@ -1,3 +1,3 @@
 accessing
-character: anObject
-	character := anObject
+character: aCharacter
+	character := aCharacter

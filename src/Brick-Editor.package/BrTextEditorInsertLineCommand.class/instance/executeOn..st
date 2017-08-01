@@ -16,7 +16,7 @@ executeOn: aTextEditor
 				after: aSegment.
 
 			nextSegment := aTextEditor collector cachedAt: aSegment index + 1.
-			nextSegment segment: (aTextEditor text from: self index + 2 to: aSegment end).
+			nextSegment segment: (aTextEditor text from: self index + 2 to: aSegment end + 1).
 
 			aSegment segment: (aTextEditor text from: aSegment start to: self index).
 			aSegment invalidate.

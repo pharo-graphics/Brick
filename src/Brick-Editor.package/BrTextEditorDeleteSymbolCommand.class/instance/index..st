@@ -1,3 +1,7 @@
 accessing
-index: anObject
-	index := anObject
+index: aNumber
+	self
+		assert: [ aNumber > 0 ]
+		description: [ 'Deletion index must be positive' ].
+
+	index := aNumber

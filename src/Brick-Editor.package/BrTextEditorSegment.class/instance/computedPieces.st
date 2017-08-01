@@ -8,6 +8,6 @@ computedPieces
 			aStream nextPut: segmentIterator nextWord ] ].
 	
 	pieces ifEmpty: [
-		pieces := { BrRopedText string: '' } ].
-	
+		pieces := { segment from: 0 to: 0 } ].
+
 	^ pieces
