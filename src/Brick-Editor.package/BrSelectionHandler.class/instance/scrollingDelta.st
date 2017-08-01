@@ -1,3 +1,0 @@
-scrolling
-scrollingDelta
-	^ scrollingDelta

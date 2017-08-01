@@ -1,11 +1,11 @@
 {
 	"commentStamp" : "",
-	"super" : "BlMouseEvent",
-	"category" : "Brick-Editor-Events",
+	"super" : "BlSelectionHandler",
+	"category" : "Brick-Editor-UI",
 	"classinstvars" : [ ],
 	"pools" : [ ],
 	"classvars" : [ ],
 	"instvars" : [ ],
-	"name" : "BrDeselectionEvent",
+	"name" : "BrTextEditorSelectionHandler",
 	"type" : "normal"
 }
