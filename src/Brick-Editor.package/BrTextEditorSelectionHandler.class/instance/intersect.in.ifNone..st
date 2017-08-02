@@ -2,37 +2,38 @@ selection
 intersect: aChildElement in: aSelectionBounds ifNone: aNoneBlock
 	"Return selection intersection bounds of a given element and provided
 	selection bounds in local child cordinates if intersection exists
-	or evaluate a none block otherwise.
-	Note: you should override me to modify selection area detection, for example
-	for the case of text selection intersection is not just plain intersection"
+	or evaluate a none block otherwise"
 	<return: #BlBounds>
-	| boundsInLocal |
-
-	boundsInLocal := aChildElement boundsInLocal.
+	| boundsInLocal aSelection |
+	
+	aSelection := aSelectionBounds copy encompass.
+	boundsInLocal := BlBounds fromRectangle: aChildElement boundsInLocal.
 	
 	"element is above selection"
-	boundsInLocal bottom < aSelectionBounds top
+	boundsInLocal bottom < aSelection top
 		ifTrue: [ ^ aNoneBlock value ].
 		
 	"element is below selection"
-	boundsInLocal top > aSelectionBounds bottom
+	boundsInLocal top > aSelection bottom
 		ifTrue: [ ^ aNoneBlock value ].
 
-	(boundsInLocal right < aSelectionBounds left and: [ boundsInLocal top < aSelectionBounds top ])
+	(boundsInLocal right < aSelection left and: [ boundsInLocal top < aSelection top ])
 		ifTrue: [ ^ aNoneBlock value ].
 	
-	(boundsInLocal left > aSelectionBounds right and: [ boundsInLocal bottom  > aSelectionBounds bottom ])
+	(boundsInLocal left > aSelection right and: [ boundsInLocal bottom  > aSelection bottom ])
 		ifTrue: [ ^ aNoneBlock value ].
 
-	(boundsInLocal bottom <= aSelectionBounds bottom)
+	"select evertyhing in the middle"
+	(boundsInLocal top > aSelection top and: [ boundsInLocal bottom < aSelection bottom ])
 		ifTrue: [ ^ boundsInLocal ].
-	
-	(boundsInLocal bottom >= aSelectionBounds bottom and: [ boundsInLocal right <= aSelectionBounds right ])
-		ifTrue: [ ^ (0@0 corner: aSelectionBounds corner)
-			intersect: boundsInLocal
-			ifNone: boundsInLocal ].
-	
 
-	^ aSelectionBounds
+	"corner cases:"
+	(aSelectionBounds origin y < aSelectionBounds corner y)
+		ifTrue: [ ^ self bottom: boundsInLocal in: aSelectionBounds ifNone: aNoneBlock ].
+		
+	(aSelectionBounds origin y > aSelectionBounds corner y)
+		ifTrue: [ ^ self top: boundsInLocal in: aSelectionBounds ifNone: aNoneBlock ].
+	
+	^ aSelection
 		intersect: boundsInLocal
 		ifNone: aNoneBlock
