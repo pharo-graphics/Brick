@@ -1,3 +1,3 @@
 initialization
 defaultSelection
-	^ BrTextEditorSelection new
+	^ BlTextSelection new

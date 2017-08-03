@@ -1,0 +1,14 @@
+{
+	"commentStamp" : "",
+	"super" : "BrTextEditorCommand",
+	"category" : "Brick-Editor-Commands",
+	"classinstvars" : [ ],
+	"pools" : [ ],
+	"classvars" : [ ],
+	"instvars" : [
+		"fromIndex",
+		"toIndex"
+	],
+	"name" : "BrTextEditorSelectCommand",
+	"type" : "normal"
+}

@@ -1,7 +1,8 @@
 selection
 bottom: aBoundsInLocal in: aSelectionBounds ifNone: aNoneBlock
 	"Assuming that user selects in *BOTTOM direction* return intersection of selection bounds
-	and provided local element bounds"
+	and provided local element bounds.
+	Note: Both are given in the same coordinate system!"
 	<return: #BlBounds>
 	
 	"to the right from the origin"
