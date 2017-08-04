@@ -4,6 +4,4 @@ selectNone: aTextEditElement
 		| aGlobalFrom aGlobalTo |
 		aGlobalFrom := aTextEditElement text start + aMonotoneSelection from - 1.
 		aGlobalTo := aTextEditElement text start + aMonotoneSelection to - 1.
-		self editor recordDeselection: (BlTextSelection from: aGlobalFrom to: aGlobalTo) ].
-	
-	aTextEditElement selectNone
+		self editor recordDeselection: (BlTextSelection from: aGlobalFrom to: aGlobalTo) ]

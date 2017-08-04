@@ -11,8 +11,4 @@ select: aFromIndex to: aToIndex in: aTextEditElement
 	aGlobalFrom := aTextEditElement text start + aFromIndex - 1.
 	aGlobalTo := aTextEditElement text start + aToIndex - 1.
 	
-	self editor recordSelection: (BlTextSelection from: aGlobalFrom to: aGlobalTo).
-
-	aTextEditElement
-		selectSet: aFromIndex
-		to: aToIndex
+	self editor recordSelection: (BlTextSelection from: aGlobalFrom to: aGlobalTo)
