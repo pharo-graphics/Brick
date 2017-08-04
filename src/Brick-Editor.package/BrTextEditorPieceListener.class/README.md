@@ -1,0 +1,1 @@
+I am a special text piece listener that dispatches essential command though the editor instead of manipulating text pieces directly
