@@ -1,5 +1,4 @@
 text - selection
 selectNone
-	self
-		select: 0
-		to: 0
+	self selection removeAll.
+	self update: 1 to: self text size

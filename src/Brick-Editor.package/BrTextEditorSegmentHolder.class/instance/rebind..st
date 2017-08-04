@@ -1,4 +1,4 @@
 binding
 rebind: aTextEditorSegment
-	itemElement removeChildren.
-	itemElement addChildren: pieceElements
+	"itemElement removeChildren.
+	itemElement addChildren: pieceElements"

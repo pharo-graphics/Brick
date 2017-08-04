@@ -1,0 +1,3 @@
+initialization
+defaultSelectionRecorder
+	^ BrTextEditorSelectionOverwriteRecorder new

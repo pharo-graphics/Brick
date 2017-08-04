@@ -5,12 +5,7 @@
 	"classinstvars" : [ ],
 	"pools" : [ ],
 	"classvars" : [ ],
-	"instvars" : [
-		"segment",
-		"index",
-		"pieces",
-		"pieceElements"
-	],
-	"name" : "BrTextEditorSegment",
+	"instvars" : [ ],
+	"name" : "BrTextEditorSelectionRecorder",
 	"type" : "normal"
 }

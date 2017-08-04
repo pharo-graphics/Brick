@@ -1,3 +1,4 @@
 pieces - computation
 invalidate
-	pieces := nil
+	pieces := nil.
+	pieceElements := nil

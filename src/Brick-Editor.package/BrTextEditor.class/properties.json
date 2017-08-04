@@ -10,7 +10,8 @@
 		"collector",
 		"cursor",
 		"textEditListener",
-		"selection"
+		"selection",
+		"selectionRecorder"
 	],
 	"name" : "BrTextEditor",
 	"type" : "normal"

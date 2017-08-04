@@ -1,16 +1,13 @@
 {
 	"commentStamp" : "",
-	"super" : "Object",
+	"super" : "BrTextEditorSelectionRecorder",
 	"category" : "Brick-Editor-Model",
 	"classinstvars" : [ ],
 	"pools" : [ ],
 	"classvars" : [ ],
 	"instvars" : [
-		"segment",
-		"index",
-		"pieces",
-		"pieceElements"
+		"selection"
 	],
-	"name" : "BrTextEditorSegment",
+	"name" : "BrTextEditorSelectionOverwriteRecorder",
 	"type" : "normal"
 }

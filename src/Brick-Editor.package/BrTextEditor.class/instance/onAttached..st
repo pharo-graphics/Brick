@@ -38,4 +38,4 @@ onAttached: anEditorElement
 		combination: (BlKeyCombination builder meta; key: Key arrowLeft; build);
 		action: [ self moveCursorToStartPreviousWord ]).
 
-	anEditorElement addEventHandlerOn: BlClickEvent do: [ self selectNone ]
+	anEditorElement addEventHandlerOn: BlMouseDownEvent do: [ self selectNone ]

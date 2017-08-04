@@ -5,10 +5,7 @@
 	"classinstvars" : [ ],
 	"pools" : [ ],
 	"classvars" : [ ],
-	"instvars" : [
-		"doItReceiver",
-		"bindings"
-	],
+	"instvars" : [ ],
 	"name" : "BrEditorElement",
 	"type" : "normal"
 }

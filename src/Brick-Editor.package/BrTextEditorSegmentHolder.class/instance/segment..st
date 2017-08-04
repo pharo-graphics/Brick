@@ -18,5 +18,5 @@ segment: anEditorSegment
 		ifFound: [ :aTextElement |
 			aTextElement showCursorAt: aCursor position - aTextElement text start + 1.
 			aTextElement requestFocus ].
-
+		
 	self updateSelection: pieceElements

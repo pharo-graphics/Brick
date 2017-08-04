@@ -1,0 +1,3 @@
+testing
+hasPieceElements
+	^ pieceElements isNotNil

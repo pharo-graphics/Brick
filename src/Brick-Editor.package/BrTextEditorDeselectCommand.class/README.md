@@ -1,0 +1,1 @@
+I deselect an interval of text from ===fromIndex=== to ===toIndex===
