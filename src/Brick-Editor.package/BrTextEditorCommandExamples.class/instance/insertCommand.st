@@ -2,4 +2,4 @@ instance creation
 insertCommand
 	<gtExample>
 	
-	^ BrTextEditorInsertCommand new
+	^ BrTextEditorInsertStringCommand new

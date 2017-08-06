@@ -11,5 +11,4 @@ moveCursorToEndNextWord
 		textIterator nextWord.
 		skip ifFalse: [ newPosition := textIterator position - 1 ] ].
 
-	self moveCursorTo: newPosition.
-	self selectNone
+	self moveCursorTo: newPosition

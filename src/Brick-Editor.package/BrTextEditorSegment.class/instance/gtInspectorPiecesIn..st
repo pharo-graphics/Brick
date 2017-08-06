@@ -1,4 +1,4 @@
-*Brick-Editor-Extensions
+as yet unclassified
 gtInspectorPiecesIn: composite
 	<gtInspectorPresentationOrder: 0>
 

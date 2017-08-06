@@ -1,4 +1,4 @@
-*Brick-Editor-Extensions
+as yet unclassified
 gtInspectorTextIn: composite
 	<gtInspectorPresentationOrder: 5>  
 	 composite text
