@@ -1,3 +1,6 @@
 testing
 hasCached
-	^ subText isNotNil
+	"Return true if there are cached segments, false otherwise"
+	<return: #Boolean>
+
+	^ segments isNotEmpty

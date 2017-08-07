@@ -6,4 +6,4 @@ moveTextBy: aNumber
 		ifFalse: [ ^ self ].
 	
 	self segments do: [ :aSegment | aSegment moveTextBy: aNumber ].
-	self updateSubText
+	self computeSubText

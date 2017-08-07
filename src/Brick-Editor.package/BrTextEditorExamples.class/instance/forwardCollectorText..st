@@ -1,6 +1,6 @@
 examples - collector
-forwardCollectorIterator: aCollector
+forwardCollectorText: aCollector
 	<gtExample>
 	<dependsOn: #collector:text:>
 	
-	^ aCollector forwardIterator
+	^ aCollector forwardText

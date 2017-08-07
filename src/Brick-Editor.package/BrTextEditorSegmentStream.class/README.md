@@ -1,0 +1,1 @@
+I am used by ===BrTextEditorSegmentBuilder=== to stream created segments so that ===BrTextEditorSegmentsCollector=== could collect them.

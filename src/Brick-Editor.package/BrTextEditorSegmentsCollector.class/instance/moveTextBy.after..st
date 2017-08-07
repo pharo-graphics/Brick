@@ -7,4 +7,4 @@ moveTextBy: aNumber after: aSegment
 		eachSegment := self cachedAt: anIndex.
 		eachSegment moveTextBy: aNumber ].
 	
-	self updateSubText
+	self computeSubText
