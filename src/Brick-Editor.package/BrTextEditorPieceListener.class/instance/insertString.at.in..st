@@ -6,7 +6,7 @@ insertString: aString at: aTextIndex in: aTextEditElement
 	It should be converted to a global index of the whole text model"
 	| aGlobalIndex |
 		
-	aGlobalIndex := aTextEditElement text start + aTextIndex - 1.
+	aGlobalIndex := (aTextEditElement text start + aTextIndex - 1) max: 0.
 
 	self editor
 		insertString: aString

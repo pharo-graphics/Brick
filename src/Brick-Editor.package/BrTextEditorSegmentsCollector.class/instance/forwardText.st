@@ -4,6 +4,9 @@ forwardText
 	<return: #BrText>
 	| textStart textEnd |
 
+	text isEmpty
+		ifTrue: [ ^ BrSubText empty: text ].
+
 	textStart := self end + 1.
 	textEnd := text size.
 

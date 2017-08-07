@@ -1,3 +1,3 @@
 accessing
 itemCount
-	^ collector segmentsCount
+	^ segmentsCollector segmentsCount

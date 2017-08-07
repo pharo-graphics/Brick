@@ -4,7 +4,7 @@ computeSegmentIndices
 	
 	self
 		assert: [ self hasCached ]
-		description: [ 'There must be cached segments in order to ciompute sub text' ].
+		description: [ 'There must be cached segments in order to compute sub text' ].
 	
 	self
 		assert: [ segments size = interval size ]

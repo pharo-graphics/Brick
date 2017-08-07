@@ -20,7 +20,7 @@ computeForwardAt: anIndex
 	forwardText := self forwardText.
 	stream := BrTextEditorSegmentStream new.
 	stream skip: skip.
-	stream limit: limit - skip.
+	stream limit: self cacheLimit - skip.
 	builder := BrTextEditorLineSegmentBuilder new.
 	
 	builder split: forwardText in: stream.

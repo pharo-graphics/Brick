@@ -1,6 +1,6 @@
 accessing
 selectionRecorder
-	<return: #BrTextEditorSelectionOverwriteRecorder>
+	<return: #BrTextEditorSelectionRecorder>
 
 	self
 		assert: [ selectionRecorder isNotNil ]

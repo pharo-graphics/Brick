@@ -1,3 +1,3 @@
 initialization
 defaultLayout
-	^ BlInfiniteLinearLayout new
+	^ BlInfiniteLinearLayout vertical

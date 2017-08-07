@@ -7,11 +7,12 @@
 	"classvars" : [ ],
 	"instvars" : [
 		"text",
-		"collector",
 		"cursor",
 		"textEditListener",
 		"selection",
-		"selectionRecorder"
+		"selectionRecorder",
+		"segmentBuilder",
+		"segmentsCollector"
 	],
 	"name" : "BrTextEditor",
 	"type" : "normal"

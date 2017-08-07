@@ -4,6 +4,6 @@ onBindHolder: aSegmentHolder at: aPosition
 	| aSegment |
 
 	"First we want to acquire a segment for a given position"
-	aSegment := collector segmentAt: aPosition.
+	aSegment := segmentsCollector segmentAt: aPosition.
 	"and than bind it to the holder"
 	aSegmentHolder segment: aSegment

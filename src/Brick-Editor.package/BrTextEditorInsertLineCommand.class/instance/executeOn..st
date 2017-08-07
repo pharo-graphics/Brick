@@ -1,7 +1,7 @@
 executing
 executeOn: aTextEditor
-	
-	aTextEditor collector
+
+	aTextEditor segmentsCollector
 		cachedSegmentAt: self index
 		ifFound: [ :aSegment |
 			| nextSegment aString |
@@ -11,18 +11,18 @@ executeOn: aTextEditor
 				insertString: aString
 				at: self index.
 
-			aTextEditor collector
+			aTextEditor segmentsCollector
 				addSegments: 1
 				after: aSegment.
 
-			nextSegment := aTextEditor collector cachedAt: aSegment index + 1.
+			nextSegment := aTextEditor segmentsCollector cachedAt: aSegment index + 1.
 			nextSegment segment: (aTextEditor text from: self index + 2 to: aSegment end + 1).
 
 			aSegment segment: (aTextEditor text from: aSegment start to: self index).
 			aSegment invalidate.
 
 			"move all segments after the one in which text was inserted"
-			aTextEditor collector moveTextBy: 1 after: nextSegment.
+			aTextEditor segmentsCollector moveTextBy: 1 after: nextSegment.
 	
 			aTextEditor notifyItemsChanged: (aSegment index to: aSegment index).
 			aTextEditor notifyItemsInserted: (nextSegment index to: nextSegment index) ]

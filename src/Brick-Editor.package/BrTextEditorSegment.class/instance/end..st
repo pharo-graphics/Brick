@@ -1,3 +1,3 @@
 accessing
-end: anObject
-	segment end: anObject
+end: aNumber
+	segment start: self start end: aNumber
