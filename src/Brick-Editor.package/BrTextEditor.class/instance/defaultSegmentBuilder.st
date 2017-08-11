@@ -1,3 +1,3 @@
 initialization
 defaultSegmentBuilder
-	^ BrTextEditorSegmentBuilder new
+	^ BrTextEditorLineSegmentBuilder new

@@ -1,6 +1,6 @@
 executing
 executeOn: aTextEditor
-	aTextEditor segmentsCollector
+	aTextEditor segmentCollector
 		cachedSegmentAt: self index
 		ifFound: [ :aSegment |
 			aTextEditor text
@@ -10,7 +10,7 @@ executeOn: aTextEditor
 			aSegment invalidate.
 			aSegment moveTextBy: -1 after: self index.
 			
-			aTextEditor segmentsCollector moveTextBy: -1 after: aSegment.
+			aTextEditor segmentCollector moveTextBy: -1 after: aSegment.
 			aTextEditor notifyItemsChanged: (aSegment index to: aSegment index)
 		]
 		ifNotFound: [ self shouldBeImplemented ]

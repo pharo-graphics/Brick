@@ -1,3 +1,3 @@
 accessing
-split: arg1 in: arg2 
+split: aBrText in: aStream
 	^ self shouldBeImplemented

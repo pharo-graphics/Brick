@@ -1,0 +1,11 @@
+{
+	"commentStamp" : "",
+	"super" : "BrTextReplacementAttribute",
+	"category" : "Brick-Editor-Txt-Attributes",
+	"classinstvars" : [ ],
+	"pools" : [ ],
+	"classvars" : [ ],
+	"instvars" : [ ],
+	"name" : "BrTextReplacementColorAttribute",
+	"type" : "normal"
+}

@@ -6,14 +6,14 @@ executeOn: aTextEditor
 		
 	changedTo := self toIndex.
 
-	aTextEditor segmentsCollector
+	aTextEditor segmentCollector
 		cachedSegmentAt: changedFrom
 		ifFound: [ :aSegment | changedFrom := aSegment index ]
 		ifNotFound: [ 1 ].
 	
-	aTextEditor segmentsCollector
+	aTextEditor segmentCollector
 		cachedSegmentAt: changedTo
 		ifFound: [ :aSegment | changedTo := aSegment index ]
-		ifNotFound: [ changedTo := aTextEditor segmentsCollector segmentsCount].	
+		ifNotFound: [ changedTo := aTextEditor segmentCollector segmentsCount].	
 
 	aTextEditor notifyItemsChanged: (changedFrom to: changedTo)

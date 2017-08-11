@@ -4,5 +4,10 @@ SystemOrganization addCategory: 'Brick-Editor-Commands-Optimisation'!
 SystemOrganization addCategory: 'Brick-Editor-Examples'!
 SystemOrganization addCategory: 'Brick-Editor-Layout'!
 SystemOrganization addCategory: 'Brick-Editor-Model'!
-SystemOrganization addCategory: 'Brick-Editor-Model-Segments'!
+SystemOrganization addCategory: 'Brick-Editor-Model-Segment'!
+SystemOrganization addCategory: 'Brick-Editor-Model-Segment-Text'!
+SystemOrganization addCategory: 'Brick-Editor-Model-Segment-Text-Line'!
+SystemOrganization addCategory: 'Brick-Editor-Model-Segment-Text-Line-Attributed'!
+SystemOrganization addCategory: 'Brick-Editor-Model-Segment-Text-Word'!
+SystemOrganization addCategory: 'Brick-Editor-Txt-Attributes'!
 SystemOrganization addCategory: 'Brick-Editor-UI'!

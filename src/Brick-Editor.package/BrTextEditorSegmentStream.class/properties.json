@@ -1,7 +1,7 @@
 {
 	"commentStamp" : "AliakseiSyrel 8/7/2017 12:40",
 	"super" : "Object",
-	"category" : "Brick-Editor-Model-Segments",
+	"category" : "Brick-Editor-Model-Segment-Text",
 	"classinstvars" : [ ],
 	"pools" : [ ],
 	"classvars" : [ ],

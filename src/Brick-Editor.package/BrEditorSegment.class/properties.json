@@ -1,0 +1,13 @@
+{
+	"commentStamp" : "AliakseiSyrel 8/10/2017 12:47",
+	"super" : "Object",
+	"category" : "Brick-Editor-Model-Segment",
+	"classinstvars" : [ ],
+	"pools" : [ ],
+	"classvars" : [ ],
+	"instvars" : [
+		"index"
+	],
+	"name" : "BrEditorSegment",
+	"type" : "normal"
+}

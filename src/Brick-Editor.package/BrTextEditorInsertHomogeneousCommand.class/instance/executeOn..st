@@ -1,7 +1,7 @@
 executing
 executeOn: aTextEditor
 
-	aTextEditor segmentsCollector
+	aTextEditor segmentCollector
 		cachedSegmentAt: self index
 		ifFound: [ :aSegment |
 			| aString |
@@ -16,7 +16,7 @@ executeOn: aTextEditor
 				insertedString: aString
 				at: self index.
 
-			aTextEditor segmentsCollector
+			aTextEditor segmentCollector
 				moveTextBy: 1
 				after: aSegment ]
 		ifNotFound: [ self shouldBeImplemented ]

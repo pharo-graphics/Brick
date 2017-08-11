@@ -7,5 +7,8 @@ initialize
 	selection := self defaultSelection.
 	selectionRecorder := self defaultSelectionRecorder.
 	text := self defaultText.
-	segmentsCollector := self defaultSegmentsCollector.
-	segmentsCollector text: text
+	segmentCollector := self defaultSegmentCollector.
+	segmentCollector editor: self.
+	segmentCollector text: text.
+	segmentBuilder := self defaultSegmentBuilder.
+	styler := self defaultStyler

@@ -8,14 +8,14 @@ executeOn: aTextEditor
 		insertString: aString
 		at: self index.
 
-	aTextEditor segmentsCollector
+	aTextEditor segmentCollector
 		cachedSegmentAt: self index
 		ifFound: [ :aSegment |			
-			aSegment start: (aSegment start max: 1) end: aSegment end + 1.
+			aSegment start: (aSegment textStart max: 1) end: aSegment textEnd + 1.
 			aSegment invalidate.
 
 			"move all segments after the one in which text was inserted"
-			aTextEditor segmentsCollector moveTextBy: 1 after: aSegment.
+			aTextEditor segmentCollector moveTextBy: 1 after: aSegment.
 	
 			aTextEditor notifyItemsChanged: (aSegment index to: aSegment index) ]
 		ifNotFound: [ :aCollector |

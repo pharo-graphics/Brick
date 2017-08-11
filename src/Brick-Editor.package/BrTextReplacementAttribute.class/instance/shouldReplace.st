@@ -1,0 +1,3 @@
+testing
+shouldReplace
+	^ shouldAppend not

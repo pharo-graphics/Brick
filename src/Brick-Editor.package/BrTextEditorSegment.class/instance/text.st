@@ -1,3 +1,6 @@
 accessing
 text
-	^ self segment
+	"Return a sub-text that I represent"
+	<return: #BrSubText>
+
+	^ text

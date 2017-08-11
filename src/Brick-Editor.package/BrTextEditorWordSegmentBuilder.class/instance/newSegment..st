@@ -1,3 +1,3 @@
 accessing
-newSegment: arg1 
+newSegment: aBrSubText
 	^ self shouldBeImplemented

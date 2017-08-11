@@ -1,3 +1,3 @@
 testing
 isEmpty
-	^ segment isEmpty
+	^ text isEmpty

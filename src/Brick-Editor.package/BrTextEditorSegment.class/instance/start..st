@@ -1,3 +1,3 @@
 accessing
 start: aNumber
-	segment start: aNumber end: self end
+	text start: aNumber end: self end

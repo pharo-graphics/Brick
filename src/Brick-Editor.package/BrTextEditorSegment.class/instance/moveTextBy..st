@@ -7,13 +7,11 @@ moveTextBy: aNumber
 	| aText |
 
 	aText := self text.
-	aText start: aText start + aNumber.
-	aText end: aText end + aNumber.
+	aText start: aText start + aNumber end: aText end + aNumber.
 	
 	"no pieces created (they were not requested yet so no need to move them)"
 	self hasPieces
 		ifFalse: [ ^ self ].
-		
-	self pieces do: [ :aTextPiece |
-		aTextPiece start: aTextPiece start + aNumber.
-		aTextPiece end: aTextPiece end + aNumber ]
+
+	self pieces
+		do: [ :aTextPiece | aTextPiece start: aTextPiece start + aNumber end: aTextPiece end + aNumber ]

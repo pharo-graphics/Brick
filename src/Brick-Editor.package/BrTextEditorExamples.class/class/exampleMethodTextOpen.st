@@ -7,7 +7,7 @@ exampleMethodTextOpen
 		BrFontSizeAttribute size: 18.
 		BrFontGenericFamilyAttribute monospace
 	}.
-	"editorElement editor selection interval: (35 to: 140)."
+	editorElement editor segmentBuilder: (BrTextEditorLineSegmentBuilder of: BrTextEditorAttributedLineSegment).
 	editorElement constraintsDo: [ :c |
 		c horizontal matchParent.
 		c vertical matchParent ].
@@ -18,5 +18,3 @@ exampleMethodTextOpen
 	space extent: 800@400.
 	space root addChild: editorElement.
 	space show.
-	
-	"editorElement inspect"

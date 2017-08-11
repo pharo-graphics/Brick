@@ -14,4 +14,4 @@ moveTextBy: aNumber after: aTextIndex
 		thenDo: [ :aSubText |
 			aSubText start: (aSubText start max: 1) end: aSubText end + aNumber.
 			(aTextIndex between: aSubText start and: aSubText end)
-				ifFalse: [ aSubText start: aSubText start + aNumber ] ]
+				ifFalse: [ aSubText start: aSubText start + aNumber end: aSubText end ] ]

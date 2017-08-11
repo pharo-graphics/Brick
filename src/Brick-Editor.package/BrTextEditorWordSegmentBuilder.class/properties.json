@@ -1,7 +1,7 @@
 {
 	"commentStamp" : "AliakseiSyrel 8/6/2017 14:08",
 	"super" : "BrTextEditorSegmentBuilder",
-	"category" : "Brick-Editor-Model-Segments",
+	"category" : "Brick-Editor-Model-Segment-Text-Word",
 	"classinstvars" : [ ],
 	"pools" : [ ],
 	"classvars" : [ ],

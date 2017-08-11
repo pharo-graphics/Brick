@@ -1,3 +1,0 @@
-initialization
-defaultSegmentsCollector
-	^ BrTextEditorSegmentsCollector new

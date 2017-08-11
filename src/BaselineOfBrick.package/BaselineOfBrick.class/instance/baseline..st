@@ -19,8 +19,7 @@ baseline: spec
 			package: #'Brick-Material' with: [ spec requires: #('Brick-Theme' ). ];
 			package: #'Brick-UI' with: [ spec requires: #(#Brick  'Brick-Theme'). ];
 			package: #'Brick-Editor' with: [ spec requires: #(Brick 'Brick-Theme'). ];
-			package: #'Brick-Editor-Text' with: [ spec requires: #(Brick 'Brick-Theme' 'Brick-Editor'). ];
-			package: #'Brick-Editor-Extensions' with: [ spec requires: #(Brick 'Brick-Theme' 'Brick-Editor' 'Brick-Editor-Text'). ];
+			package: #'Brick-Editor-Extensions' with: [ spec requires: #(Brick 'Brick-Theme' 'Brick-Editor'). ];
 			package: #'Brick-Sparta' with: [ spec requires: #(Brick 'Brick-Theme'). ];
 			package: #'Brick-Examples' with: [ spec requires: #('Brick-UI' 'Brick-Material'). ];
 			package: #'Brick-Experimental' with: [ spec requires: #('Brick-UI' 'Brick-Material'). ];
@@ -30,7 +29,6 @@ baseline: spec
 				'Brick-UI'
 				'Brick-Examples'
 				'Brick-Editor'
-				'Brick-Editor-Text'
 				'Brick-Editor-Extensions'
 				'Brick-Sparta'
 				'Brick-Experimental');

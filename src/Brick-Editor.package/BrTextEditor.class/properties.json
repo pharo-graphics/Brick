@@ -12,7 +12,8 @@
 		"selection",
 		"selectionRecorder",
 		"segmentBuilder",
-		"segmentsCollector"
+		"segmentCollector",
+		"styler"
 	],
 	"name" : "BrTextEditor",
 	"type" : "normal"

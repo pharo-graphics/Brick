@@ -15,4 +15,6 @@ delete: aFromTextIndex to: aToTextIndex
 	aCommand := self newDeleteCommand
 		fromIndex: aFromTextIndex;
 		toIndex: aToTextIndex.
-	self enqueueCommand: aCommand
+	self enqueueCommand: aCommand.
+	
+	self styler styleInBackgroundProcess: self text unstyled

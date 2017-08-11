@@ -1,0 +1,18 @@
+{
+	"commentStamp" : "AliakseiSyrel 8/5/2017 00:09",
+	"super" : "Object",
+	"category" : "Brick-Editor-Model-Segment-Text",
+	"classinstvars" : [ ],
+	"pools" : [ ],
+	"classvars" : [ ],
+	"instvars" : [
+		"text",
+		"subText",
+		"segments",
+		"interval",
+		"limit",
+		"editor"
+	],
+	"name" : "BrTextEditorSegmentCollector",
+	"type" : "normal"
+}

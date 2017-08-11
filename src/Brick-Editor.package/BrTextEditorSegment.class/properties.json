@@ -1,15 +1,12 @@
 {
-	"commentStamp" : "AliakseiSyrel 8/5/2017 00:18",
-	"super" : "Object",
-	"category" : "Brick-Editor-Model-Segments",
+	"commentStamp" : "AliakseiSyrel 8/9/2017 19:16",
+	"super" : "BrEditorSegment",
+	"category" : "Brick-Editor-Model-Segment-Text",
 	"classinstvars" : [ ],
 	"pools" : [ ],
 	"classvars" : [ ],
 	"instvars" : [
-		"segment",
-		"index",
-		"pieces",
-		"pieceElements"
+		"text"
 	],
 	"name" : "BrTextEditorSegment",
 	"type" : "normal"

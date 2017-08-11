@@ -1,3 +1,3 @@
 accessing
 start: aStartIndex end: anEndIndex
-	segment start: aStartIndex end: anEndIndex
+	text start: aStartIndex end: anEndIndex

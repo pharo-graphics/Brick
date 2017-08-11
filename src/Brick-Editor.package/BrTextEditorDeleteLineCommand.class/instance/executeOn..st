@@ -1,6 +1,6 @@
 executing
 executeOn: aTextEditor
-	aTextEditor segmentsCollector
+	aTextEditor segmentCollector
 		cachedSegmentAt: self index
 		ifFound: [ :aSegment |
 			| previousSegment |
@@ -9,18 +9,18 @@ executeOn: aTextEditor
 				delete: self index
 				to: self index.
 
-			previousSegment := aTextEditor segmentsCollector cachedAt: aSegment index - 1.
+			previousSegment := aTextEditor segmentCollector cachedAt: aSegment index - 1.
 
 			"merge two segments in one"
 			previousSegment segment: (aTextEditor text from: previousSegment start to: aSegment end - 1).
 			previousSegment invalidate.
 			
-			aTextEditor segmentsCollector
+			aTextEditor segmentCollector
 				removeSegments: 1
 				after: previousSegment.
 
 			"move all segments after the one in which text was inserted"
-			aTextEditor segmentsCollector moveTextBy: -1 after: previousSegment.
+			aTextEditor segmentCollector moveTextBy: -1 after: previousSegment.
 	
 			aTextEditor notifyItemsChanged: (previousSegment index to: previousSegment index).
 			aTextEditor notifyItemsRemoved: (aSegment index to: aSegment index)

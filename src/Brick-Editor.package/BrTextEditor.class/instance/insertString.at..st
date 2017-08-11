@@ -5,4 +5,6 @@ insertString: aString at: aTextIndex
 	aCommand := self newInsertStringCommand
 		string: aString;
 		index: aTextIndex.
-	self enqueueCommand: aCommand
+	self enqueueCommand: aCommand.
+	
+	self styler styleInBackgroundProcess: self text unstyled
