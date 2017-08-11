@@ -6,6 +6,6 @@
 	"pools" : [ ],
 	"classvars" : [ ],
 	"instvars" : [ ],
-	"name" : "BrTextReplacementColorAttribute",
+	"name" : "BrTextReplacementEditorAttribute",
 	"type" : "normal"
 }

@@ -9,6 +9,6 @@
 		"newSegment",
 		"shouldAppend"
 	],
-	"name" : "BrTextReplacementAttribute",
+	"name" : "BrTextAdornmentAttribute",
 	"type" : "normal"
 }

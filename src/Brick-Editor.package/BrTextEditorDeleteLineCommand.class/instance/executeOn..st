@@ -12,7 +12,7 @@ executeOn: aTextEditor
 			previousSegment := aTextEditor segmentCollector cachedAt: aSegment index - 1.
 
 			"merge two segments in one"
-			previousSegment segment: (aTextEditor text from: previousSegment start to: aSegment end - 1).
+			previousSegment initializeWith: (aTextEditor text from: previousSegment textStart to: aSegment textEnd - 1).
 			previousSegment invalidate.
 			
 			aTextEditor segmentCollector

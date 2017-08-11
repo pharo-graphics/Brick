@@ -3,7 +3,7 @@ addSegments: aNumberOfSegments after: aSegment
 
 	aNumberOfSegments timesRepeat: [
 		self segments
-			add: self newSegment
+			add: (self editor segmentBuilder newSegment: (BrSubText empty: (BrRopedText string: '')))
 			afterIndex: aSegment index ].
 
 	self segments

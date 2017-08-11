@@ -16,9 +16,9 @@ executeOn: aTextEditor
 				after: aSegment.
 
 			nextSegment := aTextEditor segmentCollector cachedAt: aSegment index + 1.
-			nextSegment segment: (aTextEditor text from: self index + 2 to: aSegment textEnd + 1).
+			nextSegment initializeWith: (aTextEditor text from: self index + 2 to: aSegment textEnd + 1).
 
-			aSegment segment: (aTextEditor text from: aSegment start to: self index).
+			aSegment initializeWith: (aTextEditor text from: aSegment textStart to: self index).
 			aSegment invalidate.
 
 			"move all segments after the one in which text was inserted"
