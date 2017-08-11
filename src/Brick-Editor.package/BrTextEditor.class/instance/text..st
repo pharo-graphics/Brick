@@ -8,8 +8,10 @@ text: aBrText
 	segmentCollector := self defaultSegmentCollector.
 	segmentCollector editor: self.
 	segmentCollector text: text.
-
-	self styler style: self text copy.
+	
+	text size > 1000
+		ifTrue: [ self styler styleInBackgroundProcessNow: self text copy ]
+		ifFalse: [ self styler style: self text copy ].
 
 	"notify UI about structural update"
 	self notifyChanged

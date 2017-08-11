@@ -16,5 +16,5 @@ delete: aFromTextIndex to: aToTextIndex
 		fromIndex: aFromTextIndex;
 		toIndex: aToTextIndex.
 	self enqueueCommand: aCommand.
-	
-	self styler styleInBackgroundProcess: self text unstyled
+
+	self styler styleInBackgroundProcess: self text copy
