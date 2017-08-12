@@ -2,7 +2,7 @@ initialization
 createSegmentElement
 	<return: #BlElement>
 	
-	^ BlElement new
+	^ BrTextEditorSegmentElement new
 		layout: BrEditorFlowLayout new;
 		focusability: BlFocusability after;
 		margin: (BlInsets bottom: 5);
