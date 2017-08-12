@@ -10,7 +10,7 @@ script
 		self targetText 
 			attributes: { 
 			BrFontGenericFamilyAttribute monospace.
-			(BrFontSizeAttribute size: 14) }
+			BrFontSizeAttribute size: 14 }
 			from: t third start
 			to: t third stop.
 		]

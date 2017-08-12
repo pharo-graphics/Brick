@@ -3,6 +3,7 @@ header
 	^ super header token
 	==> [ :t | 
 		self targetText  
-			attributes: { BrTextForegroundAttribute paint: Color blue darker }
+			attributes: { 
+				BrFontSizeAttribute size: 20 - (t parsedValue first size)  }
 			from: t start 
 			to: t stop ]
