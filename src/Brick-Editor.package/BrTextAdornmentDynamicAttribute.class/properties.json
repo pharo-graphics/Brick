@@ -1,0 +1,13 @@
+{
+	"commentStamp" : "",
+	"super" : "BrTextAdornmentAttribute",
+	"category" : "Brick-Editor-Txt-Attributes",
+	"classinstvars" : [ ],
+	"pools" : [ ],
+	"classvars" : [ ],
+	"instvars" : [
+		"adornmentBlock"
+	],
+	"name" : "BrTextAdornmentDynamicAttribute",
+	"type" : "normal"
+}
