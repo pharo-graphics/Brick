@@ -3,7 +3,7 @@ figure
 	^ super figure 
 	==> [ :tokens | 
 		| attribute pictureFileReference fileNameWithoutPrefix |
-		fileNameWithoutPrefix := self fileReference basename.
+		fileNameWithoutPrefix := tokens third.
 		(fileNameWithoutPrefix beginsWith: 'file://') ifTrue: [ 
 			fileNameWithoutPrefix := fileNameWithoutPrefix copyFrom: 'file://' size + 1 to: fileNameWithoutPrefix size ].
 		pictureFileReference := self fileReference parent resolveString: fileNameWithoutPrefix.
