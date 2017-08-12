@@ -1,0 +1,13 @@
+{
+	"commentStamp" : "",
+	"super" : "BrTextStyler",
+	"category" : "Brick-Editor-Pillar",
+	"classinstvars" : [ ],
+	"pools" : [ ],
+	"classvars" : [ ],
+	"instvars" : [
+		"fileReference"
+	],
+	"name" : "BrPillarStyler",
+	"type" : "normal"
+}

@@ -1,0 +1,14 @@
+{
+	"commentStamp" : "",
+	"super" : "PRPillarGrammar",
+	"category" : "Brick-Editor-Pillar",
+	"classinstvars" : [ ],
+	"pools" : [ ],
+	"classvars" : [ ],
+	"instvars" : [
+		"fileReference",
+		"targetText"
+	],
+	"name" : "BrPillarHighlightingParser",
+	"type" : "normal"
+}

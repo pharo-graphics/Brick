@@ -4,7 +4,7 @@ exampleSyntaxHighlighter
 	text := BrRopedText string: (IntegerTest>>#testPositiveIntegerPrinting) sourceCode.
 	text attributes: {
 		BrFontGenericFamilyAttribute monospace beNotOverwritableByStyler.
-		(BrFontSizeAttribute size: 20) beNotOverwritableByStyler }.
+		(BrFontSizeAttribute size: 14) beNotOverwritableByStyler }.
 
 	styler := BrRBTextStyler new.
 	styler classOrMetaClass: Morph.
