@@ -1,6 +1,8 @@
 hooks
 onAttached: anEditorElement
 	super onAttached: anEditorElement.
+	
+	anEditorElement addEventHandler: BrTextEditorSelectionHandler new.
 
 	anEditorElement addShortcut: (BlShortcut new
 		combination: (BlKeyCombination builder meta; key: Key s; build);

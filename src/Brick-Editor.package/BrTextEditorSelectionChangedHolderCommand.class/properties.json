@@ -1,0 +1,11 @@
+{
+	"commentStamp" : "",
+	"super" : "BrTextEditorHolderCommand",
+	"category" : "Brick-Editor-Commands-Holder",
+	"classinstvars" : [ ],
+	"pools" : [ ],
+	"classvars" : [ ],
+	"instvars" : [ ],
+	"name" : "BrTextEditorSelectionChangedHolderCommand",
+	"type" : "normal"
+}
