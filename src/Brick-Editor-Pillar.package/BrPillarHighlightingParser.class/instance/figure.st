@@ -31,7 +31,7 @@ figure
 							to: tokens last stop ].
 						
 				self targetText 
-					attributes: { BrTextForegroundAttribute paint: Color blue }
+					attributes: { BrTextForegroundAttribute paint: Color blue muchDarker }
 					from: tokens first start 
 					to: tokens last stop.
 				]

@@ -2,6 +2,7 @@ parsers
 annotatedParagraph
 	^ super annotatedParagraph token
 	==> [ :t | 
-		"self commands add: (GTNoteHighlightingCommand new 
-			start: t start;
-			stop: t stop)" ]
+		self targetText 
+					attributes: { BrTextForegroundAttribute paint: Color red muchDarker }
+					from: t start 
+					to: t stop. ]
