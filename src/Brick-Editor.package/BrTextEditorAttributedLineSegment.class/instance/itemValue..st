@@ -13,13 +13,13 @@ itemValue: aBrTextIterator
 
 	initialValue := self itemValueType: aBrTextIterator peek.
 
-	aTextPiece := aBrTextIterator nextSegment: [ :aCharacter |
+	aTextPiece := aBrTextIterator nextSegment: [ :aCharacter |		
 		initialAttributes = (aBrTextIterator selectAttributes: #isReplacement)
 				ifTrue: [ initialAttributes
-					ifNil: [ self itemValueType: aCharacter ]
-					ifNotNil: [ initialValue ] ]
+					ifEmpty: [ self itemValueType: aCharacter ]
+					ifNotEmpty: [ initialValue ] ]
 				ifFalse: [ #different ] ].
-	
+		
 	^ initialAttributes
 		ifEmpty: [ BrTextEditorAttributedLineSegmentTextPiece new text: aTextPiece ]
 		ifNotEmpty: [ :theAttributes |
