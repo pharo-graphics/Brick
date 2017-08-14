@@ -1,13 +1,13 @@
 {
-	"commentStamp" : "",
+	"commentStamp" : "AliakseiSyrel 8/14/2017 16:21",
 	"super" : "BrTextAdornmentAttribute",
-	"category" : "Brick-Editor-Text-Attributes",
+	"category" : "Brick-Editor-Pillar",
 	"classinstvars" : [ ],
 	"pools" : [ ],
 	"classvars" : [ ],
 	"instvars" : [
-		"adornmentBlock"
+		"image"
 	],
-	"name" : "BrTextAdornmentDynamicAttribute",
+	"name" : "BrPillarPictureAttribute",
 	"type" : "normal"
 }

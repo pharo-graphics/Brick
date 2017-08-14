@@ -4,33 +4,30 @@ itemValue: aBrTextIterator
 	object is of type BrText, since replacement attribute may replace a part of text
 	with multiple arbitrary objects"
 	<return: #BrTextEditorAttributedLineSegmentPiece>
-	| initialAttribute initialValue aTextPiece |
+	| initialAttributes initialValue aTextPiece |
 
 	replacedPieces
 		ifNotEmpty: [ :theReplacement | ^ theReplacement pop ].
 
-	initialAttribute := aBrTextIterator
-			detectAttribute: #isReplacement
-			ifFound: #yourself
-			ifNone: [ nil ].
+	initialAttributes := aBrTextIterator selectAttributes: #isReplacement.
 
 	initialValue := self itemValueType: aBrTextIterator peek.
 
 	aTextPiece := aBrTextIterator nextSegment: [ :aCharacter |
-		initialAttribute = (aBrTextIterator
-			detectAttribute: #isReplacement
-			ifFound: #yourself
-			ifNone: [ nil ])
-				ifTrue: [ initialAttribute
+		initialAttributes = (aBrTextIterator selectAttributes: #isReplacement)
+				ifTrue: [ initialAttributes
 					ifNil: [ self itemValueType: aCharacter ]
 					ifNotNil: [ initialValue ] ]
 				ifFalse: [ #different ] ].
-		
-	^ initialAttribute
-		ifNil: [ BrTextEditorAttributedLineSegmentTextPiece new text: aTextPiece ]
-		ifNotNil: [ :anAttribute |
-			initialAttribute shouldAppend
-				ifTrue: [ 
-					replacedPieces push: (BrTextEditorAttributedLineSegmentReplacementPiece new text: aTextPiece; attribute: initialAttribute).
-					BrTextEditorAttributedLineSegmentTextPiece new text: aTextPiece ]
-				ifFalse: [ BrTextEditorAttributedLineSegmentReplacementPiece new text: aTextPiece; attribute: initialAttribute ] ]
+	
+	^ initialAttributes
+		ifEmpty: [ BrTextEditorAttributedLineSegmentTextPiece new text: aTextPiece ]
+		ifNotEmpty: [ :theAttributes |
+			theAttributes
+				detect: #shouldReplace
+				ifFound: [ :aReplacementAttribute | BrTextEditorAttributedLineSegmentReplacementPiece new text: aTextPiece; attribute: aReplacementAttribute ]
+				ifNone: [
+					theAttributes
+						select: #shouldAppend
+						thenDo: [ :anAppendingAttribute | replacedPieces push: (BrTextEditorAttributedLineSegmentReplacementPiece new text: aTextPiece; attribute: anAppendingAttribute) ].
+					BrTextEditorAttributedLineSegmentTextPiece new text: aTextPiece ] ].

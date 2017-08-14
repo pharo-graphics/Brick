@@ -6,6 +6,7 @@ select: aFromIndex to: aToIndex in: aTextEditElement
 	aTextEditElement selection do: [ :aMonotoneSelection |
 		aGlobalFrom := aTextEditElement text start + aMonotoneSelection from - 1.
 		aGlobalTo := aTextEditElement text start + aMonotoneSelection to - 1.
+		
 		self editor recordDeselection: (BlTextSelection from: aGlobalFrom to: aGlobalTo) ].
 	
 	aGlobalFrom := aTextEditElement text start + aFromIndex - 1.

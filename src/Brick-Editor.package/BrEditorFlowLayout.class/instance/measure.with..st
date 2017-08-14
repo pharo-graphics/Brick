@@ -24,5 +24,7 @@ measure: anElement with: anExtentSpec
 	
 	lines do: [ :aLine |
 		aLine elements ifNotEmpty: [ :theElements |
-			theElements last measure: (BlExtentMeasurementSpec exact:
-				theElements last measuredExtent + (((anElement measuredWidth - aLine width) max: 0) @ 0)) ] ]
+			(theElements last isKindOf: BlTextEditElement)
+				ifTrue: [
+					theElements last measure: (BlExtentMeasurementSpec exact:
+						theElements last measuredExtent + (((anElement measuredWidth - aLine width) max: 0) @ 0)) ] ] ]

@@ -15,16 +15,21 @@ figure
 					and: [ pictureFileReference mimeTypes notNil
 						and: [ pictureFileReference mimeTypes first matches: ZnMimeType imagePng ] ])
 					ifTrue: [ 
-						| previewAttribute |
-						previewAttribute := BrTextAdornmentDynamicAttribute new
-							beAppend;
-							adornmentBlock: [ :aBrText |
-								| anImageForm |
-								anImageForm := pictureFileReference binaryReadStreamDo: [ :stream | PNGReadWriter formFromStream: stream ].
-								BlElement new
-									size: anImageForm extent;
-									background: (BlBackground builder image: anImageForm; build);
-									yourself ].
+						| previewAttribute |						
+						previewAttribute := BrPillarExpandButtonAttribute new.
+						previewAttribute action: [ :aBrText :aTextEditor :anAttribute |
+							| isExpanded |
+							isExpanded := anAttribute expanded.
+							isExpanded
+								ifTrue: [ aBrText clearAttributes: [ :aTextAttribute | aTextAttribute isKindOf: BrPillarPictureAttribute ] ]
+								ifFalse: [ 
+									| anImageForm |
+									anImageForm := pictureFileReference binaryReadStreamDo: [ :stream | PNGReadWriter formFromStream: stream ].
+									aBrText attributes: { BrPillarPictureAttribute image: anImageForm } ].
+							anAttribute expanded: isExpanded not.
+							aTextEditor invalidateAll.
+							aTextEditor updateAll ].
+						
 						self targetText 
 							attributes: { previewAttribute }
 							from: tokens first start 

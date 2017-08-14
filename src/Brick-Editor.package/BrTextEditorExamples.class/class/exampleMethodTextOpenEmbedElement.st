@@ -8,7 +8,7 @@ exampleMethodTextOpenEmbedElement
 		BrFontGenericFamilyAttribute monospace
 	}.
 	editorElement editor text attributes: {
-		BrTextReplacementColorAttribute new
+		BrTextAdornmentDynamicAttribute new adornmentBlock: [ BlElement new size: 70 @ 50; background: Color red; yourself ]
 	} from: 30 to: 30.
 	editorElement editor segmentBuilder: (BrTextEditorAttributedLineSegmentBuilder new).
 	editorElement constraintsDo: [ :c |

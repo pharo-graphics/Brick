@@ -1,3 +1,3 @@
 comparing
 equals: aTextAttribute
-	^ true
+	^ aTextAttribute class = self class

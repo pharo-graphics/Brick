@@ -2,6 +2,8 @@ selection
 commit: aTextEditor
 	"Commit recorded selection intervals in a given text editor"
 		
-	aTextEditor selection: selection.
+	aTextEditor selection: (BlCompositeTextSelection new add: self selection).
 	aTextEditor updateSelection: 1 to: aTextEditor text size.
-	selection := BlCompositeTextSelection new
+
+	compositeSelection := BlCompositeTextSelection new.
+	selection := BlMonotoneTextSelection new
