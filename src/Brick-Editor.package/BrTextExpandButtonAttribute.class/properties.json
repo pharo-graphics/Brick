@@ -1,7 +1,7 @@
 {
 	"commentStamp" : "AliakseiSyrel 8/14/2017 16:13",
 	"super" : "BrTextAdornmentAttribute",
-	"category" : "Brick-Editor-Pillar",
+	"category" : "Brick-Editor-Text-Attributes",
 	"classinstvars" : [ ],
 	"pools" : [ ],
 	"classvars" : [ ],
@@ -9,6 +9,6 @@
 		"action",
 		"expanded"
 	],
-	"name" : "BrPillarExpandButtonAttribute",
+	"name" : "BrTextExpandButtonAttribute",
 	"type" : "normal"
 }

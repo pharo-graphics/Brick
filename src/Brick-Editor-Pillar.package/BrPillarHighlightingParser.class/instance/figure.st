@@ -16,7 +16,7 @@ figure
 						and: [ pictureFileReference mimeTypes first matches: ZnMimeType imagePng ] ])
 					ifTrue: [ 
 						| previewAttribute |						
-						previewAttribute := BrPillarExpandButtonAttribute new.
+						previewAttribute := BrTextExpandButtonAttribute new.
 						previewAttribute action: [ :aBrText :aTextEditor :anAttribute |
 							| isExpanded |
 							isExpanded := anAttribute expanded.
