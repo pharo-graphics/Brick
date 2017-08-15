@@ -14,22 +14,12 @@ figure
 				(pictureFileReference isFile
 					and: [ pictureFileReference mimeTypes notNil
 						and: [ pictureFileReference mimeTypes first matches: ZnMimeType imagePng ] ])
-					ifTrue: [ 
-						| previewAttribute |						
-						previewAttribute := BrTextExpandButtonAttribute new.
-						previewAttribute action: [ :aBrText :aTextEditor :anAttribute |
-							| isExpanded |
-							isExpanded := anAttribute expanded.
-							isExpanded
-								ifTrue: [ aBrText clearAttributes: [ :aTextAttribute | aTextAttribute isKindOf: BrPillarPictureAttribute ] ]
-								ifFalse: [ 
-									| anImageForm |
-									anImageForm := pictureFileReference binaryReadStreamDo: [ :stream | PNGReadWriter formFromStream: stream ].
-									aBrText attributes: { BrPillarPictureAttribute image: anImageForm } ].
-							anAttribute expanded: isExpanded not.
-							aTextEditor invalidateAll.
-							aTextEditor updateAll ].
-						
+					ifTrue: [
+						| previewAttribute anImageForm |
+						anImageForm := pictureFileReference binaryReadStreamDo: [ :stream | 
+							PNGReadWriter formFromStream: stream ].
+						previewAttribute := BrTextExpandButtonAttribute new attributesCreatingBlock: [
+							BrPillarPictureAttribute image: anImageForm ].
 						self targetText 
 							attributes: { previewAttribute }
 							from: tokens first start 

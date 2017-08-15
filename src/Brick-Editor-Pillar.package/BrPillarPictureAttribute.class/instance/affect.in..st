@@ -1,5 +1,5 @@
 accessing
-replace: aBrText in: aBrEditor
+affect: aBrText in: aBrEditor
 
 	^ BlElement new
 		size: self image extent;

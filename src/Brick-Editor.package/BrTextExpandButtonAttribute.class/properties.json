@@ -6,8 +6,9 @@
 	"pools" : [ ],
 	"classvars" : [ ],
 	"instvars" : [
-		"action",
-		"expanded"
+		"isExpanded",
+		"attributesCreatingBlock",
+		"createdAttributes"
 	],
 	"name" : "BrTextExpandButtonAttribute",
 	"type" : "normal"

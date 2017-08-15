@@ -1,3 +1,3 @@
 instance creation
 createElement: aTextEditor
-	^ self attribute replace: self text in: aTextEditor
+	^ self attribute affect: self text in: aTextEditor

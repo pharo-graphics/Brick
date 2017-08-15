@@ -1,5 +1,5 @@
 accessing
-replace: aBrText in: aBrEditor
+affect: aBrText in: aBrEditor
 	^ BlElement new
 		size: 16@16;
 		margin: (BlInsets top: 0 right: 5 bottom: 0 left: 5);

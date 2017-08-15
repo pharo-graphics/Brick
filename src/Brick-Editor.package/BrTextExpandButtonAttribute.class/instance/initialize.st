@@ -4,5 +4,6 @@ initialize
 	
 	self beAppend.
 	
-	action := [  ].
-	expanded := false.
+	attributesCreatingBlock := [  ].
+	isExpanded := false.
+	createdAttributes := OrderedCollection new
