@@ -1,6 +1,6 @@
 private - updating
 updateAll
-	"Update text rendering within an interval defined by provided from and to indices."
+	"Update rendering of the whole text within the editor"
 	| aCommand |
 	
 	aCommand := self newUpdateCommand

@@ -1,3 +1,3 @@
 accessing
-fromIndex: anObject
-	fromIndex := anObject
+fromIndex: aFromTextIndex
+	fromIndex := aFromTextIndex
