@@ -2,5 +2,6 @@ initialization
 initialize
 	super initialize.
 	
-	breakLine := false.
+	breakLineBefore := false.
+	breakLineAfter := false.
 	pushLine := false

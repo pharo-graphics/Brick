@@ -6,8 +6,9 @@
 	"pools" : [ ],
 	"classvars" : [ ],
 	"instvars" : [
-		"breakLine",
-		"pushLine"
+		"pushLine",
+		"breakLineBefore",
+		"breakLineAfter"
 	],
 	"name" : "BrEditorTextFlowLayoutConstraints",
 	"type" : "normal"
