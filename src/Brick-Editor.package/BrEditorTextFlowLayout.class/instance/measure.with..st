@@ -15,6 +15,10 @@ measure: anElement with: anExtentSpec
 		self measureChildWithMargins: aChildElement parentSpec: anExtentSpec.
 		aCurrentLine := aCurrentLine add: aChildElement ].
 
+	aCurrentLine pushedQueue do: [ :aPushedElement |
+		aCurrentLine := aCurrentLine nextLine.
+		aCurrentLine push: aPushedElement ].
+
 	"compute total extent to measure layout's owner element"	
 	totalContentWidth := anElement padding width + lines totalWidth.
 	totalContentHeight := anElement padding height + lines totalHeight.

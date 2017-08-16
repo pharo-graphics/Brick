@@ -6,4 +6,5 @@ nextLine
 	^ nextLine ifNil: [
 		nextLine := BrEditorTextFlowLine new
 			maxWidth: maxWidth;
+			pushedQueue: pushedQueue;
 			yourself ]

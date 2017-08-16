@@ -11,7 +11,8 @@
 		"availableWidth",
 		"nextLine",
 		"width",
-		"height"
+		"height",
+		"pushedQueue"
 	],
 	"name" : "BrEditorTextFlowLine",
 	"type" : "normal"

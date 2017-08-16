@@ -6,4 +6,5 @@ initialize
 	width := 0.
 	height := 0.
 	availableWidth := maxWidth.
-	elements := OrderedCollection new
+	elements := OrderedCollection new.
+	pushedQueue := LinkedList new
