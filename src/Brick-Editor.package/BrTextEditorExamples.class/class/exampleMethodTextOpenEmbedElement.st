@@ -10,7 +10,6 @@ exampleMethodTextOpenEmbedElement
 	editorElement editor text attributes: {
 		BrTextAdornmentDynamicAttribute new adornmentBlock: [ BlElement new size: 70 @ 50; background: Color red; yourself ]
 	} from: 30 to: 30.
-	editorElement editor segmentBuilder: (BrTextEditorAttributedLineSegmentBuilder new).
 	editorElement constraintsDo: [ :c |
 		c horizontal matchParent.
 		c vertical matchParent ].

@@ -10,7 +10,6 @@ gtInspectorPillarWithBlocIn: composite
 			editor := BrTextEditor new.
 			editor styler: styler.
 			editor text: text.
-			editor segmentBuilder: BrTextEditorAttributedLineSegmentBuilder new.
 			editorElement := BrEditorElement new.
 			editorElement constraintsDo: [ :c |
 			    c horizontal matchParent.
