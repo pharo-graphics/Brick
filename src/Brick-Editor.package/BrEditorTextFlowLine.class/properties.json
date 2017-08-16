@@ -13,6 +13,6 @@
 		"width",
 		"height"
 	],
-	"name" : "BrEditorFlowLine",
+	"name" : "BrEditorTextFlowLine",
 	"type" : "normal"
 }

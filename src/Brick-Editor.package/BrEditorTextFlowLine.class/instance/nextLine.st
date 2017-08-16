@@ -1,9 +1,9 @@
 accessing
 nextLine
 	"Return or create a new next line to which we should continue adding elements"
-	<return: #BrEditorFlowLine>
+	<return: #BrEditorTextFlowLine>
 
 	^ nextLine ifNil: [
-		nextLine := BrEditorFlowLine new
+		nextLine := BrEditorTextFlowLine new
 			maxWidth: maxWidth;
 			yourself ]

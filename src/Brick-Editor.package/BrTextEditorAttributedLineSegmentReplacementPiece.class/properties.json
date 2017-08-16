@@ -6,7 +6,6 @@
 	"pools" : [ ],
 	"classvars" : [ ],
 	"instvars" : [
-		"text",
 		"attribute"
 	],
 	"name" : "BrTextEditorAttributedLineSegmentReplacementPiece",

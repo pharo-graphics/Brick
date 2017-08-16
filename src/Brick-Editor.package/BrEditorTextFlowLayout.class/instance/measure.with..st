@@ -7,7 +7,7 @@ measure: anElement with: anExtentSpec
 	maxHeight := (anExtentSpec heightSpec size ifNil: [ Float infinity ]) - anElement padding height.
 
 	"Actually a linked list of lines"
-	lines := BrEditorFlowLine new maxWidth: maxWidth.
+	lines := BrEditorTextFlowLine new maxWidth: maxWidth.
 	
 	"measure children and distribute them in lines"
 	aCurrentLine := lines.

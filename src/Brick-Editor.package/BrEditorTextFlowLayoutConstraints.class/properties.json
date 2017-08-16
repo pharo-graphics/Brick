@@ -1,0 +1,14 @@
+{
+	"commentStamp" : "AliakseiSyrel 8/16/2017 13:38",
+	"super" : "BlLayoutConstraints",
+	"category" : "Brick-Editor-Layout",
+	"classinstvars" : [ ],
+	"pools" : [ ],
+	"classvars" : [ ],
+	"instvars" : [
+		"breakLine",
+		"pushLine"
+	],
+	"name" : "BrEditorTextFlowLayoutConstraints",
+	"type" : "normal"
+}

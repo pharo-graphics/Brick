@@ -3,7 +3,7 @@ createSegmentElement
 	<return: #BlElement>
 	
 	^ BrTextEditorSegmentElement new
-		layout: BrEditorFlowLayout new;
+		layout: BrEditorTextFlowLayout new;
 		focusability: BlFocusability after;
 		margin: (BlInsets bottom: 5);
 		constraintsDo: [ :c |

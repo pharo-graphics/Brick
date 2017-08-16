@@ -1,5 +1,5 @@
 {
-	"commentStamp" : "AliakseiSyrel 1/20/2017 16:12",
+	"commentStamp" : "AliakseiSyrel 8/16/2017 12:20",
 	"super" : "BlLayout",
 	"category" : "Brick-Editor-Layout",
 	"classinstvars" : [ ],
@@ -9,6 +9,6 @@
 		"lines",
 		"lineSpacing"
 	],
-	"name" : "BrEditorFlowLayout",
+	"name" : "BrEditorTextFlowLayout",
 	"type" : "normal"
 }
