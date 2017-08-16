@@ -2,7 +2,7 @@ accessing
 segment: anEditorSegment
 	
 	segment := anEditorSegment.
-	
+
 	pieces := segment pieces.
 	pieceElements := pieces collect: [ :aPiece | aPiece createElement: self editor ].
 	

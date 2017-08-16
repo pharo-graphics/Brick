@@ -14,7 +14,7 @@ executeOn: aTextEditor
 	aTextEditor segmentCollector
 		cachedSegmentAt: changedTo
 		ifFound: [ :aSegment | changedTo := aSegment index ]
-		ifNotFound: [ changedTo := aTextEditor segmentCollector segmentsCount].	
+		ifNotFound: [ changedTo := aTextEditor segmentCollector segments size ].	
 
 	aTextEditor
 		notifyItemsChanged: (changedFrom to: changedTo)

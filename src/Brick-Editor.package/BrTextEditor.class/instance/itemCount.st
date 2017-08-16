@@ -1,3 +1,3 @@
 accessing
 itemCount
-	^ segmentCollector segmentsCount
+	^ segmentCollector computedSegmentsCount

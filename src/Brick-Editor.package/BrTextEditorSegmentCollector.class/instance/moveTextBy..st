@@ -1,7 +1,7 @@
 text - modifications
 moveTextBy: aNumber
-	"move all segments by aNumber"
-	
+	"move all segments' subTexts start/end indices by aNumber"
+
 	self hasCached
 		ifFalse: [ ^ self ].
 	

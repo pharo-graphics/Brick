@@ -5,8 +5,8 @@ insertString: aString at: aTextIndex in: aTextEditElement
 	"aTextIndex is given in local text coordinates of a single text piece (word) element.
 	It should be converted to a global index of the whole text model"
 	| aGlobalIndex |
-		
-	aGlobalIndex := (aTextEditElement text start + aTextIndex - 1) max: 0.
+
+	aGlobalIndex := (aTextEditElement text start + aTextIndex - aTextIndex isZero not asBit) max: 0.
 
 	self editor
 		insertString: aString

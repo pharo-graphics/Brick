@@ -6,7 +6,8 @@
 	"pools" : [ ],
 	"classvars" : [ ],
 	"instvars" : [
-		"cachedSurface"
+		"cachedSurface",
+		"session"
 	],
 	"name" : "BrTextEditorSegmentElement",
 	"type" : "normal"

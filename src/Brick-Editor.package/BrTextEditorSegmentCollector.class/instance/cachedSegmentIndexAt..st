@@ -7,9 +7,22 @@ cachedSegmentIndexAt: aTextIndex
 	
 	^ self segments
 		findBinaryIndex: [ :aSegment |
-			(aTextIndex between: aSegment textStart - 1 and: aSegment textEnd)
+			(aTextIndex between: aSegment textStart and: aSegment textEnd)
 				ifTrue: [ 0 ]
-				ifFalse: [ (aTextIndex < (aSegment textStart - 1))
-					ifTrue: [ -1 ]
-					ifFalse: [ 1 ] ] ]
-		ifNone: [ 0 ]
+				ifFalse: [
+					aTextIndex < aSegment textStart
+						ifTrue: [ -1 ]
+						ifFalse: [ 1 ] ] ]
+		ifNone: [ :leftIndex :rightIndex |
+			(leftIndex isNil and: [ rightIndex isNil ])
+				ifTrue: [ 0 ]
+				ifFalse: [
+					| anIndex |
+					anIndex := 0.
+					leftIndex > 0 ifTrue: [
+						(aTextIndex + 1 = (self segments at: leftIndex) textStart)
+							ifTrue: [ anIndex := leftIndex ] ].
+					rightIndex <= self segments size ifTrue: [
+						(aTextIndex + 1 = (self segments at: rightIndex) textStart)
+							ifTrue: [ anIndex := rightIndex ] ].
+					anIndex ] ]

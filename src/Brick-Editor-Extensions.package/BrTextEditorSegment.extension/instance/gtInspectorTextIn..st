@@ -3,4 +3,4 @@ gtInspectorTextIn: composite
 	<gtInspectorPresentationOrder: 5>  
 	 composite text
 		title: 'Text';
-		format: self segment asString
+		format: self text asString

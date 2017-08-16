@@ -21,7 +21,7 @@ insertedString: aString at: aTextIndex
 	segment insertedString: aString at: aTextIndex.
 
 	"move all segments after the one in which text was inserted"
-	segmentIndex + 1 to: self segmentsCount do: [ :anIndex |
+	segmentIndex + 1 to: self computedSegmentsCount do: [ :anIndex |
 		| eachSegment |
 		eachSegment := self cachedAt: anIndex.
 		eachSegment moveTextBy: aString size ]

@@ -1,12 +1,40 @@
 cache - adding / removing
-addSegments: aNumberOfSegments after: aSegment
+addSegments: aCollectionOfSegments after: aSegment
+	
+	self
+		assert: [ aCollectionOfSegments isNotEmpty ]
+		description: [ 'Can not add a collection of empty segments!' ].
+	
+	self
+		assert: [ self segments size = interval size ]
+		description: [ 'Amount of segments must correspond to the interval' ].
 
-	aNumberOfSegments timesRepeat: [
+	self
+		assert: [
+			| satisfy |
+			satisfy := true.
+			self segments with: interval do: [ :eachSegment :anExpectedIndex |
+				satisfy := satisfy and: [ eachSegment index = anExpectedIndex ]	].
+			satisfy ]
+		description: [ 'Segment indices must correspond to the interval' ].
+
+	aCollectionOfSegments withIndexDo: [ :aNewSegment :anIndex |
+		aNewSegment index: anIndex + aSegment index.
 		self segments
-			add: (self editor segmentBuilder newSegment: (BrSubText empty: (BrRopedText string: '')))
-			afterIndex: aSegment index ].
-
-	self segments
-		withIndexDo: [ :eachSegment :anIndex | eachSegment index: anIndex ].
+			add: aNewSegment
+			afterIndex: aSegment index - self firstIndex + anIndex ].
+	
+	self offsetSegmentIndicesBy: aCollectionOfSegments size after: aCollectionOfSegments last index.
+	
+	self
+		assert: [ self segments size = interval size ]
+		description: [ 'Amount of segments must correspond to the interval' ].
 		
-	interval := (interval first to: interval last + aNumberOfSegments)
+	self
+		assert: [
+			| satisfy |
+			satisfy := true.
+			self segments with: interval do: [ :eachSegment :anExpectedIndex |
+				satisfy := satisfy and: [ eachSegment index = anExpectedIndex ]	].
+			satisfy ]
+		description: [ 'Segment indices must correspond to the interval' ].

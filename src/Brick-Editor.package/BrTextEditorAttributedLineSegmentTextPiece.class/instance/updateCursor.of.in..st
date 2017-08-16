@@ -4,12 +4,12 @@ updateCursor: aTextElement of: aLineSegment in: aTextEditor
 
 	aCursor := aTextEditor cursor.
 	
-	(aCursor insideSubText: aTextElement text of: aLineSegment)
+	(aCursor insideSubText: self of: aLineSegment)
 		ifFalse: [ ^ self ].
 
 	cursorPosition := aTextElement text isEmpty
 		ifTrue: [ 0 ]
 		ifFalse: [ aCursor position - aTextElement text start + 1 ].
-			
+
 	aTextElement showCursorAt: cursorPosition.
 	aTextElement requestFocus
