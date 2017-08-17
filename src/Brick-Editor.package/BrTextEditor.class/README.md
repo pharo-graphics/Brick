@@ -1,2 +1,2 @@
-I edit text and provide high level abstraction of essential text editor functionality such as selection, cursor, text insertions and deletions.
+I edit text and provide high level abstractions of essential text editor functionality such as selection, cursor, text insertions and deletions.
 I subclass infinite data source in order to be able to display practically infinite amounts of text as smooth as single screen text pieces.
