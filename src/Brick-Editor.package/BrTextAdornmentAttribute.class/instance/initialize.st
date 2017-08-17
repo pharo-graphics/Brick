@@ -3,4 +3,5 @@ initialize
 	super initialize.
 	
 	newSegment := false.
-	shouldAppend := false
+	shouldAppend := false.
+	marker := Object new

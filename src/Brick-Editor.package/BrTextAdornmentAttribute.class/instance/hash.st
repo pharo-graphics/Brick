@@ -1,3 +1,3 @@
 comparing
 hash
-	^ self class hash
+	^ self identityHash
