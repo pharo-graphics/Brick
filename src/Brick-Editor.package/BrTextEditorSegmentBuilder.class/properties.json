@@ -1,11 +1,13 @@
 {
-	"commentStamp" : "AliakseiSyrel 8/6/2017 13:23",
-	"super" : "Object",
-	"category" : "Brick-Editor-Model-Segment-Text",
-	"classinstvars" : [ ],
-	"pools" : [ ],
+	"classtraitcomposition" : "TBlDebug classTrait",
 	"classvars" : [ ],
 	"instvars" : [ ],
 	"name" : "BrTextEditorSegmentBuilder",
-	"type" : "normal"
+	"commentStamp" : "AliakseiSyrel 8/6/2017 13:23",
+	"super" : "Object",
+	"traitcomposition" : "TBlDebug",
+	"type" : "normal",
+	"classinstvars" : [ ],
+	"pools" : [ ],
+	"category" : "Brick-Editor-Model-Segment-Text"
 }

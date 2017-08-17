@@ -1,9 +1,5 @@
 {
-	"commentStamp" : "AliakseiSyrel 8/5/2017 00:09",
-	"super" : "Object",
-	"category" : "Brick-Editor-Model-Segment-Text",
-	"classinstvars" : [ ],
-	"pools" : [ ],
+	"classtraitcomposition" : "TBlDebug classTrait",
 	"classvars" : [ ],
 	"instvars" : [
 		"text",
@@ -14,5 +10,11 @@
 		"editor"
 	],
 	"name" : "BrTextEditorSegmentCollector",
-	"type" : "normal"
+	"commentStamp" : "AliakseiSyrel 8/5/2017 00:09",
+	"super" : "Object",
+	"traitcomposition" : "TBlDebug",
+	"type" : "normal",
+	"classinstvars" : [ ],
+	"pools" : [ ],
+	"category" : "Brick-Editor-Model-Segment-Text"
 }
