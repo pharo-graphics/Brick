@@ -15,11 +15,14 @@ figure
 					and: [ pictureFileReference mimeTypes notNil
 						and: [ pictureFileReference mimeTypes first matches: ZnMimeType imagePng ] ])
 					ifTrue: [
-						| previewAttribute anImageForm |
-						anImageForm := pictureFileReference binaryReadStreamDo: [ :stream | 
-							PNGReadWriter formFromStream: stream ].
+						| previewAttribute  |
+
 						previewAttribute := BrTextExpandButtonAttribute new attributesCreatingBlock: [
+							| anImageForm |
+							anImageForm := pictureFileReference binaryReadStreamDo: [ :stream | 
+							PNGReadWriter formFromStream: stream ].
 							BrPillarPictureAttribute image: anImageForm ].
+
 						self targetText 
 							attributes: { previewAttribute }
 							from: tokens first start 

@@ -3,7 +3,7 @@ insertedString: aString at: aTextIndex in: aBrTextEditor
 	"I am doing a hard work updating editor's segment cache due to inserted string.
 	Note: This is an *algorithm* that should be very performant, that is why we don't see
 	a point in doing it in OOP style, procedural way fits quite well"
-	| aCurrentSegment aStream aSubText isAfterLineBreak isBeforeLineBreak isFirstLineBreak |
+	| aCurrentSegment aStream aSubText isAfterLineBreak isFirstLineBreak |
 
 	self
 		assert: [ aBrTextEditor text isNotEmpty ]
@@ -13,7 +13,6 @@ insertedString: aString at: aTextIndex in: aBrTextEditor
 		assert: [ aString isNotEmpty ]
 		description: [ 'String must not be empty' ].
 	
-	
 	"true if inserted string starts with a line break"
 	isFirstLineBreak := aString first isLineBreak.
 	
@@ -21,10 +20,6 @@ insertedString: aString at: aTextIndex in: aBrTextEditor
 	isAfterLineBreak := aTextIndex isZero
 		ifTrue: [ false ]
 		ifFalse: [ (aBrTextEditor text at: aTextIndex) isLineBreak ].
-		
-	"isBeforeLineBreak := (aTextIndex + aString size + 1 <= aBrTextEditor text size)
-		ifTrue: [ (aBrTextEditor text at: aTextIndex + aString size + 1) isLineBreak ]
-		ifFalse: [ false ]."
 	
 	aSubText := aBrTextEditor text
 		from: ((aTextIndex + (isAfterLineBreak and: [ isFirstLineBreak not ]) asBit) max: 1)
@@ -34,7 +29,7 @@ insertedString: aString at: aTextIndex in: aBrTextEditor
 	aStream limit: Float infinity.
 	
 	self split: aSubText in: aStream.
-	
+		
 	aBrTextEditor segmentCollector
 		cachedSegmentAt: aTextIndex
 		ifFound: [ :aSegment | aCurrentSegment := aSegment ]
@@ -53,7 +48,7 @@ insertedString: aString at: aTextIndex in: aBrTextEditor
 						
 			newCurrentSegmentEnd := aStream collection first textEnd.
 			
-			newLastSegmentStart := aStream collection last textStart.
+			newLastSegmentStart := aStream collection last textStart + isFirstLineBreak asBit.
 			"we move segments by `aString size` later"
 			newLastSegmentEnd := aCurrentSegment textEnd + aString size.
 			
