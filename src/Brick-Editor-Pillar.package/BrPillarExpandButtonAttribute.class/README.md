@@ -1,1 +1,0 @@
-I am a text attribute that adds a small expand button that when clicked may apply further attribues on the text
