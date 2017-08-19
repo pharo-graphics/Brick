@@ -16,5 +16,5 @@ Next, we create an editor element.
 
 And finally, build everything together.
 
-[[[example=BrTextEditorExamples>>#element:editorText:|show=gtoLive]]]
+[[[example=BrTextEditorExamples>>#element:editorText:|show=gtLiveIn:]]]
 

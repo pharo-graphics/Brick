@@ -15,7 +15,7 @@ affect: aBrText in: aBrEditor
 					createdAttributes := (attributesCreatingBlock cull: aBrText cull: aBrEditor) asOrderedCollection.
 					aBrText attributes: createdAttributes ].
 			self isExpanded: isExpanded not.
-			aBrEditor invalidateAll.
-			aBrEditor updateAll
+			aBrEditor invalidate: aBrText start to: aBrText end.
+			aBrEditor update: aBrText start to: aBrText end.
 		];
 		yourself
