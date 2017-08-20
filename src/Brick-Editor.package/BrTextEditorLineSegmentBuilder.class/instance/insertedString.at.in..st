@@ -73,4 +73,5 @@ insertedString: aString at: aTextIndex in: aBrTextEditor
 			aCurrentSegment start: ((aCurrentSegment textStart + isAfterLineBreak asBit) max: 1) end: aCurrentSegment textEnd + aString size.
 			aBrTextEditor segmentCollector moveTextBy: aString size after: aCurrentSegment ].
 		
-	aBrTextEditor updateAll
+	aBrTextEditor invalidate: aTextIndex + 1 to: aTextIndex + aString size.
+	aBrTextEditor update: aTextIndex + 1 to: aTextIndex + aString size
