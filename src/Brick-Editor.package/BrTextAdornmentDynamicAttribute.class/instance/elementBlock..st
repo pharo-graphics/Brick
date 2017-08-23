@@ -1,3 +1,3 @@
 accessing
-adornmentBlock: aBlock
+elementBlock: aBlock
 	adornmentBlock := aBlock
