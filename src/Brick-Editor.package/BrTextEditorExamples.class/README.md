@@ -1,18 +1,18 @@
 We first create the text.
 
-[[[example=BrTextEditorExamples>>#newText|show=gtoLive]]]
+[[[example=BrTextEditorExamples>>#newText]]]
 
 Next, we build the editor.
 
-[[[example=BrTextEditorExamples>>#newEditor|show=gtoLive]]]
+[[[example=BrTextEditorExamples>>#newEditor]]]
 
 Then, we put attach text to the enditor.
 
-[[[example=BrTextEditorExamples>>#editor:text:|show=gtoLive]]]
+[[[example=BrTextEditorExamples>>#editor:text:]]]
 
 Next, we create an editor element.
 
-[[[example=BrTextEditorExamples>>#newElement|show=gtoLive]]]
+[[[example=BrTextEditorExamples>>#newElement|show=gtLiveIn:]]]
 
 And finally, build everything together.
 
