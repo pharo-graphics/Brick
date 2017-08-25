@@ -16,6 +16,5 @@ affect: aBrText in: aBrEditor
 					aBrText attributes: createdAttributes ].
 			self isExpanded: isExpanded not.
 			aBrEditor invalidate: aBrText start to: aBrText end.
-			aBrEditor update: aBrText start to: aBrText end.
-		];
+			aBrEditor update: aBrText start to: aBrText end ];
 		yourself

@@ -1,0 +1,11 @@
+{
+	"commentStamp" : "AliakseiSyrel 8/23/2017 14:09",
+	"super" : "TestCase",
+	"category" : "Brick-Editor-Examples",
+	"classinstvars" : [ ],
+	"pools" : [ ],
+	"classvars" : [ ],
+	"instvars" : [ ],
+	"name" : "BrTextEditorLineSegmentExamples",
+	"type" : "normal"
+}
