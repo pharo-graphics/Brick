@@ -7,5 +7,5 @@ computeSubText
 		description: [ 'There must be cached segments in order to ciompute sub text' ].
 	
 	subText := text
-		from: (segments first textStart max: 1)
+		from: (segments first textStart max: text size sign)
 		to: segments last textEnd
