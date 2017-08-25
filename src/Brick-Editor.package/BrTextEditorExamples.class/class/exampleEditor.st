@@ -16,5 +16,4 @@ exampleEditor
 	space := BlSpace new.
 	space extent: self extent.
 	space root addChild: editorElement.
-	space show.
-	editorElement inspect
+	space show
