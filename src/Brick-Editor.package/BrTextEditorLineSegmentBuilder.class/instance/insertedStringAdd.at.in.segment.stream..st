@@ -2,12 +2,6 @@ text - modifications
 insertedStringAdd: aString at: aTextIndex in: aBrTextEditor segment: aCurrentSegment stream: aStream
 	| newLastSegmentStart isLastLineBreak isBeforeLineBreak newCurrentSegmentStart newCurrentSegmentEnd newLastSegmentEnd isFirstLineBreak |
 
-	aStream segments
-		select: [ :aSegment | aSegment text allSatisfy: #isLineBreak ]
-		thenDo: [ :aSegment | aSegment
-			start: aSegment textStart - 1
-				end: aSegment textEnd - 1 ].
-
 	"true if inserted string starts with a line break"
 	isFirstLineBreak := aString first isLineBreak.
 
@@ -20,8 +14,14 @@ insertedStringAdd: aString at: aTextIndex in: aBrTextEditor segment: aCurrentSeg
 		ifTrue: [ (aBrTextEditor text at: aTextIndex + 2) isLineBreak ]
 		ifFalse: [ false ].
 
-	newCurrentSegmentStart := aCurrentSegment textStart max: 1.
+	newCurrentSegmentStart := aCurrentSegment textStart.
 	newCurrentSegmentEnd := aStream collection first textEnd.
+
+	aStream segments
+		select: [ :aSegment | aSegment text allSatisfy: #isLineBreak ]
+		thenDo: [ :aSegment | aSegment
+			start: aSegment textStart - 1
+				end: aSegment textEnd - 1 ].
 
 	(aTextIndex isZero and: [ isFirstLineBreak ])
 		ifTrue: [

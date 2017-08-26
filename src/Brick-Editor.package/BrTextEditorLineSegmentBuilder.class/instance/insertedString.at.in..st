@@ -49,6 +49,9 @@ insertedString: aString at: aTextIndex in: aBrTextEditor
 				segment: aCurrentSegment
 				stream: aStream ].
 	
+	aBrTextEditor invalidateAll.
+	aBrTextEditor updateAll.
+	
 	aBrTextEditor
 		invalidate: aTextIndex + 1
 		to: aTextIndex + aString size.
