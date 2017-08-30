@@ -1,0 +1,14 @@
+{
+	"commentStamp" : "AliakseiSyrel 8/30/2017 07:37",
+	"super" : "BlEvent",
+	"category" : "Brick-Editor-UI",
+	"classinstvars" : [ ],
+	"pools" : [ ],
+	"classvars" : [ ],
+	"instvars" : [
+		"text",
+		"index"
+	],
+	"name" : "BrTextEditorInsertedEvent",
+	"type" : "normal"
+}

@@ -1,0 +1,1 @@
+Is sent after a new piece of text is inserted in the editor

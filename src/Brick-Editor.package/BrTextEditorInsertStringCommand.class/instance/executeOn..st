@@ -8,4 +8,8 @@ executeOn: aTextEditor
 	aTextEditor segmentBuilder
 		insertedString: self string
 		at: self index
-		in: aTextEditor
+		in: aTextEditor.
+		
+	aTextEditor
+		notifyInserted: (BrRopedText string: self string)
+		at: self index
