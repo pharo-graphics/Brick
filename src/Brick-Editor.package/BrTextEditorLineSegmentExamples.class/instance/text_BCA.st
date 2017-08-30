@@ -2,4 +2,4 @@ instance creation - text
 text_BCA
 	<gtExample>
 
-	^ BrRopedText string: 'BCA'
+	^ BrSubText text: (BrRopedText string: 'BCA')

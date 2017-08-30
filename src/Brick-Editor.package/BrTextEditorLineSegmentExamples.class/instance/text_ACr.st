@@ -2,4 +2,4 @@ instance creation - text
 text_ACr
 	<gtExample>
 
-	^ BrRopedText string: 'A', String cr
+	^ BrSubText text: (BrRopedText string: 'A', String cr)

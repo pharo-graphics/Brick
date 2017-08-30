@@ -21,7 +21,7 @@ insertedString: aString at: aTextIndex in: aBrTextEditor
 	aStream limit: Float infinity.
 	
 	self split: aSubText in: aStream.
-	
+		
 	aBrTextEditor segmentCollector
 		cachedSegmentAt: aTextIndex
 		ifFound: [ :aSegment | aCurrentSegment := aSegment ]
@@ -30,17 +30,30 @@ insertedString: aString at: aTextIndex in: aBrTextEditor
 				at: aTextIndex
 				in: aBrTextEditor
 				stream: aStream ].
-			
+	
 	aStream collection size > 1
-		ifTrue: [
+		ifTrue: [					
 			"If there is more then one segment it means that there should be
 			(aStream collection size - 1) new segments"
-			self
-				insertedStringAdd: aString
-				at: aTextIndex
-				in: aBrTextEditor
-				segment: aCurrentSegment
-				stream: aStream ]
+			
+			"if textIndex is smaller than start index of the segment
+			it means that we add new segments *before* found segment
+			and therefore should take previous segment"
+			(aTextIndex < aCurrentSegment textStart)
+				ifTrue: [
+					self
+						insertedStringAdd: aString
+						at: aTextIndex
+						in: aBrTextEditor
+						before: aCurrentSegment
+						stream: aStream ]
+				ifFalse: [ 
+					self
+						insertedStringAdd: aString
+						at: aTextIndex
+						in: aBrTextEditor
+						after: aCurrentSegment
+						stream: aStream ] ]
 		ifFalse: [
 			self
 				insertedStringAppend: aString

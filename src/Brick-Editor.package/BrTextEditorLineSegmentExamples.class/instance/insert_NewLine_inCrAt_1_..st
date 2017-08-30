@@ -2,7 +2,7 @@ insertion
 insert_NewLine_inCrAt_1_: aTextEditor
 	<gtExample>
 	<dependsOn: #insert_NewLine_inEmptyAt_0_:>
-	
+
 	aTextEditor insertString: String cr at: 1.
 
 	self assert: aTextEditor text asString equals: String cr, String cr.

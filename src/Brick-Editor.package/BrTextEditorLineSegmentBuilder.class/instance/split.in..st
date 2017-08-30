@@ -9,8 +9,13 @@ split: aBrText in: aStream
 	"in case of just line break we should generate two segmens"
 	(aBrText size = 1 and: [ (aBrText at: 1) isLineBreak ])
 		ifTrue: [
-			aStream nextPut: (self newSegment: (aBrText from: 0 to: 0)).
-			^ aStream nextPut: (self newSegment: (aBrText from: 1 to: 1)) ].
+			| firstIndex secondIndex |
+			
+			firstIndex := aBrText start - 1.
+			secondIndex := aBrText start.
+			
+			aStream nextPut: (self newSegment: (aBrText from: firstIndex to: firstIndex)).
+			^ aStream nextPut: (self newSegment: (aBrText from: secondIndex to: secondIndex)) ].
 
 	iterator := aBrText iterator.
 

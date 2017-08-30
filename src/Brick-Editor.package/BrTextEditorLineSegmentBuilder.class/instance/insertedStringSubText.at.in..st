@@ -27,11 +27,11 @@ insertedStringSubText: aString at: aTextIndex in: aBrText
 		ifTrue: [ aStart := aStart + 1 ].
 	
 	"if we add before line break something that does not end
-	with line breal we should not take next line break into account"
+	with line break we should not take next line break into account"
 	((isBeforeLineBreak and: [ isLastLineBreak not ])
 		"if added string ends with line break we do not care
 		what follows it"
-		or: [ isLastLineBreak and: [ aTextIndex isZero not ] ])
+		or: [ isLastLineBreak ])
 			ifTrue: [ anEnd := anEnd - 1 ].
 
 	"make sure that sub text does not go out of text bounds"
