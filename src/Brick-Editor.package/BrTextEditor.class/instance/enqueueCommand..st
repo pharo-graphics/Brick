@@ -1,3 +1,3 @@
 commands - processing
 enqueueCommand: aBrTextEditorInsertCommand
-	aBrTextEditorInsertCommand executeOn: self
+	commandMutex critical: [ aBrTextEditorInsertCommand executeOn: self ]

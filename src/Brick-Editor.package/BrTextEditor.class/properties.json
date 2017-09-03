@@ -13,7 +13,8 @@
 		"selectionRecorder",
 		"segmentBuilder",
 		"segmentCollector",
-		"styler"
+		"styler",
+		"commandMutex"
 	],
 	"name" : "BrTextEditor",
 	"type" : "normal"
