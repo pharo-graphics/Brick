@@ -11,9 +11,9 @@ insertString: aString at: aTextIndex in: aTextEditElement
 	self editor
 		insertString: aString
 		at: aGlobalIndex.
-	
+
 	self
 		moveCursorRight: aTextEditElement
 		by: aString size.
-	
+
 	aTextEditElement textChanged
