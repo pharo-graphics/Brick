@@ -14,7 +14,8 @@
 		"segmentBuilder",
 		"segmentCollector",
 		"styler",
-		"commandMutex"
+		"commandMutex",
+		"stylerEventHandler"
 	],
 	"name" : "BrTextEditor",
 	"type" : "normal"

@@ -12,4 +12,5 @@ initialize
 	segmentCollector text: text.
 	segmentBuilder := self defaultSegmentBuilder.
 	styler := self defaultStyler.
+	stylerEventHandler := self defaultStylerEventHandler.
 	commandMutex := Mutex new
