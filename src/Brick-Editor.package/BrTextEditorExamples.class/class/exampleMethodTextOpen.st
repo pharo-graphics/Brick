@@ -9,7 +9,7 @@ exampleMethodTextOpen
 	}.
 	editorElement editor text attributes: {
 		BrTextHoverAttribute new
-	} from: 37 to: 43.
+	} from: 39 to: 42.
 	editorElement editor segmentBuilder: (BrTextEditorLineSegmentBuilder of: BrTextEditorAttributedLineSegment).
 	editorElement constraintsDo: [ :c |
 		c horizontal matchParent.

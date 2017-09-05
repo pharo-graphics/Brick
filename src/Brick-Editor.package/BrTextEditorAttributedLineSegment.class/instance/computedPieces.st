@@ -8,7 +8,7 @@ computedPieces
 		
 		lineIterator := self text iterator.
 		[ self hasNext: lineIterator ] whileTrue: [
-			aStream nextPut: (self itemValue: lineIterator) ] ].
+			self nextSegmentPiece: lineIterator in: aStream ] ].
 	
 	^ thePieces
 		ifEmpty:[ { (BrTextEditorAttributedLineSegmentTextPiece new text: (self text from: 0 to: 0)) } ]
