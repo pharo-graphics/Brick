@@ -1,7 +1,8 @@
 events
 handleEvent: aBlMouseEvent
 	| aTextElement aLocalPosition aTextIndex anIterator theAttributes |
-
+	
+	true ifTrue: [ ^ self ].
 	aTextElement := aBlMouseEvent currentTarget.
 	aLocalPosition := aTextElement globalPointToLocal: aBlMouseEvent position.
 
