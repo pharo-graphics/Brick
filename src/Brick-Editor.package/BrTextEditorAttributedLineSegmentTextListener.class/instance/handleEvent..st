@@ -7,7 +7,7 @@ handleEvent: aBlMouseEvent
 
 	aTextIndex := aTextElement paragraph indexAtPosition: aLocalPosition.
 
-	anIterator := aTextElement text iterator: aTextIndex to: aTextIndex.
+	anIterator := aTextElement text iterator: (aTextIndex max: 1) to: (aTextIndex max: 1).
 	theAttributes := anIterator selectAttributes: [ :anAttribute | anAttribute isKindOf: BrTextEventHandlerAttribute ].
 
 	theAttributes do: [ :anAttribute |
