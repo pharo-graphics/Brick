@@ -1,2 +1,2 @@
 cursor - management
-updateCursor: aTextElement of: aLineSegment in: aTextEditor
+updateCursor: aTextElement of: aLineSegment in: anEditorElement

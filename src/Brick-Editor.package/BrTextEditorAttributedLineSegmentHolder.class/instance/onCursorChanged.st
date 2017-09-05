@@ -9,4 +9,4 @@ onCursorChanged
 
 	pieces
 		with: pieceElements
-		do: [ :aPiece :aPieceElement | aPiece updateCursor: aPieceElement of: segment in: self editor ]
+		do: [ :aPiece :aPieceElement | aPiece updateCursor: aPieceElement of: segment in: infiniteElement ]

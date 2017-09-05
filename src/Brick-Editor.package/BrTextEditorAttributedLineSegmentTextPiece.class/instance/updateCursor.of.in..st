@@ -1,8 +1,8 @@
 cursor - management
-updateCursor: aTextElement of: aLineSegment in: aTextEditor
+updateCursor: aTextElement of: aLineSegment in: anEditorElement
 	| aCursor cursorPosition |
 
-	aCursor := aTextEditor cursor.
+	aCursor := anEditorElement editor cursor.
 	
 	(aCursor insideSubText: self of: aLineSegment)
 		ifFalse: [ ^ self ].
@@ -12,4 +12,5 @@ updateCursor: aTextElement of: aLineSegment in: aTextEditor
 		ifFalse: [ aCursor position - aTextElement text start + 1 ].
 
 	aTextElement showCursorAt: cursorPosition.
-	aTextElement requestFocus
+	anEditorElement hasFocus
+		ifTrue: [ aTextElement requestFocus ]

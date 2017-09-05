@@ -1,6 +1,5 @@
 drawing
 drawOnSpartaCanvas: aCanvas
-	super drawOnSpartaCanvas: aCanvas.
 	
 	self flag: 'Fix sparta-cairo'.
 	(session ~~ Smalltalk session or: [ cachedSurface isNil ]) ifTrue: [
@@ -9,7 +8,7 @@ drawOnSpartaCanvas: aCanvas
 		super drawOnSpartaCanvas: aCachedCanvas.
 		cachedSurface := aCachedCanvas surface.
 		aCachedCanvas release ].
-	
+
 	aCanvas fill
 		paint: cachedSurface;
 		path: cachedSurface bounds;

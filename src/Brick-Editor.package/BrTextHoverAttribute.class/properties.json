@@ -1,0 +1,13 @@
+{
+	"commentStamp" : "",
+	"super" : "BrTextAttribute",
+	"category" : "Brick-Editor-Text-Attributes",
+	"classinstvars" : [ ],
+	"pools" : [ ],
+	"classvars" : [ ],
+	"instvars" : [
+		"action"
+	],
+	"name" : "BrTextHoverAttribute",
+	"type" : "normal"
+}

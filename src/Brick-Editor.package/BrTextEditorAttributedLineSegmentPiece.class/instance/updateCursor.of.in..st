@@ -1,3 +1,3 @@
 cursor - management
-updateCursor: anElement of: aLineSegment in: aTextEditor
+updateCursor: anElement of: aLineSegment in: anEditorElement
 	self subclassResponsibility

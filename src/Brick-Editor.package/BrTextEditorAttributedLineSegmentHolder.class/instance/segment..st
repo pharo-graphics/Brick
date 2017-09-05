@@ -9,7 +9,7 @@ segment: anEditorSegment
 	pieces
 		with: pieceElements
 		do: [ :aPiece :aPieceElement |
-			aPiece updateCursor: aPieceElement of: anEditorSegment in: self editor.
+			aPiece updateCursor: aPieceElement of: anEditorSegment in: infiniteElement.
 			aPiece updateSelection: aPieceElement of: anEditorSegment in: self editor ].
 	
 	itemElement removeChildren.
