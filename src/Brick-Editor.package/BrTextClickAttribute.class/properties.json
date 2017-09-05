@@ -6,6 +6,6 @@
 	"pools" : [ ],
 	"classvars" : [ ],
 	"instvars" : [ ],
-	"name" : "BrTextHoverAttribute",
+	"name" : "BrTextClickAttribute",
 	"type" : "normal"
 }

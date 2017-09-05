@@ -1,0 +1,15 @@
+{
+	"classtraitcomposition" : "TBlEventHandler classTrait",
+	"classvars" : [ ],
+	"instvars" : [
+		"action"
+	],
+	"name" : "BrTextEventHandlerAttribute",
+	"commentStamp" : "AliakseiSyrel 9/5/2017 14:09",
+	"super" : "BrTextAttribute",
+	"traitcomposition" : "TBlEventHandler",
+	"type" : "normal",
+	"classinstvars" : [ ],
+	"pools" : [ ],
+	"category" : "Brick-Editor-Text-Attributes"
+}
