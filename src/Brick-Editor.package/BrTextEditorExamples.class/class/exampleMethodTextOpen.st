@@ -8,7 +8,8 @@ exampleMethodTextOpen
 		BrFontGenericFamilyAttribute monospace
 	}.
 	editorElement editor text attributes: {
-		BrTextHoverAttribute new
+		BrTextHoverAttribute new.
+		BrTextClickAttribute new
 	} from: 39 to: 42.
 	editorElement editor segmentBuilder: (BrTextEditorLineSegmentBuilder of: BrTextEditorAttributedLineSegment).
 	editorElement constraintsDo: [ :c |

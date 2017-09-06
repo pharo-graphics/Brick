@@ -10,9 +10,9 @@ insertString: aString at: aTextIndex in: aTextEditElement
 		assert: [ aTextEditElement isAttachedToSceneGraph ]
 		description: [ 'Text edit piece must be attached to the scene graph!' ].
 	
-	self
+	"self
 		assert: [ (self localTextIndexToGlobal: aTextEditElement cursorPosition in: aTextEditElement) = self editor cursor position ]
-		description: [ 'Cursor position should be in sync!' ].
+		description: [ 'Cursor position should be in sync!' ]."
 	
 	aGlobalIndex := self localTextIndexToGlobal: aTextIndex in: aTextEditElement.
 	self editor
