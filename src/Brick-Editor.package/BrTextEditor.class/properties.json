@@ -2,7 +2,9 @@
 	"commentStamp" : "AliakseiSyrel 8/17/2017 23:12",
 	"super" : "BlInfiniteDataSource",
 	"category" : "Brick-Editor-Model",
-	"classinstvars" : [ ],
+	"classinstvars" : [
+		"isDebug"
+	],
 	"pools" : [ ],
 	"classvars" : [ ],
 	"instvars" : [

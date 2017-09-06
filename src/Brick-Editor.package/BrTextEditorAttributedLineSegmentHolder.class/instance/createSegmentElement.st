@@ -1,9 +1,9 @@
 initialization
 createSegmentElement
 	<return: #BlElement>
-	
+
 	^ BrTextEditorSegmentElement new
-		layout: BrEditorTextFlowLayout new;
+		layout: self class defaultSegmentLayout;
 		focusability: BlFocusability after;
 		constraintsDo: [ :c |
 			c horizontal matchParent.

@@ -71,15 +71,55 @@ menuCommandOn: aBuilder
 		iconName: #catalogIcon; 
 		parent: #'Moldable Editor';
 		action: [ BlUniverse reset. BlSelectionExamples exampleGridRow ].
-
-	(aBuilder item: #'Bloc - Chicken')
+	
+	(aBuilder item: #'14. Editor - rainbow')
 		order: 1.4;
 		iconName: #catalogIcon; 
 		parent: #'Moldable Editor';
-		action: [ BlUniverse reset. BlChicken open ].
+		action: [ BlUniverse reset. BrTextEditor isDebug: true.
+			BrTextEditorExamples exampleTextOpen ].
 	
-	(aBuilder item: #'Bloc - Phone')
+	(aBuilder item: #'15. Editor - grid')
 		order: 1.5;
 		iconName: #catalogIcon; 
 		parent: #'Moldable Editor';
+		action: [
+			BlUniverse reset.
+			BrTextEditorAttributedLineSegmentHolder defaultSegmentLayout: [ BlGridLayout new columnCount: 12 ].
+			BrTextEditorExamples exampleTextOpen ].
+		
+	(aBuilder item: #'16. Text - Event handling')
+		order: 1.6;
+		iconName: #catalogIcon; 
+		parent: #'Moldable Editor';
+		action: [
+			BlUniverse reset.
+			BrTextEditorAttributedLineSegmentHolder cleanUp. BrTextEditor cleanUp.
+			BrTextEditorExamples exampleMethodTextOpen ].
+	
+	(aBuilder item: #'17. Text - 10`000`000')
+		order: 1.7;
+		iconName: #catalogIcon; 
+		parent: #'Moldable Editor';
+		action: [
+			BlUniverse reset.
+			BrTextEditorAttributedLineSegmentHolder cleanUp. BrTextEditor cleanUp.
+			(BrTextEditorExamples class>>#loremIpsum) browse ].
+
+	(aBuilder item: #'Bloc - Chicken')
+		order: 2.0;
+		iconName: #catalogIcon; 
+		parent: #'Moldable Editor';
+		action: [ BlUniverse reset. BlChicken open ].
+
+	(aBuilder item: #'Bloc - Phone')
+		order: 2.1;
+		iconName: #catalogIcon; 
+		parent: #'Moldable Editor';
 		action: [ BlUniverse reset. BlMobilePhone open ].
+		
+	(aBuilder item: #'Reset')
+		order: 3.0;
+		iconName: #catalogIcon; 
+		parent: #'Moldable Editor';
+		action: [ BlUniverse reset. BrTextEditorAttributedLineSegmentHolder cleanUp. BrTextEditor cleanUp ].
