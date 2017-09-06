@@ -5,9 +5,6 @@ nextSegmentPiece: aBrTextIterator in: aStream
 	with multiple arbitrary objects"
 	| initialAdornments aWordText |
 
-	replacedPieces
-		ifNotEmpty: [ :theReplacement | ^ theReplacement pop ].
-
 	initialAdornments := aBrTextIterator selectAttributes: #isAdornment.
 
 	aWordText := self nextWord: aBrTextIterator with: initialAdornments.

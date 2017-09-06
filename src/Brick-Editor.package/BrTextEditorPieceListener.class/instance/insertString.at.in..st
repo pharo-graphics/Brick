@@ -5,9 +5,16 @@ insertString: aString at: aTextIndex in: aTextEditElement
 	"aTextIndex is given in local text coordinates of a single text piece (word) element.
 	It should be converted to a global index of the whole text model"
 	| aGlobalIndex |
-
-	aGlobalIndex := (aTextEditElement text start + aTextIndex - aTextEditElement text isEmpty not asBit) max: 0.
-
+	
+	self
+		assert: [ aTextEditElement isAttachedToSceneGraph ]
+		description: [ 'Text edit piece must be attached to the scene graph!' ].
+	
+	self
+		assert: [ (self localTextIndexToGlobal: aTextEditElement cursorPosition in: aTextEditElement) = self editor cursor position ]
+		description: [ 'Cursor position should be in sync!' ].
+	
+	aGlobalIndex := self localTextIndexToGlobal: aTextIndex in: aTextEditElement.
 	self editor
 		insertString: aString
 		at: aGlobalIndex.
