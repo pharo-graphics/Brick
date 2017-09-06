@@ -1,12 +1,12 @@
 accessing
 affect: aBrText in: aBrEditor
 	^ BlElement new
-		size: 8@8;
+		size: 8@11;
 		margin: (BlInsets top: 2 right: 5 bottom: 0 left: 5);
 		background: Color gray;
 		geometry: (BlPolygon vertices: (isExpanded 	
-			ifTrue: [ { 0@0 . 8@0. 4@8 } ] 
-			ifFalse: [ { 0@0 . 8@4. 0@8 } ]));
+			ifTrue: [ { 0@3 . 8@3. 4@11 } ] 
+			ifFalse: [ { 0@3 . 8@7. 0@11 } ]));
 		addEventHandlerOn: BlClickEvent do: [ :anEvent | 
 			isExpanded
 				ifTrue: [ 
