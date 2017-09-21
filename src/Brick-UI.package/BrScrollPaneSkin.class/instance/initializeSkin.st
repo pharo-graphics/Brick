@@ -20,8 +20,8 @@ initializeSkin
 		self updateHScrollBar; updateVScrollBar.
 		hbar maxWidth: viewport width.
 		vbar maxWidth: viewport height.].
-	widget extentProperty onChangedDo:[
+	"widget extentProperty onChangedDo:[
 		self updateHScrollBar; updateVScrollBar.
 		hbar maxWidth: viewport width.
-		vbar maxWidth: viewport height.].
+		vbar maxWidth: viewport height.]."
 	widget requestLayout
