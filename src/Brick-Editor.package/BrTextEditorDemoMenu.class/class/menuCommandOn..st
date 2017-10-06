@@ -64,7 +64,7 @@ menuCommandOn: aBuilder
 		iconName: #catalogIcon; 
 		parent: #'Moldable Editor';
 		action: [ BlUniverse reset.
-			GTExampleNautilusClassMenu new examples: [ BlFocusExamples gtExamples ] withProgressCollect: [ :example | example returnValue ] ].
+			GtExampleNautilusClassMenu new examples: [ BlFocusExamples gtExamples ] withProgressCollect: [ :example | example returnValue ] ].
 	
 	(aBuilder item: #'13. Selection - grid')
 		order: 1.3;
