@@ -2,7 +2,7 @@ examples
 exampleMethodTextOpenEmbedElement
 	| space editorElement |
 
-	editorElement := (self >> #element:editorMethodText:) gtExample returnValue.
+	editorElement := (self >> #elementWithMethod) gtExample returnValue.
 	editorElement editor text attributes: {
 		BrFontSizeAttribute size: 18.
 		BrFontGenericFamilyAttribute monospace
