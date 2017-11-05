@@ -7,9 +7,10 @@ initializeSkin
 		managed: false;
 		position: 10@10.
 
-	rippleAnimation := BlScaleAnimation new
-		target: ripple; duration:2800; scaleToX: 10; scaleToY: 10;
-		yourself.
+	rippleAnimation := (BlTransformAnimation scale: 10@10)
+		target: ripple;
+		duration: 2800;
+		yourself
 	
 	
 	
