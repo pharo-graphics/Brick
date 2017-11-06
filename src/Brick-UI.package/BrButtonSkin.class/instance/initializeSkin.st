@@ -9,7 +9,7 @@ initializeSkin
 
 	rippleAnimation := (BlTransformAnimation scale: 10@10)
 		target: ripple;
-		duration: 2800;
+		duration: 2.8 seconds;
 		yourself
 	
 	
