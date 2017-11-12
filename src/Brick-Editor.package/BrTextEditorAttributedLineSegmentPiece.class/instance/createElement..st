@@ -1,5 +1,5 @@
 instance creation
-createElement: aTextEditor
+createElement: anEditorElement
 	<return: #BlElement>
 
 	^ self subclassResponsibility

@@ -1,3 +1,3 @@
 instance creation
-createElement: aTextEditor
-	^ self attribute affect: self text in: aTextEditor
+createElement: anEditorElement
+	^ self attribute affect: self text in: anEditorElement

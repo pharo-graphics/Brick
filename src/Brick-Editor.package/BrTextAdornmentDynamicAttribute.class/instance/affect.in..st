@@ -1,3 +1,3 @@
 accessing
-affect: aBrText in: aTextEditor
-	^ adornmentBlock cull: aBrText cull: aTextEditor
+affect: aBrText in: anEditorElement
+	^ adornmentBlock cull: aBrText cull: anEditorElement

@@ -1,5 +1,8 @@
 selection - management
-updateSelection: aTextElement of: aLineSegment in: aTextEditor
+updateSelection: aTextElement of: aLineSegment in: anEditorElement
+	| aTextEditor |
+	
+	aTextEditor := anEditorElement editor.
 	
 	aTextElement selectNone.
 		

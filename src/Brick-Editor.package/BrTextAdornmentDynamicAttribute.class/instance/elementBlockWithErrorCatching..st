@@ -1,7 +1,7 @@
 accessing
 elementBlockWithErrorCatching: aBlock
-	adornmentBlock := [ :aBrText :aTextEditor |
-		[ aBlock cull: aBrText cull: aTextEditor ]
+	adornmentBlock := [ :aBrText :anEditorElement |
+		[ aBlock cull: aBrText cull: anEditorElement ]
 			on: Error 
 			do: [ :err |
 				| text | 

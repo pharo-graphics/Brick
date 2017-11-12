@@ -1,5 +1,9 @@
 instance creation
-createElement: aTextEditor
+createElement: anEditorElement
+	| aTextEditor |
+
+	aTextEditor := anEditorElement editor.
+
 	^ self newElement
 		in: [ :anElement | BrTextEditor isDebug ifTrue: [
 				anElement background: (Color random alpha: 0.2).

@@ -1,4 +1,4 @@
 selection - management
-updateSelection: anElement of: aLineSegment in: aTextEditor
+updateSelection: anElement of: aLineSegment in: anEditorElement
 	
 	self subclassResponsibility

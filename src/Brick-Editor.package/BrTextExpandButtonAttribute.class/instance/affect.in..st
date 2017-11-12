@@ -1,5 +1,9 @@
 accessing
-affect: aBrText in: aBrEditor
+affect: aBrText in: anEditorElement
+	| aTextEditor |
+
+	aTextEditor := anEditorElement editor.
+
 	^ BlElement new
 		size: 8@11;
 		margin: (BlInsets top: 2 right: 5 bottom: 0 left: 5);
@@ -12,9 +16,9 @@ affect: aBrText in: aBrEditor
 				ifTrue: [ 
 					aBrText clearAttributes: [ :aTextAttribute | createdAttributes includes: aTextAttribute ] ]
 				ifFalse: [ 
-					createdAttributes := (attributesCreatingBlock cull: aBrText cull: aBrEditor) asOrderedCollection.
+					createdAttributes := (attributesCreatingBlock cull: aBrText cull: aTextEditor) asOrderedCollection.
 					aBrText attributes: createdAttributes ].
 			self isExpanded: isExpanded not.
-			aBrEditor invalidate: aBrText start to: aBrText end.
-			aBrEditor update: aBrText start to: aBrText end ];
+			aTextEditor invalidate: aBrText start to: aBrText end.
+			aTextEditor update: aBrText start to: aBrText end ];
 		yourself
