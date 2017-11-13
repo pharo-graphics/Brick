@@ -9,4 +9,4 @@ onSelectionChanged
 
 	pieces
 		with: pieceElements
-		do: [ :aPiece :aPieceElement | aPiece updateSelection: aPieceElement of: segment in: self editor ]
+		do: [ :aPiece :aPieceElement | aPiece updateSelection: aPieceElement of: segment in: self infiniteElement ]
