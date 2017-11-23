@@ -13,4 +13,6 @@ initialize
 	segmentBuilder := self defaultSegmentBuilder.
 	styler := self defaultStyler.
 	stylerEventHandler := self defaultStylerEventHandler.
-	commandMutex := Mutex new
+	commandMutex := Mutex new.
+	interactions := OrderedCollection new.
+	self initializeInteractions

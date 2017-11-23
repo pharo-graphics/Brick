@@ -1,15 +1,27 @@
 drawing
 drawMeAndChildrenOnSpartaCanvas: aCanvas
 
+	true ifTrue: [ ^ super drawMeAndChildrenOnSpartaCanvas: aCanvas ].
+
 	(session ~~ Smalltalk session or: [ cachedSurface isNil ]) ifTrue: [
 		| aCachedCanvas |
 		session := Smalltalk session.
 		aCachedCanvas := aCanvas similar: self boundsInWindow extent ceiling asIntegerPoint.
-		super drawMeAndChildrenOnSpartaCanvas: aCachedCanvas.
+		aCachedCanvas transform during: [ :aTransform |
+			aTransform scaleBy: self space windowScale.
+			aTransform apply.
+			super drawMeAndChildrenOnSpartaCanvas: aCachedCanvas.
+		].
+
 		cachedSurface := aCachedCanvas surface.
 		aCachedCanvas release ].
 
-	aCanvas fill
-		paint: cachedSurface;
-		path: cachedSurface bounds;
-		draw
+	aCanvas transform during: [ :aTransform |
+			aTransform scaleBy: 1.0 / self space windowScale.
+			aTransform apply.
+			aCanvas fill
+				paint: cachedSurface;
+				path: cachedSurface bounds;
+				draw ].
+
+	

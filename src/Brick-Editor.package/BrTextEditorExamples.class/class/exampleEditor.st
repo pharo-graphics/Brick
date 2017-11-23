@@ -1,7 +1,7 @@
 examples - comparison
 exampleEditor
 	| space editorElement editor text |
-	
+
 	editorElement := BrEditorElement new.
 	editorElement constraintsDo: [ :c |
 		c horizontal matchParent.
