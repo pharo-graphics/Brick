@@ -7,4 +7,4 @@ insertString: aString at: aTextIndex
 		index: aTextIndex.
 	self enqueueCommand: aCommand.
 	
-	self styler styleInBackgroundProcess: self text copy
+	self styleText

@@ -1,5 +1,6 @@
 cache - computation
 computeInterval: anIndex
+	<return: #Interval>
 	| start end |
 	
 	start := anIndex - (self cacheLimit / 2) rounded.

@@ -11,7 +11,7 @@ menuCommandOn: aBuilder
 		order: 0.1;
 		iconName: #catalogIcon;
 		parent: #'Moldable Editor';
-		action: [ BlUniverse reset. BrTextEditorExamples exampleSyntaxHighlighter ].
+		action: [ BlUniverse reset. BrTextEditorExamples exampleMethodTextOpen ].
 
 	(aBuilder item: #'2. Two windows - one editor')
 		order: 0.2;
@@ -70,7 +70,7 @@ menuCommandOn: aBuilder
 		order: 1.3;
 		iconName: #catalogIcon; 
 		parent: #'Moldable Editor';
-		action: [ BlUniverse reset. BlSelectionExamples exampleGridRow ].
+		action: [ BlUniverse reset. BlSelectionExamples gridRow ].
 	
 	(aBuilder item: #'14. Editor - rainbow')
 		order: 1.4;

@@ -1,6 +1,7 @@
 accessing
 computeSegmentAt: anIndex
-	
+	<return: #BrEditorSegment>
+
 	self
 		assert: [ (self isCachedAt: anIndex) not ]
 		description: [ 'Computing of already cached segment is wasteful' ].

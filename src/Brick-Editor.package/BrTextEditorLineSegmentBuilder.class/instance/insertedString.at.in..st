@@ -4,7 +4,7 @@ insertedString: aString at: aTextIndex in: aBrTextEditor
 	Note: This is an *algorithm* that should be very performant, that is why we don't see
 	a point in doing it in OOP style, procedural way fits quite well"
 	| aCurrentSegment aStream aSubText |
-	
+
 	self
 		assert: [ aBrTextEditor text isNotEmpty ]
 		description: [ 'Text can not be empty here' ].
@@ -61,6 +61,9 @@ insertedString: aString at: aTextIndex in: aBrTextEditor
 				in: aBrTextEditor
 				segment: aCurrentSegment
 				stream: aStream ].
+	
+	
+	self validateIntegrity: aBrTextEditor.
 	
 	aBrTextEditor invalidateAll.
 	aBrTextEditor updateAll.

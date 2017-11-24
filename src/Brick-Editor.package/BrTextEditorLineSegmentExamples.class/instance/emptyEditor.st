@@ -2,4 +2,4 @@ instance creation
 emptyEditor
 	<gtExample>
 
-	^ BrTextEditor new
+	^ BrTextEditor new segmentBuilder: self lineSegmentBuilder

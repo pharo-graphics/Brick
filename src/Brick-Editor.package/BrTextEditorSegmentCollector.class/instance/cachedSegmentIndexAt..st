@@ -4,7 +4,7 @@ cachedSegmentIndexAt: aTextIndex
 	a text item with a given index or return 0 if no such *cached* segment exists.
 	I use binary search to find a segment, algorithmic complexity O(log n)"
 	<return: #Number>
-	
+
 	^ self segments
 		findBinaryIndex: [ :aSegment |
 			(aTextIndex between: aSegment textStart and: aSegment textEnd)
