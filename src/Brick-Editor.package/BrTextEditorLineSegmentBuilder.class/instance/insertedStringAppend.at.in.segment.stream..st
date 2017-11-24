@@ -5,13 +5,13 @@ insertedStringAppend: aString at: aTextIndex in: aBrTextEditor segment: aCurrent
 	"true if string is inserted after line break character"
 	isAfterLineBreak := aTextIndex isZero
 		ifTrue: [ false ]
-		ifFalse: [ (aBrTextEditor text at: aTextIndex) isLineBreak ].
-		
+		ifFalse: [ aCurrentSegment isLineBreak ].
+
 	aCurrentSegment invalidate.
 	aCurrentSegment
 		start: (aCurrentSegment textStart + isAfterLineBreak asBit max: 1)
 		end: aCurrentSegment textEnd + aString size.
-		
+
 	aBrTextEditor segmentCollector
 		moveTextBy: aString size
 		after: aCurrentSegment
