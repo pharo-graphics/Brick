@@ -35,7 +35,7 @@ insertedString: aString at: aTextIndex in: aBrTextEditor
 		ifTrue: [					
 			"If there is more then one segment it means that there should be
 			(aStream collection size - 1) new segments"
-			
+
 			"if textIndex is smaller than start index of the segment
 			it means that we add new segments *before* found segment
 			and therefore should take previous segment"

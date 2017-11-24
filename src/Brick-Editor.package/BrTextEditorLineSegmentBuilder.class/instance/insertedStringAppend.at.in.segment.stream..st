@@ -8,6 +8,7 @@ insertedStringAppend: aString at: aTextIndex in: aBrTextEditor segment: aCurrent
 		ifFalse: [ aCurrentSegment isLineBreak ].
 
 	aCurrentSegment invalidate.
+	
 	aCurrentSegment
 		start: (aCurrentSegment textStart + isAfterLineBreak asBit max: 1)
 		end: aCurrentSegment textEnd + aString size.

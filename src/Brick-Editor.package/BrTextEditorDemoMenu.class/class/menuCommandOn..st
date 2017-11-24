@@ -24,7 +24,7 @@ menuCommandOn: aBuilder
 		iconName: #catalogIcon;
 		parent: #'Moldable Editor';
 		action: [ BlUniverse reset.
-			(GTPlayground openContents: '''./pharo-local/iceberg/feenkcom/gtoolkit/doc/mondrian/index.pillar'' asFileReference' label: 'Pillar')
+			(GTPlayground openContents: '''./pharo-local/iceberg/feenkcom/gtoolkit-visualizer/doc/mondrian/index.pillar'' asFileReference' label: 'Pillar')
 				extent: 900@600 ].
 			
 	(aBuilder item: #'4. Class comment bloc')

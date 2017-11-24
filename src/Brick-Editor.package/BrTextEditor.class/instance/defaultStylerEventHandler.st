@@ -1,10 +1,9 @@
 initialization
 defaultStylerEventHandler
-	^ BlEventHandler on: BrTextStyledEvent do: [ :anEvent |
-		self
-			assert: [ text size = anEvent text size ]
-			description: [ 'Text size must not change during styling' ].
-
-		text rope: anEvent text rope.
-		self invalidateAll.
-		self updateAll ]
+	^ BlEventHandler on: BrTextStyledEvent do: [ :anEvent |		
+		(anEvent text previousGeneration == self text generation)
+			ifTrue: [
+				self text rope: anEvent text text rope.
+				self invalidateAll.
+				self updateAll ]
+			ifFalse: [ Error signal: 'Wrong generation!' ] ]
