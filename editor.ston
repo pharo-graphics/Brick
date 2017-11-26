@@ -8,7 +8,7 @@ SmalltalkCISpec {
 		}
 	],
 	#testing : {
-		#packages : [ 'Brick-Editor' ]
+		#packages : [ 'Brick-Editor' ],
 		#coverage : {
 			#packages : [ 'Brick-Editor' ]
 		}
