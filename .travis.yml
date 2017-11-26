@@ -7,12 +7,18 @@ os:
   - linux
   - osx
 
-matrix:
-  include:
-  - smalltalk: Pharo-6.1
-    smalltalk_config: editor.ston
-  exclude:
-    smalltalk_config: .smalltalk.ston
+smalltalk:
+  - Pharo-6.1
+
+script:
+  - smalltalkci editor.ston
+
+# matrix:
+#   include:
+#   - smalltalk: Pharo-6.1
+#     smalltalk_config: editor.ston
+#   exclude:
+#     smalltalk_config: .smalltalk.ston
 
 before_install:              
   - if [[ "$TRAVIS_OS_NAME" == "linux" ]]; then
