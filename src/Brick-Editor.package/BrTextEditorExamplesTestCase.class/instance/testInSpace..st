@@ -1,10 +1,12 @@
 tests
 testInSpace: anElement
-	| aSpace aTopMostElement semaphore timeout error |
+	| aSpace aTopMostElement semaphore error |
 	
 	aTopMostElement := anElement topMostParent.
 	aTopMostElement isAttachedToSceneGraph
 		ifTrue: [ ^ self ].
+
+	BlUniverse reset.
 
 	semaphore := Semaphore new.
 
@@ -21,12 +23,8 @@ testInSpace: anElement
 			semaphore signal ].
 	aSpace show.
 
-	timeout := semaphore waitTimeoutMSecs: 2000.
+	semaphore wait.
 	aTopMostElement removeFromParent.
-	
-	timeout ifTrue: [
-		aSpace close.
-		self classForTestResult signalErrorWith: anElement gtDisplayString ].
 	
 	error
 		ifNotNil: [ self classForTestResult signalErrorWith: error messageText ]
