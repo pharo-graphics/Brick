@@ -1,6 +1,5 @@
 executing
 executeOn: aTextEditor
-	| anIntegrity |
 
 	aTextEditor text
 		insertString: self string

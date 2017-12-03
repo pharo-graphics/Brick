@@ -7,7 +7,7 @@ menuCommandOn: aBuilder
 		target: self;
 		iconName: #glamorousGo.
 
-	(aBuilder item: #'1. Long Pharo method')
+	(aBuilder item: #'1. Pharo method')
 		order: 0.1;
 		iconName: #catalogIcon;
 		parent: #'Moldable Editor';
@@ -19,12 +19,19 @@ menuCommandOn: aBuilder
 		parent: #'Moldable Editor';
 		action: [ BlUniverse reset. BrTextEditorExamples exampleOneEditorTwoElements ].
 
-	(aBuilder item: #'3. Pillar documenter')
+	(aBuilder item: #'3. Documenter - Mondrian')
 		order: 0.3;
 		iconName: #catalogIcon;
 		parent: #'Moldable Editor';
 		action: [ BlUniverse reset.
 			(GTPlayground openContents: '''./pharo-local/iceberg/feenkcom/gtoolkit-visualizer/doc/mondrian/index.pillar'' asFileReference' label: 'Pillar')
+				extent: 900@600 ].
+	(aBuilder item: #'3.5. Documenter - Connector')
+		order: 0.35;
+		iconName: #catalogIcon;
+		parent: #'Moldable Editor';
+		action: [ BlUniverse reset.
+			(GTPlayground openContents: '''./pharo-local/iceberg/feenkcom/gtoolkit-visualizer/doc/connector/index.pillar'' asFileReference' label: 'Pillar')
 				extent: 900@600 ].
 			
 	(aBuilder item: #'4. Class comment bloc')
@@ -51,7 +58,7 @@ menuCommandOn: aBuilder
 		order: 1.0;
 		iconName: #catalogIcon; 
 		parent: #'Moldable Editor';
-		action: [ BlUniverse reset. BlFlowLayoutExamples exampleHorizontalListFloat ].
+		action: [ BlUniverse reset. BlFlowLayoutExamples floatingCells ].
 
 	(aBuilder item: #'11. Layout - flow with text')
 		order: 1.1;
@@ -87,18 +94,9 @@ menuCommandOn: aBuilder
 			BlUniverse reset.
 			BrTextEditorAttributedLineSegmentHolder defaultSegmentLayout: [ BlGridLayout new columnCount: 12 ].
 			BrTextEditorExamples exampleTextOpen ].
-		
-	(aBuilder item: #'16. Text - Event handling')
-		order: 1.6;
-		iconName: #catalogIcon; 
-		parent: #'Moldable Editor';
-		action: [
-			BlUniverse reset.
-			BrTextEditorAttributedLineSegmentHolder cleanUp. BrTextEditor cleanUp.
-			BrTextEditorExamples exampleMethodTextOpen ].
 	
-	(aBuilder item: #'17. Text - 10`000`000')
-		order: 1.7;
+	(aBuilder item: #'16. Text - 10`000`000')
+		order: 1.6;
 		iconName: #catalogIcon; 
 		parent: #'Moldable Editor';
 		action: [

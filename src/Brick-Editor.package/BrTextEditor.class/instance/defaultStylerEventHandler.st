@@ -6,4 +6,7 @@ defaultStylerEventHandler
 				self text rope: anEvent text text rope.
 				self invalidateAll.
 				self updateAll ]
-			ifFalse: [ Error signal: 'Wrong generation!' ] ]
+			ifFalse: [
+				Bloc debugModeEnabled
+					ifTrue: [ Error signal: 'Wrong generation!' ].
+				self styleText ] ]

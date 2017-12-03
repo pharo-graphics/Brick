@@ -3,5 +3,7 @@ newElement
 	<gtExample>
 	
 	^ BrEditorElement new
-		size: 300@500;
+		constraintsDo: [ :c | 
+			c horizontal matchParent.
+			c vertical matchParent ];
 		yourself
