@@ -2,7 +2,7 @@ examples
 exampleTextOpen
 	| space editorElement |
 	
-	editorElement := (self >> #element:editorText:) gtExample returnValue.
+	editorElement := (self >> #elementWithEditor) gtExample returnValue.
 	editorElement editor text attributes: {
 		BrFontSizeAttribute size: 18.
 		BrFontFamilyAttribute named: 'Helvetica Neue'.
