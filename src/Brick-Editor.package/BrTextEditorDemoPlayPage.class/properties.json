@@ -1,0 +1,14 @@
+{
+	"commentStamp" : "",
+	"super" : "GTPlayPage",
+	"category" : "Brick-Editor-Examples",
+	"classinstvars" : [ ],
+	"pools" : [ ],
+	"classvars" : [ ],
+	"instvars" : [
+		"steps",
+		"currentIndex"
+	],
+	"name" : "BrTextEditorDemoPlayPage",
+	"type" : "normal"
+}
