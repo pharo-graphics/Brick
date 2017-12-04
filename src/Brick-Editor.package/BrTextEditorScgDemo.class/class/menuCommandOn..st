@@ -12,13 +12,14 @@ menuCommandOn: aBuilder
 		iconName: #catalogIcon;
 		parent: #'SCG - Moldable Editor';
 		action: [ self ropeTree ].
-	(aBuilder item: #'2. Model and UI')
-		order: 0.2;
+		
+	(aBuilder item: #'3. Model and UI')
+		order: 0.3;
 		iconName: #catalogIcon;
 		parent: #'SCG - Moldable Editor';
 		action: [ self uiModel ].
-	(aBuilder item: #'3. Two windows - one editor')
-		order: 0.3;
+	(aBuilder item: #'4. Two windows - one editor')
+		order: 0.4;
 		iconName: #catalogIcon;
 		parent: #'SCG - Moldable Editor';
 		action: [ BlUniverse reset. BrTextEditorExamples exampleOneEditorTwoElements ].

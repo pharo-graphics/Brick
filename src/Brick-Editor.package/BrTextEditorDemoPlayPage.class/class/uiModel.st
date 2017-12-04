@@ -1,8 +1,8 @@
 example
 uiModel
-	"Rope tree demo"
+	"Interaction between model and UI of the editor"
 
-	^ self of: ({
+	^ self stepping: {
 		'container := BrTextEditorScgDemo cointainer.
 view := BrTextEditorScgDemo view.
 view contentElement: container.
@@ -22,9 +22,4 @@ view.'.
 BrTextEditorScgDemo announceFrom: model to: ui in: container.
 view'
 
-	} inject: OrderedCollection new into: [ :aCollection :anAddition |
-		aCollection
-			ifEmpty: [ aCollection add: anAddition ]
-			ifNotEmpty: [ aCollection add: (aCollection last, String cr, anAddition) ].
-		aCollection
-	])
+	}

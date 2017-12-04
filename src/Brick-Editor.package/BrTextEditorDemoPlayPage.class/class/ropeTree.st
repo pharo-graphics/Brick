@@ -2,7 +2,7 @@ example
 ropeTree
 	"Rope tree demo"
 
-	^ self of: ({
+	^ self stepping: {
 		'text := ''The moldable editor'' asRopedText.'.
 		'text attributes: { BrFontSizeAttribute size: 20 }.'.
 		'text insertString: '' can be adapted'' at: text size.'.
@@ -17,9 +17,4 @@ ropeTree
 	attributes: { BrFontGenericFamilyAttribute monospace } 
 	from: 43
 	to: 49'
-	} inject: OrderedCollection new into: [ :aCollection :anAddition |
-		aCollection
-			ifEmpty: [ aCollection add: anAddition ]
-			ifNotEmpty: [ aCollection add: (aCollection last, String cr, anAddition) ].
-		aCollection
-	])
+	}
