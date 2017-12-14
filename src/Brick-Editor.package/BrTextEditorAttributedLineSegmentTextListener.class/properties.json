@@ -1,5 +1,5 @@
 {
-	"commentStamp" : "",
+	"commentStamp" : "AliakseiSyrel 12/14/2017 16:27",
 	"super" : "BlBasicEventHandler",
 	"category" : "Brick-Editor-Model-Segment-Text-Line-Attributed",
 	"classinstvars" : [ ],

@@ -2,7 +2,9 @@
 	"commentStamp" : "AliakseiSyrel 8/10/2017 13:19",
 	"super" : "BrTextEditorSegmentHolder",
 	"category" : "Brick-Editor-Model-Segment-Text-Line",
-	"classinstvars" : [ ],
+	"classinstvars" : [
+		"defaultSegmentLayoutBlock"
+	],
 	"pools" : [ ],
 	"classvars" : [ ],
 	"instvars" : [

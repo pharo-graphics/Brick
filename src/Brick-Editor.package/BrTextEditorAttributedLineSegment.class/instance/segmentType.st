@@ -4,4 +4,4 @@ segmentType
 	of segment holder and also used as a key for caching purposes"
 	<return: #BrEditorSegmentType>
 	
-	^ BrTextEditorAttributedLineSegmentType uniqueInstance
+	^ BrTextEditorLineSegmentType uniqueInstance

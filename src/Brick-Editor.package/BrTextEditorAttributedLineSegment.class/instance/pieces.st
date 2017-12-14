@@ -1,6 +1,6 @@
 accessing
 pieces
-	<return: #Array of: #BrTextEditorAttributedLineSegmentPiece>
+	<return: #Array of: #BrTextEditorLineSegmentPiece>
 
 	^ self hasPieces
 		ifTrue: [ pieces ]

@@ -1,6 +1,6 @@
 pieces - computation
 computedPieces
-	<return: #SequenceableCollection of: #BrTextEditorAttributedLineSegmentPiece>
+	<return: #SequenceableCollection of: #BrTextEditorLineSegmentPiece>
 	| thePieces |
 	
 	thePieces := Array streamContents: [ :aStream |
@@ -11,5 +11,5 @@ computedPieces
 			self nextSegmentPiece: lineIterator in: aStream ] ].
 
 	^ thePieces
-		ifEmpty:[ { (BrTextEditorAttributedLineSegmentTextPiece new text: (self text from: 0 to: 0)) } ]
+		ifEmpty:[ { self textPiece: (self text from: 0 to: 0) } ]
 		ifNotEmpty: #yourself

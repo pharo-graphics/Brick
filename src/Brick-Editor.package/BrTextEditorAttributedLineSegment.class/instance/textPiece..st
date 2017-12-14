@@ -1,7 +1,6 @@
 instance creation
 textPiece: aText
 	"Create and return a segment text piece"
-	<return: #BrTextEditorAttributedLineSegmentPiece>
+	<return: #BrTextEditorLineSegmentPiece>
 
-	^ BrTextEditorAttributedLineSegmentTextPiece new
-		text: aText
+	^ BrTextEditorLineSegmentTextPiece new text: aText

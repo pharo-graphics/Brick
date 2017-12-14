@@ -15,7 +15,7 @@ exampleMethodTextOpen
 	editorElement constraintsDo: [ :c |
 		c horizontal matchParent.
 		c vertical matchParent ].
-	
+
 	editorElement addEventHandler: BrTextEditorSelectionHandler new.
 
 	space := BlSpace new.

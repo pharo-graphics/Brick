@@ -1,11 +1,10 @@
 initialization
 createSegmentElement
 	<return: #BlElement>
-	
+
 	^ BrTextEditorSegmentElement new
-		layout: BrEditorTextFlowLayout new;
+		layout: self class defaultSegmentLayout;
 		focusability: BlFocusability after;
-		margin: (BlInsets bottom: 5);
 		constraintsDo: [ :c |
 			c horizontal matchParent.
 			c vertical fitContent ];

@@ -1,12 +1,16 @@
 accessing
 segment: anEditorSegment
-	| mayRebind |
 	
-	mayRebind := self mayRebind: anEditorSegment.
 	segment := anEditorSegment.
-	
-	mayRebind
-		ifFalse: [ self bind: anEditorSegment ].
 
-	self updateCursor: pieceElements.
-	self updateSelection: pieceElements
+	pieces := segment pieces.
+	pieceElements := pieces collect: [ :aPiece | aPiece createElement: self infiniteElement ].
+	
+	pieces
+		with: pieceElements
+		do: [ :aPiece :aPieceElement |
+			aPiece updateCursor: aPieceElement of: anEditorSegment in: self infiniteElement.
+			aPiece updateSelection: aPieceElement of: anEditorSegment in: self infiniteElement ].
+	
+	itemElement removeChildren.
+	itemElement addChildren: pieceElements.

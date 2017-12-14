@@ -1,0 +1,1 @@
+I add support of BrTextEventHandlerAttribute - special kind of attribute that can handle events

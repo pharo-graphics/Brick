@@ -1,3 +1,3 @@
 instance creation
 createElement: anEditorElement
-	^ self attribute affect: self text in: anEditorElement
+	^ self adornmentAttribute affect: self text in: anEditorElement
