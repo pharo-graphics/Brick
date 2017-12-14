@@ -1,8 +1,5 @@
 pieces - computation
 nextSegmentPiece: aBrTextIterator in: aStream
-	"Items are words within a text line (segment). There is no guarantee that returned
-	object is of type BrText, since replacement attribute may replace a part of text
-	with multiple arbitrary objects"
 	| initialAdornments anAdornmentText anAdornmentIterator |
 
 	initialAdornments := aBrTextIterator selectAttributes: #isAdornment.
@@ -24,5 +21,4 @@ nextSegmentPiece: aBrTextIterator in: aStream
 
 	aStream nextPutAll: (initialAdornments
 		select: #shouldAppend
-		thenCollect: [ :anAppendingAttribute |
-			self adornmentPiece: anAdornmentText with: anAppendingAttribute ])
+		thenCollect: [ :anAppendingAttribute | self adornmentPiece: anAdornmentText with: anAppendingAttribute ])

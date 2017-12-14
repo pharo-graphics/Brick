@@ -1,13 +1,11 @@
 {
 	"commentStamp" : "AliakseiSyrel 12/14/2017 16:28",
-	"super" : "BrTextEditorSegment",
+	"super" : "BrTextEditorLineSegment",
 	"category" : "Brick-Editor-Model-Segment-Text-Line-Attributed",
 	"classinstvars" : [ ],
 	"pools" : [ ],
 	"classvars" : [ ],
-	"instvars" : [
-		"pieces"
-	],
+	"instvars" : [ ],
 	"name" : "BrTextEditorAttributedLineSegment",
 	"type" : "normal"
 }

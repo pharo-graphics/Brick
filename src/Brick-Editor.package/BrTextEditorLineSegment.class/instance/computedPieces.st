@@ -1,13 +1,15 @@
 pieces - computation
 computedPieces
-	pieces := Array streamContents: [ :aStream |
-		| segmentIterator |
-		segmentIterator := self text iterator.
+	<return: #SequenceableCollection of: #BrTextEditorLineSegmentPiece>
+	| thePieces |
 	
-		[ segmentIterator hasNext ] whileTrue: [ 
-			aStream nextPut: segmentIterator nextWord ] ].
-	
-	pieces ifEmpty: [
-		pieces := { self text from: 0 to: 0 } ].
+	thePieces := Array streamContents: [ :aStream |
+		| lineIterator |
+		
+		lineIterator := self text iterator.
+		[ lineIterator hasNext ] whileTrue: [
+			self nextSegmentPiece: lineIterator in: aStream ] ].
 
-	^ pieces
+	^ thePieces
+		ifEmpty:[ { self textPiece: (self text from: 0 to: 0) } ]
+		ifNotEmpty: #yourself
