@@ -26,14 +26,16 @@ baseline: spec
 			
 			"default groups"
 			group: 'core' with: #(
+				'Brick-Editor'
+				'Brick-Editor-Extensions');
+				
+			group: 'development' with: #(
+				'core'
 				'Brick-UI'
 				'Brick-Examples'
-				'Brick-Editor'
-				'Brick-Editor-Extensions'
 				'Brick-Sparta'
-				'Brick-Experimental');
-				
-			group: 'development' with: #('core');
+				'Brick-Experimental'
+			);
 
 			group: 'stub' with: #();
 			group: 'default' with: #('core')
