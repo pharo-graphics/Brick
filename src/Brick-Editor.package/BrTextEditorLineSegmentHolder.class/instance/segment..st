@@ -13,4 +13,4 @@ segment: anEditorSegment
 			aPiece updateSelection: aPieceElement of: anEditorSegment in: self infiniteElement ].
 	
 	itemElement removeChildren.
-	itemElement addChildren: pieceElements.
+	itemElement addChildren: pieceElements
