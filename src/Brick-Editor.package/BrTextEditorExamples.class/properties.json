@@ -1,6 +1,6 @@
 {
 	"commentStamp" : "AliakseiSyrel 9/6/2017 10:32",
-	"super" : "TestCase",
+	"super" : "Object",
 	"category" : "Brick-Editor-Examples",
 	"classinstvars" : [
 		"loremIpsum"

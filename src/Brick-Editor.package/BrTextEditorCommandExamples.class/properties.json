@@ -1,6 +1,6 @@
 {
 	"commentStamp" : "",
-	"super" : "TestCase",
+	"super" : "Object",
 	"category" : "Brick-Editor-Examples",
 	"classinstvars" : [ ],
 	"pools" : [ ],

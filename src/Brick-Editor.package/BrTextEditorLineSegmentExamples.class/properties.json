@@ -1,6 +1,6 @@
 {
 	"commentStamp" : "AliakseiSyrel 8/23/2017 14:09",
-	"super" : "TestCase",
+	"super" : "Object",
 	"category" : "Brick-Editor-Examples",
 	"classinstvars" : [ ],
 	"pools" : [ ],
