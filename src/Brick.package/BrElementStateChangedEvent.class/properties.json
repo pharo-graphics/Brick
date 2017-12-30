@@ -1,0 +1,11 @@
+{
+	"commentStamp" : "",
+	"super" : "BlElementEvent",
+	"category" : "Brick-Events",
+	"classinstvars" : [ ],
+	"pools" : [ ],
+	"classvars" : [ ],
+	"instvars" : [ ],
+	"name" : "BrElementStateChangedEvent",
+	"type" : "normal"
+}

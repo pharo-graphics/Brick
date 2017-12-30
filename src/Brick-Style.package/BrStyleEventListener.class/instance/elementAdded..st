@@ -1,3 +1,3 @@
 as yet unclassified
-elementAddedEvent: anEvent
+elementAdded: anEvent
 	self computeStyles

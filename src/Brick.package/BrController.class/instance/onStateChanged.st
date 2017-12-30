@@ -1,3 +1,3 @@
 state management
 onStateChanged
-	 widget dispatchEvent: (BlElementStateChangedEvent target: widget)
+	 widget dispatchEvent: (BrElementStateChangedEvent target: widget)

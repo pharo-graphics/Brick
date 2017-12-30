@@ -1,3 +1,3 @@
 element handlers
-elementStateChangedEvent: anEvent
+elementStateChanged: anEvent
 	self applyStyles

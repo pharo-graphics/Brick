@@ -1,3 +1,3 @@
 as yet unclassified
-elementRemovedEvent: anEvent
+elementRemoved: anEvent
 	"self computeStyles"
