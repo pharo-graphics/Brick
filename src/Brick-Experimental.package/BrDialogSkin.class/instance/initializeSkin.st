@@ -32,4 +32,4 @@ initializeSkin
 		constraintsDo: [ :c | 
 			c linear vertical alignCenter.
 			c linear horizontal alignRight ];
-		addEventHandler: (BlOnClickHandler do:[:e| widget space close])
+		addEventHandler: (BrOnClickHandler do:[:e| widget space close])

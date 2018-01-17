@@ -10,7 +10,7 @@ initialize
 		background: (Color black alpha: 0.3);
 		zIndex: 1000;
 		visibility: BlVisibility hidden;
-		addEventHandler: (BlOnClickHandler do:[self close]).
+		addEventHandler: (BrOnClickHandler do:[self close]).
 		
 	menu := BrPane new
 		width: 300;

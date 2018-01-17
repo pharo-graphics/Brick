@@ -8,7 +8,7 @@ exampleButtons
 	b1 := BrButton new 
 		text: (BrRopedText string: 'click me');
 		margin: (BlInsets all: 5);
-		addEventHandler: (BlOnClickHandler do: [ :evt | evt currentTarget text: (BrRopedText string: 'good job!') ]).
+		addEventHandler: (BrOnClickHandler do: [ :evt | evt currentTarget text: (BrRopedText string: 'good job!') ]).
 
 	b2 := BrButton new 
 		text: (BrRopedText string: 'cool button',String cr,'with icon');
