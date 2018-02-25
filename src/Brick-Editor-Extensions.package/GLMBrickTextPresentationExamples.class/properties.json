@@ -6,6 +6,6 @@
 	"pools" : [ ],
 	"classvars" : [ ],
 	"instvars" : [ ],
-	"name" : "GLMMorphicBrickTextExamples",
+	"name" : "GLMBrickTextPresentationExamples",
 	"type" : "normal"
 }
