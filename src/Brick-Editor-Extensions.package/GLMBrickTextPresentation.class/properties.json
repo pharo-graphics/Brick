@@ -1,0 +1,11 @@
+{
+	"commentStamp" : "",
+	"super" : "GLMTextualPresentation",
+	"category" : "Brick-Editor-Extensions",
+	"classinstvars" : [ ],
+	"pools" : [ ],
+	"classvars" : [ ],
+	"instvars" : [ ],
+	"name" : "GLMBrickTextPresentation",
+	"type" : "normal"
+}
