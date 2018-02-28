@@ -4,7 +4,7 @@ computeSubText
 	
 	self
 		assert: [ self hasCached ]
-		description: [ 'There must be cached segments in order to ciompute sub text' ].
+		description: [ 'There must be cached segments in order to compute sub text' ].
 	
 	subText := text
 		from: (segments first textStart max: text size sign)

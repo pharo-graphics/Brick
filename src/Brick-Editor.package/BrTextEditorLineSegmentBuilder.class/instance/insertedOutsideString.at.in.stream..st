@@ -1,4 +1,4 @@
-text - modifications
+private - insertion
 insertedOutsideString: aString at: aTextIndex in: aBrTextEditor stream: aStream
 	"Is sent when string was inserted outside of cached segments"
 

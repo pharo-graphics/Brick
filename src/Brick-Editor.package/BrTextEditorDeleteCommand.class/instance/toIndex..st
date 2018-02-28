@@ -1,3 +1,3 @@
 accessing
-toIndex: anObject
-	toIndex := anObject
+toIndex: aNumber
+	toIndex := aNumber

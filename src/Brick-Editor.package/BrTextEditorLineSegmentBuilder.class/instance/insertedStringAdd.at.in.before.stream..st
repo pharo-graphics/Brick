@@ -1,4 +1,4 @@
-text - modifications
+private - insertion
 insertedStringAdd: aString at: aTextIndex in: aBrTextEditor before: aCurrentSegment stream: aStream
 	
 	aBrTextEditor segmentCollector

@@ -1,6 +1,5 @@
 accessing
 segment: anEditorSegment
-	
 	segment := anEditorSegment.
 
 	pieces := segment pieces.

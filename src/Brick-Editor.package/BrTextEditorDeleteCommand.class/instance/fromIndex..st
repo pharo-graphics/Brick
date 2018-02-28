@@ -1,3 +1,5 @@
 accessing
-fromIndex: anObject
-	fromIndex := anObject
+fromIndex: aNumber
+	<return: #Number>
+
+	fromIndex := aNumber

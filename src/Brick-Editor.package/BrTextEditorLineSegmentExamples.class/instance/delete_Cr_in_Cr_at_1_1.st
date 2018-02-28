@@ -1,10 +1,11 @@
-instance creation
-emptyEditor
+deletion
+delete_Cr_in_Cr_at_1_1
 	<gtExample>
 	| aTextEditor |
-	
-	aTextEditor := BrTextEditor new segmentBuilder: self lineSegmentBuilder.
-	
+	aTextEditor := self insert_NewLine_inEmptyAt_0.
+
+	aTextEditor delete: 1 to: 1.
+
 	self assert: aTextEditor text asString equals: ''.
 	self assert: aTextEditor segmentCollector computedSegmentsCount equals: 1.
 	self assert: aTextEditor segmentCollector segments first textInterval equals: (0 to: 0).

@@ -1,4 +1,4 @@
-text - modifications
+private - insertion
 insertedStringSubText: aString at: aTextIndex in: aBrText
 	| isFirstLineBreak isLastLineBreak isAfterLineBreak isBeforeLineBreak aStart anEnd |
 

@@ -1,3 +1,0 @@
-instance creation
-newDeleteLineCommand
-	^ BrTextEditorDeleteLineCommand new

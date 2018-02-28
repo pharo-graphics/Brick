@@ -1,4 +1,4 @@
-text - modifications
+private - insertion
 insertedStringAppend: aString at: aTextIndex in: aBrTextEditor segment: aCurrentSegment stream: aStream
 	| isAfterLineBreak |
 	
