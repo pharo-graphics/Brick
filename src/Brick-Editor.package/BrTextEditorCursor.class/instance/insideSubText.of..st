@@ -9,7 +9,7 @@ insideSubText: aBrSubText of: aSegment
 	self position isZero
 		ifTrue: [ ^ aBrSubText start = 1 ].
 
-	(aBrSubText == aSegment pieces first)
+	(aBrSubText = aSegment pieces first)
 		ifTrue: [ 
 			^ self position
 				between: aBrSubText start - 1
