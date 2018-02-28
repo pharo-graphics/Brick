@@ -1,5 +1,6 @@
 private - deletion
 deleteFrom: aFromIndex segment: aFromSegment to: aToIndex segment: aToSegment in: aBrTextEditor
+	"I do the hard work of updating segment structure after deleting a piece of text within provided interval and segments"
 	| hasPreviousSegment shouldMergeWithPrevious shouldAccountForPreviousnewLine aTargetSegment removedLength aNewEnd aNewStart |
 	
 	hasPreviousSegment := aFromSegment index > 1.
@@ -26,8 +27,16 @@ deleteFrom: aFromIndex segment: aFromSegment to: aToIndex segment: aToSegment in
 		start: aNewStart + shouldAccountForPreviousnewLine asBit
 		end: aNewEnd.
 		
-	(aTargetSegment ~= aFromSegment)
-		ifTrue: [ aBrTextEditor segmentCollector removeSegmentInterval: (aFromSegment index to: aToSegment index) ].
+	((aTargetSegment ~= aFromSegment) or: [ aFromSegment ~= aToSegment ])
+		ifTrue: [
+			| removeSegmentStart removeSegmentEnd |
+			
+			removeSegmentStart := (aTargetSegment ~= aFromSegment)
+				ifTrue: [ aFromSegment index ]
+				ifFalse: [ (aFromSegment index + 1) min: aToSegment index ].
+			removeSegmentEnd := aToSegment index.
+			
+			aBrTextEditor segmentCollector removeSegmentInterval: (removeSegmentStart to: removeSegmentEnd) ].
 	
 	aBrTextEditor segmentCollector
 		moveTextBy: removedLength negated
