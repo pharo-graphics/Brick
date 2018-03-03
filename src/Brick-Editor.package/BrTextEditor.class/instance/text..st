@@ -2,6 +2,8 @@ accessing
 text: aBrText
 
 	text := aBrText.
+
+	text when: BrTextStringInserted send: #onStringInserted: to: self.
 	
 	"Replacing text instance means that we can not guarantee structural integrity
 	of existing cache and have to rebuild it invalidating the whole underlying model structure"

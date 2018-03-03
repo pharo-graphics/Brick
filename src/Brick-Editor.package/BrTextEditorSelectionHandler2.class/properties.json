@@ -1,11 +1,11 @@
 {
-	"commentStamp" : "AliakseiSyrel 8/5/2017 00:24",
+	"commentStamp" : "",
 	"super" : "BlVisualSelectionHandler",
 	"category" : "Brick-Editor-UI",
 	"classinstvars" : [ ],
 	"pools" : [ ],
 	"classvars" : [ ],
 	"instvars" : [ ],
-	"name" : "BrTextEditorSelectionHandler",
+	"name" : "BrTextEditorSelectionHandler2",
 	"type" : "normal"
 }

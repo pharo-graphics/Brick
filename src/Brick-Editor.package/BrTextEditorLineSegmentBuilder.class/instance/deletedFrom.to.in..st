@@ -20,7 +20,8 @@ deletedFrom: aFromIndex to: aToIndex in: aBrTextEditor
 	(aFromSegment isNil and: [ aToSegment isNil ])	
 		ifTrue: [ ^ self ].
 	
-	self deleteFrom: aFromIndex segment: aFromSegment to: aToIndex segment: aToSegment in: aBrTextEditor.		
+	self deleteFrom: aFromIndex segment: aFromSegment to: aToIndex segment: aToSegment in: aBrTextEditor.
 	
+	"note: ideally we should invalidate only that part of the editor that was changed"
 	aBrTextEditor invalidateAll.
 	aBrTextEditor updateAll
