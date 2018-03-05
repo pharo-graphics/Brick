@@ -13,12 +13,12 @@ nextSegmentPiece: aBrTextIterator in: aStream
 	
 	anAdornmentIterator := anAdornmentText iterator.
 	[ anAdornmentIterator hasNext ] whileTrue: [
-		| aWordText aWordTextIterator  |
+		| aWordText aWordTextIterator |
 		aWordText := self nextWord: anAdornmentIterator.
 		aWordTextIterator := aWordText iterator.
 		[ aWordTextIterator hasNext ] whileTrue: [
 			self nextSpan: aWordTextIterator in: aStream ] ].
 
-	aStream nextPutAll: (initialAdornments
+	aStream nextPutAll: (initialAdornments asArray
 		select: #shouldAppend
 		thenCollect: [ :anAppendingAttribute | self adornmentPiece: anAdornmentText with: anAppendingAttribute ])

@@ -16,8 +16,6 @@ exampleMethodTextOpen
 		c horizontal matchParent.
 		c vertical matchParent ].
 
-	editorElement addEventHandler: BrTextEditorSelectionHandler new.
-
 	space := BlSpace new.
 	space extent: 800@400.
 	space root addChild: editorElement.
