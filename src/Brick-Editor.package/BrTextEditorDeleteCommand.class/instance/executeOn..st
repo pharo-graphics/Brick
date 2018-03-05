@@ -10,6 +10,4 @@ executeOn: aTextEditor
 		to: self toIndex
 		in: aTextEditor.
 
-	aTextEditor segmentBuilder validateIntegrity: aTextEditor.
-
-	aTextEditor notifyDeletedFrom: self fromIndex to: self toIndex
+	aTextEditor segmentBuilder validateIntegrity: aTextEditor
