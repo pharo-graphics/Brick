@@ -6,7 +6,10 @@ initialize
 	textEditListener := self defaultTextEditListener editor: self.
 	selection := self defaultSelection.
 	selectionRecorder := self defaultSelectionRecorder.
+	
 	text := self defaultText.
+	self initializeText: text.
+	
 	segmentCollector := self defaultSegmentCollector.
 	segmentCollector editor: self.
 	segmentCollector text: text.
