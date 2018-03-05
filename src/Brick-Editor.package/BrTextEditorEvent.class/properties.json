@@ -1,0 +1,13 @@
+{
+	"commentStamp" : "",
+	"super" : "BlEvent",
+	"category" : "Brick-Editor-UI",
+	"classinstvars" : [ ],
+	"pools" : [ ],
+	"classvars" : [ ],
+	"instvars" : [
+		"editor"
+	],
+	"name" : "BrTextEditorEvent",
+	"type" : "normal"
+}
