@@ -1,0 +1,11 @@
+{
+	"commentStamp" : "",
+	"super" : "BrControllerOld",
+	"category" : "Brick-Old",
+	"classinstvars" : [ ],
+	"pools" : [ ],
+	"classvars" : [ ],
+	"instvars" : [ ],
+	"name" : "BrInteractiveControllerOld",
+	"type" : "normal"
+}

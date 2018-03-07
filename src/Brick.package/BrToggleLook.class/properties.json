@@ -1,0 +1,11 @@
+{
+	"commentStamp" : "",
+	"super" : "BrLook",
+	"category" : "Brick-Toggle-Look",
+	"classinstvars" : [ ],
+	"pools" : [ ],
+	"classvars" : [ ],
+	"instvars" : [ ],
+	"name" : "BrToggleLook",
+	"type" : "normal"
+}

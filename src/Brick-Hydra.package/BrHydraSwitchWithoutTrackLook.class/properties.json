@@ -1,0 +1,13 @@
+{
+	"commentStamp" : "",
+	"super" : "BrHydraSwitchLook",
+	"category" : "Brick-Hydra",
+	"classinstvars" : [ ],
+	"pools" : [ ],
+	"classvars" : [ ],
+	"instvars" : [
+		"thumb"
+	],
+	"name" : "BrHydraSwitchWithoutTrackLook",
+	"type" : "normal"
+}

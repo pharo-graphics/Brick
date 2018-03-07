@@ -1,0 +1,13 @@
+{
+	"commentStamp" : "",
+	"super" : "Color",
+	"category" : "Brick-Old",
+	"classinstvars" : [ ],
+	"pools" : [ ],
+	"classvars" : [ ],
+	"instvars" : [
+		"colorName"
+	],
+	"name" : "BrMdColor",
+	"type" : "normal"
+}

@@ -1,0 +1,1 @@
+I am sent when label of the toggle button is changed

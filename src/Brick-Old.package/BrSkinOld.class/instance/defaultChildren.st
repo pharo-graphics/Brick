@@ -1,0 +1,3 @@
+initialization
+defaultChildren
+	^ BlChildrenArray new

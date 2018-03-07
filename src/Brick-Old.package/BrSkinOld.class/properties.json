@@ -1,0 +1,14 @@
+{
+	"commentStamp" : "",
+	"super" : "BlElementEventListener",
+	"category" : "Brick-Old",
+	"classinstvars" : [ ],
+	"pools" : [ ],
+	"classvars" : [ ],
+	"instvars" : [
+		"widget",
+		"controller"
+	],
+	"name" : "BrSkinOld",
+	"type" : "normal"
+}

@@ -1,0 +1,13 @@
+{
+	"commentStamp" : "",
+	"super" : "BrWidgetModel",
+	"category" : "Brick-Toggle-Model",
+	"classinstvars" : [ ],
+	"pools" : [ ],
+	"classvars" : [ ],
+	"instvars" : [
+		"toggles"
+	],
+	"name" : "BrToggleGroupModel",
+	"type" : "normal"
+}

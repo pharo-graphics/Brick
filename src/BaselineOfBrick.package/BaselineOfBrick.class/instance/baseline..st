@@ -7,13 +7,8 @@ baseline: spec
 				postLoadDoIt: #postLoadBloc:;
 				loads: #(stub); "Stub does not load anything here. We load Bloc in postLoadBloc:"
 				repository: 'github://pharo-graphics/Bloc/src' ];
-
-			project: 'PetitCSS' with: [ spec
-				className: #ConfigurationOfPetitCSS;
-				versionString: '1.1';
-				repository: 'http://smalltalkhub.com/mc/GlennCavarle/PetitCSS/main/' ];
 			
-			package: #Brick with: [ spec requires: #('Bloc'). ];
+			package: #Brick with: [ spec requires: #('Bloc') ];
 			package: #'Brick-Style' with: [ spec requires: #('Brick'). ];
 			package: #'Brick-Theme' with: [ spec requires: #('Brick-Style' ). ];
 			package: #'Brick-Material' with: [ spec requires: #('Brick-Theme' ). ];

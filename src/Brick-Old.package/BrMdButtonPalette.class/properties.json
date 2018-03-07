@@ -1,0 +1,13 @@
+{
+	"commentStamp" : "",
+	"super" : "BrButtonPalette",
+	"category" : "Brick-Old",
+	"classinstvars" : [ ],
+	"pools" : [ ],
+	"classvars" : [ ],
+	"instvars" : [
+		"name"
+	],
+	"name" : "BrMdButtonPalette",
+	"type" : "normal"
+}

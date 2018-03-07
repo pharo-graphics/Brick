@@ -1,0 +1,14 @@
+{
+	"commentStamp" : "",
+	"super" : "BrSkinOld",
+	"category" : "Brick-Old",
+	"classinstvars" : [ ],
+	"pools" : [ ],
+	"classvars" : [ ],
+	"instvars" : [
+		"graphic",
+		"text"
+	],
+	"name" : "BrLabeledSkin",
+	"type" : "normal"
+}

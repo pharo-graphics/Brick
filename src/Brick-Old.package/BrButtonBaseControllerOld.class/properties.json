@@ -1,0 +1,11 @@
+{
+	"commentStamp" : "",
+	"super" : "BrFocusableControllerOld",
+	"category" : "Brick-Old",
+	"classinstvars" : [ ],
+	"pools" : [ ],
+	"classvars" : [ ],
+	"instvars" : [ ],
+	"name" : "BrButtonBaseControllerOld",
+	"type" : "normal"
+}

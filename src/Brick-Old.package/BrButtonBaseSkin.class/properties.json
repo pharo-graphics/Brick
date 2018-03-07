@@ -1,0 +1,11 @@
+{
+	"commentStamp" : "",
+	"super" : "BrLabeledSkin",
+	"category" : "Brick-Old",
+	"classinstvars" : [ ],
+	"pools" : [ ],
+	"classvars" : [ ],
+	"instvars" : [ ],
+	"name" : "BrButtonBaseSkin",
+	"type" : "normal"
+}

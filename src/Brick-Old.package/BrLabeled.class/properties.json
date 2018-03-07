@@ -1,0 +1,17 @@
+{
+	"commentStamp" : "",
+	"super" : "BrWidgetOld",
+	"category" : "Brick-Old",
+	"classinstvars" : [ ],
+	"pools" : [ ],
+	"classvars" : [ ],
+	"instvars" : [
+		"text",
+		"icon",
+		"fontColor",
+		"fontSize",
+		"fontFamily"
+	],
+	"name" : "BrLabeled",
+	"type" : "normal"
+}
