@@ -1,3 +1,0 @@
-*Brick-Style
-addStylesheet: anObject
-	self stylesheets add: anObject.

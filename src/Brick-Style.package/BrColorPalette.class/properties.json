@@ -1,13 +1,15 @@
 {
 	"commentStamp" : "",
-	"super" : "BlElement",
-	"category" : "Brick",
+	"super" : "Object",
+	"category" : "Brick-Style",
 	"classinstvars" : [ ],
 	"pools" : [ ],
 	"classvars" : [ ],
 	"instvars" : [
-		"viewModel"
+		"hovered",
+		"disabled",
+		"pressed"
 	],
-	"name" : "BrWidget",
+	"name" : "BrColorPalette",
 	"type" : "normal"
 }

@@ -1,7 +1,7 @@
 {
 	"commentStamp" : "AliakseiSyrel 3/7/2018 09:05",
 	"super" : "BlElementEventListener",
-	"category" : "Brick-Experimental",
+	"category" : "Brick",
 	"classinstvars" : [ ],
 	"pools" : [ ],
 	"classvars" : [ ],

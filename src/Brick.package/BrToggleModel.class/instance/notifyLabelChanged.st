@@ -1,3 +1,0 @@
-notifying
-notifyLabelChanged
-	widget dispatchEvent: BrToggleLabelChanged new

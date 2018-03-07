@@ -1,13 +1,14 @@
 {
 	"commentStamp" : "",
-	"super" : "BlElement",
-	"category" : "Brick",
+	"super" : "BrLook",
+	"category" : "Brick-Material",
 	"classinstvars" : [ ],
 	"pools" : [ ],
 	"classvars" : [ ],
 	"instvars" : [
-		"viewModel"
+		"shadow",
+		"cornerRadius"
 	],
-	"name" : "BrWidget",
+	"name" : "BrMaterialLook",
 	"type" : "normal"
 }

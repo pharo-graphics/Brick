@@ -1,1 +1,0 @@
-Futuristic switches inspired by Hydra UI (https://creativemarket.com/MehmetRehaTugcu/363101-Hydra-UI)

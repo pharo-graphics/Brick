@@ -1,0 +1,11 @@
+{
+	"commentStamp" : "",
+	"super" : "BrLabeledPalette",
+	"category" : "Brick-Style",
+	"classinstvars" : [ ],
+	"pools" : [ ],
+	"classvars" : [ ],
+	"instvars" : [ ],
+	"name" : "BrButtonPalette",
+	"type" : "normal"
+}
