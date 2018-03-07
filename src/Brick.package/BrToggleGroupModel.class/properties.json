@@ -1,13 +1,13 @@
 {
 	"commentStamp" : "",
-	"super" : "BlElement",
+	"super" : "BrWidgetModel",
 	"category" : "Brick-Experimental",
 	"classinstvars" : [ ],
 	"pools" : [ ],
 	"classvars" : [ ],
 	"instvars" : [
-		"viewModel"
+		"toggles"
 	],
-	"name" : "BrWidget",
+	"name" : "BrToggleGroupModel",
 	"type" : "normal"
 }

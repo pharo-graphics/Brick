@@ -1,13 +1,13 @@
 {
-	"commentStamp" : "",
-	"super" : "BlElement",
+	"commentStamp" : "AliakseiSyrel 3/7/2018 11:18",
+	"super" : "BrToggleLook",
 	"category" : "Brick-Experimental",
 	"classinstvars" : [ ],
 	"pools" : [ ],
 	"classvars" : [ ],
 	"instvars" : [
-		"viewModel"
+		"color"
 	],
-	"name" : "BrWidget",
+	"name" : "BrHydraSwitchLook",
 	"type" : "normal"
 }

@@ -1,2 +1,0 @@
-state management
-defaultState

@@ -1,13 +1,15 @@
 {
 	"commentStamp" : "",
-	"super" : "BlElement",
+	"super" : "BrHydraSwitchLook",
 	"category" : "Brick-Experimental",
 	"classinstvars" : [ ],
 	"pools" : [ ],
 	"classvars" : [ ],
 	"instvars" : [
-		"viewModel"
+		"track",
+		"thumb",
+		"cornerRadius"
 	],
-	"name" : "BrWidget",
+	"name" : "BrHydraSwitchWithTrackLook",
 	"type" : "normal"
 }

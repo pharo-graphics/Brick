@@ -1,13 +1,13 @@
 {
 	"commentStamp" : "",
-	"super" : "BlElement",
+	"super" : "BrHydraSwitchLook",
 	"category" : "Brick-Experimental",
 	"classinstvars" : [ ],
 	"pools" : [ ],
 	"classvars" : [ ],
 	"instvars" : [
-		"viewModel"
+		"thumb"
 	],
-	"name" : "BrWidget",
+	"name" : "BrHydraSwitchRadioLook",
 	"type" : "normal"
 }

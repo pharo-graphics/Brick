@@ -1,0 +1,1 @@
+I am sent when switch widget is deactivated

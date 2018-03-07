@@ -1,0 +1,3 @@
+notifying
+notifyToggleActivated
+	widget fireEvent: BrToggleActivatedEvent new

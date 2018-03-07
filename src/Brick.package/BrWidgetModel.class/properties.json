@@ -1,13 +1,14 @@
 {
-	"commentStamp" : "",
-	"super" : "BlElement",
+	"commentStamp" : "AliakseiSyrel 3/7/2018 09:07",
+	"super" : "BlElementEventListener",
 	"category" : "Brick-Experimental",
 	"classinstvars" : [ ],
 	"pools" : [ ],
 	"classvars" : [ ],
 	"instvars" : [
-		"viewModel"
+		"widget",
+		"model"
 	],
-	"name" : "BrWidget",
+	"name" : "BrWidgetModel",
 	"type" : "normal"
 }

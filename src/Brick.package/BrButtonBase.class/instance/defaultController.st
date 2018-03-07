@@ -1,3 +1,3 @@
 initialize-release
 defaultController
-	^ BrButtonBaseController new
+	^ BrButtonBaseControllerOld new

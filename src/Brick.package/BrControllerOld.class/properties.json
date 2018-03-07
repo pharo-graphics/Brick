@@ -1,13 +1,14 @@
 {
 	"commentStamp" : "",
-	"super" : "BlElement",
-	"category" : "Brick-Experimental",
+	"super" : "Object",
+	"category" : "Brick-Controller",
 	"classinstvars" : [ ],
 	"pools" : [ ],
 	"classvars" : [ ],
 	"instvars" : [
-		"viewModel"
+		"widget",
+		"keyBindings"
 	],
-	"name" : "BrWidget",
+	"name" : "BrControllerOld",
 	"type" : "normal"
 }
