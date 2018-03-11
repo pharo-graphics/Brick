@@ -18,7 +18,9 @@ deleteFrom: aFromIndex segment: aFromSegment to: aToIndex segment: aToSegment in
 	aNewEnd := aToSegment textEnd - removedLength.
 	aNewStart := aTargetSegment textStart min: aNewEnd.
 	
-	shouldAccountForPreviousnewLine := aNewStart > 0 and: [ (aBrTextEditor text at: aNewStart) isLineBreak ].
+	shouldAccountForPreviousnewLine := (aNewStart > 0)
+		and: [ (aNewStart < aNewEnd)
+			and: [ (aBrTextEditor text at: aNewStart) isLineBreak ] ].
 
 	aTargetSegment
 		start: aNewStart + shouldAccountForPreviousnewLine asBit
