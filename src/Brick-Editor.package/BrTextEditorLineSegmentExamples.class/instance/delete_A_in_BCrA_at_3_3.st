@@ -6,6 +6,6 @@ delete_A_in_BCrA_at_3_3
 
 	aTextEditor delete: 3 to: 3.
 
-	self assert: aTextEditor text asString equals: 'A', String cr.
+	self assert: aTextEditor text asString equals: 'B', String cr.
 
 	^ aTextEditor
