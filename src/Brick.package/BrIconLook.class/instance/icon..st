@@ -4,4 +4,5 @@ icon: anElement
 		assert: [ anElement isNotNil ]
 		description: [ 'Icon must not be nil' ].
 
-	iconElement := anElement
+	iconElement := anElement.
+	self updateIcon

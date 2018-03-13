@@ -1,4 +1,7 @@
 api - toggle
-deactivate	
+deactivate
+	self isActivated
+		ifFalse: [ ^ self ].
+
 	activated := false.
 	self notifyToggleDeactivated
