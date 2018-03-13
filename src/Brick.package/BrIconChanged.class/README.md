@@ -1,0 +1,1 @@
+I am sent when icon in a view model is changed

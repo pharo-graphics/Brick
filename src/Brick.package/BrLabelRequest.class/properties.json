@@ -1,0 +1,11 @@
+{
+	"commentStamp" : "AliakseiSyrel 3/13/2018 18:12",
+	"super" : "BlEvent",
+	"category" : "Brick-Core - Events",
+	"classinstvars" : [ ],
+	"pools" : [ ],
+	"classvars" : [ ],
+	"instvars" : [ ],
+	"name" : "BrLabelRequest",
+	"type" : "normal"
+}

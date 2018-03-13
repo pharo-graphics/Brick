@@ -7,8 +7,9 @@ onInstalledIn: anElement
 		description: [ 'Can not install the same look instance on multiple widgets' ].
 
 	widget := anElement.
-
-	self initializeLook.
-	self initializeState.
 	
+	self initializeListeners.
+	self initializeRequests.
+	self initializeLook.
+
 	self looks do: [ :aLook | aLook onInstalledIn: anElement ]

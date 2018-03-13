@@ -1,7 +1,7 @@
 {
 	"commentStamp" : "",
 	"super" : "BrWidgetModel",
-	"category" : "Brick-Toggle-Model",
+	"category" : "Brick-Toggle - Model",
 	"classinstvars" : [ ],
 	"pools" : [ ],
 	"classvars" : [ ],

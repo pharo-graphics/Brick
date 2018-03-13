@@ -1,0 +1,3 @@
+converting
+asLook
+	^ self new

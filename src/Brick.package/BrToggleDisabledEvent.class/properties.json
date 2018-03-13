@@ -1,7 +1,7 @@
 {
 	"commentStamp" : "AliakseiSyrel 3/7/2018 09:22",
 	"super" : "BlEvent",
-	"category" : "Brick-Toggle-Events",
+	"category" : "Brick-Toggle - Events",
 	"classinstvars" : [ ],
 	"pools" : [ ],
 	"classvars" : [ ],

@@ -1,1 +1,0 @@
-Material toggle button inspired by Angular (https://material.angular.io/components/button-toggle/overview)

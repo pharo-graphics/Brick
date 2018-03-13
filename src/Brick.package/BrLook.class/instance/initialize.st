@@ -2,4 +2,5 @@ initialization
 initialize
 	super initialize.
 	
-	looks := OrderedCollection new
+	looks := OrderedCollection new.
+	eventDispatcher := BlDirectEventDispatcher on: self

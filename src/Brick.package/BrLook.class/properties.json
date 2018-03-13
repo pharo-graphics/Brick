@@ -1,14 +1,17 @@
 {
-	"commentStamp" : "AliakseiSyrel 3/7/2018 09:05",
-	"super" : "BlElementEventListener",
-	"category" : "Brick-Core",
-	"classinstvars" : [ ],
-	"pools" : [ ],
+	"classtraitcomposition" : "TBlEventTarget classTrait",
 	"classvars" : [ ],
 	"instvars" : [
 		"widget",
-		"looks"
+		"looks",
+		"eventDispatcher"
 	],
 	"name" : "BrLook",
-	"type" : "normal"
+	"commentStamp" : "AliakseiSyrel 3/7/2018 09:05",
+	"super" : "BlElementEventListener",
+	"traitcomposition" : "TBlEventTarget",
+	"type" : "normal",
+	"classinstvars" : [ ],
+	"pools" : [ ],
+	"category" : "Brick-Core"
 }

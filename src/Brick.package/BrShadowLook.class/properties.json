@@ -1,0 +1,14 @@
+{
+	"commentStamp" : "",
+	"super" : "BrLook",
+	"category" : "Brick-Core",
+	"classinstvars" : [ ],
+	"pools" : [ ],
+	"classvars" : [ ],
+	"instvars" : [
+		"shadow",
+		"cornerRadius"
+	],
+	"name" : "BrShadowLook",
+	"type" : "normal"
+}

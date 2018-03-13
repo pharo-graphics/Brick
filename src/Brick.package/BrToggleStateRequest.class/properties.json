@@ -1,0 +1,11 @@
+{
+	"commentStamp" : "AliakseiSyrel 3/13/2018 18:22",
+	"super" : "BlEvent",
+	"category" : "Brick-Toggle - Events",
+	"classinstvars" : [ ],
+	"pools" : [ ],
+	"classvars" : [ ],
+	"instvars" : [ ],
+	"name" : "BrToggleStateRequest",
+	"type" : "normal"
+}

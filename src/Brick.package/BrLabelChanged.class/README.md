@@ -1,0 +1,1 @@
+I am sent when label in a view model is changed

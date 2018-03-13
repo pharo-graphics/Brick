@@ -1,0 +1,11 @@
+{
+	"commentStamp" : "AliakseiSyrel 3/13/2018 17:51",
+	"super" : "BrToggleLook",
+	"category" : "Brick-Material-Core",
+	"classinstvars" : [ ],
+	"pools" : [ ],
+	"classvars" : [ ],
+	"instvars" : [ ],
+	"name" : "BrMaterialButtonLayoutLook",
+	"type" : "normal"
+}

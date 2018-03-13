@@ -1,3 +1,3 @@
 notifying
 notifyLabelChanged
-	widget dispatchEvent: BrToggleLabelChanged new
+	widget dispatchEvent: (BrLabelChanged new text: self label)
