@@ -1,3 +1,3 @@
 api - composition
 + anotherLook
-	self add: anotherLook
+	self remove: anotherLook asLook

@@ -1,0 +1,13 @@
+{
+	"commentStamp" : "AliakseiSyrel 3/13/2018 19:55",
+	"super" : "BrToggleLook",
+	"category" : "Brick-Material-Core",
+	"classinstvars" : [ ],
+	"pools" : [ ],
+	"classvars" : [ ],
+	"instvars" : [
+		"cornerRadius"
+	],
+	"name" : "BrMaterialRoundedLook",
+	"type" : "normal"
+}

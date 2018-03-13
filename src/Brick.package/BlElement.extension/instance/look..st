@@ -1,5 +1,8 @@
 *Brick
-look: aBrViewLook
+look: aLook
+	| aLookInstance |
+	
+	aLookInstance := aLook asLook.
 	self removeEventHandlersSuchThat: [ :each | each isKindOf: BrLook ].
-	self addEventHandler: aBrViewLook.
-	self userData at: #brickLook put: aBrViewLook
+	self addEventHandler: aLookInstance.
+	self userData at: #brickLook put: aLookInstance
