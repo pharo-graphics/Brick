@@ -1,7 +1,7 @@
 examples - material
-materialToggleWithIconAndLabel
+toogleWithMaterialIcon
 	<gtExample>
 
 	^ self toggleButton
-		look: BrMaterialToggleLabelledLook + BrMaterialToggleIconifiedLook;
+		look: BrMaterialToggleIconifiedLook new;
 		viewModelDo: [ :aModel | aModel icon: self toggleButtonIcon ]

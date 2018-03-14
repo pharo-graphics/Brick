@@ -1,5 +1,5 @@
 examples - material
-materialToggleWithChangingIcon
+toggleWithMaterialChangingIcon
 	<gtExample>
 
 	^ self toggleButton
