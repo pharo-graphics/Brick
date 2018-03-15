@@ -7,7 +7,7 @@ affect: aBrText in: anEditorElement
 	^ BlElement new
 		size: 8@11;
 		margin: (BlInsets top: 2 right: 5 bottom: 0 left: 5);
-		background: Color gray trans;
+		background: Color gray;
 		geometry: (BlPolygon vertices: (isExpanded 	
 			ifTrue: [ { 0@3 . 8@3. 4@11 } ] 
 			ifFalse: [ { 0@3 . 8@7. 0@11 } ]));
