@@ -1,0 +1,11 @@
+{
+	"commentStamp" : "",
+	"super" : "BrTabEvent",
+	"category" : "Brick-Tabs - Events",
+	"classinstvars" : [ ],
+	"pools" : [ ],
+	"classvars" : [ ],
+	"instvars" : [ ],
+	"name" : "BrTabAddedEvent",
+	"type" : "normal"
+}

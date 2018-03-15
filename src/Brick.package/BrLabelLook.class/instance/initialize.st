@@ -2,5 +2,5 @@ initialization
 initialize
 	super initialize.
 	
-	labelText := '' asRopedText.
+	labelText := 'Label' asRopedText.
 	labelElement := BlTextElement new

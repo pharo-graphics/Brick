@@ -1,0 +1,15 @@
+{
+	"commentStamp" : "",
+	"super" : "BrLook",
+	"category" : "Brick-Material-Collection",
+	"classinstvars" : [ ],
+	"pools" : [ ],
+	"classvars" : [ ],
+	"instvars" : [
+		"header",
+		"content",
+		"layout"
+	],
+	"name" : "BrMaterialTabGroupLook",
+	"type" : "normal"
+}

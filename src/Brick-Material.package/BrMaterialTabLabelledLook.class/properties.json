@@ -1,0 +1,13 @@
+{
+	"commentStamp" : "",
+	"super" : "BrTabLook",
+	"category" : "Brick-Material-Collection",
+	"classinstvars" : [ ],
+	"pools" : [ ],
+	"classvars" : [ ],
+	"instvars" : [
+		"label"
+	],
+	"name" : "BrMaterialTabLabelledLook",
+	"type" : "normal"
+}

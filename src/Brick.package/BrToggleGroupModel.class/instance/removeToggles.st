@@ -1,4 +1,4 @@
 adding / removing
 removeToggles
 	widget removeChildren: self toggles.
-	toggles removeAll
+	self toggles removeAll

@@ -1,0 +1,15 @@
+{
+	"commentStamp" : "",
+	"super" : "BrTabLook",
+	"category" : "Brick-Material-Core",
+	"classinstvars" : [ ],
+	"pools" : [ ],
+	"classvars" : [ ],
+	"instvars" : [
+		"normalBackground",
+		"checkedBackground",
+		"bar"
+	],
+	"name" : "BrMaterialTabBackgroundLook",
+	"type" : "normal"
+}

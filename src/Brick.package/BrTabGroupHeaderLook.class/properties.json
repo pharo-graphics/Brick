@@ -1,0 +1,15 @@
+{
+	"commentStamp" : "",
+	"super" : "BrLook",
+	"category" : "Brick-Tabs - Look",
+	"classinstvars" : [ ],
+	"pools" : [ ],
+	"classvars" : [ ],
+	"instvars" : [
+		"tabs",
+		"header",
+		"resizer"
+	],
+	"name" : "BrTabGroupHeaderLook",
+	"type" : "normal"
+}

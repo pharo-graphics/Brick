@@ -1,6 +1,6 @@
 {
 	"commentStamp" : "AliakseiSyrel 3/13/2018 18:22",
-	"super" : "BlEvent",
+	"super" : "BrRequest",
 	"category" : "Brick-Toggle - Events",
 	"classinstvars" : [ ],
 	"pools" : [ ],

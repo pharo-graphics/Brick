@@ -1,4 +1,4 @@
-api - hooks
+hooks
 onInstalledIn: anElement
 	super onInstalledIn: anElement.
 	
@@ -6,4 +6,6 @@ onInstalledIn: anElement
 		assert: [ widget isNil ]
 		description: [ 'Can not install the same look instance on multiple widgets' ].
 
-	widget := anElement
+	widget := anElement.
+	self onAttachedTo: anElement.
+	self dispatchEvent: (BrViewModelAttached viewModel: self)
