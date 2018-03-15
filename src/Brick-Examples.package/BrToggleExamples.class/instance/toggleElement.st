@@ -3,4 +3,4 @@ toggleElement
 	<gtExample>
 	
 	^ BlElement new
-		relocate: 50@50
+		relocate: 10@10
