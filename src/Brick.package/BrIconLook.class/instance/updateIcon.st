@@ -1,6 +1,6 @@
 updating
 updateIcon
-	self widgetContent
+	self widgetDo: [ self widgetContent
 		childNamed: #icon
 		ifFound: [ :anIconElement |
 			| aParent anIndex |
@@ -8,4 +8,4 @@ updateIcon
 			anIndex := aParent childIndexOf: anIconElement.
 			anIconElement removeFromParent.
 			aParent addChild: iconElement at: anIndex as: #icon ]
-		ifNone: [ self widgetContent addChild: iconElement as: #icon ]
+		ifNone: [ self widgetContent addChild: iconElement as: #icon ] ]

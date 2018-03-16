@@ -2,8 +2,9 @@ hooks
 onAttachedTo: anElement
 	super onAttachedTo: anElement.
 
-	anElement when: BrLabelRequest do: [ :anEvent | anEvent source dispatchEvent: ((BrLabelChanged new text: self label)) ].
-	anElement when: BrIconRequest do: [ :anEvent | anEvent source dispatchEvent: (BrIconChanged new icon: self icon) ].
+	self when: BrLabelRequest reply: [ BrLabelChanged new text: self label ].
+	self when: BrIconRequest reply: [ BrIconChanged new icon: self icon ].
+
 	anElement when: BrTabStateRequest
 		do: [ :anEvent |
 			anEvent source dispatchEvent: (self isSelected

@@ -8,7 +8,7 @@ initialize
 		"for the roudned corners"
 		BrMaterialRoundedLook.
 		"for toggleable background"
-		background := BrMaterialToggleBackgroundLook new.
+		backgroundLook := BrMaterialToggleBackgroundLook new.
 		"for the icon"
 		BrIconLook.
 		"for the shadow"
