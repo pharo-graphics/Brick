@@ -11,7 +11,7 @@ measure: anElement with: anExtentSpec
 	
 	"measure children and distribute them in lines"
 	aCurrentLine := lines.
-	anElement managedChildrenDo: [ :aChildElement |
+	anElement children accountedByLayout do: [ :aChildElement |
 		self measureChildWithMargins: aChildElement parentSpec: anExtentSpec.
 		aCurrentLine := aCurrentLine add: aChildElement ].
 
