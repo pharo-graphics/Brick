@@ -1,5 +1,5 @@
 hooks
-onToggleActivated: aToggle
+onToggleActivated: aToggleModel
 	self toggles
-		select: [ :eachToggle | eachToggle ~~ aToggle ]
+		select: [ :eachToggle | eachToggle ~~ aToggleModel ]
 		thenDo: #deactivate

@@ -1,8 +1,7 @@
 adding / removing
-addToggle: aToggle
-	self toggles add: aToggle.
+addToggle: aToggleModel
 
-	aToggle viewModel beOneWay.
-	aToggle when: BrToggleActivatedEvent do: [ :anEvent | self onToggleActivated: anEvent currentTarget ].
-	
-	widget addChild: aToggle
+	self toggles add: aToggleModel.
+
+	aToggleModel beOneWay.
+	aToggleModel when: BrToggleActivatedEvent do: [ :anEvent | self onToggleActivated: anEvent currentTarget ]
