@@ -1,6 +1,7 @@
 SystemOrganization addCategory: #Brick!
-SystemOrganization addCategory: 'Brick-Core'!
-SystemOrganization addCategory: 'Brick-Core - Events'!
+SystemOrganization addCategory: 'Brick-!! Core'!
+SystemOrganization addCategory: 'Brick-!! Core - Events'!
+SystemOrganization addCategory: 'Brick-Button - Model'!
 SystemOrganization addCategory: 'Brick-Tabs - Events'!
 SystemOrganization addCategory: 'Brick-Tabs - Look'!
 SystemOrganization addCategory: 'Brick-Tabs - Model'!

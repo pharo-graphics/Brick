@@ -1,3 +1,3 @@
 notifying
 notifyLabelChanged
-	widget dispatchEvent: (BrLabelChanged new text: self label)
+	self widget dispatchEvent: (BrLabelChanged new text: self label)

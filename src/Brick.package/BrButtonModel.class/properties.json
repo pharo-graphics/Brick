@@ -1,0 +1,15 @@
+{
+	"commentStamp" : "",
+	"super" : "BrWidgetModel",
+	"category" : "Brick-Button - Model",
+	"classinstvars" : [ ],
+	"pools" : [ ],
+	"classvars" : [ ],
+	"instvars" : [
+		"label",
+		"icon",
+		"action"
+	],
+	"name" : "BrButtonModel",
+	"type" : "normal"
+}
