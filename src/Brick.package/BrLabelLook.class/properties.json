@@ -9,7 +9,8 @@
 		"labelText",
 		"labelElement",
 		"foreground",
-		"weight"
+		"weight",
+		"fontSize"
 	],
 	"name" : "BrLabelLook",
 	"type" : "normal"
