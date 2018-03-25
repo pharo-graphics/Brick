@@ -3,13 +3,13 @@ initialize
 	super initialize.
 
 	self addAll: {
-		"for basic layout parameters"
-		BrMaterialButtonLayoutLook.
 		"for the roudned corners"
 		BrMaterialRoundedLook.
+		"for basic layout parameters"
+		BrMaterialButtonLayoutLook.
 		"for toggleable background"
 		backgroundLook := BrMaterialToggleBackgroundLook new.
 		"for the icon"
-		BrIconLook.
+		icon := BrIconLook new.
 		"for the shadow"
 		BrShadowLook }.

@@ -1,9 +1,12 @@
-I add a text label to the widget content. 
+I am a look that automatically adds a text label to the content element in a widget element. 
 
-Label look supports automatic label or text property binding to the view model.
-For that a view model must respond to the ==BrLabelRequest== and reply with a corresponding ==BrLabelChanged== event.
+I am independent of the widget model and the widget element. 
+If the widget model  responds to the ==BrLabelRequest== and replies with a corresponding ==BrLabelChanged== event, then I automatically update the label based on the model.
 
-For example in a subclass of a ViewModel override ==#onAttachedTo:== and implement:
+For example, to in a subclass of a ViewModel override ==#onAttachedTo:== and implement:
 [[[
 	self when: BrLabelRequest reply: [ BrLabelChanged new text: self label ].
 ]]]
+
+The label look can directly change properties of the label element. This can be usefull when one want to customize the existing look, or change layout properties:
+[[[example=BrButtonLabelLookExamples>>#buttonLabelLookWithConstraints|expanded=true|expandedPreview=false|show=gtLiveIn:]]]

@@ -5,9 +5,7 @@
 	"classinstvars" : [ ],
 	"pools" : [ ],
 	"classvars" : [ ],
-	"instvars" : [
-		"source"
-	],
+	"instvars" : [ ],
 	"name" : "BrRequest",
 	"type" : "normal"
 }

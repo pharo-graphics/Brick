@@ -1,3 +1,3 @@
 api - style
 bold
-	self weight: BrFontWeightAttribute thin bold
+	self weight: BrFontWeightAttribute bold weight

@@ -5,7 +5,9 @@
 	"classinstvars" : [ ],
 	"pools" : [ ],
 	"classvars" : [ ],
-	"instvars" : [ ],
+	"instvars" : [
+		"iconElement"
+	],
 	"name" : "BrIconLook",
 	"type" : "normal"
 }

@@ -1,11 +1,11 @@
 {
-	"commentStamp" : "AliakseiSyrel 3/25/2018 10:51",
+	"commentStamp" : "AliakseiSyrel 3/25/2018 21:42",
 	"super" : "Object",
 	"category" : "Brick-Examples",
 	"classinstvars" : [ ],
 	"pools" : [ ],
 	"classvars" : [ ],
 	"instvars" : [ ],
-	"name" : "BrToggleExamples",
+	"name" : "BrButtonLabelLookExamples",
 	"type" : "normal"
 }

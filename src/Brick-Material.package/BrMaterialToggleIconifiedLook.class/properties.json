@@ -6,7 +6,8 @@
 	"pools" : [ ],
 	"classvars" : [ ],
 	"instvars" : [
-		"backgroundLook"
+		"backgroundLook",
+		"icon"
 	],
 	"name" : "BrMaterialToggleIconifiedLook",
 	"type" : "normal"
