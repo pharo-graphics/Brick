@@ -1,3 +1,3 @@
 event management
 request: anEvent
-	self widget fireEvent: (anEvent source: self)
+	self dispatchEvent: anEvent

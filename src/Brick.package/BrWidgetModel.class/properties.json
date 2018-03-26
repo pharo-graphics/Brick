@@ -7,7 +7,7 @@
 		"eventDispatcher"
 	],
 	"name" : "BrWidgetModel",
-	"commentStamp" : "AliakseiSyrel 3/7/2018 09:07",
+	"commentStamp" : "AliakseiSyrel 3/26/2018 19:46",
 	"super" : "BlElementEventListener",
 	"traitcomposition" : "TBlEventTarget",
 	"type" : "normal",

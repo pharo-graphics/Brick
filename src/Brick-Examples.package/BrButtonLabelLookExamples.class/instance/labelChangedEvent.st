@@ -2,10 +2,10 @@ example - events
 labelChangedEvent
 	<gtExample>
 	| aButton newLabel aLabelChangedEvent |
-	
+
 	aLabelChangedEvent := nil.
 	newLabel := self labelText, ' World'.
-	
+
 	aButton := self buttonWithModelAndLookWithoutConstraints.
 	aButton look when: BrLabelChanged do: [ :anEvent | aLabelChangedEvent := anEvent copy ].
 	aButton viewModel label: newLabel.

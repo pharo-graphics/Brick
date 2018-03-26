@@ -3,6 +3,10 @@ handleEvent: anEvent
 	| aCurrentTarget aTarget |
 	super handleEvent: anEvent.
 
+	"do not handle outgoing events"
+	(anEvent source == self)
+		ifTrue: [ ^ self ].
+
 	"We should restore current event target after forwarding "
 	aCurrentTarget := anEvent currentTarget.
 	aTarget := anEvent target.
