@@ -6,5 +6,11 @@ initialize
 	targetName := nil.
 
 	layout := BlBasicLayout new.
+
 	horizontalResizer := BlLayoutResizer fitContent.
 	verticalResizer := BlLayoutResizer fitContent.
+
+	horizontalAlignment := BlNullAlignment horizontal.
+	verticalAlignment := BlNullAlignment vertical.
+
+	consraintsBlock := [ :c | ]

@@ -1,16 +1,21 @@
 {
-	"commentStamp" : "",
-	"super" : "BrLook",
-	"category" : "Brick-! Core",
-	"classinstvars" : [ ],
-	"pools" : [ ],
+	"classtraitcomposition" : "TBlAlignable classTrait",
 	"classvars" : [ ],
 	"instvars" : [
 		"targetName",
 		"layout",
 		"horizontalResizer",
-		"verticalResizer"
+		"verticalResizer",
+		"consraintsBlock",
+		"verticalAlignment",
+		"horizontalAlignment"
 	],
 	"name" : "BrLayoutLook",
-	"type" : "normal"
+	"commentStamp" : "",
+	"super" : "BrLook",
+	"traitcomposition" : "TBlAlignable",
+	"type" : "normal",
+	"classinstvars" : [ ],
+	"pools" : [ ],
+	"category" : "Brick-! Core"
 }

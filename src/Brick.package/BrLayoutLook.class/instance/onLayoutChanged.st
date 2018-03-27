@@ -1,0 +1,3 @@
+hooks
+onLayoutChanged
+	self updateAlignment
