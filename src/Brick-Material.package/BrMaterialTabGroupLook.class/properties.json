@@ -5,11 +5,7 @@
 	"classinstvars" : [ ],
 	"pools" : [ ],
 	"classvars" : [ ],
-	"instvars" : [
-		"header",
-		"content",
-		"layout"
-	],
+	"instvars" : [ ],
 	"name" : "BrMaterialTabGroupLook",
 	"type" : "normal"
 }

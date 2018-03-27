@@ -3,9 +3,9 @@ initialize
 	super initialize.
 
 	self addAll: {
-		header := BrTabGroupHeaderLook horizontal.
-		content := BrTabGroupContentLook new.
-		layout := BrTabGroupLayoutLook vertical
-	}.
-	
-	self matchParent
+		BrTabGroupHeaderLook new + (BrLayoutLook of: #header) linearHorizontal.
+		BrTabGroupContentLook new + (BrLayoutLook of: #content) matchParent.
+
+		"layout of the tab whole group is linear vertical"
+		BrLayoutLook linearVertical matchParent
+	}

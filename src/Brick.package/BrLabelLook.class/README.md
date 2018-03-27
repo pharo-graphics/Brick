@@ -3,7 +3,7 @@ I am a look that automatically adds a text label to the content element in a wid
 I am independent of the widget model and the widget element. 
 If the widget model  responds to the ==BrLabelRequest== and replies with a corresponding ==BrLabelChanged== event, then I automatically update the label based on the model.
 
-For example, to in a subclass of a ViewModel override ==#onAttachedTo:== and implement:
+For example, in a subclass of a ViewModel override ==#onAttachedTo:== and implement:
 [[[
 	self when: BrLabelRequest reply: [ BrLabelChanged new text: self label ].
 ]]]

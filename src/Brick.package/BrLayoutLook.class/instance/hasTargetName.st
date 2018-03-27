@@ -1,0 +1,3 @@
+private
+hasTargetName
+	^ targetName isNotNil

@@ -1,14 +1,16 @@
 {
 	"commentStamp" : "",
 	"super" : "BrLook",
-	"category" : "Brick-Tabs - Look",
+	"category" : "Brick-! Core",
 	"classinstvars" : [ ],
 	"pools" : [ ],
 	"classvars" : [ ],
 	"instvars" : [
-		"tabs",
-		"header"
+		"targetName",
+		"layout",
+		"horizontalResizer",
+		"verticalResizer"
 	],
-	"name" : "BrTabGroupHeaderLook",
+	"name" : "BrLayoutLook",
 	"type" : "normal"
 }

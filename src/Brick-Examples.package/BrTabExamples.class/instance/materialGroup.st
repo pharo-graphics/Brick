@@ -1,7 +1,7 @@
 examples - ui
 materialGroup
 	<gtExample>
-	| tab1 tab2 tab3 tabGroup groupElement |
+	| tab1 tab2 tab3 tabGroup |
 
 	tab1 := BrTabModel new
 		label: 'Tab 1';
@@ -10,25 +10,20 @@ materialGroup
 			background: (Color red alpha: 0.5) ].
 
 	tab2 := BrTabModel new label: 'Tab 2'; disable.
-	tab3 := BrTabModel new label: 'Tab 3'.
+
+	tab3 := BrTabModel new
+		label: 'Tab 3';
+		content: [ BlElement new
+			size: 200@200;
+			background: (Color blue alpha: 0.5) ].
 
 	tabGroup := BrTabGroupModel with: { tab1 . tab2. tab3 }.
 
-	groupElement := BlElement new
+	tabGroup tabs do: [ :aTab |
+		BlElement new
+			look: BrMaterialTabLabelledLook;
+			viewModel: aTab ].
+
+	^ BlElement new
 		look: BrMaterialTabGroupLook;
-		viewModel: tabGroup.
-
-	"binding order does not matter"
-	BlElement new
-		look: BrMaterialTabLabelledLook;
-		viewModel: tab2.
-
-	BlElement new
-		look: BrMaterialTabLabelledLook;
-		viewModel: tab1.
-
-	BlElement new
-		look: BrMaterialTabLabelledLook;
-		viewModel: tab3.
-
-	^ groupElement
+		viewModel: tabGroup
