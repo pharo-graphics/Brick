@@ -1,0 +1,11 @@
+{
+	"commentStamp" : "",
+	"super" : "GtExampleTestCase",
+	"category" : "Brick-Examples",
+	"classinstvars" : [ ],
+	"pools" : [ ],
+	"classvars" : [ ],
+	"instvars" : [ ],
+	"name" : "BrExamplesTestCase",
+	"type" : "normal"
+}
