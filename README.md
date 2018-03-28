@@ -31,3 +31,6 @@ Metacello new
     load: #development
 ```
 
+[license]: ./LICENSE
+[travis]: https://travis-ci.org/pharo-graphics/Brick
+[coveralls]: https://coveralls.io/github/pharo-graphics/Brick?branch=master
