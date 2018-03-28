@@ -1,4 +1,4 @@
-examples - toggle group
+examples - model
 addDeactivatedToggleToEmptyGroup
 	<gtExample>
 	| aToggleGroupModel aToggleModel |

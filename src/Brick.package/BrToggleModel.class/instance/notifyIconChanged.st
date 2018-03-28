@@ -1,3 +1,3 @@
 notifying
 notifyIconChanged
-	self widget dispatchEvent: (BrIconChanged new icon: self icon)
+	self dispatchEvent: (BrIconChanged new icon: self icon)

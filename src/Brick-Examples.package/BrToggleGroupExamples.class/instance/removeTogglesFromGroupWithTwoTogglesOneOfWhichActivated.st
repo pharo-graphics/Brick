@@ -1,4 +1,4 @@
-examples - toggle group
+examples - model
 removeTogglesFromGroupWithTwoTogglesOneOfWhichActivated
 	<gtExample>
 	| aToggleGroupModel |
