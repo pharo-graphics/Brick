@@ -9,8 +9,8 @@ os:
 smalltalk:
   - Pharo-6.1
 
-script:
-  - smalltalkci brick.ston
+# script:
+#   - smalltalkci brick.ston
 
 # matrix:
 #   include:
