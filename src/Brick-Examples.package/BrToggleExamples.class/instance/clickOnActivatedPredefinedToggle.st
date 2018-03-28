@@ -19,7 +19,7 @@ clickOnActivatedPredefinedToggle
 	self assert: aToggleDeactivatedEvent target equals: aToggleElement.
 	self assert: aToggleDeactivatedEvent currentTarget equals: aToggleElement.
 	self assert: aToggleDeactivatedEvent isConsumed not.
-	self assert: aToggleDeactivatedEvent traversedTargets size equals: 6 "3 for root->toggle + 3 looks".
+	self assert: aToggleDeactivatedEvent traversedTargets size equals: 8. "3 for root->toggle + 4 looks + 1 handled by toggle look"
 	
 	self assert: aToggleDeactivatedEvent toggle equals: aToggleModel.
 	
