@@ -5,7 +5,6 @@ dist: trusty
 
 os:
   - linux
-  - osx
 
 smalltalk:
   - Pharo-6.1
