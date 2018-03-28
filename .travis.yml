@@ -11,7 +11,7 @@ smalltalk:
   - Pharo-6.1
 
 script:
-  - smalltalkci editor.ston
+  - smalltalkci brick.ston
 
 # matrix:
 #   include:
