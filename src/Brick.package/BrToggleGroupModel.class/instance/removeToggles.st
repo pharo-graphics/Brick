@@ -1,3 +1,3 @@
-adding / removing
+api - toggles
 removeToggles
-	self toggles removeAll
+	self toggles reverseDo: [ :aToggleModel | self removeToggle: aToggleModel ]

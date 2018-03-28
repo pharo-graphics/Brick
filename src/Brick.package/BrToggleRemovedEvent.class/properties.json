@@ -1,11 +1,11 @@
 {
-	"commentStamp" : "AliakseiSyrel 3/7/2018 09:22",
+	"commentStamp" : "",
 	"super" : "BrToggleEvent",
 	"category" : "Brick-Toggle - Events",
 	"classinstvars" : [ ],
 	"pools" : [ ],
 	"classvars" : [ ],
 	"instvars" : [ ],
-	"name" : "BrToggleDisabledEvent",
+	"name" : "BrToggleRemovedEvent",
 	"type" : "normal"
 }

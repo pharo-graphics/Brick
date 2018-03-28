@@ -4,12 +4,13 @@ onAttachedTo: anElement
 
 	self when: BrLabelRequest reply: [ BrLabelChanged new text: self label ].
 	self when: BrIconRequest reply: [ BrIconChanged new icon: self icon ].
+	
+	self when: BrToggleStateRequest do: [
+		self isActivated
+			ifTrue: [ BrToggleActivatedEvent toggle: self ]
+			ifFalse: [ BrToggleDeactivatedEvent toggle: self ] ].
 
-	anElement when: BrToggleStateRequest
-		do: [ :anEvent |
-			anEvent source dispatchEvent: (self isActivated
-				ifTrue: [ BrToggleActivatedEvent new ]
-				ifFalse: [ BrToggleDeactivatedEvent new ]).
-			anEvent source dispatchEvent: (self isEnabled
-				ifTrue: [ BrToggleEnabledEvent new ]
-				ifFalse: [ BrToggleDisabledEvent new ]) ]
+	self when: BrToggleStateRequest do: [
+		self isEnabled
+			ifTrue: [ BrToggleEnabledEvent toggle: self ]
+			ifFalse: [ BrToggleDisabledEvent toggle: self ] ]

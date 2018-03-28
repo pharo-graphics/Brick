@@ -1,3 +1,3 @@
 notifying
 notifyToggleDeactivated
-	self widget fireEvent: BrToggleDeactivatedEvent new
+	self fireEvent: (BrToggleDeactivatedEvent toggle: self)

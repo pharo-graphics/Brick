@@ -1,7 +1,5 @@
-adding / removing
-addToggle: aToggleModel
+api - toggles
+addToggle: aBrToggleModel
 
-	self toggles add: aToggleModel.
-
-	aToggleModel beOneWay.
-	aToggleModel when: BrToggleActivatedEvent do: [ :anEvent | self onToggleActivated: anEvent currentTarget ]
+	self toggles add: aBrToggleModel.
+	self onToggleAdded: aBrToggleModel

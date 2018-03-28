@@ -4,6 +4,12 @@ fireEvent: anEvent
 	(from target to the root element) and dispatch the event with it.
 	anEvent must not be nil"
 
+	anEvent hasSource
+		ifFalse: [ anEvent source: self ].
+
+	"first, we fire to my direct listeners"
+	BlEvent fireEvent: anEvent target: self.
+
+	"then let the rest of the element components receive it"
 	self isAttachedToWidget
 		ifTrue: [ self widget fireEvent: anEvent ]
-		ifFalse: [ BlEvent fireEvent: anEvent target: self ]
