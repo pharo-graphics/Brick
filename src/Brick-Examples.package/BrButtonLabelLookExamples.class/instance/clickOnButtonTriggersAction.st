@@ -1,6 +1,6 @@
 example - events
 clickOnButtonTriggersAction
-	<gtExample>
+	"<gtExample>"
 	| aButton actionTriggeredCount |
 
 	actionTriggeredCount := 0.

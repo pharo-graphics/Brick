@@ -1,6 +1,6 @@
 examples - click
 clickOnDeactivatedPredefinedToggle
-	<gtExample>
+	"<gtExample>"
 	| aToggleElement aToggleModel aToggleActivatedEvent |
 	
 	aToggleElement := self deactivatePredefinedToggle.
