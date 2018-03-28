@@ -1,6 +1,5 @@
 # Brick
 
-[![License](https://img.shields.io/github/license/pharo-graphics/Brick.svg?style=flat-square)][license]
 [![Travis](https://travis-ci.org/pharo-graphics/Brick.svg?branch=master)][travis]
 [![Coveralls](https://coveralls.io/repos/github/pharo-graphics/Brick/badge.svg?branch=master)][coveralls]
 
@@ -31,6 +30,5 @@ Metacello new
     load: #development
 ```
 
-[license]: ./LICENSE
 [travis]: https://travis-ci.org/pharo-graphics/Brick
 [coveralls]: https://coveralls.io/github/pharo-graphics/Brick?branch=master
