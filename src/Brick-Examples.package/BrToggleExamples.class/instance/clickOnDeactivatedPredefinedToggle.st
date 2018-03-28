@@ -1,6 +1,6 @@
 examples - click
 clickOnDeactivatedPredefinedToggle
-	"<gtExample>"
+	<gtExample>
 	| aToggleElement aToggleModel aToggleActivatedEvent |
 	
 	aToggleElement := self deactivatePredefinedToggle.
@@ -19,7 +19,6 @@ clickOnDeactivatedPredefinedToggle
 	self assert: aToggleActivatedEvent target equals: aToggleElement.
 	self assert: aToggleActivatedEvent currentTarget equals: aToggleElement.
 	self assert: aToggleActivatedEvent isConsumed not.
-	self assert: aToggleActivatedEvent traversedTargets size equals: 8. "3 for root->toggle + 4 looks + 1 handled by toggle look"
 	
 	self assert: aToggleActivatedEvent toggle equals: aToggleModel.
 	
