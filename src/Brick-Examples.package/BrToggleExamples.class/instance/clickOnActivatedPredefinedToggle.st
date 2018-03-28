@@ -25,6 +25,7 @@ clickOnActivatedPredefinedToggle
 	self assert: aToggleDeactivatedEvent isConsumed not.
 	
 	NonInteractiveTranscript stdout show: aToggleDeactivatedEvent traversedTargets size asString; cr.
+	NonInteractiveTranscript stdout show: aToggleDeactivatedEvent traversedTargets asString; cr.
 	
 	self assert: aToggleDeactivatedEvent traversedTargets size equals: 8. "3 for root->toggle + 4 looks + 1 handled by toggle look"
 	
