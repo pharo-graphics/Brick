@@ -1,8 +1,8 @@
 # Brick
 
 [![License](https://img.shields.io/github/license/pharo-graphics/Brick.svg?style=flat-square)][license]
-[![Travis](https://img.shields.io/travis/pharo-graphics/Brick.svg?style=flat-square)][travis]
-[![Coveralls](https://img.shields.io/coveralls/pharo-graphics/Brick.svg?style=flat-square)][coveralls]
+[![Travis](https://travis-ci.org/pharo-graphics/Brick.svg?branch=master)][travis]
+[![Coveralls](https://coveralls.io/repos/github/pharo-graphics/Brick/badge.svg?branch=master)][coveralls]
 
 Brick is a widget library on top of [Bloc](https://github.com/pharo-graphics/Bloc) for [Pharo](http://pharo.org/).
 
