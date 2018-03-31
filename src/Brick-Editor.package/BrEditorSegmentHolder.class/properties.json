@@ -1,6 +1,6 @@
 {
 	"commentStamp" : "AliakseiSyrel 8/5/2017 00:10",
-	"super" : "BlInfiniteElementHolder",
+	"super" : "BlInfiniteHolder",
 	"category" : "Brick-Editor-Model-Segment",
 	"classinstvars" : [ ],
 	"pools" : [ ],
