@@ -1,13 +1,14 @@
 {
 	"commentStamp" : "AliakseiSyrel 4/9/2018 07:53",
-	"super" : "BrWidgetModel",
+	"super" : "Object",
 	"category" : "Brick-List - Model",
 	"classinstvars" : [ ],
 	"pools" : [ ],
 	"classvars" : [ ],
 	"instvars" : [
-		"items"
+		"title",
+		"evaluationBlock"
 	],
-	"name" : "BrListModel",
+	"name" : "BrListColumn",
 	"type" : "normal"
 }

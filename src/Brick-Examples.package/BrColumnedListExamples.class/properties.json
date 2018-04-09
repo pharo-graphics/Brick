@@ -6,6 +6,6 @@
 	"pools" : [ ],
 	"classvars" : [ ],
 	"instvars" : [ ],
-	"name" : "BrListExamples",
+	"name" : "BrColumnedListExamples",
 	"type" : "normal"
 }
