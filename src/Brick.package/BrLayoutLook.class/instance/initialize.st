@@ -5,7 +5,8 @@ initialize
 	"if target name is not set, look is applied on a #widget"
 	targetName := nil.
 
-	layout := BlBasicLayout new.
+	"to indicate that we don't influence existing element layout"
+	layout := nil.
 
 	horizontalResizer := BlLayoutResizer fitContent.
 	verticalResizer := BlLayoutResizer fitContent.

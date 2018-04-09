@@ -1,0 +1,3 @@
+hooks
+onItemsChanged: aCollectionOfBrWidgetModels
+	listElement dataSource items: aCollectionOfBrWidgetModels

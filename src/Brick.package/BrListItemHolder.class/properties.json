@@ -1,0 +1,13 @@
+{
+	"commentStamp" : "",
+	"super" : "BlInfiniteHolder",
+	"category" : "Brick-List - UI",
+	"classinstvars" : [ ],
+	"pools" : [ ],
+	"classvars" : [ ],
+	"instvars" : [
+		"shapeBlock"
+	],
+	"name" : "BrListItemHolder",
+	"type" : "normal"
+}

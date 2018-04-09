@@ -4,7 +4,8 @@
 	"instvars" : [
 		"widget",
 		"looks",
-		"eventDispatcher"
+		"eventDispatcher",
+		"postInitializedBlock"
 	],
 	"name" : "BrLook",
 	"commentStamp" : "AliakseiSyrel 3/7/2018 09:05",

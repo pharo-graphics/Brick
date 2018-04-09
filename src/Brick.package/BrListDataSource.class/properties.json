@@ -1,0 +1,14 @@
+{
+	"commentStamp" : "",
+	"super" : "BlInfiniteDataSource",
+	"category" : "Brick-List - UI",
+	"classinstvars" : [ ],
+	"pools" : [ ],
+	"classvars" : [ ],
+	"instvars" : [
+		"items",
+		"shapeBlock"
+	],
+	"name" : "BrListDataSource",
+	"type" : "normal"
+}

@@ -1,0 +1,13 @@
+{
+	"commentStamp" : "",
+	"super" : "BrWidgetModel",
+	"category" : "Brick-List - Model",
+	"classinstvars" : [ ],
+	"pools" : [ ],
+	"classvars" : [ ],
+	"instvars" : [
+		"items"
+	],
+	"name" : "BrListModel",
+	"type" : "normal"
+}
