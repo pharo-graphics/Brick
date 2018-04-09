@@ -1,4 +1,4 @@
 accessing
 shape: aBlock
 	shapeBlock := aBlock.
-	listElement dataSource rowShape: shapeBlock
+	listElement dataSource cellShape: shapeBlock

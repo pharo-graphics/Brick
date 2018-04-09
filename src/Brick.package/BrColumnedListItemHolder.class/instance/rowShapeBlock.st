@@ -1,0 +1,3 @@
+accessing
+rowShapeBlock
+	^ rowShapeBlock

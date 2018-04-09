@@ -1,3 +1,3 @@
 hooks
-onItemsChanged: aCollectionOfBrWidgetModels
-	listElement dataSource items: aCollectionOfBrWidgetModels
+onItemsChanged: aCollectionOfObjects
+	listElement dataSource rowValues: aCollectionOfObjects

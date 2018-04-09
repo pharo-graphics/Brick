@@ -2,4 +2,4 @@ initialization
 initialize
 	super initialize.
 	
-	shapeBlock := [ BlElement new ]
+	rowShapeBlock := [ BlElement new ]

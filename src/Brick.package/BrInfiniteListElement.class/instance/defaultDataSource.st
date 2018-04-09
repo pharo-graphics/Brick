@@ -1,3 +1,3 @@
 initialization
 defaultDataSource
-	^ BrListDataSource new
+	^ BrSimpleListDataSource new

@@ -1,0 +1,3 @@
+accessing
+cellShapeBlock
+	^ cellShapeBlock

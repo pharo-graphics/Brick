@@ -1,11 +1,11 @@
 {
 	"commentStamp" : "",
-	"super" : "BlInfiniteHolder",
+	"super" : "BrListDataSource",
 	"category" : "Brick-List - UI",
 	"classinstvars" : [ ],
 	"pools" : [ ],
 	"classvars" : [ ],
 	"instvars" : [ ],
-	"name" : "BrListItemHolder",
+	"name" : "BrSimpleListDataSource",
 	"type" : "normal"
 }

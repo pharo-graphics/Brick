@@ -1,3 +1,3 @@
 accessing
 itemCount
-	^ self items size
+	^ self rowValues size
