@@ -8,4 +8,4 @@ initialize
 		c horizontal matchParent.
 		c vertical matchParent ].
 	
-	shapeBlock := [ BlElement new ]
+	self rowShape: [ :anObject :aRowElement | aRowElement ]

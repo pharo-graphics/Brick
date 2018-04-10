@@ -6,10 +6,15 @@ addColorValueColumn
 	aColumnedListModel := self addColorNameColumn.
 	aColumnedListModel column
 		title: 'Hex';
-		evaluated: #asHexString.
+		evaluated: #asHexString;
+		shape: [ :aHexString | BlElement new
+			padding: (BlInsets all: 6);
+			margin: (BlInsets top: 3 left: 0 bottom: 3 right: 0);
+			background: (Color fromHexString: aHexString);
+			look: (BrLabelLook new text: '#',aHexString; thin; foreground: ((Color fromHexString: aHexString) contrastingColor)) + (BrLayoutLook frame hMatchParent; vFitContent) + (BrLayoutLook of: #label) alignCenter ].
 		
-	self assert: aColumnedListModel columns size equals: 2.
-	self assert: aColumnedListModel columns second title equals: 'Hex'.
-	self assert: aColumnedListModel columns second evaluated equals: #asHexString.
+	self assert: aColumnedListModel columns size equals: 3.
+	self assert: aColumnedListModel columns third title equals: 'Hex'.
+	self assert: aColumnedListModel columns third evaluated equals: #asHexString.
 		
 	^ aColumnedListModel

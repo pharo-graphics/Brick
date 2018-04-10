@@ -1,3 +1,3 @@
 event handling
 onItemsChanged: aCollectionOfBrWidgetModels
-	listElement dataSource items: aCollectionOfBrWidgetModels
+	listElement dataSource rowValues: aCollectionOfBrWidgetModels

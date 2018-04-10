@@ -1,5 +1,5 @@
 examples - model
-withColorAsItems
+columnedListModelWithColorAsItems
 	<gtExample>
 	| aColumnedListModel |
 	

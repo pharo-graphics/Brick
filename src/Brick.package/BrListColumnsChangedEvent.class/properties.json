@@ -1,13 +1,13 @@
 {
 	"commentStamp" : "",
-	"super" : "BrListDataSource",
-	"category" : "Brick-List - UI",
+	"super" : "BlEvent",
+	"category" : "Brick-List - Events",
 	"classinstvars" : [ ],
 	"pools" : [ ],
 	"classvars" : [ ],
 	"instvars" : [
 		"columns"
 	],
-	"name" : "BrColumnedListDataSource",
+	"name" : "BrListColumnsChangedEvent",
 	"type" : "normal"
 }

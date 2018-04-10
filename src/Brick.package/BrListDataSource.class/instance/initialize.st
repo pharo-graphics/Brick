@@ -2,4 +2,5 @@ initialization
 initialize
 	super initialize.
 	
-	rowShapeBlock := [ BlElement new ]
+	rowValues := #().
+	rowShapeBlock := [ :anObject :anElement | anElement ]

@@ -3,4 +3,5 @@ initialize
 	super initialize.
 	
 	title := 'Column'.
-	evaluationBlock := #printString
+	evaluationBlock := #printString.
+	shapeBlock := [ :anObject :aCellElement | aCellElement ]

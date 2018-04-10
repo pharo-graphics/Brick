@@ -1,3 +1,3 @@
 accessing
-columns: anObject
-	columns := anObject
+columns: aCollectionOfBrListColumn
+	columns := aCollectionOfBrListColumn
