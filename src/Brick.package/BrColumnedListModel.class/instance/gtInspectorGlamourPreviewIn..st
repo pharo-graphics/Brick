@@ -8,5 +8,5 @@ gtInspectorGlamourPreviewIn: aComposite
 		column: '' evaluated: [ '' ] width: 1;
 		in: [ :aPresentation | 
 			self columns do: [ :aColumn |
-				aPresentation column: aColumn title evaluated: aColumn evaluated ] ];
+				aPresentation column: aColumn title evaluated: aColumn evaluationBlock ] ];
 		yourself

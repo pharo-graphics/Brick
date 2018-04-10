@@ -5,6 +5,7 @@ SystemOrganization addCategory: 'Brick-Button - Model'!
 SystemOrganization addCategory: 'Brick-List - Events'!
 SystemOrganization addCategory: 'Brick-List - Look'!
 SystemOrganization addCategory: 'Brick-List - Model'!
+SystemOrganization addCategory: 'Brick-List - Support'!
 SystemOrganization addCategory: 'Brick-List - UI'!
 SystemOrganization addCategory: 'Brick-Tabs - Events'!
 SystemOrganization addCategory: 'Brick-Tabs - Look'!

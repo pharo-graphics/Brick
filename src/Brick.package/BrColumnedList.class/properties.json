@@ -1,11 +1,11 @@
 {
 	"commentStamp" : "",
-	"super" : "BrListDataSource",
-	"category" : "Brick-List - Support",
+	"super" : "BlElement",
+	"category" : "Brick-List - UI",
 	"classinstvars" : [ ],
 	"pools" : [ ],
 	"classvars" : [ ],
 	"instvars" : [ ],
-	"name" : "BrSimpleListDataSource",
+	"name" : "BrColumnedList",
 	"type" : "normal"
 }

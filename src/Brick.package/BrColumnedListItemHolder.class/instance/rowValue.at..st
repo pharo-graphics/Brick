@@ -7,6 +7,6 @@ rowValue: anObject at: aRowIndex
 	theCellElements := self columns withIndexCollect: [ :aListColumn :aColumnIndex |
 		| aCellValue |
 		aCellValue := aListColumn computeValue: anObject atRow: aRowIndex atColumn: aColumnIndex.
-		aListColumn computeElement: aCellValue default: self defaultCellElement ].
+		aListColumn computeElement: aCellValue ].
 	
 	itemElement addChildren: theCellElements

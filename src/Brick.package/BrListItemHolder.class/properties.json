@@ -1,7 +1,7 @@
 {
 	"commentStamp" : "",
 	"super" : "BlInfiniteHolder",
-	"category" : "Brick-List - UI",
+	"category" : "Brick-List - Support",
 	"classinstvars" : [ ],
 	"pools" : [ ],
 	"classvars" : [ ],
