@@ -3,4 +3,5 @@ initialize
 	super initialize.
 	
 	columns := OrderedCollection new.
-	items := #()
+	items := #().
+	selection := BlCompositeSelection new

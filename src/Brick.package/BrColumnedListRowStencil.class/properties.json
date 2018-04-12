@@ -1,0 +1,11 @@
+{
+	"commentStamp" : "",
+	"super" : "BrListRowStencil",
+	"category" : "Brick-List - Stencil",
+	"classinstvars" : [ ],
+	"pools" : [ ],
+	"classvars" : [ ],
+	"instvars" : [ ],
+	"name" : "BrColumnedListRowStencil",
+	"type" : "normal"
+}

@@ -8,4 +8,4 @@ initialize
 		c horizontal matchParent.
 		c vertical matchParent ].
 	
-	self rowShape: [ :anObject :aRowElement | aRowElement ]
+	self rowStencil: BrColumnedListRowStencil new

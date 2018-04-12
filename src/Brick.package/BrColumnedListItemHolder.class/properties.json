@@ -6,7 +6,6 @@
 	"pools" : [ ],
 	"classvars" : [ ],
 	"instvars" : [
-		"rowShapeBlock",
 		"columns"
 	],
 	"name" : "BrColumnedListItemHolder",

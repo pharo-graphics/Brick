@@ -1,3 +1,3 @@
 instance creation
 onCreateHolder: anInfiniteElement type: anItemType
-	^ BrSimpleListItemHolder new shape: rowShapeBlock
+	^ BrSimpleListItemHolder new rowStencil: rowStencil

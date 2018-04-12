@@ -1,5 +1,5 @@
 instance creation
 onCreateHolder: anInfiniteElement type: anItemType
 	^ BrColumnedListItemHolder new
-		rowShape: rowShapeBlock;
+		rowStencil: rowStencil;
 		columns: columns

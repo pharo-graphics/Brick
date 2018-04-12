@@ -7,4 +7,4 @@ initialize
 		c horizontal matchParent.
 		c vertical matchParent ].
 	
-	shapeBlock := [ BlTextElement new ]
+	self rowStencil: BrSimpleListRowStencil new

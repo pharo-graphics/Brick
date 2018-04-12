@@ -3,4 +3,4 @@ initialize
 	super initialize.
 	
 	rowValues := #().
-	rowShapeBlock := [ :anObject :anElement | anElement ]
+	rowStencil := [ :anObject :anElement | anElement ]

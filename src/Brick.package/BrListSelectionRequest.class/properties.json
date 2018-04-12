@@ -1,0 +1,11 @@
+{
+	"commentStamp" : "",
+	"super" : "BrRequest",
+	"category" : "Brick-List - Events",
+	"classinstvars" : [ ],
+	"pools" : [ ],
+	"classvars" : [ ],
+	"instvars" : [ ],
+	"name" : "BrListSelectionRequest",
+	"type" : "normal"
+}

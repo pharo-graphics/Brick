@@ -1,0 +1,3 @@
+converting
+asStencil: aStencilClass
+	^ self
