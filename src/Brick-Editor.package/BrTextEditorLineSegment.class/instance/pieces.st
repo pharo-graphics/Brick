@@ -4,4 +4,4 @@ pieces
 
 	^ self hasPieces
 		ifTrue: [ pieces ]
-		ifFalse: [ self computedPieces ]
+		ifFalse: [ pieces := self computedPieces ]

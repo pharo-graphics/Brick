@@ -1,5 +1,5 @@
 accessing
 selection
-	<return: #BlTextSelection>
+	<return: #BlSelection>
 
 	^ selection

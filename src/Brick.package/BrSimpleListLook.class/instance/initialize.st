@@ -7,4 +7,4 @@ initialize
 		c horizontal matchParent.
 		c vertical matchParent ].
 	
-	shapeBlock := [ BlElement new ]
+	shapeBlock := [ BlTextElement new ]

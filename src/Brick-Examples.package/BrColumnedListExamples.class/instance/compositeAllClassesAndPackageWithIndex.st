@@ -13,7 +13,7 @@ compositeAllClassesAndPackageWithIndex
 	aList column
 		title: 'Class';
 		evaluated: [ :aClass | aClass name ].
-		
+
 	aList column
 		title: 'Package';
 		evaluated: [ :aClass | aClass package name ].

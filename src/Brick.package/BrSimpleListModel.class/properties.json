@@ -8,6 +8,6 @@
 	"instvars" : [
 		"items"
 	],
-	"name" : "BrListModel",
+	"name" : "BrSimpleListModel",
 	"type" : "normal"
 }

@@ -2,5 +2,5 @@ initialization
 initialize
 	super initialize.
 	
-	compositeSelection := BlCompositeTextSelection new.
-	selection := BlMonotoneTextSelection new
+	compositeSelection := BlCompositeSelection new.
+	selection := BlMonotoneSelection new

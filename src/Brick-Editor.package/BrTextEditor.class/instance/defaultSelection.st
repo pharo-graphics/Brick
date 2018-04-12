@@ -1,3 +1,3 @@
 initialization
 defaultSelection
-	^ BlCompositeTextSelection new
+	^ BlCompositeSelection new

@@ -1,7 +1,7 @@
 selection
 prepare: aTextEditor
 	
-	compositeSelection := BlCompositeTextSelection new.
-	selection := BlMonotoneTextSelection new.
+	compositeSelection := BlCompositeSelection new.
+	selection := BlMonotoneSelection new.
 	
 	aTextEditor selectNone

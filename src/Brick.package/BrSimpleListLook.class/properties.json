@@ -9,6 +9,6 @@
 		"listElement",
 		"shapeBlock"
 	],
-	"name" : "BrListLook",
+	"name" : "BrSimpleListLook",
 	"type" : "normal"
 }

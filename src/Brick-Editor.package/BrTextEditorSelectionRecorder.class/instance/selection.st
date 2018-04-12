@@ -1,6 +1,6 @@
 selection
 selection
 	"Return current recorded selection"
-	<return: #BlTextSelection>
+	<return: #BlSelection>
 
 	^ self subclassResponsibility

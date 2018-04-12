@@ -5,6 +5,6 @@ listColumn
 	aListColumn := BrListColumn new.
 	
 	self assert: aListColumn title equals: 'Column'.
-	self assert: aListColumn evaluationBlock equals: #printString.
+	self assert: aListColumn evaluationBlock equals: #displayString.
 
 	^ aListColumn

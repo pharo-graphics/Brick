@@ -9,7 +9,7 @@ updateSelection: aTextElement of: aLineSegment in: anEditorElement
 	(aTextEditor selection + aTextEditor selectionRecorder selection) do: [ :aSelection |
 		| aSelectionInterval textInterval |
 		aSelectionInterval := aSelection interval.
-		textInterval := BlTextSelection from: aTextElement text start to: aTextElement text end.
+		textInterval := BlSelection from: aTextElement text start to: aTextElement text end.
 		(aSelection overlaps: textInterval)
 			ifTrue: [
 				| localFrom localTo |
