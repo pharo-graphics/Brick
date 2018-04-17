@@ -1,0 +1,13 @@
+{
+	"commentStamp" : "",
+	"super" : "BrStencilExecutor",
+	"category" : "Brick-! Core - Stencil",
+	"classinstvars" : [ ],
+	"pools" : [ ],
+	"classvars" : [ ],
+	"instvars" : [
+		"valuable"
+	],
+	"name" : "BrStencilDynamicExecutor",
+	"type" : "normal"
+}

@@ -7,9 +7,11 @@ rowValue: anObject at: aRowIndex
 		rowIndex: aRowIndex;
 		create.
 
-	theCellElements := self columns withIndexCollect: [ :aListColumn :aColumnIndex |
-		| aCellValue |
-		aCellValue := aListColumn computeValue: anObject atRow: aRowIndex atColumn: aColumnIndex.
-		aListColumn computeElement: aCellValue ].
+	theCellElements := self columns withIndexCollect: [ :aListColumn :aColumnIndex |	
+		aListColumn stencil
+			rowValue: anObject;
+			rowIndex: aRowIndex;
+			columnIndex: aColumnIndex;
+			create ].
 	
 	itemElement addChildren: theCellElements

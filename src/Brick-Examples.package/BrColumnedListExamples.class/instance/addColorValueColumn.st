@@ -15,6 +15,5 @@ addColorValueColumn
 		
 	self assert: aColumnedListModel columns size equals: 3.
 	self assert: aColumnedListModel columns third title equals: 'Hex'.
-	self assert: aColumnedListModel columns third evaluationBlock equals: #asHexString.
 		
 	^ aColumnedListModel

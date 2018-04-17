@@ -1,15 +1,11 @@
 {
 	"commentStamp" : "",
-	"super" : "BrStencil",
+	"super" : "BrColumnedListCellStencil",
 	"category" : "Brick-List - Stencil",
 	"classinstvars" : [ ],
 	"pools" : [ ],
 	"classvars" : [ ],
-	"instvars" : [
-		"rowIndex",
-		"columnIndex",
-		"rowValue"
-	],
-	"name" : "BrColumnedListCellStencil",
+	"instvars" : [ ],
+	"name" : "BrColumnedListNameCellStencil",
 	"type" : "normal"
 }

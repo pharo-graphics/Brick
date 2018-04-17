@@ -13,6 +13,5 @@ addColorNameColumn
 
 	self assert: aColumnedListModel columns size equals: 2.
 	self assert: aColumnedListModel columns second title equals: 'Color'.
-	self assert: aColumnedListModel columns second evaluationBlock equals: #name.
 		
 	^ aColumnedListModel

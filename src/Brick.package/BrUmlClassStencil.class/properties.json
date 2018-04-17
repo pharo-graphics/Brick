@@ -1,0 +1,11 @@
+{
+	"commentStamp" : "",
+	"super" : "BrStencil",
+	"category" : "Brick-UML - Stencil",
+	"classinstvars" : [ ],
+	"pools" : [ ],
+	"classvars" : [ ],
+	"instvars" : [ ],
+	"name" : "BrUmlClassStencil",
+	"type" : "normal"
+}

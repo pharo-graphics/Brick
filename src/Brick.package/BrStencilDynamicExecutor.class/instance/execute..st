@@ -1,0 +1,3 @@
+running
+execute: aCollectionOfArguments
+	self subclassResponsibility

@@ -6,5 +6,4 @@ gtInspectorItemsIn: aComposite
 		title: 'Columns';
 		display: [ self columns ];
 		column: '' evaluated: [ '' ] width: 1;
-		column: 'Title' evaluated: #title;
-		column: 'Computation' evaluated: #evaluationBlock
+		column: 'Title' evaluated: #title
