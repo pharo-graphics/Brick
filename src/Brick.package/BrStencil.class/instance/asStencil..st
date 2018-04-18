@@ -1,3 +1,0 @@
-converting
-asStencil: aStencilClass
-	^ self

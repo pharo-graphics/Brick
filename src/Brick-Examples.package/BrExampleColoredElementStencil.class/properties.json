@@ -1,0 +1,14 @@
+{
+	"commentStamp" : "",
+	"super" : "BrStencil",
+	"category" : "Brick-Examples-Stencils",
+	"classinstvars" : [ ],
+	"pools" : [ ],
+	"classvars" : [ ],
+	"instvars" : [
+		"color",
+		"cornerRadius"
+	],
+	"name" : "BrExampleColoredElementStencil",
+	"type" : "normal"
+}

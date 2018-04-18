@@ -1,11 +1,13 @@
 {
-	"commentStamp" : "AliakseiSyrel 4/18/2018 15:49",
+	"commentStamp" : "",
 	"super" : "Object",
 	"category" : "Brick-! Core - Stencil",
 	"classinstvars" : [ ],
 	"pools" : [ ],
 	"classvars" : [ ],
-	"instvars" : [ ],
-	"name" : "BrStencil",
+	"instvars" : [
+		"executor"
+	],
+	"name" : "BrStencilBuilder",
 	"type" : "normal"
 }

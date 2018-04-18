@@ -1,5 +1,5 @@
 api - instantiation
-createDefault
+create
 	^ BlTextElement new
 		margin: (BlInsets all: 3);
 		text: (self rowIndex asString asRopedText foreground: Color gray);

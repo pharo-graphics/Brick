@@ -1,5 +1,5 @@
 api - instantiation
-createDefault
+create
 	^ BlElement new
 		layout: BlLinearLayout new;
 		constraintsDo: [ :c |
