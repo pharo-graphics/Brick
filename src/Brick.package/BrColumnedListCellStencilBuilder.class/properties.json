@@ -1,7 +1,7 @@
 {
 	"commentStamp" : "",
-	"super" : "BrStencil",
-	"category" : "Brick-List - Stencil",
+	"super" : "BrStencilBuilder",
+	"category" : "Brick-List - Support",
 	"classinstvars" : [ ],
 	"pools" : [ ],
 	"classvars" : [ ],
@@ -10,6 +10,6 @@
 		"columnIndex",
 		"rowValue"
 	],
-	"name" : "BrColumnedListCellStencil",
+	"name" : "BrColumnedListCellStencilBuilder",
 	"type" : "normal"
 }

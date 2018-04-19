@@ -1,5 +1,5 @@
 accessing
 stencil
-	<return: #BrColumnedListCellStencil>
+	<return: #BrColumnedListCellStencilBuilder>
 	
 	^ stencil

@@ -3,7 +3,7 @@ createColumnedListRowDefault
 	<gtExample>
 	| aStencilBuilder aRowElement |
 	
-	aStencilBuilder := BrColumnedListRowStencil new.
+	aStencilBuilder := BrColumnedListRowStencilBuilder new.
 	aStencilBuilder rowValue: 'Hello'.
 	aStencilBuilder rowIndex: 1.
 	

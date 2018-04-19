@@ -1,3 +1,3 @@
 api - accessing
 stencil: aStencil
-	stencil := aStencil asStencil: BrColumnedListCellStencil
+	stencil := aStencil asStencil: BrColumnedListCellStencilBuilder

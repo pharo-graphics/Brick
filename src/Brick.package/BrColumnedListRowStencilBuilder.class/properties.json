@@ -1,11 +1,11 @@
 {
 	"commentStamp" : "",
-	"super" : "Object",
-	"category" : "Brick-Examples-List",
+	"super" : "BrListRowStencilBuilder",
+	"category" : "Brick-List - Support",
 	"classinstvars" : [ ],
 	"pools" : [ ],
 	"classvars" : [ ],
 	"instvars" : [ ],
-	"name" : "BrListExamples",
+	"name" : "BrColumnedListRowStencilBuilder",
 	"type" : "normal"
 }
