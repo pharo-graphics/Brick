@@ -2,7 +2,7 @@ api - binding
 rowValue: anObject at: aRowIndex
 	| theCellElements |
 
-	itemElement := self rowStencil
+	itemElement := self rowStencilBuilder
 		rowValue: anObject;
 		rowIndex: aRowIndex;
 		create.

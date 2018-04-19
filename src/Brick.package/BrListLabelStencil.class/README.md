@@ -1,0 +1,1 @@
+I create a label only element to be used within a list widget, both in a simple and columned list

@@ -1,13 +1,13 @@
 examples - stencil
 createColumnedListRowWithBlock
 	<gtExample>
-	| aStencil aRowElement |
+	| aStencilBuilder aRowElement |
 	
-	aStencil := [ :aRowValue :aRowIndex | BlTextElement text: (aRowValue asString, '-', aRowIndex asString) asRopedText ] asStencil: BrListRowStencil.
-	aStencil rowValue: 'Hello'.
-	aStencil rowIndex: 1.
+	aStencilBuilder := [ :aRowValue :aRowIndex | BlTextElement text: (aRowValue asString, '-', aRowIndex asString) asRopedText ] asStencil: BrListRowStencilBuilder.
+	aStencilBuilder rowValue: 'Hello'.
+	aStencilBuilder rowIndex: 1.
 	
-	aRowElement := aStencil create.
+	aRowElement := aStencilBuilder build asElement.
 
 	self assert: (aRowElement isKindOf: BlTextElement).
 	self assert: aRowElement text asString equals: 'Hello-1'.

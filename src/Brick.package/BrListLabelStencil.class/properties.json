@@ -1,0 +1,13 @@
+{
+	"commentStamp" : "AliakseiSyrel 4/18/2018 17:24",
+	"super" : "BrStencil",
+	"category" : "Brick-List - Stencil",
+	"classinstvars" : [ ],
+	"pools" : [ ],
+	"classvars" : [ ],
+	"instvars" : [
+		"text"
+	],
+	"name" : "BrListLabelStencil",
+	"type" : "normal"
+}

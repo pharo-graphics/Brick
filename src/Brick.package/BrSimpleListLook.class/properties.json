@@ -7,7 +7,7 @@
 	"classvars" : [ ],
 	"instvars" : [
 		"listElement",
-		"rowStencil"
+		"rowStencilBuilder"
 	],
 	"name" : "BrSimpleListLook",
 	"type" : "normal"

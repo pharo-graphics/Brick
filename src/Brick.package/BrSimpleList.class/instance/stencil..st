@@ -1,3 +1,3 @@
 api - scripting
-stencil: aListRowStencil
-	self look rowStencil: aListRowStencil
+stencil: aListRowStencilBuilder
+	self look rowStencilBuilder: aListRowStencilBuilder

@@ -6,7 +6,7 @@
 	"pools" : [ ],
 	"classvars" : [ ],
 	"instvars" : [
-		"rowStencil"
+		"rowStencilBuilder"
 	],
 	"name" : "BrListItemHolder",
 	"type" : "normal"

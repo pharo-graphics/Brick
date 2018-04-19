@@ -1,6 +1,6 @@
 {
 	"commentStamp" : "",
-	"super" : "BrListRowStencil",
+	"super" : "BrListRowStencilBuilder",
 	"category" : "Brick-List - Stencil",
 	"classinstvars" : [ ],
 	"pools" : [ ],

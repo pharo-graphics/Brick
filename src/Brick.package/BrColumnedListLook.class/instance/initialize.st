@@ -8,4 +8,4 @@ initialize
 		c horizontal matchParent.
 		c vertical matchParent ].
 	
-	self rowStencil: BrColumnedListRowStencil new
+	self rowStencilBuilder: BrColumnedListRowStencil new

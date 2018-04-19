@@ -1,13 +1,13 @@
 examples - stencil
 createColumnedListRowDefault
 	<gtExample>
-	| aStencil aRowElement |
+	| aStencilBuilder aRowElement |
 	
-	aStencil := BrColumnedListRowStencil new.
-	aStencil rowValue: 'Hello'.
-	aStencil rowIndex: 1.
+	aStencilBuilder := BrColumnedListRowStencil new.
+	aStencilBuilder rowValue: 'Hello'.
+	aStencilBuilder rowIndex: 1.
 	
-	aRowElement := aStencil create.
+	aRowElement := aStencilBuilder build asElement.
 
 	self assert: (aRowElement layout isKindOf: BlLinearLayout).
 	self assert: (aRowElement layout isHorizontal).

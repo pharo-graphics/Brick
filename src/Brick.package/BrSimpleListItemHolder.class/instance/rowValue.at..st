@@ -1,6 +1,10 @@
 api - binding
-rowValue: anObject at: aRowIndex	
-	itemElement := self rowStencil
+rowValue: anObject at: aRowIndex
+	| aStencil |
+	
+	aStencil := self rowStencilBuilder
 		rowValue: anObject;
 		rowIndex: aRowIndex;
-		create
+		build.
+
+	itemElement := aStencil asElement

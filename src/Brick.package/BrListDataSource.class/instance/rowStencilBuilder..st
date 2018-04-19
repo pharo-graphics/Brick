@@ -1,5 +1,5 @@
 accessing
-rowStencil: aStencil
+rowStencilBuilder: aStencil
 
 	rowStencil := aStencil.
 	self notifyChanged
