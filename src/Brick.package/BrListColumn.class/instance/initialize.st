@@ -3,4 +3,4 @@ initialize
 	super initialize.
 
 	title := 'Column'.
-	stencil := BrColumnedListCellStencilBuilder new
+	stencilBuilder := BrColumnedListCellStencilBuilder new

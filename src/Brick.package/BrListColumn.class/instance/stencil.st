@@ -2,4 +2,4 @@ accessing
 stencil
 	<return: #BrColumnedListCellStencilBuilder>
 	
-	^ stencil
+	^ stencilBuilder

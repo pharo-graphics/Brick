@@ -6,10 +6,7 @@ addColorNameColumn
 	aColumnedListModel := self addColorIndexColumn.
 	aColumnedListModel column
 		title: 'Color';
-		evaluated: #name;
-		shape: [ :aString | BlElement new
-			padding: (BlInsets left: 10);
-			look: (BrLabelLook new text: aString) + BrLayoutLook frame matchParent + (BrLayoutLook of: #label) alignCenterLeft ].
+		stencil: [ :aRowValue :aRowIndex | BrListLabelStencil new text: aRowValue name asString ].
 
 	self assert: aColumnedListModel columns size equals: 2.
 	self assert: aColumnedListModel columns second title equals: 'Color'.
