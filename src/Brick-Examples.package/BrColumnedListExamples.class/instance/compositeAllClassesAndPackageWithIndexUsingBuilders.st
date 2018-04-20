@@ -1,5 +1,5 @@
 examples - scripting
-compositeAllClassesAndPackageWithIndex
+compositeAllClassesAndPackageWithIndexUsingBuilders
 	<gtExample>
 	| aList |
 
@@ -15,7 +15,7 @@ compositeAllClassesAndPackageWithIndex
 
 	aList column
 		title: 'Class';
-		stencil: [ :aClass | (BrListLabelStencil new text: aClass name asString) asElement width: 200 ].
+		stencil: BrColumnedListNameCellStencilBuilder new.
 
 	aList column
 		title: 'Package';
