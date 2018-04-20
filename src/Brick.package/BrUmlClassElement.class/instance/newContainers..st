@@ -9,10 +9,8 @@ newContainers: aCollectionOfSymbols
 			c vertical fitContent.
 			c horizontal matchParent ].
 		aContainer padding: (BlInsets all: 5).
-		aContainer graph beChildrenContainer: aSymbol.
 	
 		anEditor := BrEditorElement new.
-		anEditor beDiagrammerSelectionLeaf.
 		anEditor constraintsDo: [ :c |
 			c horizontal matchParent.
 			c vertical fitContent ].
