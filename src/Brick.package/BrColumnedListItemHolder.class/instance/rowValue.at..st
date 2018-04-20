@@ -2,16 +2,16 @@ api - binding
 rowValue: anObject at: aRowIndex
 	| theCellElements |
 
-	itemElement := self rowStencilBuilder
+	itemElement := (self rowStencilBuilder
 		rowValue: anObject;
 		rowIndex: aRowIndex;
-		create.
+		build) asElement.
 
 	theCellElements := self columns withIndexCollect: [ :aListColumn :aColumnIndex |	
-		aListColumn stencil
+		(aListColumn stencil
 			rowValue: anObject;
 			rowIndex: aRowIndex;
 			columnIndex: aColumnIndex;
-			create ].
+			build) asElement ].
 	
 	itemElement addChildren: theCellElements

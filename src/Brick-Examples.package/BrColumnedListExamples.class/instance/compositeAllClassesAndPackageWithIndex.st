@@ -7,15 +7,15 @@ compositeAllClassesAndPackageWithIndex
 	aList display: Smalltalk allClasses.
 	aList column
 		title: 'Index';
-		evaluated: [ :aClass :aRowIndex | aRowIndex ];
-		shape: [ :aRowIndex :anElement | anElement width: 30 ].
+		stencil: [ :aClass :anIndex |
+			(BrListLabelStencil new text: (anIndex asString asRopedText foreground: Color gray)) asElement width: 30 ].
 
 	aList column
 		title: 'Class';
-		evaluated: [ :aClass | aClass name ].
+		stencil: [ :aClass | BrListLabelStencil new text: aClass name asString ].
 
 	aList column
 		title: 'Package';
-		evaluated: [ :aClass | aClass package name ].
+		stencil: [ :aClass | BrListLabelStencil new text: aClass package name asString ].
 
 	^ aList

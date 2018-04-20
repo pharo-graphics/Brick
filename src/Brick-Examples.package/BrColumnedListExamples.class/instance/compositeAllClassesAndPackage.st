@@ -7,10 +7,10 @@ compositeAllClassesAndPackage
 	aList display: Smalltalk allClasses.
 	aList column
 		title: 'Class';
-		evaluated: [ :aClass | aClass name ].
+		stencil: [ :aClass | BrListLabelStencil new text: aClass name asString ].
 		
 	aList column
 		title: 'Package';
-		evaluated: [ :aClass | aClass package name ].
+		stencil: [ :aClass | BrListLabelStencil new text: aClass package name asString ].
 
 	^ aList
