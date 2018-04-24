@@ -8,7 +8,6 @@ editorWithAdormentDynamicAttribute
 		attributes: { 
 			BrTextAdornmentDynamicAttribute new 
 				elementBlock: [ 
-					self halt.
 					BlElement new 
 						size: 70 @ 50; 
 						margin: (BlInsets all: 5);
