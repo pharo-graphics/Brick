@@ -2,14 +2,13 @@ initialization
 initializeLook
 	super initializeLook.
 
-	widget size: 14@14.
-	widget layout: BlFrameLayout new.
-	widget padding: (BlInsets all: 3).
-	widget border: (BlBorder builder width: 1; build).
-	widget geometry: BlEllipse new.
+	self widget
+		size: 14@14;
+		layout: BlFrameLayout new;
+		padding: (BlInsets all: 3);
+		border: (BlBorder builder width: 1; build);
+		geometry: BlEllipse new.
 
-	thumb := self newThumbElement.
-
-	widget addChild: thumb.
+	self widget addChild: thumb.
 
 	self updateColor

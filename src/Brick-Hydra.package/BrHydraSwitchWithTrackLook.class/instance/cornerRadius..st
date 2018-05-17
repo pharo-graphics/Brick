@@ -1,6 +1,4 @@
 accessing
 cornerRadius: aNumber
 	cornerRadius := aNumber.
-	
-	widget ifNil: [ ^ self ].
-	self updateCornerRadius.
+	self widgetDo: [ self updateCornerRadius ]

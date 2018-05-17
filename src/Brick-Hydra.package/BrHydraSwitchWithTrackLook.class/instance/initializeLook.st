@@ -2,17 +2,14 @@ initialization
 initializeLook
 	super initializeLook.
 
-	widget layout: BlFrameLayout new.
-	widget padding: (BlInsets all: 4).
-	widget border: (BlBorder builder width: 1; build).
-	widget geometry: (BlRectangle new).
+	self widget
+		layout: BlFrameLayout new;
+		padding: (BlInsets all: 4);
+		border: (BlBorder builder width: 1; build);
+		geometry: (BlRectangle new);
+		size: 36@14.
 
-	widget size: 36@14.
-
-	thumb := self newThumbElement.
-	track := self newTrackElement.
-
-	widget addChildren: { track . thumb }.
+	self widget addChildren: { track . thumb }.
 	
 	self updateColor.
 	self updateCornerRadius

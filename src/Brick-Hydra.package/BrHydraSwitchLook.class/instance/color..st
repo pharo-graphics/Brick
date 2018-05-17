@@ -1,5 +1,4 @@
 accessing
 color: aColor
 	color := aColor.
-	widget ifNil: [ ^ self ].
-	self updateColor
+	self widgetDo: [ self updateColor ]
