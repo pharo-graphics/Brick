@@ -16,7 +16,7 @@ After linking the button element with the label look and the button model, chang
 [[[example=BrButtonLabelLookExamples>>#buttonWithModelAndLookAndChangedModelLabel|expanded=true|expandedPreview=true]]]
 
 When changing the label in the model, a ==BlLabelChanged== event is triggered that reaches the label look, through the button widget. The propagation of this element is as follows:
-[[[example=BrButtonLabelLookExamples>>#labelChangedEvent|expanded=true|expandedPreview=true|show=gtTraversedLive]]]
+[[[example=BrButtonLabelLookExamples>>#labelChangedEvent|expanded=true|expandedPreview=true|show=gtTraversedLiveFor:]]]
 
 In case the button widget does not have a label look attached, changing the value of the text in the model does not update the visual representation of the label in the button widget:
 [[[example=BrButtonLabelLookExamples>>#buttonWithOnlyModelAndChangedModelLabel|expanded=true|expandedPreview=true]]]
