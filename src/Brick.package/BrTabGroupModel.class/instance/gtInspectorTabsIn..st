@@ -3,5 +3,5 @@ gtInspectorTabsIn: aComposite
 	<gtInspectorPresentationOrder: 80>
 
 	^ aComposite fastList
-		title: [ 'Tabs' translated ];
+		title: 'Tabs' translated;
 		display: [ self tabs ]
