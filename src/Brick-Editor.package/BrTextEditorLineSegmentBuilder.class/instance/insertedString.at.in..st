@@ -62,11 +62,7 @@ insertedString: aString at: aTextIndex in: aBrTextEditor
 				segment: aCurrentSegment
 				stream: aStream ].
 	
-	
 	self validateIntegrity: aBrTextEditor.
-	
-	aBrTextEditor invalidateAll.
-	aBrTextEditor updateAll.
 	
 	aBrTextEditor
 		invalidate: aTextIndex + 1
