@@ -12,7 +12,6 @@ updateCursor: aTextElement of: aLineSegment in: anEditorElement
 		ifFalse: [ aCursor position - aTextElement text start + 1 ].
 
 	aTextElement showCursorAt: cursorPosition.
-	aTextElement requestFocus.
 
-	"anEditorElement hasFocus
-		ifTrue: [ aTextElement requestFocus ]"
+	anEditorElement hasFocus
+		ifTrue: [ aTextElement requestFocus ]
