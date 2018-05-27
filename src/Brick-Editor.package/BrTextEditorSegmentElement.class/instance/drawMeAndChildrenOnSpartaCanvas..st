@@ -1,8 +1,6 @@
 drawing
 drawMeAndChildrenOnSpartaCanvas: aCanvas
 
-	true ifTrue: [ ^ super drawMeAndChildrenOnSpartaCanvas: aCanvas ].
-
 	(session ~~ Smalltalk session or: [ cachedSurface isNil ]) ifTrue: [
 		| aCachedCanvas |
 		session := Smalltalk session.
