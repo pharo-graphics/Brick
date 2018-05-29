@@ -10,7 +10,8 @@
 		"enabled",
 		"label",
 		"icon",
-		"content"
+		"content",
+		"contentStencilBuilder"
 	],
 	"name" : "BrTabModel",
 	"type" : "normal"

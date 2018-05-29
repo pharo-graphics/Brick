@@ -1,7 +1,7 @@
 {
 	"commentStamp" : "",
 	"super" : "BlElement",
-	"category" : "Brick-Toggle - UI",
+	"category" : "Brick-Tabs - UI",
 	"classinstvars" : [ ],
 	"pools" : [ ],
 	"classvars" : [ ],

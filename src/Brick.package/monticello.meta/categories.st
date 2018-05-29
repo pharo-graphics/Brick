@@ -12,6 +12,7 @@ SystemOrganization addCategory: 'Brick-List - UI'!
 SystemOrganization addCategory: 'Brick-Tabs - Events'!
 SystemOrganization addCategory: 'Brick-Tabs - Look'!
 SystemOrganization addCategory: 'Brick-Tabs - Model'!
+SystemOrganization addCategory: 'Brick-Tabs - UI'!
 SystemOrganization addCategory: 'Brick-Toggle - Events'!
 SystemOrganization addCategory: 'Brick-Toggle - Look'!
 SystemOrganization addCategory: 'Brick-Toggle - Model'!
