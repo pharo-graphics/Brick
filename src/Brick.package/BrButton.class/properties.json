@@ -1,0 +1,11 @@
+{
+	"commentStamp" : "",
+	"super" : "BlElement",
+	"category" : "Brick-Button - UI",
+	"classinstvars" : [ ],
+	"pools" : [ ],
+	"classvars" : [ ],
+	"instvars" : [ ],
+	"name" : "BrButton",
+	"type" : "normal"
+}

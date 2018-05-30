@@ -3,6 +3,7 @@ SystemOrganization addCategory: 'Brick-!! Core'!
 SystemOrganization addCategory: 'Brick-!! Core - Events'!
 SystemOrganization addCategory: 'Brick-!! Core - Stencil'!
 SystemOrganization addCategory: 'Brick-Button - Model'!
+SystemOrganization addCategory: 'Brick-Button - UI'!
 SystemOrganization addCategory: 'Brick-List - Events'!
 SystemOrganization addCategory: 'Brick-List - Look'!
 SystemOrganization addCategory: 'Brick-List - Model'!
