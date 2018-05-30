@@ -5,7 +5,7 @@ materialGroup
 
 	tab1 := BrTabModel new
 		label: 'Tab 1';
-		content: [ BlElement new
+		stencil: [ BlElement new
 			size: 200@200;
 			background: (Color red alpha: 0.5) ].
 
@@ -13,7 +13,7 @@ materialGroup
 
 	tab3 := BrTabModel new
 		label: 'Tab 3';
-		content: [ BlElement new
+		stencil: [ BlElement new
 			size: 200@200;
 			background: (Color blue alpha: 0.5) ].
 
