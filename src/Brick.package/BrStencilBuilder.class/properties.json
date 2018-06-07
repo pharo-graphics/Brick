@@ -1,13 +1,15 @@
 {
-	"commentStamp" : "",
-	"super" : "Object",
-	"category" : "Brick-! Core - Stencil",
-	"classinstvars" : [ ],
-	"pools" : [ ],
+	"classtraitcomposition" : "TBlDebug classTrait",
 	"classvars" : [ ],
 	"instvars" : [
 		"executor"
 	],
 	"name" : "BrStencilBuilder",
-	"type" : "normal"
+	"commentStamp" : "",
+	"super" : "Object",
+	"traitcomposition" : "TBlDebug",
+	"type" : "normal",
+	"classinstvars" : [ ],
+	"pools" : [ ],
+	"category" : "Brick-! Core - Stencil"
 }
