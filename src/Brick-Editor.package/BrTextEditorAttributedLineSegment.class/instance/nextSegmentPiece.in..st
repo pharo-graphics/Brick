@@ -2,7 +2,8 @@ pieces - computation
 nextSegmentPiece: aBrTextIterator in: aStream
 	| initialAdornments anAdornmentText anAdornmentIterator |
 
-	initialAdornments := aBrTextIterator selectAttributes: #isAdornment.
+	initialAdornments := aBrTextIterator selectAttributes: [ :anAttribute |
+			anAttribute isParagraphAttribute not and: [ anAttribute isAdornment ] ].
 	
 	anAdornmentText := self nextAdornment: aBrTextIterator.
 	

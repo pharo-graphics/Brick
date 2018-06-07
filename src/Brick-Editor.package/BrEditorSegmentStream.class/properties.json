@@ -6,12 +6,12 @@
 		"collection",
 		"skip"
 	],
-	"name" : "BrTextEditorSegmentStream",
+	"name" : "BrEditorSegmentStream",
 	"commentStamp" : "AliakseiSyrel 8/7/2017 12:40",
 	"super" : "Object",
 	"traitcomposition" : "TBlDebug",
 	"type" : "normal",
 	"classinstvars" : [ ],
 	"pools" : [ ],
-	"category" : "Brick-Editor-Model-Segment-Text"
+	"category" : "Brick-Editor-Model-Segment"
 }

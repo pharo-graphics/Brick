@@ -1,0 +1,13 @@
+{
+	"commentStamp" : "AliakseiSyrel 5/31/2018 15:15",
+	"super" : "BrTextParagraphAttribute",
+	"category" : "Brick-Editor-Text-Attributes",
+	"classinstvars" : [ ],
+	"pools" : [ ],
+	"classvars" : [ ],
+	"instvars" : [
+		"stencil"
+	],
+	"name" : "BrTextParagraphSegmentAttribute",
+	"type" : "normal"
+}

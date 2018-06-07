@@ -18,7 +18,5 @@ split: aBrText in: aStream
 			^ aStream nextPut: (self newSegment: (aBrText from: secondIndex to: secondIndex)) ].
 
 	iterator := aBrText iterator.
-	[ iterator hasNext and: [ aStream wantsMore ] ] whileTrue: [
-	   | segment |
-		segment := self newSegment: iterator nextLine.		
-		aStream nextPut: segment ]
+	[ iterator hasNext and: [ aStream wantsMore ] ]
+		whileTrue: [ self nextSegment: iterator in: aStream ]

@@ -1,4 +1,4 @@
-accessing
+streaming
 nextPut: aTextEditorSegment
 	self
 		assert: [ self wantsMore ]
