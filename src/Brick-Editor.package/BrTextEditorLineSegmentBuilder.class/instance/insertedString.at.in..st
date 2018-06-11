@@ -64,8 +64,11 @@ insertedString: aString at: aTextIndex in: aBrTextEditor
 	
 	self validateIntegrity: aBrTextEditor.
 	
-	aBrTextEditor
+	"aBrTextEditor
 		invalidate: aTextIndex + 1
 		to: aTextIndex + aString size.
-
-	aBrTextEditor update: aTextIndex + 1 to: aTextIndex + aString size
+	aBrTextEditor update: aTextIndex + 1 to: aTextIndex + aString size."
+	
+	self flag: 'for now, invalidate the whole editor when typing'.
+	aBrTextEditor invalidateAll.
+	aBrTextEditor updateAll
