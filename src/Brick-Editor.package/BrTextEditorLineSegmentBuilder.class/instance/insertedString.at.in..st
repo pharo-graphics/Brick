@@ -17,7 +17,7 @@ insertedString: aString at: aTextIndex in: aBrTextEditor
 		at: aTextIndex
 		in: aBrTextEditor text.
 	
-	aStream := BrTextEditorSegmentStream new.
+	aStream := BrEditorSegmentStream new.
 	aStream limit: Float infinity.
 	
 	self split: aSubText in: aStream.
