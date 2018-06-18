@@ -1,12 +1,15 @@
 private
-split: aBrBlob in: aBrEditorSegmentStream
+split: aBrText in: aBrEditorSegmentStream
 	| anIterator aPreviousSegment aPreviousSeparator |
 	
+	aBrText isEmpty
+		ifTrue: [ ^ aBrEditorSegmentStream nextPut: (BrSegment new initializeWith: (aBrText from: 0 to: 0) from: 0 to: 0) ].
+
 	aPreviousSegment := nil.
 	aPreviousSeparator := nil.
 
-	anIterator := aBrBlob text iterator.
-	
+	anIterator := aBrText iterator.
+
 	[ anIterator hasNext and: [ aBrEditorSegmentStream wantsMore ] ] whileTrue: [
 		| aText |
 		aText := anIterator nextSegment: [ :aCharacter | aCharacter isLineBreak ].
@@ -19,7 +22,10 @@ split: aBrBlob in: aBrEditorSegmentStream
 				aPreviousSeparator := aSeparator ]
 			ifFalse: [
 				| aSegment |
-				aSegment := BrSegment new text: aText.
+				aSegment := BrSegment new
+					initializeWith: aText
+					from: aText start
+					to: aText end.
 				aPreviousSeparator
 					ifNotNil: [ aSegment previousSeparator: aPreviousSeparator ].
 				aPreviousSegment := aSegment.

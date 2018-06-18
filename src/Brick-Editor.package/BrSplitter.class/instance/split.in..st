@@ -1,2 +1,2 @@
 splitting
-split: aBrBlob in: aBrEditorSegmentStream
+split: aBrText in: aBrEditorSegmentStream
