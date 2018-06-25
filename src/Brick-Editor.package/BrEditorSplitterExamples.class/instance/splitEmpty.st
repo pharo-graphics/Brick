@@ -12,7 +12,5 @@ splitEmpty
 	self assert: aStream segments size equals: 1.
 	self assert: aStream segments first textStart equals: 0.
 	self assert: aStream segments first textEnd equals: 0.
-	self assert: aStream segments first isAfterSeparator not.
-	self assert: aStream segments first isBeforeSeparator not.
 
 	^ aStream

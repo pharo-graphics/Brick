@@ -1,32 +1,22 @@
 private
 split: aBrText in: aBrEditorSegmentStream
-	| anIterator aPreviousSegment aPreviousSeparator |
-	
+	| anIterator |
+
 	aBrText isEmpty
 		ifTrue: [ ^ aBrEditorSegmentStream nextPut: (BrSegment new initializeWith: (aBrText from: 0 to: 0) from: 0 to: 0) ].
 
-	aPreviousSegment := nil.
-	aPreviousSeparator := nil.
-
 	anIterator := aBrText iterator.
 
-	[ anIterator hasNext and: [ aBrEditorSegmentStream wantsMore ] ] whileTrue: [
-		| aText |
-		aText := anIterator nextSegment: [ :aCharacter | aCharacter isLineBreak ].
-		aText first isLineBreak
-			ifTrue: [
-				| aSeparator |
-				aSeparator := BrSeparator new text: aText.
-				aPreviousSegment
-					ifNotNil: [ aPreviousSegment nextSeparator: aSeparator ].
-				aPreviousSeparator := aSeparator ]
-			ifFalse: [
-				| aSegment |
-				aSegment := BrSegment new
-					initializeWith: aText
-					from: aText start
-					to: aText end.
-				aPreviousSeparator
-					ifNotNil: [ aSegment previousSeparator: aPreviousSeparator ].
-				aPreviousSegment := aSegment.
-				aBrEditorSegmentStream nextPut: aSegment ] ]
+	[ anIterator hasNext and: [ aBrEditorSegmentStream wantsMore ] ] whileTrue: [		
+		anIterator nextLineIndicesDo: [ :aLineStart :aLineEnd :aLineDelimiterEnd |
+			aBrEditorSegmentStream nextPut: (BrSegment new
+				initializeWith: (aBrText from: aLineStart to: aLineEnd)
+				from: aLineStart
+				to: aLineEnd) ] ].
+
+	(aBrEditorSegmentStream wantsMore and: [ aBrText last isLineBreak ])
+		ifTrue: [
+			aBrEditorSegmentStream nextPut: (BrSegment new
+				initializeWith: (aBrText from: aBrText size to: aBrText size)
+				from: aBrText size
+				to: aBrText size) ]
