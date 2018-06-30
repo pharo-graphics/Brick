@@ -1,7 +1,6 @@
 mouse handlers
 mouseLeaveEvent: anEvent
-	anEvent currentTarget text
-		attributes: { BrTextForegroundAttribute paint: Color black }.
+	self performLeaveAction: anEvent.
 	anEvent currentTarget 
 		invalidate;
 		requestLayout

@@ -1,7 +1,6 @@
 mouse handlers
 mouseEnterEvent: anEvent
-	anEvent currentTarget text
-		attributes: { BrTextForegroundAttribute paint: Color red }.
+	self performAction: anEvent.
 	anEvent currentTarget
 		invalidate;
 		requestLayout
