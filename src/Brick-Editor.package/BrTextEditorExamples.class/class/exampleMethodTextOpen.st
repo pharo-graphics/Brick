@@ -8,8 +8,12 @@ exampleMethodTextOpen
 		BrFontGenericFamilyAttribute monospace beNotOverwritableByStyler
 	}.
 	editorElement editor text attributes: {
-		BrTextHoverAttribute new beNotOverwritableByStyler.
-		BrTextClickAttribute new beNotOverwritableByStyler
+		BrTextHoverAttribute new 
+			beNotOverwritableByStyler;
+			textAttribute: (BrTextForegroundAttribute paint: Color red).
+		BrTextClickAttribute new 
+			beNotOverwritableByStyler
+			textAttributes: [ { BrTextForegroundAttribute paint: Color random paler } ].
 	} from: 39 to: 42.
 	editorElement editor segmentBuilder: (BrTextEditorLineSegmentBuilder of: BrTextEditorAttributedLineSegment).
 	editorElement constraintsDo: [ :c |

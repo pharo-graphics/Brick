@@ -1,4 +1,8 @@
 mouse handlers
 clickEvent: anEvent
-	anEvent currentTarget text
-		attributes: { BrTextForegroundAttribute paint: Color random paler }
+	self action 
+		cull: anEvent currentTarget text
+		cull: anEvent currentTarget
+		cull: anEvent
+	"anEvent currentTarget text
+		attributes: { BrTextForegroundAttribute paint: Color random paler }"
