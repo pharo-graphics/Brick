@@ -9,6 +9,8 @@ insert_NewLine_in_HABA_At_0
 	self assert: aTextEditor text asString equals: String cr, 'HABA'.
 	self assert: aTextEditor segmentCollector computedSegmentsCount equals: 2.
 	self assert: aTextEditor segmentCollector segments first textInterval equals: (0 to: 0).
-	self assert: aTextEditor segmentCollector segments second textInterval equals: (2 to: 5).
+	self assert: aTextEditor segmentCollector segments first text asString equals: ''.
+	self assert: aTextEditor segmentCollector segments second textInterval equals: (1 to: 5).
+	self assert: aTextEditor segmentCollector segments second text asString equals: 'HABA'.
 
 	^ aTextEditor

@@ -25,6 +25,8 @@ addSegments: aCollectionOfSegments before: aSegment
 			afterIndex: aNewSegment index - 1 ].
 	
 	self offsetSegmentIndicesBy: aCollectionOfSegments size after: aCollectionOfSegments last index.
+
+	self editor notifyItemsInserted: (aCollectionOfSegments first index to: aCollectionOfSegments last index).
 	
 	self
 		assert: [ self segments size = interval size ]

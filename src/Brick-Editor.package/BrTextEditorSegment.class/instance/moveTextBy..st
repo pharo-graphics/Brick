@@ -4,14 +4,5 @@ moveTextBy: aNumber
 	If aNumber is negative sub-texts will be moved to the left (maybe this is a result of a deletion).
 	If aNumber is positive sub-texts will be moved to the right (maybe this is a result of an insertion).
 	aNumber must not be zero - undefined behaviour (nothing was inserted but the message is sent? Probably a bug)"
-	| aText |
 
-	aText := self text.
-	aText start: aText start + aNumber end: aText end + aNumber.
-	
-	"no pieces created (they were not requested yet so no need to move them)"
-	self hasPieces
-		ifFalse: [ ^ self ].
-
-	self pieces
-		do: [ :aTextPiece | aTextPiece start: aTextPiece start + aNumber end: aTextPiece end + aNumber ]
+	self start: textStart + aNumber end: textEnd + aNumber

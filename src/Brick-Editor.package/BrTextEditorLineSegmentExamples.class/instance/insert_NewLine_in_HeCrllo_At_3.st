@@ -8,8 +8,11 @@ insert_NewLine_in_HeCrllo_At_3
 
 	self assert: aTextEditor text asString equals: 'He', String cr, String cr, 'llo'.
 	self assert: aTextEditor segmentCollector computedSegmentsCount equals: 3.
-	self assert: aTextEditor segmentCollector segments first textInterval equals: (1 to: 2).
+	self assert: aTextEditor segmentCollector segments first textInterval equals: (0 to: 2).
+	self assert: aTextEditor segmentCollector segments first text asString equals: 'He'.
 	self assert: aTextEditor segmentCollector segments second textInterval equals: (3 to: 3).
-	self assert: aTextEditor segmentCollector segments third textInterval equals: (5 to: 7).
+	self assert: aTextEditor segmentCollector segments second text asString equals: String cr.
+	self assert: aTextEditor segmentCollector segments third textInterval equals: (4 to: 7).
+	self assert: aTextEditor segmentCollector segments third text asString equals: 'llo'.
 
 	^ aTextEditor

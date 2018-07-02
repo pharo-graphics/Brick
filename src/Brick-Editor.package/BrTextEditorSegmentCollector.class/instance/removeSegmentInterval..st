@@ -7,4 +7,6 @@ removeSegmentInterval: anInterval
 	self segments
 		withIndexDo: [ :eachSegment :anIndex | eachSegment index: anIndex ].
 	
-	interval := (interval first to: interval last - 1)
+	interval := (interval first to: interval last - 1).
+
+	self editor notifyItemsRemoved: anInterval

@@ -1,6 +1,6 @@
 text - modifications
 deletedFrom: aFromIndex to: aToIndex in: aBrTextEditor
-	| aFromSegment aToSegment |
+	| aFromSegment aToSegment aTargetSegment |
 
 	self
 		assert: [ aFromIndex <= aToIndex ]
@@ -17,11 +17,10 @@ deletedFrom: aFromIndex to: aToIndex in: aBrTextEditor
 		ifNotFound: [ ].
 
 	"we delete something completely outside of the cached segments, just ignore it"
-	(aFromSegment isNil and: [ aToSegment isNil ])	
-		ifTrue: [ ^ self ].
-	
-	self deleteFrom: aFromIndex segment: aFromSegment to: aToIndex segment: aToSegment in: aBrTextEditor.
-	
-	"note: ideally we should invalidate only that part of the editor that was changed"
-	aBrTextEditor invalidateAll.
-	aBrTextEditor updateAll
+	(aFromSegment isNil or: [ aToSegment isNil ])	
+		ifTrue: [ self error: 'Not implemented yet' ].
+
+	aTargetSegment := self deleteFrom: aFromIndex segment: aFromSegment to: aToIndex segment: aToSegment in: aBrTextEditor.
+
+	aBrTextEditor invalidate: aTargetSegment textStart to: aTargetSegment textEnd.
+	aBrTextEditor update: aTargetSegment textStart to: aTargetSegment textEnd

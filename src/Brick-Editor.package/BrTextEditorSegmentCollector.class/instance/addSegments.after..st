@@ -26,6 +26,8 @@ addSegments: aCollectionOfSegments after: aSegment
 	
 	self offsetSegmentIndicesBy: aCollectionOfSegments size after: aCollectionOfSegments last index.
 	
+	self editor notifyItemsInserted: (aCollectionOfSegments first index to: aCollectionOfSegments last index).
+	
 	self
 		assert: [ self segments size = interval size ]
 		description: [ 'Amount of segments must correspond to the interval' ].

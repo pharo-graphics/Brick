@@ -1,0 +1,1 @@
+I split a piece of text into line segments (BrTextEditorLineSegment)

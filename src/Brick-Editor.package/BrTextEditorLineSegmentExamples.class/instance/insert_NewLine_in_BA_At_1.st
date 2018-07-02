@@ -8,7 +8,9 @@ insert_NewLine_in_BA_At_1
 
 	self assert: aTextEditor text asString equals: 'B', String cr, 'A'.
 	self assert: aTextEditor segmentCollector computedSegmentsCount equals: 2.
-	self assert: aTextEditor segmentCollector segments first textInterval equals: (1 to: 1).
-	self assert: aTextEditor segmentCollector segments second textInterval equals: (3 to: 3).
+	self assert: aTextEditor segmentCollector segments first textInterval equals: (0 to: 1).
+	self assert: aTextEditor segmentCollector segments first text asString equals: 'B'.
+	self assert: aTextEditor segmentCollector segments second textInterval equals: (2 to: 3).
+	self assert: aTextEditor segmentCollector segments second text asString equals: 'A'.
 
 	^ aTextEditor

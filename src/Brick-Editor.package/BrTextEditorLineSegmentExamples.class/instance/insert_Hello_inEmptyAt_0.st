@@ -8,6 +8,6 @@ insert_Hello_inEmptyAt_0
 
 	self assert: aTextEditor text asString equals: 'Hello'.
 	self assert: aTextEditor segmentCollector computedSegmentsCount equals: 1.
-	self assert: aTextEditor segmentCollector segments first textInterval equals: (1 to: 5).
+	self assert: aTextEditor segmentCollector segments first textInterval equals: (0 to: 5).
 
 	^ aTextEditor

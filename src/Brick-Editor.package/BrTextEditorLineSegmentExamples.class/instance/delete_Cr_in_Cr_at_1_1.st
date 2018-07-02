@@ -3,7 +3,7 @@ delete_Cr_in_Cr_at_1_1
 	<gtExample>
 	| aTextEditor |
 	aTextEditor := self insert_NewLine_inEmptyAt_0.
-
+	
 	aTextEditor delete: 1 to: 1.
 
 	self assert: aTextEditor text asString equals: ''.

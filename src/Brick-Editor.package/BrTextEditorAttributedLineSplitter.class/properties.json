@@ -1,0 +1,11 @@
+{
+	"commentStamp" : "",
+	"super" : "BrTextEditorLineSplitter",
+	"category" : "Brick-Editor-Model-Segment-Text-Line-Attributed",
+	"classinstvars" : [ ],
+	"pools" : [ ],
+	"classvars" : [ ],
+	"instvars" : [ ],
+	"name" : "BrTextEditorAttributedLineSplitter",
+	"type" : "normal"
+}

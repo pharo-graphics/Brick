@@ -6,7 +6,9 @@
 	"pools" : [ ],
 	"classvars" : [ ],
 	"instvars" : [
-		"text"
+		"text",
+		"textStart",
+		"textEnd"
 	],
 	"name" : "BrTextEditorSegment",
 	"type" : "normal"

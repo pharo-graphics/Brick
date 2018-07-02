@@ -9,7 +9,10 @@ insert_NewLine_in_CDCrBA_At_0
 	self assert: aTextEditor text asString equals: String cr, 'CD', String cr, 'BA'.
 	self assert: aTextEditor segmentCollector computedSegmentsCount equals: 3.
 	self assert: aTextEditor segmentCollector segments first textInterval equals: (0 to: 0).
-	self assert: aTextEditor segmentCollector segments second textInterval equals: (2 to: 3).
-	self assert: aTextEditor segmentCollector segments third textInterval equals: (5 to: 6).
+	self assert: aTextEditor segmentCollector segments first text asString equals: ''.
+	self assert: aTextEditor segmentCollector segments second textInterval equals: (1 to: 3).
+	self assert: aTextEditor segmentCollector segments second text asString equals: 'CD'.
+	self assert: aTextEditor segmentCollector segments third textInterval equals: (4 to: 6).
+	self assert: aTextEditor segmentCollector segments third text asString equals: 'BA'.
 
 	^ aTextEditor

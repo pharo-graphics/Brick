@@ -8,6 +8,6 @@ delete_B_in_BA_at_1_1
 
 	self assert: aTextEditor text asString equals: 'A'.
 	self assert: aTextEditor segmentCollector computedSegmentsCount equals: 1.
-	self assert: aTextEditor segmentCollector segments first textInterval equals: (1 to: 1).
+	self assert: aTextEditor segmentCollector segments first textInterval equals: (0 to: 1).
 
 	^ aTextEditor

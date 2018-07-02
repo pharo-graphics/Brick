@@ -1,7 +1,9 @@
 {
 	"classtraitcomposition" : "TBlDebug classTrait",
 	"classvars" : [ ],
-	"instvars" : [ ],
+	"instvars" : [
+		"splitter"
+	],
 	"name" : "BrTextEditorSegmentBuilder",
 	"commentStamp" : "AliakseiSyrel 8/6/2017 13:23",
 	"super" : "Object",

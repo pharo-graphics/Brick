@@ -8,8 +8,11 @@ insert_A_in_HACrCrBA_At_3
 
 	self assert: aTextEditor text asString equals: 'HA', String cr, 'A', String cr, 'BA'.
 	self assert: aTextEditor segmentCollector computedSegmentsCount equals: 3.
-	self assert: aTextEditor segmentCollector segments first textInterval equals: (1 to: 2).
-	self assert: aTextEditor segmentCollector segments second textInterval equals: (4 to: 4).
-	self assert: aTextEditor segmentCollector segments third textInterval equals: (6 to: 7).
+	self assert: aTextEditor segmentCollector segments first textInterval equals: (0 to: 2).
+	self assert: aTextEditor segmentCollector segments first text asString equals: 'HA'.
+	self assert: aTextEditor segmentCollector segments second textInterval equals: (3 to: 4).
+	self assert: aTextEditor segmentCollector segments second text asString equals: 'A'.
+	self assert: aTextEditor segmentCollector segments third textInterval equals: (5 to: 7).
+	self assert: aTextEditor segmentCollector segments third text asString equals: 'BA'.
 
 	^ aTextEditor

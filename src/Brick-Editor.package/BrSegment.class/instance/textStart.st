@@ -1,3 +1,0 @@
-accessing
-textStart
-	^ textStart

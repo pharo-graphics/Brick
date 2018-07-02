@@ -8,6 +8,6 @@ delete_HACrCrB_in_HACrCrBA_at_1_5
 
 	self assert: aTextEditor text asString equals: 'A'.
 	self assert: aTextEditor segmentCollector computedSegmentsCount equals: 1.
-	self assert: aTextEditor segmentCollector segments first textInterval equals: (1 to: 1).
+	self assert: aTextEditor segmentCollector segments first textInterval equals: (0 to: 1).
 
 	^ aTextEditor

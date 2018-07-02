@@ -1,3 +1,3 @@
 splitting
 split: aBrText in: aStream
-	self subclassResponsibility
+	self splitter split: aBrText in: aStream
