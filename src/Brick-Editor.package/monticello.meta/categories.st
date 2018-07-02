@@ -8,6 +8,5 @@ SystemOrganization addCategory: 'Brick-Editor-Model-Segment'!
 SystemOrganization addCategory: 'Brick-Editor-Model-Segment-Text'!
 SystemOrganization addCategory: 'Brick-Editor-Model-Segment-Text-Line'!
 SystemOrganization addCategory: 'Brick-Editor-Model-Segment-Text-Line-Attributed'!
-SystemOrganization addCategory: 'Brick-Editor-Model-Segment-Text-Word'!
 SystemOrganization addCategory: 'Brick-Editor-Text-Attributes'!
 SystemOrganization addCategory: 'Brick-Editor-UI'!
