@@ -1,4 +1,4 @@
-insertion
+examples - insertion
 insert_NewLine_in_Hello_At_2
 	<gtExample>
 	| aTextEditor |

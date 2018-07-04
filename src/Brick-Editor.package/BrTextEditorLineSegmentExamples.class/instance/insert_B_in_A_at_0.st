@@ -1,4 +1,4 @@
-insertion
+examples - insertion
 insert_B_in_A_at_0
 	<gtExample>
 	| aTextEditor |

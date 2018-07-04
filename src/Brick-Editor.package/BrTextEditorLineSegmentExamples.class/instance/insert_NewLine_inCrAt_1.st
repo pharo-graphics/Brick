@@ -1,4 +1,4 @@
-insertion
+examples - insertion
 insert_NewLine_inCrAt_1
 	<gtExample>
 	| aTextEditor anInsertedListener anInsertedEvent |

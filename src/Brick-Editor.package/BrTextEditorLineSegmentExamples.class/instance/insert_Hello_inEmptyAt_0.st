@@ -1,4 +1,4 @@
-insertion
+examples - insertion
 insert_Hello_inEmptyAt_0
 	<gtExample>
 	| aTextEditor |

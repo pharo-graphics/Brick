@@ -1,4 +1,4 @@
-deletion
+examples - deletion
 delete_HACrCrBA_in_HACrCrBA_at_1_6
 	<gtExample>
 	| aTextEditor |

@@ -1,4 +1,4 @@
-deletion
+examples - deletion
 delete_Cr_in_Cr_at_1_1
 	<gtExample>
 	| aTextEditor |

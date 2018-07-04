@@ -1,4 +1,4 @@
-insertion
+examples - insertion
 insert_A_in_HACrBA_At_3
 	<gtExample>
 	| aTextEditor |

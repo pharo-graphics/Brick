@@ -1,4 +1,4 @@
-deletion
+examples - deletion
 delete_A_in_BCrA_at_3_3
 	<gtExample>
 	| aTextEditor |

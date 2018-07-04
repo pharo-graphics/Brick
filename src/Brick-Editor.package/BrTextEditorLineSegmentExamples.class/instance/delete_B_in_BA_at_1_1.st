@@ -1,4 +1,4 @@
-deletion
+examples - deletion
 delete_B_in_BA_at_1_1
 	<gtExample>
 	| aTextEditor |

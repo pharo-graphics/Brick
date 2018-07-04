@@ -16,13 +16,4 @@ cachedSegmentIndexAt: aTextIndex
 		ifNone: [ :leftIndex :rightIndex |
 			(leftIndex isNil and: [ rightIndex isNil ])
 				ifTrue: [ 0 ]
-				ifFalse: [
-					| anIndex |
-					anIndex := 0.
-					leftIndex > 0 ifTrue: [
-						(aTextIndex + 1 = (self segments at: leftIndex) textStart)
-							ifTrue: [ anIndex := leftIndex ] ].
-					rightIndex <= self segments size ifTrue: [
-						(aTextIndex + 1 = (self segments at: rightIndex) textStart)
-							ifTrue: [ anIndex := rightIndex ] ].
-					anIndex ] ]
+				ifFalse: [ leftIndex ] ]

@@ -1,4 +1,4 @@
-insertion
+examples - insertion
 insert_NewLine_in_HeCrllo_At_3
 	<gtExample>
 	| aTextEditor |

@@ -1,4 +1,4 @@
-insertion
+examples - insertion
 insert_NewLine_in_HABA_At_0
 	<gtExample>
 	| aTextEditor |
