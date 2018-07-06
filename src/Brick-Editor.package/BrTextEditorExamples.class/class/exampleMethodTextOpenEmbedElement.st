@@ -8,7 +8,7 @@ exampleMethodTextOpenEmbedElement
 		BrFontGenericFamilyAttribute monospace
 	}.
 	editorElement editor text attributes: {
-		BrTextAdornmentDynamicAttribute new elementBlock: [ BlElement new size: 70 @ 50; background: Color red; yourself ]
+		BrTextAdornmentDynamicAttribute new stencil: [ BlElement new size: 70 @ 50; background: Color red; yourself ]
 	} from: 30 to: 30.
 	editorElement constraintsDo: [ :c |
 		c horizontal matchParent.

@@ -1,0 +1,14 @@
+{
+	"commentStamp" : "AliakseiSyrel 7/7/2018 00:14",
+	"super" : "BrStencilBuilder",
+	"category" : "Brick-Editor-Stencils",
+	"classinstvars" : [ ],
+	"pools" : [ ],
+	"classvars" : [ ],
+	"instvars" : [
+		"editorElement",
+		"text"
+	],
+	"name" : "BrTextAdornmentStencilBuilder",
+	"type" : "normal"
+}

@@ -6,7 +6,7 @@
 	"pools" : [ ],
 	"classvars" : [ ],
 	"instvars" : [
-		"adornmentBlock"
+		"stencilBuilder"
 	],
 	"name" : "BrTextAdornmentDynamicAttribute",
 	"type" : "normal"

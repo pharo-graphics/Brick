@@ -1,3 +1,8 @@
 accessing
-affect: aBrText in: anEditorElement
-	^ adornmentBlock cull: aBrText cull: anEditorElement
+affect: aBlText in: anEditorElement
+	<return: #BlElement>
+
+	^ stencilBuilder
+		text: aBlText;
+		editor: anEditorElement;
+		asElement

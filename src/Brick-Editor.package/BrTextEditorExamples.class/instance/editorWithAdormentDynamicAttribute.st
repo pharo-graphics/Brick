@@ -7,7 +7,7 @@ editorWithAdormentDynamicAttribute
 	editor text
 		attributes: { 
 			BrTextAdornmentDynamicAttribute new 
-				elementBlock: [ 
+				stencil: [ 
 					BlElement new 
 						size: 70 @ 50; 
 						margin: (BlInsets all: 5);
