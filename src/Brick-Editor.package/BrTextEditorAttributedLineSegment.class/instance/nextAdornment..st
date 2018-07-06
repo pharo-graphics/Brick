@@ -1,6 +1,6 @@
 pieces - computation
 nextAdornment: aBrTextIterator
-	<return: #BrSubText>
+	<return: #BlSubText>
 
 	^  aBrTextIterator nextSegment: [ :aCharacter |
 			aBrTextIterator selectAttributes: [ :anAttribute |

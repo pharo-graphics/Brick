@@ -1,5 +1,5 @@
 accessing
 text
-	<return: #BrText or: #String>
+	<return: #BlText or: #String>
 
 	^ text

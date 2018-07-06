@@ -1,5 +1,5 @@
 pieces - computation
 nextWord: aBrTextIterator
-	<return: #BrSubText>
+	<return: #BlSubText>
 
 	^  aBrTextIterator nextSegment: [ :aCharacter | self itemValueType: aCharacter ]

@@ -2,7 +2,7 @@ instance creation
 onMethod: aCompiledMethod
 	| text styler editor editorElement |
 
-	text := BrRopedText string: aCompiledMethod sourceCode.
+	text := BlRopedText string: aCompiledMethod sourceCode.
 
 	text attributes: {
 		BrFontGenericFamilyAttribute monospace beNotOverwritableByStyler.

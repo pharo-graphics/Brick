@@ -8,7 +8,7 @@ exampleOneEditorTwoElements
 	styler classOrMetaClass: Morph.
 	editor styler: styler.
 	
-	editor text: ((BrRopedText string: (Morph>>#fullDrawOn:) sourceCode) attributes: {
+	editor text: ((BlRopedText string: (Morph>>#fullDrawOn:) sourceCode) attributes: {
 		(BrFontSizeAttribute size: 14) beNotOverwritableByStyler.
 		BrFontGenericFamilyAttribute monospace beNotOverwritableByStyler
 	}).

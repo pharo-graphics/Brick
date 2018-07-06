@@ -2,8 +2,6 @@ executing
 executeOn: aTextEditor
 	| oldCursorSegment newCursorSegment |
 	
-	aTextEditor cursor position: self position.
-	
 	aTextEditor segmentCollector
 		cachedSegmentAt: aTextEditor cursor position
 		ifFound: [ :aSegment | oldCursorSegment := aSegment ]
@@ -13,6 +11,8 @@ executeOn: aTextEditor
 		cachedSegmentAt: self position
 		ifFound: [ :aSegment | newCursorSegment := aSegment ]
 		ifNotFound: [  ].
+
+	aTextEditor cursor position: self position.
 
 	(oldCursorSegment isNil and: [ newCursorSegment isNil ])
 		ifTrue: [ ^ self ].

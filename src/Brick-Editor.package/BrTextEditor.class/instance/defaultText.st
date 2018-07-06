@@ -1,4 +1,4 @@
 initialization
 defaultText
-	<return: #BrText>
-	^ BrRopedText string: ''
+	<return: #BlText>
+	^ BlRopedText string: ''

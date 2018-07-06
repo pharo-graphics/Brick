@@ -1,5 +1,5 @@
 api - widget
 label
-	<return: #BrText or: #String>
+	<return: #BlText or: #String>
 
 	^ self viewModel label

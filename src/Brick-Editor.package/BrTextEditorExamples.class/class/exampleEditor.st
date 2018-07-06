@@ -8,7 +8,7 @@ exampleEditor
 		c vertical matchParent ].
 	
 	editor := BrTextEditor new.
-	text := BrRopedText string: self loremIpsum.
+	text := BlRopedText string: self loremIpsum.
 	
 	editor text: text.
 	editorElement editor: editor.

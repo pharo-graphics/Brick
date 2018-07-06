@@ -10,5 +10,5 @@ onStringInserted: aBrTextStringInserted
 	self segmentBuilder validateIntegrity: self.
 
 	self
-		notifyInserted: (BrRopedText string: aBrTextStringInserted string)
+		notifyInserted: (BlRopedText string: aBrTextStringInserted string)
 		at: aBrTextStringInserted index

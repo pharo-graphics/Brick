@@ -1,6 +1,6 @@
 accessing
 pieces
-	<return: #Array of: #BrSubText>
+	<return: #Array of: #BlSubText>
 
 	^ self hasPieces
 		ifTrue: [ pieces ]
