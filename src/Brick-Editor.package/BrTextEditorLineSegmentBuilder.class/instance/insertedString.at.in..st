@@ -22,7 +22,7 @@ insertedString: aString at: aTextIndex in: aBrTextEditor
 	aBrTextEditor segmentCollector
 		cachedSegmentAt: aTextIndex
 		ifFound: [ :aSegment | aCurrentSegment := aSegment ]
-		ifNotFound: [ self error: 'Not supported yet' ].
+		ifNotFound: [ ^ self ].
 	
 	theNewSegments := aCurrentSegment insert: aStream segments.
 	theNewSegments size > 1
