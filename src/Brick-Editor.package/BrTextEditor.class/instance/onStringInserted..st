@@ -1,4 +1,4 @@
-hooks
+hooks - text modifications
 onStringInserted: aBrTextStringInserted
 	"Is sent after a string is inserted in a text model"
 
@@ -7,8 +7,8 @@ onStringInserted: aBrTextStringInserted
 		at: aBrTextStringInserted index
 		in: self.
 
-	self segmentBuilder validateIntegrity: self.
+	self styleText.
 
 	self
-		notifyInserted: (BlRopedText string: aBrTextStringInserted string)
+		notifyInserted: (aBrTextStringInserted string asRopedText)
 		at: aBrTextStringInserted index
