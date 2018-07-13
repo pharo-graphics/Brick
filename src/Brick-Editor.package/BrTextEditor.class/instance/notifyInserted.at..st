@@ -1,3 +1,3 @@
 event firing
 notifyInserted: aText at: aTextIndex
-	self fireEvent: (BrTextEditorInsertedEvent new text: aText; index: aTextIndex)
+	self fireEvent: (BrTextEditorInsertedEvent text: aText at: aTextIndex)

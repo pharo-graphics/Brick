@@ -1,14 +1,14 @@
 {
-	"commentStamp" : "AliakseiSyrel 7/13/2018 16:24",
+	"commentStamp" : "AliakseiSyrel 7/13/2018 16:21",
 	"super" : "BrTextEditorEvent",
 	"category" : "Brick-Editor-UI",
 	"classinstvars" : [ ],
 	"pools" : [ ],
 	"classvars" : [ ],
 	"instvars" : [
-		"fromIndex",
-		"toIndex"
+		"oldIndex",
+		"newIndex"
 	],
-	"name" : "BrTextEditorDeletedEvent",
+	"name" : "BrTextEditorCursorMovedEvent",
 	"type" : "normal"
 }

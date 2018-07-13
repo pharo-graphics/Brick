@@ -1,0 +1,1 @@
+Is sent by the text editor after a cursor is moved from an ==oldIndex== to a ==newIndex== where both are text indices

@@ -1,18 +1,23 @@
 executing
 executeOn: aTextEditor
-	| oldCursorSegment newCursorSegment |
+	| oldCursorPosition newCursorPosition oldCursorSegment newCursorSegment |
+	
+	oldCursorPosition := aTextEditor cursor position.
+	newCursorPosition := self position.
 	
 	aTextEditor segmentCollector
-		cachedSegmentAt: aTextEditor cursor position
+		cachedSegmentAt: oldCursorPosition
 		ifFound: [ :aSegment | oldCursorSegment := aSegment ]
 		ifNotFound: [  ].
 
 	aTextEditor segmentCollector
-		cachedSegmentAt: self position
+		cachedSegmentAt: newCursorPosition
 		ifFound: [ :aSegment | newCursorSegment := aSegment ]
 		ifNotFound: [  ].
 
-	aTextEditor cursor position: self position.
+	aTextEditor cursor position: newCursorPosition.
+	
+	aTextEditor onCursorMoved: oldCursorPosition to: newCursorPosition.
 
 	(oldCursorSegment isNil and: [ newCursorSegment isNil ])
 		ifTrue: [ ^ self ].
@@ -36,19 +41,11 @@ executeOn: aTextEditor
 				payload: self newHolderCommand	].
 	
 	"here both are not nil"
-	
-	(oldCursorSegment index - newCursorSegment index) abs = 1
-		ifTrue: [
-			| fromIndex toIndex |
-			fromIndex := oldCursorSegment index min: newCursorSegment index.
-			toIndex := oldCursorSegment index max: newCursorSegment index.
-			^ aTextEditor
-				notifyItemsChanged: (fromIndex to: toIndex)
-				payload: self newHolderCommand ].
-			
+	aTextEditor
+		notifyItemsChanged: (oldCursorSegment index to: oldCursorSegment index)
+		payload: self newHolderCommand.
+		
 	aTextEditor
 		notifyItemsChanged: (newCursorSegment index to: newCursorSegment index)
 		payload: self newHolderCommand.
-	aTextEditor
-		notifyItemsChanged: (oldCursorSegment index to: oldCursorSegment index)
-		payload: self newHolderCommand
+	

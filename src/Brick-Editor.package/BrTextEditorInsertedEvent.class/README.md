@@ -1,1 +1,1 @@
-Is sent after a new piece of text is inserted in the editor
+Is sent by the text editor after a new piece of text is inserted in the editor at a location defined by an insertion index
