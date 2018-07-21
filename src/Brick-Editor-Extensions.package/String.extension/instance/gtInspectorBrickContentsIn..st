@@ -1,6 +1,6 @@
 *Brick-Editor-Extensions
 gtInspectorBrickContentsIn: composite
 	<gtInspectorPresentationOrder: -10>
-	composite brickText 
+	composite blocText 
 		title: '_String';
 		display: [ self ]

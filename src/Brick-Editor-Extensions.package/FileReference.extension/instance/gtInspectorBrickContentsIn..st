@@ -1,7 +1,7 @@
 *Brick-Editor-Extensions
 gtInspectorBrickContentsIn: composite
 	<gtInspectorPresentationOrder: 0>
-	^ composite brickText
+	^ composite blocText
 		title: '_Contents';
 		display: [ 
 			self readStreamDo: [ :stream | 
