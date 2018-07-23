@@ -1,0 +1,11 @@
+{
+	"commentStamp" : "",
+	"super" : "BrLabelLook",
+	"category" : "Brick-Material-List",
+	"classinstvars" : [ ],
+	"pools" : [ ],
+	"classvars" : [ ],
+	"instvars" : [ ],
+	"name" : "BrMaterialListItemLabelLook",
+	"type" : "normal"
+}

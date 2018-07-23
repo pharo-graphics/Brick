@@ -1,0 +1,14 @@
+{
+	"commentStamp" : "",
+	"super" : "BrIconLook",
+	"category" : "Brick-Material-List",
+	"classinstvars" : [ ],
+	"pools" : [ ],
+	"classvars" : [ ],
+	"instvars" : [
+		"size",
+		"margin"
+	],
+	"name" : "BrMaterialListItemIconLook",
+	"type" : "normal"
+}

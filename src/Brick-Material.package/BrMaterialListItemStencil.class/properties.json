@@ -1,0 +1,13 @@
+{
+	"commentStamp" : "",
+	"super" : "BrStencil",
+	"category" : "Brick-Material-Stencils",
+	"classinstvars" : [ ],
+	"pools" : [ ],
+	"classvars" : [ ],
+	"instvars" : [
+		"looks"
+	],
+	"name" : "BrMaterialListItemStencil",
+	"type" : "normal"
+}

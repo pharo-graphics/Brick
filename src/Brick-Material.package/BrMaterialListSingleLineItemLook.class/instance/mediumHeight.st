@@ -1,0 +1,3 @@
+configuration
+mediumHeight
+	^ 72

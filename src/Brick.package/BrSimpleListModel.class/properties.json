@@ -6,7 +6,8 @@
 	"pools" : [ ],
 	"classvars" : [ ],
 	"instvars" : [
-		"items"
+		"items",
+		"selection"
 	],
 	"name" : "BrSimpleListModel",
 	"type" : "normal"

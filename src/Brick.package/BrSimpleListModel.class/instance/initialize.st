@@ -2,4 +2,5 @@ initialization
 initialize
 	super initialize.
 	
-	items := #()
+	items := #().
+	selection := BlCompositeSelection new

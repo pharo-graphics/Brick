@@ -1,0 +1,3 @@
+configuration
+compactHeight
+	^ 48

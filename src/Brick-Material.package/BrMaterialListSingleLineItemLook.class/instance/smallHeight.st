@@ -1,0 +1,3 @@
+configuration
+smallHeight
+	^ 56

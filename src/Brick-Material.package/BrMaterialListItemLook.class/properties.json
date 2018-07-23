@@ -1,0 +1,14 @@
+{
+	"commentStamp" : "",
+	"super" : "BrLook",
+	"category" : "Brick-Material-List",
+	"classinstvars" : [ ],
+	"pools" : [ ],
+	"classvars" : [ ],
+	"instvars" : [
+		"height",
+		"padding"
+	],
+	"name" : "BrMaterialListItemLook",
+	"type" : "normal"
+}
