@@ -8,11 +8,12 @@ onInstalledIn: anElement
 
 	widget := anElement.
 
-	self looks do: [ :aLook | aLook onInstalledIn: anElement ].
-
 	self initializeListeners.
 	self initializeLook.
 	"we must send events after look initialization where we set defaults"
 	self initializeRequests.
+	
+	self looks do: [ :aLook | aLook onInstalledIn: anElement ].
+
 	
 	self postInitialize
