@@ -1,6 +1,6 @@
 instance creation
 singleLineWithSmallIcon
-	^ self new looks: {
+	^ self new looks: [ {
 		BrMaterialListSingleLineItemLook new beSmall.
 		BrMaterialListItemIconLook new beSmall.
-		BrMaterialListItemLabelLook new }
+		BrMaterialListItemLabelLook new } ]

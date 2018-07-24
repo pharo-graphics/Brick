@@ -7,5 +7,6 @@ updateIcon
 			aParent := anIconElement parent.
 			anIndex := aParent childIndexOf: anIconElement.
 			anIconElement removeFromParent.
+			iconElement removeFromParent.
 			aParent addChild: iconElement at: anIndex as: #icon ]
 		ifNone: [ self widgetContent addChild: iconElement as: #icon ] ]

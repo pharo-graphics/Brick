@@ -1,5 +1,5 @@
 instance creation
 create
 	^ BlElement new
-		background: Color white;
-		look: (self looks reduce: [ :a :b | a + b ])
+		viewModel: (BrButtonModel new label: self text; icon: self icon);
+		look: (BrLook new addAll: self looks)

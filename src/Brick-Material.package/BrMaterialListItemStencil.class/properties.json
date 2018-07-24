@@ -6,7 +6,9 @@
 	"pools" : [ ],
 	"classvars" : [ ],
 	"instvars" : [
-		"looks"
+		"looks",
+		"text",
+		"icon"
 	],
 	"name" : "BrMaterialListItemStencil",
 	"type" : "normal"

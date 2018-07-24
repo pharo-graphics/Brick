@@ -10,7 +10,8 @@
 		"labelElement",
 		"foreground",
 		"weight",
-		"fontSize"
+		"fontSize",
+		"fontName"
 	],
 	"name" : "BrLabelLook",
 	"type" : "normal"
