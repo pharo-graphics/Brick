@@ -4,7 +4,8 @@
 	"instvars" : [
 		"widget",
 		"model",
-		"eventDispatcher"
+		"eventDispatcher",
+		"widgetModels"
 	],
 	"name" : "BrWidgetModel",
 	"commentStamp" : "AliakseiSyrel 3/26/2018 19:46",

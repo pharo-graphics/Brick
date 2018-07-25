@@ -1,0 +1,16 @@
+{
+	"classtraitcomposition" : "TBlTextStyleable classTrait",
+	"classvars" : [ ],
+	"instvars" : [
+		"text",
+		"attributesBuilder"
+	],
+	"name" : "BrLabelModel",
+	"commentStamp" : "AliakseiSyrel 7/25/2018 11:35",
+	"super" : "BrWidgetModel",
+	"traitcomposition" : "TBlTextStyleable",
+	"type" : "normal",
+	"classinstvars" : [ ],
+	"pools" : [ ],
+	"category" : "Brick-! Core"
+}

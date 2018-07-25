@@ -1,5 +1,5 @@
 initialization
 initialize
 	super initialize.
-
-	action := [  ]
+	
+	icon := (BlEllipse radius: 5) asElement

@@ -1,3 +1,3 @@
 api - widget
 label: aStringOrBrText
-	self viewModel label: aStringOrBrText
+	labelModel text: aStringOrBrText

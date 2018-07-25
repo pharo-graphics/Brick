@@ -1,14 +1,13 @@
 {
 	"commentStamp" : "",
-	"super" : "BlElement",
-	"category" : "Brick-Button - UI",
+	"super" : "BrWidgetModel",
+	"category" : "Brick-! Core",
 	"classinstvars" : [ ],
 	"pools" : [ ],
 	"classvars" : [ ],
 	"instvars" : [
-		"labelModel",
-		"iconModel"
+		"icon"
 	],
-	"name" : "BrButton",
+	"name" : "BrIconModel",
 	"type" : "normal"
 }

@@ -5,4 +5,6 @@ dispatchEventToMyself: anEvent
 	anEvent target: self.
 
 	(self eventDispatcher wantsEvent: anEvent)
-		ifTrue: [ self eventDispatcher dispatchEvent: anEvent ]
+		ifTrue: [ self eventDispatcher dispatchEvent: anEvent ].
+		
+	anEvent sendTo: self

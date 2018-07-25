@@ -2,4 +2,5 @@ initialization
 initialize
 	super initialize.
 	
-	eventDispatcher := BlDirectEventDispatcher on: self
+	eventDispatcher := BlDirectEventDispatcher on: self.
+	widgetModels := OrderedCollection new

@@ -1,3 +1,3 @@
 accessing
 height: aNumber
-	height := aNumber
+	layoutLook height: aNumber

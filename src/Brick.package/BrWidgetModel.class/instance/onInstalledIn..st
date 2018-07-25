@@ -8,4 +8,6 @@ onInstalledIn: anElement
 
 	widget := anElement.
 	self onAttachedTo: anElement.
-	self dispatchEvent: (BrViewModelAttached viewModel: self)
+	self dispatchEvent: (BrViewModelAttached viewModel: self).
+	
+	self widgetModels do: [ :aWidgetModel | aWidgetModel onInstalledIn: anElement ]

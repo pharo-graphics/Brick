@@ -6,8 +6,8 @@
 	"pools" : [ ],
 	"classvars" : [ ],
 	"instvars" : [
-		"height",
-		"padding"
+		"padding",
+		"layoutLook"
 	],
 	"name" : "BrMaterialListItemLook",
 	"type" : "normal"
