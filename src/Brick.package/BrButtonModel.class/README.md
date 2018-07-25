@@ -1,6 +1,6 @@
 ! Button model
 
-Button -  An element of a graphical user interface which a user can select to perform a particular action.
+Button - An element of a graphical user interface which a user can select to perform a particular action.
 (https://en.oxforddictionaries.com/definition/button)
 
 I know how to react on a typical user action such as click or touch event. My reaction is defined by an ==#action== which can be any valuable:  ${class:BlockClosure}$, ${class:Symbol}$ or any object that responds to ==#value==
