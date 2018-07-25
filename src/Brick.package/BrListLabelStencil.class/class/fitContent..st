@@ -1,8 +1,8 @@
-api - instantiation
-create
+instance creation
+fitContent: aText
 	^ BlTextElement new
 		margin: (BlInsets all: 3);
-		text: self text;
+		text: aText asRopedText;
 		constraintsDo: [ :c |
-			c horizontal matchParent.
+			c horizontal fitContent.
 			c vertical fitContent ]
