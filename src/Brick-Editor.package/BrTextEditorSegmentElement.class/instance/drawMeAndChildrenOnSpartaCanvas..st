@@ -8,8 +8,7 @@ drawMeAndChildrenOnSpartaCanvas: aCanvas
 		aCachedCanvas transform during: [ :aTransform |
 			aTransform scaleBy: self space windowScale.
 			aTransform apply.
-			super drawMeAndChildrenOnSpartaCanvas: aCachedCanvas.
-		].
+			super drawMeAndChildrenOnSpartaCanvas: aCachedCanvas ].
 
 		cachedSurface := aCachedCanvas surface.
 		aCachedCanvas release ].
@@ -20,6 +19,4 @@ drawMeAndChildrenOnSpartaCanvas: aCanvas
 			aCanvas fill
 				paint: cachedSurface;
 				path: cachedSurface bounds;
-				draw ].
-
-	
+				draw ]

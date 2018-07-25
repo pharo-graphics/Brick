@@ -1,5 +1,7 @@
 accessing
 text: aBlTextOrString
+	<event: #BrLabelChanged>
+
 	text = aBlTextOrString
 		ifTrue: [ ^ self ].
 

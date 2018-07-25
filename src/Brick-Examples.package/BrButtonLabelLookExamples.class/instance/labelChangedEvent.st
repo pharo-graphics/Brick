@@ -9,7 +9,7 @@ labelChangedEvent
 	aButton := self buttonWithModelAndLookWithoutConstraints.
 	aButton look when: BrLabelChanged do: [ :anEvent | aLabelChangedEvent := anEvent copy ].
 	aButton viewModel label: newLabel.
-	
+
 	self assert: aButton viewModel label equals: newLabel.
 
 	self assert: aLabelChangedEvent notNil.

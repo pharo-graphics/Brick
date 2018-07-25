@@ -1,9 +1,5 @@
 {
-	"commentStamp" : "AliakseiSyrel 3/27/2018 13:58",
-	"super" : "BrLook",
-	"category" : "Brick-! Core",
-	"classinstvars" : [ ],
-	"pools" : [ ],
+	"classtraitcomposition" : "TBlTextStyleable classTrait",
 	"classvars" : [ ],
 	"instvars" : [
 		"labelText",
@@ -11,8 +7,15 @@
 		"foreground",
 		"weight",
 		"fontSize",
-		"fontName"
+		"fontName",
+		"attributesBuilder"
 	],
 	"name" : "BrLabelLook",
-	"type" : "normal"
+	"commentStamp" : "AliakseiSyrel 3/27/2018 13:58",
+	"super" : "BrLook",
+	"traitcomposition" : "TBlTextStyleable",
+	"type" : "normal",
+	"classinstvars" : [ ],
+	"pools" : [ ],
+	"category" : "Brick-! Core"
 }
