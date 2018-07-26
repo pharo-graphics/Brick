@@ -1,3 +1,4 @@
 *Brick
 asStencilBuilder
-	^ BrStencilBuilder new executor: (BrStencilValuableExecutor from: self)
+	<return: #BrStencilBuilder>
+	^ self asStencilBuilder: BrStencilBuilder
