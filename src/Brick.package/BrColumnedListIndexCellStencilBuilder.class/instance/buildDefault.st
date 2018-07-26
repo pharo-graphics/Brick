@@ -2,4 +2,4 @@ api - instantiation
 buildDefault
 	
 	^ BrListLabelStencil new
-		text: self rowIndex asString asRopedText
+		text: self rowIndex asRopedText
