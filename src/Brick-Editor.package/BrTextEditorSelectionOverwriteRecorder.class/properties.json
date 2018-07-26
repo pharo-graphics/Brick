@@ -6,7 +6,6 @@
 	"pools" : [ ],
 	"classvars" : [ ],
 	"instvars" : [
-		"selection",
 		"compositeSelection"
 	],
 	"name" : "BrTextEditorSelectionOverwriteRecorder",

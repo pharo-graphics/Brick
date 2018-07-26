@@ -1,0 +1,13 @@
+{
+	"commentStamp" : "",
+	"super" : "BeaconSignal",
+	"category" : "Brick-Editor-Model",
+	"classinstvars" : [ ],
+	"pools" : [ ],
+	"classvars" : [ ],
+	"instvars" : [
+		"selection"
+	],
+	"name" : "BrTextEditorRecordDeselectionSignal",
+	"type" : "normal"
+}

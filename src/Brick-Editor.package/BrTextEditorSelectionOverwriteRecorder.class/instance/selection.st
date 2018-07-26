@@ -1,3 +1,5 @@
 selection
 selection
-	^ selection
+	^ compositeSelection isEmpty
+		ifTrue: [ BlSelection empty ]
+		ifFalse: [ BlMonotoneSelection from: compositeSelection from to: compositeSelection to ]
