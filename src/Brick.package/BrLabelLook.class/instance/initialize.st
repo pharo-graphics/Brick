@@ -2,9 +2,9 @@ initialization
 initialize
 	super initialize.
 	
-	labelText := 'Label' asRopedText.
+	text := 'Label' asRopedText.
 	
 	attributesBuilder := BlTextDelegatedAttributesBuilder new.
-	attributesBuilder attributesTarget: labelText.
+	attributesBuilder attributesTarget: text.
 	
 	labelElement := BlTextElement new

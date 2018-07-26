@@ -2,13 +2,9 @@
 	"classtraitcomposition" : "TBlTextStyleable classTrait",
 	"classvars" : [ ],
 	"instvars" : [
-		"labelText",
 		"labelElement",
-		"foreground",
-		"weight",
-		"fontSize",
-		"fontName",
-		"attributesBuilder"
+		"attributesBuilder",
+		"text"
 	],
 	"name" : "BrLabelLook",
 	"commentStamp" : "AliakseiSyrel 3/27/2018 13:58",

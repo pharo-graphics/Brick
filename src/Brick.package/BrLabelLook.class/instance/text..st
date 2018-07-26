@@ -1,6 +1,6 @@
 accessing
 text: aTextOrString
-	labelText := aTextOrString asRopedText.
+	text := aTextOrString asRopedText.
 	
-	self attributesBuilder attributesTarget: labelText.
-	self label text: labelText
+	self attributesBuilder attributesTarget: text.
+	self label text: text

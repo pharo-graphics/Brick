@@ -2,4 +2,4 @@ accessing
 text
 	<return: #BlText>
 
-	^ labelText
+	^ text
