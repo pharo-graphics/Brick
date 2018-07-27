@@ -8,6 +8,18 @@ initializeInteractions
 	self interactions add: (BlShortcut new
 		combination: (BlKeyCombination builder meta; key: Key a; build);
 		action: [ self selectAll ]).
+	
+	self interactions add: (BlShortcut new
+		combination: (BlKeyCombination builder meta; key: Key x; build);
+		action: [ self cutSelected ]).
+		
+	self interactions add: (BlShortcut new
+		combination: (BlKeyCombination builder meta; key: Key c; build);
+		action: [ self copySelected ]).
+		
+	self interactions add: (BlShortcut new
+		combination: (BlKeyCombination builder meta; key: Key v; build);
+		action: [ self paste ]).
 
 	self interactions add: (BlShortcut new
 		combination: (BlKeyCombination builder escape; build);

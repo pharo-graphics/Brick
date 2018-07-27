@@ -1,4 +1,4 @@
-selection
+private - bounds
 top: aBoundsInLocal in: aSelectionBounds ifNone: aNoneBlock
 	"Assuming that user selects in *TOP direction* return intersection of selection bounds
 	and provided local element bounds.

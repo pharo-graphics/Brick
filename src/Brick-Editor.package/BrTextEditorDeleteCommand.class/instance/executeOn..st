@@ -2,5 +2,5 @@ executing
 executeOn: aTextEditor
 	
 	aTextEditor text
-		delete: self fromIndex
+		delete: self fromIndex + 1
 		to: self toIndex

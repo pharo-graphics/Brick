@@ -2,8 +2,6 @@ selection handlers
 select: aFromIndex to: aToIndex in: aTextEditElement
 	| aGlobalFrom aGlobalTo |
 
-	"super select: aFromIndex to: aToIndex in: aTextEditElement."
-
 	"remove previous selection"
 	
 	aTextEditElement selection do: [ :aMonotoneSelection |

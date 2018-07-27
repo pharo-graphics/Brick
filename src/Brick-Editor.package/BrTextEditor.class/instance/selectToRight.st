@@ -26,6 +26,7 @@ selectToRight
 			fromIndex := self cursor position.
 			toIndex := newCursorPosition ].
 
+	self selectNone.
 	self
 		select: fromIndex
 		to: toIndex.

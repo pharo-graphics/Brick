@@ -25,7 +25,8 @@ selectToLeft
 		ifFalse: [ 
 			fromIndex := newCursorPosition.
 			toIndex := self cursor position ].
-
+	
+	self selectNone.
 	self
 		select: fromIndex
 		to: toIndex.
