@@ -1,7 +1,7 @@
 {
 	"commentStamp" : "AliakseiSyrel 8/5/2017 00:24",
 	"super" : "BlSelectionHandler",
-	"category" : "Brick-Editor-UI",
+	"category" : "Brick-Editor-UI-Handlers",
 	"classinstvars" : [ ],
 	"pools" : [ ],
 	"classvars" : [ ],

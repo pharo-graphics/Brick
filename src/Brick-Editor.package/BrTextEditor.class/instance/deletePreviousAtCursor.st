@@ -2,7 +2,8 @@ api - modification
 deletePreviousAtCursor
 	"Delete currently selected text and delete a character to the left from the current cursor position"
 
-	self deleteSelected.
+	self hasSelection
+		ifTrue: [ ^ self deleteSelected ].
 
 	self cursor position <= 0
 		ifTrue: [ ^ self ].
