@@ -7,4 +7,4 @@ onAttachedTo: anElement
 
 	anElement when: BrTabSelectedRequest do: [ :aRequest |
 		self hasSelectedTab
-			ifTrue: [ aRequest source fireEvent: (BrTabSelectedEvent tab: self selectedTab) ] ]
+			ifTrue: [ aRequest source dispatchEvent: (BrTabSelectedEvent tab: self selectedTab) ] ]

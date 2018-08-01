@@ -1,3 +1,3 @@
 notifying
 notifyTabSelected
-	self fireEvent: (BrTabSelectedEvent tab: self)
+	self dispatchEvent: (BrTabSelectedEvent tab: self)

@@ -4,4 +4,5 @@ onTabSelected: aBrTabModel
 		select: [ :eachTabModel | eachTabModel ~~ aBrTabModel ]
 		thenDo: #deselect.
 
-	selectedTab := aBrTabModel
+	selectedTab := aBrTabModel.
+	self dispatchEvent: (BrTabSelectedEvent tab: aBrTabModel)
