@@ -33,10 +33,12 @@ initializeInteractions
 		combination: (BlKeyCombination builder shift; key: Key arrowRight; build);
 		action: [ self selectToRight ]).
 
+	"left-arrow => move cursor left"
 	self interactions add: (BlShortcut new
 		combination: (BlKeyCombination builder key: Key arrowLeft; build);
 		action: [ self moveCursorLeft ]).
 
+	"right-arrow => move cursor right"
 	self interactions add: (BlShortcut new
 		combination: (BlKeyCombination builder key: Key arrowRight; build);
 		action: [ self moveCursorRight ]).

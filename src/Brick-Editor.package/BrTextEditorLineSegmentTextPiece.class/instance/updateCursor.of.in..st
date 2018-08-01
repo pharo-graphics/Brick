@@ -1,17 +1,34 @@
-cursor - management
+api - cursor
 updateCursor: aTextElement of: aLineSegment in: anEditorElement
-	| aCursor cursorPosition |
+	| aCursor aCursorPosition |
 
 	aCursor := anEditorElement editor cursor.
-	
+
 	(aCursor insideSubText: self of: aLineSegment)
-		ifFalse: [ ^ self ].
+		ifFalse: [
+			self hasCursor
+				ifTrue: [
+					aTextElement dispatchEvent: (BrTextEditorHideCursorRequest new
+						editorElement: anEditorElement;
+						cursorPosition: cursorPosition).
+					cursorPosition := nil ].
+			^ self ].
 
-	cursorPosition := aTextElement text isEmpty
-		ifTrue: [ 0 ]
-		ifFalse: [ aCursor position - aTextElement text start + 1 ].
+	aCursorPosition := self globalTextIndexToLocal: aCursor position.
 
-	aTextElement showCursorAt: cursorPosition.
+	(self hasCursor and: [ aCursorPosition = cursorPosition ])
+		ifTrue: [ ^ self ].
 
-	anEditorElement hasFocus
-		ifTrue: [ aTextElement requestFocus ]
+	self hasCursor
+		ifTrue: [
+			aTextElement dispatchEvent: (BrTextEditorHideCursorRequest new
+				editorElement: anEditorElement;
+				cursorPosition: cursorPosition).
+			cursorPosition := nil ].
+
+	cursorPosition := aCursorPosition.
+	
+	aTextElement dispatchEvent: (BrTextEditorShowCursorRequest new
+		editorElement: anEditorElement;
+		hasFocus: anEditorElement hasFocus;
+		cursorPosition: aCursorPosition)

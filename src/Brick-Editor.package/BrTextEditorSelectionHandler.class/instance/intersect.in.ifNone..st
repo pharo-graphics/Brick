@@ -12,7 +12,7 @@ intersect: aChildElement in: aSelectionBounds ifNone: aNoneBlock
 	"element is above selection"
 	boundsInLocal bottom < aSelection top
 		ifTrue: [ ^ aNoneBlock value ].
-		
+
 	"element is below selection"
 	boundsInLocal top > aSelection bottom
 		ifTrue: [ ^ aNoneBlock value ].
@@ -30,10 +30,10 @@ intersect: aChildElement in: aSelectionBounds ifNone: aNoneBlock
 	"corner cases:"
 	(aSelectionBounds origin y < aSelectionBounds corner y)
 		ifTrue: [ ^ self bottom: boundsInLocal in: aSelectionBounds ifNone: aNoneBlock ].
-		
+
 	(aSelectionBounds origin y > aSelectionBounds corner y)
 		ifTrue: [ ^ self top: boundsInLocal in: aSelectionBounds ifNone: aNoneBlock ].
-	
+
 	^ aSelection
 		intersect: boundsInLocal
 		ifNone: aNoneBlock

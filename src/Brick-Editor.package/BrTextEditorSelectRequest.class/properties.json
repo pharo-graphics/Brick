@@ -1,0 +1,14 @@
+{
+	"commentStamp" : "",
+	"super" : "BrTextEditorRequest",
+	"category" : "Brick-Editor-UI-Requests",
+	"classinstvars" : [ ],
+	"pools" : [ ],
+	"classvars" : [ ],
+	"instvars" : [
+		"fromIndex",
+		"toIndex"
+	],
+	"name" : "BrTextEditorSelectRequest",
+	"type" : "normal"
+}

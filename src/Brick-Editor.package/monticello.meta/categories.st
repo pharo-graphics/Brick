@@ -11,3 +11,5 @@ SystemOrganization addCategory: 'Brick-Editor-Model-Segment-Text-Line-Attributed
 SystemOrganization addCategory: 'Brick-Editor-Stencils'!
 SystemOrganization addCategory: 'Brick-Editor-Text-Attributes'!
 SystemOrganization addCategory: 'Brick-Editor-UI'!
+SystemOrganization addCategory: 'Brick-Editor-UI-Handlers'!
+SystemOrganization addCategory: 'Brick-Editor-UI-Requests'!

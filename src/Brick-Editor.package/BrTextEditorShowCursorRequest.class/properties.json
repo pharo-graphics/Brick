@@ -1,0 +1,14 @@
+{
+	"commentStamp" : "AliakseiSyrel 8/1/2018 00:02",
+	"super" : "BrTextEditorRequest",
+	"category" : "Brick-Editor-UI-Requests",
+	"classinstvars" : [ ],
+	"pools" : [ ],
+	"classvars" : [ ],
+	"instvars" : [
+		"cursorPosition",
+		"hasFocus"
+	],
+	"name" : "BrTextEditorShowCursorRequest",
+	"type" : "normal"
+}

@@ -1,9 +1,20 @@
-text - modifications
+api - modification
 deleteSelected
-	"Delete selected piece of text without cursor or selection update.
-	Note: cursor or selection location after deletion may be invalid!"
+	"Delete selected piece of text updating selection and cursor position"
+	| aCursorDelta |
 
+	aCursorDelta := 0.
 	self selection do: [ :aMonotoneSelection |
+		(aMonotoneSelection to <= self cursor position)
+			ifTrue: [ aCursorDelta := aCursorDelta + (aMonotoneSelection to - aMonotoneSelection from) ]
+			ifFalse: [ aMonotoneSelection from < self cursor position
+				ifTrue: [ aCursorDelta := aCursorDelta + (self cursor position - aMonotoneSelection from) ] ] ].
+
+	self moveCursorTo: self cursor position - aCursorDelta.
+
+	self selection reverseDo: [ :aMonotoneSelection |
 		self
 			delete: aMonotoneSelection from
-			to: aMonotoneSelection to ]
+			to: aMonotoneSelection to ].
+
+	self selectNone

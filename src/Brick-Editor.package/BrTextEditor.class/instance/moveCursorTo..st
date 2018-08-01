@@ -1,6 +1,7 @@
 text - cursor
 moveCursorTo: aTextIndex
 	"Moves cursor to a given position without any further action such as cancelling selection"
+	<event: #BrTextEditorCursorMovedEvent>
 	| aCommand |
 
 	self

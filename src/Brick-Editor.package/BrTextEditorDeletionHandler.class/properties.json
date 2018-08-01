@@ -1,0 +1,11 @@
+{
+	"commentStamp" : "AliakseiSyrel 8/1/2018 13:50",
+	"super" : "BlElementEventListener",
+	"category" : "Brick-Editor-UI-Handlers",
+	"classinstvars" : [ ],
+	"pools" : [ ],
+	"classvars" : [ ],
+	"instvars" : [ ],
+	"name" : "BrTextEditorDeletionHandler",
+	"type" : "normal"
+}

@@ -1,0 +1,14 @@
+{
+	"commentStamp" : "",
+	"super" : "BrStencilBuilder",
+	"category" : "Brick-Editor-Stencils",
+	"classinstvars" : [ ],
+	"pools" : [ ],
+	"classvars" : [ ],
+	"instvars" : [
+		"text",
+		"editorElement"
+	],
+	"name" : "BrTextWordPieceStencilBuilder",
+	"type" : "normal"
+}

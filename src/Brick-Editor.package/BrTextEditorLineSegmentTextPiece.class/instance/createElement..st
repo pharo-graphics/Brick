@@ -1,13 +1,7 @@
 instance creation
 createElement: anEditorElement
-	| aTextEditor |
+	<return: #BlElement>
 
-	aTextEditor := anEditorElement editor.
-
-	^ self newElement
+	^ (anEditorElement editor segmentBuilder wordStencilBuilder
 		text: self text;
-		clipChildren: false;
-		padding: (BlInsets top: 3 right: 0 bottom: 3 left: 0);
-		editListener: aTextEditor textEditListener;
-		addEventHandler: BrTextEditorAttributedLineSegmentTextListener new;
-		yourself
+		editorElement: anEditorElement) asElement

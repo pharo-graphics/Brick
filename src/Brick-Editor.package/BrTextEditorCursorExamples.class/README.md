@@ -1,0 +1,1 @@
+I exeplify text editor focus behaviour

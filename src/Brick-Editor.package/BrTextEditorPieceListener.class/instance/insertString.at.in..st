@@ -9,7 +9,7 @@ insertString: aString at: aTextIndex in: aTextEditElement
 	self
 		assert: [ aTextEditElement isAttachedToSceneGraph ]
 		description: [ 'Text edit piece must be attached to the scene graph!' ].
-	
+
 	aGlobalIndex := self localTextIndexToGlobal: aTextIndex in: aTextEditElement.
 	self editor
 		insertString: aString
