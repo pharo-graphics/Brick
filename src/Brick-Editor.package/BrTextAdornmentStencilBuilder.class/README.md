@@ -2,10 +2,10 @@ I am a stencil builder designed to be used together with dynamic adornment attri
 
 Example:
 [[[
-	stencilBuilder := 	BrTextAdornmentStencilBuilder new.
+	stencilBuilder := BrTextAdornmentStencilBuilder new.
 	stencilBuilder
 		text: aBlText;
-		editorElement: anEditorElement.
+		editor: anEditorElement.
 	adornmentElement := stencilBuilder asElement
 ]]]
 
