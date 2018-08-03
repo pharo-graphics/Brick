@@ -1,5 +1,5 @@
 api - instantiation
 buildDefault
-	<return: #BrStencil>
+	<return: #BrStencil or: #BlElement>
 
 	^ self subclassResponsibility
