@@ -9,7 +9,7 @@ buttonWithModelAndLookWithConstraints
 	
 	aButton addChild: aContent as: #content.
 
-	aButton viewModel: self buttonModel.
+	aButton viewModel: self allModels.
 	aButton look: aLabelLook.
 	
 	self assert: aLabelLook label text asString equals: self labelText.

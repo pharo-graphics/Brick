@@ -8,8 +8,8 @@ buttonWithModelFirstThenLook
 	
 	aButton := self buttonElement.
 
-	aModel := self buttonModel.
-	aModel label: modelLabel.
+	aModel := self labelModel + self buttonModel.
+	aModel text: modelLabel.
 	
 	aLook := self buttonLabelLookWithConstraints.
 	aLook text: lookLabel.
@@ -18,6 +18,6 @@ buttonWithModelFirstThenLook
 	aButton look: aLook.
 	
 	self assert: aLook text asString equals: modelLabel.
-	self assert: aModel label asString equals: modelLabel.
+	self assert: aModel text asString equals: modelLabel.
 	
 	^ aButton

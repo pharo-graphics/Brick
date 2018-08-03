@@ -9,7 +9,8 @@ buttonWithOnlyModelAndChangedModelLabel
 	aLabel := aButton children first children first.
 	
 	"changing label in the view model does not propagate to the label element"
-	self buttonModel label: self labelText, ' world'.
+	self flag: 'Do we need the following line?'.
+	self labelModel text: self labelText, ' world'.
 	self assert: aLabel text asString equals: self labelText.
 
 	^ aButton

@@ -1,3 +1,3 @@
 api - composition
-asLook
+asModel
 	^ self new

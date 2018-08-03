@@ -7,7 +7,7 @@ buttonWithModelAndLookAndChangedModelLabel
 	
 	aButton := self buttonWithModelAndLookWithoutConstraints.
 	
-	aButton viewModel label: newLabel.
+	aButton viewModel widgetModels first text: newLabel.
 
 	self assert: aButton look text asString equals: newLabel.
 	self assert: aButton look label text asString equals: newLabel.

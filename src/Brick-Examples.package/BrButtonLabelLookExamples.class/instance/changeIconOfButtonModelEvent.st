@@ -1,22 +1,22 @@
 example - model
 changeIconOfButtonModelEvent
 	<gtExample>
-	| aButtonModel aButtonIcon anIconChangedEvent |
+	| anIconModel aButtonIcon anIconChangedEvent |
 
-	aButtonModel := self buttonModel.
+	anIconModel := self iconModel.
 	aButtonIcon := (BlEllipse extent: 10@10) asElement.
 	
 	anIconChangedEvent := nil.
-	aButtonModel when: BrIconChanged do: [ :anEvent | anIconChangedEvent := anEvent copy ].
+	anIconModel when: BrIconChanged do: [ :anEvent | anIconChangedEvent := anEvent copy ].
 	
-	aButtonModel icon: aButtonIcon.
+	anIconModel icon: aButtonIcon.
 	
-	self assert: aButtonModel icon equals: aButtonIcon.
+	self assert: anIconModel icon equals: aButtonIcon.
 	
 	self assert: anIconChangedEvent isNotNil.
-	self assert: anIconChangedEvent source equals: aButtonModel.
-	self assert: anIconChangedEvent target equals: aButtonModel.
-	self assert: anIconChangedEvent currentTarget equals: aButtonModel.
+	self assert: anIconChangedEvent source equals: anIconModel.
+	self assert: anIconChangedEvent target equals: anIconModel.
+	self assert: anIconChangedEvent currentTarget equals: anIconModel.
 	self assert: anIconChangedEvent isConsumed not.
 	self assert: anIconChangedEvent traversedTargets size equals: 2.
 	

@@ -10,7 +10,7 @@ buttonWithOnlyModel
 	aContent addChild: aLabel.
 	aButton addChild: aContent.
 
-	aButton viewModel: self buttonModel.
+	aButton viewModel: self labelModel + self buttonModel.
 
 	self assert: aLabel text asString equals: self labelText.
 

@@ -3,15 +3,15 @@ changeLabelOfButtonModelEvent
 	<gtExample>
 	| aButtonModel aButtonLabel aLabelChangedEvent |
 	
-	aButtonModel := self buttonModel.
-	aButtonLabel := 'Hello cruel world'.
+	aButtonModel := self labelModel + self buttonModel.
+	aButtonLabel := 'Hello glamorous world'.
 	
 	aLabelChangedEvent := nil.
 	aButtonModel when: BrLabelChanged do: [ :anEvent | aLabelChangedEvent := anEvent copy ].
 	
-	aButtonModel label: aButtonLabel.
+	aButtonModel text: aButtonLabel.
 	
-	self assert: aButtonModel label equals: aButtonLabel.
+	self assert: aButtonModel text asString equals: aButtonLabel.
 	
 	self assert: aLabelChangedEvent isNotNil.
 	self assert: aLabelChangedEvent source equals: aButtonModel.

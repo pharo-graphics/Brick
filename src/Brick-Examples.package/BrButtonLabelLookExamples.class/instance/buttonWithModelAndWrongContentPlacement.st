@@ -9,7 +9,7 @@ buttonWithModelAndWrongContentPlacement
 
 	aButton addChild: aContent.
 
-	aButton viewModel: self buttonModel.
+	aButton viewModel: self allModels.
 	aButton look: aLabelLook.
 
 	self assert: aButton children asArray equals: { aContent . aLabelLook label }.

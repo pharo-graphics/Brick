@@ -4,12 +4,12 @@ buttonWithLookFirstThenModel
 	| aButton aModel aLook modelLabel lookLabel aLabelElement |
 	
 	modelLabel := 'Hello world'.
-	lookLabel := 'Hello cruel world'.
+	lookLabel := 'Hello glamorous world'.
 	
 	aButton := self buttonElement.
 
-	aModel := self buttonModel.
-	aModel label: modelLabel.
+	aModel := self labelModel + self buttonModel.
+	aModel text: modelLabel.
 	
 	aLook := self buttonLabelLookWithConstraints.
 	aLook text: lookLabel.
@@ -23,7 +23,7 @@ buttonWithLookFirstThenModel
 	aButton viewModel: aModel.
 	
 	self assert: aLook text asString equals: modelLabel.
-	self assert: aModel label asString equals: modelLabel.
+	self assert: aModel text asString equals: modelLabel.
 	self assert: aLabelElement text asString equals: modelLabel.
 	
 	^ aButton
