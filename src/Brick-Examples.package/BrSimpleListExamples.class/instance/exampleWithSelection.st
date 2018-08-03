@@ -4,7 +4,7 @@ exampleWithSelection
 	| aList |
 	aList := BrSimpleList new.
 	aList
-		stencil: [ :each :index |			
+		stencil: [ :each :index |
 			BlTextElement new
 				text: each key asRopedText;
 				constraintsDo: [ :c | c horizontal matchParent ];
@@ -15,6 +15,6 @@ exampleWithSelection
 		display: (Smalltalk ui icons icons associations);
 		when: BrSelectionChanged do: [ :anEvent |
 			anEvent selectedDo: [ :anInterval | self inform: 'Selected: ', anInterval asString ].
-			anEvent deselectedDo: [ :anInterval | self inform: 'Deselected: ', anInterval asString ] ].
-		
+			anEvent deselectedDo: [ :anInterval | self inform: 'Deselected: ', anInterval asString ] ];
+		yourself.
 	^ aList
