@@ -1,5 +1,5 @@
 api - testing
-isSelectedAt: anIndex
+contains: anIndex
 	"Return true if item at a given index is selected, false otherwise"
 	<return: #Boolean>
 
