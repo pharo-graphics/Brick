@@ -12,6 +12,9 @@ exampleWithSelection
 				when: BlClickEvent do: [ :anEvent  |
 					anEvent consumed: true.
 					aList selectOne: index ] ];
-		display: (Smalltalk ui icons icons associations).
+		display: (Smalltalk ui icons icons associations);
+		when: BrSelectionChanged do: [ :anEvent |
+			anEvent selectedDo: [ :anInterval | self inform: 'Selected: ', anInterval asString ].
+			anEvent deselectedDo: [ :anInterval | self inform: 'Deselected: ', anInterval asString ] ].
 		
 	^ aList
