@@ -1,11 +1,11 @@
 {
-	"commentStamp" : "AliakseiSyrel 3/13/2018 18:12",
-	"super" : "BrRequest",
+	"commentStamp" : "",
+	"super" : "BlEvent",
 	"category" : "Brick-! Core - Events",
 	"classinstvars" : [ ],
 	"pools" : [ ],
 	"classvars" : [ ],
 	"instvars" : [ ],
-	"name" : "BrIconRequest",
+	"name" : "BrChangeEvent",
 	"type" : "normal"
 }

@@ -1,0 +1,1 @@
+I am sent by a look to request selection update from the view model

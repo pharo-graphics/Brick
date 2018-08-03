@@ -1,4 +1,4 @@
-accessing
+api - accessing
 columns
 	<return: #Collection of: #BrListColumn>
 

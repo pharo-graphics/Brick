@@ -1,0 +1,1 @@
+I am sent when selection in a view model is changed

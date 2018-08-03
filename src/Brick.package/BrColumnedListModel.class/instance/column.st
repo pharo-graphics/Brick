@@ -6,10 +6,10 @@ column
 	
 	list column
 		title: 'Key';
-		evaluated: #key.
+		stencil: #key.
 	list column
 		title: 'Value';
-		evaluated: #value.
+		stencil: #value.
 	
 	"
 	<return: #BrListColumn>

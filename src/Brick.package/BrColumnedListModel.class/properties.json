@@ -7,8 +7,7 @@
 	"classvars" : [ ],
 	"instvars" : [
 		"columns",
-		"items",
-		"selection"
+		"items"
 	],
 	"name" : "BrColumnedListModel",
 	"type" : "normal"

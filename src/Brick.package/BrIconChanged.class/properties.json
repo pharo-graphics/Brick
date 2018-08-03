@@ -1,6 +1,6 @@
 {
 	"commentStamp" : "AliakseiSyrel 3/13/2018 17:57",
-	"super" : "BlEvent",
+	"super" : "BrChangeEvent",
 	"category" : "Brick-! Core - Events",
 	"classinstvars" : [ ],
 	"pools" : [ ],
