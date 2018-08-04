@@ -5,7 +5,6 @@ deselect: aFromTextIndex to: aToTextIndex
 		- I don't change cursor position.
 		- I request segments update"
 	| aCommand |
-	self assertIndex: aFromTextIndex to: aToTextIndex.
 
 	aCommand := self newDeselectCommand
 		fromIndex: aFromTextIndex;
