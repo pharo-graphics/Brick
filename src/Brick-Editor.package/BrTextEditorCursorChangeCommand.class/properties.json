@@ -1,0 +1,13 @@
+{
+	"commentStamp" : "",
+	"super" : "BrTextEditorCommand",
+	"category" : "Brick-Editor-Commands",
+	"classinstvars" : [ ],
+	"pools" : [ ],
+	"classvars" : [ ],
+	"instvars" : [
+		"position"
+	],
+	"name" : "BrTextEditorCursorChangeCommand",
+	"type" : "normal"
+}

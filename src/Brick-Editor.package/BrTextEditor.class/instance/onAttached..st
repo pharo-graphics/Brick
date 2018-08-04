@@ -9,5 +9,7 @@ onAttached: anEditorElement
 	self interactions do: [ :anInteraction | anEditorElement addShortcut: anInteraction ].
 
 	anEditorElement when: BlMouseDownEvent do: [ self selectNone ].
+	anEditorElement when: BlFocusEvent do: [ self showCursor ].
+	anEditorElement when: BlBlurEvent do: [ self hideCursor ].
 	
 	self notifyChanged

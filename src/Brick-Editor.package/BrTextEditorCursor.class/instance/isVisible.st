@@ -1,0 +1,3 @@
+accessing
+isVisible
+	^ isVisible

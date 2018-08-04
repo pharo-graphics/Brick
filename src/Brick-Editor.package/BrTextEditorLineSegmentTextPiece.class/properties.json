@@ -6,7 +6,7 @@
 	"pools" : [ ],
 	"classvars" : [ ],
 	"instvars" : [
-		"cursorPosition"
+		"currentCursor"
 	],
 	"name" : "BrTextEditorLineSegmentTextPiece",
 	"type" : "normal"

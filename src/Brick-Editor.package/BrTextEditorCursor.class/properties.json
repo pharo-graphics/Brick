@@ -6,7 +6,8 @@
 	"pools" : [ ],
 	"classvars" : [ ],
 	"instvars" : [
-		"position"
+		"position",
+		"isVisible"
 	],
 	"name" : "BrTextEditorCursor",
 	"type" : "normal"

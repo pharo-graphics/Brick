@@ -25,7 +25,7 @@ measure: anElement with: anExtentSpec
 	totalContentHeight := totalContentHeight + ((lines count - 1) * lineSpacing).
 
 	anElement measuredExtent: (anExtentSpec sizeFor: totalContentWidth @ totalContentHeight).
-	
+
 	lines do: [ :aLine |
 		aLine elements ifNotEmpty: [ :theElements |
 			(theElements last isKindOf: BlTextEditElement)

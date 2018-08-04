@@ -1,34 +1,35 @@
 api - cursor
 updateCursor: aTextElement of: aLineSegment in: anEditorElement
-	| aCursor aCursorPosition |
-
+	| aCursor aCursorPosition hadCursor hasCursor oldCursor |
+	
 	aCursor := anEditorElement editor cursor.
+	
+	hadCursor := self hasCursor: anEditorElement.
 
 	(aCursor insideSubText: self of: aLineSegment)
 		ifFalse: [
-			self hasCursor
+			hadCursor
 				ifTrue: [
 					aTextElement dispatchEvent: (BrTextEditorHideCursorRequest new
 						editorElement: anEditorElement;
-						cursorPosition: cursorPosition).
-					cursorPosition := nil ].
+						cursorPosition: currentCursor position).
+					currentCursor := nil ].
 			^ self ].
 
+	oldCursor := currentCursor.
+	hadCursor ifTrue: [
+		aTextElement dispatchEvent: (BrTextEditorHideCursorRequest new
+			editorElement: anEditorElement;
+			cursorPosition: oldCursor position).
+		currentCursor := nil ].
+
+	currentCursor := aCursor copy.
 	aCursorPosition := self globalTextIndexToLocal: aCursor position.
-
-	(self hasCursor and: [ aCursorPosition = cursorPosition ])
-		ifTrue: [ ^ self ].
-
-	self hasCursor
-		ifTrue: [
-			aTextElement dispatchEvent: (BrTextEditorHideCursorRequest new
-				editorElement: anEditorElement;
-				cursorPosition: cursorPosition).
-			cursorPosition := nil ].
-
-	cursorPosition := aCursorPosition.
+	currentCursor position: aCursorPosition.
 	
-	aTextElement dispatchEvent: (BrTextEditorShowCursorRequest new
-		editorElement: anEditorElement;
-		hasFocus: anEditorElement hasFocus;
-		cursorPosition: aCursorPosition)
+	hasCursor := self hasCursor: anEditorElement.
+	hasCursor
+		ifTrue: [ aTextElement dispatchEvent: (BrTextEditorShowCursorRequest new
+			editorElement: anEditorElement;
+			hasFocus: anEditorElement hasFocus;
+			cursorPosition: currentCursor position) ]

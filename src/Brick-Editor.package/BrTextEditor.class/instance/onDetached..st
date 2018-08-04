@@ -10,4 +10,4 @@ onDetached: anEditorElement
 
 	anEditorElement
 		removeEventHandlersSuchThat: [ :aHandler | (aHandler isKindOf: BlEventHandler)
-			and: [ aHandler eventClass = BlMouseDownEvent ] ]
+			and: [ { BlMouseDownEvent . BlFocusEvent . BlBlurEvent } includes: aHandler eventClass ] ]
