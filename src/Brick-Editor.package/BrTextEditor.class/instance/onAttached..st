@@ -8,4 +8,6 @@ onAttached: anEditorElement
 
 	self interactions do: [ :anInteraction | anEditorElement addShortcut: anInteraction ].
 
-	anEditorElement addEventHandlerOn: BlMouseDownEvent do: [ self selectNone ]
+	anEditorElement when: BlMouseDownEvent do: [ self selectNone ].
+	
+	self notifyChanged
