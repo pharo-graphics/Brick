@@ -7,7 +7,7 @@ delete_Cr_in_HACrCrBA_at_3_3
 	aRemovedListener := BlEventHandler on: BlInfiniteDataSourceItemRangeRemoved do: [ :anEvent | aRemovedEvent := anEvent ].
 	aTextEditor addEventHandler: aRemovedListener.
 	
-	aTextEditor delete: 3 to: 3.
+	aTextEditor delete: 2 to: 3.
 
 	self assert: aTextEditor text asString equals: 'HA', String cr, 'BA'.
 	self assert: aTextEditor segmentCollector computedSegmentsCount equals: 2.

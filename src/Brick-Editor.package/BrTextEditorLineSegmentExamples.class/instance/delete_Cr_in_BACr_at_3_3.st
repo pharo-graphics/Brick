@@ -4,7 +4,7 @@ delete_Cr_in_BACr_at_3_3
 	| aTextEditor |
 	aTextEditor := self insert_NewLine_in_BA_At_2.
 
-	aTextEditor delete: 3 to: 3.
+	aTextEditor delete: 2 to: 3.
 
 	self assert: aTextEditor text asString equals: 'BA'.
 	self assert: aTextEditor segmentCollector computedSegmentsCount equals: 1.

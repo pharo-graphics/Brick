@@ -4,7 +4,7 @@ delete_CrCr_in_HACrCrBA_at_3_4
 	| aTextEditor |
 	aTextEditor := self insert_NewLine_in_HACrBA_At_2.
 
-	aTextEditor delete: 3 to: 4.
+	aTextEditor delete: 2 to: 4.
 
 	self assert: aTextEditor text asString equals: 'HABA'.
 	self assert: aTextEditor segmentCollector computedSegmentsCount equals: 1.

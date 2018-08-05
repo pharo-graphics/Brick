@@ -4,7 +4,7 @@ delete_BA_in_BA_at_1_2
 	| aTextEditor |
 	aTextEditor := self insert_B_in_A_at_0.
 
-	aTextEditor delete: 1 to: 2.
+	aTextEditor delete: 0 to: 2.
 
 	self assert: aTextEditor text asString equals: ''.
 	self assert: aTextEditor segmentCollector computedSegmentsCount equals: 1.
