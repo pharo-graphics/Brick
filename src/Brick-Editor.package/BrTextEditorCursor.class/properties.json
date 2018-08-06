@@ -1,14 +1,11 @@
 {
-	"commentStamp" : "AliakseiSyrel 8/5/2017 00:23",
+	"commentStamp" : "AliakseiSyrel 8/6/2018 09:15",
 	"super" : "Object",
-	"category" : "Brick-Editor-Model",
+	"category" : "Brick-Editor-Model - Cursor",
 	"classinstvars" : [ ],
 	"pools" : [ ],
 	"classvars" : [ ],
-	"instvars" : [
-		"position",
-		"isVisible"
-	],
+	"instvars" : [ ],
 	"name" : "BrTextEditorCursor",
 	"type" : "normal"
 }

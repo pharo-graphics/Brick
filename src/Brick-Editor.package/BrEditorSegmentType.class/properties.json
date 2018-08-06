@@ -1,7 +1,7 @@
 {
 	"commentStamp" : "AliakseiSyrel 8/5/2017 00:08",
 	"super" : "BlInfiniteItemType",
-	"category" : "Brick-Editor-Model-Segment",
+	"category" : "Brick-Editor-Model - Segment",
 	"classinstvars" : [
 		"uniqueInstance"
 	],

@@ -1,0 +1,13 @@
+{
+	"commentStamp" : "AliakseiSyrel 8/6/2018 09:26",
+	"super" : "BrTextEditorCursor",
+	"category" : "Brick-Editor-Model - Cursor",
+	"classinstvars" : [ ],
+	"pools" : [ ],
+	"classvars" : [ ],
+	"instvars" : [
+		"cursors"
+	],
+	"name" : "BrTextEditorMultipleCursor",
+	"type" : "normal"
+}

@@ -1,3 +1,3 @@
 initialization
 defaultCursor
-	^ BrTextEditorCursor new
+	^ BrTextEditorSingleCursor new

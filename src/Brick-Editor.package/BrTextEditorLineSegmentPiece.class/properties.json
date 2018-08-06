@@ -1,7 +1,7 @@
 {
 	"commentStamp" : "",
 	"super" : "Object",
-	"category" : "Brick-Editor-Model-Segment-Text-Line",
+	"category" : "Brick-Editor-Model - Segment-Text-Line",
 	"classinstvars" : [ ],
 	"pools" : [ ],
 	"classvars" : [ ],

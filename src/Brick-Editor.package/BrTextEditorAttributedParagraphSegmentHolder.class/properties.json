@@ -1,7 +1,7 @@
 {
 	"commentStamp" : "",
 	"super" : "BrTextEditorSegmentHolder",
-	"category" : "Brick-Editor-Model-Segment-Text-Line-Attributed",
+	"category" : "Brick-Editor-Model - Segment-Text-Line-Attributed",
 	"classinstvars" : [ ],
 	"pools" : [ ],
 	"classvars" : [ ],

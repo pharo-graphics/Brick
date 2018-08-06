@@ -1,1 +1,1 @@
-I exeplify text editor focus behaviour
+I exemplify text editor focus behaviour

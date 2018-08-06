@@ -18,7 +18,9 @@ deletedFrom: aFromIndex to: aToIndex in: aBrTextEditor
 
 	"we delete something completely outside of the cached segments, just ignore it"
 	(aFromSegment isNil or: [ aToSegment isNil ])	
-		ifTrue: [ self error: 'Not implemented yet' ].
+		ifTrue: [
+			self flag: #TODO.
+			^ self ].
 
 	aTargetSegment := self deleteFrom: aFromIndex segment: aFromSegment to: aToIndex segment: aToSegment in: aBrTextEditor.
 

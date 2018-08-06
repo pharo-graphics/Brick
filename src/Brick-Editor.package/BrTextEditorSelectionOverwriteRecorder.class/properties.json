@@ -1,7 +1,7 @@
 {
 	"commentStamp" : "AliakseiSyrel 8/5/2017 00:20",
 	"super" : "BrTextEditorSelectionRecorder",
-	"category" : "Brick-Editor-Model",
+	"category" : "Brick-Editor-Model - Selection",
 	"classinstvars" : [ ],
 	"pools" : [ ],
 	"classvars" : [ ],

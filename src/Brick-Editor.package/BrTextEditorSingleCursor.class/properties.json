@@ -1,0 +1,14 @@
+{
+	"commentStamp" : "",
+	"super" : "BrTextEditorCursor",
+	"category" : "Brick-Editor-Model - Cursor",
+	"classinstvars" : [ ],
+	"pools" : [ ],
+	"classvars" : [ ],
+	"instvars" : [
+		"position",
+		"isVisible"
+	],
+	"name" : "BrTextEditorSingleCursor",
+	"type" : "normal"
+}
