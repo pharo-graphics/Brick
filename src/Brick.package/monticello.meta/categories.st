@@ -17,4 +17,8 @@ SystemOrganization addCategory: 'Brick-Toggle - Events'!
 SystemOrganization addCategory: 'Brick-Toggle - Look'!
 SystemOrganization addCategory: 'Brick-Toggle - Model'!
 SystemOrganization addCategory: 'Brick-Toggle - UI'!
+SystemOrganization addCategory: 'Brick-Toolbar - Events'!
+SystemOrganization addCategory: 'Brick-Toolbar - Look'!
+SystemOrganization addCategory: 'Brick-Toolbar - Model'!
+SystemOrganization addCategory: 'Brick-Toolbar - UI'!
 SystemOrganization addCategory: 'Brick-UML - Stencil'!
