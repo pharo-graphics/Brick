@@ -1,0 +1,3 @@
+as yet unclassified
+actionsStencil: anActionStencilBuilder
+	actionStencilBuilder := anActionStencilBuilder asStencilBuilder

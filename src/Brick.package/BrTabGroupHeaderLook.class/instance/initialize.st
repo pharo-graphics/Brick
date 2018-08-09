@@ -3,4 +3,6 @@ initialize
 	super initialize.
 
 	tabs := OrderedDictionary new.
-	header := BlElement new
+	actions := OrderedDictionary new.
+	header := BlElement new.
+	toolbar := BlElement new
