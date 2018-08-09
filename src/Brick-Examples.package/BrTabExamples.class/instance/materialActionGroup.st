@@ -14,7 +14,6 @@ materialActionGroup
 		| aToolbar aToolbarItem |
 				aToolbar := BrToolbar new.
 				aToolbar look: BrToolbarLook horizontal.
-				aToolbar background: Color lightBlue.
 				aToolbarItem := BrToolbarItem new.
 				aToolbarItem stencil: [ BrButton new 
 								look: BrMaterialToggleLabelledLook;
@@ -23,6 +22,16 @@ materialActionGroup
 				].
 				aToolbarItem look: BrToolbarItemLook + BrMouseHoverLook + BrMouseClickLook.
 				aToolbar addItem: aToolbarItem.
+				
+								aToolbarItem := BrToolbarItem new.
+				aToolbarItem stencil: [ BrButton new 
+								look: BrMaterialToggleLabelledLook;
+								label: 'Hello'; 
+								action: [ self inform: 'Click on Hello' ] 
+				].
+				aToolbarItem look: BrToolbarItemLook + BrMouseHoverLook + BrMouseClickLook.
+				aToolbar addItem: aToolbarItem.
+				
 		 ].
 
 	tab2 := BrTabModel new label: 'Tab 2'; disable.
