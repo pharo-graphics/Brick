@@ -16,9 +16,8 @@ buildDefault
 			aRequest currentTarget hideCursor ];
 
 		"when clicking inside of a text piece we should move cursor there and request editor focus"
-		when: BlClickEvent do: [ :anEvent |
+		when: BlMouseDownEvent do: [ :anEvent |
 			| aLocalTextIndex |
-			anEvent consumed: true.
 			aLocalTextIndex := anEvent currentTarget paragraph indexAtPosition: anEvent localPosition.
 			self editorElement requestFocus.
 			self editorElement editor
