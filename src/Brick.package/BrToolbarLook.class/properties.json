@@ -1,0 +1,13 @@
+{
+	"commentStamp" : "JurajKubelka 8/1/2018 23:44",
+	"super" : "BrLook",
+	"category" : "Brick-Toolbar - Look",
+	"classinstvars" : [ ],
+	"pools" : [ ],
+	"classvars" : [ ],
+	"instvars" : [
+		"items"
+	],
+	"name" : "BrToolbarLook",
+	"type" : "normal"
+}
