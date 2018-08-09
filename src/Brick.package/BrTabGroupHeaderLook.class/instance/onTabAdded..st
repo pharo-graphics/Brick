@@ -7,6 +7,6 @@ onTabAdded: aBrTabModel
 	self tabs at: aBrTabModel put: nil.
 
 	aBrTabModel whenAttachedDo: [ :aTabElement |
-		self header removeChildren: self tabElements.
+		self tabbar removeChildren: self tabElements.
 		self tabs at: aBrTabModel put: aTabElement.
-		self header addChildren: self tabElements ]
+		self tabbar addChildren: self tabElements ]

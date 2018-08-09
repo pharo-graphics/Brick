@@ -6,4 +6,4 @@ onTabRemoved: aBrTabModel
 
 	self tabs removeKey: aBrTabModel.
 	aBrTabModel widgetDo: [ :aTabElement |
-		self header removeChild: aTabElement ]
+		self tabbar removeChild: aTabElement ]
