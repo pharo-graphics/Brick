@@ -1,7 +1,7 @@
 examples - ui
 materialActionGroup
 	<gtExample>
-	| tab1 tab2 tab3 tabGroup |
+	| tab1 tab2 tab3 tabGroup tabGroupElement |
 
 	tab1 := BrTabModel new
 		label: 'Tab 1';
@@ -49,6 +49,10 @@ materialActionGroup
 			look: BrMaterialTabLabelledLook;
 			viewModel: aTab ].
 
-	^ BlElement new
+	tabGroupElement := BlElement new
 		look: BrMaterialTabGroupLook;
-		viewModel: tabGroup
+		viewModel: tabGroup.
+	
+	self assert: tabGroupElement children size = 2.
+	self assert: tabGroupElement children first children size = 2.
+	^ tabGroupElement
