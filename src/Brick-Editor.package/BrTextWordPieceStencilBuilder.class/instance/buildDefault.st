@@ -9,12 +9,17 @@ buildDefault
 		"editor requests to show a cursor as a result of its position change"
 		when: BrTextEditorShowCursorRequest do: [ :aRequest |
 			aRequest hasFocus
-				ifTrue: [ aRequest currentTarget showCursorAt: aRequest cursorPosition ] ];
+				ifTrue: [
+					aRequest currentTarget showCursorAt: aRequest cursorPosition.
+					aRequest editorElement dispatchEvent: (BrTextEditorCursorShowEvent new cursorElement: aRequest currentTarget cursorElement) ] ];
 
 		"editor requests to hide a cursor as a result of its position change"
 		when: BrTextEditorHideCursorRequest do: [ :aRequest |
-			aRequest currentTarget hideCursor ];
-
+			aRequest currentTarget hasCursor ifTrue: [
+				| aCursorElement |
+				aCursorElement := aRequest currentTarget cursorElement.
+				aRequest currentTarget hideCursor.
+				aRequest editorElement dispatchEvent: (BrTextEditorCursorHideEvent new cursorElement: aCursorElement) ] ];
 		"when clicking inside of a text piece we should move cursor there and request editor focus"
 		when: BlMouseDownEvent do: [ :anEvent |
 			| aLocalTextIndex |
