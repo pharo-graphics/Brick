@@ -1,22 +1,9 @@
 api - modification
 deleteSelected
 	"Delete selected piece of text updating selection and cursor position"
-	| aCursorDelta anAccumulatedDelta |
+	| aCursorDelta |
 
 	aCursorDelta := 0.
-
-	anAccumulatedDelta := 0.
-	self selection do: [ :aMonotoneSelection |
-		self
-			delete: aMonotoneSelection from - anAccumulatedDelta
-			to: aMonotoneSelection to - anAccumulatedDelta.
-		
-		
-		
-		anAccumulatedDelta := anAccumulatedDelta + (aMonotoneSelection to - aMonotoneSelection from).
-	].
-
-
 	self selection do: [ :aMonotoneSelection |
 		(aMonotoneSelection to <= self cursor position)
 			ifTrue: [ aCursorDelta := aCursorDelta + (aMonotoneSelection to - aMonotoneSelection from) ]
