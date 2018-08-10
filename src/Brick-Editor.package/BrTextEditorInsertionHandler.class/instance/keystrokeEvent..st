@@ -4,7 +4,7 @@ keystrokeEvent: anEvent
 
 	aCharacter := anEvent char.
 	
-	(Unicode isPrintable: aCharacter)
+	((Unicode isPrintable: aCharacter) or: [ aCharacter isSeparator ])
 		ifFalse: [ ^ self ].
 
 	anEvent consumed: true.
