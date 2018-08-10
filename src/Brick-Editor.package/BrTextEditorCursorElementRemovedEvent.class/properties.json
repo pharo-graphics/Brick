@@ -1,5 +1,5 @@
 {
-	"commentStamp" : "",
+	"commentStamp" : "AliakseiSyrel 8/10/2018 21:25",
 	"super" : "BlEvent",
 	"category" : "Brick-Editor-UI-Events",
 	"classinstvars" : [ ],
@@ -8,6 +8,6 @@
 	"instvars" : [
 		"cursorElement"
 	],
-	"name" : "BrTextEditorCursorShowEvent",
+	"name" : "BrTextEditorCursorElementRemovedEvent",
 	"type" : "normal"
 }
