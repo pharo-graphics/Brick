@@ -13,5 +13,6 @@ SystemOrganization addCategory: 'Brick-Editor-Model - Selection'!
 SystemOrganization addCategory: 'Brick-Editor-Stencils'!
 SystemOrganization addCategory: 'Brick-Editor-Text-Attributes'!
 SystemOrganization addCategory: 'Brick-Editor-UI'!
+SystemOrganization addCategory: 'Brick-Editor-UI-Events'!
 SystemOrganization addCategory: 'Brick-Editor-UI-Handlers'!
 SystemOrganization addCategory: 'Brick-Editor-UI-Requests'!
