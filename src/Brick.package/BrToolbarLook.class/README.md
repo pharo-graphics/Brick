@@ -2,7 +2,7 @@
 
 !! Toolbar Order-Independent Item Binding 
 
-You may noticed that ${method:ToolbarLook>>#initialize|preview}$ initialize ==item== instance variable as an ${class:OrderedDictionary}$. The reason for the ordered dictionary is to allow order-independent binding of toolbar view (${class:BrToolbarItem}$) to the tab model ${class:BrToolbarItemModel}$. To understand it easily, let's check the following excercise: 
+You may noticed that ${method:BrToolbarLook>>#initialize}$ initialize ==item== instance variable as an ${class:OrderedDictionary}$. The reason for the ordered dictionary is to allow order-independent binding of toolbar view (${class:BrToolbarItem}$) to the tab model ${class:BrToolbarItemModel}$. To understand it easily, let's check the following excercise: 
 
 First, we create and inspect a ${class:BrToolbar}$ instance:
 
