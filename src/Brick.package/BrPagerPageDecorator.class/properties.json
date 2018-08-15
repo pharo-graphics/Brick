@@ -1,0 +1,14 @@
+{
+	"commentStamp" : "",
+	"super" : "BrStencil",
+	"category" : "Brick-Pager - Stencil",
+	"classinstvars" : [ ],
+	"pools" : [ ],
+	"classvars" : [ ],
+	"instvars" : [
+		"contentElement",
+		"width"
+	],
+	"name" : "BrPagerPageDecorator",
+	"type" : "normal"
+}

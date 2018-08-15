@@ -10,7 +10,7 @@ onPageAdded: aPageModel
 		| aPageElement |
 
 		aPageContentElement removeFromParent.
-		aPageElement := self buildPageElement: aPageContentElement.	
+		aPageElement := (aPageModel decorator contentElement: aPageContentElement) asElement.	
 		self pages at: aPageModel put: aPageElement.
 	
 		pagesListElement dataSource pageElements: self pageElements ]

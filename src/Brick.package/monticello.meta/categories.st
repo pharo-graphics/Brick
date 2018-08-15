@@ -12,6 +12,7 @@ SystemOrganization addCategory: 'Brick-List - UI'!
 SystemOrganization addCategory: 'Brick-Pager - Events'!
 SystemOrganization addCategory: 'Brick-Pager - Look'!
 SystemOrganization addCategory: 'Brick-Pager - Model'!
+SystemOrganization addCategory: 'Brick-Pager - Stencil'!
 SystemOrganization addCategory: 'Brick-Pager - Support'!
 SystemOrganization addCategory: 'Brick-Pager - UI'!
 SystemOrganization addCategory: 'Brick-Tabs - Events'!

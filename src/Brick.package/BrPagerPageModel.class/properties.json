@@ -5,7 +5,9 @@
 	"classinstvars" : [ ],
 	"pools" : [ ],
 	"classvars" : [ ],
-	"instvars" : [ ],
+	"instvars" : [
+		"decorator"
+	],
 	"name" : "BrPagerPageModel",
 	"type" : "normal"
 }

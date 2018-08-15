@@ -1,5 +1,5 @@
-instance creation
-buildPageElement: aContentElement
+api - instantiation
+create
 	<return: #BlElement>
 	| aPageElement aResizer |
 
@@ -10,7 +10,7 @@ buildPageElement: aContentElement
 		margin: (BlInsets all: 10);
 		padding: (BlInsets all: 5);
 		constraintsDo: [ :c |
-			c horizontal exact: 400.
+			c horizontal exact: self width.
 			c vertical matchParent ].
 
 	aResizer := BlElement new
@@ -22,8 +22,9 @@ buildPageElement: aContentElement
 			c ignored vertical alignBottom.
 			c ignored horizontal alignRight ];
 		addEventHandler: (BlResizerBottomRightListener new resizeTarget: aPageElement; minimumExtent: 75@75).
-		
-	aPageElement addChild: aContentElement.
-	aPageElement addChild: aResizer.
 	
+	self contentElement removeFromParent.
+	aPageElement addChild: self contentElement.
+	aPageElement addChild: aResizer.
+
 	^ aPageElement
