@@ -1,3 +1,13 @@
 api - adding / removing
 addPageWithContent: aContentElement	
-	self addPage: (aContentElement viewModel: BrPagerPageModel new)
+	| aPageElement |
+	
+	aPageElement := BlElement new.
+	aPageElement
+		viewModel: BrPagerPageModel new;
+		constraintsDo: [ :c |
+			c horizontal matchParent.
+			c vertical matchParent ].
+	aPageElement addChild: aContentElement.
+
+	self addPage: aPageElement

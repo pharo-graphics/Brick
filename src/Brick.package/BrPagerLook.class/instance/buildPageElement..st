@@ -4,10 +4,14 @@ buildPageElement: aContentElement
 	| aPageElement aResizer |
 
 	aPageElement := BlElement new
+		look: BrShadowLook new;
+		background: Color white;
+		layout: BlLinearLayout vertical;
 		margin: (BlInsets all: 10);
+		padding: (BlInsets all: 5);
 		constraintsDo: [ :c |
-			c horizontal exact: 200.
-			c vertical exact: 200 ].
+			c horizontal exact: 400.
+			c vertical exact: 400 ].
 
 	aResizer := BlElement new
 		background: Color black;
