@@ -11,7 +11,7 @@ buildPageElement: aContentElement
 		padding: (BlInsets all: 5);
 		constraintsDo: [ :c |
 			c horizontal exact: 400.
-			c vertical exact: 400 ].
+			c vertical matchParent ].
 
 	aResizer := BlElement new
 		background: Color black;
