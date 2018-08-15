@@ -1,0 +1,11 @@
+{
+	"commentStamp" : "",
+	"super" : "BrRequest",
+	"category" : "Brick-Pager - Events",
+	"classinstvars" : [ ],
+	"pools" : [ ],
+	"classvars" : [ ],
+	"instvars" : [ ],
+	"name" : "BrPagerPagesRequest",
+	"type" : "normal"
+}

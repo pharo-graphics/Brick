@@ -1,0 +1,13 @@
+{
+	"commentStamp" : "",
+	"super" : "BlEvent",
+	"category" : "Brick-Pager - Events",
+	"classinstvars" : [ ],
+	"pools" : [ ],
+	"classvars" : [ ],
+	"instvars" : [
+		"pages"
+	],
+	"name" : "BrPagerPagesChanged",
+	"type" : "normal"
+}

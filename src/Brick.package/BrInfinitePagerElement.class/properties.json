@@ -1,0 +1,11 @@
+{
+	"commentStamp" : "",
+	"super" : "BlInfiniteElement",
+	"category" : "Brick-Pager - Support",
+	"classinstvars" : [ ],
+	"pools" : [ ],
+	"classvars" : [ ],
+	"instvars" : [ ],
+	"name" : "BrInfinitePagerElement",
+	"type" : "normal"
+}
