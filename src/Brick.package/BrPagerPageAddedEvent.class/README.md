@@ -1,0 +1,1 @@
+I am sent by ${class:BrPagerModel}$ when a new ${class:BrPagerPageModel}$ is added to the pager

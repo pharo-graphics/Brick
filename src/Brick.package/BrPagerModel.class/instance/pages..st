@@ -1,5 +1,5 @@
-accessing
+api - adding / removing
 pages: aCollectionOfPages
-	pages := aCollectionOfPages.
-	
-	self dispatchEvent: (BrPagerPagesChanged pages: self pages)
+	pages := aCollectionOfPages asOrderedCollection.
+
+	self notifyPagesChanged

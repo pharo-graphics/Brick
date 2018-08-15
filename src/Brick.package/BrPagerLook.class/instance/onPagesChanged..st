@@ -6,6 +6,10 @@ onPagesChanged: aCollectionOfModels
 		self pages at: aPageModel put: nil ].
 
 	aCollectionOfModels do: [ :aPageModel |
-		aPageModel whenAttachedDo: [ :aPageElement |
+		aPageModel whenAttachedDo: [ :aPageContentElement |
+			| aPageElement |
+			
+			aPageContentElement removeFromParent.
+			aPageElement := self buildPageElement: aPageContentElement.
 			self pages at: aPageModel put: aPageElement.
 			pagesListElement dataSource pageElements: self pageElements ] ]

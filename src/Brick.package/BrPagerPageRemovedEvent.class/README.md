@@ -1,0 +1,1 @@
+I am sent by ${class:BrPagerModel}$ when a ${class:BrPagerPageModel}$ is removed from the pager

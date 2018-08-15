@@ -1,0 +1,11 @@
+{
+	"commentStamp" : "",
+	"super" : "BrWidgetModel",
+	"category" : "Brick-Pager - Model",
+	"classinstvars" : [ ],
+	"pools" : [ ],
+	"classvars" : [ ],
+	"instvars" : [ ],
+	"name" : "BrPagerPageModel",
+	"type" : "normal"
+}

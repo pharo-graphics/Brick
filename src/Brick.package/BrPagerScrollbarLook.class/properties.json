@@ -1,0 +1,14 @@
+{
+	"commentStamp" : "",
+	"super" : "BrLook",
+	"category" : "Brick-Pager - Look",
+	"classinstvars" : [ ],
+	"pools" : [ ],
+	"classvars" : [ ],
+	"instvars" : [
+		"pages",
+		"scrollbarElement"
+	],
+	"name" : "BrPagerScrollbarLook",
+	"type" : "normal"
+}
