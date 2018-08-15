@@ -6,11 +6,4 @@ onPageAdded: aPageModel
 
 	self pages at: aPageModel put: nil.
 
-	aPageModel whenAttachedDo: [ :aPageContentElement |
-		| aPageElement |
-
-		aPageContentElement removeFromParent.
-		aPageElement := (aPageModel decorator contentElement: aPageContentElement) asElement.	
-		self pages at: aPageModel put: aPageElement.
-	
-		pagesListElement dataSource pageElements: self pageElements ]
+	aPageModel whenAttachedDo: [ :aPageContentElement | self onPageContentAttached: aPageContentElement ]

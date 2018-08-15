@@ -1,7 +1,7 @@
 initialization
 initialize
 	super initialize.
-	
+
 	pages := OrderedDictionary new.
 	pagesListElement := BrInfinitePagerElement new.
 	pagesListElement constraintsDo: [ :c | 
