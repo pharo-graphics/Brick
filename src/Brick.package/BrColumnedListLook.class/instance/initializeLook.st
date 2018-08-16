@@ -2,4 +2,5 @@ initialization
 initializeLook
 	super initializeLook.
 	
-	self widgetContent addChild: listElement as: #list
+	listElement dataSource listElement: self widgetContent.
+	self widgetContent addChild: listElement as: #list.

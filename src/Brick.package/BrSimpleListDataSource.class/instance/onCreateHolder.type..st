@@ -1,3 +1,5 @@
 instance creation
 onCreateHolder: anInfiniteElement type: anItemType
-	^ BrSimpleListItemHolder new rowStencilBuilder: rowStencil
+	^ BrSimpleListItemHolder new
+		listElement: self listElement;
+		rowStencilBuilder: rowStencil

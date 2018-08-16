@@ -7,5 +7,5 @@ initialize
 	listElement constraintsDo: [ :c | 
 		c horizontal matchParent.
 		c vertical matchParent ].
-	
+
 	self rowStencilBuilder: BrColumnedListRowStencilBuilder new

@@ -1,14 +1,14 @@
 {
 	"commentStamp" : "",
 	"super" : "BrStencilBuilder",
-	"category" : "Brick-List - Support",
+	"category" : "Brick-List - Stencil",
 	"classinstvars" : [ ],
 	"pools" : [ ],
 	"classvars" : [ ],
 	"instvars" : [
 		"rowIndex",
 		"rowValue",
-		"listModel"
+		"listElement"
 	],
 	"name" : "BrListRowStencilBuilder",
 	"type" : "normal"

@@ -5,6 +5,7 @@ rowValue: anObject at: aRowIndex
 	itemElement := (self rowStencilBuilder
 		rowValue: anObject;
 		rowIndex: aRowIndex;
+		listElement: self listElement;
 		build) asElement.
 
 	theCellElements := self columns withIndexCollect: [ :aListColumn :aColumnIndex |	
