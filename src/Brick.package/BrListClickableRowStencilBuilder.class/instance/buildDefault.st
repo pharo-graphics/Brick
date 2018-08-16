@@ -6,7 +6,7 @@ buildDefault
 	anIndex := self rowIndex.
 
 	^ BlElement new
-		layout: BlLinearLayout horizontal;
+		layout: BlLinearLayout horizontal alignCenterLeft;
 		constraintsDo: [ :c |
 			c horizontal matchParent.
 			c vertical fitContent ];
