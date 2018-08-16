@@ -6,7 +6,6 @@
 	"pools" : [ ],
 	"classvars" : [ ],
 	"instvars" : [
-		"itemElement",
 		"rowIndex",
 		"rowValue"
 	],

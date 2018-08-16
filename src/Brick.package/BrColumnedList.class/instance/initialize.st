@@ -19,7 +19,6 @@ initialize
 		when: BrListItemElementDetached do: [ :anEvent |
 			(selectionModel contains: anEvent rowIndex)
 				ifTrue: [ self dispatchEvent: (BrListSelectedItemDetached new
-					itemElement: anEvent itemElement;
 					rowIndex: anEvent rowIndex;
 					rowValue: anEvent rowValue) ] ];
 		addShortcut: (BlShortcut new
