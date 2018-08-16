@@ -1,0 +1,15 @@
+{
+	"commentStamp" : "",
+	"super" : "BlEvent",
+	"category" : "Brick-List - Events",
+	"classinstvars" : [ ],
+	"pools" : [ ],
+	"classvars" : [ ],
+	"instvars" : [
+		"itemElement",
+		"rowIndex",
+		"rowValue"
+	],
+	"name" : "BrListSelectedItemAttached",
+	"type" : "normal"
+}
