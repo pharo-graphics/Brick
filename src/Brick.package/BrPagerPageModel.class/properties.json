@@ -6,7 +6,7 @@
 	"pools" : [ ],
 	"classvars" : [ ],
 	"instvars" : [
-		"decorator"
+		"embellisher"
 	],
 	"name" : "BrPagerPageModel",
 	"type" : "normal"

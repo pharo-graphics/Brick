@@ -2,4 +2,4 @@ initialization
 initialize
 	super initialize.
 	
-	decorator := BrPagerPageDecorator new
+	embellisher := BrPagerPageEmbellisher new

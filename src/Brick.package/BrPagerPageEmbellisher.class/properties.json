@@ -8,6 +8,6 @@
 	"instvars" : [
 		"contentElement"
 	],
-	"name" : "BrPagerPageDecorator",
+	"name" : "BrPagerPageEmbellisher",
 	"type" : "normal"
 }
