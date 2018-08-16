@@ -4,6 +4,7 @@ initialize
 
 	self viewModel: (BrColumnedListModel new add: (selectionModel := BrSelectionModel new)).
 	self look: BrColumnedListLook new + BrLayoutLook frame matchParent.
+	self rowStencil: BrListClickableRowStencilBuilder new.
 	
 	"shortcuts only work when list has focus.
 	we add an event filter on the click event to give list focus whenever users click somewhere inside"
