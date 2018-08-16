@@ -1,3 +1,3 @@
 accessing
-contentElement: anObject
-	contentElement := anObject
+contentElement: anElement
+	contentElement := anElement

@@ -6,8 +6,7 @@
 	"pools" : [ ],
 	"classvars" : [ ],
 	"instvars" : [
-		"contentElement",
-		"width"
+		"contentElement"
 	],
 	"name" : "BrPagerPageDecorator",
 	"type" : "normal"
