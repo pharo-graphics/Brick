@@ -8,4 +8,4 @@ onPagesChanged: aCollectionOfModels
 	aCollectionOfModels do: [ :aPageModel |
 		aPageModel whenAttachedDo: [ :aPageElement |
 			self pages at: aPageModel put: aPageElement.
-			scrollbarElement  ] ]
+			self updatePagePreviews ] ]

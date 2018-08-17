@@ -1,0 +1,14 @@
+{
+	"commentStamp" : "AliakseiSyrel 8/17/2018 11:26",
+	"super" : "BlElementEventListener",
+	"category" : "Brick-Pager - Look",
+	"classinstvars" : [ ],
+	"pools" : [ ],
+	"classvars" : [ ],
+	"instvars" : [
+		"previewElement",
+		"height"
+	],
+	"name" : "BrPagerPagePreviewResizeListener",
+	"type" : "normal"
+}

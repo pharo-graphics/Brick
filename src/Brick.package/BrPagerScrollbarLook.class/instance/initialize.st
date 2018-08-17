@@ -4,7 +4,8 @@ initialize
 
 	pages := OrderedDictionary new.
 	scrollbarElement := BlElement new.
-	scrollbarElement layout: BlLinearLayout horizontal.
+	scrollbarElement margin: (BlInsets top: 5).
+	scrollbarElement layout: BlLinearLayout horizontal alignCenter.
 	scrollbarElement constraintsDo: [ :c | 
 		c horizontal matchParent.
 		c vertical fitContent ]
