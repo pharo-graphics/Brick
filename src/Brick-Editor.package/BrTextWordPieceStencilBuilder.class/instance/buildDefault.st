@@ -40,8 +40,8 @@ buildDefault
 				ifTrue: [
 					| aGlobalFrom aGlobalTo |
 					
-					aGlobalFrom := aTextEditElement text start - 1.
-					aGlobalTo := aTextEditElement text start + aTextEditElement text size - 1.
+					aGlobalFrom := (aTextEditElement text start - 1) max: 0.
+					aGlobalTo := (aTextEditElement text start + aTextEditElement text size - 1) max: 0.
 					
 					self editorElement editor recordSelection: (BlMonotoneSelection from: aGlobalFrom to: aGlobalTo) ]
 				ifFalse: [ 
@@ -56,8 +56,8 @@ buildDefault
 						
 						self editorElement editor recordDeselection: (BlMonotoneSelection from: aGlobalFrom to: aGlobalTo) ].
 					
-					aGlobalFrom := aTextEditElement text start + aFromIndex - 1.
-					aGlobalTo := aTextEditElement text start + aToIndex - 1.
+					aGlobalFrom := (aTextEditElement text start + aFromIndex - 1) max: 0.
+					aGlobalTo := (aTextEditElement text start + aToIndex - 1) max: 0.
 					
 					self editorElement editor recordSelection: (BlMonotoneSelection from: aGlobalFrom to: aGlobalTo) ] ];
 

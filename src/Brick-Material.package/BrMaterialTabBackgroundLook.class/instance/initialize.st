@@ -3,7 +3,7 @@ initialize
 	super initialize.
 
 	bar := BlElement new.
-	bar background: Color blue.
+	bar background: (Color fromHexString: #'2196F3').
 	bar constraintsDo: [ :c |
 		c ignoreByLayout.
 		c ignored vertical alignBottom.
