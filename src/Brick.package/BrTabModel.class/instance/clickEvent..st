@@ -1,5 +1,7 @@
 mouse handlers
 clickEvent: anEvent
-	anEvent consumed: true.
+	"self isEnabled
+		ifFalse: [ ^ self ]."
 
-	self isEnabled ifTrue: [ self select ]
+	anEvent consumed: true.
+	self select

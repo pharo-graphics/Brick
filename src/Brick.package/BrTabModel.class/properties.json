@@ -7,9 +7,6 @@
 	"classvars" : [ ],
 	"instvars" : [
 		"selected",
-		"enabled",
-		"label",
-		"icon",
 		"contentStencilBuilder",
 		"actionStencilBuilder"
 	],

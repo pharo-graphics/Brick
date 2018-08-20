@@ -1,14 +1,13 @@
 {
 	"commentStamp" : "",
-	"super" : "BlElement",
-	"category" : "Brick-Tabs - UI",
+	"super" : "BrWidgetModel",
+	"category" : "Brick-! Core",
 	"classinstvars" : [ ],
 	"pools" : [ ],
 	"classvars" : [ ],
 	"instvars" : [
-		"labelModel",
-		"iconModel"
+		"enabled"
 	],
-	"name" : "BrTab",
+	"name" : "BrActivationModel",
 	"type" : "normal"
 }

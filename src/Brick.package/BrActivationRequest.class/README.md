@@ -1,0 +1,1 @@
+I am sent by a look to request the activation status (enabled/disabled) of the widget model

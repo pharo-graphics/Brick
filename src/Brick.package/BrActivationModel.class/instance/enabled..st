@@ -1,4 +1,4 @@
-api - tab
+api - activation
 enabled: aBoolean
 	aBoolean
 		ifTrue: [ self enable ]

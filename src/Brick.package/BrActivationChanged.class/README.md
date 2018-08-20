@@ -1,0 +1,1 @@
+I am sent when the activation status (enabled / disabled) of the widget is changed

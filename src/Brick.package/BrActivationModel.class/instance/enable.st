@@ -1,7 +1,7 @@
-api - tab
+api - activation
 enable
 	self isEnabled
 		ifTrue: [ ^ self ].
 
 	enabled := true.
-	self notifyTabEnabled
+	self notifyActivationChanged
