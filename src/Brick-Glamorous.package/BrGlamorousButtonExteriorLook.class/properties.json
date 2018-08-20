@@ -1,0 +1,14 @@
+{
+	"commentStamp" : "",
+	"super" : "BrLook",
+	"category" : "Brick-Glamorous",
+	"classinstvars" : [ ],
+	"pools" : [ ],
+	"classvars" : [ ],
+	"instvars" : [
+		"normalBorderPaint",
+		"hoveredBorderPaint"
+	],
+	"name" : "BrGlamorousButtonExteriorLook",
+	"type" : "normal"
+}

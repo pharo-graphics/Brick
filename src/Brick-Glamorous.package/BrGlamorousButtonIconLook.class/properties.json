@@ -1,0 +1,11 @@
+{
+	"commentStamp" : "",
+	"super" : "BrIconLook",
+	"category" : "Brick-Glamorous",
+	"classinstvars" : [ ],
+	"pools" : [ ],
+	"classvars" : [ ],
+	"instvars" : [ ],
+	"name" : "BrGlamorousButtonIconLook",
+	"type" : "normal"
+}

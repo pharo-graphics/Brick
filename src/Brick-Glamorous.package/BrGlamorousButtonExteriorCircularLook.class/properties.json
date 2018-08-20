@@ -1,0 +1,11 @@
+{
+	"commentStamp" : "AliakseiSyrel 8/20/2018 15:34",
+	"super" : "BrGlamorousButtonExteriorLook",
+	"category" : "Brick-Glamorous",
+	"classinstvars" : [ ],
+	"pools" : [ ],
+	"classvars" : [ ],
+	"instvars" : [ ],
+	"name" : "BrGlamorousButtonExteriorCircularLook",
+	"type" : "normal"
+}
