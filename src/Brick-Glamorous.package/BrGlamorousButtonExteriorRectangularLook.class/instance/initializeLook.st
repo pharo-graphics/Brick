@@ -3,7 +3,7 @@ initializeLook
 	super initializeLook.
 
 	self widgetContent
-		padding: (BlInsets top: 0 right: 15 bottom: 0 left: 15);
+		padding: (BlInsets top: 0 right: 10 bottom: 0 left: 10);
 		height: 30;
 		constraintsDo: [ :c | c horizontal fitContent ];
 		layout: BlLinearLayout horizontal alignCenter;
