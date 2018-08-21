@@ -15,6 +15,6 @@ exampleTextOpen
 	space root addChild: editorElement.
 	space root addEventHandler:
 			(BlEventHandler
-				on: BlDblClickEvent
+				on: BlDoubleClickEvent
 				do: [ :evt | BlElementSelection on: evt target ]).
 	space show

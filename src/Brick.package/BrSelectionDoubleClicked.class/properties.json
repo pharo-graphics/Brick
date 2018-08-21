@@ -1,5 +1,5 @@
 {
-	"commentStamp" : "AliakseiSyrel 8/3/2018 07:16",
+	"commentStamp" : "",
 	"super" : "BrChangeEvent",
 	"category" : "Brick-! Core - Events",
 	"classinstvars" : [ ],
@@ -7,10 +7,8 @@
 	"classvars" : [ ],
 	"instvars" : [
 		"selection",
-		"selectedInterval",
-		"deselectedInterval",
 		"sourceEvent"
 	],
-	"name" : "BrSelectionChanged",
+	"name" : "BrSelectionDoubleClicked",
 	"type" : "normal"
 }
