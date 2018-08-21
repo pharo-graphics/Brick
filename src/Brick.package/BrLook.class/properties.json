@@ -1,18 +1,13 @@
 {
-	"classtraitcomposition" : "TBlEventTarget classTrait",
+	"commentStamp" : "AliakseiSyrel 3/7/2018 09:05",
+	"super" : "BrActor",
+	"category" : "Brick-! Core",
+	"classinstvars" : [ ],
+	"pools" : [ ],
 	"classvars" : [ ],
 	"instvars" : [
-		"widget",
-		"looks",
-		"eventDispatcher",
 		"postInitializedBlock"
 	],
 	"name" : "BrLook",
-	"commentStamp" : "AliakseiSyrel 3/7/2018 09:05",
-	"super" : "BlElementEventListener",
-	"traitcomposition" : "TBlEventTarget",
-	"type" : "normal",
-	"classinstvars" : [ ],
-	"pools" : [ ],
-	"category" : "Brick-! Core"
+	"type" : "normal"
 }

@@ -1,18 +1,13 @@
 {
-	"classtraitcomposition" : "TBlEventTarget classTrait",
-	"classvars" : [ ],
-	"instvars" : [
-		"widget",
-		"model",
-		"eventDispatcher",
-		"widgetModels"
-	],
-	"name" : "BrWidgetModel",
 	"commentStamp" : "AliakseiSyrel 3/26/2018 19:46",
-	"super" : "BlElementEventListener",
-	"traitcomposition" : "TBlEventTarget",
-	"type" : "normal",
+	"super" : "BrActor",
+	"category" : "Brick-! Core",
 	"classinstvars" : [ ],
 	"pools" : [ ],
-	"category" : "Brick-! Core"
+	"classvars" : [ ],
+	"instvars" : [
+		"model"
+	],
+	"name" : "BrWidgetModel",
+	"type" : "normal"
 }

@@ -2,7 +2,7 @@ event handling
 handleEvent: anEvent
 	| aCurrentTarget aTarget |
 	
-	self widgetModels do: [ :aWidgetModel | aWidgetModel handleEvent: anEvent ].
+	self children do: [ :aWidgetModel | aWidgetModel handleEvent: anEvent ].
 
 	"do not handle outgoing events"
 	(anEvent source == self)
