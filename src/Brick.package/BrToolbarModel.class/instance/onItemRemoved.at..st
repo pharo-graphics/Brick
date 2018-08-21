@@ -1,3 +1,3 @@
 hooks
-onItemRemoved: aBrToolbarItemModel at: anItemIndex
-	self notifyItemRemoved: aBrToolbarItemModel.
+onItemRemoved: aWidgetModel at: anItemIndex
+	self notifyItemRemoved: aWidgetModel

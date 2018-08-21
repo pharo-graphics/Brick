@@ -1,9 +1,11 @@
 {
 	"commentStamp" : "",
 	"super" : "BrLook",
-	"category" : "Brick-Glamorous",
+	"category" : "Brick-Glamorous-Buttons",
 	"classinstvars" : [ ],
-	"pools" : [ ],
+	"pools" : [
+		"BrGlamorousColors"
+	],
 	"classvars" : [ ],
 	"instvars" : [
 		"normalBorderPaint",

@@ -1,6 +1,7 @@
 api - items
-removeItem: aBrToolbarItemModel
+removeItem: aWidgetModel
 	| anItemIndex |
-	anItemIndex := self items indexOf: aBrToolbarItemModel.
-	self items remove: aBrToolbarItemModel.
-	self onItemRemoved: aBrToolbarItemModel at: anItemIndex.
+
+	anItemIndex := self items indexOf: aWidgetModel.
+	self items remove: aWidgetModel.
+	self onItemRemoved: aWidgetModel at: anItemIndex

@@ -1,3 +1,3 @@
 notifying
-notifyItemAdded: aBrToolbarItemModel
-	self dispatchEvent: (BrToolbarItemAddedEvent item: aBrToolbarItemModel)
+notifyItemAdded: aWidgetModel
+	self dispatchEvent: (BrToolbarItemAddedEvent item: aWidgetModel)

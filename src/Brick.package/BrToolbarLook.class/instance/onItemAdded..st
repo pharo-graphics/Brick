@@ -1,12 +1,12 @@
 hooks
-onItemAdded: aBrToolbarItemModel
+onItemAdded: aWidgetModel
 	self
 		assert: [ self isAttachedToWidget ]
 		description: [ 'I can not receive the item added event without being attached to a widget' ].
 
-	self items at: aBrToolbarItemModel put: nil.
+	self items at: aWidgetModel put: nil.
 
-	aBrToolbarItemModel whenAttachedDo: [ :aToolbarItemElement |
+	aWidgetModel whenAttachedDo: [ :aToolbarItemElement |
 		self widgetContent removeChildren: self itemElements.
-		self items at: aBrToolbarItemModel put: aToolbarItemElement.
+		self items at: aWidgetModel put: aToolbarItemElement.
 		self widgetContent addChildren: self itemElements ]

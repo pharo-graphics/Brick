@@ -1,6 +1,6 @@
 api - items
 itemModelAt: anIndex
-	<return: #BrToolbarItemModel>
+	<return: #BrWidgetModel>
 	self
 		assert: [ anIndex isInteger ] 
 		description: [ 'Index must be an integer' ].
@@ -10,4 +10,5 @@ itemModelAt: anIndex
 	self
 		assert: [ anIndex <= self numberOfItems ] 
 		description: [ 'Index must be less of equal to number of existing items' ].
+
 	^ self items at: anIndex

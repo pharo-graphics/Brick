@@ -1,3 +1,3 @@
 notifying
-notifyItemRemoved: aBrToolbarItemModel
-	self dispatchEvent: (BrToolbarItemRemovedEvent item: aBrToolbarItemModel)
+notifyItemRemoved: aWidgetModel
+	self dispatchEvent: (BrToolbarItemRemovedEvent item: aWidgetModel)

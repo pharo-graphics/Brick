@@ -10,26 +10,17 @@ materialActionGroup
 				size: 200@200;
 				background: (Color blue alpha: 0.5) ];
 		actionsStencil: [ 
-			| aToolbar aToolbarItem |
+			| aToolbar |
 			aToolbar := BrToolbar new.
 			aToolbar look: BrToolbarLook horizontal.
-			aToolbarItem := BrToolbarItem new.
-			aToolbarItem stencil: [
-				BrButton new 
-					look: BrMaterialToggleLabelledLook;
-					label: 'Hello'; 
-					action: [ self inform: 'Click on Hello' ] ].
-			aToolbarItem look: BrToolbarItemLook + BrMouseHoverLook + BrMouseClickLook.
-			aToolbar addItem: aToolbarItem.
-				
-			aToolbarItem := BrToolbarItem new.
-			aToolbarItem stencil: [
-				BrButton new 
+			aToolbar addItem: (BrButton new 
+				look: BrMaterialToggleLabelledLook;
+				label: 'Hello'; 
+				action: [ self inform: 'Click on Hello' ]).
+			aToolbar addItem: (BrButton new 
 					look: BrMaterialToggleLabelledLook;
 					label: 'World'; 
-					action: [ self inform: 'Click on World' ] ].
-			aToolbarItem look: BrToolbarItemLook + BrMouseHoverLook + BrMouseClickLook.
-			aToolbar addItem: aToolbarItem ].
+					action: [ self inform: 'Click on World' ]) ].
 
 	tab2 := BrTabModel new
 		add: (BrLabelModel text: 'Tab 2');

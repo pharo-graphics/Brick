@@ -1,4 +1,8 @@
 api - items
-addItem: aBrToolbarItemModel
-	self items add: aBrToolbarItemModel.
-	self onItemAdded: aBrToolbarItemModel.
+addItem: aWidgetModel
+	self
+		assert: [ aWidgetModel isNotNil ]
+		description: [ 'Can not add nil widget model' ].
+
+	self items add: aWidgetModel.
+	self onItemAdded: aWidgetModel

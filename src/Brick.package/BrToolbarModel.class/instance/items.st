@@ -1,4 +1,4 @@
 accessing
 items
-	<return: #Collection of: #BrToolbarItemModel>
+	<return: #Collection of: #BrWidgetModel>
 	^ items

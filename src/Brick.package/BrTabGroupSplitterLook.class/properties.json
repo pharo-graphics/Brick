@@ -1,11 +1,13 @@
 {
 	"commentStamp" : "",
 	"super" : "BrLook",
-	"category" : "Brick-Toolbar - Look",
+	"category" : "Brick-Tabs - Look",
 	"classinstvars" : [ ],
 	"pools" : [ ],
 	"classvars" : [ ],
-	"instvars" : [ ],
-	"name" : "BrToolbarItemLook",
+	"instvars" : [
+		"splitter"
+	],
+	"name" : "BrTabGroupSplitterLook",
 	"type" : "normal"
 }

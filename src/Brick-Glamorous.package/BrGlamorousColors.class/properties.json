@@ -1,0 +1,18 @@
+{
+	"commentStamp" : "",
+	"super" : "SharedPool",
+	"category" : "Brick-Glamorous",
+	"classinstvars" : [ ],
+	"pools" : [ ],
+	"classvars" : [
+		"ButtonBorderColor",
+		"EditorBorderColor",
+		"FocusedEditorBorderColor",
+		"HoveredButtonBorderColor",
+		"LightBorderColor",
+		"PrimaryBorderColor"
+	],
+	"instvars" : [ ],
+	"name" : "BrGlamorousColors",
+	"type" : "normal"
+}

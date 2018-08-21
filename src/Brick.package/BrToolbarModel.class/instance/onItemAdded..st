@@ -1,3 +1,3 @@
 hooks
-onItemAdded: aBrToolbarItemModel
-	self notifyItemAdded: aBrToolbarItemModel.
+onItemAdded: aWidgetModel
+	self notifyItemAdded: aWidgetModel.

@@ -1,4 +1,5 @@
 accessing
 itemAt: anIndex
-	<return: #BrToolbarItem or: nil>
+	<return: #BrWidgetModel>
+
 	^ self viewModel itemAt: anIndex
