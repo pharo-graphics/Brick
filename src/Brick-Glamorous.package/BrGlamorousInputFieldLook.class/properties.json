@@ -1,0 +1,11 @@
+{
+	"commentStamp" : "",
+	"super" : "BrGlamorousEditorLook",
+	"category" : "Brick-Glamorous-Editor",
+	"classinstvars" : [ ],
+	"pools" : [ ],
+	"classvars" : [ ],
+	"instvars" : [ ],
+	"name" : "BrGlamorousInputFieldLook",
+	"type" : "normal"
+}
