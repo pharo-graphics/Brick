@@ -15,7 +15,7 @@ asDebuggableElement
 	container layout: BlLinearLayout vertical.
 	container addChild: textElement.
 	debugButton := BrButton new.
-	debugButton look: BrMaterialToggleLabelledLook.
+	debugButton look: BrGlamorousButtonExteriorRectangularLook + BrGlamorousButtonLabelLook.
 	debugButton label: 'Debug'.
 	debugButton action: [ [self defaultAction] fork ].
 	container addChild: debugButton.

@@ -1,0 +1,1 @@
+self importIconsFromDirectory: './gt-icons' asFileReference
