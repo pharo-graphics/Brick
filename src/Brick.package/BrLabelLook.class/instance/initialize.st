@@ -7,4 +7,5 @@ initialize
 	attributesBuilder := BlTextDelegatedAttributesBuilder new.
 	attributesBuilder attributesTarget: text.
 	
-	labelElement := BlTextElement new
+	labelElement := BlTextElement new.
+	labelElement clipChildren: false
