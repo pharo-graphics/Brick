@@ -1,4 +1,10 @@
 hooks
 onTabSelected: aTabModel
+	| aContentElement |
 	self widgetContent removeChildren.
-	self widgetContent addChild: aTabModel contentStencilBuilder asElement
+
+	aContentElement := contentElementsCache
+		at: aTabModel
+		ifAbsentPut: [ aTabModel contentStencilBuilder asElement ].
+
+	self widgetContent addChild: aContentElement

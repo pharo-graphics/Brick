@@ -6,7 +6,8 @@
 	"pools" : [ ],
 	"classvars" : [ ],
 	"instvars" : [
-		"content"
+		"content",
+		"contentElementsCache"
 	],
 	"name" : "BrTabGroupContentLook",
 	"type" : "normal"
