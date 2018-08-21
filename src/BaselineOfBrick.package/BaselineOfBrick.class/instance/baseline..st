@@ -13,28 +13,23 @@ baseline: spec
 			package: #'Brick-Editor-Extensions' with: [ spec requires: #('Brick' 'Brick-Editor'). ];
 			package: #'Brick-Material' with: [ spec requires: #('Brick'). ];
 			package: #'Brick-Hydra' with: [ spec requires: #('Brick'). ];
+			package: #'Brick-Glamorous' with: [ spec requires: #('Brick'). ];
 			package: #'Brick-Examples' with: [ spec requires: #('Brick' 'Brick-Material'). ];
-			
+
 			"not used packages / to be removed"
 			package: #'Brick-Style' with: [ spec requires: #('Brick'). ];
 			package: #'Brick-UI' with: [ spec requires: #(#Brick). ];
 			package: #'Brick-Sparta' with: [ spec requires: #(Brick). ];
 			package: #'Brick-Experimental' with: [ spec requires: #('Brick-UI' 'Brick-Material'). ];
-			
+
 			"default groups"
-			group: 'core' with: #(
+			group: 'default' with: #(
 				'Brick'
 				'Brick-Editor'
 				'Brick-Editor-Extensions'
 				'Brick-Material'
+				'Brick-Glamorous'
 				'Brick-Hydra'
 				'Brick-Examples');
-				
-			group: 'development' with: #(
-				'core'
-			);
 
-			group: 'stub' with: #();
-			group: 'default' with: #('core')
-			
-		].
+			group: 'stub' with: #() ]
