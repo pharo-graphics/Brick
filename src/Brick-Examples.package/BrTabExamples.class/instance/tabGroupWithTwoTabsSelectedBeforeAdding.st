@@ -6,7 +6,6 @@ tabGroupWithTwoTabsSelectedBeforeAdding
 	aTabGroup := self tabGroupWithOneTab.
 	
 	aTab := self tabModel.
-	aTab label: 'Tab 2'.
 	"a tab selected before adding it to a group must remain selected"
 	aTab select.
 

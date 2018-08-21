@@ -8,7 +8,6 @@ tabGroupWithOneTab
 	self assert: aTabGroup hasSelectedTab not.
 	
 	aTab := self tabModel.
-	aTab label: 'Tab 1'.
 	self assert: aTab isSelected not.
 
 	aTabGroup addTab: aTab.

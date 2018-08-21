@@ -6,7 +6,6 @@ tabGroupWithTwoTabsSelectedAfterAdding
 	aTabGroup := self tabGroupWithOneTab.
 	
 	aTab := self tabModel.
-	aTab label: 'Tab 2'.
 
 	aTabGroup addTab: aTab.
 	

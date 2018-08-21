@@ -5,9 +5,9 @@ groupHeaderWithoutBoundTabs
 	
 	tabsRequest := nil.
 	
-	tab1 := BrTabModel new label: 'Tab 1'.
-	tab2 := BrTabModel new label: 'Tab 2'; disable.
-	tab3 := BrTabModel new label: 'Tab 3'.
+	tab1 := BrTabModel new add: (BrLabelModel text: 'Tab 1').
+	tab2 := BrTabModel new add: (BrLabelModel text: 'Tab 2'); add: BrActivationModel disabled.
+	tab3 := BrTabModel new add: (BrLabelModel text: 'Tab 3').
 	
 	tabGroup := BrTabGroupModel with: { tab1 . tab2 . tab3 }.
 	tabGroup when: BrTabsRequest do: [ :aTabsRequest | tabsRequest := aTabsRequest copy ].
