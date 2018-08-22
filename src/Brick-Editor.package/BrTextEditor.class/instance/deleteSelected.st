@@ -1,7 +1,10 @@
 api - modification
 deleteSelected
 	"Delete selected piece of text updating selection and cursor position"
-	| aCursorDelta |
+	| aCursorDelta theSelections |
+
+	self selection isEmpty
+		ifTrue: [ ^ self ].
 
 	aCursorDelta := 0.
 	self selection do: [ :aMonotoneSelection |
@@ -10,11 +13,18 @@ deleteSelected
 			ifFalse: [ aMonotoneSelection from < self cursor position
 				ifTrue: [ aCursorDelta := aCursorDelta + (self cursor position - aMonotoneSelection from) ] ] ].
 
-	self moveCursorTo: self cursor position - aCursorDelta.
+	"do not move cursor if delta is zero"
+	aCursorDelta isZero
+		ifFalse: [ self moveCursorTo: self cursor position - aCursorDelta ].
 
-	self selection reverseDo: [ :aMonotoneSelection |
+	theSelections := Array streamContents: [ :aStream |
+		self selection reverseDo: [ :aMonotoneSelection |
+			aStream nextPut: aMonotoneSelection interval ] ].
+
+	"we shall deselect it first, then delete"
+	self selectNone.
+
+	theSelections do: [ :anInterval |
 		self
-			delete: aMonotoneSelection from
-			to: aMonotoneSelection to ].
-
-	self selectNone
+			delete: anInterval  first
+			to: anInterval  last ]
