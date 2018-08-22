@@ -8,7 +8,7 @@ initializeLook
 		constraintsDo: [ :c |
 				c horizontal matchParent.
 				c vertical matchParent.
-				c frame horizontal weight: self percentage.
+				c frame horizontal weight: self fraction.
 				c frame horizontal alignLeft.
 				c frame vertical alignCenter ]
 	

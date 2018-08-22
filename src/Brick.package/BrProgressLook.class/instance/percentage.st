@@ -1,3 +1,3 @@
 accessing-computed
 percentage
-	^ self amount / self total
+	^ self amount / self total * 100
