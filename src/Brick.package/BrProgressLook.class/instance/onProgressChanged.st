@@ -2,4 +2,4 @@ hooks
 onProgressChanged
 	self widgetDo: [ :aWidget | 
 		self widgetProgress constraintsDo: [ :c | 
-			c frame horizontal weight: self percentage ] ]
+			c frame horizontal weight: self fraction ] ]
