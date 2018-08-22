@@ -1,0 +1,14 @@
+{
+	"commentStamp" : "",
+	"super" : "BrWidgetModel",
+	"category" : "Brick-Progress - Model",
+	"classinstvars" : [ ],
+	"pools" : [ ],
+	"classvars" : [ ],
+	"instvars" : [
+		"amount",
+		"total"
+	],
+	"name" : "BrProgressModel",
+	"type" : "normal"
+}

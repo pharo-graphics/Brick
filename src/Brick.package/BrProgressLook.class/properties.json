@@ -1,0 +1,14 @@
+{
+	"commentStamp" : "",
+	"super" : "BrLook",
+	"category" : "Brick-Progress - Look",
+	"classinstvars" : [ ],
+	"pools" : [ ],
+	"classvars" : [ ],
+	"instvars" : [
+		"amount",
+		"total"
+	],
+	"name" : "BrProgressLook",
+	"type" : "normal"
+}

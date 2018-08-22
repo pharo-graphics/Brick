@@ -1,0 +1,11 @@
+{
+	"commentStamp" : "",
+	"super" : "BrRequest",
+	"category" : "Brick-Progress - Events",
+	"classinstvars" : [ ],
+	"pools" : [ ],
+	"classvars" : [ ],
+	"instvars" : [ ],
+	"name" : "BrProgressStatusRequest",
+	"type" : "normal"
+}
