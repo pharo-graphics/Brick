@@ -1,0 +1,11 @@
+{
+	"commentStamp" : "",
+	"super" : "BrTextEditorOperator",
+	"category" : "Brick-Editor-Model",
+	"classinstvars" : [ ],
+	"pools" : [ ],
+	"classvars" : [ ],
+	"instvars" : [ ],
+	"name" : "BrTextEditorInserter",
+	"type" : "normal"
+}

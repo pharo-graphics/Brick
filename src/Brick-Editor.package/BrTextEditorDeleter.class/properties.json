@@ -1,0 +1,15 @@
+{
+	"commentStamp" : "",
+	"super" : "BrTextEditorOperator",
+	"category" : "Brick-Editor-Model",
+	"classinstvars" : [ ],
+	"pools" : [ ],
+	"classvars" : [ ],
+	"instvars" : [
+		"deletionIntervals",
+		"shouldUpdateCursor",
+		"shouldUpdateSelection"
+	],
+	"name" : "BrTextEditorDeleter",
+	"type" : "normal"
+}

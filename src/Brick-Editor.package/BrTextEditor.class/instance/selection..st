@@ -1,8 +1,8 @@
 private - selection
 selection: aTextSelection
 	selection := aTextSelection.
-	self selection isEmpty
+	
+	"self selection isEmpty
 		ifTrue: [ ^ self ].
-		
 	self moveCursorTo: self selection to.
-	self showCursor
+	self showCursor"
