@@ -1,3 +1,3 @@
 accessing
-editor: anObject
-	editor := anObject
+editor: aBrTextEditor
+	editor := aBrTextEditor

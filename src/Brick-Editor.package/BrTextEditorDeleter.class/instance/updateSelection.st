@@ -4,7 +4,7 @@ updateSelection
 	
 	deletionIntervals do: [ :aMonotoneSelection | self editor deselect: aMonotoneSelection from to: aMonotoneSelection to ].
 	
-	aSelectionCopy := BlCompositeSelection new select: self editor selection.
+	aSelectionCopy := BlCompositeSelection new select: self selection.
 	aSelectionCopy deselect: deletionIntervals.
 	
 	newSelection := BlCompositeSelection new.
