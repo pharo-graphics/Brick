@@ -1,8 +1,10 @@
-text - modifications
+private - text
 insertString: aString at: aTextIndex
-	| aCommand |
-	
-	aCommand := self newInsertStringCommand
+
+	self inserter
+		at: aTextIndex;
 		string: aString;
-		index: aTextIndex.
-	self enqueueCommand: aCommand
+		withoutCursorUpdate;
+		withoutSelectionUpdate;
+		withoutSelectionDelete;
+		insert

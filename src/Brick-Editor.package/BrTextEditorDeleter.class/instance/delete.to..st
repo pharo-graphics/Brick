@@ -14,7 +14,7 @@ delete: aFromTextIndex to: aToTextIndex
 		assert: [ aToTextIndex >= aFromTextIndex ]
 		description: [ 'To index must be greater or equal from index' ].
 
-	aCommand := self editor newDeleteCommand
+	aCommand := BrTextEditorDeleteCommand new
 		fromIndex: aFromTextIndex;
 		toIndex: aToTextIndex.
 	self editor enqueueCommand: aCommand

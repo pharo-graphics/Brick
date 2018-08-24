@@ -5,7 +5,13 @@
 	"classinstvars" : [ ],
 	"pools" : [ ],
 	"classvars" : [ ],
-	"instvars" : [ ],
+	"instvars" : [
+		"insertionIndices",
+		"text",
+		"shouldUpdateCursor",
+		"shouldUpdateSelection",
+		"shouldDeleteSelected"
+	],
 	"name" : "BrTextEditorInserter",
 	"type" : "normal"
 }
