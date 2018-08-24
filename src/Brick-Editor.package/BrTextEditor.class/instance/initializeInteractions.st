@@ -2,13 +2,9 @@ interactions
 initializeInteractions
 
 	self interactions add: (BlShortcut new
-		combination: (BlKeyCombination builder meta; key: Key s; build);
-		action: [ self inform: 'Save!' ]).
-
-	self interactions add: (BlShortcut new
 		combination: (BlKeyCombination builder meta; key: Key a; build);
-		action: [ self selectAll ]).
-	
+		action: [ self selecter all select ]).
+
 	self interactions add: (BlShortcut new
 		combination: (BlKeyCombination builder meta; key: Key x; build);
 		action: [ self cutSelected ]).
