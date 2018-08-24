@@ -1,3 +1,0 @@
-accessing
-checkedMark
-	^ BrMdIcons checkSvg

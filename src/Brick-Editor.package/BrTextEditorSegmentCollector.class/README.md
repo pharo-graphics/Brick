@@ -1,1 +1,0 @@
-I collect and cache text segment for fast access by index. Amount of segment that I store at a time is limited by #cacheLimit.

@@ -1,3 +1,0 @@
-*Brick-Style
-asBrStyleValue
-	^ nil

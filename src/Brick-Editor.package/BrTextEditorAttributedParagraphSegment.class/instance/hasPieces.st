@@ -1,3 +1,0 @@
-testing
-hasPieces
-	^ false

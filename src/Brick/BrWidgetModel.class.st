@@ -1,0 +1,104 @@
+"
+I define how meaningful UI components of a widget should change in a respond to UI events.
+
+Since I am a view model I also manage widget states (e.g. pressed, focused, hovered)
+"
+Class {
+	#name : #BrWidgetModel,
+	#superclass : #BrActor,
+	#instVars : [
+		'model'
+	],
+	#category : 'Brick-! Core'
+}
+
+{ #category : #'api - composition' }
+BrWidgetModel class >> + anotherModel [
+	^ self asModel + anotherModel
+]
+
+{ #category : #'api - composition' }
+BrWidgetModel class >> asModel [
+	^ self new
+]
+
+{ #category : #'api - composition' }
+BrWidgetModel >> + anotherModel [
+	self add: anotherModel asModel
+]
+
+{ #category : #'api - composition' }
+BrWidgetModel >> add: aBrWidgetModel [
+	self widgetModels add: aBrWidgetModel.
+	self widgetDo: [ :anElement | aBrWidgetModel onInstalledIn: anElement ]
+]
+
+{ #category : #'api - composition' }
+BrWidgetModel >> addAll: aCollectionOfWidgetModels [
+	aCollectionOfWidgetModels do: [ :aWidgetModel | self add: aWidgetModel ]
+]
+
+{ #category : #'api - composition' }
+BrWidgetModel >> asModel [
+	^ self
+]
+
+{ #category : #accessing }
+BrWidgetModel >> model [
+	^ model
+]
+
+{ #category : #accessing }
+BrWidgetModel >> model: anObject [
+	model := anObject
+]
+
+{ #category : #hooks }
+BrWidgetModel >> onAttachedTo: anElement [
+]
+
+{ #category : #hooks }
+BrWidgetModel >> onInstalledIn: anElement [
+	super onInstalledIn: anElement.
+	
+	self
+		assert: [ widget isNil ]
+		description: [ 'Can not install the same look instance on multiple widgets' ].
+
+	widget := anElement.
+	self onAttachedTo: anElement.
+	self dispatchEvent: (BrViewModelAttached viewModel: self).
+	
+	self widgetModels do: [ :aWidgetModel | aWidgetModel onInstalledIn: anElement ]
+]
+
+{ #category : #'event management' }
+BrWidgetModel >> when: aRequestClass reply: aBlock [
+	self when: aRequestClass do: [ :aRequest |
+		| anEvent |
+		anEvent := aBlock cull: self.
+		anEvent source: self.
+		aRequest source dispatchEvent: anEvent ]
+]
+
+{ #category : #'event management' }
+BrWidgetModel >> whenAttachedDo: aBlockClosure [
+	self isAttachedToWidget
+		ifTrue: [ aBlockClosure cull: self widget ]
+		ifFalse: [
+			| anAttachedListener |
+			anAttachedListener := nil.
+			anAttachedListener := BlEventHandler
+				on: BrViewModelAttached
+				do: [
+					self removeEventHandler: anAttachedListener.
+					aBlockClosure cull: self widget ].
+			self addEventHandler: anAttachedListener ]
+]
+
+{ #category : #accessing }
+BrWidgetModel >> widgetModels [
+	<return: #Collection of: #BrWidgetModel>
+
+	^ self children
+]

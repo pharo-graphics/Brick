@@ -1,3 +1,0 @@
-private
-hasTargetName
-	^ targetName isNotNil

@@ -1,3 +1,0 @@
-accessing
-isSelected
-	^ self selected

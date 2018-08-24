@@ -1,1 +1,0 @@
-I am an attribute with the ability to handle events received by a visual text element 

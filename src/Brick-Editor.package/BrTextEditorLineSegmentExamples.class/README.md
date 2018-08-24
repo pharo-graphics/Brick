@@ -1,1 +1,0 @@
-I contain examples-tests of the editor backed up by line based segments

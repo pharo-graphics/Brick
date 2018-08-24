@@ -1,3 +1,0 @@
-initialization
-defaultSplitter
-	^ BrTextEditorLineSplitter new

@@ -1,3 +1,0 @@
-hooks
-onLayoutChanged
-	self updateAlignment

@@ -1,2 +1,0 @@
-api - instantiation
-paramsOn: aStencilExecutor

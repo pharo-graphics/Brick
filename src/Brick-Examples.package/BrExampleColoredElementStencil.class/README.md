@@ -1,1 +1,0 @@
-I am an example of a custom Stencil that creates a rounded rectangular element with cusomizable background color and corner radius

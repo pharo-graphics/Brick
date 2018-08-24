@@ -1,1 +1,0 @@
-I do the hard job visually updating selection by requesting segment holders partial update

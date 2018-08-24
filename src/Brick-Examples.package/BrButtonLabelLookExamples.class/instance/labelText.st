@@ -1,4 +1,0 @@
-accessing
-labelText
-	
-	^ 'Hello'

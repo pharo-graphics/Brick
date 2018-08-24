@@ -1,3 +1,0 @@
-*Brick-Style
-rem
-	^ self

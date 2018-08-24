@@ -1,3 +1,0 @@
-initialization
-defaultBarPolicy
-	^ BrScrollbarAsNeededPolicy new

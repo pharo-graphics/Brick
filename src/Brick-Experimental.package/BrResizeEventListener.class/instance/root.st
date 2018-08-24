@@ -1,3 +1,0 @@
-installation
-root
-	^ target root

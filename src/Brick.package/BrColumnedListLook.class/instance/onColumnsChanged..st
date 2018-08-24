@@ -1,3 +1,0 @@
-hooks
-onColumnsChanged: aCollectionOfBrListColumns
-	listElement dataSource columns: aCollectionOfBrListColumns

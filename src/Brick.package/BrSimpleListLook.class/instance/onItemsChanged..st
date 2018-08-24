@@ -1,3 +1,0 @@
-hooks
-onItemsChanged: aCollectionOfObjects
-	listElement dataSource rowValues: aCollectionOfObjects

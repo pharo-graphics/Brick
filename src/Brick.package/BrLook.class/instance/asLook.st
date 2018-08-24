@@ -1,3 +1,0 @@
-api - composition
-asLook
-	^ self

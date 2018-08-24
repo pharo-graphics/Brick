@@ -1,3 +1,0 @@
-api - accessing
-toolbar
-	^ toolbar

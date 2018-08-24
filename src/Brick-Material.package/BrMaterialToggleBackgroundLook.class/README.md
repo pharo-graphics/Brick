@@ -1,1 +1,0 @@
-I describe how background of a material toggle button changes due to toggle events

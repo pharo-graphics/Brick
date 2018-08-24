@@ -1,3 +1,0 @@
-initialization
-defaultSegmentBuilder
-	^ BrTextEditorAttributedLineSegmentBuilder new

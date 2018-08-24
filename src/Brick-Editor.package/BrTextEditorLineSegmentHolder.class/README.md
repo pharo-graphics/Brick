@@ -1,1 +1,0 @@
-I am a line segment holder and is responsible for binding ===BrTextEditorLineSegment=== with corresponding visual element

@@ -1,3 +1,0 @@
-initialization
-defaultStyler
-	^ BrTextNullStyler new

@@ -1,1 +1,0 @@
-I am a line-based text segment with support of adornment attributes

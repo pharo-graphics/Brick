@@ -1,1 +1,0 @@
-I am sent to the segment piece element when a cursor at a given text index in local text piece coordinates should be hidden

@@ -1,1 +1,0 @@
-I am sent by a look to request icon update from the view model

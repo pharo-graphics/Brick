@@ -1,1 +1,0 @@
-Is sent by the text editor after a piece of text was deleted from ==fromIndex== to ==toIndex== represented by a text index

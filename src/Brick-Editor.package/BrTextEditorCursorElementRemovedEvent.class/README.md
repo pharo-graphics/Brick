@@ -1,1 +1,0 @@
-I am sent by the text editor element when an element playing a role of the cursor is removed from the editor

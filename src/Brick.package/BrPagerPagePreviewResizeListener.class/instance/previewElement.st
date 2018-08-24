@@ -1,3 +1,0 @@
-accessing
-previewElement
-	^ previewElement

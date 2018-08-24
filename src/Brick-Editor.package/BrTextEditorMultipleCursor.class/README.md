@@ -1,1 +1,0 @@
-I am a composite cursor that is composed out of multiple single cursors

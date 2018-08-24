@@ -1,1 +1,0 @@
-I update the size of a page preview element in a scroll bar according to the size of a corresponding page

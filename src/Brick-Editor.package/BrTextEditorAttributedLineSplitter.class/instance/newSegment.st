@@ -1,3 +1,0 @@
-instance creation
-newSegment
-	^ BrTextEditorAttributedLineSegment new

@@ -1,3 +1,0 @@
-configuration
-tinyHeight
-	^ 56

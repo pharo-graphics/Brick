@@ -1,3 +1,0 @@
-api - composition
-asModel
-	^ self

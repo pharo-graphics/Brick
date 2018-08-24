@@ -1,1 +1,0 @@
-I am signaled when selection recorder records a new motone deselection

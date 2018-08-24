@@ -1,3 +1,0 @@
-accessing
-stencil
-	^ stencil

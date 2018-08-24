@@ -1,3 +1,0 @@
-testing
-shouldAppend
-	^ shouldAppend

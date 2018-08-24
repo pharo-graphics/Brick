@@ -1,1 +1,0 @@
-I define basic layout related properties of material buttons such as padding or resizing strategies

@@ -1,3 +1,0 @@
-as yet unclassified
-exampleDialWithInnerSpace
-	BrDialog new openAsInnerSpacePopup

@@ -1,3 +1,0 @@
-orientation
-beHorizontal
-	self orientation: BrScrollbarHorizontal new

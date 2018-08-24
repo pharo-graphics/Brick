@@ -1,3 +1,0 @@
-accessing
-looks
-	^ looks value
