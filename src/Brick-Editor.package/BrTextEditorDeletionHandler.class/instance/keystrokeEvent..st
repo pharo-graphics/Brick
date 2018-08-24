@@ -10,7 +10,7 @@ keystrokeEvent: anEvent
 	anEvent consumed: true.
 
 	aCharacter = Character backspace
-		ifTrue: [ anEvent currentTarget editor deletePreviousAtCursor ].
+		ifTrue: [ self deletePreviousAtCursorIn: anEvent currentTarget editor ].
 		
 	aCharacter = Character delete
-		ifTrue: [ anEvent currentTarget editor deleteNextAtCursor ]
+		ifTrue: [ self deleteNextAtCursorIn: anEvent currentTarget editor ]

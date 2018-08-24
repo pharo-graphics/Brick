@@ -17,9 +17,11 @@ initializeInteractions
 		combination: (BlKeyCombination builder meta; key: Key c; build);
 		action: [ self copySelected ]).
 		
+	"Paste a text from the clipboard at the current cursor position.
+	I delete any currently selected text and update cursor position"
 	self interactions add: (BlShortcut new
 		combination: (BlKeyCombination builder meta; key: Key v; build);
-		action: [ self paste ]).
+		action: [ self paster fromClipboard atCursor paste ]).
 
 	self interactions add: (BlShortcut new
 		combination: (BlKeyCombination builder escape; build);

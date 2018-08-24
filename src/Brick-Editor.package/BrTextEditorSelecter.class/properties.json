@@ -1,0 +1,14 @@
+{
+	"commentStamp" : "",
+	"super" : "BrTextEditorOperator",
+	"category" : "Brick-Editor-Model",
+	"classinstvars" : [ ],
+	"pools" : [ ],
+	"classvars" : [ ],
+	"instvars" : [
+		"selection",
+		"shouldUpdateCursor"
+	],
+	"name" : "BrTextEditorSelecter",
+	"type" : "normal"
+}

@@ -9,5 +9,6 @@ keystrokeEvent: anEvent
 
 	anEvent consumed: true.
 
-	anEvent currentTarget editor
-		insertAtCursor: anEvent char asString
+	self
+		insert: anEvent char asString
+		atCursorIn: anEvent currentTarget editor

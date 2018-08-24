@@ -1,8 +1,8 @@
-api - modification
-deletePreviousAtCursor
+api - deletion
+deletePreviousAtCursorIn: anEditor
 	"Delete currently selected text and delete a character to the left from the current cursor position"
 
-	self deleter
+	anEditor deleter
 		selected;
 		oneBeforeCursor;
 		delete
