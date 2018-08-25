@@ -3,8 +3,7 @@ SmalltalkCISpec {
 		SCIMetacelloLoadSpec {
 			#baseline : 'Brick',
 			#directory : 'src',
-			#platforms : [ #pharo ],
-			#load : [ 'default' ]
+			#platforms : [ #pharo ]
 		}
 	],
 	#testing : {
