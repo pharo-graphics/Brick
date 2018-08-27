@@ -24,3 +24,18 @@ BrTabGroupSplitterLook >> initializeLook [
 	
 	self widget addChild: splitter as: #splitter
 ]
+
+{ #category : #accessing }
+BrTabGroupSplitterLook >> splitter [
+	^ splitter
+]
+
+{ #category : #accessing }
+BrTabGroupSplitterLook >> splitter: anObject [
+	splitter := anObject
+]
+
+{ #category : #accessing }
+BrTabGroupSplitterLook >> splitterDo: aBlock [
+	aBlock value: self splitter
+]

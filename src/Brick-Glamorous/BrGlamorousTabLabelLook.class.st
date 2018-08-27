@@ -1,7 +1,7 @@
 Class {
 	#name : #BrGlamorousTabLabelLook,
 	#superclass : #BrLabelLook,
-	#category : #'Brick-Glamorous-Tabs'
+	#category : #'Brick-Glamorous-Tabs - Support'
 }
 
 { #category : #initialization }

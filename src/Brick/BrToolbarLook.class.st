@@ -68,23 +68,6 @@ Class {
 	#category : 'Brick-Toolbar - Look'
 }
 
-{ #category : #factory }
-BrToolbarLook class >> horizontal [
-	^ self basicNew initialize
-		add: (BrLayoutLook gridRow fitContent constraintsDo: [ :c | c padding: (BlInsets all: 5) ])
-]
-
-{ #category : #'instance creation' }
-BrToolbarLook class >> new [
-	self error: 'Use vertical or horizontal instead'
-]
-
-{ #category : #factory }
-BrToolbarLook class >> vertical [
-	^ self basicNew initialize
-		add: (BrLayoutLook gridColumn fitContent constraintsDo: [ :c | c padding: (BlInsets all: 5) ])
-]
-
 { #category : #initialization }
 BrToolbarLook >> initialize [
 	super initialize.

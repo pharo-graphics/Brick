@@ -11,7 +11,7 @@ BrToolbarExamples >> addItemsOnButtonClick [
 	| aToolbar |
 	
 	aToolbar := BrToolbar new.
-	aToolbar look: BrMaterialToolbarLook + BrToolbarLook horizontal.
+	aToolbar look: BrMaterialToolbarLook + BrToolbarLook.
 
 	aToolbar addItem: (BrButton new 
 			look: BrMaterialToggleLabelledLook;
@@ -34,7 +34,7 @@ BrToolbarExamples >> addItemsOnButtonClickVertically [
 	| aToolbar |
 	
 	aToolbar := BrToolbar new.
-	aToolbar look: BrMaterialToolbarLook + BrToolbarLook vertical.
+	aToolbar look: BrMaterialToolbarLook + BrToolbarLook.
 
 	aToolbar addItem: (BrButton new
 			look: BrMaterialToggleLabelledLook;
@@ -94,7 +94,7 @@ BrToolbarExamples >> toolbar [
 	<gtExample>
 	| aToolbar |
 	aToolbar := BrToolbar new.
-	aToolbar look: BrMaterialToolbarLook + BrToolbarLook horizontal.
+	aToolbar look: BrMaterialToolbarLook + BrToolbarLook.
 	aToolbar addItem: self toolbarItemHello.
 	aToolbar addItem: self toolbarItemGToolkit.
 	self assert: aToolbar numberOfItems equals: 2.
@@ -138,7 +138,7 @@ BrToolbarExamples >> verticalToolbar [
 	<gtExample>
 	| aToolbar |
 	aToolbar := BrToolbar new.
-	aToolbar look: BrMaterialToolbarLook + BrToolbarLook vertical.
+	aToolbar look: BrMaterialToolbarLook + BrToolbarLook.
 	aToolbar addItem: self toolbarItemHello.
 	aToolbar addItem: self toolbarItemGToolkit.
 	self assert: aToolbar numberOfItems equals: 2.

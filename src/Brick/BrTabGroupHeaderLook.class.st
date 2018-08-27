@@ -12,6 +12,9 @@ Class {
 
 { #category : #'api - accessing' }
 BrTabGroupHeaderLook >> header [
+	"Return an element that represents a container for tab bar and tool bar"
+	<return: #BlElement>
+
 	^ header
 ]
 
@@ -114,9 +117,14 @@ BrTabGroupHeaderLook >> tabModels [
 	^ tabs keys
 ]
 
-{ #category : #'private - accessing' }
+{ #category : #'api - accessing' }
 BrTabGroupHeaderLook >> tabbar [
 	^ tabbar
+]
+
+{ #category : #'api - accessing' }
+BrTabGroupHeaderLook >> tabbarDo: aBlock [
+	aBlock value: self tabbar
 ]
 
 { #category : #'private - accessing' }
@@ -127,4 +135,9 @@ BrTabGroupHeaderLook >> tabs [
 { #category : #'api - accessing' }
 BrTabGroupHeaderLook >> toolbar [
 	^ toolbar
+]
+
+{ #category : #'api - accessing' }
+BrTabGroupHeaderLook >> toolbarDo: aBlock [
+	aBlock value: self toolbar
 ]

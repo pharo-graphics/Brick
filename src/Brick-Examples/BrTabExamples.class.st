@@ -129,7 +129,7 @@ BrTabExamples >> materialActionGroup [
 		actionsStencil: [ 
 			| aToolbar |
 			aToolbar := BrToolbar new.
-			aToolbar look: BrToolbarLook horizontal.
+			aToolbar look: BrToolbarLook new.
 			aToolbar addItem: (BrButton new 
 				look: BrMaterialToggleLabelledLook;
 				label: 'Hello'; 

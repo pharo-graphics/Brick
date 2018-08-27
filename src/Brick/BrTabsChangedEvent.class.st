@@ -12,6 +12,13 @@ BrTabsChangedEvent class >> tabs: aCollectionOfBrTabModels [
 	^ self new tabs: aCollectionOfBrTabModels
 ]
 
+{ #category : #initialization }
+BrTabsChangedEvent >> initialize [
+	super initialize.
+	
+	tabs := #()
+]
+
 { #category : #accessing }
 BrTabsChangedEvent >> tabs [
 	^ tabs
