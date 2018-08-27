@@ -170,13 +170,6 @@ BrLayoutLook >> initialize [
 ]
 
 { #category : #initialization }
-BrLayoutLook >> initializeListeners [
-	super initializeListeners.
-	
-	self targetElement when: BlElementAddedToParentEvent do: [ self onAddedToParent ]
-]
-
-{ #category : #initialization }
 BrLayoutLook >> initializeLook [
 	super initializeLook.
 
@@ -234,6 +227,11 @@ BrLayoutLook >> onAddedToParent [
 	self targetElement parent
 		when: BlElementLayoutChangedEvent
 		do: [ self onLayoutChanged ]
+]
+
+{ #category : #initialization }
+BrLayoutLook >> onAttachedTo: anElement [
+	self targetElement when: BlElementAddedToParentEvent do: [ self onAddedToParent ]
 ]
 
 { #category : #hooks }

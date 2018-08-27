@@ -26,3 +26,20 @@ BrActivationChanged >> enabled [
 BrActivationChanged >> enabled: aBoolean [
 	enabled := aBoolean
 ]
+
+{ #category : #initialization }
+BrActivationChanged >> initialize [
+	super initialize.
+	
+	enabled := true
+]
+
+{ #category : #testing }
+BrActivationChanged >> isActivated [
+	^ self enabled
+]
+
+{ #category : #accessing }
+BrActivationChanged >> replied: aBoolean [
+	self enabled: aBoolean
+]

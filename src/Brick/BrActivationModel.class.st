@@ -56,6 +56,13 @@ BrActivationModel >> initialize [
 	enabled := true
 ]
 
+{ #category : #hooks }
+BrActivationModel >> initializeListeners [
+	super initializeListeners.
+
+	self on: BrActivationRequest reply: [ self isEnabled ]
+]
+
 { #category : #'api - testing' }
 BrActivationModel >> isDisabled [
 	<return: #Boolean>
@@ -73,13 +80,4 @@ BrActivationModel >> isEnabled [
 { #category : #notifying }
 BrActivationModel >> notifyActivationChanged [
 	self dispatchEvent: (BrActivationChanged enabled: self isEnabled)
-]
-
-{ #category : #hooks }
-BrActivationModel >> onAttachedTo: anElement [
-	super onAttachedTo: anElement.
-
-	anElement
-		when: BrActivationRequest
-		do: [ :anEvent | anEvent source dispatchEvent: (BrActivationChanged enabled: self isEnabled) ]
 ]

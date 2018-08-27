@@ -53,6 +53,13 @@ BrWidgetModel >> model: anObject [
 	model := anObject
 ]
 
+{ #category : #'event management' }
+BrWidgetModel >> on: aRequestClass reply: aBlock [
+	self when: aRequestClass do: [ :aRequest |
+		aRequest reply: (aBlock cull: self).
+		aRequest source dispatchEvent: aRequest response ]
+]
+
 { #category : #hooks }
 BrWidgetModel >> onAttachedTo: anElement [
 ]
@@ -76,9 +83,11 @@ BrWidgetModel >> onInstalledIn: anElement [
 BrWidgetModel >> when: aRequestClass reply: aBlock [
 	self when: aRequestClass do: [ :aRequest |
 		| anEvent |
-		anEvent := aBlock cull: self.
+		
+		anEvent := aBlock cull: self.		
 		anEvent source: self.
-		aRequest source dispatchEvent: anEvent ]
+		aRequest source dispatchEvent: anEvent.
+		aRequest response: anEvent ]
 ]
 
 { #category : #'event management' }

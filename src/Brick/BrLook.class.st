@@ -94,6 +94,10 @@ BrLook >> looks [
 	^ self children
 ]
 
+{ #category : #hooks }
+BrLook >> onAttachedTo: anElement [
+]
+
 { #category : #'api - hooks' }
 BrLook >> onInstalledIn: anElement [
 	super onInstalledIn: anElement.
@@ -103,8 +107,8 @@ BrLook >> onInstalledIn: anElement [
 		description: [ 'Can not install the same look instance on multiple widgets' ].
 
 	widget := anElement.
+	self onAttachedTo: anElement.
 
-	self initializeListeners.
 	self initializeLook.
 	"we must send events after look initialization where we set defaults"
 	self initializeRequests.
@@ -131,11 +135,6 @@ BrLook >> remove: aBrLook [
 
 	aLookInstance := aBrLook asLook.
 	self looks remove: aLookInstance ifAbsent: [  ]
-]
-
-{ #category : #'event management' }
-BrLook >> request: anEvent [
-	self dispatchEvent: anEvent
 ]
 
 { #category : #accessing }

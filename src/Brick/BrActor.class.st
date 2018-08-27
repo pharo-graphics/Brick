@@ -30,6 +30,7 @@ BrActor >> dispatchEvent: anEvent [
 	"then let the rest of the element components receive it"
 	self isAttachedToWidget
 		ifTrue: [ self dispatchEventToWidget: anEvent ]
+		ifFalse: [ self handleEvent: anEvent ]
 ]
 
 { #category : #'event management' }
@@ -145,7 +146,13 @@ BrActor >> initialize [
 	super initialize.
 
 	eventDispatcher := BlDirectEventDispatcher on: self.
-	actors := OrderedCollection new
+	actors := OrderedCollection new.
+	
+	self initializeListeners
+]
+
+{ #category : #initialization }
+BrActor >> initializeListeners [
 ]
 
 { #category : #'api - testing' }
@@ -161,6 +168,18 @@ BrActor >> owner [
 	<return: #BlElement>
 
 	^ self widget
+]
+
+{ #category : #'event management' }
+BrActor >> request: aBrRequest [
+	self dispatchEvent: aBrRequest
+]
+
+{ #category : #'event management' }
+BrActor >> requestWithResponse: aBrRequest [
+
+	self dispatchEvent: aBrRequest.
+	^ aBrRequest response
 ]
 
 { #category : #accessing }

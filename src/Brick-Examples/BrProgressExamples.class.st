@@ -1,7 +1,7 @@
 Class {
 	#name : #BrProgressExamples,
 	#superclass : #Object,
-	#category : 'Brick-Examples'
+	#category : #'Brick-Examples-Progress'
 }
 
 { #category : #element }

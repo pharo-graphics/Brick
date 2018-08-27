@@ -1,7 +1,7 @@
 Class {
 	#name : #BrTabExamples,
 	#superclass : #Object,
-	#category : 'Brick-Examples'
+	#category : #'Brick-Examples-Tab'
 }
 
 { #category : #'examples - tab model' }

@@ -1,7 +1,7 @@
 Class {
 	#name : #BrToggleGroupExamples,
 	#superclass : #Object,
-	#category : 'Brick-Examples'
+	#category : #'Brick-Examples-Toggle'
 }
 
 { #category : #'examples - model' }

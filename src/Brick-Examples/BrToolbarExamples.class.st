@@ -1,7 +1,7 @@
 Class {
 	#name : #BrToolbarExamples,
 	#superclass : #Object,
-	#category : 'Brick-Examples'
+	#category : #'Brick-Examples-Toolbar'
 }
 
 { #category : #accessing }

@@ -20,7 +20,7 @@ ${example:BrToggleExamples>>#toggleWithMaterialChangingIcon|expandedPreview=true
 Class {
 	#name : #BrToggleExamples,
 	#superclass : #Object,
-	#category : 'Brick-Examples'
+	#category : #'Brick-Examples-Toggle'
 }
 
 { #category : #'examples - toggle' }
