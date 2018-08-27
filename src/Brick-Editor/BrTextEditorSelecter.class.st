@@ -29,15 +29,8 @@ BrTextEditorSelecter >> initialize [
 	shouldUpdateCursor := true
 ]
 
-{ #category : #'api - processing' }
-BrTextEditorSelecter >> select [
-	selection do: [ :aMonotoneSelection | self select: aMonotoneSelection from to: aMonotoneSelection to ].
-	(shouldUpdateCursor and: [ selection isNotEmpty ])
-		ifTrue: [ self updateCursor ]
-]
-
 { #category : #private }
-BrTextEditorSelecter >> select: aFromTextIndex to: aToTextIndex [
+BrTextEditorSelecter >> privateSelect: aFromTextIndex to: aToTextIndex [
 	"Select text within an interval defined by provided from and to indices without any other side effects.
 	Note:
 		- I don't change cursor position.
@@ -48,6 +41,13 @@ BrTextEditorSelecter >> select: aFromTextIndex to: aToTextIndex [
 		fromIndex: aFromTextIndex;
 		toIndex: aToTextIndex.
 	self editor enqueueCommand: aCommand
+]
+
+{ #category : #'api - processing' }
+BrTextEditorSelecter >> select [
+	selection do: [ :aMonotoneSelection | self privateSelect: aMonotoneSelection from to: aMonotoneSelection to ].
+	(shouldUpdateCursor and: [ selection isNotEmpty ])
+		ifTrue: [ self updateCursor ]
 ]
 
 { #category : #private }
