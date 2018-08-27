@@ -37,7 +37,6 @@ BrTextEditorCursorExamples >> customEditor [
 								anEditorElement requestFocus.
 								anEditorElement editor
 									moveCursorTo: aText start - 1 + anIndex - (anEvent localPosition x < (anEvent currentTarget width / 2.0)) asBit ] ]);
-					addEventHandler: (anEditorElement editor textEditListener);
 					when: BrTextEditorShowCursorRequest do: [ :aRequest |
 						| aCursor aColor |
 						

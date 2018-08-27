@@ -77,29 +77,14 @@ BrTextEditorDeleter >> delete [
 	shouldUpdateSelection
 		ifTrue: [ self updateSelection ].
 
-	deletionIntervals reverseDo: [ :aMonotoneSelection | self delete: aMonotoneSelection from to: aMonotoneSelection to ]
+	deletionIntervals reverseDo: [ :aMonotoneSelection | self privateDelete: aMonotoneSelection from to: aMonotoneSelection to ]
 ]
 
 { #category : #private }
-BrTextEditorDeleter >> delete: aFromTextIndex to: aToTextIndex [
-	"I delete a piece of text within a given text interval without cursor or selection update.
-	Note: cursor or selection location after deletion may be invalid!"
-	| aCommand |
-
-	self
-		assert: [ aFromTextIndex >= 0 and: [ aFromTextIndex <= self editor text size ] ]
-		description: [ 'From deletion index must be within interval [0... text size]' ].
-	self
-		assert: [ aToTextIndex >= 0 and: [ aToTextIndex <= self editor text size ] ]
-		description: [ 'To deletion index must be within interval [0... text size]' ].
-	self
-		assert: [ aToTextIndex >= aFromTextIndex ]
-		description: [ 'To index must be greater or equal from index' ].
-
-	aCommand := BrTextEditorDeleteCommand new
-		fromIndex: aFromTextIndex;
-		toIndex: aToTextIndex.
-	self editor enqueueCommand: aCommand
+BrTextEditorDeleter >> delete: aFromTextIndex to: aToTextIndex [ 
+	self 
+		deprecated: 'Do not use me!!'.
+	^ self privateDelete: aFromTextIndex to: aToTextIndex
 ]
 
 { #category : #'api - configuration' }
@@ -137,6 +122,28 @@ BrTextEditorDeleter >> oneBeforeCursor [
 	self
 		from: ((self cursor position - 1) max: 0)
 		to: self cursor position
+]
+
+{ #category : #private }
+BrTextEditorDeleter >> privateDelete: aFromTextIndex to: aToTextIndex [
+	"I delete a piece of text within a given text interval without cursor or selection update.
+	Note: cursor or selection location after deletion may be invalid!"
+	| aCommand |
+
+	self
+		assert: [ aFromTextIndex >= 0 and: [ aFromTextIndex <= self editor text size ] ]
+		description: [ 'From deletion index must be within interval [0... text size]' ].
+	self
+		assert: [ aToTextIndex >= 0 and: [ aToTextIndex <= self editor text size ] ]
+		description: [ 'To deletion index must be within interval [0... text size]' ].
+	self
+		assert: [ aToTextIndex >= aFromTextIndex ]
+		description: [ 'To index must be greater or equal from index' ].
+
+	aCommand := BrTextEditorDeleteCommand new
+		fromIndex: aFromTextIndex;
+		toIndex: aToTextIndex.
+	self editor enqueueCommand: aCommand
 ]
 
 { #category : #'api - configuration' }

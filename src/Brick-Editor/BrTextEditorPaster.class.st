@@ -25,6 +25,12 @@ BrTextEditorPaster >> atCursor [
 ]
 
 { #category : #'api - configuration' }
+BrTextEditorPaster >> atEnd [
+	"Insert a text at the very end"
+	self at: self text size
+]
+
+{ #category : #'api - configuration' }
 BrTextEditorPaster >> fromClipboard [
 	self string: Clipboard clipboardText asString
 ]

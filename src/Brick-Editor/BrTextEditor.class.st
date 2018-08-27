@@ -8,7 +8,6 @@ Class {
 	#instVars : [
 		'text',
 		'cursor',
-		'textEditListener',
 		'selection',
 		'selectionRecorder',
 		'segmentBuilder',
@@ -21,7 +20,7 @@ Class {
 	#classInstVars : [
 		'isDebug'
 	],
-	#category : 'Brick-Editor-Model'
+	#category : #'Brick-Editor-Model'
 }
 
 { #category : #cleanup }
@@ -172,11 +171,6 @@ BrTextEditor >> defaultText [
 	^ BlRopedText string: ''
 ]
 
-{ #category : #initialization }
-BrTextEditor >> defaultTextEditListener [
-	^ BrTextEditorPieceListener new
-]
-
 { #category : #'private - text' }
 BrTextEditor >> delete: aFromTextIndex to: aToTextIndex [
 	"I delete a piece of text within a given text interval without cursor or selection update.
@@ -237,7 +231,6 @@ BrTextEditor >> initialize [
 	super initialize.
 	
 	cursor := self defaultCursor.
-	textEditListener := self defaultTextEditListener editor: self.
 	selection := self defaultSelection.
 	selectionRecorder := self defaultSelectionRecorder.
 	
@@ -878,13 +871,6 @@ BrTextEditor >> text: aBrText [
 
 	"text changed, we should style it"
 	self styleText
-]
-
-{ #category : #accessing }
-BrTextEditor >> textEditListener [
-	<return: #BrTextEditorPieceListener>
-
-	^ textEditListener
 ]
 
 { #category : #'private - updating' }

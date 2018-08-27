@@ -1,3 +1,15 @@
+"
+Example:
+
+[[[
+anEditor := BrTextEditor new.
+anEditor inserter
+	atCursor;
+	string: 'Hello';
+	insert.
+anEditor
+]]]
+"
 Class {
 	#name : #BrTextEditorInserter,
 	#superclass : #BrTextEditorOperator,
@@ -8,7 +20,7 @@ Class {
 		'shouldUpdateSelection',
 		'shouldDeleteSelected'
 	],
-	#category : 'Brick-Editor-Model'
+	#category : #'Brick-Editor-Model'
 }
 
 { #category : #'api - configuration' }
@@ -22,6 +34,12 @@ BrTextEditorInserter >> at: anIndex [
 { #category : #'api - configuration' }
 BrTextEditorInserter >> atCursor [
 	self at: self cursor position
+]
+
+{ #category : #'api - configuration' }
+BrTextEditorInserter >> atEnd [
+	"Insert a text at the very end"
+	self at: self text size
 ]
 
 { #category : #private }
@@ -83,7 +101,7 @@ BrTextEditorInserter >> insert [
 		ifTrue: [ self deleteSelectedText ].
 		
 	insertionIndices reverseDo: [ :anIndex |
-		self insertString: text at: anIndex.
+		self privateInsertString: text at: anIndex.
 
 		shouldUpdateCursor
 			ifTrue: [ self updateCursorAfterInsertion: text at: anIndex ].
@@ -92,7 +110,7 @@ BrTextEditorInserter >> insert [
 ]
 
 { #category : #private }
-BrTextEditorInserter >> insertString: aString at: aTextIndex [
+BrTextEditorInserter >> privateInsertString: aString at: aTextIndex [
 	| aCommand |
 
 	aCommand := BrTextEditorInsertStringCommand new
@@ -167,6 +185,11 @@ BrTextEditorInserter >> updateSelectionAfterInsertion: aText at: anIndex [
 			ifFalse: [
 				self editor deselect: aMonotoneSelection from to: aMonotoneSelection to.
 				self editor select: aNewSelection from to: aNewSelection to ] ]
+]
+
+{ #category : #'api - configuration' }
+BrTextEditorInserter >> withSelectionDelete [
+	shouldDeleteSelected := true
 ]
 
 { #category : #'api - configuration' }
