@@ -35,12 +35,11 @@ BrTextAdornmentAttribute >> beReplace [
 { #category : #comparing }
 BrTextAdornmentAttribute >> equals: aTextAttribute [
 	^ aTextAttribute class = self class
-		and: [ aTextAttribute identityHash = self identityHash ]
 ]
 
 { #category : #comparing }
 BrTextAdornmentAttribute >> hash [
-	^ self identityHash
+	^ self class hash
 ]
 
 { #category : #initialization }
