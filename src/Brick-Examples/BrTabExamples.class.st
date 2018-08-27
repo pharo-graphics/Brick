@@ -160,8 +160,8 @@ BrTabExamples >> materialActionGroup [
 		look: BrMaterialTabGroupLook;
 		viewModel: tabGroup.
 	
-	self assert: tabGroupElement children size = 2.
-	self assert: tabGroupElement children first children size = 2.
+	self assert: tabGroupElement children size equals: 3. "header + splitter + content"
+	self assert: tabGroupElement children first children size equals: 2. "tab bar + tool bar"
 	^ tabGroupElement
 ]
 

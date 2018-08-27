@@ -53,7 +53,7 @@ BrButtonModel >> action: aBlockOrSymbolOrValuable [
 BrButtonModel >> clickEvent: anEvent [
 	anEvent consumed: true.
 
-	self action glamourValueWithArgs: { anEvent currentTarget .  self }
+	self action glamourValueWithArgs: { self widget .  self }
 ]
 
 { #category : #initialization }

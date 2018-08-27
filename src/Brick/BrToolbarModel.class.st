@@ -26,13 +26,6 @@ BrToolbarModel >> initialize [
 { #category : #'api - items' }
 BrToolbarModel >> itemAt: anIndex [
 	<return: #BrWidgetModel>
-
-	^ self itemModelAt: anIndex
-]
-
-{ #category : #'api - items' }
-BrToolbarModel >> itemModelAt: anIndex [
-	<return: #BrWidgetModel>
 	self
 		assert: [ anIndex isInteger ] 
 		description: [ 'Index must be an integer' ].
@@ -86,4 +79,9 @@ BrToolbarModel >> removeItem: aWidgetModel [
 	anItemIndex := self items indexOf: aWidgetModel.
 	self items remove: aWidgetModel.
 	self onItemRemoved: aWidgetModel at: anItemIndex
+]
+
+{ #category : #'api - items' }
+BrToolbarModel >> removeItemAt: anIndex [
+	self removeItem: (self itemAt: anIndex)
 ]

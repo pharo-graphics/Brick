@@ -8,25 +8,21 @@ Class {
 BrToolbarExamples >> addItemsOnButtonClick [
 	<gtExample>
 	<label: 'Add toolbar items on a button click'>
-	| aToolbar aToolbarItem |
+	| aToolbar |
+	
 	aToolbar := BrToolbar new.
 	aToolbar look: BrMaterialToolbarLook + BrToolbarLook horizontal.
-	aToolbarItem := self toolbarItem.
-	aToolbarItem stencil: [ 
-		BrButton new 
+
+	aToolbar addItem: (BrButton new 
 			look: BrMaterialToggleLabelledLook;
-			label: 'Add'; 
+			label: 'Add';
 			action: [ | aSize |
 				aSize := aToolbar numberOfItems.
-				aToolbar addItem: (
-					self toolbarItem stencil: [ | aLabel |
-						aLabel := aToolbar numberOfItems asString.
-						BrButton new 
-							look: BrMaterialToggleLabelledLook;
-							label: aLabel; 
-							action: [ self inform: 'Click on button ', aLabel ] ] ).
-				self assert: aToolbar numberOfItems equals: aSize + 1 ] ].
-	aToolbar addItem: aToolbarItem.
+				aToolbar addItem: (BrButton new 
+					look: BrMaterialToggleLabelledLook;
+					label: aToolbar numberOfItems asString; 
+					action: [ :aWidget | self inform: 'Click on button ', aWidget label asString ]).
+				self assert: aToolbar numberOfItems equals: aSize + 1 ]).
 	self assert: aToolbar numberOfItems equals: 1.
 	^ aToolbar
 ]
@@ -35,25 +31,21 @@ BrToolbarExamples >> addItemsOnButtonClick [
 BrToolbarExamples >> addItemsOnButtonClickVertically [
 	<gtExample>
 	<label: 'Add toolbar items on a button click'>
-	| aToolbar aToolbarItem |
+	| aToolbar |
+	
 	aToolbar := BrToolbar new.
 	aToolbar look: BrMaterialToolbarLook + BrToolbarLook vertical.
-	aToolbarItem := self toolbarItem.
-	aToolbarItem stencil: [ 
-		BrButton new 
+
+	aToolbar addItem: (BrButton new
 			look: BrMaterialToggleLabelledLook;
-			label: 'Add'; 
+			label: 'Add';
 			action: [ | aSize |
 				aSize := aToolbar numberOfItems.
-				aToolbar addItem: (
-					self toolbarItem stencil: [ | aLabel |
-						aLabel := aToolbar numberOfItems asString.
-						BrButton new 
-							look: BrMaterialToggleLabelledLook;
-							label: aLabel; 
-							action: [ self inform: 'Click on button ', aLabel ] ] ).
-				self assert: aToolbar numberOfItems equals: aSize + 1 ] ].
-	aToolbar addItem: aToolbarItem.
+				aToolbar addItem: (BrButton new 
+					look: BrMaterialToggleLabelledLook;
+					label: aToolbar numberOfItems asString; 
+					action: [ :aWidget | self inform: 'Click on button ', aWidget label asString ]).
+				self assert: aToolbar numberOfItems equals: aSize + 1 ]).
 	self assert: aToolbar numberOfItems equals: 1.
 	^ aToolbar
 ]
@@ -62,22 +54,18 @@ BrToolbarExamples >> addItemsOnButtonClickVertically [
 BrToolbarExamples >> removeItemsOnButtonClick [
 	<gtExample>
 	<label: 'Add toolbar items on a button click'>
-	| aToolbar aToolbarItem |
+	| aToolbar |
 	aToolbar := self addItemsOnButtonClick.
-	aToolbarItem := self toolbarItem.
-	aToolbarItem stencil: [ 
-		BrButton new 
-			look: BrMaterialToggleLabelledLook;
-			label: 'Remove'; 
-			action: [ | aSize anIndex aWidget |
-				aSize := aToolbar numberOfItems.
-				anIndex := ((aSize - 3) max: 0) atRandom + 3.
-				anIndex <= aSize ifTrue: [ 
-					aWidget := aToolbar itemAt: anIndex.
-					aWidget ifNotNil: [
-						aToolbar removeItem: aWidget.
-						self assert: aToolbar numberOfItems equals: aSize - 1 ] ] ] ].
-	aToolbar addItem: aToolbarItem.
+	
+	aToolbar addItem: (BrButton new 
+		look: BrMaterialToggleLabelledLook;
+		label: 'Remove'; 
+		action: [ | aSize anIndex |
+			aSize := aToolbar numberOfItems.
+			anIndex := ((aSize - 3) max: 0) atRandom + 3.
+			anIndex <= aSize ifTrue: [ 
+				aToolbar removeItemAt: anIndex.
+				self assert: aToolbar numberOfItems equals: aSize - 1 ] ]).
 	self assert: aToolbar numberOfItems equals: 2.
 	^ aToolbar
 ]
@@ -86,22 +74,17 @@ BrToolbarExamples >> removeItemsOnButtonClick [
 BrToolbarExamples >> removeItemsOnButtonClickVertically [
 	<gtExample>
 	<label: 'Add toolbar items on a button click'>
-	| aToolbar aToolbarItem |
+	| aToolbar |
 	aToolbar := self addItemsOnButtonClickVertically.
-	aToolbarItem := self toolbarItem.
-	aToolbarItem stencil: [ 
-		BrButton new 
-			look: BrMaterialToggleLabelledLook;
-			label: 'Remove'; 
-			action: [ | aSize anIndex aWidget |
-				aSize := aToolbar numberOfItems.
-				anIndex := ((aSize - 3) max: 0) atRandom + 3.
-				anIndex <= aSize ifTrue: [ 
-					aWidget := aToolbar itemAt: anIndex.
-					aWidget ifNotNil: [
-						aToolbar removeItem: aWidget.
-						self assert: aToolbar numberOfItems equals: aSize - 1 ] ] ] ].
-	aToolbar addItem: aToolbarItem.
+	aToolbar addItem: (BrButton new 
+		look: BrMaterialToggleLabelledLook;
+		label: 'Remove'; 
+		action: [ | aSize anIndex |
+			aSize := aToolbar numberOfItems.
+			anIndex := ((aSize - 3) max: 0) atRandom + 3.
+			anIndex <= aSize ifTrue: [ 
+				aToolbar removeItemAt: anIndex.
+				self assert: aToolbar numberOfItems equals: aSize - 1 ] ]).
 	self assert: aToolbar numberOfItems equals: 2.
 	^ aToolbar
 ]
@@ -133,40 +116,21 @@ BrToolbarExamples >> toolbarInAContainer [
 ]
 
 { #category : #accessing }
-BrToolbarExamples >> toolbarItem [
-	<gtExample>
-	<label: 'Basic toolbar item'>
-	| aToolbarItem |
-	aToolbarItem := BrButton new.
-	aToolbarItem look: BrMouseHoverLook + BrMouseClickLook.
-	self assert: aToolbarItem viewModel stencil notNil.
-	^ aToolbarItem
-]
-
-{ #category : #accessing }
 BrToolbarExamples >> toolbarItemGToolkit [
 	<gtExample>
-	| aToolbarItem |
-	aToolbarItem := self toolbarItem.
-	aToolbarItem stencil: [ 
-		BrButton new 
-			look: BrMaterialToggleLabelledLook;
-			label: 'GToolkit'; 
-			action: [ self inform: 'Click on GToolkit' ] ].
-	^ aToolbarItem
+	^ BrButton new 
+		look: BrMaterialToggleLabelledLook;
+		label: 'GToolkit'; 
+		action: [ self inform: 'Click on GToolkit' ]
 ]
 
 { #category : #accessing }
 BrToolbarExamples >> toolbarItemHello [
 	<gtExample>
-	| aToolbarItem |
-	aToolbarItem := self toolbarItem.
-	aToolbarItem stencil: [ 
-		BrButton new 
-			look: BrMaterialToggleLabelledLook;
-			label: 'Hello'; 
-			action: [ self inform: 'Click on Hello' ] ].
-	^ aToolbarItem
+	^ BrButton new 
+		look: BrMaterialToggleLabelledLook;
+		label: 'Hello'; 
+		action: [ self inform: 'Click on Hello' ]
 ]
 
 { #category : #accessing }

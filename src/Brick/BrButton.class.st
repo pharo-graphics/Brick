@@ -28,6 +28,11 @@ BrButton >> initialize [
 ]
 
 { #category : #'api - widget' }
+BrButton >> label [
+	^ labelModel text
+]
+
+{ #category : #'api - widget' }
 BrButton >> label: aStringOrBrText [
 	labelModel text: aStringOrBrText
 ]
