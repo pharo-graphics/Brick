@@ -316,6 +316,7 @@ BrTextEditorModificationExamples >> insert_Hello_at_0_cursorAt_10_selection_0_to
 	
 	anEditor := self editorOnMultilineText.
 	anEditor moveCursorTo: 10.
+	
 	anEditor select: 0 to: 1. "A"
 	anEditor select: 8 to: 14. " river"
 

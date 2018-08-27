@@ -19,6 +19,7 @@ BrTextEditorSelecter >> all [
 
 { #category : #'api - configuration' }
 BrTextEditorSelecter >> from: aFromIndex to: aToIndex [
+	selection select: aFromIndex to: aToIndex
 ]
 
 { #category : #initialization }
