@@ -53,7 +53,7 @@ BrButtonModel >> action: aBlockOrSymbolOrValuable [
 BrButtonModel >> clickEvent: anEvent [
 	anEvent consumed: true.
 
-	(self requestWithResponse: BrActivationRequest new) isActivated
+	(self request: BrActivationRequest new) isActivated
 		ifTrue: [ self action glamourValueWithArgs: { self widget .  self } ]
 ]
 
@@ -62,4 +62,9 @@ BrButtonModel >> initialize [
 	super initialize.
 
 	action := [  ]
+]
+
+{ #category : #printing }
+BrButtonModel >> modelName [
+	^ 'Button'
 ]

@@ -8,6 +8,6 @@ Class {
 }
 
 { #category : #initialization }
-BrActivationRequest >> defaultResponse [
-	^ BrActivationChanged new
+BrActivationRequest >> responseClass [
+	^ BrActivationChanged
 ]

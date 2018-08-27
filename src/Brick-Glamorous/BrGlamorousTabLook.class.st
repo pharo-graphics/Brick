@@ -14,7 +14,7 @@ Class {
 BrGlamorousTabLook >> initialize [
 	super initialize.
 
-	self add: BrLabelLook new thin.
+	self add: BrGlamorousTabLabelLook new.
 
 	bar := BlElement new.
 	bar visibility: BlVisibility hidden.

@@ -53,11 +53,9 @@ BrWidgetModel >> model: anObject [
 	model := anObject
 ]
 
-{ #category : #'event management' }
-BrWidgetModel >> on: aRequestClass reply: aBlock [
-	self when: aRequestClass do: [ :aRequest |
-		aRequest reply: (aBlock cull: self).
-		aRequest source dispatchEvent: aRequest response ]
+{ #category : #printing }
+BrWidgetModel >> modelName [
+	^ self class name
 ]
 
 { #category : #hooks }
@@ -79,15 +77,32 @@ BrWidgetModel >> onInstalledIn: anElement [
 	self widgetModels do: [ :aWidgetModel | aWidgetModel onInstalledIn: anElement ]
 ]
 
+{ #category : #printing }
+BrWidgetModel >> printOn: aStream [
+
+	aStream nextPutAll: self modelName.
+	aStream space.
+	aStream nextPut: ${.
+	self widgetModels withIndexDo: [ :aWidgetModel :anIndex |
+		anIndex > 1
+			ifTrue: [ aStream nextPut: $;; space ].
+		aStream print: aWidgetModel
+	].
+	aStream nextPut: $}.
+]
+
 { #category : #'event management' }
 BrWidgetModel >> when: aRequestClass reply: aBlock [
 	self when: aRequestClass do: [ :aRequest |
-		| anEvent |
-		
-		anEvent := aBlock cull: self.		
-		anEvent source: self.
-		aRequest source dispatchEvent: anEvent.
-		aRequest response: anEvent ]
+		| aReplyEvent |
+
+		aReplyEvent := aBlock cull: aRequest response.
+
+		aRequest canRespond
+			ifTrue: [ aRequest response: aReplyEvent ].
+
+		aReplyEvent source: self.
+		aRequest source dispatchEvent: aReplyEvent ]
 ]
 
 { #category : #'event management' }

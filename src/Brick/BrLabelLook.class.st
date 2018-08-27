@@ -39,11 +39,12 @@ BrLabelLook >> initialize [
 	
 	text := 'Label' asRopedText.
 	
+	labelElement := BlTextElement new.
+	labelElement clipChildren: false.
+
 	attributesBuilder := BlTextDelegatedAttributesBuilder new.
 	attributesBuilder attributesTarget: text.
-	
-	labelElement := BlTextElement new.
-	labelElement clipChildren: false
+	attributesBuilder whenAdded: [ labelElement textChanged ]
 ]
 
 { #category : #initialization }

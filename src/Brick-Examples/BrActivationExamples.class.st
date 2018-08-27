@@ -32,7 +32,7 @@ BrActivationExamples >> buttonModelWithDisabledActivation [
 	aButton := self buttonModel.
 	aButton add: self disableModel.
 
-	aResponse := aButton requestWithResponse: BrActivationRequest new.
+	aResponse := aButton request: BrActivationRequest new.
 	self assert: aResponse enabled not.
 	self assert: aResponse isActivated not.
 
@@ -43,11 +43,11 @@ BrActivationExamples >> buttonModelWithDisabledActivation [
 BrActivationExamples >> buttonModelWithEnabledActivation [
 	<gtExample>
 	| aButton aResponse |
-	
+
 	aButton := self buttonModel.
 	aButton add: self enableModel.
 
-	aResponse := aButton requestWithResponse: BrActivationRequest new.
+	aResponse := aButton request: BrActivationRequest new.
 	self assert: aResponse enabled.
 	self assert: aResponse isActivated.
 
@@ -61,7 +61,7 @@ BrActivationExamples >> buttonModelWithoutActivation [
 
 	aButton := self buttonModel.
 
-	aResponse := aButton requestWithResponse: BrActivationRequest new.
+	aResponse := aButton request: BrActivationRequest new.
 	self assert: aResponse enabled.
 	self assert: aResponse isActivated.
 

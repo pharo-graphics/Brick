@@ -38,8 +38,3 @@ BrActivationChanged >> initialize [
 BrActivationChanged >> isActivated [
 	^ self enabled
 ]
-
-{ #category : #accessing }
-BrActivationChanged >> replied: aBoolean [
-	self enabled: aBoolean
-]

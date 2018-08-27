@@ -60,7 +60,7 @@ BrActivationModel >> initialize [
 BrActivationModel >> initializeListeners [
 	super initializeListeners.
 
-	self on: BrActivationRequest reply: [ self isEnabled ]
+	self when: BrActivationRequest reply: [ :aResponse | aResponse enabled: self isEnabled ]
 ]
 
 { #category : #'api - testing' }
@@ -77,7 +77,20 @@ BrActivationModel >> isEnabled [
 	^ enabled
 ]
 
+{ #category : #printing }
+BrActivationModel >> modelName [
+	^ 'Activation'
+]
+
 { #category : #notifying }
 BrActivationModel >> notifyActivationChanged [
 	self dispatchEvent: (BrActivationChanged enabled: self isEnabled)
+]
+
+{ #category : #printing }
+BrActivationModel >> printOn: aStream [
+	aStream
+		nextPutAll: self modelName, '(';
+		nextPutAll: (self isEnabled ifTrue: [ 'enabled' ] ifFalse: [ 'disabled' ]);
+		nextPutAll: ')'
 ]

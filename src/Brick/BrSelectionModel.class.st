@@ -51,6 +51,11 @@ BrSelectionModel >> initialize [
 	selection := BlCompositeSelection new
 ]
 
+{ #category : #printing }
+BrSelectionModel >> modelName [
+	^ 'Selection'
+]
+
 { #category : #notifying }
 BrSelectionModel >> notifyDeselected: anInterval [
 	self dispatchEvent: (BrSelectionChanged new selection: self selection; deselectedInterval: anInterval)

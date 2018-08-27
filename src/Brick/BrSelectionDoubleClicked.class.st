@@ -1,11 +1,11 @@
 Class {
 	#name : #BrSelectionDoubleClicked,
-	#superclass : #BrChangeEvent,
+	#superclass : #BlEvent,
 	#instVars : [
 		'selection',
 		'sourceEvent'
 	],
-	#category : 'Brick-! Core - Events'
+	#category : #'Brick-! Core - Events'
 }
 
 { #category : #accessing }

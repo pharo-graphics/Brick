@@ -22,16 +22,29 @@ BrLabelModel >> initialize [
 	text := 'Tab' asRopedText
 ]
 
+{ #category : #initialization }
+BrLabelModel >> initializeListeners [
+	super initializeListeners.
+
+	self when: BrLabelRequest reply: [ :aResponse | aResponse text: self text ]
+]
+
+{ #category : #printing }
+BrLabelModel >> modelName [
+	^ 'Label'
+]
+
 { #category : #notifying }
 BrLabelModel >> notifyLabelChanged [
 	self dispatchEvent: (BrLabelChanged new text: self text)
 ]
 
-{ #category : #hooks }
-BrLabelModel >> onAttachedTo: anElement [
-	super onAttachedTo: anElement.
-
-	self when: BrLabelRequest reply: [ BrLabelChanged new text: self text ]
+{ #category : #printing }
+BrLabelModel >> printOn: aStream [
+	aStream
+		nextPutAll: self modelName, '(';
+		nextPutAll: self text asString;
+		nextPutAll: ')'
 ]
 
 { #category : #accessing }

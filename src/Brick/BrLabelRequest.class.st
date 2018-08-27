@@ -6,3 +6,8 @@ Class {
 	#superclass : #BrRequest,
 	#category : 'Brick-! Core - Events'
 }
+
+{ #category : #initialization }
+BrLabelRequest >> responseClass [
+	^ BrLabelChanged
+]

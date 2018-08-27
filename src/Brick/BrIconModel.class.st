@@ -31,14 +31,27 @@ BrIconModel >> initialize [
 	icon := (BlEllipse radius: 5) asElement
 ]
 
+{ #category : #initialization }
+BrIconModel >> initializeListeners [
+	super initializeListeners.
+
+	self when: BrIconRequest reply: [ :aResponse | aResponse icon: self icon ]
+]
+
+{ #category : #printing }
+BrIconModel >> modelName [
+	^ 'Icon'
+]
+
 { #category : #notifying }
 BrIconModel >> notifyIconChanged [
 	self dispatchEvent: (BrIconChanged new icon: self icon)
 ]
 
-{ #category : #hooks }
-BrIconModel >> onAttachedTo: anElement [
-	super onAttachedTo: anElement.
-
-	self when: BrIconRequest reply: [ BrIconChanged new icon: self icon ]
+{ #category : #printing }
+BrIconModel >> printOn: aStream [
+	aStream
+		nextPutAll: self modelName, '(';
+		nextPutAll: self icon asString;
+		nextPutAll: ')'
 ]

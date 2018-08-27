@@ -172,12 +172,6 @@ BrActor >> owner [
 
 { #category : #'event management' }
 BrActor >> request: aBrRequest [
-	self dispatchEvent: aBrRequest
-]
-
-{ #category : #'event management' }
-BrActor >> requestWithResponse: aBrRequest [
-
 	self dispatchEvent: aBrRequest.
 	^ aBrRequest response
 ]
