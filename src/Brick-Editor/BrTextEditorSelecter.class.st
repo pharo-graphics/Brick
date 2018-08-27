@@ -33,8 +33,8 @@ BrTextEditorSelecter >> initialize [
 ]
 
 { #category : #'api - configuration' }
-BrTextEditorSelecter >> overwite [
-	"Deselect any selections if they exist and overwite with the new selection"
+BrTextEditorSelecter >> overwrite [
+	"Deselect any selections if they exist and overwrite with the new selection"
 	
 	shouldDeselectExisting := true
 ]
