@@ -3,9 +3,10 @@ Class {
 	#superclass : #BrTextEditorOperator,
 	#instVars : [
 		'selection',
-		'shouldUpdateCursor'
+		'shouldUpdateCursor',
+		'shouldDeselectExisting'
 	],
-	#category : 'Brick-Editor-Model'
+	#category : #'Brick-Editor-Model'
 }
 
 { #category : #'api - configuration' }
@@ -27,7 +28,20 @@ BrTextEditorSelecter >> initialize [
 	super initialize.
 
 	selection := BlCompositeSelection new.
-	shouldUpdateCursor := true
+	shouldUpdateCursor := true.
+	shouldDeselectExisting := false
+]
+
+{ #category : #'api - configuration' }
+BrTextEditorSelecter >> overwite [
+	"Deselect any selections if they exist and overwite with the new selection"
+	
+	shouldDeselectExisting := true
+]
+
+{ #category : #private }
+BrTextEditorSelecter >> privateDeselectExisting [
+	self editor deselecter all deselect
 ]
 
 { #category : #private }
@@ -46,6 +60,10 @@ BrTextEditorSelecter >> privateSelect: aFromTextIndex to: aToTextIndex [
 
 { #category : #'api - processing' }
 BrTextEditorSelecter >> select [
+
+	shouldDeselectExisting
+		ifTrue: [ self privateDeselectExisting ].
+
 	selection do: [ :aMonotoneSelection | self privateSelect: aMonotoneSelection from to: aMonotoneSelection to ].
 	(shouldUpdateCursor and: [ selection isNotEmpty ])
 		ifTrue: [ self updateCursor ]

@@ -188,18 +188,21 @@ BrTextEditor >> deleter [
 	^ BrTextEditorDeleter new editor: self
 ]
 
-{ #category : #'text - selection' }
+{ #category : #'private - text' }
 BrTextEditor >> deselect: aFromTextIndex to: aToTextIndex [
 	"Deselect text within an interval defined by provided from and to indices without any other side effects.
 	Note:
 		- I don't change cursor position.
 		- I request segments update"
-	| aCommand |
 
-	aCommand := self newDeselectCommand
-		fromIndex: aFromTextIndex;
-		toIndex: aToTextIndex.
-	self enqueueCommand: aCommand
+	self deselecter
+		from: aFromTextIndex to: aToTextIndex;
+		deselect
+]
+
+{ #category : #'api - modification' }
+BrTextEditor >> deselecter [
+	^ BrTextEditorDeselecter new editor: self
 ]
 
 { #category : #'commands - processing' }
@@ -439,11 +442,6 @@ BrTextEditor >> newCursorChangeCommand [
 { #category : #'commands - creation' }
 BrTextEditor >> newCursorMoveCommand [
 	^ BrTextEditorCursorMoveCommand new
-]
-
-{ #category : #'commands - creation' }
-BrTextEditor >> newDeselectCommand [
-	^ BrTextEditorDeselectCommand new
 ]
 
 { #category : #'commands - creation' }
