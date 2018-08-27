@@ -14,15 +14,19 @@ BrPressedChanged class >> pressed: aBoolean [
 
 { #category : #testing }
 BrPressedChanged >> isPressed [
+	<return: #Boolean>
+
 	^ self pressed
 ]
 
 { #category : #accessing }
 BrPressedChanged >> pressed [
+	<return: #Boolean>
+
 	^ pressed
 ]
 
 { #category : #accessing }
-BrPressedChanged >> pressed: anObject [
-	pressed := anObject
+BrPressedChanged >> pressed: aBoolean [
+	pressed := aBoolean
 ]

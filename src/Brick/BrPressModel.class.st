@@ -14,6 +14,13 @@ BrPressModel >> initialize [
 	pressed := false
 ]
 
+{ #category : #initialization }
+BrPressModel >> initializeListeners [
+	super initializeListeners.
+	
+	self when: BrPressedRequest reply: [ :aResponse | aResponse pressed: self isPressed ]
+]
+
 { #category : #testing }
 BrPressModel >> isPressed [
 	^ pressed
@@ -23,17 +30,19 @@ BrPressModel >> isPressed [
 BrPressModel >> mouseDownEvent: anEvent [
 	anEvent consumed: true.
 
-	pressed := true
+	pressed := true.
+	self notifyPressChanged
 ]
 
 { #category : #'mouse handlers' }
 BrPressModel >> mouseUpEvent: anEvent [
 	anEvent consumed: true.
 
-	pressed := false
+	pressed := false.
+	self notifyPressChanged
 ]
 
-{ #category : #'as yet unclassified' }
+{ #category : #notifying }
 BrPressModel >> notifyPressChanged [
-	
+	self dispatchEvent: (BrPressedChanged pressed: self isPressed)
 ]
