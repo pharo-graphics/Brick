@@ -7,6 +7,23 @@ Class {
 	#category : #'Brick-! Core'
 }
 
+{ #category : #printing }
+BrPressModel class >> modelName [
+	^ 'Press'
+]
+
+{ #category : #'mouse handlers' }
+BrPressModel >> dragEndEvent: anEvent [
+	anEvent consumed: true.
+	self pressed: false
+]
+
+{ #category : #'mouse handlers' }
+BrPressModel >> dragStartEvent: anEvent [
+	anEvent consumed: true.
+	self pressed: true
+]
+
 { #category : #initialization }
 BrPressModel >> initialize [
 	super initialize.
@@ -29,20 +46,33 @@ BrPressModel >> isPressed [
 { #category : #'mouse handlers' }
 BrPressModel >> mouseDownEvent: anEvent [
 	anEvent consumed: true.
-
-	pressed := true.
-	self notifyPressChanged
+	self pressed: true
 ]
 
 { #category : #'mouse handlers' }
 BrPressModel >> mouseUpEvent: anEvent [
 	anEvent consumed: true.
-
-	pressed := false.
-	self notifyPressChanged
+	self pressed: false
 ]
 
 { #category : #notifying }
 BrPressModel >> notifyPressChanged [
 	self dispatchEvent: (BrPressedChanged pressed: self isPressed)
+]
+
+{ #category : #'private - accessing' }
+BrPressModel >> pressed: aBoolean [
+	pressed = aBoolean
+		ifTrue: [ ^ self ].
+		
+	pressed := aBoolean.
+	self notifyPressChanged
+]
+
+{ #category : #printing }
+BrPressModel >> printOn: aStream [
+	aStream
+		nextPutAll: self modelName, '(';
+		nextPutAll: self isPressed asString;
+		nextPutAll: ')'
 ]

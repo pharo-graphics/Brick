@@ -26,6 +26,11 @@ Class {
 	#category : 'Brick-! Core'
 }
 
+{ #category : #printing }
+BrButtonModel class >> modelName [
+	^ 'Button'
+]
+
 { #category : #'api - widget' }
 BrButtonModel >> action [
 	<return: #BlockClosure or: #Symbol or: #Valuable>
@@ -62,9 +67,4 @@ BrButtonModel >> initialize [
 	super initialize.
 
 	action := [  ]
-]
-
-{ #category : #printing }
-BrButtonModel >> modelName [
-	^ 'Button'
 ]

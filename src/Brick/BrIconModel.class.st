@@ -7,6 +7,11 @@ Class {
 	#category : 'Brick-! Core'
 }
 
+{ #category : #printing }
+BrIconModel class >> modelName [
+	^ 'Icon'
+]
+
 { #category : #accessing }
 BrIconModel >> icon [
 	<return: #BlElement>
@@ -36,11 +41,6 @@ BrIconModel >> initializeListeners [
 	super initializeListeners.
 
 	self when: BrIconRequest reply: [ :aResponse | aResponse icon: self icon ]
-]
-
-{ #category : #printing }
-BrIconModel >> modelName [
-	^ 'Icon'
 ]
 
 { #category : #notifying }

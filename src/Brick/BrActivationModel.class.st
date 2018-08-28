@@ -17,6 +17,11 @@ BrActivationModel class >> enabled [
 	^ self new enabled: true
 ]
 
+{ #category : #printing }
+BrActivationModel class >> modelName [
+	^ 'Activation'
+]
+
 { #category : #'api - activation' }
 BrActivationModel >> disable [
 	self isDisabled
@@ -75,11 +80,6 @@ BrActivationModel >> isEnabled [
 	<return: #Boolean>
 
 	^ enabled
-]
-
-{ #category : #printing }
-BrActivationModel >> modelName [
-	^ 'Activation'
 ]
 
 { #category : #notifying }

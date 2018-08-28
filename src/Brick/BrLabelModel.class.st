@@ -10,6 +10,11 @@ Class {
 	#category : 'Brick-! Core'
 }
 
+{ #category : #printing }
+BrLabelModel class >> modelName [
+	^ 'Label'
+]
+
 { #category : #'instance creation' }
 BrLabelModel class >> text: aStringOrText [
 	^ self new text: aStringOrText
@@ -19,7 +24,7 @@ BrLabelModel class >> text: aStringOrText [
 BrLabelModel >> initialize [
 	super initialize.
 	
-	text := 'Tab' asRopedText
+	text := 'Label' asRopedText
 ]
 
 { #category : #initialization }
@@ -27,11 +32,6 @@ BrLabelModel >> initializeListeners [
 	super initializeListeners.
 
 	self when: BrLabelRequest reply: [ :aResponse | aResponse text: self text ]
-]
-
-{ #category : #printing }
-BrLabelModel >> modelName [
-	^ 'Label'
 ]
 
 { #category : #notifying }

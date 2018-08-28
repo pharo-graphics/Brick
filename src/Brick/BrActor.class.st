@@ -30,7 +30,7 @@ BrActor >> dispatchEvent: anEvent [
 	"then let the rest of the element components receive it"
 	self isAttachedToWidget
 		ifTrue: [ self dispatchEventToWidget: anEvent ]
-		ifFalse: [ self handleEvent: anEvent ]
+		ifFalse: [ self children do: [ :anActor | anActor handleEvent: anEvent ] ]
 ]
 
 { #category : #'event management' }

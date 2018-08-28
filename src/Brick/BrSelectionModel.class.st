@@ -7,6 +7,11 @@ Class {
 	#category : 'Brick-! Core'
 }
 
+{ #category : #printing }
+BrSelectionModel class >> modelName [
+	^ 'Selection'
+]
+
 { #category : #'api - testing' }
 BrSelectionModel >> contains: anIndex [
 	"Return true if item at a given index is selected, false otherwise"
@@ -49,11 +54,6 @@ BrSelectionModel >> initialize [
 	super initialize.
 
 	selection := BlCompositeSelection new
-]
-
-{ #category : #printing }
-BrSelectionModel >> modelName [
-	^ 'Selection'
 ]
 
 { #category : #notifying }

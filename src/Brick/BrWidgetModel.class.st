@@ -22,6 +22,11 @@ BrWidgetModel class >> asModel [
 	^ self new
 ]
 
+{ #category : #printing }
+BrWidgetModel class >> modelName [
+	^ self name
+]
+
 { #category : #'api - composition' }
 BrWidgetModel >> + anotherModel [
 	self add: anotherModel asModel
@@ -55,7 +60,7 @@ BrWidgetModel >> model: anObject [
 
 { #category : #printing }
 BrWidgetModel >> modelName [
-	^ self class name
+	^ self class modelName
 ]
 
 { #category : #hooks }
@@ -84,9 +89,10 @@ BrWidgetModel >> printOn: aStream [
 	aStream space.
 	aStream nextPut: ${.
 	self widgetModels withIndexDo: [ :aWidgetModel :anIndex |
-		anIndex > 1
-			ifTrue: [ aStream nextPut: $;; space ].
-		aStream print: aWidgetModel
+		anIndex = 1 ifTrue: [ aStream cr ].
+		aStream tab.
+		aStream print: aWidgetModel.
+		aStream cr.
 	].
 	aStream nextPut: $}.
 ]
@@ -102,7 +108,7 @@ BrWidgetModel >> when: aRequestClass reply: aBlock [
 			ifTrue: [ aRequest response: aReplyEvent ].
 
 		aReplyEvent source: self.
-		aRequest source dispatchEvent: aReplyEvent ]
+		aRequest source dispatchEventToMyself: aReplyEvent ]
 ]
 
 { #category : #'event management' }
