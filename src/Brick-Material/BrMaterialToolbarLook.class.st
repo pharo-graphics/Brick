@@ -1,13 +1,12 @@
 Class {
 	#name : #BrMaterialToolbarLook,
-	#superclass : #BrLook,
-	#category : 'Brick-Material-Collection'
+	#superclass : #BrToolbarLook,
+	#category : #'Brick-Material-Toolbar'
 }
 
 { #category : #initialization }
 BrMaterialToolbarLook >> initialize [
 	super initialize.
-	self add: BrMaterialRoundedLook.
-	self add: BrMaterialToggleBackgroundLook.
-	self add: BrShadowLook.
+	
+	self add: (BrLayoutLook new layout: (BlGridLayout horizontal cellSpacing: 7); fitContent)
 ]

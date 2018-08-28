@@ -4,7 +4,7 @@ I define the circular exterior of the button. I am designed to be used with an i
 Class {
 	#name : #BrGlamorousButtonExteriorCircularLook,
 	#superclass : #BrGlamorousButtonExteriorLook,
-	#category : 'Brick-Glamorous-Buttons'
+	#category : #'Brick-Glamorous-Buttons - Support'
 }
 
 { #category : #initialization }

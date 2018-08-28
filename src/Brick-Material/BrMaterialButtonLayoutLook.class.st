@@ -4,7 +4,7 @@ I define basic layout related properties of material buttons such as padding or 
 Class {
 	#name : #BrMaterialButtonLayoutLook,
 	#superclass : #BrLook,
-	#category : 'Brick-Material-Core'
+	#category : #'Brick-Material-Buttons - Support'
 }
 
 { #category : #initialization }

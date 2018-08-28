@@ -4,7 +4,7 @@ Class {
 	#instVars : [
 		'label'
 	],
-	#category : 'Brick-Material-Collection'
+	#category : #'Brick-Material-Tabs - Support'
 }
 
 { #category : #initialization }

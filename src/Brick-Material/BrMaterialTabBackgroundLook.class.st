@@ -6,7 +6,7 @@ Class {
 		'checkedBackground',
 		'bar'
 	],
-	#category : 'Brick-Material-Core'
+	#category : #'Brick-Material-Tabs - Support'
 }
 
 { #category : #accessing }

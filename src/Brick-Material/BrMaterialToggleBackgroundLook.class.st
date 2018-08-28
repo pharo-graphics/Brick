@@ -8,7 +8,7 @@ Class {
 		'normalBackground',
 		'checkedBackground'
 	],
-	#category : 'Brick-Material-Core'
+	#category : #'Brick-Material-! Core'
 }
 
 { #category : #accessing }

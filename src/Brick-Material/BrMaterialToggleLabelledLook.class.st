@@ -6,7 +6,7 @@ I don't apply any shadows to simplify integration into a toggle group which has 
 Class {
 	#name : #BrMaterialToggleLabelledLook,
 	#superclass : #BrLook,
-	#category : 'Brick-Material-Collection'
+	#category : #'Brick-Material-Toggles'
 }
 
 { #category : #initialization }

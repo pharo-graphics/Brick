@@ -4,7 +4,7 @@ I define the rectangular exterior of the button
 Class {
 	#name : #BrGlamorousButtonExteriorRectangularLook,
 	#superclass : #BrGlamorousButtonExteriorLook,
-	#category : 'Brick-Glamorous-Buttons'
+	#category : #'Brick-Glamorous-Buttons - Support'
 }
 
 { #category : #initialization }

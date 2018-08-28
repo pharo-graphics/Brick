@@ -10,7 +10,7 @@ Class {
 		'backgroundLook',
 		'icon'
 	],
-	#category : 'Brick-Material-Collection'
+	#category : #'Brick-Material-Toggles'
 }
 
 { #category : #accessing }

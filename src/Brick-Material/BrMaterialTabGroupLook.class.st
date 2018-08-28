@@ -4,7 +4,7 @@ Class {
 	#instVars : [
 		'headerLook'
 	],
-	#category : 'Brick-Material-Collection'
+	#category : #'Brick-Material-Tabs'
 }
 
 { #category : #'api - style' }

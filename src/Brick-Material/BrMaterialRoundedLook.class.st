@@ -7,7 +7,7 @@ Class {
 	#instVars : [
 		'cornerRadius'
 	],
-	#category : 'Brick-Material-Core'
+	#category : #'Brick-Material-! Core'
 }
 
 { #category : #accessing }

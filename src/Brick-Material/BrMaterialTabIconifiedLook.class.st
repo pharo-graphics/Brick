@@ -1,7 +1,7 @@
 Class {
 	#name : #BrMaterialTabIconifiedLook,
 	#superclass : #BrLook,
-	#category : 'Brick-Material-Collection'
+	#category : #'Brick-Material-Tabs - Support'
 }
 
 { #category : #initialization }
