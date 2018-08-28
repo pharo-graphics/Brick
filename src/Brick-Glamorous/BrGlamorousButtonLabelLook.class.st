@@ -4,9 +4,6 @@ I define how a label looks inside of the glamorous button, for example font size
 Class {
 	#name : #BrGlamorousButtonLabelLook,
 	#superclass : #BrLabelLook,
-	#pools : [
-		'BrGlamorousColors'
-	],
 	#category : #'Brick-Glamorous-Buttons - Support'
 }
 

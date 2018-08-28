@@ -4,10 +4,7 @@ Class {
 	#instVars : [
 		'bar'
 	],
-	#pools : [
-		'BrGlamorousColors'
-	],
-	#category : 'Brick-Glamorous-Tabs'
+	#category : #'Brick-Glamorous-Tabs'
 }
 
 { #category : #initialization }
@@ -18,7 +15,7 @@ BrGlamorousTabLook >> initialize [
 
 	bar := BlElement new.
 	bar visibility: BlVisibility hidden.
-	bar background: PrimaryBorderColor.
+	bar background: BrGlamorousColors primaryBorderColor.
 	bar constraintsDo: [ :c |
 		c ignoreByLayout.
 		c ignored vertical alignBottom.

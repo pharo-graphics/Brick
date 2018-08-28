@@ -16,6 +16,16 @@ BrExamplesShowroom >> glamorousButton [
 		label: 'Button'
 ]
 
+{ #category : #buttons }
+BrExamplesShowroom >> glamorousDisabledButton [
+	<gtExample>
+	
+	^ BrButton new
+		look: BrGlamorousButtonLook new;
+		label: 'Disabled';
+		disable
+]
+
 { #category : #tabs }
 BrExamplesShowroom >> glamorousTabs [
 	<gtExample>
@@ -89,6 +99,16 @@ BrExamplesShowroom >> materialButton [
 	^ BrButton new
 		look: BrMaterialButtonLook new;
 		label: 'Button'
+]
+
+{ #category : #buttons }
+BrExamplesShowroom >> materialDisabledButton [
+	<gtExample>
+	
+	^ BrButton new
+		look: BrMaterialButtonLook new;
+		label: 'Disabled';
+		disable
 ]
 
 { #category : #tabs }
