@@ -1,10 +1,8 @@
 "
 I am a composite interaction model responsible for managing widget state such as pressed, hovered, focused.
-
-
 "
 Class {
-	#name : #BrInteractionModel,
+	#name : #BrInteractiveModel,
 	#superclass : #BrWidgetModel,
 	#instVars : [
 		'pressModel',
@@ -15,22 +13,22 @@ Class {
 }
 
 { #category : #'api - activation' }
-BrInteractionModel >> disable [
+BrInteractiveModel >> disable [
 	activationModel disable
 ]
 
 { #category : #'api - activation' }
-BrInteractionModel >> enable [
+BrInteractiveModel >> enable [
 	activationModel enable
 ]
 
 { #category : #'api - activation' }
-BrInteractionModel >> enabled: aBoolean [
+BrInteractiveModel >> enabled: aBoolean [
 	activationModel enabled: aBoolean
 ]
 
 { #category : #initialization }
-BrInteractionModel >> initialize [
+BrInteractiveModel >> initialize [
 	super initialize.
 	
 	self addAll: { 
@@ -41,7 +39,7 @@ BrInteractionModel >> initialize [
 ]
 
 { #category : #initialization }
-BrInteractionModel >> initializeListeners [
+BrInteractiveModel >> initializeListeners [
 	super initializeListeners.
 
 	self when: BrInteractionRequest reply: [ :aResponse | aResponse states: self states ].
@@ -51,37 +49,37 @@ BrInteractionModel >> initializeListeners [
 ]
 
 { #category : #testing }
-BrInteractionModel >> isDisabled [
+BrInteractiveModel >> isDisabled [
 	^ activationModel isDisabled
 ]
 
 { #category : #testing }
-BrInteractionModel >> isEnabled [
+BrInteractiveModel >> isEnabled [
 	^ activationModel isEnabled
 ]
 
 { #category : #testing }
-BrInteractionModel >> isHovered [
+BrInteractiveModel >> isHovered [
 	^ hoverModel isHovered
 ]
 
 { #category : #testing }
-BrInteractionModel >> isPressed [
+BrInteractiveModel >> isPressed [
 	^ pressModel isPressed
 ]
 
 { #category : #notifying }
-BrInteractionModel >> notifyInteractionChanged [
+BrInteractiveModel >> notifyInteractionChanged [
 	self dispatchEvent: (BrInteractionChanged new states: self states)
 ]
 
 { #category : #accessing }
-BrInteractionModel >> stateModels [
+BrInteractiveModel >> stateModels [
 	^ self widgetModels
 ]
 
 { #category : #accessing }
-BrInteractionModel >> states [
+BrInteractiveModel >> states [
 	^ (Array streamContents: [ :aStream |
 		self stateModels do: [ :aStateModel | aStateModel streamStateOn: aStream ]
 	]) asSet
