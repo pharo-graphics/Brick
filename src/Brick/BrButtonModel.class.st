@@ -58,7 +58,7 @@ BrButtonModel >> action: aBlockOrSymbolOrValuable [
 BrButtonModel >> clickEvent: anEvent [
 	anEvent consumed: true.
 
-	(self request: BrActivationRequest new) isActivated
+	(self request: BrActivationRequest oneWay) isActivated
 		ifTrue: [ self action glamourValueWithArgs: { self widget .  self } ]
 ]
 

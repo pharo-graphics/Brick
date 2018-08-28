@@ -2,10 +2,16 @@ Class {
 	#name : #BrRequest,
 	#superclass : #BlEvent,
 	#instVars : [
-		'response'
+		'response',
+		'isOneWay'
 	],
 	#category : #'Brick-! Core - Events'
 }
+
+{ #category : #'instance creation' }
+BrRequest class >> oneWay [
+	^ self new oneWay
+]
 
 { #category : #testing }
 BrRequest >> canRespond [
@@ -19,7 +25,18 @@ BrRequest >> canRespond [
 BrRequest >> initialize [
 	super initialize.
 	
-	response := self responseClass new
+	response := self responseClass new.
+	isOneWay := false
+]
+
+{ #category : #testing }
+BrRequest >> isOneWay [
+	^ isOneWay
+]
+
+{ #category : #accessing }
+BrRequest >> oneWay [
+	isOneWay := true
 ]
 
 { #category : #accessing }

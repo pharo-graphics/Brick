@@ -4,25 +4,11 @@ I define how a label looks inside of the glamorous button, for example font size
 Class {
 	#name : #BrGlamorousButtonLabelLook,
 	#superclass : #BrLabelLook,
-	#category : 'Brick-Glamorous-Buttons'
+	#pools : [
+		'BrGlamorousColors'
+	],
+	#category : #'Brick-Glamorous-Buttons'
 }
-
-{ #category : #hooks }
-BrGlamorousButtonLabelLook >> activationChanged: aBoolean [
-	aBoolean
-		ifTrue: [ self buttonEnabled ]
-		ifFalse: [ self buttonDisabled ]
-]
-
-{ #category : #hooks }
-BrGlamorousButtonLabelLook >> buttonDisabled [
-	self foreground: (Color black alpha: 0.25)
-]
-
-{ #category : #hooks }
-BrGlamorousButtonLabelLook >> buttonEnabled [
-	self foreground: (Color black alpha: 0.65)
-]
 
 { #category : #initialization }
 BrGlamorousButtonLabelLook >> initialize [
@@ -33,19 +19,11 @@ BrGlamorousButtonLabelLook >> initialize [
 		weight: 400;
 		fontName: 'Source Sans Pro'.
 
-	self labelDo: [ :aLabelElement | aLabelElement boundsBaseline ]
-]
-
-{ #category : #initialization }
-BrGlamorousButtonLabelLook >> initializeListeners [
-	super initializeListeners.
+	self labelDo: [ :aLabelElement | aLabelElement boundsBaseline ].
 	
-	self when: BrActivationChanged do: [ :anEvent | self activationChanged: anEvent isActivated ]
-]
-
-{ #category : #initialization }
-BrGlamorousButtonLabelLook >> initializeRequests [
-	super initializeRequests.
-
-	self activationChanged: (self request: BrActivationRequest new) isActivated
+	self add: (BrInteractionLook new define: [ :aBuilder |
+		aBuilder default: [ self foreground: BrGlamorousColors defaultButtonTextColor ].
+		aBuilder hovered: [ self foreground: BrGlamorousColors hoveredButtonTextColor ].
+		aBuilder pressed: [ self foreground: BrGlamorousColors pressedButtonTextColor ].
+		aBuilder disabled: [ self foreground: BrGlamorousColors disabledButtonTextColor ] ])
 ]

@@ -1,6 +1,6 @@
 Class {
 	#name : #BrPressModel,
-	#superclass : #BrWidgetModel,
+	#superclass : #BrStateModel,
 	#instVars : [
 		'pressed'
 	],
@@ -75,4 +75,10 @@ BrPressModel >> printOn: aStream [
 		nextPutAll: self modelName, '(';
 		nextPutAll: self isPressed asString;
 		nextPutAll: ')'
+]
+
+{ #category : #streaming }
+BrPressModel >> streamStateOn: aStream [
+	self isPressed
+		ifTrue: [ aStream nextPut: BrPressedState new ]
 ]

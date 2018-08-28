@@ -12,6 +12,13 @@ BrPressedChanged class >> pressed: aBoolean [
 	^ self new pressed: aBoolean
 ]
 
+{ #category : #initialization }
+BrPressedChanged >> initialize [
+	super initialize.
+	
+	pressed := false
+]
+
 { #category : #testing }
 BrPressedChanged >> isPressed [
 	<return: #Boolean>

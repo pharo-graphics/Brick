@@ -1,6 +1,6 @@
 Class {
 	#name : #BrFocusModel,
-	#superclass : #BrWidgetModel,
+	#superclass : #BrStateModel,
 	#instVars : [
 		'focused'
 	],

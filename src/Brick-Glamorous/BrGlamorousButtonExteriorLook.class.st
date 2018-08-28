@@ -1,41 +1,27 @@
 Class {
 	#name : #BrGlamorousButtonExteriorLook,
 	#superclass : #BrLook,
-	#instVars : [
-		'normalBorderPaint',
-		'hoveredBorderPaint'
-	],
-	#pools : [
-		'BrGlamorousColors'
-	],
-	#category : 'Brick-Glamorous-Buttons'
+	#category : #'Brick-Glamorous-Buttons'
 }
 
 { #category : #initialization }
 BrGlamorousButtonExteriorLook >> initialize [
 	super initialize.
-	
-	normalBorderPaint := ButtonBorderColor.
-	hoveredBorderPaint := HoveredButtonBorderColor
-]
 
-{ #category : #initialization }
-BrGlamorousButtonExteriorLook >> initializeLook [
-	super initializeLook.
-	
-	self widgetContent border: (BlBorder paint: normalBorderPaint width: 1)
-]
+	self add: (BrInteractionLook new define: [ :aBuilder |
+		aBuilder default: [ :aWidget |
+			aWidget
+				background: BrGlamorousColors defaultButtonBackgroundColor;
+				border: (BlBorder paint: BrGlamorousColors defaultButtonBorderColor width: 1) ].
 
-{ #category : #'mouse handlers' }
-BrGlamorousButtonExteriorLook >> mouseEnterEvent: anEvent [
-	super mouseEnterEvent: anEvent.
-	
-	self widgetContent border: (self widgetContent border copyWithPaint: hoveredBorderPaint)
-]
+		aBuilder hovered: [ :aWidget |
+			aWidget border: (BlBorder paint: BrGlamorousColors hoveredButtonBorderColor width: 1) ].
 
-{ #category : #'mouse handlers' }
-BrGlamorousButtonExteriorLook >> mouseLeaveEvent: anEvent [
-	super mouseLeaveEvent: anEvent.
-	
-	self widgetContent border: (self widgetContent border copyWithPaint: normalBorderPaint)
+		aBuilder pressed: [ :aWidget |
+			aWidget border: (BlBorder paint: BrGlamorousColors pressedButtonBorderColor width: 1) ].
+
+		aBuilder disabled: [ :aWidget |
+			aWidget
+				background: BrGlamorousColors disabledButtonBackgroundColor;
+				border: (BlBorder paint: BrGlamorousColors disabledButtonBorderColor width: 1) ] ])
 ]

@@ -1,10 +1,10 @@
 Class {
 	#name : #BrActivationModel,
-	#superclass : #BrWidgetModel,
+	#superclass : #BrStateModel,
 	#instVars : [
 		'enabled'
 	],
-	#category : 'Brick-! Core'
+	#category : #'Brick-! Core'
 }
 
 { #category : #'instance creation' }
@@ -93,4 +93,11 @@ BrActivationModel >> printOn: aStream [
 		nextPutAll: self modelName, '(';
 		nextPutAll: (self isEnabled ifTrue: [ 'enabled' ] ifFalse: [ 'disabled' ]);
 		nextPutAll: ')'
+]
+
+{ #category : #streaming }
+BrActivationModel >> streamStateOn: aStream [
+	self isEnabled
+		ifTrue: [ aStream nextPut: BrEnabledState new ]
+		ifFalse: [ aStream nextPut: BrEnabledState new not ]
 ]
