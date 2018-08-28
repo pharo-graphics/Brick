@@ -13,31 +13,31 @@ BrInteractiveStyler >> addState: aState action: anActionBlock [
 ]
 
 { #category : #builder }
-BrInteractiveStyler >> default: aDefaultBlock [
+BrInteractiveStyler >> default: aStyleBlock [
 	self
 		when: self state default
-		set: aDefaultBlock
+		style: aStyleBlock
 ]
 
 { #category : #builder }
-BrInteractiveStyler >> disabled: aDefaultBlock [
+BrInteractiveStyler >> disabled: aStyleBlock [
 	self
 		when: self state disabled
-		set: aDefaultBlock
+		style: aStyleBlock
 ]
 
 { #category : #builder }
-BrInteractiveStyler >> enabled: aDefaultBlock [
+BrInteractiveStyler >> enabled: aStyleBlock [
 	self
 		when: self state enabled
-		set: aDefaultBlock
+		style: aStyleBlock
 ]
 
 { #category : #builder }
-BrInteractiveStyler >> hovered: aDefaultBlock [
+BrInteractiveStyler >> hovered: aStyleBlock [
 	self
 		when: self state hovered
-		set: aDefaultBlock
+		style: aStyleBlock
 ]
 
 { #category : #initialization }
@@ -48,10 +48,10 @@ BrInteractiveStyler >> initialize [
 ]
 
 { #category : #builder }
-BrInteractiveStyler >> pressed: aDefaultBlock [
+BrInteractiveStyler >> pressed: aStyleBlock [
 	self
 		when: self state pressed
-		set: aDefaultBlock
+		style: aStyleBlock
 ]
 
 { #category : #accessing }
@@ -65,9 +65,9 @@ BrInteractiveStyler >> styles [
 ]
 
 { #category : #builder }
-BrInteractiveStyler >> when: aStateBlock set: aSetBlock [
+BrInteractiveStyler >> when: aStateBlock style: aStyleBlock [
 	| aTargetState |
 	
 	aTargetState := aStateBlock glamourValueWithArgs: { self state }.
-	self addState: aTargetState action: aSetBlock
+	self addState: aTargetState action: aStyleBlock
 ]
