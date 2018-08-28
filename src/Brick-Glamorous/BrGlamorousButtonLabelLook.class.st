@@ -21,9 +21,9 @@ BrGlamorousButtonLabelLook >> initialize [
 
 	self labelDo: [ :aLabelElement | aLabelElement boundsBaseline ].
 	
-	self add: (BrInteractionLook new define: [ :aBuilder |
-		aBuilder default: [ self foreground: BrGlamorousColors defaultButtonTextColor ].
-		aBuilder hovered: [ self foreground: BrGlamorousColors hoveredButtonTextColor ].
-		aBuilder pressed: [ self foreground: BrGlamorousColors pressedButtonTextColor ].
-		aBuilder disabled: [ self foreground: BrGlamorousColors disabledButtonTextColor ] ])
+	self add: (BrInteractiveLook new style: [ :aStyler |
+		aStyler default: [ self foreground: BrGlamorousColors defaultButtonTextColor ].
+		aStyler hovered: [ self foreground: BrGlamorousColors hoveredButtonTextColor ].
+		aStyler pressed: [ self foreground: BrGlamorousColors pressedButtonTextColor ].
+		aStyler disabled: [ self foreground: BrGlamorousColors disabledButtonTextColor ] ])
 ]

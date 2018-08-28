@@ -1,5 +1,5 @@
 Class {
-	#name : #BrInteractionCondition,
+	#name : #BrInteractiveStyle,
 	#superclass : #Object,
 	#instVars : [
 		'state',
@@ -9,21 +9,21 @@ Class {
 }
 
 { #category : #accessing }
-BrInteractionCondition >> action [
+BrInteractiveStyle >> action [
 	^ action
 ]
 
 { #category : #accessing }
-BrInteractionCondition >> action: anObject [
+BrInteractiveStyle >> action: anObject [
 	action := anObject
 ]
 
 { #category : #accessing }
-BrInteractionCondition >> state [
+BrInteractiveStyle >> state [
 	^ state
 ]
 
 { #category : #accessing }
-BrInteractionCondition >> state: anObject [
+BrInteractiveStyle >> state: anObject [
 	state := anObject
 ]

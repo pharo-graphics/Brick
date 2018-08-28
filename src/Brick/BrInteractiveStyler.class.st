@@ -1,71 +1,71 @@
 Class {
-	#name : #BrInteractionStateBuilder,
+	#name : #BrInteractiveStyler,
 	#superclass : #Object,
 	#instVars : [
-		'conditions'
+		'styles'
 	],
 	#category : #'Brick-! Core- Support'
 }
 
 { #category : #private }
-BrInteractionStateBuilder >> addState: aState action: anActionBlock [
-	conditions add: (BrInteractionCondition new state: aState; action: anActionBlock)
-]
-
-{ #category : #accessing }
-BrInteractionStateBuilder >> conditions [
-	^ conditions
+BrInteractiveStyler >> addState: aState action: anActionBlock [
+	styles add: (BrInteractiveStyle new state: aState; action: anActionBlock)
 ]
 
 { #category : #builder }
-BrInteractionStateBuilder >> default: aDefaultBlock [
+BrInteractiveStyler >> default: aDefaultBlock [
 	self
 		when: self state default
 		set: aDefaultBlock
 ]
 
 { #category : #builder }
-BrInteractionStateBuilder >> disabled: aDefaultBlock [
+BrInteractiveStyler >> disabled: aDefaultBlock [
 	self
 		when: self state disabled
 		set: aDefaultBlock
 ]
 
 { #category : #builder }
-BrInteractionStateBuilder >> enabled: aDefaultBlock [
+BrInteractiveStyler >> enabled: aDefaultBlock [
 	self
 		when: self state enabled
 		set: aDefaultBlock
 ]
 
 { #category : #builder }
-BrInteractionStateBuilder >> hovered: aDefaultBlock [
+BrInteractiveStyler >> hovered: aDefaultBlock [
 	self
 		when: self state hovered
 		set: aDefaultBlock
 ]
 
 { #category : #initialization }
-BrInteractionStateBuilder >> initialize [
+BrInteractiveStyler >> initialize [
 	super initialize.
 	
-	conditions := OrderedCollection new
+	styles := OrderedCollection new
 ]
 
 { #category : #builder }
-BrInteractionStateBuilder >> pressed: aDefaultBlock [
+BrInteractiveStyler >> pressed: aDefaultBlock [
 	self
 		when: self state pressed
 		set: aDefaultBlock
 ]
 
 { #category : #accessing }
-BrInteractionStateBuilder >> state [
+BrInteractiveStyler >> state [
 	^ BrInteractionState
 ]
 
+{ #category : #accessing }
+BrInteractiveStyler >> styles [
+	^ styles
+]
+
 { #category : #builder }
-BrInteractionStateBuilder >> when: aStateBlock set: aSetBlock [
+BrInteractiveStyler >> when: aStateBlock set: aSetBlock [
 	| aTargetState |
 	
 	aTargetState := aStateBlock glamourValueWithArgs: { self state }.
