@@ -1,10 +1,15 @@
+"
+I am sent when a cursor related change happened at a given text position.
+
+It can be that a cursor was removed from this position or added
+"
 Class {
 	#name : #BrTextEditorCursorChangeCommand,
 	#superclass : #BrTextEditorCommand,
 	#instVars : [
 		'position'
 	],
-	#category : 'Brick-Editor-Commands'
+	#category : #'Brick-Editor-Commands'
 }
 
 { #category : #executing }

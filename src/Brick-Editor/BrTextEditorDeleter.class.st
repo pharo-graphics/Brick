@@ -11,20 +11,22 @@ Class {
 
 { #category : #'api - configuration' }
 BrTextEditorDeleter >> afterCursor [
-	"Delete all text after the cursor"
+	"Delete all text after all cursors"
 
-	self
-		from: self cursor position
-		to: self text size
+	self cursor do: [ :aCursor |
+		self
+			from: aCursor position
+			to: self text size ]
 ]
 
 { #category : #'api - configuration' }
 BrTextEditorDeleter >> beforeCursor [
-	"Delete all text before the cursor"
-	
-	self
-		from: 0 to:
-		self cursor position
+	"Delete all text before the cursors"
+		
+	self cursor do: [ :aCursor |
+		self
+			from: 0
+			to: aCursor position ]
 ]
 
 { #category : #private }
@@ -72,7 +74,7 @@ BrTextEditorDeleter >> delete [
 	"Perform deletion operation"
 
 	shouldUpdateCursor
-		ifTrue: [ self updateCursor ].
+		ifTrue: [ self updateCursors ].
 
 	shouldUpdateSelection
 		ifTrue: [ self updateSelection ].
@@ -108,20 +110,22 @@ BrTextEditorDeleter >> initialize [
 
 { #category : #'api - configuration' }
 BrTextEditorDeleter >> oneAfterCursor [
-	"Delete one symbol after the cursor"
-
-	self
-		from: self cursor position
-		to: ((self cursor position + 1) min: self text size)
+	"Delete one symbol after the cursors"
+		
+	self cursor do: [ :aCursor |
+		self
+			from: aCursor position
+			to: ((aCursor position + 1) min: self text size) ]
 ]
 
 { #category : #'api - configuration' }
 BrTextEditorDeleter >> oneBeforeCursor [
 	"Delete one symbol before the cursor"
 
-	self
-		from: ((self cursor position - 1) max: 0)
-		to: self cursor position
+	self cursor do: [ :aCursor |
+		self
+			from: ((aCursor position - 1) max: 0)
+			to: aCursor position ]
 ]
 
 { #category : #private }
@@ -154,12 +158,15 @@ BrTextEditorDeleter >> selected [
 ]
 
 { #category : #private }
-BrTextEditorDeleter >> updateCursor [
-	| aCursorDelta |
-
-	aCursorDelta := self computeCursorMovement: self cursor.
-	aCursorDelta isZero
-		ifFalse: [ self editor moveCursorTo: self cursor position + aCursorDelta ]
+BrTextEditorDeleter >> updateCursors [
+	
+	self cursor do: [ :aCursor |
+		| aCursorDelta |
+		aCursorDelta := self computeCursorMovement: aCursor.
+		aCursorDelta isZero
+			ifFalse: [ self editor navigator
+				move: aCursor by: aCursorDelta;
+				apply ] ]
 ]
 
 { #category : #private }

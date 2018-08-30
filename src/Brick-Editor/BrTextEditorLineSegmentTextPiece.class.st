@@ -2,9 +2,9 @@ Class {
 	#name : #BrTextEditorLineSegmentTextPiece,
 	#superclass : #BrTextEditorLineSegmentPiece,
 	#instVars : [
-		'currentCursor'
+		'currentCursors'
 	],
-	#category : 'Brick-Editor-Model - Segment-Text-Line'
+	#category : #'Brick-Editor-Model - Segment-Text-Line'
 }
 
 { #category : #'instance creation' }
@@ -29,44 +29,42 @@ BrTextEditorLineSegmentTextPiece >> globalTextIndexToLocal: aTextIndex [
 BrTextEditorLineSegmentTextPiece >> hasCursor: anEditorElement [
 	<return: #Boolean>
 
-	^ currentCursor isNotNil and: [ currentCursor isVisible ]
+	"^ currentCursor isNotNil and: [ currentCursor isVisible ]"
+]
+
+{ #category : #initialization }
+BrTextEditorLineSegmentTextPiece >> initialize [
+	super initialize.
+	
+	currentCursors := Set new
 ]
 
 { #category : #'api - cursor' }
 BrTextEditorLineSegmentTextPiece >> updateCursor: aTextElement of: aLineSegment in: anEditorElement [
-	| aCursor aCursorPosition hadCursor hasCursor oldCursor |
+	| theCursorsInside |
 	
-	aCursor := anEditorElement editor cursor.
+	theCursorsInside := anEditorElement editor cursor allCursors
+		select: [ :aCursor | aCursor insideSubText: self of: aLineSegment ].
 	
-	hadCursor := self hasCursor: anEditorElement.
-
-	(aCursor insideSubText: self of: aLineSegment)
-		ifFalse: [
-			hadCursor
-				ifTrue: [
-					aTextElement dispatchEvent: (BrTextEditorHideCursorRequest new
-						editorElement: anEditorElement;
-						cursorPosition: currentCursor position).
-					currentCursor := nil ].
-			^ self ].
-
-	oldCursor := currentCursor.
-	hadCursor ifTrue: [
+	"tell to remove all existing cursors"
+	currentCursors do: [ :aCursor |
 		aTextElement dispatchEvent: (BrTextEditorHideCursorRequest new
-			editorElement: anEditorElement;
-			cursorPosition: oldCursor position).
-		currentCursor := nil ].
+				editorElement: anEditorElement;
+				cursorPosition: aCursor position) ].
 
-	currentCursor := aCursor copy.
-	aCursorPosition := self globalTextIndexToLocal: aCursor position.
-	currentCursor position: aCursorPosition.
-	
-	hasCursor := self hasCursor: anEditorElement.
-	hasCursor
-		ifTrue: [ aTextElement dispatchEvent: (BrTextEditorShowCursorRequest new
-			editorElement: anEditorElement;
-			hasFocus: anEditorElement hasFocus;
-			cursorPosition: currentCursor position) ]
+	"create a collection of new cursors in local coordinates"
+	currentCursors := theCursorsInside collect: [ :aCursor |
+		| aNewCursor |	
+		aNewCursor := aCursor copy.
+		aNewCursor position: (self globalTextIndexToLocal: aCursor position).
+		aNewCursor ].
+
+	"tell to add new cursors"
+	currentCursors do: [ :aCursor |
+		aTextElement dispatchEvent: (BrTextEditorShowCursorRequest new
+				editorElement: anEditorElement;
+				hasFocus: anEditorElement hasFocus;
+				cursorPosition: aCursor position) ]
 ]
 
 { #category : #'selection - management' }

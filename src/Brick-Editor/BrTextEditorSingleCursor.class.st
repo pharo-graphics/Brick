@@ -8,6 +8,21 @@ Class {
 	#category : 'Brick-Editor-Model - Cursor'
 }
 
+{ #category : #comparing }
+BrTextEditorSingleCursor >> = anotherObject [
+	self == anotherObject
+		ifTrue: [ ^ true ].
+	(anotherObject isKindOf: self class)
+		ifFalse: [ ^ false ].
+
+	^ anotherObject position = self position
+]
+
+{ #category : #comparing }
+BrTextEditorSingleCursor >> hash [
+	^ self class hash bitXor: self position hash
+]
+
 { #category : #initialization }
 BrTextEditorSingleCursor >> initialize [
 	super initialize.

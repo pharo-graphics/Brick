@@ -1,3 +1,6 @@
+"
+When in ""cursor update mode"" I place cursors at the end of each selection
+"
 Class {
 	#name : #BrTextEditorSelecter,
 	#superclass : #BrTextEditorOperator,
@@ -65,13 +68,19 @@ BrTextEditorSelecter >> select [
 		ifTrue: [ self privateDeselectExisting ].
 
 	selection do: [ :aMonotoneSelection | self privateSelect: aMonotoneSelection from to: aMonotoneSelection to ].
-	(shouldUpdateCursor and: [ selection isNotEmpty ])
-		ifTrue: [ self updateCursor ]
+
+	shouldUpdateCursor
+		ifTrue: [ self updateCursors ]
 ]
 
 { #category : #private }
-BrTextEditorSelecter >> updateCursor [
-	self editor moveCursorTo: selection to
+BrTextEditorSelecter >> updateCursors [
+	| aNavigator |
+	
+	aNavigator := self editor navigator.
+	aNavigator removeAll.
+	self selection do: [ :aMonotoneSelection | aNavigator addAt: aMonotoneSelection to ].
+	aNavigator apply
 ]
 
 { #category : #'api - configuration' }

@@ -119,7 +119,7 @@ BrTextEditor >> cutSelected [
 
 { #category : #initialization }
 BrTextEditor >> defaultCursor [
-	^ BrTextEditorSingleCursor new
+	^ BrTextEditorMultipleCursor new
 ]
 
 { #category : #initialization }
@@ -222,11 +222,11 @@ BrTextEditor >> hasSelection [
 BrTextEditor >> hideCursor [
 	| aCommand |
 
-	self cursor isVisible: false.
+	"self cursor isVisible: false.
 
 	aCommand := self newCursorChangeCommand
 		position: self cursor position.
-	self enqueueCommand: aCommand
+	self enqueueCommand: aCommand"
 ]
 
 { #category : #initialization }
@@ -373,7 +373,9 @@ BrTextEditor >> moveCursorLeft [
 		- I don't change current selection.
 		- I request segments update"
 
-	self moveCursorTo: (self cursor position - 1 max: 0)
+	self navigator
+		moveLeft;
+		apply
 ]
 
 { #category : #'text - cursor' }
@@ -383,22 +385,19 @@ BrTextEditor >> moveCursorRight [
 		- I don't change current selection.
 		- I request segments update"
 
-	self moveCursorTo: (self cursor position + 1 min: self text size)
+	self navigator
+		moveRight;
+		apply
 ]
 
 { #category : #'text - cursor' }
 BrTextEditor >> moveCursorTo: aTextIndex [
 	"Moves cursor to a given position without any further action such as cancelling selection"
 	<event: #BrTextEditorCursorMovedEvent>
-	| aCommand |
 
-	self
-		assert: [ aTextIndex between: 0 and: self text size ]
-		description: [ 'Text cursor must not exceed text bounds' ].
-
-	aCommand := self newCursorMoveCommand
-		position: aTextIndex.
-	self enqueueCommand: aCommand
+	self navigator
+		moveTo: aTextIndex;
+		apply
 ]
 
 { #category : #'text - cursor' }
@@ -434,14 +433,9 @@ BrTextEditor >> moveCursorToStartPreviousWord [
 	self selectNone"
 ]
 
-{ #category : #'commands - creation' }
-BrTextEditor >> newCursorChangeCommand [
-	^ BrTextEditorCursorChangeCommand new
-]
-
-{ #category : #'commands - creation' }
-BrTextEditor >> newCursorMoveCommand [
-	^ BrTextEditorCursorMoveCommand new
+{ #category : #'api - modification' }
+BrTextEditor >> navigator [
+	^ BrTextEditorNavigator new editor: self
 ]
 
 { #category : #'commands - creation' }
@@ -806,11 +800,11 @@ BrTextEditor >> selectionRecorder [
 BrTextEditor >> showCursor [
 	| aCommand |
 
-	self cursor isVisible: true.
+	"self cursor isVisible: true.
 	
 	aCommand := self newCursorChangeCommand
 		position: self cursor position.
-	self enqueueCommand: aCommand
+	self enqueueCommand: aCommand"
 ]
 
 { #category : #'text - styling' }

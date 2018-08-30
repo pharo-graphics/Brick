@@ -32,12 +32,16 @@ BrTextWordPieceStencilBuilder >> buildDefault [
 				aRequest editorElement dispatchEvent: (BrTextEditorCursorElementRemovedEvent new cursorElement: aCursorElement) ] ];
 		"when clicking inside of a text piece we should move cursor there and request editor focus"
 		when: BlMouseDownEvent do: [ :anEvent |
-			| aLocalTextIndex |
+			| aLocalTextIndex aGobaltextIndex aNavigator |
 			aLocalTextIndex := anEvent currentTarget paragraph indexAtPosition: anEvent localPosition.
+			aGobaltextIndex := (anEvent currentTarget text start + aLocalTextIndex - 1) max: 0.
 			self editorElement requestFocus.
-			self editorElement editor
-					moveCursorTo: ((anEvent currentTarget text start + aLocalTextIndex - 1) max: 0) ];
-		
+			aNavigator := self editorElement editor navigator.
+			anEvent modifiers isCmd
+				ifTrue: [ aNavigator addAt: aGobaltextIndex ]
+				ifFalse: [ aNavigator moveTo: aGobaltextIndex ].
+			aNavigator apply ];
+
 		"text piece got inside of selected area"
 		when: BlElementSelectionAcquiredEvent do: [ :anEvent |
 			| aTextEditElement |

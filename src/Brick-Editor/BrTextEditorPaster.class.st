@@ -20,8 +20,8 @@ BrTextEditorPaster >> at: anIndex [
 ]
 
 { #category : #'api - configuration' }
-BrTextEditorPaster >> atCursor [
-	self at: self cursor position
+BrTextEditorPaster >> atCursor [	
+	self cursor do: [ :aCursor | self at: aCursor position ]
 ]
 
 { #category : #'api - configuration' }

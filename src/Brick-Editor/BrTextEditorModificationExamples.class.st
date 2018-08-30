@@ -4,6 +4,201 @@ Class {
 	#category : 'Brick-Editor-Examples'
 }
 
+{ #category : #'examples - cursor' }
+BrTextEditorModificationExamples >> cursor_add_at_0_and_0_in_empty [
+	<gtExample>
+	| anEditor |
+	
+	anEditor := self editorOnMultilineText.
+	
+	anEditor navigator
+		addAt: 0;
+		addAt: 0;
+		apply.
+		
+	self assert: anEditor cursor isNotEmpty.
+	self assert: anEditor cursor allCursors equals: { BrTextEditorSingleCursor new position: 0 }.
+	
+	^ anEditor
+]
+
+{ #category : #'examples - cursor' }
+BrTextEditorModificationExamples >> cursor_add_at_0_and_1_in_empty [
+	<gtExample>
+	| anEditor |
+	
+	anEditor := self editorOnMultilineText.
+	
+	anEditor navigator
+		addAt: 0;
+		addAt: 1;
+		apply.
+
+	self assert: anEditor cursor isNotEmpty.
+	self assert: anEditor cursor allCursors equals: {
+		BrTextEditorSingleCursor new position: 0.
+		BrTextEditorSingleCursor new position: 1 }.
+	
+	^ anEditor
+]
+
+{ #category : #'examples - cursor' }
+BrTextEditorModificationExamples >> cursor_add_at_0_in_empty [
+	<gtExample>
+	| anEditor |
+	
+	anEditor := self editorOnMultilineText.
+	
+	anEditor navigator
+		addAt: 0;
+		apply.
+		
+	self assert: anEditor cursor isNotEmpty.
+	self assert: anEditor cursor allCursors equals: { BrTextEditorSingleCursor new position: 0 }.
+	
+	^ anEditor
+]
+
+{ #category : #'examples - cursor' }
+BrTextEditorModificationExamples >> cursor_add_at_1_and_0_in_empty [
+	<gtExample>
+	| anEditor |
+	
+	anEditor := self editorOnMultilineText.
+	
+	anEditor navigator
+		addAt: 1;
+		addAt: 0;
+		apply.
+
+	self assert: anEditor cursor isNotEmpty.
+	self assert: anEditor cursor allCursors equals: {
+		BrTextEditorSingleCursor new position: 0.
+		BrTextEditorSingleCursor new position: 1 }.
+
+	^ anEditor
+]
+
+{ #category : #'examples - cursor' }
+BrTextEditorModificationExamples >> cursor_add_at_1_in_cursors_at_0 [
+	<gtExample>
+	| anEditor |
+	
+	anEditor := self cursor_add_at_0_in_empty.
+	
+	anEditor navigator
+		addAt: 1;
+		apply.
+
+	self assert: anEditor cursor isNotEmpty.
+	self assert: anEditor cursor allCursors equals: {
+		BrTextEditorSingleCursor new position: 0.
+		BrTextEditorSingleCursor new position: 1.
+	}.
+
+	^ anEditor
+]
+
+{ #category : #'examples - cursor' }
+BrTextEditorModificationExamples >> cursor_moveTo_0_in_cursors_at_0_and_1 [
+	<gtExample>
+	| anEditor |
+	
+	anEditor := self cursor_add_at_0_and_1_in_empty.
+	
+	anEditor navigator
+		moveTo: 0;
+		apply.
+
+	self assert: anEditor cursor isNotEmpty.
+	self assert: anEditor cursor allCursors equals: { BrTextEditorSingleCursor new position: 0 }.
+	
+	^ anEditor
+]
+
+{ #category : #'examples - cursor' }
+BrTextEditorModificationExamples >> cursor_moveTo_0_in_empty [
+	<gtExample>
+	| anEditor |
+	
+	anEditor := self editorOnMultilineText.
+	
+	anEditor navigator
+		moveTo: 0;
+		apply.
+		
+	self assert: anEditor cursor isNotEmpty.
+	self assert: anEditor cursor allCursors equals: { BrTextEditorSingleCursor new position: 0 }.
+	
+	^ anEditor
+]
+
+{ #category : #'examples - cursor' }
+BrTextEditorModificationExamples >> cursor_moveTo_2_in_cursors_at_0_and_1 [
+	<gtExample>
+	| anEditor |
+
+	anEditor := self cursor_add_at_0_and_1_in_empty.
+
+	anEditor navigator
+		moveTo: 2;
+		apply.
+
+	self assert: anEditor cursor isNotEmpty.
+	self assert: anEditor cursor allCursors equals: { BrTextEditorSingleCursor new position: 2 }.
+
+	^ anEditor
+]
+
+{ #category : #'examples - cursor' }
+BrTextEditorModificationExamples >> cursor_removeAll_in_cursors_at_0_and_1 [
+	<gtExample>
+	| anEditor |
+	
+	anEditor := self cursor_add_at_0_and_1_in_empty.
+
+	anEditor navigator
+		removeAll;
+		apply.
+
+	self assert: anEditor cursor isEmpty.
+	
+	^ anEditor
+]
+
+{ #category : #'examples - cursor' }
+BrTextEditorModificationExamples >> cursor_remove_at_0_in_cursors_at_0 [
+	<gtExample>
+	| anEditor |
+	
+	anEditor := self cursor_add_at_0_in_empty.
+	
+	anEditor navigator
+		removeAt: 0;
+		apply.
+
+	self assert: anEditor cursor isEmpty.
+
+	^ anEditor
+]
+
+{ #category : #'examples - cursor' }
+BrTextEditorModificationExamples >> cursor_remove_at_1_and_0_in_cursors_at_0_and_1 [
+	<gtExample>
+	| anEditor |
+	
+	anEditor := self cursor_add_at_0_and_1_in_empty.
+
+	anEditor navigator
+		removeAt: 0;
+		removeAt: 1;
+		apply.
+
+	self assert: anEditor cursor isEmpty.
+	
+	^ anEditor
+]
+
 { #category : #'examples - deletion' }
 BrTextEditorModificationExamples >> delete_0_to_0_cursorAt_0_selection_0_to_0 [
 	<gtExample>
@@ -12,13 +207,13 @@ BrTextEditorModificationExamples >> delete_0_to_0_cursorAt_0_selection_0_to_0 [
 	anEditor := self editorOnMultilineText.
 	anEditor moveCursorTo: 0.
 	anEditor select: 0 to: 0.
-	
+
 	anEditor deleter
 		from: 0 to: 0;
 		delete.
 
 	self assert: anEditor text asString equals: (self multilineText asString).
-	self assert: anEditor cursor position equals: 0.
+	self assert: anEditor cursor allCursors equals: { BrTextEditorSingleCursor new position: 0 }.
 	self assert: anEditor selection isEmpty.
 
 	^ anEditor
@@ -38,7 +233,7 @@ BrTextEditorModificationExamples >> delete_0_to_0_cursorAt_0_selection_0_to_10 [
 		delete.
 
 	self assert: anEditor text asString equals: (self multilineText asString).
-	self assert: anEditor cursor position equals: 0.
+	self assert: anEditor cursor allCursors equals: { BrTextEditorSingleCursor new position: 0 }.
 	self assert: anEditor selection equals: (BlCompositeSelection new select: 0 to: 10).
 
 	^ anEditor
@@ -58,7 +253,7 @@ BrTextEditorModificationExamples >> delete_0_to_1_cursorAt_0_selection_0_to_10 [
 		delete.
 
 	self assert: anEditor text asString equals: (self multilineText from: 2 to: self multilineText size) asString.
-	self assert: anEditor cursor position equals: 0.
+	self assert: anEditor cursor allCursors equals: { BrTextEditorSingleCursor new position: 0 }.
 	self assert: anEditor selection equals: (BlCompositeSelection new select: 0 to: 9).
 
 	^ anEditor
@@ -78,7 +273,7 @@ BrTextEditorModificationExamples >> delete_0_to_28_cursorAt_0_selection_0_to_10 
 		delete.
 	
 	self assert: anEditor text asString equals: (self multilineText from: 29 to: self multilineText size) asString.
-	self assert: anEditor cursor position equals: 0.
+	self assert: anEditor cursor allCursors equals: { BrTextEditorSingleCursor new position: 0 }.
 	self assert: anEditor selection isEmpty.
 
 	^ anEditor
@@ -98,7 +293,7 @@ BrTextEditorModificationExamples >> delete_0_to_28_cursorAt_0_selection_0_to_28 
 		delete.
 	
 	self assert: anEditor text asString equals: (self multilineText from: 29 to: self multilineText size) asString.
-	self assert: anEditor cursor position equals: 0.
+	self assert: anEditor cursor allCursors equals: { BrTextEditorSingleCursor new position: 0 }.
 	self assert: anEditor selection isEmpty.
 
 	^ anEditor
@@ -118,7 +313,7 @@ BrTextEditorModificationExamples >> delete_0_to_28_cursorAt_0_selection_0_to_29 
 		delete.
 	
 	self assert: anEditor text asString equals: (self multilineText from: 29 to: self multilineText size) asString.
-	self assert: anEditor cursor position equals: 0.
+	self assert: anEditor cursor allCursors equals: { BrTextEditorSingleCursor new position: 0 }.
 	self assert: anEditor selection equals: (BlCompositeSelection new select: 0 to: 1).
 
 	^ anEditor
@@ -138,7 +333,7 @@ BrTextEditorModificationExamples >> delete_0_to_28_cursorAt_0_selection_0_to_38 
 		delete.
 
 	self assert: anEditor text asString equals: (self multilineText from: 29 to: self multilineText size) asString.
-	self assert: anEditor cursor position equals: 0.
+	self assert: anEditor cursor allCursors equals: { BrTextEditorSingleCursor new position: 0 }.
 	self assert: anEditor selection equals: (BlCompositeSelection new select: 0 to: 10).
 
 	^ anEditor
@@ -159,7 +354,7 @@ BrTextEditorModificationExamples >> delete_0_to_28_cursorAt_0_selection_0_to_38_
 		delete.
 
 	self assert: anEditor text asString equals: (self multilineText from: 29 to: self multilineText size) asString.
-	self assert: anEditor cursor position equals: 0.
+	self assert: anEditor cursor allCursors equals: { BrTextEditorSingleCursor new position: 0 }.
 	self assert: anEditor selection equals: (BlCompositeSelection new select: 0 to: 10; select: 20 to: 22).
 
 	^ anEditor
@@ -179,7 +374,7 @@ BrTextEditorModificationExamples >> delete_0_to_28_cursorAt_10_selection_0_to_10
 		delete.
 	
 	self assert: anEditor text asString equals: (self multilineText from: 29 to: self multilineText size) asString.
-	self assert: anEditor cursor position equals: 0.
+	self assert: anEditor cursor allCursors equals: { BrTextEditorSingleCursor new position: 0 }.
 	self assert: anEditor selection isEmpty.
 
 	^ anEditor
@@ -199,7 +394,7 @@ BrTextEditorModificationExamples >> delete_0_to_28_cursorAt_28_selection_0_to_10
 		delete.
 	
 	self assert: anEditor text asString equals: (self multilineText from: 29 to: self multilineText size) asString.
-	self assert: anEditor cursor position equals: 0.
+	self assert: anEditor cursor allCursors equals: { BrTextEditorSingleCursor new position: 0 }.
 	self assert: anEditor selection isEmpty.
 
 	^ anEditor
@@ -219,7 +414,7 @@ BrTextEditorModificationExamples >> delete_0_to_28_cursorAt_29_selection_0_to_10
 		delete.
 	
 	self assert: anEditor text asString equals: (self multilineText from: 29 to: self multilineText size) asString.
-	self assert: anEditor cursor position equals: 1.
+	self assert: anEditor cursor allCursors equals: { BrTextEditorSingleCursor new position: 1 }.
 	self assert: anEditor selection isEmpty.
 
 	^ anEditor
@@ -239,7 +434,7 @@ BrTextEditorModificationExamples >> delete_0_to_28_cursorAt_38_selection_0_to_10
 		delete.
 	
 	self assert: anEditor text asString equals: (self multilineText from: 29 to: self multilineText size) asString.
-	self assert: anEditor cursor position equals: 10.
+	self assert: anEditor cursor allCursors equals: { BrTextEditorSingleCursor new position: 10 }.
 	self assert: anEditor selection isEmpty.
 
 	^ anEditor
@@ -258,12 +453,36 @@ BrTextEditorModificationExamples >> editorOnMultilineText [
 	| anEditor |
 	
 	anEditor := self editor text: self multilineText.
-	
-	self assert: anEditor cursor isVisible not.
-	self assert: anEditor cursor position isZero.
-	
+
+	self assert: anEditor cursor isEmpty.	
 	self assert: anEditor selection isEmpty.
 	
+	^ anEditor
+]
+
+{ #category : #'examples - insertion' }
+BrTextEditorModificationExamples >> insert_Hello_atCursorAt_0_and_1_selection_no [
+	<gtExample>
+	<description: '"Insertion at multiple cursors'>
+	| anEditor |
+
+	anEditor := self editorOnMultilineText.
+	anEditor navigator
+		addAt: 0;
+		addAt: 1;
+		apply.
+
+	anEditor inserter
+		atCursor;
+		string: 'Hello';
+		insert.
+
+	self assert: anEditor text asString equals: ('Hello', (self multilineText from: 1 to: 1) asString, 'Hello', (self multilineText from: 2 to: self multilineText size) asString).
+	self assert: anEditor cursor allCursors equals: {
+		BrTextEditorSingleCursor new position: 5.
+		BrTextEditorSingleCursor new position: 11 }.
+	self assert: anEditor selection isEmpty.
+
 	^ anEditor
 ]
 
@@ -282,7 +501,7 @@ BrTextEditorModificationExamples >> insert_Hello_at_0_cursorAt_0_selection_0_to_
 		insert.
 
 	self assert: anEditor text asString equals: ('Hello', self multilineText asString).
-	self assert: anEditor cursor position equals: 5.
+	self assert: anEditor cursor allCursors equals: { BrTextEditorSingleCursor new position: 5 }.
 	self assert: anEditor selection isEmpty.
 
 	^ anEditor
@@ -303,7 +522,7 @@ BrTextEditorModificationExamples >> insert_Hello_at_0_cursorAt_0_selection_0_to_
 		insert.
 
 	self assert: anEditor text asString equals: ('Hello', (self multilineText from: 2 to: self multilineText size) asString).
-	self assert: anEditor cursor position equals: 5.
+	self assert: anEditor cursor allCursors equals: { BrTextEditorSingleCursor new position: 5 }.
 	self assert: anEditor selection isEmpty.
 
 	^ anEditor
@@ -326,7 +545,7 @@ BrTextEditorModificationExamples >> insert_Hello_at_0_cursorAt_10_selection_0_to
 		insert.
 
 	self assert: anEditor text asString equals: ('Hello', (self multilineText from: 2 to: 7) asString, (self multilineText from: 14 to: self multilineText size) asString).
-	self assert: anEditor cursor position equals: 12.
+	self assert: anEditor cursor allCursors equals: { BrTextEditorSingleCursor new position: 12 }.
 	self assert: anEditor selection isEmpty.
 
 	^ anEditor
@@ -349,7 +568,7 @@ BrTextEditorModificationExamples >> insert_Hello_at_0_cursorAt_10_selection_0_to
 		insert.
 
 	self assert: anEditor text asString equals: ('Hello', self multilineText asString).
-	self assert: anEditor cursor position equals: 15.
+	self assert: anEditor cursor allCursors equals: { BrTextEditorSingleCursor new position: 15 }.
 	self assert: anEditor selection allSelections equals: {
 		BlSelection from: 5 to: 6.
 		BlSelection from: 13 to: 19.
@@ -376,7 +595,7 @@ BrTextEditorModificationExamples >> insert_Hello_at_0_cursorAt_10_selection_0_to
 		insert.
 
 	self assert: anEditor text asString equals: ('Hello', self multilineText asString).
-	self assert: anEditor cursor position equals: 15.
+	self assert: anEditor cursor allCursors equals: { BrTextEditorSingleCursor new position: 15 }.
 	self assert: anEditor selection allSelections equals: {
 		BlSelection from: 0 to: 1.
 		BlSelection from: 8 to: 14.
@@ -404,7 +623,7 @@ BrTextEditorModificationExamples >> insert_Hello_at_0_cursorAt_10_selection_0_to
 		insert.
 
 	self assert: anEditor text asString equals: ('Hello', self multilineText asString).
-	self assert: anEditor cursor position equals: 10.
+	self assert: anEditor cursor allCursors equals: { BrTextEditorSingleCursor new position: 10 }.
 	self assert: anEditor selection allSelections equals: {
 		BlSelection from: 0 to: 1.
 		BlSelection from: 8 to: 14.
@@ -428,7 +647,7 @@ BrTextEditorModificationExamples >> insert_Hello_at_0_cursorAt_5_selection_0_to_
 		insert.
 
 	self assert: anEditor text asString equals: ('Hello', self multilineText asString).
-	self assert: anEditor cursor position equals: 10.
+	self assert: anEditor cursor allCursors equals: { BrTextEditorSingleCursor new position: 10 }.
 	self assert: anEditor selection isEmpty.
 
 	^ anEditor
@@ -449,7 +668,7 @@ BrTextEditorModificationExamples >> insert_Hello_at_1_cursorAt_0_selection_0_to_
 		insert.
 
 	self assert: anEditor text asString equals: (self multilineText first asString, 'Hello', ((self multilineText from: 2 to: self multilineText size) asString)).
-	self assert: anEditor cursor position equals: 0.
+	self assert: anEditor cursor allCursors equals: { BrTextEditorSingleCursor new position: 0 }.
 	self assert: anEditor selection isEmpty.
 
 	^ anEditor
@@ -470,7 +689,7 @@ BrTextEditorModificationExamples >> insert_Hello_at_1_cursorAt_1_selection_0_to_
 		insert.
 
 	self assert: anEditor text asString equals: (self multilineText first asString, 'Hello', ((self multilineText from: 2 to: self multilineText size) asString)).
-	self assert: anEditor cursor position equals: 6.
+	self assert: anEditor cursor allCursors equals: { BrTextEditorSingleCursor new position: 6 }.
 	self assert: anEditor selection isEmpty.
 
 	^ anEditor
@@ -505,8 +724,7 @@ BrTextEditorModificationExamples >> selectedFirstLine [
 	self assert: anEditor selection equals: (BlCompositeSelection new select: 0 to: 28).
 	self assert: anEditor selectedText asString equals: 'A summer river being crossed'.
 
-	self assert: anEditor cursor isVisible not.
-	self assert: anEditor cursor position isZero.
+	self assert: anEditor cursor isEmpty.
 
 	^ anEditor
 ]

@@ -33,7 +33,7 @@ BrTextEditorInserter >> at: anIndex [
 
 { #category : #'api - configuration' }
 BrTextEditorInserter >> atCursor [
-	self at: self cursor position
+	self cursor do: [ :aCursor | self at: aCursor position ]
 ]
 
 { #category : #'api - configuration' }
@@ -104,7 +104,7 @@ BrTextEditorInserter >> insert [
 		self privateInsertString: text at: anIndex.
 
 		shouldUpdateCursor
-			ifTrue: [ self updateCursorAfterInsertion: text at: anIndex ].
+			ifTrue: [ self updateCursorsAfterInsertion: text at: anIndex ].
 		shouldUpdateSelection
 			ifTrue: [ self updateSelectionAfterInsertion: text at: anIndex ] ]
 ]
@@ -160,16 +160,18 @@ BrTextEditorInserter >> text: aBlText [
 ]
 
 { #category : #private }
-BrTextEditorInserter >> updateCursorAfterInsertion: aText at: anIndex [
-	| aCursorDelta |
+BrTextEditorInserter >> updateCursorsAfterInsertion: aText at: anIndex [
+	self cursor do: [ :aCursor |
+		| aCursorDelta |
+		aCursorDelta := self
+			computeIndexMovement: aCursor position
+			afterInserted: aText
+			at: anIndex.
 
-	aCursorDelta := self
-		computeIndexMovement: self cursor position
-		afterInserted: aText
-		at: anIndex.
-
-	aCursorDelta isZero
-		ifFalse: [ self editor moveCursorTo: self cursor position + aCursorDelta ]
+		aCursorDelta isZero
+			ifFalse: [ self editor navigator
+				move: aCursor by: aCursorDelta;
+				apply ] ]
 ]
 
 { #category : #private }
