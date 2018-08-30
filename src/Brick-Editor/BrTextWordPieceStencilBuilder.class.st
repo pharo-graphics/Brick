@@ -20,15 +20,15 @@ BrTextWordPieceStencilBuilder >> buildDefault [
 		when: BrTextEditorShowCursorRequest do: [ :aRequest |
 			aRequest hasFocus
 				ifTrue: [
-					aRequest currentTarget showCursorAt: aRequest cursorPosition.
-					aRequest editorElement dispatchEvent: (BrTextEditorCursorElementAddedEvent new cursorElement: aRequest currentTarget cursorElement) ] ];
+					| aCursorElement |
+					aCursorElement := aRequest currentTarget addCursorAt: aRequest cursorPosition.
+					aRequest editorElement dispatchEvent: (BrTextEditorCursorElementAddedEvent new cursorElement: aCursorElement) ] ];
 
 		"editor requests to hide a cursor as a result of its position change"
 		when: BrTextEditorHideCursorRequest do: [ :aRequest |
-			aRequest currentTarget hasCursor ifTrue: [
+			(aRequest currentTarget hasCursorAt: aRequest cursorPosition) ifTrue: [
 				| aCursorElement |
-				aCursorElement := aRequest currentTarget cursorElement.
-				aRequest currentTarget hideCursor.
+				aCursorElement := aRequest currentTarget removeCursorAt: aRequest cursorPosition.
 				aRequest editorElement dispatchEvent: (BrTextEditorCursorElementRemovedEvent new cursorElement: aCursorElement) ] ];
 		"when clicking inside of a text piece we should move cursor there and request editor focus"
 		when: BlMouseDownEvent do: [ :anEvent |

@@ -180,7 +180,9 @@ BrTextEditorNavigator >> privateMoveRegistered [
 	theRemovedCursor do: [ :aCursor | self privateRemoveCursor: aCursor ].
 	
 	"cursors that we actually move"
-	theMergedCursors keysAndValuesDo: [ :aNewPosition :aCursor | self privateMoveCursor: aCursor to: aNewPosition ]
+	theMergedCursors keysAndValuesDo: [ :aNewPosition :aCursor |
+		aCursor position = aNewPosition
+			ifFalse: [ self privateMoveCursor: aCursor to: aNewPosition ] ]
 ]
 
 { #category : #private }
