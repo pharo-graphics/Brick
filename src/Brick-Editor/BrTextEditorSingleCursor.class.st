@@ -18,6 +18,11 @@ BrTextEditorSingleCursor >> = anotherObject [
 	^ anotherObject position = self position
 ]
 
+{ #category : #enumerating }
+BrTextEditorSingleCursor >> do: aBlock [
+	aBlock value: self
+]
+
 { #category : #comparing }
 BrTextEditorSingleCursor >> hash [
 	^ self class hash bitXor: self position hash
@@ -34,25 +39,16 @@ BrTextEditorSingleCursor >> initialize [
 ]
 
 { #category : #testing }
-BrTextEditorSingleCursor >> insideSubText: aBrSubText of: aSegment [
+BrTextEditorSingleCursor >> insideSubText: aBrTextEditorSegmentPiece of: aSegment [
 	"Return true if I am inside a given subtext, false otherwise"
 	<return: #Boolean>
 
-	aBrSubText isEmpty
-		ifTrue: [ ^ self position isZero ].
-
-	self position isZero
-		ifTrue: [ ^ aBrSubText start = 1 ].
-
-	(aBrSubText = aSegment pieces first)
-		ifTrue: [
-			^ self position
-				between: aBrSubText start - 1
-				and: aBrSubText end ].
-
-	^ self position
-		between: aBrSubText start
-		and: aBrSubText end
+	^ (self position
+		between: aSegment textStart
+		and: aSegment textEnd)
+			and: [ self position
+				between: aBrTextEditorSegmentPiece start - 1
+				and: aBrTextEditorSegmentPiece end - (aBrTextEditorSegmentPiece ~= aSegment pieces last) asBit ]
 ]
 
 { #category : #accessing }
