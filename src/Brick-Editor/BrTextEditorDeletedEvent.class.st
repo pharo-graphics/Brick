@@ -8,12 +8,12 @@ Class {
 		'fromIndex',
 		'toIndex'
 	],
-	#category : 'Brick-Editor-UI'
+	#category : #'Brick-Editor-UI-Events'
 }
 
 { #category : #'instance creation' }
 BrTextEditorDeletedEvent class >> from: aFromIndex to: aToIndex [
-	<return: #BrTextEditorCursorMovedEvent>
+	<return: #BrTextEditorDeletedEvent>
 
 	^ self new
 		fromIndex: aFromIndex;

@@ -5,7 +5,7 @@ Class {
 		'fromIndex',
 		'toIndex'
 	],
-	#category : 'Brick-Editor-UI'
+	#category : #'Brick-Editor-UI-Events'
 }
 
 { #category : #accessing }

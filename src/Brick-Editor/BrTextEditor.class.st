@@ -459,11 +459,6 @@ BrTextEditor >> newUpdateCommand [
 ]
 
 { #category : #'event firing' }
-BrTextEditor >> notifyCursorMoved: aFromIndex to: aToIndex [
-	self fireEvent: (BrTextEditorCursorMovedEvent from: aFromIndex to: aToIndex)
-]
-
-{ #category : #'event firing' }
 BrTextEditor >> notifyDeletedFrom: aFromIndex to: aToIndex [
 	self fireEvent: (BrTextEditorDeletedEvent from: aFromIndex to: aToIndex)
 ]
@@ -530,11 +525,6 @@ BrTextEditor >> onCreateHolder: anEditorElement type: aSegmentType [
 	
 	"We perform a single dispatch on a segment type in order to support multiple types"
 	^ aSegmentType holder
-]
-
-{ #category : #'hooks - cursor' }
-BrTextEditor >> onCursorMoved: aFromIndex to: aToIndex [
-	self notifyCursorMoved: aFromIndex to: aToIndex
 ]
 
 { #category : #hooks }

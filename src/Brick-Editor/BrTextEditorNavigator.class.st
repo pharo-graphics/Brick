@@ -34,9 +34,37 @@ BrTextEditorNavigator >> addAt: aTextPosition [
 
 { #category : #'api - processing' }
 BrTextEditorNavigator >> apply [
-	self privateRemoveRegistered.
-	self privateAddRegistered.
-	self privateMoveRegistered
+	| theCurrentCursors theNewCursors theSameCursors theAddedCursors theRemovedCursors theMovedCursors theCurrentCursorsArray theNewCursorsArray |
+	
+	theCurrentCursors := self cursor allCursors asSet.
+	theNewCursors := (self cursor allCursors collect: #copy) asSet.
+
+	self privateRemoveRegisteredIn: theNewCursors.
+	self privateAddRegisteredIn: theNewCursors.
+	self privateMoveRegisteredIn: theNewCursors.
+	
+	theSameCursors := theCurrentCursors intersection: theNewCursors.
+
+	theCurrentCursors removeAll: theSameCursors.
+	theNewCursors removeAll: theSameCursors.
+	
+	theCurrentCursorsArray := theCurrentCursors sorted: [ :a :b | a position < b position ].
+	theNewCursorsArray := theNewCursors sorted: [ :a :b | a position < b position ].
+
+	theMovedCursors := OrderedCollection new.
+	theAddedCursors := OrderedCollection new.
+	theRemovedCursors := OrderedCollection new.
+
+	1 to: (theCurrentCursorsArray size max: theNewCursorsArray size) do: [ :anIndex |
+		((anIndex <= theCurrentCursorsArray size) and: [ anIndex <= theNewCursorsArray size  ])
+			ifTrue: [ theMovedCursors add: (theCurrentCursorsArray at: anIndex) -> (theNewCursorsArray at: anIndex) ]
+			ifFalse: [ anIndex > theCurrentCursorsArray size
+				ifTrue: [ theAddedCursors add: (theNewCursorsArray at: anIndex) ]
+				ifFalse: [ theRemovedCursors add: ((theCurrentCursorsArray at: anIndex)) ] ] ].
+
+	theRemovedCursors do: [ :aCursor | self privateRemoveCursor: aCursor ].
+	theAddedCursors do: [ :aCursor | self privateAddCursor: aCursor ].
+	theMovedCursors do: [ :anAssociation | self privateMoveCursor: anAssociation key to: anAssociation value position ]
 ]
 
 { #category : #initialization }
@@ -97,6 +125,11 @@ BrTextEditorNavigator >> moveTo: aTextPosition [
 	self addAt: aTextPosition
 ]
 
+{ #category : #notifying }
+BrTextEditorNavigator >> notifyCursorAdded: aCursor [
+	self editor dispatchEvent: (BrTextEditorCursorAddedEvent cursor: aCursor)
+]
+
 { #category : #private }
 BrTextEditorNavigator >> notifyCursorChangedAt: aTextIndex [
 	| aCommand |
@@ -104,6 +137,16 @@ BrTextEditorNavigator >> notifyCursorChangedAt: aTextIndex [
 	aCommand := BrTextEditorCursorChangeCommand new
 		position: aTextIndex.
 	self editor enqueueCommand: aCommand
+]
+
+{ #category : #notifying }
+BrTextEditorNavigator >> notifyCursorMoved: aCursor from: aFromIndex to: aToIndex [
+	self editor dispatchEvent: (BrTextEditorCursorMovedEvent cursor: aCursor from: aFromIndex to: aToIndex)
+]
+
+{ #category : #notifying }
+BrTextEditorNavigator >> notifyCursorRemoved: aCursor [
+	self editor dispatchEvent: (BrTextEditorCursorRemovedEvent cursor: aCursor)
 ]
 
 { #category : #private }
@@ -114,23 +157,25 @@ BrTextEditorNavigator >> privateAddCursor: aNewCursor [
 		description: [ 'Cursor must not exist at a given index' ].
 	
 	self cursor add: aNewCursor.
-	self notifyCursorChangedAt: aNewCursor position
+
+	self notifyCursorChangedAt: aNewCursor position.
+	self notifyCursorAdded: aNewCursor
 ]
 
 { #category : #'private - operations' }
-BrTextEditorNavigator >> privateAddRegistered [
+BrTextEditorNavigator >> privateAddRegisteredIn: aSet [
 	(cursorsToAdd asSortedCollection: [ :a :b | a position < b position])
-		do: [ :aCursor | self privateAddCursor: aCursor ]
+		do: [ :aCursor | aSet add: aCursor ]
 ]
 
-{ #category : #private }
+{ #category : #'private - accessing' }
 BrTextEditorNavigator >> privateAssertPosition: aTextPosition [
 	self
 		assert: [ aTextPosition between: 0 and: self text size ]
 		description: [ 'Cursor position must be within the interval [0.. text size]' ].
 ]
 
-{ #category : #private }
+{ #category : #'private - accessing' }
 BrTextEditorNavigator >> privateCursorAt: aTextPosition ifFound: aFoundBlock ifNone: aNoneBlock [
 	self cursor
 		detect: [ :aCursor | aCursor position = aTextPosition ]
@@ -149,15 +194,16 @@ BrTextEditorNavigator >> privateMoveCursor: aCursor to: aTextIndex [
 	aCursor position: aTextIndex.
 
 	self notifyCursorChangedAt: anOldPosition.
-	self notifyCursorChangedAt: aTextIndex
+	self notifyCursorChangedAt: aTextIndex.
+	self notifyCursorMoved: aCursor from: anOldPosition to: aTextIndex
 ]
 
 { #category : #'private - operations' }
-BrTextEditorNavigator >> privateMoveRegistered [
+BrTextEditorNavigator >> privateMoveRegisteredIn: aSet [
 	| theExistingCursors theRequestedCursors theMovableCursors theMergedCursors theRemovedCursor |
 
 	theExistingCursors := (Array streamContents: [ :aStream |
-		self cursor do: [ :aCursor | aStream nextPut: aCursor ] ]) asSet.
+		aSet do: [ :aCursor | aStream nextPut: aCursor ] ]) asSet.
 	
 	theRequestedCursors := cursorsToMove keys asSet.
 	
@@ -177,22 +223,22 @@ BrTextEditorNavigator >> privateMoveRegistered [
 	theRemovedCursor := theRequestedCursors difference: theMergedCursors values.
 	
 	"remove them now"
-	theRemovedCursor do: [ :aCursor | self privateRemoveCursor: aCursor ].
+	theRemovedCursor do: [ :aCursor | aSet remove: aCursor ].
 	
 	"cursors that we actually move"
 	theMergedCursors keysAndValuesDo: [ :aNewPosition :aCursor |
 		aCursor position = aNewPosition
-			ifFalse: [ self privateMoveCursor: aCursor to: aNewPosition ] ]
+			ifFalse: [ aCursor position: aNewPosition ] ]
 ]
 
-{ #category : #private }
+{ #category : #'private - instance creation' }
 BrTextEditorNavigator >> privateNewCursorAt: aTextPosition [
 	"Create a new cursor for a given text position"
 	
 	^ BrTextEditorSingleCursor new position: aTextPosition
 ]
 
-{ #category : #private }
+{ #category : #'private - accessing' }
 BrTextEditorNavigator >> privateNormalizePosition: aTextPosition [
 	^ (aTextPosition max: 0) min: self text size
 ]
@@ -204,12 +250,13 @@ BrTextEditorNavigator >> privateRemoveCursor: aCursorToRemove [
 		description: [ 'Cursor must exist at a given index' ].
 
 	self cursor remove: aCursorToRemove.
-	self notifyCursorChangedAt: aCursorToRemove position
+	self notifyCursorChangedAt: aCursorToRemove position.
+	self notifyCursorRemoved: aCursorToRemove
 ]
 
 { #category : #'private - operations' }
-BrTextEditorNavigator >> privateRemoveRegistered [
-	cursorsToRemove do: [ :aCursor | self privateRemoveCursor: aCursor ]
+BrTextEditorNavigator >> privateRemoveRegisteredIn: aSet [
+	cursorsToRemove do: [ :aCursor | aSet remove: aCursor ]
 ]
 
 { #category : #'api - configuration' }
@@ -233,4 +280,25 @@ BrTextEditorNavigator >> removeAt: aTextPosition [
 	self privateAssertPosition: aTextPosition.
 
 	cursorsToRemove add: (self privateNewCursorAt: aTextPosition)
+]
+
+{ #category : #'api - events' }
+BrTextEditorNavigator >> whenAdded: aBlock [
+	"Subscribe to the cursor added event and return an event handler"
+
+	^ self when: BrTextEditorCursorAddedEvent do: aBlock
+]
+
+{ #category : #'api - events' }
+BrTextEditorNavigator >> whenMoved: aBlock [
+	"Subscribe to the cursor moved event and return an event handler"
+
+	^ self when: BrTextEditorCursorMovedEvent do: aBlock
+]
+
+{ #category : #'api - events' }
+BrTextEditorNavigator >> whenRemoved: aBlock [
+	"Subscribe to the cursor removed event and return an event handler"
+
+	^ self when: BrTextEditorCursorRemovedEvent do: aBlock
 ]
