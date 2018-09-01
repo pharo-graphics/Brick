@@ -37,6 +37,11 @@ BrGlamorousTabLook >> initializeLook [
 ]
 
 { #category : #'event handling' }
+BrGlamorousTabLook >> invisibleBar [
+	bar background: Color transparent
+]
+
+{ #category : #'event handling' }
 BrGlamorousTabLook >> tabDeselected [
 	super tabDeselected.
 	
