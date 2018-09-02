@@ -63,6 +63,19 @@ BrPagerModel >> onPageRemoved: aPageModel [
 	self notifyPageRemoved: aPageModel
 ]
 
+{ #category : #'api - adding / removing' }
+BrPagerModel >> pageAfter: aPageModel ifFound: ifFoundBlock ifNone: ifNoneBlock [
+	| aPageIndex |
+	
+	aPageIndex := self pages
+		indexOf: aPageModel
+		ifAbsent: [ self error: aPageModel gtDisplayString, ' is not in the list of pages.' ].
+	
+	aPageIndex < self pages size
+		ifTrue: [ ifFoundBlock value: (self pages at: aPageIndex + 1) ]
+		ifFalse: [ ifNoneBlock value ]
+]
+
 { #category : #accessing }
 BrPagerModel >> pages [
 	<return: #Collection of: #BrPagerPageModel>
