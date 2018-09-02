@@ -1,13 +1,28 @@
 Class {
 	#name : #BrGlamorousButtonExteriorLook,
 	#superclass : #BrLook,
+	#instVars : [
+		'backgroundPaint'
+	],
 	#category : #'Brick-Glamorous-Buttons - Support'
 }
+
+{ #category : #accessing }
+BrGlamorousButtonExteriorLook >> backgroundPaint [
+	^ backgroundPaint
+]
+
+{ #category : #accessing }
+BrGlamorousButtonExteriorLook >> backgroundPaint: anObject [
+	backgroundPaint := anObject
+]
 
 { #category : #initialization }
 BrGlamorousButtonExteriorLook >> initialize [
 	super initialize.
 
+	backgroundPaint := Color white.
+	
 	self add: (BrInteractiveLook new style: [ :aStyler |
 		aStyler default: [ :aWidget |
 			aWidget
