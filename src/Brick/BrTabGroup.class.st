@@ -14,6 +14,11 @@ BrTabGroup >> addTabs: aCollectionOfElements [
 	self viewModel addTabs: (aCollectionOfElements collect: [ :anElement | anElement viewModel])
 ]
 
+{ #category : #accessing }
+BrTabGroup >> content [
+	^ self childNamed: #content
+]
+
 { #category : #'api - testing' }
 BrTabGroup >> hasTab: anElement [
 	^ self viewModel hasTab: anElement viewModel
