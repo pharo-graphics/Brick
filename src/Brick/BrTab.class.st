@@ -32,6 +32,14 @@ BrTab >> label: aStringOrText [
 	labelModel text: aStringOrText
 ]
 
+{ #category : #accessing }
+BrTab >> parentTabGroup [
+	^ self 
+		allParentsDetect: [ :aParent | aParent isKindOf: BrTabGroup ]
+		ifFound: [ :aParent | aParent ]
+		ifNone: [ nil ]
+]
+
 { #category : #'api - accessing' }
 BrTab >> stencil: aStencilBuilder [
 	self viewModel stencil: aStencilBuilder

@@ -14,6 +14,6 @@ BrGlamorousButtonExteriorCircularLook >> initializeLook [
 	self widgetContent
 		size: 24@24;
 		layout: BlLinearLayout horizontal alignCenter;
-		background: Color white;
+		background: self backgroundPaint;
 		geometry: BlCircle new
 ]

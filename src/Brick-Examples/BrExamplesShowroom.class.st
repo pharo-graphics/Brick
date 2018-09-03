@@ -12,7 +12,7 @@ BrExamplesShowroom >> glamorousButton [
 	<gtExample>
 	
 	^ BrButton new
-		look: BrGlamorousButtonLook new;
+		look: BrGlamorousButtonWithLabelLook new;
 		label: 'Button'
 ]
 
@@ -21,7 +21,7 @@ BrExamplesShowroom >> glamorousDisabledButton [
 	<gtExample>
 	
 	^ BrButton new
-		look: BrGlamorousButtonLook new;
+		look: BrGlamorousButtonWithLabelLook new;
 		label: 'Disabled';
 		disable
 ]
@@ -78,15 +78,15 @@ BrExamplesShowroom >> glamorousToolbar [
 	aToolbar look: BrGlamorousToolbarLook new.
 	
 	aToolbar addItem: (BrButton new
-		look: BrGlamorousButtonLook new;
+		look: BrGlamorousButtonWithLabelLook new;
 		label: 'Button 1').
 		
 	aToolbar addItem: (BrButton new
-		look: BrGlamorousButtonLook new;
+		look: BrGlamorousButtonWithLabelLook new;
 		label: 'Button 2').
 	
 	aToolbar addItem: (BrButton new
-		look: BrGlamorousButtonLook new;
+		look: BrGlamorousButtonWithLabelLook new;
 		label: 'Button 3').
 	
 	^ aToolbar

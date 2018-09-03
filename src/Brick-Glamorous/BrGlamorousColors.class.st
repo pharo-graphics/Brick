@@ -11,6 +11,7 @@ Class {
 		'DisabledButtonTextColor',
 		'DisabledHeaderTextColor',
 		'EditorBorderColor',
+		'ErrorBackgroundColor',
 		'FocusedEditorBorderColor',
 		'HeaderBackgroundColor',
 		'HeaderTextColor',
@@ -109,6 +110,16 @@ BrGlamorousColors class >> editorBorderColor: anObject [
 	EditorBorderColor := anObject
 ]
 
+{ #category : #'button - background' }
+BrGlamorousColors class >> errorBackgroundColor [
+	^ ErrorBackgroundColor
+]
+
+{ #category : #'button - background' }
+BrGlamorousColors class >> errorBackgroundColor: aColor [
+	ErrorBackgroundColor := aColor
+]
+
 { #category : #accessing }
 BrGlamorousColors class >> focusedEditorBorderColor [
 	^ FocusedEditorBorderColor
@@ -154,6 +165,7 @@ BrGlamorousColors class >> initialize [
 	"buttons - background"
 	ButtonBackgroundColor := Color white.
 	DisabledButtonBackgroundColor := Color fromHexString: #f5f5f5.
+	ErrorBackgroundColor := Color fromHexString: #E57373.
 
 	"buttons - text"
 	ButtonTextColor := Color black alpha: 0.65.
