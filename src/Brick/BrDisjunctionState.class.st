@@ -4,7 +4,7 @@ I represent a logical ""OR"", I match the interaction state only any of left or 
 Class {
 	#name : #BrDisjunctionState,
 	#superclass : #BrCompositeState,
-	#category : #'Brick-! Core- Support'
+	#category : #'Brick-! Core - States'
 }
 
 { #category : #testing }

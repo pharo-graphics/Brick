@@ -23,7 +23,7 @@ Class {
 	#instVars : [
 		'action'
 	],
-	#category : 'Brick-! Core'
+	#category : #'Brick-Button - Model'
 }
 
 { #category : #printing }

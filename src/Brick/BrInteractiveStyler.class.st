@@ -4,12 +4,19 @@ Class {
 	#instVars : [
 		'styles'
 	],
-	#category : #'Brick-! Core- Support'
+	#category : #'Brick-! Core - Support'
 }
 
 { #category : #private }
 BrInteractiveStyler >> addState: aState action: anActionBlock [
 	styles add: (BrInteractiveStyle new state: aState; action: anActionBlock)
+]
+
+{ #category : #builder }
+BrInteractiveStyler >> collapsed: aStyleBlock [
+	self
+		when: self state collapsed
+		style: aStyleBlock
 ]
 
 { #category : #builder }
@@ -30,6 +37,20 @@ BrInteractiveStyler >> disabled: aStyleBlock [
 BrInteractiveStyler >> enabled: aStyleBlock [
 	self
 		when: self state enabled
+		style: aStyleBlock
+]
+
+{ #category : #builder }
+BrInteractiveStyler >> expanded: aStyleBlock [
+	self
+		when: self state expanded
+		style: aStyleBlock
+]
+
+{ #category : #builder }
+BrInteractiveStyler >> focused: aStyleBlock [
+	self
+		when: self state focused
 		style: aStyleBlock
 ]
 
@@ -62,6 +83,13 @@ BrInteractiveStyler >> state [
 { #category : #accessing }
 BrInteractiveStyler >> styles [
 	^ styles
+]
+
+{ #category : #builder }
+BrInteractiveStyler >> unfocused: aStyleBlock [
+	self
+		when: self state unfocused
+		style: aStyleBlock
 ]
 
 { #category : #builder }

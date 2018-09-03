@@ -1,6 +1,6 @@
 Class {
 	#name : #BrGlamorousTabLabelLook,
-	#superclass : #BrLabelLook,
+	#superclass : #BrGlamorousLabelLook,
 	#category : #'Brick-Glamorous-Tabs - Support'
 }
 
@@ -8,11 +8,5 @@ Class {
 BrGlamorousTabLabelLook >> initialize [
 	super initialize.
 
-	self
-		fontSize: 14;
-		weight: 400;
-		foreground: Color black;
-		fontName: 'Source Sans Pro'.
-
-	self labelDo: [ :aLabelElement | aLabelElement boundsBaseline ]
+	self foreground: Color black
 ]

@@ -4,7 +4,8 @@ Class {
 	#instVars : [
 		'labelModel',
 		'iconModel',
-		'interactionModel'
+		'activationModel',
+		'interactiveModel'
 	],
 	#category : #'Brick-Button - UI'
 }
@@ -16,17 +17,17 @@ BrButton >> action: aValuable [
 
 { #category : #'api - widget' }
 BrButton >> disable [
-	interactionModel disable
+	activationModel disable
 ]
 
 { #category : #'api - widget' }
 BrButton >> enable [
-	interactionModel enable
+	activationModel enable
 ]
 
 { #category : #'api - widget' }
 BrButton >> enabled: aBoolean [
-	interactionModel enabled: aBoolean
+	activationModel enabled: aBoolean
 ]
 
 { #category : #'api - widget' }
@@ -41,12 +42,17 @@ BrButton >> initialize [
 	self viewModel: (BrButtonModel new +
 		(labelModel := BrLabelModel new) +
 		(iconModel := BrIconModel new) + 
-		(interactionModel := BrInteractiveModel new))
+		(BrInteractiveModel new
+			addStates: {
+				activationModel := BrActivationModel new.
+				BrPressModel new.
+				BrHoverModel new.
+			}))
 ]
 
 { #category : #'api - widget' }
 BrButton >> isEnabled [
-	^ interactionModel isEnabled
+	^ activationModel isEnabled
 ]
 
 { #category : #'api - widget' }

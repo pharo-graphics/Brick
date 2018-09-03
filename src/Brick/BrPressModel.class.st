@@ -38,7 +38,7 @@ BrPressModel >> initializeListeners [
 	self when: BrPressedRequest reply: [ :aResponse | aResponse pressed: self isPressed ]
 ]
 
-{ #category : #testing }
+{ #category : #'api - testing' }
 BrPressModel >> isPressed [
 	^ pressed
 ]
@@ -57,7 +57,7 @@ BrPressModel >> mouseUpEvent: anEvent [
 
 { #category : #notifying }
 BrPressModel >> notifyPressChanged [
-	self dispatchEvent: (BrPressedChanged pressed: self isPressed)
+	self dispatchEvent: (self stateChangedEventClass pressed: self isPressed)
 ]
 
 { #category : #'private - accessing' }
@@ -75,6 +75,11 @@ BrPressModel >> printOn: aStream [
 		nextPutAll: self modelName, '(';
 		nextPutAll: self isPressed asString;
 		nextPutAll: ')'
+]
+
+{ #category : #streaming }
+BrPressModel >> stateChangedEventClass [
+	^ BrPressedChanged
 ]
 
 { #category : #streaming }

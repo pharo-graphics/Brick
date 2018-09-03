@@ -102,7 +102,7 @@ BrWidgetModel >> when: aRequestClass reply: aBlock [
 	self when: aRequestClass do: [ :aRequest |
 		| aReplyEvent |
 
-		aReplyEvent := aBlock cull: aRequest response.
+		aReplyEvent := aBlock cull: (aRequest responseFor: self).
 
 		aRequest canRespond
 			ifTrue: [ aRequest response: aReplyEvent ].

@@ -1,6 +1,11 @@
 Extension { #name : #BlElement }
 
 { #category : #'*Brick' }
+BlElement >> asStencil [
+	^ self
+]
+
+{ #category : #'*Brick' }
 BlElement >> look [
 	^ self userData at: #brickLook ifAbsent: nil
 ]

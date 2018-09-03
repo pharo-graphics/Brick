@@ -1,5 +1,5 @@
 Class {
 	#name : #BrHoveredState,
 	#superclass : #BrInteractionState,
-	#category : #'Brick-! Core- Support'
+	#category : #'Brick-! Core - States'
 }

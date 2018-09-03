@@ -5,7 +5,7 @@ Class {
 		'left',
 		'right'
 	],
-	#category : #'Brick-! Core- Support'
+	#category : #'Brick-! Core - States'
 }
 
 { #category : #comparing }

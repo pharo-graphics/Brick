@@ -3,20 +3,13 @@ I define how a label looks inside of the glamorous button, for example font size
 "
 Class {
 	#name : #BrGlamorousButtonLabelLook,
-	#superclass : #BrLabelLook,
+	#superclass : #BrGlamorousLabelLook,
 	#category : #'Brick-Glamorous-Buttons - Support'
 }
 
 { #category : #initialization }
 BrGlamorousButtonLabelLook >> initialize [
 	super initialize.
-	
-	self
-		fontSize: 14;
-		weight: 400;
-		fontName: 'Source Sans Pro'.
-
-	self labelDo: [ :aLabelElement | aLabelElement boundsBaseline ].
 	
 	self add: (BrInteractiveLook new style: [ :aStyler |
 		aStyler default: [ self foreground: BrGlamorousColors defaultButtonTextColor ].

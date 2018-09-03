@@ -28,7 +28,7 @@ BrActivationModel >> disable [
 		ifTrue: [ ^ self ].
 
 	enabled := false.
-	self notifyActivationChanged
+	self notifyStateChanged: self isEnabled
 ]
 
 { #category : #'api - activation' }
@@ -44,7 +44,7 @@ BrActivationModel >> enable [
 		ifTrue: [ ^ self ].
 
 	enabled := true.
-	self notifyActivationChanged
+	self notifyStateChanged: self isEnabled
 ]
 
 { #category : #'api - activation' }
@@ -61,7 +61,7 @@ BrActivationModel >> initialize [
 	enabled := true
 ]
 
-{ #category : #hooks }
+{ #category : #initialization }
 BrActivationModel >> initializeListeners [
 	super initializeListeners.
 
@@ -82,11 +82,6 @@ BrActivationModel >> isEnabled [
 	^ enabled
 ]
 
-{ #category : #notifying }
-BrActivationModel >> notifyActivationChanged [
-	self dispatchEvent: (BrActivationChanged enabled: self isEnabled)
-]
-
 { #category : #printing }
 BrActivationModel >> printOn: aStream [
 	aStream
@@ -95,9 +90,14 @@ BrActivationModel >> printOn: aStream [
 		nextPutAll: ')'
 ]
 
+{ #category : #notifying }
+BrActivationModel >> stateChangedEventClass [
+	^ BrActivationChanged
+]
+
 { #category : #streaming }
 BrActivationModel >> streamStateOn: aStream [
 	self isEnabled
-		ifTrue: [ aStream nextPut: BrEnabledState new ]
-		ifFalse: [ aStream nextPut: BrEnabledState new not ]
+		ifTrue: [ aStream nextPut: BrDisabledState new not ]
+		ifFalse: [ aStream nextPut: BrDisabledState new ]
 ]

@@ -5,7 +5,7 @@ Class {
 		'state',
 		'action'
 	],
-	#category : #'Brick-! Core- Support'
+	#category : #'Brick-! Core - Support'
 }
 
 { #category : #accessing }

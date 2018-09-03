@@ -41,7 +41,7 @@ BrRequest >> oneWay [
 
 { #category : #accessing }
 BrRequest >> response [
-	^ response ifNil: [ response := self defaultResponse ]
+	^ response
 ]
 
 { #category : #accessing }
@@ -54,4 +54,9 @@ BrRequest >> responseClass [
 	<return: #'BrResponse class'>
 
 	^ BrNoResponse
+]
+
+{ #category : #accessing }
+BrRequest >> responseFor: aWidgetModel [
+	^ self response
 ]

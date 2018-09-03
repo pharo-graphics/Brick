@@ -1,6 +1,6 @@
 Class {
 	#name : #BrPressedChanged,
-	#superclass : #BrChangeEvent,
+	#superclass : #BrStateChangedEvent,
 	#instVars : [
 		'pressed'
 	],

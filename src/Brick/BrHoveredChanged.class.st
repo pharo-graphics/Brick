@@ -1,6 +1,6 @@
 Class {
 	#name : #BrHoveredChanged,
-	#superclass : #BrChangeEvent,
+	#superclass : #BrStateChangedEvent,
 	#instVars : [
 		'hovered'
 	],

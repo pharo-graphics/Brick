@@ -4,7 +4,7 @@ Class {
 	#instVars : [
 		'state'
 	],
-	#category : #'Brick-! Core- Support'
+	#category : #'Brick-! Core - States'
 }
 
 { #category : #comparing }

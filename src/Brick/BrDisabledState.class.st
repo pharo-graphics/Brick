@@ -1,5 +1,5 @@
 Class {
-	#name : #BrPressedState,
+	#name : #BrDisabledState,
 	#superclass : #BrInteractionState,
 	#category : #'Brick-! Core - States'
 }

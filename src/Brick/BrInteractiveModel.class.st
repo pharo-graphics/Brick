@@ -5,67 +5,37 @@ Class {
 	#name : #BrInteractiveModel,
 	#superclass : #BrWidgetModel,
 	#instVars : [
-		'pressModel',
-		'hoverModel',
-		'activationModel'
+		'stateModels'
 	],
 	#category : #'Brick-! Core'
 }
 
-{ #category : #'api - activation' }
-BrInteractiveModel >> disable [
-	activationModel disable
+{ #category : #'api - states' }
+BrInteractiveModel >> addState: aStateModel [
+	"Add a given state model as my sub-model and register corresponding update events"
+
+	stateModels add: aStateModel.
+	self when: aStateModel stateChangedEventClass do: [ self notifyInteractionChanged ].
+	self add: aStateModel
 ]
 
-{ #category : #'api - activation' }
-BrInteractiveModel >> enable [
-	activationModel enable
-]
-
-{ #category : #'api - activation' }
-BrInteractiveModel >> enabled: aBoolean [
-	activationModel enabled: aBoolean
+{ #category : #'api - states' }
+BrInteractiveModel >> addStates: aCollectionOfStateModels [
+	aCollectionOfStateModels do: [ :aStateModel | self addState: aStateModel ]
 ]
 
 { #category : #initialization }
 BrInteractiveModel >> initialize [
 	super initialize.
 	
-	self addAll: { 
-		pressModel := BrPressModel new.
-		hoverModel := BrHoverModel new.
-		activationModel := BrActivationModel new
-	}
+	stateModels := OrderedCollection new
 ]
 
 { #category : #initialization }
 BrInteractiveModel >> initializeListeners [
 	super initializeListeners.
 
-	self when: BrInteractionRequest reply: [ :aResponse | aResponse states: self states ].
-	self when: BrPressedChanged do: [ self notifyInteractionChanged ].
-	self when: BrHoveredChanged do: [ self notifyInteractionChanged ].
-	self when: BrActivationChanged do: [ self notifyInteractionChanged ].
-]
-
-{ #category : #testing }
-BrInteractiveModel >> isDisabled [
-	^ activationModel isDisabled
-]
-
-{ #category : #testing }
-BrInteractiveModel >> isEnabled [
-	^ activationModel isEnabled
-]
-
-{ #category : #testing }
-BrInteractiveModel >> isHovered [
-	^ hoverModel isHovered
-]
-
-{ #category : #testing }
-BrInteractiveModel >> isPressed [
-	^ pressModel isPressed
+	self when: BrInteractionRequest reply: [ :aResponse | aResponse states: self states ]
 ]
 
 { #category : #notifying }
@@ -73,14 +43,39 @@ BrInteractiveModel >> notifyInteractionChanged [
 	self dispatchEvent: (BrInteractionChanged new states: self states)
 ]
 
-{ #category : #accessing }
+{ #category : #'api - states' }
 BrInteractiveModel >> stateModels [
-	^ self widgetModels
+	^ stateModels
 ]
 
-{ #category : #accessing }
+{ #category : #'api - states' }
 BrInteractiveModel >> states [
 	^ (Array streamContents: [ :aStream |
 		self stateModels do: [ :aStateModel | aStateModel streamStateOn: aStream ]
 	]) asSet
+]
+
+{ #category : #'api - interactions' }
+BrInteractiveModel >> withActivation [
+	self addState: BrActivationModel new
+]
+
+{ #category : #'api - interactions' }
+BrInteractiveModel >> withExpansion [
+	self addState: BrExpandableModel new
+]
+
+{ #category : #'api - interactions' }
+BrInteractiveModel >> withFocus [
+	self addState: BrFocusModel new
+]
+
+{ #category : #'api - interactions' }
+BrInteractiveModel >> withHover [
+	self addState: BrHoverModel new
+]
+
+{ #category : #'api - interactions' }
+BrInteractiveModel >> withPress [
+	self addState: BrPressModel new
 ]

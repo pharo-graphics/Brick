@@ -1,8 +1,13 @@
 Class {
 	#name : #BrInteractionState,
 	#superclass : #Object,
-	#category : #'Brick-! Core- Support'
+	#category : #'Brick-! Core - States'
 }
+
+{ #category : #'instance creation' }
+BrInteractionState class >> collapsed [
+	^ self expanded not
+]
 
 { #category : #'instance creation' }
 BrInteractionState class >> default [
@@ -11,12 +16,22 @@ BrInteractionState class >> default [
 
 { #category : #'instance creation' }
 BrInteractionState class >> disabled [
-	^ self enabled not
+	^ BrDisabledState new
 ]
 
 { #category : #'instance creation' }
 BrInteractionState class >> enabled [
-	^ BrEnabledState new
+	^ self disabled not
+]
+
+{ #category : #'instance creation' }
+BrInteractionState class >> expanded [
+	^ BrExpandedState new
+]
+
+{ #category : #'instance creation' }
+BrInteractionState class >> focused [
+	^ BrFocusedState new
 ]
 
 { #category : #'instance creation' }
@@ -27,6 +42,11 @@ BrInteractionState class >> hovered [
 { #category : #'instance creation' }
 BrInteractionState class >> pressed [
 	^ BrPressedState new
+]
+
+{ #category : #'instance creation' }
+BrInteractionState class >> unfocused [
+	^ self focused not
 ]
 
 { #category : #comparing }

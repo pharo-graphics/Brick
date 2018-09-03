@@ -4,7 +4,7 @@ I represent a logical ""AND"", I match the interaction state only if both left a
 Class {
 	#name : #BrConjunctionState,
 	#superclass : #BrCompositeState,
-	#category : #'Brick-! Core- Support'
+	#category : #'Brick-! Core - States'
 }
 
 { #category : #testing }

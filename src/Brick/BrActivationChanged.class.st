@@ -3,11 +3,11 @@ I am sent when the activation status (enabled / disabled) of the widget is chang
 "
 Class {
 	#name : #BrActivationChanged,
-	#superclass : #BrChangeEvent,
+	#superclass : #BrStateChangedEvent,
 	#instVars : [
 		'enabled'
 	],
-	#category : 'Brick-! Core - Events'
+	#category : #'Brick-! Core - Events'
 }
 
 { #category : #'instance creation' }
@@ -37,4 +37,11 @@ BrActivationChanged >> initialize [
 { #category : #testing }
 BrActivationChanged >> isActivated [
 	^ self enabled
+]
+
+{ #category : #accessing }
+BrActivationChanged >> state: anObject [
+	"Override me to properly set the given state"
+
+	self enabled: anObject
 ]

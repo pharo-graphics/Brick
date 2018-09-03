@@ -78,6 +78,11 @@ BrHoverModel >> printOn: aStream [
 ]
 
 { #category : #streaming }
+BrHoverModel >> stateChangedEventClass [
+	^ BrHoveredChanged
+]
+
+{ #category : #streaming }
 BrHoverModel >> streamStateOn: aStream [
 	self isHovered
 		ifTrue: [ aStream nextPut: BrHoveredState new ]
