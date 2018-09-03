@@ -1,15 +1,15 @@
 Class {
-	#name : #BrGlamorousButtonLook,
+	#name : #BrGlamorousButtonWithLabelLook,
 	#superclass : #BrLook,
 	#category : #'Brick-Glamorous-Buttons'
 }
 
 { #category : #initialization }
-BrGlamorousButtonLook >> initialize [
+BrGlamorousButtonWithLabelLook >> initialize [
 	super initialize.
 	
 	self addAll: {
 		BrGlamorousButtonExteriorRectangularLook new.
-		BrGlamorousButtonLabelLook
+		BrGlamorousButtonLabelLook new.
 	}
 ]
