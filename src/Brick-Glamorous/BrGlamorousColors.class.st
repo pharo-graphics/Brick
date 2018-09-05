@@ -165,7 +165,7 @@ BrGlamorousColors class >> initialize [
 	"buttons - background"
 	ButtonBackgroundColor := Color white.
 	DisabledButtonBackgroundColor := Color fromHexString: #f5f5f5.
-	ErrorBackgroundColor := Color fromHexString: #E57373.
+	ErrorBackgroundColor := Color fromHexString: #ffa39e.
 
 	"buttons - text"
 	ButtonTextColor := Color black alpha: 0.65.
