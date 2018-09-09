@@ -19,7 +19,15 @@ Exception >> asDebuggableElement [
 	debugButton := BrButton new.
 	debugButton look: BrGlamorousButtonExteriorRectangularLook + BrGlamorousButtonLabelLook.
 	debugButton label: 'Debug'.
-	debugButton action: [ [self defaultAction] fork ].
+	debugButton action: [ 
+		[
+			UIManager default
+				gtDebugProcess: Processor activeProcess   
+				context: self signalerContext 
+				label: self description  
+				fullView: true
+				notification: nil
+		] fork ].
 	container addChild: debugButton.
 	^ container
 ]
