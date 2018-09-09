@@ -20,7 +20,8 @@ BrMaterialTabGroupLook >> initialize [
 		headerLook := BrTabGroupHeaderLook new
 		+ ((BrLayoutLook of: #header) linearHorizontal hMatchParent vFitContent)
 		+ (BrLayoutLook of: #tabbar) linearHorizontal hMatchParent alignCenter
-		+ (BrLayoutLook of: #toolbar) linearHorizontal vFitContent alignCenter.
+		+ (BrLayoutLook of: #toolbar) linearHorizontal vFitContent alignCenter
+		+ (BrLayoutLook of: #scrolltabbar) linearHorizontal vFitContent hMatchParent alignCenter.
 		BrTabGroupSplitterLook new.
 		BrTabGroupContentLook new + (BrLayoutLook of: #content) matchParent.
 
