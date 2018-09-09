@@ -809,6 +809,23 @@ BrTextEditor >> styleText [
 		ifFalse: [ self styler style: self text nextGeneration ]
 ]
 
+{ #category : #'text - styling' }
+BrTextEditor >> styleTextAndAfterDo: aBlock [
+	"I first style, and then I do aBlock once I am finished"
+	
+	self text isEmpty
+		ifTrue: [ ^ self ].
+	
+	self text size > 200
+		ifTrue: [ 
+			self styler 
+				styleInBackgroundProcess: self text nextGeneration 
+				andAfterDo: aBlock ]
+		ifFalse: [ 
+			self styler style: self text nextGeneration.
+			aBlock value ]
+]
+
 { #category : #accessing }
 BrTextEditor >> styler [
 	<return: #BrTextStyler>
