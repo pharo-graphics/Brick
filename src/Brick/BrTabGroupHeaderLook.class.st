@@ -5,9 +5,10 @@ Class {
 		'tabs',
 		'header',
 		'tabbar',
-		'toolbar'
+		'toolbar',
+		'scrollTabbar'
 	],
-	#category : 'Brick-Tabs - Look'
+	#category : #'Brick-Tabs - Look'
 }
 
 { #category : #'api - accessing' }
@@ -29,7 +30,9 @@ BrTabGroupHeaderLook >> initialize [
 
 	tabs := OrderedDictionary new.
 	header := BlElement new.
+	scrollTabbar := BlScrollableElement new.
 	tabbar := BlElement new.
+	scrollTabbar addChild: tabbar as: #tabbar.
 	toolbar := BlElement new
 ]
 
@@ -50,7 +53,7 @@ BrTabGroupHeaderLook >> initializeLook [
 	super initializeLook.
 
 	self widget addChild: header as: #header.
-	header addChild: tabbar as: #tabbar.
+	header addChild: scrollTabbar as: #scrolltabbar.
 	header addChild: toolbar as: #toolbar
 ]
 
@@ -105,6 +108,16 @@ BrTabGroupHeaderLook >> onTabsChanged: aCollectionOfTabs [
 
 	self tabModels do: [ :aTabElement | self onTabRemoved: aTabElement ].
 	aCollectionOfTabs do: [ :aBrTabModel | self onTabAdded: aBrTabModel ]
+]
+
+{ #category : #'api - accessing' }
+BrTabGroupHeaderLook >> scrollTabbar [
+	^ scrollTabbar
+]
+
+{ #category : #'api - accessing' }
+BrTabGroupHeaderLook >> scrollTabbarDo: aBlock [
+	aBlock value: self scrollTabbar
 ]
 
 { #category : #'private - accessing' }
