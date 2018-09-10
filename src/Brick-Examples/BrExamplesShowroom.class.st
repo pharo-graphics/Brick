@@ -12,6 +12,56 @@ ${example:BrExamplesShowroom>>#glamorousButton}$
 Button can also be disabled to prevent click events
 ${example:BrExamplesShowroom>>#glamorousDisabledButton}$
 
+! Toggles
+
+Toggle buttons can have radically different look, while the behaviour of all of them is exactly the same.
+${example:BrExamplesShowroom class>>#allToggles|noCode}$
+
+!! Labelled toggle
+
+To create a toggle button with a label user should the corresponding  ${class:BrMaterialToggleWithIconLook}$
+
+${example:BrExamplesShowroom>>#materialLabelToggle}$
+
+!! Iconified toggle
+
+Similarly we can use the icon look to build an iconified toggle:
+${example:BrExamplesShowroom>>#materialIconToggle}$
+
+!! Iconified labelled toggle
+
+We can compose label and icon looks to create a toggle button with both label and the icon. Note that the order of looks defines the visual order of the label and icon:
+
+${example:BrExamplesShowroom>>#materialToggle}$
+
+Thus being said by swapping the label and icon look we can move the icon to the right from the label:
+
+${example:BrExamplesShowroom>>#materialReversedToggle}$
+
+! Accordion
+
+Accordion is the exandable and collapsable widget that consists of a header and a content. Any visual ${class:BlElement}$ can be a header of the accordion. The following example shows how a ${class:BrButton}$ can be used an accordion header:
+
+${example:BrExamplesShowroom>>#accordion}$
+
+
+! List
+
+The example below describes how to instantiate a new instance of the simple list that only has one column:
+${example:BrExamplesShowroom>>#simpleList|noCode}$
+
+${example:BrExamplesShowroom>>#columnedList|noCode}$
+
+
+
+
+
+
+
+
+
+
+
 "
 Class {
 	#name : #BrExamplesShowroom,
@@ -57,6 +107,61 @@ BrExamplesShowroom class >> allToggles [
 		}
 ]
 
+{ #category : #accordion }
+BrExamplesShowroom >> accordion [
+	<gtExample>
+	| accordion header |
+
+	accordion := BrAccordion new.
+	accordion look: BrGlamorousAccordionLook new.
+	accordion stencil: [
+		BlElement new
+			size: 200@100;
+			background: Color paleRed ].
+
+	header := BrButton new.
+	header look: BrGlamorousAccordionHeaderLook new.
+	header label: 'Click to expand/collapse'.
+	header action: [ accordion toggle ].
+
+	accordion addChildFirst: header.
+
+	^ accordion
+]
+
+{ #category : #accordion }
+BrExamplesShowroom >> accordionList [
+	<gtExample>
+	
+	| header children container |
+	children := 5 timesCollect: [ :anIndex |
+		| accordion |
+		accordion := BrAccordion new.
+		accordion look: BrGlamorousAccordionLook new.
+		accordion margin: (BlInsets all: 5).
+		accordion stencil: [
+			(GtDocumenter editorForText: 'Hello world')
+				constraintsDo: [ :c | c vertical fitContent ] ].
+
+		header := BrButton new.
+		header look: BrGlamorousAccordionHeaderLook new.
+		header label: 'Header ', anIndex asString .
+		header action: [ accordion toggle ].
+
+		accordion addChildFirst: header.
+		accordion ].
+
+	container := BlElement new.
+	container layout: BlLinearLayout vertical.
+	container padding: (BlInsets all: 10).
+	container constraintsDo: [ :c |
+		c horizontal matchParent.
+		c vertical fitContent ].
+
+	container addChildren: children.
+	^ container
+]
+
 { #category : #list }
 BrExamplesShowroom >> columnedList [
 	<gtExample>
@@ -88,16 +193,15 @@ BrExamplesShowroom >> glamorousButton [
 	
 	^ BrButton new
 		look: BrGlamorousButtonWithLabelLook new;
-		label: 'Button'
+		label: 'Button';
+		action: [ self inform: 'Clicked' ]
 ]
 
 { #category : #buttons }
 BrExamplesShowroom >> glamorousDisabledButton [
 	<gtExample>
 	
-	^ BrButton new
-		look: BrGlamorousButtonWithLabelLook new;
-		label: 'Disabled';
+	^ self glamorousButton
 		disable
 ]
 
@@ -232,6 +336,14 @@ BrExamplesShowroom >> materialLabelToggle [
 
 	^ BrToggle new
 		look: BrMaterialToggleWithLabelLook
+]
+
+{ #category : #toggle }
+BrExamplesShowroom >> materialReversedToggle [
+	<gtExample>
+
+	^ BrToggle new
+		look: BrMaterialToggleWithLabelLook + BrMaterialToggleWithIconLook
 ]
 
 { #category : #tabs }
