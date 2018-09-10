@@ -12,6 +12,19 @@ Class {
 }
 
 { #category : #accessing }
+BrActor >> actors [
+	^ self children
+]
+
+{ #category : #accessing }
+BrActor >> allChildren [
+	^ Array streamContents: [ :aStream |
+		self children do: [ :each |
+			aStream nextPut: each.
+			aStream nextPutAll: each allChildren ] ]
+]
+
+{ #category : #accessing }
 BrActor >> children [
 	^ actors
 ]
@@ -190,4 +203,9 @@ BrActor >> widget [
 { #category : #accessing }
 BrActor >> widgetDo: aBlockClosure [
 	widget ifNotNil: aBlockClosure
+]
+
+{ #category : #accessing }
+BrActor >> withAllChildren [
+	^ { self }, self allChildren
 ]
