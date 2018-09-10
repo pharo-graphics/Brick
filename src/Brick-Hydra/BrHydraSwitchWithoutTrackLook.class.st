@@ -24,7 +24,7 @@ BrHydraSwitchWithoutTrackLook >> initializeLook [
 	super initializeLook.
 
 	self widget
-		size: 22@14;
+		size: 36@20;
 		layout: BlFrameLayout new;
 		padding: (BlInsets all: 3);
 		border: (BlBorder builder width: 1; build);

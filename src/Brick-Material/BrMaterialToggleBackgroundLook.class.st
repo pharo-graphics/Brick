@@ -34,6 +34,11 @@ BrMaterialToggleBackgroundLook >> defaultNormalBackground [
 { #category : #initialization }
 BrMaterialToggleBackgroundLook >> initialize [
 	super initialize.
+	
+	self add: (BrInteractiveLook new
+		style: [ :aStyler |
+			aStyler default: [ :aWidget | aWidget background: self defaultNormalBackground ].
+			aStyler pressed: [ :aWidget | aWidget background: self defaultCheckedBackground slightlyLighter ] ]).
 
 	normalBackground := self defaultNormalBackground.
 	checkedBackground := self defaultCheckedBackground

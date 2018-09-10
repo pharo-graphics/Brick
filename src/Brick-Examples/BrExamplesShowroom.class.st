@@ -1,11 +1,86 @@
 "
-A collection of ""showroom"" examples
+I am a collection of ""showroom"" examples.
+
+! Buttons
+
+In the example below we show all existing button styles
+${example:BrExamplesShowroom class>>#allButtons|expanded|noCode}$
+
+The following glamorous button reacts to  various UI interaction events and changes its style according the state (pressed, hovered)
+${example:BrExamplesShowroom>>#glamorousButton}$
+
+Button can also be disabled to prevent click events
+${example:BrExamplesShowroom>>#glamorousDisabledButton}$
+
 "
 Class {
 	#name : #BrExamplesShowroom,
 	#superclass : #Object,
 	#category : #'Brick-Examples-! Showroom'
 }
+
+{ #category : #buttons }
+BrExamplesShowroom class >> allButtons [
+	<gtExample>
+
+	^ BlElement new
+		layout: (BlGridLayout new cellSpacing: 30);
+		constraintsDo: [ :c |
+			c horizontal matchParent.
+			c vertical fitContent
+		];
+		addChildren: { 
+			self new glamorousButton.
+			self new glamorousDisabledButton.
+			self new materialButton
+		}
+]
+
+{ #category : #buttons }
+BrExamplesShowroom class >> allToggles [
+	<gtExample>
+
+	^ BlElement new
+		layout: (BlGridLayout new cellSpacing: 30; columnCount: 3);
+		constraintsDo: [ :c |
+			c horizontal matchParent.
+			c vertical fitContent
+		];
+		addChildren: { 
+			self new hydraToggle.
+			self new hydraWithTrackToggle.
+			self new hydraWithoutTrackToggle.
+			self new materialIconToggle.
+			self new materialLabelToggle.
+			self new materialToggle
+			
+		}
+]
+
+{ #category : #list }
+BrExamplesShowroom >> columnedList [
+	<gtExample>
+	| aList |
+
+	aList := BrColumnedList new.
+	aList column
+		stencil: [ :aColor :aRowIndex |
+			BlTextElement new
+				text: (aRowIndex asRopedText);
+				padding: (BlInsets all: 12);
+				width: 20 ].
+	aList column
+		stencil: [ :aColor |
+			BlTextElement new
+				text: (aColor asString asRopedText foreground: aColor contrastingForegroundColor);
+				background: aColor;
+				padding: (BlInsets all: 12);
+				constraintsDo: [ :c | c horizontal matchParent ] ].
+
+	aList display: (Color indexedColors).
+
+	^ aList
+]
 
 { #category : #buttons }
 BrExamplesShowroom >> glamorousButton [
@@ -92,6 +167,30 @@ BrExamplesShowroom >> glamorousToolbar [
 	^ aToolbar
 ]
 
+{ #category : #toggle }
+BrExamplesShowroom >> hydraToggle [
+	<gtExample>
+
+	^ BrToggle new
+		look: BrHydraSwitchRadioLook new
+]
+
+{ #category : #toggle }
+BrExamplesShowroom >> hydraWithTrackToggle [
+	<gtExample>
+
+	^ BrToggle new
+		look: BrHydraSwitchWithTrackLook new
+]
+
+{ #category : #toggle }
+BrExamplesShowroom >> hydraWithoutTrackToggle [
+	<gtExample>
+
+	^ BrToggle new
+		look: BrHydraSwitchWithoutTrackLook new
+]
+
 { #category : #buttons }
 BrExamplesShowroom >> materialButton [
 	<gtExample>
@@ -109,6 +208,30 @@ BrExamplesShowroom >> materialDisabledButton [
 		look: BrMaterialButtonLook new;
 		label: 'Disabled';
 		disable
+]
+
+{ #category : #toggle }
+BrExamplesShowroom >> materialIconAndLabelToggle [
+	<gtExample>
+
+	^ BrToggle new
+		look: BrMaterialToggleWithIconLook + BrMaterialToggleWithLabelLook
+]
+
+{ #category : #toggle }
+BrExamplesShowroom >> materialIconToggle [
+	<gtExample>
+
+	^ BrToggle new
+		look: BrMaterialToggleWithIconLook
+]
+
+{ #category : #toggle }
+BrExamplesShowroom >> materialLabelToggle [
+	<gtExample>
+
+	^ BrToggle new
+		look: BrMaterialToggleWithLabelLook
 ]
 
 { #category : #tabs }
@@ -153,6 +276,14 @@ BrExamplesShowroom >> materialTabs [
 	^ aTabGroup
 ]
 
+{ #category : #toggle }
+BrExamplesShowroom >> materialToggle [
+	<gtExample>
+
+	^ BrToggle new
+		look: BrMaterialToggleWithIconLook + BrMaterialToggleWithLabelLook
+]
+
 { #category : #toolbar }
 BrExamplesShowroom >> materialToolbar [
 	<gtExample>
@@ -175,4 +306,18 @@ BrExamplesShowroom >> materialToolbar [
 		label: 'Button 3').
 	
 	^ aToolbar
+]
+
+{ #category : #list }
+BrExamplesShowroom >> simpleList [
+	<gtExample>
+	
+	^ BrSimpleList new
+		display: (Color indexedColors);
+		stencil: [ :aColor |
+			BlTextElement new
+				text: (aColor asString asRopedText foreground: aColor contrastingForegroundColor);
+				background: aColor;
+				padding: (BlInsets all: 12);
+				constraintsDo: [ :c | c horizontal matchParent ] ]
 ]

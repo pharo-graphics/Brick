@@ -24,7 +24,7 @@ BrHydraSwitchRadioLook >> initializeLook [
 	super initializeLook.
 
 	self widget
-		size: 14@14;
+		size: 20@20;
 		layout: BlFrameLayout new;
 		padding: (BlInsets all: 3);
 		border: (BlBorder builder width: 1; build);

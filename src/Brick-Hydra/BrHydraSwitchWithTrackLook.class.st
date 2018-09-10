@@ -38,7 +38,7 @@ BrHydraSwitchWithTrackLook >> initializeLook [
 		padding: (BlInsets all: 4);
 		border: (BlBorder builder width: 1; build);
 		geometry: (BlRectangle new);
-		size: 36@14.
+		size: 48@18.
 
 	self widget addChildren: { track . thumb }.
 	
