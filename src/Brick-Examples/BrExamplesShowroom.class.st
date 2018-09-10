@@ -6,7 +6,7 @@ I am a collection of ""showroom"" examples.
 In the example below we show all existing button styles
 ${example:BrExamplesShowroom class>>#allButtons|expanded|noCode}$
 
-The following glamorous button reacts to  various UI interaction events and changes its style according the state (pressed, hovered)
+The following glamorous button reacts to various UI interaction events and changes its style according the state (pressed, hovered)
 ${example:BrExamplesShowroom>>#glamorousButton}$
 
 Button can also be disabled to prevent click events
@@ -44,6 +44,17 @@ Accordion is the exandable and collapsable widget that consists of a header and 
 
 ${example:BrExamplesShowroom>>#accordion}$
 
+! Tabs
+
+The following example shows how to create a tab group widget with 3 tabs. The content of each tab is defined with the help of a stencil.
+
+${example:BrExamplesShowroom>>#glamorousTabs}$
+
+! Toolbar
+
+The toolbar is a logical set of action buttons (either labelled or iconified).
+${example:BrExamplesShowroom>>#glamorousToolbar}$
+${example:BrExamplesShowroom>>#materialToolbar}$
 
 ! List
 
@@ -261,7 +272,7 @@ BrExamplesShowroom >> glamorousToolbar [
 		label: 'Button 1').
 		
 	aToolbar addItem: (BrButton new
-		look: BrGlamorousButtonWithLabelLook new;
+		look: BrGlamorousButtonWithIconLook new;
 		label: 'Button 2').
 	
 	aToolbar addItem: (BrButton new
