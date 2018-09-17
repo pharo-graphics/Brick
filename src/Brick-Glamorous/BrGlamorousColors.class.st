@@ -19,6 +19,8 @@ Class {
 		'HoveredButtonBorderColor',
 		'HoveredButtonTextColor',
 		'LightBorderColor',
+		'LinkColor',
+		'LinkWithErrorColor',
 		'PressedButtonBorderColor',
 		'PressedButtonTextColor',
 		'PrimaryBorderColor'
@@ -194,7 +196,11 @@ BrGlamorousColors class >> initialize [
 
 	"editors"
 	EditorBorderColor := LightBorderColor.
-	FocusedEditorBorderColor := PrimaryBorderColor
+	FocusedEditorBorderColor := PrimaryBorderColor.
+	
+	"others"
+	LinkColor := Color fromHexString: #'096dd9'.
+	LinkWithErrorColor := Color fromHexString: #cf1322.
 ]
 
 { #category : #accessing }
@@ -205,6 +211,16 @@ BrGlamorousColors class >> lightBorderColor [
 { #category : #accessing }
 BrGlamorousColors class >> lightBorderColor: anObject [
 	LightBorderColor := anObject
+]
+
+{ #category : #links }
+BrGlamorousColors class >> linkColor [
+	^ LinkColor
+]
+
+{ #category : #links }
+BrGlamorousColors class >> linkWithErrorColor [
+	^ LinkWithErrorColor
 ]
 
 { #category : #'button - border' }
