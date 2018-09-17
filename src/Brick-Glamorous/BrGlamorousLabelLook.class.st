@@ -7,7 +7,7 @@ Class {
 { #category : #initialization }
 BrGlamorousLabelLook >> initialize [
 	super initialize.
-	
+
 	self
 		fontSize: 14;
 		weight: 400;

@@ -255,21 +255,21 @@ BrTextEditor >> initialize [
 BrTextEditor >> initializeInteractions [
 
 	self interactions add: (BlShortcut new
-		combination: (BlKeyCombination builder meta; key: Key a; build);
+		combination: (BlKeyCombination builder primary; key: Key a; build);
 		action: [ self selecter all select ]).
 
 	self interactions add: (BlShortcut new
-		combination: (BlKeyCombination builder meta; key: Key x; build);
+		combination: (BlKeyCombination builder primary; key: Key x; build);
 		action: [ self cutSelected ]).
 		
 	self interactions add: (BlShortcut new
-		combination: (BlKeyCombination builder meta; key: Key c; build);
+		combination: (BlKeyCombination builder primary; key: Key c; build);
 		action: [ self copySelected ]).
 		
 	"Paste a text from the clipboard at the current cursor position.
 	I delete any currently selected text and update cursor position"
 	self interactions add: (BlShortcut new
-		combination: (BlKeyCombination builder meta; key: Key v; build);
+		combination: (BlKeyCombination builder primary; key: Key v; build);
 		action: [ self paster fromClipboard atCursor paste ]).
 
 	self interactions add: (BlShortcut new
@@ -295,11 +295,11 @@ BrTextEditor >> initializeInteractions [
 		action: [ self moveCursorRight ]).
 	
 	self interactions add: (BlShortcut new
-		combination: (BlKeyCombination builder meta; key: Key arrowRight; build);
+		combination: (BlKeyCombination builder primary; key: Key arrowRight; build);
 		action: [ self moveCursorToEndNextWord ]).
 
 	self interactions add: (BlShortcut new
-		combination: (BlKeyCombination builder meta; key: Key arrowLeft; build);
+		combination: (BlKeyCombination builder primary; key: Key arrowLeft; build);
 		action: [ self moveCursorToStartPreviousWord ]).
 ]
 

@@ -8,11 +8,16 @@ Class {
 	#category : 'Brick-! Core'
 }
 
+{ #category : #accessing }
+BrShadowLook >> color: aColor [
+	self shadow: (self shadow copyWithColor: aColor)
+]
+
 { #category : #initialization }
 BrShadowLook >> initialize [
 	super initialize.
 
-	shadow := (BlDropShadowEffect color: (Color black alpha: 0.3) width: 2 offset: 0.2@1)
+	shadow := (BlDropShadowEffect color: (Color black alpha: 0.3) width: 4 offset: 0@1)
 ]
 
 { #category : #initialization }
@@ -38,5 +43,5 @@ BrShadowLook >> shadow: aBlDropShadowEffect [
 
 { #category : #updating }
 BrShadowLook >> updateShadow [
-	self widgetDo: [ self widgetContent effect: self shadow ]
+	self widgetDo: [ :aWidget | aWidget effect: self shadow ]
 ]

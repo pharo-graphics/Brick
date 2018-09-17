@@ -6,6 +6,7 @@ Class {
 		'ButtonBackgroundColor',
 		'ButtonBorderColor',
 		'ButtonTextColor',
+		'DarkBorderColor',
 		'DisabledButtonBackgroundColor',
 		'DisabledButtonBorderColor',
 		'DisabledButtonTextColor',
@@ -24,6 +25,16 @@ Class {
 	],
 	#category : #'Brick-Glamorous'
 }
+
+{ #category : #accessing }
+BrGlamorousColors class >> darkBorderColor [
+	^ DarkBorderColor
+]
+
+{ #category : #accessing }
+BrGlamorousColors class >> darkBorderColor: anObject [
+	DarkBorderColor := anObject
+]
 
 { #category : #'button - background' }
 BrGlamorousColors class >> defaultButtonBackgroundColor [
@@ -153,6 +164,7 @@ BrGlamorousColors class >> hoveredButtonTextColor: anObject [
 { #category : #initialization }
 BrGlamorousColors class >> initialize [
 	LightBorderColor := Color fromHexString: #d9d9d9.
+	DarkBorderColor := Color darkGray.
 	PrimaryBorderColor := Color fromHexString: #'45abfe'.
 	ActiveColor := Color fromHexString: #'096dd9'.
 
