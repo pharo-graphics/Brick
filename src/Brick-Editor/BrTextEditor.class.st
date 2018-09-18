@@ -276,13 +276,13 @@ BrTextEditor >> initializeInteractions [
 		combination: (BlKeyCombination builder escape; build);
 		action: [ self selectNone ]).
 
-	self interactions add: (BlShortcut new
+	"self interactions add: (BlShortcut new
 		combination: (BlKeyCombination builder shift; key: Key arrowLeft; build);
 		action: [ self selectToLeft ]).
 
 	self interactions add: (BlShortcut new
 		combination: (BlKeyCombination builder shift; key: Key arrowRight; build);
-		action: [ self selectToRight ]).
+		action: [ self selectToRight ])."
 
 	"left-arrow => move cursor left"
 	self interactions add: (BlShortcut new
@@ -294,13 +294,13 @@ BrTextEditor >> initializeInteractions [
 		combination: (BlKeyCombination builder key: Key arrowRight; build);
 		action: [ self moveCursorRight ]).
 	
-	self interactions add: (BlShortcut new
+	"self interactions add: (BlShortcut new
 		combination: (BlKeyCombination builder primary; key: Key arrowRight; build);
 		action: [ self moveCursorToEndNextWord ]).
 
 	self interactions add: (BlShortcut new
 		combination: (BlKeyCombination builder primary; key: Key arrowLeft; build);
-		action: [ self moveCursorToStartPreviousWord ]).
+		action: [ self moveCursorToStartPreviousWord ])."
 ]
 
 { #category : #initialization }
