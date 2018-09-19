@@ -51,7 +51,7 @@ BrTabExamples >> groupHeaderWithBoundTabs [
 		viewModel: aHeaderElement viewModel tabs second.
 		
 	self assert: aHeaderElement children asArray equals: { aHeaderElement look header }.
-	self assert: aHeaderElement children first children asArray equals: { aHeaderElement look tabbar. aHeaderElement look toolbar }.
+	self assert: aHeaderElement children first children asArray equals: { aHeaderElement look scrollTabbar. aHeaderElement look toolbar }.
 
 	self assert: aHeaderElement look tabbar children asArray equals: { tabElement2 }.
 
