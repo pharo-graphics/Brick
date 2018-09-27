@@ -9,6 +9,7 @@ anEditor inserter
 	insert.
 anEditor
 ]]]
+
 "
 Class {
 	#name : #BrTextEditorInserter,
@@ -18,7 +19,8 @@ Class {
 		'text',
 		'shouldUpdateCursor',
 		'shouldUpdateSelection',
-		'shouldDeleteSelected'
+		'shouldDeleteSelected',
+		'inputFilter'
 	],
 	#category : #'Brick-Editor-Model'
 }
@@ -92,21 +94,46 @@ BrTextEditorInserter >> initialize [
 	insertionIndices := SortedCollection new.
 	shouldUpdateCursor := true.
 	shouldUpdateSelection := true.
-	shouldDeleteSelected := true
+	shouldDeleteSelected := true.
+	inputFilter := BrTextEditorNoInputfilter new
+]
+
+{ #category : #'api - configuration' }
+BrTextEditorInserter >> inputFilter: aTextEditorInputFilter [
+	inputFilter := aTextEditorInputFilter
 ]
 
 { #category : #'api - processing' }
 BrTextEditorInserter >> insert [
+	| aFilteredText |
+	
+	aFilteredText := inputFilter filter: text.
+
 	shouldDeleteSelected
 		ifTrue: [ self deleteSelectedText ].
 		
 	insertionIndices reverseDo: [ :anIndex |
-		self privateInsertString: text at: anIndex.
+		self privateInsertString: aFilteredText at: anIndex.
 
 		shouldUpdateCursor
-			ifTrue: [ self updateCursorsAfterInsertion: text at: anIndex ].
+			ifTrue: [ self updateCursorsAfterInsertion: aFilteredText at: anIndex ].
 		shouldUpdateSelection
-			ifTrue: [ self updateSelectionAfterInsertion: text at: anIndex ] ]
+			ifTrue: [ self updateSelectionAfterInsertion: aFilteredText at: anIndex ] ]
+]
+
+{ #category : #'api - configuration' }
+BrTextEditorInserter >> onlyAlphaNumeric [
+	self inputFilter: BrTextEditorAlphaNumericInputFilter new
+]
+
+{ #category : #'api - configuration' }
+BrTextEditorInserter >> onlyDigits [
+	self inputFilter: BrTextEditorDigitInputFilter new
+]
+
+{ #category : #'api - configuration' }
+BrTextEditorInserter >> onlyLetters [
+	self inputFilter: BrTextEditorLetterInputFilter new
 ]
 
 { #category : #private }

@@ -698,6 +698,69 @@ BrTextEditorModificationExamples >> editorOnMultilineText [
 ]
 
 { #category : #'examples - insertion' }
+BrTextEditorModificationExamples >> filter_insert_Hello123Symbols_onlyAlphaNumeric [
+	<gtExample>
+	| anEditor |
+	
+	anEditor := self editorOnMultilineText.	
+	anEditor moveCursorTo: 0.
+
+	anEditor inserter
+		at: 0;
+		string: 'Hello123$#^)';
+		onlyAlphaNumeric;
+		insert.
+
+	self assert: anEditor text asString equals: ('Hello123', self multilineText asString).
+	self assert: anEditor cursor allCursors equals: { BrTextEditorSingleCursor new position: 8 }.
+	self assert: anEditor selection isEmpty.
+
+	^ anEditor
+]
+
+{ #category : #'examples - insertion' }
+BrTextEditorModificationExamples >> filter_insert_Hello123_onlyDigits [
+	<gtExample>
+	| anEditor |
+	
+	anEditor := self editorOnMultilineText.	
+	anEditor moveCursorTo: 0.
+
+	anEditor inserter
+		at: 0;
+		string: 'Hello123';
+		onlyDigits;
+		insert.
+
+	self assert: anEditor text asString equals: ('123', self multilineText asString).
+	self assert: anEditor cursor allCursors equals: { BrTextEditorSingleCursor new position: 3 }.
+	self assert: anEditor selection isEmpty.
+
+	^ anEditor
+]
+
+{ #category : #'examples - insertion' }
+BrTextEditorModificationExamples >> filter_insert_Hello123_onlyLetters [
+	<gtExample>
+	| anEditor |
+	
+	anEditor := self editorOnMultilineText.	
+	anEditor moveCursorTo: 0.
+
+	anEditor inserter
+		at: 0;
+		string: 'Hello123';
+		onlyLetters;
+		insert.
+
+	self assert: anEditor text asString equals: ('Hello', self multilineText asString).
+	self assert: anEditor cursor allCursors equals: { BrTextEditorSingleCursor new position: 5 }.
+	self assert: anEditor selection isEmpty.
+
+	^ anEditor
+]
+
+{ #category : #'examples - insertion' }
 BrTextEditorModificationExamples >> insert_Hello_atCursorAt_0_and_1_selection_no [
 	<gtExample>
 	<description: '"Insertion at multiple cursors'>
