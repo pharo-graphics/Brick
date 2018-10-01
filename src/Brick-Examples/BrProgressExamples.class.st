@@ -37,6 +37,8 @@ BrProgressExamples >> example [
 	aPercentage := aProgressElement viewModel percentage.
 	aContainer 
 		look: BrLayoutLook linearHorizontal;
+		constraintsDo: [ :c | 
+			c horizontal matchParent ];
 		background: Color transparent;
 		addChild: aProgressElement;
 		addChild: (BrButton new 
@@ -61,7 +63,9 @@ BrProgressExamples >> progress [
 	aBarElement := self bar.
 	aContainer := self container.
 	aContainer 
-		size: 320@10;
+		constraintsDo: [ :c |
+			c horizontal matchParent.
+			c vertical exact: 30. ];
 		addChild: aBarElement as: BrProgressLook widgetProgressName.
 	aContainer viewModel: self progressModel.
 	aContainer look: BrProgressLook.
