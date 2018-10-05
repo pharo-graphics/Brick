@@ -4,7 +4,7 @@ See ${class:BrButtonModel}$
 Class {
 	#name : #BrButtonModelExamples,
 	#superclass : #Object,
-	#category : 'Brick-Examples-Button'
+	#category : #'Brick-Examples-Button'
 }
 
 { #category : #'examples - model' }

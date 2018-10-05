@@ -1,7 +1,7 @@
 Class {
 	#name : #BrLayoutLookExamples,
 	#superclass : #Object,
-	#category : 'Brick-Examples'
+	#category : #'Brick-Examples'
 }
 
 { #category : #'examples - alignment' }

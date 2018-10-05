@@ -1,7 +1,7 @@
 Class {
 	#name : #BrListStencilExamples,
 	#superclass : #Object,
-	#category : 'Brick-Examples-List'
+	#category : #'Brick-Examples-List'
 }
 
 { #category : #'examples - list label' }

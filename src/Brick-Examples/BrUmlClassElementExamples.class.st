@@ -1,7 +1,7 @@
 Class {
 	#name : #BrUmlClassElementExamples,
 	#superclass : #BlElement,
-	#category : 'Brick-Examples'
+	#category : #'Brick-Examples'
 }
 
 { #category : #examples }

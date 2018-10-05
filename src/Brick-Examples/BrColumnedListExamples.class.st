@@ -1,7 +1,7 @@
 Class {
 	#name : #BrColumnedListExamples,
 	#superclass : #Object,
-	#category : 'Brick-Examples-List'
+	#category : #'Brick-Examples-List'
 }
 
 { #category : #'examples - model' }

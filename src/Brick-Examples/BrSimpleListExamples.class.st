@@ -1,7 +1,7 @@
 Class {
 	#name : #BrSimpleListExamples,
 	#superclass : #Object,
-	#category : 'Brick-Examples-List'
+	#category : #'Brick-Examples-List'
 }
 
 { #category : #'examples - selection' }

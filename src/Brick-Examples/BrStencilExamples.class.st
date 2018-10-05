@@ -1,7 +1,7 @@
 Class {
 	#name : #BrStencilExamples,
 	#superclass : #Object,
-	#category : 'Brick-Examples-Stencils'
+	#category : #'Brick-Examples-Stencils'
 }
 
 { #category : #'examples - instance creation' }
@@ -105,6 +105,31 @@ BrStencilExamples >> defaultElementUsingBlock [
 	self assert: anElement geometry cornerRadii equals: (BlCornerRadii radius: 20).
 	
 	^ anElement
+]
+
+{ #category : #converting }
+BrStencilExamples >> elementToStencil [
+	<gtExample>
+	| anElement aStencil aSecondElement |
+	anElement := BlElement new.
+	aStencil := anElement asStencil.
+	aSecondElement := aStencil asElement.
+	self assert: anElement == aStencil.
+	self assert: aSecondElement == anElement.
+	^ anElement
+]
+
+{ #category : #converting }
+BrStencilExamples >> elementToStencilBuilder [
+	<gtExample>
+	| anElement aStencilBuilder aSecondElement |
+	anElement := BlElement new.
+	aStencilBuilder := anElement asStencilBuilder.
+	aSecondElement := aStencilBuilder asElement.
+	self assert: (anElement == aStencilBuilder) not.
+	self assert: (aStencilBuilder isKindOf: BrStencilBuilder).
+	self assert: aSecondElement == anElement.
+	^ aStencilBuilder
 ]
 
 { #category : #'examples - instance creation' }

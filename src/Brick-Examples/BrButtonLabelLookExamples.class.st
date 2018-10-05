@@ -31,7 +31,7 @@ ${example:name=BrButtonLabelLookExamples>>#buttonWithLookFirstThenModel|expanded
 Class {
 	#name : #BrButtonLabelLookExamples,
 	#superclass : #Object,
-	#category : 'Brick-Examples'
+	#category : #'Brick-Examples'
 }
 
 { #category : #'example - instance creation' }

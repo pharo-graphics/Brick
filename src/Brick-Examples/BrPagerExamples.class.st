@@ -1,7 +1,7 @@
 Class {
 	#name : #BrPagerExamples,
 	#superclass : #Object,
-	#category : 'Brick-Examples-Pager'
+	#category : #'Brick-Examples-Pager'
 }
 
 { #category : #example }

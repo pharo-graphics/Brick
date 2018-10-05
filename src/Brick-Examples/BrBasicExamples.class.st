@@ -1,7 +1,7 @@
 Class {
 	#name : #BrBasicExamples,
 	#superclass : #Object,
-	#category : 'Brick-Examples'
+	#category : #'Brick-Examples'
 }
 
 { #category : #'examples - events' }

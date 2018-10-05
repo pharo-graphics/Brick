@@ -8,7 +8,7 @@ Class {
 		'color',
 		'cornerRadius'
 	],
-	#category : 'Brick-Examples-Stencils'
+	#category : #'Brick-Examples-Stencils'
 }
 
 { #category : #accessing }
