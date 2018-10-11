@@ -207,6 +207,13 @@ BrTextEditorExamples >> adormentDynamicAttribute [
 	^ self newElement editor: self editorWithAdormentDynamicAttribute
 ]
 
+{ #category : #'examples - Morph>>#fullDrawOn:' }
+BrTextEditorExamples >> editorOnMorphFullDrawOn [
+	<gtExample>
+
+	^ self newEditor text: self textMorphFullDrawOn
+]
+
 { #category : #examples }
 BrTextEditorExamples >> editorWithAdormentDynamicAttribute [
 	<gtExample>
@@ -226,7 +233,7 @@ BrTextEditorExamples >> editorWithAdormentDynamicAttribute [
 	^ editor
 ]
 
-{ #category : #examples }
+{ #category : #'examples - editor' }
 BrTextEditorExamples >> editorWithMethod [
 	<gtExample>
 	^ self newEditor text: self newMethodText
@@ -251,6 +258,13 @@ BrTextEditorExamples >> elementOnMethodWithSyntaxHighlighting [
 	editor text: text.
 	element editor: editor.
 	^ element
+]
+
+{ #category : #'examples - Morph>>#fullDrawOn:' }
+BrTextEditorExamples >> elementOnMorphFullDrawOn [
+	<gtExample>
+	
+	^ self newElement editor: self editorOnMorphFullDrawOn
 ]
 
 { #category : #examples }
@@ -311,4 +325,11 @@ BrTextEditorExamples >> newThreeLineText [
 	<gtExample>
 	
 	^ BlRopedText string: 'first', String cr, 'second', String cr, 'third'
+]
+
+{ #category : #'examples - Morph>>#fullDrawOn:' }
+BrTextEditorExamples >> textMorphFullDrawOn [
+	<gtExample>
+	
+	^ (Morph>>#fullDrawOn:) sourceCode asRopedText monospace
 ]
