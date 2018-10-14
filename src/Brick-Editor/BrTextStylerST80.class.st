@@ -1,6 +1,6 @@
 Class {
 	#name : #BrTextStylerST80,
-	#superclass : #BrTextStyler,
+	#superclass : #BlTextStyler,
 	#instVars : [
 		'classOrMetaClass',
 		'workspace',
@@ -19,7 +19,7 @@ Class {
 BrTextStylerST80 class >> attributeArrayForColor: aColorOrNil emphasis: anEmphasisArray [
 	"Return a collection of text or font attributes for given color (or nil)
 	and array of requested emphasis styles (#bold, #italic, #oblique or #normal)"
-	<return: #Array of: #BrTextAttribute>
+	<return: #Array of: #BlTextAttribute>
 
 	^ Array streamContents: [ :aStream |
 		aColorOrNil ifNotNil: [ :aColor |
@@ -30,7 +30,7 @@ BrTextStylerST80 class >> attributeArrayForColor: aColorOrNil emphasis: anEmphas
 { #category : #private }
 BrTextStylerST80 class >> attributesFor: aSymbol [
 	"Return a collection of text or font attributes for a given style name"
-	<return: #Array of: #BrTextAttribute>
+	<return: #Array of: #BlTextAttribute>
 	
 	^ self textAttributes
 		at: aSymbol
@@ -327,22 +327,22 @@ BrTextStylerST80 class >> defaultStyleTable [
 BrTextStylerST80 class >> emphasisAttribute: anEmphasisAsSymbol [
 	"Create and return a text emphasis attribute for a given emphasis.
 	anEmphasisAsSymbol can be either #bold #italic #oblique or #normal"
-	<return: #BrTextAttribute>
+	<return: #BlTextAttribute>
 	
 	anEmphasisAsSymbol = #bold
-		ifTrue: [ ^ BrFontWeightAttribute bold ].
+		ifTrue: [ ^ BlFontWeightAttribute bold ].
 	
 	anEmphasisAsSymbol = #italic
-		ifTrue: [ ^ BrFontEmphasisAttribute italic ].
+		ifTrue: [ ^ BlFontEmphasisAttribute italic ].
 		
 	anEmphasisAsSymbol = #oblique
-		ifTrue: [ ^ BrFontEmphasisAttribute oblique ].
+		ifTrue: [ ^ BlFontEmphasisAttribute oblique ].
 		
 	anEmphasisAsSymbol = #normal
-		ifTrue: [ ^ BrFontEmphasisAttribute normal ].
+		ifTrue: [ ^ BlFontEmphasisAttribute normal ].
 	
 	anEmphasisAsSymbol = #light
-		ifTrue: [ ^ BrFontWeightAttribute light ].
+		ifTrue: [ ^ BlFontWeightAttribute light ].
 
 	self error: 'Unknown emphasis: ', anEmphasisAsSymbol asString
 ]
@@ -353,9 +353,9 @@ BrTextStylerST80 class >> foregroundAttribute: aPaint [
 	aPaint can be a color, gradient or any other object that represents a paint
 	and is polymorphic with a canvas-specific paint or that knows how to convert
 	itself to an actual paint using double dispatch (e.g. asSpartaPaintOn:)"
-	<return: #BrTextForegroundAttribute>
+	<return: #BlTextForegroundAttribute>
 
-	^ BrTextForegroundAttribute paint: aPaint
+	^ BlTextForegroundAttribute paint: aPaint
 ]
 
 { #category : #'style tables' }
@@ -962,16 +962,16 @@ BrTextStylerST80 >> addLinkAttributesFor: ranges in: aText to: charAttributes [
 	links := Dictionary new.
 	
 	"see SHTextStylerST80 class >> #defaultStyleTable for more types"
-	links at: #instVar put: [ :aString| BrTextVariableLink variableName: aString ].
-	links at: #globalVar put: [ :aString| BrTextClassLink className: aString ].
+	links at: #instVar put: [ :aString| BlTextVariableLink variableName: aString ].
+	links at: #globalVar put: [ :aString| BlTextClassLink className: aString ].
 	#(binary unary  keyword) do: [ :type|
-		links at: type put: [ :aString| BrTextMethodLink selector: aString ]].
+		links at: type put: [ :aString| BlTextMethodLink selector: aString ]].
 	#(pragmaUnary pragmaBinary patternBinary patternUnary patternKeyword) do: [ :type|
-		links at: type put: [ :aString| BrTextMethodLink selector: aString senders: true]].
-	links at: #true put: [ :aString| BrTextClassLink class: True ].
-	links at: #false put: [ :aString| BrTextClassLink class: False ].
-	links at: #nil put: [ :aString| BrTextClassLink class: UndefinedObject ].
-	links at: #character put: [ :aString| BrTextClassLink class: Character ].
+		links at: type put: [ :aString| BlTextMethodLink selector: aString senders: true]].
+	links at: #true put: [ :aString| BlTextClassLink class: True ].
+	links at: #false put: [ :aString| BlTextClassLink class: False ].
+	links at: #nil put: [ :aString| BlTextClassLink class: UndefinedObject ].
+	links at: #character put: [ :aString| BlTextClassLink class: Character ].
 	
 	"set the attrinbutes on the text"
 	ranges do: [ :range|

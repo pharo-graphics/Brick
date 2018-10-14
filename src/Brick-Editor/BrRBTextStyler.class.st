@@ -222,9 +222,9 @@ BrRBTextStyler >> resolveStyleFor: aVariableNode [
 BrRBTextStyler >> resolveTextLinkFor: aVariableNode [
 
 	aVariableNode binding isGlobalVariable
-		ifTrue: [ ^ BrTextClassLink className: aVariableNode name ].
+		ifTrue: [ ^ BlTextClassLink className: aVariableNode name ].
 		
-	^ BrTextVariableLink variableName: aVariableNode name
+	^ BlTextVariableLink variableName: aVariableNode name
 ]
 
 { #category : #private }
@@ -302,7 +302,7 @@ BrRBTextStyler >> styledParseCsv: aText [
 	indices size < 2 ifTrue: [ ^ self ].
 	
 	aText
-		attributes: { BrTextBackgroundAttribute paint: Color yellow }
+		attributes: { BlTextBackgroundAttribute paint: Color yellow }
 		from: indices first value + 1
 		to: indices second key - 1
 ]
@@ -320,7 +320,7 @@ BrRBTextStyler >> styledParseImage: aText [
 	indices size < 2 ifTrue: [ ^ self ].
 	
 	aText
-		attributes: { BrTextBackgroundAttribute paint: Color yellow }
+		attributes: { BlTextBackgroundAttribute paint: Color yellow }
 		from: indices first value + 1
 		to: indices second key - 1
 ]
@@ -395,7 +395,7 @@ BrRBTextStyler >> visitLiteralNode: aLiteralNode [
 	value := aLiteralNode value.
 	self 
 		addStyle: (self literalStyleSymbol: value)
-		attribute: (BrTextClassLink class: value class)
+		attribute: (BlTextClassLink class: value class)
 		forNode: aLiteralNode
 ]
 
@@ -408,7 +408,7 @@ BrRBTextStyler >> visitMessageNode: aMessageNode [
 			style := (Symbol thatStartsCaseSensitive: aMessageNode selector asString skipping: nil) isNil
 				ifTrue: [ #undefinedKeyword ]
 				ifFalse: [ #incompleteKeyword ] ].
-	link := BrTextMethodLink selector: aMessageNode selector.
+	link := BlTextMethodLink selector: aMessageNode selector.
 	self styleOpenParenthese: aMessageNode.
 	aMessageNode selectorParts
 		with: aMessageNode keywordsPositions

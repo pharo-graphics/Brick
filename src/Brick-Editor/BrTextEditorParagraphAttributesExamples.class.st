@@ -57,7 +57,7 @@ BrTextEditorParagraphAttributesExamples >> helloText [
 	self
 		assert: aText rope attributes
 		equals: {
-			BrFontSizeAttribute size: 20.
+			BlFontSizeAttribute size: 20.
 			BrTextParagraphLineSpacingAttribute lineSpacing: 20.
 			BrTextParagraphWordPaddingAttribute wordPadding: (BlInsets top: 10 bottom: 10).
 			BrTextParagraphMarginAttribute paragraphMargin: (BlInsets top: 15 left: 20 bottom: 15 right: 20)

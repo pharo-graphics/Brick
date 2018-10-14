@@ -3,13 +3,13 @@ I am an attribute with the ability to handle events received by a visual text el
 "
 Class {
 	#name : #BrTextEventHandlerAttribute,
-	#superclass : #BrTextAttribute,
+	#superclass : #BlTextAttribute,
 	#traits : 'TBlEventHandler',
 	#classTraits : 'TBlEventHandler classTrait',
 	#instVars : [
 		'action'
 	],
-	#category : 'Brick-Editor-Text-Attributes'
+	#category : #'Brick-Editor-Text-Attributes'
 }
 
 { #category : #comparing }
@@ -54,7 +54,7 @@ BrTextEventHandlerAttribute >> hash [
 { #category : #initialization }
 BrTextEventHandlerAttribute >> initialize [
 	super initialize.
-	self textAttributes: [ { BrTextForegroundAttribute paint: Color random paler } ].
+	self textAttributes: [ { BlTextForegroundAttribute paint: Color random paler } ].
 ]
 
 { #category : #testing }

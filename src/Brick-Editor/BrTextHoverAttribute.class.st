@@ -10,7 +10,7 @@ Class {
 { #category : #initialization }
 BrTextHoverAttribute >> initialize [
 	super initialize.
-	self leaveTextAttribute: ( BrTextForegroundAttribute paint: Color black ).
+	self leaveTextAttribute: ( BlTextForegroundAttribute paint: Color black ).
 ]
 
 { #category : #accessing }

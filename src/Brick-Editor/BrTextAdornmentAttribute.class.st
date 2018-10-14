@@ -7,11 +7,11 @@ Requires complex text rendering system and may only be supported by text editor.
 "
 Class {
 	#name : #BrTextAdornmentAttribute,
-	#superclass : #BrTextAttribute,
+	#superclass : #BlTextAttribute,
 	#instVars : [
 		'shouldAppend'
 	],
-	#category : 'Brick-Editor-Text-Attributes'
+	#category : #'Brick-Editor-Text-Attributes'
 }
 
 { #category : #accessing }

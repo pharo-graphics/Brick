@@ -148,12 +148,12 @@ BrTextEditor >> defaultSelectionRecorder [
 
 { #category : #initialization }
 BrTextEditor >> defaultStyler [
-	^ BrTextNullStyler new
+	^ BlTextNullStyler new
 ]
 
 { #category : #initialization }
 BrTextEditor >> defaultStylerEventHandler [
-	^ BlEventHandler on: BrTextStyledEvent do: [ :anEvent |		
+	^ BlEventHandler on: BlTextStyledEvent do: [ :anEvent |		
 		(anEvent text previousGeneration == self text generation)
 			ifTrue: [
 				self text rope: anEvent text text rope.
@@ -828,7 +828,7 @@ BrTextEditor >> styleTextAndAfterDo: aBlock [
 
 { #category : #accessing }
 BrTextEditor >> styler [
-	<return: #BrTextStyler>
+	<return: #BlTextStyler>
 	^ styler
 ]
 

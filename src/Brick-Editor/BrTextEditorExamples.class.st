@@ -73,8 +73,8 @@ BrTextEditorExamples class >> exampleMethodTextOpen [
 
 	editorElement := (self >> #elementOnMethodWithSyntaxHighlighting) gtExample returnValue.
 	editorElement editor text attributes: {
-		(BrFontSizeAttribute size: 18) beNotOverwritableByStyler.
-		BrFontGenericFamilyAttribute monospace beNotOverwritableByStyler
+		(BlFontSizeAttribute size: 18) beNotOverwritableByStyler.
+		BlFontGenericFamilyAttribute monospace beNotOverwritableByStyler
 	}.
 	editorElement editor text attributes: {
 		BrTextHoverAttribute new beNotOverwritableByStyler.
@@ -96,8 +96,8 @@ BrTextEditorExamples class >> exampleMethodTextOpenEmbedElement [
 
 	editorElement := (self >> #elementWithMethod) gtExample returnValue.
 	editorElement editor text attributes: {
-		BrFontSizeAttribute size: 18.
-		BrFontGenericFamilyAttribute monospace
+		BlFontSizeAttribute size: 18.
+		BlFontGenericFamilyAttribute monospace
 	}.
 	editorElement editor text attributes: {
 		BrTextAdornmentDynamicAttribute new stencil: [ BlElement new size: 70 @ 50; background: Color red; yourself ]
@@ -123,8 +123,8 @@ BrTextEditorExamples class >> exampleOneEditorTwoElements [
 	editor styler: styler.
 	
 	editor text: ((BlRopedText string: (Morph>>#fullDrawOn:) sourceCode) attributes: {
-		(BrFontSizeAttribute size: 14) beNotOverwritableByStyler.
-		BrFontGenericFamilyAttribute monospace beNotOverwritableByStyler
+		(BlFontSizeAttribute size: 14) beNotOverwritableByStyler.
+		BlFontGenericFamilyAttribute monospace beNotOverwritableByStyler
 	}).
 	
 	editorElement1 := BrEditorElement new.
@@ -166,8 +166,8 @@ BrTextEditorExamples class >> exampleTextOpen [
 	
 	editorElement := (self >> #elementWithEditor) gtExample returnValue.
 	editorElement editor text attributes: {
-		BrFontSizeAttribute size: 18.
-		BrFontFamilyAttribute named: 'Helvetica Neue'.
+		BlFontSizeAttribute size: 18.
+		BlFontFamilyAttribute named: 'Helvetica Neue'.
 	}.
 	editorElement constraintsDo: [ :c |
 		c horizontal matchParent.
