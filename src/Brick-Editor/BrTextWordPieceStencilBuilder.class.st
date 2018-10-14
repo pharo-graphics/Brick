@@ -3,9 +3,10 @@ Class {
 	#superclass : #BrStencilBuilder,
 	#instVars : [
 		'text',
-		'editorElement'
+		'editorElement',
+		'measurer'
 	],
-	#category : 'Brick-Editor-Stencils'
+	#category : #'Brick-Editor-Stencils'
 }
 
 { #category : #'api - instantiation' }
@@ -106,6 +107,23 @@ BrTextWordPieceStencilBuilder >> editorElement [
 { #category : #accessing }
 BrTextWordPieceStencilBuilder >> editorElement: anObject [
 	editorElement := anObject
+]
+
+{ #category : #initialization }
+BrTextWordPieceStencilBuilder >> initialize [
+	super initialize.
+	
+	measurer := BlTextElementCanvasMeasurer new
+]
+
+{ #category : #accessing }
+BrTextWordPieceStencilBuilder >> measurer [
+	^ measurer
+]
+
+{ #category : #accessing }
+BrTextWordPieceStencilBuilder >> measurer: aMeasurer [
+	measurer := aMeasurer
 ]
 
 { #category : #'api - instantiation' }

@@ -8,29 +8,37 @@ Override me for more advanced customizations
 Class {
 	#name : #BrTextEditorSegmentElement,
 	#superclass : #BlElement,
+	#traits : 'TBlDrawingCache',
+	#classTraits : 'TBlDrawingCache classTrait',
 	#instVars : [
 		'cachedSurface',
 		'session'
 	],
-	#category : 'Brick-Editor-UI'
+	#category : #'Brick-Editor-UI'
 }
 
-{ #category : #'change reporting' }
-BrTextEditorSegmentElement >> invalidRect: aBlBounds from: anElement [
-	super invalidRect: aBlBounds from: anElement.
-	
-	self releaseCaches
+{ #category : #private }
+BrTextEditorSegmentElement >> cachedSurface [
+	^ cachedSurface
 ]
 
-{ #category : #'children hooks' }
-BrTextEditorSegmentElement >> onRemovedFromSceneGraph [
-	super onRemovedFromSceneGraph.
-
-	self releaseCaches
+{ #category : #private }
+BrTextEditorSegmentElement >> cachedSurface: aSurface [
+	cachedSurface := aSurface
 ]
 
 { #category : #initialization }
 BrTextEditorSegmentElement >> releaseCaches [
 	cachedSurface ifNotNil: #release.
 	cachedSurface := nil
+]
+
+{ #category : #private }
+BrTextEditorSegmentElement >> session [
+	^ session
+]
+
+{ #category : #private }
+BrTextEditorSegmentElement >> session: aSession [
+	session := aSession
 ]
