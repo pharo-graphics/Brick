@@ -31,7 +31,7 @@ BrEditorTextFlowLayout >> layout: anElement in: aRectangle [
 
 	anOffsetX := anElement padding left.
 	anOffsetY := anElement padding top.
-	
+
 	aLeft := anOffsetX.
 	aTop := anOffsetY.
 	

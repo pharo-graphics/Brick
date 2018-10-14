@@ -17,6 +17,16 @@ BrTextEditorAttributedLineSegment >> adornmentPiece: aText with: anAdornmentAttr
 		adornmentAttribute: anAdornmentAttribute
 ]
 
+{ #category : #initialization }
+BrTextEditorAttributedLineSegment >> initializeWith: aBrText from: aTextStart to: aTextEnd [
+	| theParagraphAttributes |
+
+	super initializeWith: aBrText from: aTextStart to: aTextEnd.
+
+	theParagraphAttributes := aBrText iterator selectAttributes: #isParagraphAttribute.
+	theParagraphAttributes do: [ :aParagraphAttribute | aParagraphAttribute applyOn: self ]
+]
+
 { #category : #'pieces - computation' }
 BrTextEditorAttributedLineSegment >> itemValueType: anObject [
 	"Return a type of an item within a segment.

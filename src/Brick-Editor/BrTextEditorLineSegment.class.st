@@ -2,31 +2,46 @@ Class {
 	#name : #BrTextEditorLineSegment,
 	#superclass : #BrTextEditorSegment,
 	#instVars : [
-		'pieces'
+		'pieces',
+		'lineSpacing',
+		'wordPadding',
+		'paragraphMargin'
 	],
-	#category : 'Brick-Editor-Model - Segment-Text-Line'
+	#category : #'Brick-Editor-Model - Segment-Text-Line'
 }
 
 { #category : #'pieces - computation' }
 BrTextEditorLineSegment >> computedPieces [
 	<return: #SequenceableCollection of: #BrTextEditorLineSegmentPiece>
 	| thePieces |
-	
+
 	thePieces := Array streamContents: [ :aStream |
 		| lineIterator |
-		
+
 		lineIterator := self text iterator.
 		[ lineIterator hasNext ] whileTrue: [
 			self nextSegmentPiece: lineIterator in: aStream ] ].
 
-	^ thePieces
+	thePieces := thePieces
 		ifEmpty:[ { self textPiece: (self text from: 0 to: 0) } ]
-		ifNotEmpty: #yourself
+		ifNotEmpty: #yourself.
+		
+	thePieces do: [ :eachPiece | eachPiece segment: self ].
+	^ thePieces
 ]
 
 { #category : #testing }
 BrTextEditorLineSegment >> hasPieces [
 	^ pieces isNotNil
+]
+
+{ #category : #initialization }
+BrTextEditorLineSegment >> initialize [
+	super initialize.
+
+	lineSpacing := 0.
+	wordPadding := BlInsets top: 3 bottom: 3.
+	paragraphMargin := BlInsets empty
 ]
 
 { #category : #'pieces - computation' }
@@ -35,6 +50,18 @@ BrTextEditorLineSegment >> invalidate [
 	super invalidate.
 
 	pieces := nil
+]
+
+{ #category : #'attributes - paragraph' }
+BrTextEditorLineSegment >> lineSpacing [
+	<return: #Number>
+
+	^ lineSpacing
+]
+
+{ #category : #'attributes - paragraph' }
+BrTextEditorLineSegment >> lineSpacing: aNumber [
+	lineSpacing := aNumber
 ]
 
 { #category : #'text - modifications' }
@@ -52,6 +79,18 @@ BrTextEditorLineSegment >> moveTextBy: aNumber [
 { #category : #'pieces - computation' }
 BrTextEditorLineSegment >> nextSegmentPiece: aBrTextIterator in: aStream [
 	aStream nextPut: (self textPiece: aBrTextIterator nextWord)
+]
+
+{ #category : #'attributes - paragraph' }
+BrTextEditorLineSegment >> paragraphMargin [
+	<return: #BlInsets>
+
+	^ paragraphMargin
+]
+
+{ #category : #'attributes - paragraph' }
+BrTextEditorLineSegment >> paragraphMargin: aBlInsets [
+	paragraphMargin := aBlInsets
 ]
 
 { #category : #accessing }
@@ -78,4 +117,16 @@ BrTextEditorLineSegment >> textPiece: aText [
 	<return: #BrTextEditorLineSegmentPiece>
 
 	^ BrTextEditorLineSegmentTextPiece new text: aText
+]
+
+{ #category : #'attributes - paragraph' }
+BrTextEditorLineSegment >> wordPadding [
+	<return: #BlInsets>
+
+	^ wordPadding
+]
+
+{ #category : #'attributes - paragraph' }
+BrTextEditorLineSegment >> wordPadding: aBlInsets [
+	wordPadding := aBlInsets
 ]

@@ -3,6 +3,7 @@ Class {
 	#superclass : #BrStencilBuilder,
 	#instVars : [
 		'text',
+		'segmentPiece',
 		'editorElement',
 		'measurer'
 	],
@@ -14,7 +15,7 @@ BrTextWordPieceStencilBuilder >> buildDefault [
 	^ BlTextEditElement new
 		text: self text;
 		clipChildren: false;
-		padding: (BlInsets top: 3 right: 0 bottom: 3 left: 0);
+		padding: (self segmentPiece segment wordPadding);
 		addEventHandler: BrTextEditorAttributedLineSegmentTextListener new;
 
 		"editor requests to show a cursor as a result of its position change"
@@ -130,7 +131,18 @@ BrTextWordPieceStencilBuilder >> measurer: aMeasurer [
 BrTextWordPieceStencilBuilder >> paramsOn: aStencilExecutor [
 	aStencilExecutor
 		push: self text;
-		push: self editorElement
+		push: self editorElement;
+		push: self segmentPiece
+]
+
+{ #category : #accessing }
+BrTextWordPieceStencilBuilder >> segmentPiece [
+	^ segmentPiece
+]
+
+{ #category : #accessing }
+BrTextWordPieceStencilBuilder >> segmentPiece: anObject [
+	segmentPiece := anObject
 ]
 
 { #category : #accessing }

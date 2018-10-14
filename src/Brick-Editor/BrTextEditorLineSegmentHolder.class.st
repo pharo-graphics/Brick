@@ -85,7 +85,11 @@ BrTextEditorLineSegmentHolder >> segment: anEditorSegment [
 		do: [ :aPiece :aPieceElement |
 			aPiece updateCursor: aPieceElement of: anEditorSegment in: self infiniteElement.
 			aPiece updateSelection: aPieceElement of: anEditorSegment in: self infiniteElement ].
-	
-	itemElement removeChildren.
-	itemElement addChildren: pieceElements
+
+	itemElement
+		removeChildren;
+		addChildren: pieceElements;
+		constraintsDo: [ :c | c horizontal resizer: infiniteElement constraints horizontal resizer ];
+		layoutDo: [ :aLayout | aLayout lineSpacing: anEditorSegment lineSpacing ];
+		margin: anEditorSegment paragraphMargin
 ]

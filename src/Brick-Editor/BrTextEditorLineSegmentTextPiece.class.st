@@ -13,7 +13,8 @@ BrTextEditorLineSegmentTextPiece >> createElement: anEditorElement [
 
 	^ (anEditorElement editor segmentBuilder wordStencilBuilder
 		text: self text;
-		editorElement: anEditorElement) asElement
+		editorElement: anEditorElement;
+		segmentPiece: self) asElement
 ]
 
 { #category : #'api - cursor' }

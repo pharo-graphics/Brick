@@ -2,9 +2,10 @@ Class {
 	#name : #BrTextEditorLineSegmentPiece,
 	#superclass : #Object,
 	#instVars : [
-		'text'
+		'text',
+		'segment'
 	],
-	#category : 'Brick-Editor-Model - Segment-Text-Line'
+	#category : #'Brick-Editor-Model - Segment-Text-Line'
 }
 
 { #category : #comparing }
@@ -49,6 +50,16 @@ BrTextEditorLineSegmentPiece >> isEmpty [
 { #category : #printing }
 BrTextEditorLineSegmentPiece >> printOn: aStream [
 	self text printOn: aStream
+]
+
+{ #category : #accessing }
+BrTextEditorLineSegmentPiece >> segment [
+	^ segment
+]
+
+{ #category : #accessing }
+BrTextEditorLineSegmentPiece >> segment: anObject [
+	segment := anObject
 ]
 
 { #category : #accessing }
