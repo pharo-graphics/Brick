@@ -43,8 +43,18 @@ BrAccordion >> collapse [
 ]
 
 { #category : #'api - accordion' }
+BrAccordion >> content: aStencil [
+	accordionModel contentStencil: aStencil
+]
+
+{ #category : #'api - accordion' }
 BrAccordion >> expand [
 	expandableModel expand
+]
+
+{ #category : #'api - accordion' }
+BrAccordion >> header: aStencil [
+	accordionModel headerStencil: aStencil
 ]
 
 { #category : #initialization }
@@ -69,11 +79,6 @@ BrAccordion >> isCollapsed [
 { #category : #'api - testing' }
 BrAccordion >> isExpanded [
 	^ expandableModel isExpanded
-]
-
-{ #category : #'api - accordion' }
-BrAccordion >> stencil: aStencil [
-	accordionModel stencil: aStencil
 ]
 
 { #category : #'api - accordion' }

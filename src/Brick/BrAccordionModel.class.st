@@ -2,42 +2,67 @@ Class {
 	#name : #BrAccordionModel,
 	#superclass : #BrWidgetModel,
 	#instVars : [
-		'stencil'
+		'contentStencil',
+		'headerStencil'
 	],
 	#category : #'Brick-Accordion - Model'
 }
+
+{ #category : #'api - accessing' }
+BrAccordionModel >> contentStencil [
+	<return: #BrStencil>
+
+	^ contentStencil
+]
+
+{ #category : #'api - accessing' }
+BrAccordionModel >> contentStencil: aBrStencil [
+	contentStencil := aBrStencil asStencil.
+	self notifyContentStencilChanged
+]
+
+{ #category : #'api - accessing' }
+BrAccordionModel >> headerStencil [
+	<return: #BrStencil>
+
+	^ headerStencil
+]
+
+{ #category : #'api - accessing' }
+BrAccordionModel >> headerStencil: aBrStencil [
+	headerStencil := aBrStencil asStencil.
+	self notifyHeaderStencilChanged
+]
 
 { #category : #initialization }
 BrAccordionModel >> initialize [
 	super initialize.
 	
-	stencil := BlElement new
+	contentStencil := BlElement new
 		size: 50@50;
 		background: Color red;
+		yourself.
+		
+	headerStencil := BlElement new
+		size: 50@50;
+		background: Color blue;
 		yourself
 ]
 
 { #category : #initialization }
 BrAccordionModel >> initializeListeners [
 	super initializeListeners.
-	
-	self when: BrAccordionStencilRequest reply: [ :aResponse | aResponse stencil: self stencil ]
+
+	self when: BrAccordionContentStencilRequest reply: [ :aResponse | aResponse stencil: self contentStencil ].
+	self when: BrAccordionHeaderStencilRequest reply: [ :aResponse | aResponse stencil: self headerStencil ]
 ]
 
 { #category : #notifying }
-BrAccordionModel >> notifyStencilChanged [
-	self dispatchEvent: (BrAccordionStencilChanged stencil: self stencil)
+BrAccordionModel >> notifyContentStencilChanged [
+	self dispatchEvent: (BrAccordionContentStencilChanged stencil: self contentStencil)
 ]
 
-{ #category : #'api - accessing' }
-BrAccordionModel >> stencil [
-	<return: #BrStencil>
-
-	^ stencil
-]
-
-{ #category : #'api - accessing' }
-BrAccordionModel >> stencil: aBrStencil [
-	stencil := aBrStencil asStencil.
-	self notifyStencilChanged
+{ #category : #notifying }
+BrAccordionModel >> notifyHeaderStencilChanged [
+	self dispatchEvent: (BrAccordionHeaderStencilChanged stencil: self headerStencil)
 ]

@@ -1,5 +1,5 @@
 Class {
-	#name : #BrAccordionStencilChanged,
+	#name : #BrAccordionHeaderStencilChanged,
 	#superclass : #BrChangeEvent,
 	#instVars : [
 		'stencil'
@@ -8,12 +8,12 @@ Class {
 }
 
 { #category : #'instance creation' }
-BrAccordionStencilChanged class >> stencil: aBrStencil [
+BrAccordionHeaderStencilChanged class >> stencil: aBrStencil [
 	^ self new stencil: aBrStencil
 ]
 
 { #category : #initialization }
-BrAccordionStencilChanged >> initialize [
+BrAccordionHeaderStencilChanged >> initialize [
 	super initialize.
 	
 	stencil := BlElement new
@@ -23,11 +23,13 @@ BrAccordionStencilChanged >> initialize [
 ]
 
 { #category : #accessing }
-BrAccordionStencilChanged >> stencil [
+BrAccordionHeaderStencilChanged >> stencil [
+	<return: #BrStencil>
+
 	^ stencil
 ]
 
 { #category : #accessing }
-BrAccordionStencilChanged >> stencil: anObject [
-	stencil := anObject
+BrAccordionHeaderStencilChanged >> stencil: aBrStencil [
+	stencil := aBrStencil
 ]

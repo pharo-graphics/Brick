@@ -121,21 +121,19 @@ BrExamplesShowroom class >> allToggles [
 { #category : #accordion }
 BrExamplesShowroom >> accordion [
 	<gtExample>
-	| accordion header |
+	| accordion |
 
 	accordion := BrAccordion new.
 	accordion look: BrGlamorousAccordionLook new.
-	accordion stencil: [
+	accordion content: [
 		BlElement new
 			size: 200@100;
 			background: Color paleRed ].
-
-	header := BrButton new.
-	header look: BrGlamorousAccordionHeaderLook new.
-	header label: 'Click to expand/collapse'.
-	header action: [ accordion toggle ].
-
-	accordion addChildFirst: header.
+	accordion header: [
+		BrButton new
+			look: BrGlamorousAccordionHeaderLook new;
+			label: 'Click to expand/collapse';
+			action: [ accordion toggle ] ].
 
 	^ accordion
 ]
@@ -144,22 +142,20 @@ BrExamplesShowroom >> accordion [
 BrExamplesShowroom >> accordionList [
 	<gtExample>
 	
-	| header children container |
+	| children container |
 	children := 5 timesCollect: [ :anIndex |
 		| accordion |
 		accordion := BrAccordion new.
 		accordion look: BrGlamorousAccordionLook new.
 		accordion margin: (BlInsets all: 5).
-		accordion stencil: [
+		accordion content: [
 			(GtDocumenter editorForText: 'Hello world')
 				constraintsDo: [ :c | c vertical fitContent ] ].
-
-		header := BrButton new.
-		header look: BrGlamorousAccordionHeaderLook new.
-		header label: 'Header ', anIndex asString .
-		header action: [ accordion toggle ].
-
-		accordion addChildFirst: header.
+		accordion header: [
+			BrButton new
+				look: BrGlamorousAccordionHeaderLook new;
+				label: 'Header ', anIndex asString;
+				action: [ accordion toggle ] ].
 		accordion ].
 
 	container := BlElement new.
