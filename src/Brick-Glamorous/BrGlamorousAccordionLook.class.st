@@ -30,7 +30,7 @@ Class {
 
 { #category : #accessing }
 BrGlamorousAccordionLook >> contentBarWidth [
-	^ 5
+	^ 10
 ]
 
 { #category : #accessing }
@@ -43,8 +43,8 @@ BrGlamorousAccordionLook >> initialize [
 	super initialize.
 
 	wrapper := self newWrapper.
-	headerBar := self newHeaderBar.
-	contentBar := self newContentBar.
+	headerBar := self newHeaderBar background: (Color gray alpha: 0.4).
+	contentBar := self newContentBar background: (Color gray alpha: 0.2).
 
 	headerContainer := self newHeaderContainer.
 	headerContainer addChild: headerBar.
