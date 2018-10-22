@@ -23,18 +23,10 @@ Class {
 		'wrapper',
 		'headerContainer',
 		'headerBar',
-		'contentBar',
-		'headerTopBorder',
-		'contentBottomBorder',
-		'rightBorder'
+		'contentBar'
 	],
 	#category : #'Brick-Glamorous-Accordion'
 }
-
-{ #category : #accessing }
-BrGlamorousAccordionLook >> borderWidth [
-	^ 3
-]
 
 { #category : #accessing }
 BrGlamorousAccordionLook >> contentBarWidth [
@@ -51,14 +43,8 @@ BrGlamorousAccordionLook >> initialize [
 	super initialize.
 
 	wrapper := self newWrapper.
-
 	headerBar := self newHeaderBar.
-	headerTopBorder := self newHeaderTopBorder.
-
 	contentBar := self newContentBar.
-	contentBottomBorder := self newContentBottomBorder.
-
-	rightBorder := self newRightBorder.
 
 	headerContainer := self newHeaderContainer.
 	headerContainer addChild: headerBar.
@@ -67,18 +53,7 @@ BrGlamorousAccordionLook >> initialize [
 	contentContainer addChild: contentBar.
 
 	wrapper addChild: headerContainer as: #header.
-	wrapper addChild: contentContainer as: #content.
-	wrapper addChild: rightBorder.
-
-	self addAll: {
-		BrInteractiveLook new style: [ :aStyler |
-			aStyler default: [ { headerTopBorder . contentBottomBorder . rightBorder } do: #removeFromParent ].
-			aStyler expanded: [
-				headerContainer addChild: headerTopBorder.
-				contentContainer addChild: contentBottomBorder.
-				wrapper addChild: rightBorder
-			] ].
-	}
+	wrapper addChild: contentContainer as: #content
 ]
 
 { #category : #initialization }
@@ -116,24 +91,6 @@ BrGlamorousAccordionLook >> newContentBar [
 ]
 
 { #category : #'instance creation' }
-BrGlamorousAccordionLook >> newContentBottomBorder [
-	<return: #BlElement>
-
-	^ BlElement new
-		layout: BlLinearLayout horizontal;
-		constraintsDo: [ :c |
-			c ignoreByLayout.
-			c ignored vertical alignBottom.
-			c vertical fitContent.
-			c horizontal matchParent.
-			c padding: (BlInsets left: self headerBarWidth) ];
-		addChild: (self newBar
-			constraintsDo: [ :c |
-				c horizontal matchParent.
-				c vertical exact: self borderWidth ])
-]
-
-{ #category : #'instance creation' }
 BrGlamorousAccordionLook >> newContentContainer [
 	<return: #BlElement>
 
@@ -161,41 +118,6 @@ BrGlamorousAccordionLook >> newHeaderContainer [
 		constraintsDo: [ :c |
 			c horizontal matchParent.
 			c vertical fitContent ]
-]
-
-{ #category : #'instance creation' }
-BrGlamorousAccordionLook >> newHeaderTopBorder [
-	<return: #BlElement>
-
-	^ BlElement new
-		layout: BlLinearLayout horizontal;
-		constraintsDo: [ :c |
-			c ignoreByLayout.
-			c vertical fitContent.
-			c horizontal matchParent.
-			c padding: (BlInsets left: self headerBarWidth) ];
-		addChild: (self newBar
-			constraintsDo: [ :c |
-				c horizontal matchParent.
-				c vertical exact: self borderWidth ])
-]
-
-{ #category : #'instance creation' }
-BrGlamorousAccordionLook >> newRightBorder [
-	<return: #BlElement>
-
-	^ BlElement new
-		layout: BlLinearLayout horizontal;
-		constraintsDo: [ :c |
-			c ignoreByLayout.
-			c ignored horizontal alignRight.
-			c vertical matchParent.
-			c horizontal fitContent.
-			c padding: (BlInsets top: self borderWidth bottom: self borderWidth) ];
-		addChild: (self newBar
-			constraintsDo: [ :c |
-				c vertical matchParent.
-				c horizontal exact: self borderWidth ])
 ]
 
 { #category : #'instance creation' }
