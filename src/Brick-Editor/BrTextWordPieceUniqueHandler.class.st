@@ -1,6 +1,9 @@
 Class {
 	#name : #BrTextWordPieceUniqueHandler,
-	#superclass : #Object,
+	#superclass : #BrTextWordPieceHandler,
+	#classInstVars : [
+		'uniqueInstance'
+	],
 	#category : #'Brick-Editor-UI - Word'
 }
 

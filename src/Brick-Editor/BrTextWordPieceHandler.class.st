@@ -1,6 +1,6 @@
 Class {
 	#name : #BrTextWordPieceHandler,
-	#superclass : #Object,
+	#superclass : #BlBasicEventHandler,
 	#category : #'Brick-Editor-UI - Word'
 }
 
