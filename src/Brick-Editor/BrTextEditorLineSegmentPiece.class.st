@@ -86,12 +86,17 @@ BrTextEditorLineSegmentPiece >> text: aBrSubText [
 	text := aBrSubText
 ]
 
-{ #category : #'api - cursor' }
+{ #category : #updating }
 BrTextEditorLineSegmentPiece >> updateCursor: anElement of: aLineSegment in: anEditorElement [
 	self subclassResponsibility
 ]
 
-{ #category : #'selection - management' }
+{ #category : #updating }
+BrTextEditorLineSegmentPiece >> updateFocus: aBoolean of: aTextPieceElement in: anEditorElement [
+	self subclassResponsibility
+]
+
+{ #category : #updating }
 BrTextEditorLineSegmentPiece >> updateSelection: anElement of: aLineSegment in: anEditorElement [
 	
 	self subclassResponsibility

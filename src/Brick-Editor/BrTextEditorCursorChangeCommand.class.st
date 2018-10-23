@@ -1,7 +1,7 @@
 "
 I am sent when a cursor related change happened at a given text position.
 
-It can be that a cursor was removed from this position or added
+It can be that a cursor was removed from this position or added at it
 "
 Class {
 	#name : #BrTextEditorCursorChangeCommand,

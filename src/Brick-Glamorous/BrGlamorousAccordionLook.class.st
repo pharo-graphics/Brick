@@ -43,8 +43,8 @@ BrGlamorousAccordionLook >> initialize [
 	super initialize.
 
 	wrapper := self newWrapper.
-	headerBar := self newHeaderBar background: (Color gray alpha: 0.4).
-	contentBar := self newContentBar background: (Color gray alpha: 0.2).
+	headerBar := self newHeaderBar.
+	contentBar := self newContentBar.
 
 	headerContainer := self newHeaderContainer.
 	headerContainer addChild: headerBar.
@@ -53,7 +53,15 @@ BrGlamorousAccordionLook >> initialize [
 	contentContainer addChild: contentBar.
 
 	wrapper addChild: headerContainer as: #header.
-	wrapper addChild: contentContainer as: #content
+	wrapper addChild: contentContainer as: #content.
+	
+	self add: (BrInteractiveLook new style: [ :aStyler |
+		aStyler default: [
+			headerBar background: (Color gray alpha: 0.4).
+			contentBar background: (Color gray alpha: 0.2) ].
+		aStyler focused: [
+			headerBar background: (BrGlamorousColors primaryBorderColor alpha: 0.4).
+			contentBar background: (BrGlamorousColors primaryBorderColor alpha: 0.2) ] ])
 ]
 
 { #category : #initialization }

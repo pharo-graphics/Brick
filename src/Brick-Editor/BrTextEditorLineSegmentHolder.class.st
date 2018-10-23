@@ -60,6 +60,20 @@ BrTextEditorLineSegmentHolder >> onCursorChanged [
 ]
 
 { #category : #updating }
+BrTextEditorLineSegmentHolder >> onFocusChanged: aBoolean [
+	"Is sent when text editor's focus state changes.
+	Segment holder should update text elements accordingly"
+
+	self
+		assert: [ segment isNotNil ]
+		description: [ 'Segment must be bound!' ].
+
+	pieces
+		with: pieceElements
+		do: [ :aPiece :aPieceElement | aPiece updateFocus: aBoolean of: aPieceElement in: self infiniteElement ]
+]
+
+{ #category : #updating }
 BrTextEditorLineSegmentHolder >> onSelectionChanged [
 	"Is sent when text editor's selection changes.
 	Segment holder should update text elements accordingly"

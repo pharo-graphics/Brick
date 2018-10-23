@@ -1,7 +1,10 @@
+"
+I am a payload to trigger partial text update without re-creation of text pieces
+"
 Class {
 	#name : #BrTextEditorHolderCommand,
 	#superclass : #Object,
-	#category : 'Brick-Editor-Commands-Holder'
+	#category : #'Brick-Editor-Commands-Holder'
 }
 
 { #category : #executing }

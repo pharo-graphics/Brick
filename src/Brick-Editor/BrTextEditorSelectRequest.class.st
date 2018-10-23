@@ -1,3 +1,6 @@
+"
+I am sent to the segment piece element when the a text interval is selected
+"
 Class {
 	#name : #BrTextEditorSelectRequest,
 	#superclass : #BrTextEditorRequest,
@@ -5,7 +8,7 @@ Class {
 		'fromIndex',
 		'toIndex'
 	],
-	#category : 'Brick-Editor-UI-Requests'
+	#category : #'Brick-Editor-UI-Requests'
 }
 
 { #category : #accessing }

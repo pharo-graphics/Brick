@@ -1,10 +1,15 @@
+"
+I am a hierarchy of text editor request.
+
+A request is a special type of the event that is sent by the editor to each segment piece in order to request them to react to some actions such as cursor movement or selection.
+"
 Class {
 	#name : #BrTextEditorRequest,
 	#superclass : #BlEvent,
 	#instVars : [
 		'editorElement'
 	],
-	#category : 'Brick-Editor-UI-Requests'
+	#category : #'Brick-Editor-UI-Requests'
 }
 
 { #category : #accessing }

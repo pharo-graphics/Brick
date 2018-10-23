@@ -66,7 +66,8 @@ BrAccordion >> initialize [
 			BrInteractiveModel new
 				withFocus;
 				addStates: { 
-					expandableModel := BrExpandableModel new
+					expandableModel := BrExpandableModel new.
+					BrFocusModel new
 				}
 		})
 ]

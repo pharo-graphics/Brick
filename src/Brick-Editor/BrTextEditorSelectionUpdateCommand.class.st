@@ -1,5 +1,5 @@
 "
-I do the hard job visually updating selection by requesting segment holders partial update
+I do the hard job of visually updating selection by requesting segment holders to partially update
 "
 Class {
 	#name : #BrTextEditorSelectionUpdateCommand,
@@ -8,7 +8,7 @@ Class {
 		'fromIndex',
 		'toIndex'
 	],
-	#category : 'Brick-Editor-Commands'
+	#category : #'Brick-Editor-Commands'
 }
 
 { #category : #executing }

@@ -40,7 +40,7 @@ BrTextEditorLineSegmentTextPiece >> initialize [
 	currentCursors := Set new
 ]
 
-{ #category : #'api - cursor' }
+{ #category : #updating }
 BrTextEditorLineSegmentTextPiece >> updateCursor: aTextElement of: aLineSegment in: anEditorElement [
 	| theCursorsInside |
 	
@@ -63,12 +63,23 @@ BrTextEditorLineSegmentTextPiece >> updateCursor: aTextElement of: aLineSegment 
 	"tell to add new cursors"
 	currentCursors do: [ :aCursor |
 		aTextElement dispatchEvent: (BrTextEditorShowCursorRequest new
-				editorElement: anEditorElement;
-				hasFocus: anEditorElement hasFocus;
-				cursorPosition: aCursor position) ]
+			editorElement: anEditorElement;
+			hasFocus: anEditorElement isFocused;
+			cursorPosition: aCursor position) ]
 ]
 
-{ #category : #'selection - management' }
+{ #category : #updating }
+BrTextEditorLineSegmentTextPiece >> updateFocus: aBoolean of: aTextPieceElement in: anEditorElement [
+	| aRequest |
+
+	aRequest := aBoolean
+		ifTrue: [ BrTextEditorFocusRequest new ]
+		ifFalse: [ BrTextEditorBlurRequest new ].
+
+	aTextPieceElement dispatchEvent: (aRequest editorElement: anEditorElement)
+]
+
+{ #category : #updating }
 BrTextEditorLineSegmentTextPiece >> updateSelection: aTextElement of: aLineSegment in: anEditorElement [
 	| aTextEditor |
 

@@ -7,7 +7,6 @@ Class {
 	#superclass : #BlInfiniteDataSource,
 	#instVars : [
 		'text',
-		'cursor',
 		'selection',
 		'selectionRecorder',
 		'segmentBuilder',
@@ -15,7 +14,8 @@ Class {
 		'styler',
 		'commandMutex',
 		'stylerEventHandler',
-		'interactions'
+		'interactions',
+		'cursors'
 	],
 	#classInstVars : [
 		'isDebug'
@@ -89,7 +89,12 @@ BrTextEditor >> copySelected [
 
 { #category : #accessing }
 BrTextEditor >> cursor [
-	^ cursor
+	^ cursors
+]
+
+{ #category : #accessing }
+BrTextEditor >> cursors [
+	^ cursors
 ]
 
 { #category : #'text - copy/paste' }
@@ -118,7 +123,9 @@ BrTextEditor >> cutSelected [
 ]
 
 { #category : #initialization }
-BrTextEditor >> defaultCursor [
+BrTextEditor >> defaultCursors [
+	<return: #BrTextEditorCursor>
+
 	^ BrTextEditorMultipleCursor new
 ]
 
@@ -218,22 +225,11 @@ BrTextEditor >> hasSelection [
 	^ self selection isNotEmpty
 ]
 
-{ #category : #'text - cursor' }
-BrTextEditor >> hideCursor [
-	| aCommand |
-
-	"self cursor isVisible: false.
-
-	aCommand := self newCursorChangeCommand
-		position: self cursor position.
-	self enqueueCommand: aCommand"
-]
-
 { #category : #initialization }
 BrTextEditor >> initialize [
 	super initialize.
 	
-	cursor := self defaultCursor.
+	cursors := self defaultCursors.
 	selection := self defaultSelection.
 	selectionRecorder := self defaultSelectionRecorder.
 	
@@ -439,6 +435,11 @@ BrTextEditor >> navigator [
 ]
 
 { #category : #'commands - creation' }
+BrTextEditor >> newFocusChangedCommand [
+	^ BrTextEditorFocusChangedCommand new
+]
+
+{ #category : #'commands - creation' }
 BrTextEditor >> newInvalidateCommand [
 	^ BrTextEditorInvalidateCommand new
 ]
@@ -489,11 +490,14 @@ BrTextEditor >> onAttached: anEditorElement [
 	self interactions do: [ :anInteraction | anEditorElement addShortcut: anInteraction ].
 
 	anEditorElement when: BlMouseDownEvent do: [ :anEvent |
+		anEvent consumed: true.
 		anEvent currentTarget requestFocus.
 		self selectNone ].
-	anEditorElement when: BlFocusEvent do: [ self showCursor ].
-	anEditorElement when: BlBlurEvent do: [ self hideCursor ].
-	
+	anEditorElement when: BlMouseUpEvent do: [ :anEvent | anEvent consumed: true ].
+	anEditorElement when: BlClickEvent do: [ :anEvent | anEvent consumed: true ].
+	anEditorElement when: BlFocusEvent do: [ self onGotFocus ].
+	anEditorElement when: BlBlurEvent do: [ self onLostFocus ].
+
 	self notifyChanged
 ]
 
@@ -540,6 +544,16 @@ BrTextEditor >> onDetached: anEditorElement [
 	anEditorElement
 		removeEventHandlersSuchThat: [ :aHandler | (aHandler isKindOf: BlEventHandler)
 			and: [ { BlMouseDownEvent . BlFocusEvent . BlBlurEvent } includes: aHandler eventClass ] ]
+]
+
+{ #category : #'private - focus' }
+BrTextEditor >> onGotFocus [
+	self enqueueCommand: (self newFocusChangedCommand hasFocus: true)
+]
+
+{ #category : #'private - focus' }
+BrTextEditor >> onLostFocus [
+	self enqueueCommand: (self newFocusChangedCommand hasFocus: false)
 ]
 
 { #category : #'hooks - text modifications' }
@@ -602,8 +616,7 @@ BrTextEditor >> recordDeselection: aMonotoneTextSelection [
 	(self selection + self selectionRecorder selection) isEmpty
 		ifTrue: [ ^ self ].
 		
-	self moveCursorTo: (self selection + self selectionRecorder selection) to.
-	self showCursor
+	self moveCursorTo: (self selection + self selectionRecorder selection) to
 ]
 
 { #category : #'private - selection' }
@@ -613,8 +626,7 @@ BrTextEditor >> recordSelection: aMonotoneTextSelection [
 	(self selection + self selectionRecorder selection) isEmpty
 		ifTrue: [ ^ self ].
 		
-	self moveCursorTo: (self selection + self selectionRecorder selection) to.
-	self showCursor
+	self moveCursorTo: (self selection + self selectionRecorder selection) to
 ]
 
 { #category : #accessing }
@@ -784,17 +796,6 @@ BrTextEditor >> selectionRecorder [
 		description: [ 'Selection recorder can not be nil' ].
 
 	^ selectionRecorder
-]
-
-{ #category : #'text - cursor' }
-BrTextEditor >> showCursor [
-	| aCommand |
-
-	"self cursor isVisible: true.
-	
-	aCommand := self newCursorChangeCommand
-		position: self cursor position.
-	self enqueueCommand: aCommand"
 ]
 
 { #category : #'text - styling' }

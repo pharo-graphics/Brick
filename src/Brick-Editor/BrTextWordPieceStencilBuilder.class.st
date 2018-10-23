@@ -20,11 +20,13 @@ BrTextWordPieceStencilBuilder >> buildDefault [
 
 		"editor requests to show a cursor as a result of its position change"
 		when: BrTextEditorShowCursorRequest do: [ :aRequest |
+			| aCursorElement |
+			
+			aCursorElement := aRequest currentTarget addCursorAt: aRequest cursorPosition.
+			aRequest editorElement dispatchEvent: (BrTextEditorCursorElementAddedEvent new cursorElement: aCursorElement).
 			aRequest hasFocus
-				ifTrue: [
-					| aCursorElement |
-					aCursorElement := aRequest currentTarget addCursorAt: aRequest cursorPosition.
-					aRequest editorElement dispatchEvent: (BrTextEditorCursorElementAddedEvent new cursorElement: aCursorElement) ] ];
+				ifTrue: [ aRequest currentTarget showCursors ]
+				ifFalse: [ aRequest currentTarget hideCursors ] ];
 
 		"editor requests to hide a cursor as a result of its position change"
 		when: BrTextEditorHideCursorRequest do: [ :aRequest |
@@ -32,6 +34,10 @@ BrTextWordPieceStencilBuilder >> buildDefault [
 				| aCursorElement |
 				aCursorElement := aRequest currentTarget removeCursorAt: aRequest cursorPosition.
 				aRequest editorElement dispatchEvent: (BrTextEditorCursorElementRemovedEvent new cursorElement: aCursorElement) ] ];
+		
+		when: BrTextEditorFocusRequest do: [ :aRequest | aRequest currentTarget showCursors ];
+		when: BrTextEditorBlurRequest do: [ :aRequest | aRequest currentTarget hideCursors ];
+		
 		"when clicking inside of a text piece we should move cursor there and request editor focus"
 		when: BlMouseDownEvent do: [ :anEvent |
 			| aLocalTextIndex aGobaltextIndex aNavigator |
