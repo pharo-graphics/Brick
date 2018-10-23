@@ -12,33 +12,38 @@ Class {
 	#classTraits : 'TBlDrawingCache classTrait',
 	#instVars : [
 		'cachedSurface',
-		'session'
+		'session',
+		'damageReported'
 	],
 	#category : #'Brick-Editor-UI'
 }
 
-{ #category : #private }
+{ #category : #'private - accessing' }
 BrTextEditorSegmentElement >> cachedSurface [
 	^ cachedSurface
 ]
 
-{ #category : #private }
+{ #category : #'private - accessing' }
 BrTextEditorSegmentElement >> cachedSurface: aSurface [
 	cachedSurface := aSurface
 ]
 
-{ #category : #initialization }
-BrTextEditorSegmentElement >> releaseCaches [
-	cachedSurface ifNotNil: #release.
-	cachedSurface := nil
+{ #category : #'private - accessing' }
+BrTextEditorSegmentElement >> damageReported [
+	^ damageReported
 ]
 
-{ #category : #private }
+{ #category : #'private - accessing' }
+BrTextEditorSegmentElement >> damageReported: aBoolean [
+	damageReported := aBoolean
+]
+
+{ #category : #'private - accessing' }
 BrTextEditorSegmentElement >> session [
 	^ session
 ]
 
-{ #category : #private }
+{ #category : #'private - accessing' }
 BrTextEditorSegmentElement >> session: aSession [
 	session := aSession
 ]
