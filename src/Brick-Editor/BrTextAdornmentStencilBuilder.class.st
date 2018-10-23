@@ -30,7 +30,7 @@ Class {
 		'editorElement',
 		'text'
 	],
-	#category : 'Brick-Editor-Stencils'
+	#category : #'Brick-Editor-UI-Stencils'
 }
 
 { #category : #'api - instantiation' }

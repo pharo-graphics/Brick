@@ -7,7 +7,7 @@ Class {
 		'editorElement',
 		'measurer'
 	],
-	#category : #'Brick-Editor-Stencils'
+	#category : #'Brick-Editor-UI-Stencils'
 }
 
 { #category : #'api - instantiation' }
@@ -19,24 +19,18 @@ BrTextWordPieceStencilBuilder >> buildDefault [
 		addEventHandler: BrTextEditorAttributedLineSegmentTextListener new;
 
 		"editor requests to show a cursor as a result of its position change"
-		when: BrTextEditorShowCursorRequest do: [ :aRequest |
-			| aCursorElement |
-			
-			aCursorElement := aRequest currentTarget addCursorAt: aRequest cursorPosition.
-			aRequest editorElement dispatchEvent: (BrTextEditorCursorElementAddedEvent new cursorElement: aCursorElement).
-			aRequest hasFocus
-				ifTrue: [ aRequest currentTarget showCursors ]
-				ifFalse: [ aRequest currentTarget hideCursors ] ];
-
-		"editor requests to hide a cursor as a result of its position change"
-		when: BrTextEditorHideCursorRequest do: [ :aRequest |
-			(aRequest currentTarget hasCursorAt: aRequest cursorPosition) ifTrue: [
-				| aCursorElement |
-				aCursorElement := aRequest currentTarget removeCursorAt: aRequest cursorPosition.
-				aRequest editorElement dispatchEvent: (BrTextEditorCursorElementRemovedEvent new cursorElement: aCursorElement) ] ];
+		addEventHandler: BrTextWordPieceShowCursorHandler uniqueInstance;
 		
-		when: BrTextEditorFocusRequest do: [ :aRequest | aRequest currentTarget showCursors ];
-		when: BrTextEditorBlurRequest do: [ :aRequest | aRequest currentTarget hideCursors ];
+		"editor requests to remove a cursor as a result of its position change"
+		addEventHandler: BrTextWordPieceHideCursorHandler uniqueInstance;
+		addEventHandler: BrTextWordPieceFocusHandler uniqueInstance;
+		addEventHandler: BrTextWordPieceBlurHandler uniqueInstance;
+		
+		"selection changed in the editor, select a given interval"
+		addEventHandler: BrTextWordPieceSelectionHandler uniqueInstance;
+		
+		"selection changed in the editor, deselect a given interval"
+		addEventHandler: BrTextWordPieceDeselectionHandler uniqueInstance;
 		
 		"when clicking inside of a text piece we should move cursor there and request editor focus"
 		when: BlMouseDownEvent do: [ :anEvent |
@@ -96,12 +90,6 @@ BrTextWordPieceStencilBuilder >> buildDefault [
 				aGlobalFrom := aTextEditElement text start + aMonotoneSelection from - 1.
 				aGlobalTo := aTextEditElement text start + aMonotoneSelection to - 1.
 				self editorElement editor recordDeselection: (BlMonotoneSelection from: aGlobalFrom to: aGlobalTo) ] ];
-
-		"selection changed in the editor, select a given interval"
-		when: BrTextEditorSelectRequest do: [ :anEvent | anEvent currentTarget select: anEvent fromIndex to: anEvent toIndex ];
-
-		"selection changed in the editor, deselect a given interval"
-		when: BrTextEditorDeselectRequest do: [ :anEvent | anEvent currentTarget selectNone ];
 
 		yourself
 ]

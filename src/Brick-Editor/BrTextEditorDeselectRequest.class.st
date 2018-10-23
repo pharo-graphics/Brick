@@ -8,7 +8,7 @@ Class {
 		'fromIndex',
 		'toIndex'
 	],
-	#category : #'Brick-Editor-UI-Requests'
+	#category : #'Brick-Editor-UI - Requests'
 }
 
 { #category : #accessing }
