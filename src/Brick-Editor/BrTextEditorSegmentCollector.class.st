@@ -10,11 +10,11 @@ Class {
 		'text',
 		'subText',
 		'segments',
-		'interval',
 		'limit',
-		'editor'
+		'editor',
+		'segmentsInterval'
 	],
-	#category : 'Brick-Editor-Model - Segment-Text'
+	#category : #'Brick-Editor-Model - Segment-Text'
 }
 
 { #category : #'cache - adding / removing' }
@@ -25,14 +25,14 @@ BrTextEditorSegmentCollector >> addSegments: aCollectionOfSegments after: aSegme
 		description: [ 'Can not add a collection of empty segments!' ].
 	
 	self
-		assert: [ self segments size = interval size ]
+		assert: [ self segments size = segmentsInterval size ]
 		description: [ 'Amount of segments must correspond to the interval' ].
 
 	self
 		assert: [
 			| satisfy |
 			satisfy := true.
-			self segments with: interval do: [ :eachSegment :anExpectedIndex |
+			self segments with: segmentsInterval do: [ :eachSegment :anExpectedIndex |
 				satisfy := satisfy and: [ eachSegment index = anExpectedIndex ]	].
 			satisfy ]
 		description: [ 'Segment indices must correspond to the interval' ].
@@ -48,14 +48,14 @@ BrTextEditorSegmentCollector >> addSegments: aCollectionOfSegments after: aSegme
 	self editor notifyItemsInserted: (aCollectionOfSegments first index to: aCollectionOfSegments last index).
 	
 	self
-		assert: [ self segments size = interval size ]
+		assert: [ self segments size = segmentsInterval size ]
 		description: [ 'Amount of segments must correspond to the interval' ].
 		
 	self
 		assert: [
 			| satisfy |
 			satisfy := true.
-			self segments with: interval do: [ :eachSegment :anExpectedIndex |
+			self segments with: segmentsInterval do: [ :eachSegment :anExpectedIndex |
 				satisfy := satisfy and: [ eachSegment index = anExpectedIndex ]	].
 			satisfy ]
 		description: [ 'Segment indices must correspond to the interval' ].
@@ -69,14 +69,14 @@ BrTextEditorSegmentCollector >> addSegments: aCollectionOfSegments before: aSegm
 		description: [ 'Can not add a collection of empty segments!' ].
 	
 	self
-		assert: [ self segments size = interval size ]
+		assert: [ self segments size = segmentsInterval size ]
 		description: [ 'Amount of segments must correspond to the interval' ].
 
 	self
 		assert: [
 			| satisfy |
 			satisfy := true.
-			self segments with: interval do: [ :eachSegment :anExpectedIndex |
+			self segments with: segmentsInterval do: [ :eachSegment :anExpectedIndex |
 				satisfy := satisfy and: [ eachSegment index = anExpectedIndex ]	].
 			satisfy ]
 		description: [ 'Segment indices must correspond to the interval' ].
@@ -92,14 +92,14 @@ BrTextEditorSegmentCollector >> addSegments: aCollectionOfSegments before: aSegm
 	self editor notifyItemsInserted: (aCollectionOfSegments first index to: aCollectionOfSegments last index).
 	
 	self
-		assert: [ self segments size = interval size ]
+		assert: [ self segments size = segmentsInterval size ]
 		description: [ 'Amount of segments must correspond to the interval' ].
 		
 	self
 		assert: [
 			| satisfy |
 			satisfy := true.
-			self segments with: interval do: [ :eachSegment :anExpectedIndex |
+			self segments with: segmentsInterval do: [ :eachSegment :anExpectedIndex |
 				satisfy := satisfy and: [ eachSegment index = anExpectedIndex ]	].
 			satisfy ]
 		description: [ 'Segment indices must correspond to the interval' ].
@@ -125,8 +125,16 @@ BrTextEditorSegmentCollector >> cachedAt: anIndex [
 	<return: #BrEditorSegment>
 	| aCachedIndex |
 
-	aCachedIndex := anIndex - interval first + 1.
+	aCachedIndex := anIndex - segmentsInterval first + 1.
 	^ self segments at: aCachedIndex
+]
+
+{ #category : #accessing }
+BrTextEditorSegmentCollector >> cachedInterval [
+	"Return the interval of the indices of the currently cached segments"
+	<return: #Number>
+
+	^ segmentsInterval
 ]
 
 { #category : #'cache - accessing' }
@@ -186,7 +194,7 @@ BrTextEditorSegmentCollector >> computeForwardAt: anIndex [
 	| intervalEnd cachedInterval actualStart skip forwardText stream builder  |
 
 	"the index of the last already cached segment"
-	intervalEnd := interval last.
+	intervalEnd := segmentsInterval last.
 
 	"indices interval of segments that we expect to cache in the end"
 	cachedInterval := self computeInterval: anIndex.
@@ -209,7 +217,7 @@ BrTextEditorSegmentCollector >> computeForwardAt: anIndex [
 	builder split: forwardText in: stream.
 	
 	segments addAll: stream collection.
-	interval := cachedInterval first to: cachedInterval first + stream size - 1.
+	segmentsInterval := cachedInterval first to: cachedInterval first + stream size - 1.
 	
 	self computeSegmentIndices.
 	self computeSubText
@@ -255,11 +263,11 @@ BrTextEditorSegmentCollector >> computeSegmentIndices [
 		description: [ 'There must be cached segments in order to compute sub text' ].
 	
 	self
-		assert: [ segments size = interval size ]
+		assert: [ segments size = segmentsInterval size ]
 		description: [ 'Cached segments interval must correspond to amount of segments' ].
 		
 	segments
-		with: interval
+		with: segmentsInterval
 		do: [ :aSegment :anIndex | aSegment index: anIndex ]
 ]
 
@@ -362,7 +370,7 @@ BrTextEditorSegmentCollector >> hasCached [
 BrTextEditorSegmentCollector >> initialize [
 	super initialize.
 	
-	interval := 0 to: 0.
+	segmentsInterval := 0 to: 0.
 	segments := OrderedCollection new.
 	self flag: 'This limit has to be rethought, once the lazy loading of new segments is implemented'.
 	limit := SmallInteger maxVal.
@@ -374,7 +382,7 @@ BrTextEditorSegmentCollector >> isCachedAt: anIndex [
 	"Return true if I have a cached segment at a given index, false otherwise"
 	<return: #Boolean>
 
-	^ interval rangeIncludes: anIndex
+	^ segmentsInterval rangeIncludes: anIndex
 ]
 
 { #category : #'cache - accessing' }
@@ -443,7 +451,7 @@ BrTextEditorSegmentCollector >> offsetSegmentIndicesBy: anOffset after: aSegment
 		aSegment index: aSegment index + anOffset ].
 	
 	"actual cached interval changed, update it"
-	interval := interval first to: interval last + anOffset
+	segmentsInterval := segmentsInterval first to: segmentsInterval last + anOffset
 ]
 
 { #category : #'cache - adding / removing' }
@@ -455,7 +463,7 @@ BrTextEditorSegmentCollector >> removeSegmentInterval: anInterval [
 	self segments
 		withIndexDo: [ :eachSegment :anIndex | eachSegment index: anIndex ].
 	
-	interval := (interval first to: interval last - 1).
+	segmentsInterval := (segments first index to: segments last index).
 
 	self editor notifyItemsRemoved: anInterval
 ]
