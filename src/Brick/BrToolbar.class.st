@@ -9,6 +9,19 @@ BrToolbar >> addItem: anElement [
 	self viewModel addItem: anElement viewModel
 ]
 
+{ #category : #'api - adding / removing' }
+BrToolbar >> addItems: aCollectionOfWidgets [
+	aCollectionOfWidgets
+		do: [ :aWidgetElement | self viewModel addItem: aWidgetElement viewModel ]
+]
+
+{ #category : #testing }
+BrToolbar >> hasItems [
+	<return: #Boolean>
+	
+	^ self numberOfItems > 0
+]
+
 { #category : #initialization }
 BrToolbar >> initialize [
 	super initialize.
@@ -24,7 +37,8 @@ BrToolbar >> itemAt: anIndex [
 
 { #category : #accessing }
 BrToolbar >> numberOfItems [
-	<return: #Integer>
+	<return: #Number>
+
 	^ self viewModel numberOfItems
 ]
 

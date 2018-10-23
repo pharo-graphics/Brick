@@ -57,7 +57,7 @@ BrToolbarModel >> notifyItemRemoved: aWidgetModel [
 
 { #category : #accessing }
 BrToolbarModel >> numberOfItems [
-	<return: #Integer>
+	<return: #Number>
 
 	^ self items size
 ]
