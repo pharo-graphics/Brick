@@ -10,7 +10,7 @@ Class {
 		'selectionAcquiredHandler',
 		'selectionLostHandler'
 	],
-	#category : #'Brick-Editor-UI-Stencils'
+	#category : #'Brick-Editor-UI - Stencils'
 }
 
 { #category : #'api - instantiation' }
@@ -28,6 +28,7 @@ BrTextWordPieceStencilBuilder >> buildDefault [
 		
 		"editor requests to remove a cursor as a result of its position change"
 		addEventHandler: BrTextWordPieceHideCursorHandler uniqueInstance;
+
 		addEventHandler: BrTextWordPieceFocusHandler uniqueInstance;
 		addEventHandler: BrTextWordPieceBlurHandler uniqueInstance;
 		

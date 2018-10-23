@@ -257,11 +257,11 @@ BrTextEditor >> initializeInteractions [
 	self interactions add: (BlShortcut new
 		combination: (BlKeyCombination builder primary; key: Key x; build);
 		action: [ self cutSelected ]).
-		
+
 	self interactions add: (BlShortcut new
 		combination: (BlKeyCombination builder primary; key: Key c; build);
 		action: [ self copySelected ]).
-		
+
 	"Paste a text from the clipboard at the current cursor position.
 	I delete any currently selected text and update cursor position"
 	self interactions add: (BlShortcut new

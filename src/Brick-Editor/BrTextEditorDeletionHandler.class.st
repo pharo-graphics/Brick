@@ -6,7 +6,7 @@ Note: Ideally deletion (#delete and #backspace) should be added as a shortcut to
 Class {
 	#name : #BrTextEditorDeletionHandler,
 	#superclass : #BlElementEventListener,
-	#category : 'Brick-Editor-UI-Handlers'
+	#category : #'Brick-Editor-UI - Handlers'
 }
 
 { #category : #'api - deletion' }

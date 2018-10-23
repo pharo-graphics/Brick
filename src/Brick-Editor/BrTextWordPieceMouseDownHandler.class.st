@@ -17,7 +17,7 @@ BrTextWordPieceMouseDownHandler >> handleEvent: anEvent [
 	aGobaltextIndex := (anEvent currentTarget text start + aLocalTextIndex - 1) max: 0.
 	
 	aNavigator := self editorElement editor navigator.
-	anEvent modifiers isCmd
+	anEvent modifiers isPrimaryModifier
 		ifTrue: [ aNavigator addAt: aGobaltextIndex ]
 		ifFalse: [ aNavigator moveTo: aGobaltextIndex ].
 	aNavigator apply

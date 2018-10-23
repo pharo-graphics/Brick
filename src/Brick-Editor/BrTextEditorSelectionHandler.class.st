@@ -6,7 +6,7 @@ I select element on on the whole line between origin and corner of selection are
 Class {
 	#name : #BrTextEditorSelectionHandler,
 	#superclass : #BlSelectionHandler,
-	#category : 'Brick-Editor-UI-Handlers'
+	#category : #'Brick-Editor-UI - Handlers'
 }
 
 { #category : #'private - bounds' }

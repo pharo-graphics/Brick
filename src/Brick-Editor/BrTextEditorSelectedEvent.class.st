@@ -1,3 +1,6 @@
+"
+I am sent by the text editor model when an interval of text is selected
+"
 Class {
 	#name : #BrTextEditorSelectedEvent,
 	#superclass : #BrTextEditorEvent,
@@ -5,7 +8,7 @@ Class {
 		'fromIndex',
 		'toIndex'
 	],
-	#category : #'Brick-Editor-UI - Events'
+	#category : #'Brick-Editor-Model - Events'
 }
 
 { #category : #accessing }

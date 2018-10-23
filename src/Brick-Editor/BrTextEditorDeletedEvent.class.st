@@ -8,7 +8,7 @@ Class {
 		'fromIndex',
 		'toIndex'
 	],
-	#category : #'Brick-Editor-UI - Events'
+	#category : #'Brick-Editor-Model - Events'
 }
 
 { #category : #'instance creation' }
