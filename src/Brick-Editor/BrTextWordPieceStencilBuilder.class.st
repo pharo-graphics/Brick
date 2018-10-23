@@ -5,7 +5,10 @@ Class {
 		'text',
 		'segmentPiece',
 		'editorElement',
-		'measurer'
+		'measurer',
+		'mouseDownHandler',
+		'selectionAcquiredHandler',
+		'selectionLostHandler'
 	],
 	#category : #'Brick-Editor-UI-Stencils'
 }
@@ -16,6 +19,8 @@ BrTextWordPieceStencilBuilder >> buildDefault [
 		text: self text;
 		clipChildren: false;
 		padding: (self segmentPiece segment wordPadding);
+		
+		"to support event-handling attributes"
 		addEventHandler: BrTextEditorAttributedLineSegmentTextListener new;
 
 		"editor requests to show a cursor as a result of its position change"
@@ -33,64 +38,13 @@ BrTextWordPieceStencilBuilder >> buildDefault [
 		addEventHandler: BrTextWordPieceDeselectionHandler uniqueInstance;
 		
 		"when clicking inside of a text piece we should move cursor there and request editor focus"
-		when: BlMouseDownEvent do: [ :anEvent |
-			| aLocalTextIndex aGobaltextIndex aNavigator |
-			aLocalTextIndex := anEvent currentTarget paragraph indexAtPosition: anEvent localPosition.
-			aGobaltextIndex := (anEvent currentTarget text start + aLocalTextIndex - 1) max: 0.
-			self editorElement requestFocus.
-			aNavigator := self editorElement editor navigator.
-			anEvent modifiers isCmd
-				ifTrue: [ aNavigator addAt: aGobaltextIndex ]
-				ifFalse: [ aNavigator moveTo: aGobaltextIndex ].
-			aNavigator apply ];
+		addEventHandler: mouseDownHandler;
 
 		"text piece got inside of selected area"
-		when: BlElementSelectionAcquiredEvent do: [ :anEvent |
-			| aTextEditElement |
-			anEvent consumed: true.
-
-			aTextEditElement := anEvent currentTarget.
-			
-			"selection bounds equal to our bounds => fast select the whole text piece"
-			(anEvent bounds = aTextEditElement boundsInLocal)
-				ifTrue: [
-					| aGlobalFrom aGlobalTo |
-					
-					aGlobalFrom := (aTextEditElement text start - 1) max: 0.
-					aGlobalTo := (aTextEditElement text start + aTextEditElement text size - 1) max: 0.
-					
-					self editorElement editor recordSelection: (BlMonotoneSelection from: aGlobalFrom to: aGlobalTo) ]
-				ifFalse: [ 
-					| aFromIndex aToIndex aGlobalFrom aGlobalTo |
-					aFromIndex := aTextEditElement paragraph indexAtPosition: anEvent bounds origin.
-					aToIndex := aTextEditElement paragraph indexAtPosition: anEvent bounds corner.
-
-					"remove previous selection"	
-					aTextEditElement selection do: [ :aMonotoneSelection |
-						aGlobalFrom := aTextEditElement text start + aMonotoneSelection from - 1.
-						aGlobalTo := aTextEditElement text start + aMonotoneSelection to - 1.
-						
-						self editorElement editor recordDeselection: (BlMonotoneSelection from: aGlobalFrom to: aGlobalTo) ].
-					
-					aGlobalFrom := (aTextEditElement text start + aFromIndex - 1) max: 0.
-					aGlobalTo := (aTextEditElement text start + aToIndex - 1) max: 0.
-					
-					self editorElement editor recordSelection: (BlMonotoneSelection from: aGlobalFrom to: aGlobalTo) ] ];
+		addEventHandler: selectionAcquiredHandler;
 
 		"text piece got outside of then selected area"
-		when: BlElementSelectionLostEvent do: [ :anEvent |
-			| aTextEditElement |
-			anEvent consumed: true.
-
-			aTextEditElement := anEvent currentTarget.
-	
-			aTextEditElement selection do: [ :aMonotoneSelection |
-				| aGlobalFrom aGlobalTo |
-
-				aGlobalFrom := aTextEditElement text start + aMonotoneSelection from - 1.
-				aGlobalTo := aTextEditElement text start + aMonotoneSelection to - 1.
-				self editorElement editor recordDeselection: (BlMonotoneSelection from: aGlobalFrom to: aGlobalTo) ] ];
-
+		addEventHandler: selectionLostHandler;
 		yourself
 ]
 
@@ -100,15 +54,22 @@ BrTextWordPieceStencilBuilder >> editorElement [
 ]
 
 { #category : #accessing }
-BrTextWordPieceStencilBuilder >> editorElement: anObject [
-	editorElement := anObject
+BrTextWordPieceStencilBuilder >> editorElement: anEditorElement [
+	editorElement := anEditorElement.
+
+	mouseDownHandler editorElement: anEditorElement.
+	selectionAcquiredHandler editorElement: anEditorElement.
+	selectionLostHandler editorElement: anEditorElement.
 ]
 
 { #category : #initialization }
 BrTextWordPieceStencilBuilder >> initialize [
 	super initialize.
 	
-	measurer := BlTextElementCanvasMeasurer new
+	measurer := BlTextElementCanvasMeasurer new.
+	mouseDownHandler := BrTextWordPieceMouseDownHandler new.
+	selectionAcquiredHandler := BrTextWordPieceSelectionAcquiredHandler new.
+	selectionLostHandler := BrTextWordPieceSelectionLostHandler new.
 ]
 
 { #category : #accessing }

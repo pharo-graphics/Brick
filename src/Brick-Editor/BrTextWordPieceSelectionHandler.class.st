@@ -1,6 +1,6 @@
 Class {
 	#name : #BrTextWordPieceSelectionHandler,
-	#superclass : #BrTextWordPieceHandler,
+	#superclass : #BrTextWordPieceUniqueHandler,
 	#category : #'Brick-Editor-UI - Word'
 }
 

@@ -8,18 +8,6 @@ Class {
 }
 
 { #category : #accessing }
-BrTextWordPieceHandler class >> cleanUp [
-	super cleanUp.
-	
-	uniqueInstance := nil
-]
-
-{ #category : #accessing }
-BrTextWordPieceHandler class >> uniqueInstance [
-	^ uniqueInstance ifNil: [ uniqueInstance := self new ]
-]
-
-{ #category : #accessing }
 BrTextWordPieceHandler >> eventClass [
 	^ self subclassResponsibility
 ]
