@@ -101,6 +101,8 @@ BrWidgetModel >> printOn: aStream [
 BrWidgetModel >> when: aRequestClass reply: aBlock [
 	self when: aRequestClass do: [ :aRequest |
 		| aReplyEvent |
+		
+		aRequest consumed: true.
 
 		aReplyEvent := aBlock cull: (aRequest responseFor: self).
 

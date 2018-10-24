@@ -65,7 +65,6 @@ BrActor >> dispatchEventToWidget: anEvent [
 		assert: [ self isAttachedToWidget ]
 		description: [ 'I must be attached to a widget to dispatch event' ].
 
-	"anEvent forwardingTarget: self."
 	self widget dispatchEvent: anEvent
 ]
 
@@ -75,6 +74,36 @@ BrActor >> eventDispatcher [
 	<return: #BlDirectEventDispatcher>
 
 	^ eventDispatcher
+]
+
+{ #category : #accessing }
+BrActor >> findActor: anActorClass [
+	<return: #BrActor>
+	
+	^ self
+		findActor: anActorClass
+		ifFound: #yourself
+		ifNone: [ self error: 'Actor of type ', anActorClass name, ' is not found' ]
+]
+
+{ #category : #accessing }
+BrActor >> findActor: anActorClass ifFound: aFoundBlock [
+	"Return an actor that corresponds to a given class.
+	Throw error if it is not found"
+	
+	self class = anActorClass
+		ifTrue: [ ^ aFoundBlock value: self ].
+
+	self actors do: [ :eachActor | eachActor findActor: anActorClass ifFound: [ :anActor | ^ aFoundBlock value: anActor ] ].
+]
+
+{ #category : #accessing }
+BrActor >> findActor: anActorClass ifFound: aFoundBlock ifNone: aNoneBlock [
+	"Return an actor that corresponds to a given class.
+	Throw error if it is not found"
+	
+	self findActor: anActorClass ifFound: [ :anActor | ^ aFoundBlock value: anActor ].
+	^ aNoneBlock value
 ]
 
 { #category : #'event management' }
@@ -92,6 +121,7 @@ BrActor >> fireEvent: anEvent [
 	"then let the rest of the element components receive it"
 	self isAttachedToWidget
 		ifTrue: [ self widget fireEvent: anEvent ]
+		ifFalse: [ self children do: [ :anActor | anActor handleEvent: anEvent ] ]
 ]
 
 { #category : #'event management' }
@@ -147,6 +177,15 @@ BrActor >> handleEvent: anEvent [
 ]
 
 { #category : #testing }
+BrActor >> hasActor: anActorClass [
+	"Return true if I or any of my children is of the given type"
+	<return: #Boolean>
+
+	^ self class = anActorClass
+		or: [ self actors anySatisfy: [ :eachActor | eachActor hasActor: anActorClass ] ]
+]
+
+{ #category : #testing }
 BrActor >> hasOwner [
 	"Utility #owner message makes it possible to have a polymorphic way to visualise a tree structure of the elements"
 	<return: #Boolean>
@@ -185,7 +224,11 @@ BrActor >> owner [
 
 { #category : #'event management' }
 BrActor >> request: aBrRequest [
-	self dispatchEvent: aBrRequest.
+
+	aBrRequest canBePropagated
+		ifTrue: [ self fireEvent: aBrRequest ]
+		ifFalse: [ self dispatchEvent: aBrRequest ].
+
 	^ aBrRequest response
 ]
 

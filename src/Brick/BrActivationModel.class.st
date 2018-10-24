@@ -101,3 +101,8 @@ BrActivationModel >> streamStateOn: aStream [
 		ifTrue: [ aStream nextPut: BrDisabledState new not ]
 		ifFalse: [ aStream nextPut: BrDisabledState new ]
 ]
+
+{ #category : #'api - activation' }
+BrActivationModel >> toggle [
+	self enabled: self isEnabled not
+]

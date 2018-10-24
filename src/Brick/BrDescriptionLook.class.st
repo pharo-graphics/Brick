@@ -44,7 +44,7 @@ BrDescriptionLook >> initialize [
 
 	attributesBuilder := BlTextDelegatedAttributesBuilder new.
 	attributesBuilder attributesTarget: text.
-	attributesBuilder whenAdded: [ descriptionElement textChanged ]
+	attributesBuilder whenAdded: [ descriptionElement text: text ]
 ]
 
 { #category : #initialization }

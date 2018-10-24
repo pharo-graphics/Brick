@@ -23,6 +23,11 @@ BrInteractiveLook >> buildStylesOn: aStyler [
 	
 ]
 
+{ #category : #'element handlers' }
+BrInteractiveLook >> elementAddedToSuperParent: anEvent [
+	self initializeRequests
+]
+
 { #category : #initialization }
 BrInteractiveLook >> initialize [
 	super initialize.
@@ -60,7 +65,7 @@ BrInteractiveLook >> statesChanged: anEvent [
 
 	styles
 		select: [ :aStyle | aStyle state matches: anEvent states ]
-		thenDo: [ :aStyle  | aStyle action cull: self widget ]
+		thenDo: [ :aStyle | aStyle action cull: self widget ]
 ]
 
 { #category : #'api - style' }
