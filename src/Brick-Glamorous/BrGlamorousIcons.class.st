@@ -50,6 +50,14 @@ BrGlamorousIcons class >> alarm [
 	offset: (0@0))]
 ]
 
+{ #category : #utility }
+BrGlamorousIcons class >> allIcons [
+	^ (self class methodsInProtocol: #icons)
+		sort: [ :a :b | a selector < b selector ];
+		collect: [ :eachCompiledMethod | 
+			eachCompiledMethod selector -> (self perform: eachCompiledMethod selector) ]
+]
+
 { #category : #icons }
 BrGlamorousIcons class >> browse [
 	^ self icons
@@ -178,6 +186,28 @@ BrGlamorousIcons class >> greencircle [
 	depth: 32
 	fromArray: #( 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 100706816 2415955712 4009791488 4009791488 2415955712 100706816 0 0 0 0 0 0 0 0 0 0 2415955712 4278226688 4278226688 4278226688 4278226688 2415955712 0 0 0 0 0 0 0 0 0 0 4009791488 4278226688 4278226688 4278226688 4278226688 4009791488 0 0 0 0 0 0 0 0 0 0 4009791488 4278226688 4278226688 4278226688 4278226688 4009791488 0 0 0 0 0 0 0 0 0 0 2415955712 4278226688 4278226688 4278226688 4278226688 2415955712 0 0 0 0 0 0 0 0 0 0 100706816 2415955712 4009791488 4009791488 2415955712 100706816 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0)
 	offset: (0@0))]
+]
+
+{ #category : #'gt-extension' }
+BrGlamorousIcons class >> gtIconsFor: aView [
+	<gtView>
+	^ aView list
+			title: 'Icons';
+			priority: -10;
+			items: self allIcons;
+			itemElement: [ :eachIcon | 
+				BlElement new
+					layout: BlLinearLayout horizontal;
+					margin: (BlInsets all: 3);
+					constraintsDo: [ :c | c vertical fitContent ];
+					addChild: eachIcon value asElement;
+					addChild: (BlTextElement new 
+						text: eachIcon key asString asRopedText;
+						padding: (BlInsets left: 6 right: 3));
+					addChild: (BlElement new 
+						constraintsDo: [ :c | 
+							c horizontal matchParent.
+							c vertical exact: eachIcon value height ]) ]
 ]
 
 { #category : #icons }
