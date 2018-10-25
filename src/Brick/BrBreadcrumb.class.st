@@ -25,7 +25,7 @@ BrBreadcrumb >> hasItems [
 { #category : #initialization }
 BrBreadcrumb >> initialize [
 	super initialize.
-	self viewModel: BrToolbarModel new.
+	self viewModel: BrBreadcrumbModel new.
 ]
 
 { #category : #accessing }

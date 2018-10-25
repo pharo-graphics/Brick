@@ -2,15 +2,45 @@ Class {
 	#name : #BrBreadcrumbLook,
 	#superclass : #BrLook,
 	#instVars : [
-		'items'
+		'items',
+		'separators',
+		'separatorStencil'
 	],
 	#category : #'Brick-Breadcrumb - Look'
 }
 
+{ #category : #'private - update' }
+BrBreadcrumbLook >> addItemsAndSeparators [
+	| currentItemElements currentSeparatorElements |
+
+	currentItemElements := self itemElements.
+	self separators removeKey: currentItemElements last ifAbsent: [  ].
+	currentItemElements allButLastDo: [ :eachItemElement |
+		self separators at: eachItemElement ifAbsentPut: self newSeparator ].
+
+	currentSeparatorElements := self separatorElements.
+
+	self
+		assert: [ (currentItemElements size - 1) = currentSeparatorElements size ]
+		description: [ 'There must be one separator less then amount of items' ].
+
+	currentItemElements do: [ :eachItemElement |
+		self widgetContent addChild: eachItemElement.
+		self separators at: eachItemElement ifPresent: [ :eachSeparatorElement |
+			self widgetContent addChild: eachSeparatorElement ] ]
+]
+
 { #category : #initialization }
 BrBreadcrumbLook >> initialize [
 	super initialize.
+
+	"mapping WidgetModel -> Element"
 	items := OrderedDictionary new.
+
+	"mapping Element -> Separator"
+	separators := Dictionary new.
+
+	separatorStencil := [ BlElement new size: 5@5; background: Color red ] asStencil
 ]
 
 { #category : #initialization }
@@ -35,6 +65,13 @@ BrBreadcrumbLook >> items [
 	^ items
 ]
 
+{ #category : #'private - instance creation' }
+BrBreadcrumbLook >> newSeparator [
+	<return: #BlElement>
+
+	^ separatorStencil asElement
+]
+
 { #category : #hooks }
 BrBreadcrumbLook >> onItemAdded: aWidgetModel [
 	self
@@ -44,9 +81,9 @@ BrBreadcrumbLook >> onItemAdded: aWidgetModel [
 	self items at: aWidgetModel put: nil.
 
 	aWidgetModel whenAttachedDo: [ :aToolbarItemElement |
-		self widgetContent removeChildren: self itemElements.
+		self removeItemsAndSeparators.
 		self items at: aWidgetModel put: aToolbarItemElement.
-		self widgetContent addChildren: self itemElements ]
+		self addItemsAndSeparators ]
 ]
 
 { #category : #hooks }
@@ -54,9 +91,41 @@ BrBreadcrumbLook >> onItemRemoved: aWidgetModel [
 	self
 		assert: [ self isAttachedToWidget ]
 		description: [ 'I can not receive the item removed event without being attached to a widget' ].
-
+	
+	self widgetDo: [ self removeItemsAndSeparators ].
 	self items removeKey: aWidgetModel.
+	self widgetDo: [ self addItemsAndSeparators ]
+]
 
-	aWidgetModel widgetDo: [ :aToolbarItemElement |
-		self widgetContent removeChild: aToolbarItemElement ]
+{ #category : #'private - update' }
+BrBreadcrumbLook >> removeItemsAndSeparators [
+	self widgetContent removeChildren: self itemElements.
+	self widgetContent removeChildren: self separatorElements
+]
+
+{ #category : #accessing }
+BrBreadcrumbLook >> separator: aStencil [
+	self
+		assert: [ aStencil isNotNil ]
+		description: [ 'Stencil must not be nil' ].
+
+	separatorStencil := aStencil asStencil.
+
+	self widgetDo: [
+		self removeItemsAndSeparators.
+		self addItemsAndSeparators ]
+]
+
+{ #category : #'private - accessing' }
+BrBreadcrumbLook >> separatorElements [
+	<return: #Collection of: #BlElement>
+	
+	^ separators values
+]
+
+{ #category : #'private - accessing' }
+BrBreadcrumbLook >> separators [
+	<return: #OrderedDictionary key: #BlElement value: #BlElement>
+
+	^ separators
 ]

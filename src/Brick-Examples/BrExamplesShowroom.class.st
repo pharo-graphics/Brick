@@ -194,6 +194,33 @@ BrExamplesShowroom >> columnedList [
 	^ aList
 ]
 
+{ #category : #breacrumb }
+BrExamplesShowroom >> glamorousBreadcrumb [
+	<gtExample>
+	<description: 'Breadcrumb with glamorous look'>
+	| aBreadcrumb |
+
+	aBreadcrumb := BrBreadcrumb new.
+	aBreadcrumb look: (BrGlamorousBreadcrumbLook new separator: [
+		BlTextElement new
+			text: ('>' asRopedText thin foreground: Color gray);
+			margin: (BlInsets left: 5 right: 5) ]).
+
+	aBreadcrumb addItem: (BrButton new
+		look: BrGlamorousButtonLabelLook + BrLayoutLook linearHorizontal fitContent;
+		label: 'Home').
+
+	aBreadcrumb addItem: (BrButton new
+		look: BrGlamorousButtonLabelLook + BrLayoutLook linearHorizontal fitContent;
+		label: 'Store').
+	
+	aBreadcrumb addItem: (BrButton new
+		look: BrGlamorousButtonLabelLook + BrLayoutLook linearHorizontal fitContent;
+		label: 'T-Shirt').
+	
+	^ aBreadcrumb
+]
+
 { #category : #buttons }
 BrExamplesShowroom >> glamorousButton [
 	<gtExample>
