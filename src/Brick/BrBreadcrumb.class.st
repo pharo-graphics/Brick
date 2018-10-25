@@ -1,53 +1,53 @@
 Class {
-	#name : #BrToolbar,
+	#name : #BrBreadcrumb,
 	#superclass : #BlElement,
-	#category : 'Brick-Toolbar - UI'
+	#category : #'Brick-Breadcrumb - UI'
 }
 
 { #category : #'api - adding / removing' }
-BrToolbar >> addItem: anElement [
+BrBreadcrumb >> addItem: anElement [
 	self viewModel addItem: anElement viewModel
 ]
 
 { #category : #'api - adding / removing' }
-BrToolbar >> addItems: aCollectionOfWidgets [
+BrBreadcrumb >> addItems: aCollectionOfWidgets [
 	aCollectionOfWidgets
 		do: [ :aWidgetElement | self viewModel addItem: aWidgetElement viewModel ]
 ]
 
 { #category : #testing }
-BrToolbar >> hasItems [
+BrBreadcrumb >> hasItems [
 	<return: #Boolean>
 	
 	^ self viewModel hasItems
 ]
 
 { #category : #initialization }
-BrToolbar >> initialize [
+BrBreadcrumb >> initialize [
 	super initialize.
 	self viewModel: BrToolbarModel new.
 ]
 
 { #category : #accessing }
-BrToolbar >> itemAt: anIndex [
+BrBreadcrumb >> itemAt: anIndex [
 	<return: #BrWidgetModel>
 
 	^ self viewModel itemAt: anIndex
 ]
 
 { #category : #accessing }
-BrToolbar >> numberOfItems [
+BrBreadcrumb >> numberOfItems [
 	<return: #Number>
 
 	^ self viewModel numberOfItems
 ]
 
 { #category : #'api - adding / removing' }
-BrToolbar >> removeItem: anElement [
+BrBreadcrumb >> removeItem: anElement [
 	self viewModel removeItem: anElement viewModel
 ]
 
 { #category : #'api - adding / removing' }
-BrToolbar >> removeItemAt: anIndex [
+BrBreadcrumb >> removeItemAt: anIndex [
 	self viewModel removeItemAt: anIndex
 ]

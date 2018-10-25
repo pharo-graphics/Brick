@@ -1,14 +1,14 @@
 Class {
-	#name : #BrToolbarModel,
+	#name : #BrBreadcrumbModel,
 	#superclass : #BrWidgetModel,
 	#instVars : [
 		'items'
 	],
-	#category : 'Brick-Toolbar - Model'
+	#category : #'Brick-Breadcrumb - Model'
 }
 
 { #category : #'api - items' }
-BrToolbarModel >> addItem: aWidgetModel [
+BrBreadcrumbModel >> addItem: aWidgetModel [
 	self
 		assert: [ aWidgetModel isNotNil ]
 		description: [ 'Can not add nil widget model' ].
@@ -18,20 +18,20 @@ BrToolbarModel >> addItem: aWidgetModel [
 ]
 
 { #category : #testing }
-BrToolbarModel >> hasItems [
+BrBreadcrumbModel >> hasItems [
 	<return: #Boolean>
 	
 	^ self numberOfItems > 0
 ]
 
 { #category : #initialization }
-BrToolbarModel >> initialize [
+BrBreadcrumbModel >> initialize [
 	super initialize.
 	items := OrderedCollection new.
 ]
 
 { #category : #'api - items' }
-BrToolbarModel >> itemAt: anIndex [
+BrBreadcrumbModel >> itemAt: anIndex [
 	<return: #BrWidgetModel>
 	self
 		assert: [ anIndex isInteger ] 
@@ -47,40 +47,40 @@ BrToolbarModel >> itemAt: anIndex [
 ]
 
 { #category : #accessing }
-BrToolbarModel >> items [
+BrBreadcrumbModel >> items [
 	<return: #Collection of: #BrWidgetModel>
 	^ items
 ]
 
 { #category : #notifying }
-BrToolbarModel >> notifyItemAdded: aWidgetModel [
-	self dispatchEvent: (BrToolbarItemAddedEvent item: aWidgetModel)
+BrBreadcrumbModel >> notifyItemAdded: aWidgetModel [
+	self dispatchEvent: (BrBreadcrumbItemAddedEvent item: aWidgetModel)
 ]
 
 { #category : #notifying }
-BrToolbarModel >> notifyItemRemoved: aWidgetModel [
-	self dispatchEvent: (BrToolbarItemRemovedEvent item: aWidgetModel)
+BrBreadcrumbModel >> notifyItemRemoved: aWidgetModel [
+	self dispatchEvent: (BrBreadcrumbItemRemovedEvent item: aWidgetModel)
 ]
 
 { #category : #accessing }
-BrToolbarModel >> numberOfItems [
+BrBreadcrumbModel >> numberOfItems [
 	<return: #Number>
 
 	^ self items size
 ]
 
 { #category : #hooks }
-BrToolbarModel >> onItemAdded: aWidgetModel [
+BrBreadcrumbModel >> onItemAdded: aWidgetModel [
 	self notifyItemAdded: aWidgetModel.
 ]
 
 { #category : #hooks }
-BrToolbarModel >> onItemRemoved: aWidgetModel at: anItemIndex [
+BrBreadcrumbModel >> onItemRemoved: aWidgetModel at: anItemIndex [
 	self notifyItemRemoved: aWidgetModel
 ]
 
 { #category : #'api - items' }
-BrToolbarModel >> removeItem: aWidgetModel [
+BrBreadcrumbModel >> removeItem: aWidgetModel [
 	| anItemIndex |
 
 	anItemIndex := self items indexOf: aWidgetModel.
@@ -89,6 +89,6 @@ BrToolbarModel >> removeItem: aWidgetModel [
 ]
 
 { #category : #'api - items' }
-BrToolbarModel >> removeItemAt: anIndex [
+BrBreadcrumbModel >> removeItemAt: anIndex [
 	self removeItem: (self itemAt: anIndex)
 ]

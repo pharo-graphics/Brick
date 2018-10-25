@@ -1,3 +1,6 @@
+"
+I am sent by accordion model when header stencil changes
+"
 Class {
 	#name : #BrAccordionHeaderStencilChanged,
 	#superclass : #BrChangeEvent,

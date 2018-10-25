@@ -39,7 +39,7 @@ BrAccordionLook >> contentStencil: aBrStencil [
 
 	contentElement ifNotNil: [ contentElement removeFromParent ].
 	contentElement := nil.
-	self request: BrExpandedRequest new
+	self request: BrExpansionStateRequest new
 ]
 
 { #category : #accessing }
@@ -95,7 +95,7 @@ BrAccordionLook >> initializeRequests [
 	
 	self request: BrAccordionContentStencilRequest new.
 	self request: BrAccordionHeaderStencilRequest new.
-	self request: BrExpandedRequest new
+	self request: BrExpansionStateRequest new
 ]
 
 { #category : #accessing }

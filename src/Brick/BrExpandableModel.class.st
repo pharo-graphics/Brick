@@ -1,5 +1,7 @@
 "
-I am a model for expandable / collapsable widgets
+I am a model for expandable / collapsable widgets.
+
+Users can send me a ${class:BrExpansionStateRequest}$ to know whether I am expanded or collapses. 
 "
 Class {
 	#name : #BrExpandableModel,
@@ -46,7 +48,7 @@ BrExpandableModel >> initialize [
 BrExpandableModel >> initializeListeners [
 	super initializeListeners.
 
-	self when: BrExpandedRequest reply: [ :aResponse | aResponse expanded: self isExpanded ]
+	self when: BrExpansionStateRequest reply: [ :aResponse | aResponse expanded: self isExpanded ]
 ]
 
 { #category : #'api - testing' }

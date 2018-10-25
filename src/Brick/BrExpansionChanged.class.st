@@ -1,3 +1,7 @@
+"
+I am sent by ${class:BrExpandableModel}$ when its expansion state changes.
+I am also a respose to the ${class:BrExpansionStateRequest}$
+"
 Class {
 	#name : #BrExpansionChanged,
 	#superclass : #BrStateChangedEvent,
