@@ -34,6 +34,13 @@ BrGlamorousAccordionLook >> contentBarWidth [
 ]
 
 { #category : #accessing }
+BrGlamorousAccordionLook >> headerBar [
+	<return: #BlElement>
+
+	^ headerBar
+]
+
+{ #category : #accessing }
 BrGlamorousAccordionLook >> headerBarWidth [
 	^ 10
 ]
