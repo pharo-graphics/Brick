@@ -40,7 +40,7 @@ BrBreadcrumbLook >> initialize [
 	"mapping Element -> Separator"
 	separators := Dictionary new.
 
-	separatorStencil := [ BlElement new size: 5@5; background: Color red ] asStencil
+	separatorStencil := [ BlElement new size: 0@0 ] asStencil
 ]
 
 { #category : #initialization }

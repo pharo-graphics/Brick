@@ -206,17 +206,17 @@ BrExamplesShowroom >> glamorousBreadcrumb [
 			text: ('>' asRopedText thin foreground: Color gray);
 			margin: (BlInsets left: 5 right: 5) ]).
 
-	aBreadcrumb addItem: (BrButton new
-		look: BrGlamorousButtonLabelLook + BrLayoutLook linearHorizontal fitContent;
-		label: 'Home').
+	aBreadcrumb addItem: (BrLabel new
+		look: BrGlamorousLabelLook;
+		text: 'Home').
 
-	aBreadcrumb addItem: (BrButton new
-		look: BrGlamorousButtonLabelLook + BrLayoutLook linearHorizontal fitContent;
-		label: 'Store').
+	aBreadcrumb addItem: (BrLabel new
+		look: BrGlamorousLabelLook;
+		text: 'Store').
 	
-	aBreadcrumb addItem: (BrButton new
-		look: BrGlamorousButtonLabelLook + BrLayoutLook linearHorizontal fitContent;
-		label: 'T-Shirt').
+	aBreadcrumb addItem: (BrLabel new
+		look: BrGlamorousLabelLook;
+		text: 'T-Shirt').
 	
 	^ aBreadcrumb
 ]
