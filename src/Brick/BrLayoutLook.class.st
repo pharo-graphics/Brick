@@ -231,7 +231,7 @@ BrLayoutLook >> onAddedToParent [
 
 { #category : #initialization }
 BrLayoutLook >> onAttachedTo: anElement [
-	self targetElement when: BlElementAddedToParentEvent do: [ self onAddedToParent ]
+	self targetElement when: BlElementAddedToParentEvent do: [ self widgetDo: [ self onAddedToParent ] ]
 ]
 
 { #category : #hooks }

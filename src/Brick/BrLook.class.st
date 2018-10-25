@@ -61,6 +61,12 @@ BrLook >> asLook [
 	^ self
 ]
 
+{ #category : #initialization }
+BrLook >> finalizeLook [
+	"Override me to clean up widget state after the look is removed.
+	For example, if a look adds shadow effect to the element, that shadow effect should be removed when we remove the look"
+]
+
 { #category : #comparing }
 BrLook >> hash [
 	^ self class hash
@@ -98,6 +104,10 @@ BrLook >> looks [
 BrLook >> onAttachedTo: anElement [
 ]
 
+{ #category : #hooks }
+BrLook >> onDetached: anElement [
+]
+
 { #category : #'api - hooks' }
 BrLook >> onInstalledIn: anElement [
 	super onInstalledIn: anElement.
@@ -119,6 +129,21 @@ BrLook >> onInstalledIn: anElement [
 	self postInitialize
 ]
 
+{ #category : #'api - hooks' }
+BrLook >> onUninstalledIn: anElement [
+	super onUninstalledIn: anElement.
+	
+	self
+		assert: [ self widget == anElement ]
+		description: [ 'Can not uninstall from a different widget' ].
+
+	self onDetached: anElement.
+	self finalizeLook.
+	widget := nil.
+	
+	self looks do: [ :aLook | aLook onUninstalledIn: anElement ]
+]
+
 { #category : #initialization }
 BrLook >> postInitialize [
 	postInitializedBlock cull: self widget cull: self
@@ -134,7 +159,9 @@ BrLook >> remove: aBrLook [
 	| aLookInstance |
 
 	aLookInstance := aBrLook asLook.
-	self looks remove: aLookInstance ifAbsent: [  ]
+	self looks remove: aLookInstance ifAbsent: [ ^ self ].
+	
+	aBrLook widgetDo: [ :anElement | aLookInstance onUninstalledIn: anElement ]
 ]
 
 { #category : #accessing }

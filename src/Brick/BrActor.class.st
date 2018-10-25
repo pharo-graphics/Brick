@@ -160,8 +160,19 @@ BrActor >> gtInspectorHandlersIn: aComposite [
 { #category : #'event handling' }
 BrActor >> handleEvent: anEvent [
 	| aCurrentTarget aTarget |
+
+	self
+		assert: [ self actors allSatisfy: [ :eachActor | eachActor isNotNil ] ]
+		description: [ 'There must not be nil actors' ].
 	
-	self children do: [ :aWidgetModel | aWidgetModel handleEvent: anEvent ].
+	"we must iterate over a copy of actors because they can be theoretically be removed
+	due to event handling"
+	self actors copy do: [ :anActor |
+		self
+			assert: [ anActor isNotNil ]
+			description: [ 'Actor must not be nil here' ].
+		
+		anActor handleEvent: anEvent ].
 
 	"do not handle outgoing events"
 	(anEvent source == self)
