@@ -1,6 +1,6 @@
 Class {
 	#name : #BrGlamorousButtonExteriorLook,
-	#superclass : #BrLook,
+	#superclass : #BrInteractiveLook,
 	#instVars : [
 		'backgroundPaint'
 	],

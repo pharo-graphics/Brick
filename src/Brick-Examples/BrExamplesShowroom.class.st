@@ -91,7 +91,10 @@ BrExamplesShowroom class >> allButtons [
 			c vertical fitContent
 		];
 		addChildren: { 
+			self new glamorousTinyButton.
+			self new glamorousSmallButton.
 			self new glamorousButton.
+			self new glamorousLargeButton.
 			self new glamorousDisabledButton.
 			self new materialButton
 		}
@@ -194,6 +197,33 @@ BrExamplesShowroom >> columnedList [
 	^ aList
 ]
 
+{ #category : #breacrumb }
+BrExamplesShowroom >> glamorousBreadcrumb [
+	<gtExample>
+	<description: 'Breadcrumb with glamorous look'>
+	| aBreadcrumb |
+
+	aBreadcrumb := BrBreadcrumb new.
+	aBreadcrumb look: (BrGlamorousBreadcrumbLook new separator: [
+		BlTextElement new
+			text: ('>' asRopedText thin foreground: Color gray);
+			margin: (BlInsets left: 5 right: 5) ]).
+
+	aBreadcrumb addItem: (BrLabel new
+		look: BrGlamorousLabelLook;
+		text: 'Home').
+
+	aBreadcrumb addItem: (BrLabel new
+		look: BrGlamorousLabelLook;
+		text: 'Store').
+	
+	aBreadcrumb addItem: (BrLabel new
+		look: BrGlamorousLabelLook;
+		text: 'T-Shirt').
+	
+	^ aBreadcrumb
+]
+
 { #category : #buttons }
 BrExamplesShowroom >> glamorousButton [
 	<gtExample>
@@ -210,6 +240,28 @@ BrExamplesShowroom >> glamorousDisabledButton [
 	
 	^ self glamorousButton
 		disable
+]
+
+{ #category : #buttons }
+BrExamplesShowroom >> glamorousLargeButton [
+	<gtExample>
+	
+	^ BrButton new
+		beLarge;
+		look: BrGlamorousButtonWithLabelLook new;
+		label: 'Button';
+		action: [ self inform: 'Clicked' ]
+]
+
+{ #category : #buttons }
+BrExamplesShowroom >> glamorousSmallButton [
+	<gtExample>
+	
+	^ BrButton new
+		beSmall;
+		look: BrGlamorousButtonWithLabelLook new;
+		label: 'Button';
+		action: [ self inform: 'Clicked' ]
 ]
 
 { #category : #tabs }
@@ -252,6 +304,17 @@ BrExamplesShowroom >> glamorousTabs [
 			background: (Color orange alpha: 0.2) ]).
 
 	^ aTabGroup
+]
+
+{ #category : #buttons }
+BrExamplesShowroom >> glamorousTinyButton [
+	<gtExample>
+	
+	^ BrButton new
+		beTiny;
+		look: BrGlamorousButtonWithLabelLook new;
+		label: 'Button';
+		action: [ self inform: 'Clicked' ]
 ]
 
 { #category : #toolbar }

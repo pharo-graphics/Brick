@@ -14,6 +14,14 @@ BrShadowLook >> color: aColor [
 ]
 
 { #category : #initialization }
+BrShadowLook >> finalizeLook [
+	super finalizeLook.
+
+	self widgetDo: [ :aWidget | aWidget effect: BlNullEffect new ].
+	shadow := self shadow copyWithColor: self shadow color
+]
+
+{ #category : #initialization }
 BrShadowLook >> initialize [
 	super initialize.
 

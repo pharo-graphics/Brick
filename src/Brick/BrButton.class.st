@@ -5,7 +5,8 @@ Class {
 		'labelModel',
 		'iconModel',
 		'activationModel',
-		'interactiveModel'
+		'interactiveModel',
+		'dimensionModel'
 	],
 	#category : #'Brick-Button - UI'
 }
@@ -13,6 +14,26 @@ Class {
 { #category : #'api - widget' }
 BrButton >> action: aValuable [
 	self viewModel action: aValuable
+]
+
+{ #category : #'api - dimension' }
+BrButton >> beDefault [
+	dimensionModel beDefault
+]
+
+{ #category : #'api - dimension' }
+BrButton >> beLarge [
+	dimensionModel beLarge
+]
+
+{ #category : #'api - dimension' }
+BrButton >> beSmall [
+	dimensionModel beSmall
+]
+
+{ #category : #'api - dimension' }
+BrButton >> beTiny [
+	dimensionModel beTiny
 ]
 
 { #category : #'api - widget' }
@@ -47,6 +68,7 @@ BrButton >> initialize [
 				activationModel := BrActivationModel new.
 				BrPressModel new.
 				BrHoverModel new.
+				dimensionModel := BrDimensionModel new
 			}))
 ]
 

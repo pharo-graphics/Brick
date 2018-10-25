@@ -55,18 +55,13 @@ BrPressModel >> mouseUpEvent: anEvent [
 	self pressed: false
 ]
 
-{ #category : #notifying }
-BrPressModel >> notifyPressChanged [
-	self dispatchEvent: (self stateChangedEventClass pressed: self isPressed)
-]
-
 { #category : #'private - accessing' }
 BrPressModel >> pressed: aBoolean [
 	pressed = aBoolean
 		ifTrue: [ ^ self ].
 		
 	pressed := aBoolean.
-	self notifyPressChanged
+	self notifyStateChanged: pressed
 ]
 
 { #category : #printing }
