@@ -28,7 +28,7 @@ BrHoverModel >> hovered: aBoolean [
 		ifTrue: [ ^ self ].
 		
 	hovered := aBoolean.
-	self notifyHoverChanged
+	self notifyStateChanged: hovered
 ]
 
 { #category : #initialization }
@@ -62,11 +62,6 @@ BrHoverModel >> mouseOverEvent: anEvent [
 	anEvent consumed: true.
 	
 	self hovered: true
-]
-
-{ #category : #notifying }
-BrHoverModel >> notifyHoverChanged [
-	self dispatchEvent: (BrHoveredChanged hovered: self isHovered)
 ]
 
 { #category : #printing }

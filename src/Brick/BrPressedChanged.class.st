@@ -37,3 +37,10 @@ BrPressedChanged >> pressed [
 BrPressedChanged >> pressed: aBoolean [
 	pressed := aBoolean
 ]
+
+{ #category : #accessing }
+BrPressedChanged >> state: anObject [
+	"Override me to properly set the given state"
+
+	self pressed: anObject
+]

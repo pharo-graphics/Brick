@@ -33,3 +33,10 @@ BrHoveredChanged >> initialize [
 BrHoveredChanged >> isHovered [
 	^ self hovered
 ]
+
+{ #category : #accessing }
+BrHoveredChanged >> state: anObject [
+	"Override me to properly set the given state"
+
+	self hovered: anObject
+]

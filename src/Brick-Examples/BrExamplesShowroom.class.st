@@ -91,7 +91,10 @@ BrExamplesShowroom class >> allButtons [
 			c vertical fitContent
 		];
 		addChildren: { 
+			self new glamorousTinyButton.
+			self new glamorousSmallButton.
 			self new glamorousButton.
+			self new glamorousLargeButton.
 			self new glamorousDisabledButton.
 			self new materialButton
 		}
@@ -239,6 +242,28 @@ BrExamplesShowroom >> glamorousDisabledButton [
 		disable
 ]
 
+{ #category : #buttons }
+BrExamplesShowroom >> glamorousLargeButton [
+	<gtExample>
+	
+	^ BrButton new
+		beLarge;
+		look: BrGlamorousButtonWithLabelLook new;
+		label: 'Button';
+		action: [ self inform: 'Clicked' ]
+]
+
+{ #category : #buttons }
+BrExamplesShowroom >> glamorousSmallButton [
+	<gtExample>
+	
+	^ BrButton new
+		beSmall;
+		look: BrGlamorousButtonWithLabelLook new;
+		label: 'Button';
+		action: [ self inform: 'Clicked' ]
+]
+
 { #category : #tabs }
 BrExamplesShowroom >> glamorousTabs [
 	<gtExample>
@@ -279,6 +304,17 @@ BrExamplesShowroom >> glamorousTabs [
 			background: (Color orange alpha: 0.2) ]).
 
 	^ aTabGroup
+]
+
+{ #category : #buttons }
+BrExamplesShowroom >> glamorousTinyButton [
+	<gtExample>
+	
+	^ BrButton new
+		beTiny;
+		look: BrGlamorousButtonWithLabelLook new;
+		label: 'Button';
+		action: [ self inform: 'Clicked' ]
 ]
 
 { #category : #toolbar }

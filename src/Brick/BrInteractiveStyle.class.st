@@ -10,20 +10,24 @@ Class {
 
 { #category : #accessing }
 BrInteractiveStyle >> action [
+	<return: #BlockClosure>
+
 	^ action
 ]
 
 { #category : #accessing }
-BrInteractiveStyle >> action: anObject [
-	action := anObject
+BrInteractiveStyle >> action: aValuable [
+	action := aValuable
 ]
 
 { #category : #accessing }
 BrInteractiveStyle >> state [
+	<return: #BrInteractionState>
+
 	^ state
 ]
 
 { #category : #accessing }
-BrInteractiveStyle >> state: anObject [
-	state := anObject
+BrInteractiveStyle >> state: anInteractionState [
+	state := anInteractionState
 ]

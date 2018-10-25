@@ -69,9 +69,30 @@ BrInteractiveStyler >> initialize [
 ]
 
 { #category : #builder }
+BrInteractiveStyler >> large: aStyleBlock [
+	self
+		when: self state large
+		style: aStyleBlock
+]
+
+{ #category : #builder }
 BrInteractiveStyler >> pressed: aStyleBlock [
 	self
 		when: self state pressed
+		style: aStyleBlock
+]
+
+{ #category : #builder }
+BrInteractiveStyler >> sized: aNamedSize style: aStyleBlock [
+	self
+		when: (self state sized: aNamedSize)
+		style: aStyleBlock
+]
+
+{ #category : #builder }
+BrInteractiveStyler >> small: aStyleBlock [
+	self
+		when: self state small
 		style: aStyleBlock
 ]
 
@@ -83,6 +104,13 @@ BrInteractiveStyler >> state [
 { #category : #accessing }
 BrInteractiveStyler >> styles [
 	^ styles
+]
+
+{ #category : #builder }
+BrInteractiveStyler >> tiny: aStyleBlock [
+	self
+		when: self state tiny
+		style: aStyleBlock
 ]
 
 { #category : #builder }
