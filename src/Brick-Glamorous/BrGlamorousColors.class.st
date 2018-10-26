@@ -23,7 +23,8 @@ Class {
 		'LinkWithErrorColor',
 		'PressedButtonBorderColor',
 		'PressedButtonTextColor',
-		'PrimaryBorderColor'
+		'PrimaryBorderColor',
+		'TextHighlightColor'
 	],
 	#category : #'Brick-Glamorous'
 }
@@ -193,6 +194,9 @@ BrGlamorousColors class >> initialize [
 	"header - text"
 	HeaderTextColor := Color black alpha: 0.85.
 	DisabledHeaderTextColor := Color black alpha: 0.25.
+	
+	"highlighting - text"
+	TextHighlightColor := Color fromHexString: #ffd666.
 
 	"editors"
 	EditorBorderColor := LightBorderColor.
@@ -251,4 +255,14 @@ BrGlamorousColors class >> primaryBorderColor [
 { #category : #accessing }
 BrGlamorousColors class >> primaryBorderColor: anObject [
 	PrimaryBorderColor := anObject
+]
+
+{ #category : #'button - border' }
+BrGlamorousColors class >> textHighlightColor [
+	^ TextHighlightColor
+]
+
+{ #category : #'button - border' }
+BrGlamorousColors class >> textHighlightColor: anObject [
+	TextHighlightColor := anObject
 ]
