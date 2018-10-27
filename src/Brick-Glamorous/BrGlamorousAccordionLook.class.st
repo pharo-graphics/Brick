@@ -65,10 +65,12 @@ BrGlamorousAccordionLook >> initialize [
 	self add: (BrInteractiveLook new style: [ :aStyler |
 		aStyler default: [
 			headerBar background: (Color gray alpha: 0.4).
-			contentBar background: (Color gray alpha: 0.2) ].
+			contentBar background: (Color gray alpha: 0.2).
+			contentBar visibility: BlVisibility gone ].
 		aStyler focused: [
 			headerBar background: (BrGlamorousColors primaryBorderColor alpha: 0.4).
-			contentBar background: (BrGlamorousColors primaryBorderColor alpha: 0.2) ] ])
+			contentBar background: (BrGlamorousColors primaryBorderColor alpha: 0.2) ].
+		aStyler expanded: [ contentBar visibility: BlVisibility visible ] ])
 ]
 
 { #category : #initialization }
