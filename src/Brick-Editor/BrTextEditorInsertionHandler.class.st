@@ -36,3 +36,18 @@ BrTextEditorInsertionHandler >> keystrokeEvent: anEvent [
 		insert: anEvent char asString
 		atCursorIn: anEvent currentTarget editor
 ]
+
+{ #category : #'keyboard handlers' }
+BrTextEditorInsertionHandler >> textInputEvent: anEvent [
+    "we don't want to insert anything if primary modifier key is pressed.
+    without this check if users try to use shortcuts that may don't exist such as (meta+s) the action will result in typing
+    which lead to unwanted effects"
+    (anEvent modifiers isPrimaryModifier)
+        ifTrue: [ ^ self ].
+
+    anEvent consumed: true.
+
+    self
+        insert: anEvent text asString
+        atCursorIn: anEvent currentTarget editor
+]
