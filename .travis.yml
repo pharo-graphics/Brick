@@ -5,6 +5,10 @@ dist: trusty
 
 os:
   - linux
+  
+smalltalk_edge:
+  source: feenkcom/smalltalkCI
+  branch: master
 
 smalltalk:
   - Pharo-6.1
