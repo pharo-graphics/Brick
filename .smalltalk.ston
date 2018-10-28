@@ -10,6 +10,7 @@ SmalltalkCISpec {
 		#packages : [ 'Brick-Examples' ],
 		#coverage : {
 			#packages : [ 'Brick', 'Brick-Material' ]
-		}
+		},
+		#failOnZeroTests: false
 	}
 }
