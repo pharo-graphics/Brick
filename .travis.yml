@@ -11,7 +11,8 @@ smalltalk_edge:
   branch: master
 
 smalltalk:
-  - Pharo-6.1
+  - Pharo-7.0
+  - Pharo64-7.0
 
 # script:
 #   - smalltalkci brick.ston
