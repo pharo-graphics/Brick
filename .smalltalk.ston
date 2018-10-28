@@ -7,9 +7,9 @@ SmalltalkCISpec {
 		}
 	],
 	#testing : {
-		#packages : [ 'Brick-Examples' ],
+		#packages : [ 'Brick.*' ],
 		#coverage : {
-			#packages : [ 'Brick', 'Brick-Material' ]
+			#packages : [ 'Brick.*' ]
 		},
 		#failOnZeroTests: false
 	}
