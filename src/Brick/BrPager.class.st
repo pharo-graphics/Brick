@@ -23,11 +23,11 @@ BrPager >> initialize [
 ]
 
 { #category : #accessing }
-BrPager >> pageAfter: aBlElement ifFound: aBlockClosure ifNone: aBlockClosure3 [ 
+BrPager >> pageAfter: aBlElement ifFound: aFoundBlock ifNone: aNoneBlock [ 
 	self viewModel 
 		pageAfter: aBlElement viewModel 
-		ifFound: aBlockClosure 
-		ifNone: aBlockClosure3 
+		ifFound: aFoundBlock 
+		ifNone: aNoneBlock 
 ]
 
 { #category : #'api - accessing' }
