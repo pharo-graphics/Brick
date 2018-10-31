@@ -13,6 +13,7 @@ Class {
 		'DisabledHeaderTextColor',
 		'EditorBorderColor',
 		'ErrorBackgroundColor',
+		'ErrorBorderColor',
 		'FocusedEditorBorderColor',
 		'HeaderBackgroundColor',
 		'HeaderTextColor',
@@ -25,6 +26,7 @@ Class {
 		'PressedButtonTextColor',
 		'PrimaryBorderColor',
 		'SuccessBackgroundColor',
+		'SuccessBorderColor',
 		'TextHighlightColor'
 	],
 	#category : #'Brick-Glamorous'
@@ -135,6 +137,11 @@ BrGlamorousColors class >> errorBackgroundColor: aColor [
 	ErrorBackgroundColor := aColor
 ]
 
+{ #category : #'button - border' }
+BrGlamorousColors class >> errorBorderColor [
+	^ ErrorBorderColor
+]
+
 { #category : #accessing }
 BrGlamorousColors class >> focusedEditorBorderColor [
 	^ FocusedEditorBorderColor
@@ -177,6 +184,8 @@ BrGlamorousColors class >> initialize [
 	HoveredButtonBorderColor := PrimaryBorderColor.
 	PressedButtonBorderColor := ActiveColor.
 	DisabledButtonBorderColor := LightBorderColor.
+	SuccessBorderColor := Color fromHexString: #'389e0d' "green-7".
+	ErrorBorderColor := Color fromHexString: #'cf1322' "red-7".
 	
 	"buttons - background"
 	ButtonBackgroundColor := Color white.
@@ -267,6 +276,11 @@ BrGlamorousColors class >> successBackgroundColor [
 { #category : #'button - background' }
 BrGlamorousColors class >> successBackgroundColor: aColor [
 	SuccessBackgroundColor := aColor
+]
+
+{ #category : #'button - border' }
+BrGlamorousColors class >> successBorderColor [
+	^ SuccessBorderColor
 ]
 
 { #category : #'button - border' }
