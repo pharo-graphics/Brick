@@ -485,8 +485,9 @@ BrRBTextStyler >> visitPragmaNode: aPragmaNode [
 	self 
 		addStyle: #pragmaKeyword
 		from: position
-		to: position + keyword size ].
-	
+		to: position + keyword size - 1 ].
+	self addStyle: #pragmaKeyword from: aPragmaNode left to: aPragmaNode left.
+	self addStyle: #pragmaKeyword from: aPragmaNode right to: aPragmaNode right.	
 	aPragmaNode arguments do: [ :each | self visitNode: each ]
 ]
 
