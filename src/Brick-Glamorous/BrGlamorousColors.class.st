@@ -24,6 +24,7 @@ Class {
 		'PressedButtonBorderColor',
 		'PressedButtonTextColor',
 		'PrimaryBorderColor',
+		'SuccessBackgroundColor',
 		'TextHighlightColor'
 	],
 	#category : #'Brick-Glamorous'
@@ -179,8 +180,9 @@ BrGlamorousColors class >> initialize [
 	
 	"buttons - background"
 	ButtonBackgroundColor := Color white.
-	DisabledButtonBackgroundColor := Color fromHexString: #f5f5f5.
-	ErrorBackgroundColor := Color fromHexString: #ffa39e.
+	DisabledButtonBackgroundColor := Color fromHexString: #f5f5f5 "grey-3".
+	ErrorBackgroundColor := Color fromHexString: #ffa39e "red-3".
+	SuccessBackgroundColor := Color fromHexString: #b7eb8f "green-3".
 
 	"buttons - text"
 	ButtonTextColor := Color black alpha: 0.65.
@@ -255,6 +257,16 @@ BrGlamorousColors class >> primaryBorderColor [
 { #category : #accessing }
 BrGlamorousColors class >> primaryBorderColor: anObject [
 	PrimaryBorderColor := anObject
+]
+
+{ #category : #'button - background' }
+BrGlamorousColors class >> successBackgroundColor [
+	^ SuccessBackgroundColor
+]
+
+{ #category : #'button - background' }
+BrGlamorousColors class >> successBackgroundColor: aColor [
+	SuccessBackgroundColor := aColor
 ]
 
 { #category : #'button - border' }
