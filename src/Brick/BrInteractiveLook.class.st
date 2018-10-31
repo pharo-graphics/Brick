@@ -47,7 +47,7 @@ BrInteractiveLook >> initializeLook [
 	| aStyler |
 	super initializeLook.
 	
-	aStyler := BrInteractiveStyler new.
+	aStyler := BrInteractiveCommonStyler new.
 	self buildStylesOn: aStyler.
 	
 	styles addAllFirst: aStyler styles
@@ -70,9 +70,12 @@ BrInteractiveLook >> statesChanged: anEvent [
 
 { #category : #'api - style' }
 BrInteractiveLook >> style: aBlock [
-	| aStyler |
-	aStyler := BrInteractiveStyler new.
-	aBlock value: aStyler.
+	aBlock value: (BrInteractiveCommonStyler on: self)
+]
 
-	styles addAll: aStyler styles
+{ #category : #private }
+BrInteractiveLook >> styles [
+	<return: #Collection of: #BrInteractiveStyle>
+	
+	^ styles
 ]
