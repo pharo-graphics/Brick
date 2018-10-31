@@ -6,5 +6,5 @@ Class {
 
 { #category : #'instance creation' }
 BrResizerBottomLocation >> newResizerListener [
-	^ BlResizerBottomListener new
+	^ BlResizerBottomListener new minimumExtent: (0@30)
 ]
