@@ -1,5 +1,16 @@
 "
-self importIconsFromDirectory: './gt-icons' asFileReference
+I am a Glamorous icons container. You can import new icons using ${method:name=BrGlamorousIcons class>>#importIconsFromDirectory:}$ using the script below. It imports all ==PNG== files and creates class methods with the same name.
+
+[[[
+BrGlamorousIcons importIconsFromDirectory: './gt-icons' asFileReference
+]]]
+
+Here is a list of available icons:
+
+${class:BrGlamorousIcons|show=gtIconsFor:|expanded=}$
+
+
+
 "
 Class {
 	#name : #BrGlamorousIcons,
@@ -7,7 +18,7 @@ Class {
 	#classInstVars : [
 		'icons'
 	],
-	#category : 'Brick-Glamorous'
+	#category : #'Brick-Glamorous'
 }
 
 { #category : #icons }
@@ -188,6 +199,16 @@ BrGlamorousIcons class >> greencircle [
 	offset: (0@0))]
 ]
 
+{ #category : #icons }
+BrGlamorousIcons class >> gt [
+	^ self icons
+		at: #gt ifAbsentPut: [(Form
+	extent: (16@16)
+	depth: 32
+	fromArray: #( 0 0 0 16777216 33554432 16777216 0 0 0 0 0 2566914048 3439329280 2248146944 0 50331648 0 16777216 33554432 0 0 0 33554432 16777216 0 0 0 3674210304 4278190080 3221225472 0 33554432 16777216 0 0 452984832 754974720 520093696 0 0 16777216 16777216 16777216 3439329280 4278190080 3036676096 0 83886080 0 83886080 1627389952 1442840576 1107296256 1358954496 1560281088 436207616 889192448 1560281088 4261412864 4143972352 4278190080 4127195136 4211081216 2483027968 0 1711276032 687865856 0 0 0 452984832 1996488704 1224736768 1325400064 3774873600 4076863488 4278190080 3992977408 3707764736 2197815296 771751936 1291845632 0 100663296 33554432 100663296 0 1224736768 2197815296 0 0 3456106496 4278190080 3019898880 0 0 1275068416 603979776 0 16777216 0 16777216 0 436207616 1895825408 0 33554432 3489660928 4278190080 3070230528 0 67108864 1358954496 436207616 0 16777216 0 0 0 251658240 1526726656 0 0 3489660928 4278190080 3070230528 0 50331648 1258291200 587202560 0 16777216 0 16777216 0 419430400 1895825408 0 0 3472883712 4278190080 3070230528 0 100663296 738197504 1275068416 0 83886080 50331648 83886080 0 1342177280 2214592512 0 16777216 3456106496 4278190080 3070230528 0 0 0 1660944384 771751936 0 0 0 687865856 1912602624 1409286144 0 0 3590324224 4278190080 3858759680 2130706432 1191182336 0 16777216 1526726656 1526726656 1275068416 1493172224 1375731712 268435456 1426063360 0 0 2382364672 4278190080 4278190080 4278190080 3070230528 67108864 67108864 0 301989888 520093696 251658240 0 218103808 1493172224 0 0 0 1526726656 2348810240 2499805184 1342177280 268435456 1509949440 0 0 0 16777216 0 536870912 1392508928 0 50331648 0 0 0 0 0 0 1577058304 973078528 0 0 0 167772160 1862270976 419430400 0 16777216 0 67108864 67108864 83886080 50331648 0 0 1442840576 1610612736 1392508928 1476395008 1711276032 587202560 0 33554432 0 0 0 0 0 0)
+	offset: (0@0))]
+]
+
 { #category : #'gt-extension' }
 BrGlamorousIcons class >> gtIconsFor: aView [
 	<gtView>
@@ -228,15 +249,19 @@ BrGlamorousIcons class >> icons [
 { #category : #initialization }
 BrGlamorousIcons class >> importIconsFromDirectory: aFileReference [
 	"self importIconsFromDirectory: './gt-icons' asFileReference"
+
 	self initialize.
-	(aFileReference files select: [ :each | each extension = 'png' ])
-		do: [:each |
-			| method form |
+	^ (aFileReference files select: [ :each | each extension = 'png' ])
+		collect: [ :each | 
+			| method form anIconName |
 			form := PNGReadWriter formFromFileNamed: each fullName.
-			method := (each basenameWithoutExtension removePrefix: 'gt-'), Character cr asString ,
-				(String tab, '^ self icons
-		at: #',  (each basenameWithoutExtension removePrefix: 'gt-') , 
-		' ifAbsentPut: ['), form storeString, ']'.
+			anIconName := each basenameWithoutExtension.
+			(anIconName beginsWith: 'gt-') ifTrue: [ 
+				anIconName := anIconName copyFrom: 4 to: anIconName size ].
+			method := anIconName , Character cr asString ,
+					(String tab ,
+							'^ self icons
+		at: #' , anIconName , ' ifAbsentPut: [') , form storeString , ']'.
 			self class compile: method classified: 'icons' ]
 ]
 
