@@ -10,6 +10,16 @@ Class {
 	#category : #'Brick-! Core'
 }
 
+{ #category : #'instance creation' }
+BrInteractiveModel class >> with: aStateModel [
+	^ self new addState: aStateModel
+]
+
+{ #category : #'instance creation' }
+BrInteractiveModel class >> withAll: aCollecitonOfStateModels [
+	^ self new addStates: aCollecitonOfStateModels
+]
+
 { #category : #'api - states' }
 BrInteractiveModel >> addState: aStateModel [
 	"Add a given state model as my sub-model and register corresponding update events"
