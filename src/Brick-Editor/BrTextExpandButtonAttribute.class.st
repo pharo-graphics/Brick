@@ -64,7 +64,7 @@ BrTextExpandButtonAttribute >> initialize [
 	
 	self beAppend.
 	
-	attributesCreatingBlock := [  ].
+	attributesCreatingBlock := [ OrderedCollection new ].
 	isExpanded := false.
 	createdAttributes := OrderedCollection new
 ]
