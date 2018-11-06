@@ -461,7 +461,10 @@ BrTextEditor >> newUpdateCommand [
 
 { #category : #'event firing' }
 BrTextEditor >> notifyDeletedFrom: aFromIndex to: aToIndex [
-	self fireEvent: (BrTextEditorDeletedEvent from: aFromIndex to: aToIndex)
+	self fireEvent: (BrTextEditorDeletedEvent new
+		editor: self;
+		fromIndex: aFromIndex;
+		toIndex: aToIndex)
 ]
 
 { #category : #'event firing' }
