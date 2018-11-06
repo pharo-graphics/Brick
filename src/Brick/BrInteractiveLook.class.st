@@ -60,12 +60,17 @@ BrInteractiveLook >> initializeRequests [
 	self statesChanged: (self request: BrInteractionRequest oneWay)
 ]
 
+{ #category : #accessing }
+BrInteractiveLook >> state [
+	^ self subclassResponsibility
+]
+
 { #category : #hooks }
 BrInteractiveLook >> statesChanged: anEvent [
 
 	styles
 		select: [ :aStyle | aStyle state matches: anEvent states ]
-		thenDo: [ :aStyle | aStyle action cull: self widget ]
+		thenDo: [ :aStyle | aStyle action cull: self widget cull: aStyle state ]
 ]
 
 { #category : #'api - style' }
@@ -78,4 +83,12 @@ BrInteractiveLook >> styles [
 	<return: #Collection of: #BrInteractiveStyle>
 	
 	^ styles
+]
+
+{ #category : #builder }
+BrInteractiveLook >> when: aStateBlock style: aStyleBlock [
+	| aTargetState |
+	
+	aTargetState := aStateBlock glamourValueWithArgs: { self state }.
+	self styles add: (BrInteractiveStyle new state: aTargetState; action: aStyleBlock)
 ]

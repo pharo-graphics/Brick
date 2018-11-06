@@ -76,10 +76,11 @@ BrGlamorousAccordionLook >> initialize [
 { #category : #initialization }
 BrGlamorousAccordionLook >> initializeLook [
 	"We need to add wrapper first in order for the widget to find header and content containers"
-	self widget addChild: wrapper.
-
 	super initializeLook.
 	
+	wrapper addChildFirst: headerElement.
+	self widget addChild: wrapper.
+
 	self widget
 		layout: BlLinearLayout horizontal;
 		constraintsDo: [ :c |

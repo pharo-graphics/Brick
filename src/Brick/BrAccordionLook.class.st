@@ -85,8 +85,7 @@ BrAccordionLook >> initializeListeners [
 BrAccordionLook >> initializeLook [
 	super initializeLook.
 
-	headerElement := headerStencil asElement.
-	self widgetHeader addChildFirst: headerElement
+	headerElement := headerStencil asElement
 ]
 
 { #category : #initialization }
