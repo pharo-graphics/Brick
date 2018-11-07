@@ -11,6 +11,16 @@ Class {
 	#category : #'Brick-Expander - Look'
 }
 
+{ #category : #'protected - adding / removing' }
+BrExpanderLook >> addContentElement: anElement [
+	self widgetContent addChild: anElement
+]
+
+{ #category : #'protected - adding / removing' }
+BrExpanderLook >> addHeaderElement: anElement [
+	self widgetContent addChild: anElement
+]
+
 { #category : #accessing }
 BrExpanderLook >> contentStencil [
 	 ^ contentStencil
@@ -30,14 +40,6 @@ BrExpanderLook >> contentStencil: aBrStencil [
 	(self request: BrExpansionStateRequest oneWay) isExpanded
 		ifTrue: [ self onExpanded ]
 		ifFalse: [ self onCollapsed ]
-]
-
-{ #category : #accessing }
-BrExpanderLook >> currentElementDo: aBlock [
-	"Evaluate a given block with header or content if they are initialized"
-	
-	headerElement ifNotNil: aBlock.
-	contentElement ifNotNil: aBlock
 ]
 
 { #category : #accessing }
@@ -74,12 +76,12 @@ BrExpanderLook >> initialize [
 
 	self add: (layoutResizerLook := BrInteractiveLayoutResizerLook new
 		inherit; "for myself"
-		hMatchParentIn: [ :aBlock | self currentElementDo: aBlock ];
-		vMatchParentIn: [ :aBlock | self currentElementDo: aBlock ];
-		hFitContentIn: [ :aBlock | self currentElementDo: aBlock ];
-		vFitContentIn: [ :aBlock | self currentElementDo: aBlock ];
-		hExactToMatchParentIn: [ :aBlock | self currentElementDo: aBlock ];
-		vExactToMatchParentIn: [ :aBlock | self currentElementDo: aBlock ])
+		hMatchParentIn: [ :aBlock | self resizableElementsDo: aBlock ];
+		vMatchParentIn: [ :aBlock | self resizableElementsDo: aBlock ];
+		hFitContentIn: [ :aBlock | self resizableElementsDo: aBlock ];
+		vFitContentIn: [ :aBlock | self resizableElementsDo: aBlock ];
+		hExactToMatchParentIn: [ :aBlock | self resizableElementsDo: aBlock ];
+		vExactToMatchParentIn: [ :aBlock | self resizableElementsDo: aBlock ])
 ]
 
 { #category : #initialization }
@@ -118,7 +120,7 @@ BrExpanderLook >> onCollapsed [
 	
 	headerElement ifNil: [ self initializeHeaderElement ].
 	headerElement hasParent
-		ifFalse: [ self widgetContent addChild: headerElement ]
+		ifFalse: [ self addHeaderElement: headerElement ]
 ]
 
 { #category : #hooks }
@@ -127,5 +129,13 @@ BrExpanderLook >> onExpanded [
 	
 	contentElement ifNil: [ self initializeContentElement ].
 	contentElement hasParent
-		ifFalse: [ self widgetContent addChild: contentElement ]
+		ifFalse: [ self addContentElement: contentElement ]
+]
+
+{ #category : #accessing }
+BrExpanderLook >> resizableElementsDo: aBlock [
+	"Evaluate a given block with elements to which layout resizers should be applied"
+	
+	headerElement ifNotNil: aBlock.
+	contentElement ifNotNil: aBlock
 ]

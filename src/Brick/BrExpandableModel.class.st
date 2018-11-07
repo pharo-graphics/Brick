@@ -48,7 +48,9 @@ BrExpandableModel >> initialize [
 BrExpandableModel >> initializeListeners [
 	super initializeListeners.
 
-	self when: BrExpansionStateRequest reply: [ :aResponse | aResponse expanded: self isExpanded ]
+	self when: BrExpansionStateRequest reply: [ :aResponse | aResponse expanded: self isExpanded ].
+	self when: BrExpansionWish do: [ :aWish | self expanded: aWish isExpanded ].
+	self when: BrExpansionToggleWish do: [ self toggle ]
 ]
 
 { #category : #'api - testing' }
