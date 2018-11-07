@@ -4,31 +4,8 @@ I am an attribute with the ability to handle events received by a visual text el
 Class {
 	#name : #BrTextEventHandlerAttribute,
 	#superclass : #BlTextAttribute,
-	#traits : 'TBlEventHandler',
-	#classTraits : 'TBlEventHandler classTrait',
-	#instVars : [
-		'action'
-	],
 	#category : #'Brick-Editor-Text-Attributes'
 }
-
-{ #category : #comparing }
-BrTextEventHandlerAttribute >> = anObject [
-	^ self == anObject
-]
-
-{ #category : #accessing }
-BrTextEventHandlerAttribute >> action [
-	^ action
-]
-
-{ #category : #accessing }
-BrTextEventHandlerAttribute >> action: aBlock [
-	self 
-		assert: [ aBlock notNil ] 
-		description: [ 'Action should be initialized' ].
-	action := aBlock
-]
 
 { #category : #comparing }
 BrTextEventHandlerAttribute >> equals: aTextAttribute [
@@ -40,21 +17,15 @@ BrTextEventHandlerAttribute >> equals: aTextAttribute [
 ]
 
 { #category : #events }
-BrTextEventHandlerAttribute >> handleEvent: anEvent [
+BrTextEventHandlerAttribute >> handleEvent: anEvent in: anEditorElement [
 	"Handle a given event or dispatch it using #sendTo:"
-	
-	anEvent sendTo: self
+
+	self subclassResponsibility
 ]
 
 { #category : #comparing }
 BrTextEventHandlerAttribute >> hash [
 	^ self identityHash
-]
-
-{ #category : #initialization }
-BrTextEventHandlerAttribute >> initialize [
-	super initialize.
-	self textAttributes: [ { BlTextForegroundAttribute paint: Color random paler } ].
 ]
 
 { #category : #testing }
@@ -66,33 +37,8 @@ BrTextEventHandlerAttribute >> isEventHandler [
 	^ true
 ]
 
-{ #category : #private }
-BrTextEventHandlerAttribute >> performAction: anEvent [
-	self action
-		cull: anEvent currentTarget text
-		cull: anEvent currentTarget
-		cull: anEvent
-]
-
-{ #category : #accessing }
-BrTextEventHandlerAttribute >> textAttribute: aTextAttributes [
-	self 
-		assert: [ aTextAttributes notNil ] 
-		description: [ 'Text attribute has to be initialized' ].
-	self textAttributes: { aTextAttributes }
-]
-
-{ #category : #accessing }
-BrTextEventHandlerAttribute >> textAttributes: aCollectionOfTextAttributes [
-	self 
-		assert: [ aCollectionOfTextAttributes notNil ] 
-		description: [ 'Text attributes have to be initialized' ].
-	self action: [ :aText :anEventTarget :anEvent |
-		aText attributes: aCollectionOfTextAttributes value ].
-]
-
 { #category : #events }
-BrTextEventHandlerAttribute >> wantsEvent: anEvent [
+BrTextEventHandlerAttribute >> wantsEvent: anEvent in: anEditorElement [
 	"Return true if I am interested in a given event and want to handle it,
 	false otherwise"
 	<return: #Boolean>

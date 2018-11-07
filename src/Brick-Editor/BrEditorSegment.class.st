@@ -14,6 +14,11 @@ Class {
 	#category : 'Brick-Editor-Model - Segment'
 }
 
+{ #category : #'pieces - computation' }
+BrEditorSegment >> clearCache [
+	"Clear all caches and make this segment fresh as if it would just be created and initalized"
+]
+
 { #category : #accessing }
 BrEditorSegment >> index [
 	"Return segment index within BrEditor.
@@ -30,11 +35,6 @@ BrEditorSegment >> index [
 { #category : #accessing }
 BrEditorSegment >> index: aNumber [
 	index := aNumber
-]
-
-{ #category : #'pieces - computation' }
-BrEditorSegment >> invalidate [
-	"Clear all caches and make this segment fresh as if it would just be created and initalized"
 ]
 
 { #category : #accessing }

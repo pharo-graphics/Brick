@@ -2,15 +2,39 @@ Class {
 	#name : #BrTextHoverAttribute,
 	#superclass : #BrTextEventHandlerAttribute,
 	#instVars : [
+		'enterAction',
 		'leaveAction'
 	],
-	#category : 'Brick-Editor-Text-Attributes'
+	#category : #'Brick-Editor-Text-Attributes'
 }
+
+{ #category : #accessing }
+BrTextHoverAttribute >> enterAction [
+	^ enterAction
+]
+
+{ #category : #accessing }
+BrTextHoverAttribute >> enterAction: anObject [
+	enterAction := anObject
+]
+
+{ #category : #events }
+BrTextHoverAttribute >> handleEvent: anEvent in: anEditorElement [
+	"Handle a given event or dispatch it using #sendTo:"
+
+	(anEvent isKindOf: BlMouseEnterEvent)
+		ifTrue: [ self performEnterAction: anEvent in: anEditorElement ].
+
+	(anEvent isKindOf: BlMouseLeaveEvent)
+		ifTrue: [ self performLeaveAction: anEvent in: anEditorElement ].
+]
 
 { #category : #initialization }
 BrTextHoverAttribute >> initialize [
 	super initialize.
-	self leaveTextAttribute: ( BlTextForegroundAttribute paint: Color black ).
+
+	enterAction := [ :aText :aTextElement :anEditorElement :anEvent | ].
+	leaveAction := [ :aText :aTextElement :anEditorElement :anEvent | ]
 ]
 
 { #category : #accessing }
@@ -23,73 +47,36 @@ BrTextHoverAttribute >> leaveAction: aBlock [
 	self 
 		assert: [ aBlock notNil ] 
 		description: [ 'Leave action should be initialized' ].
+
 	leaveAction := aBlock
 ]
 
-{ #category : #accessing }
-BrTextHoverAttribute >> leaveTextAttribute: aTextAttributes [
-	self 
-		assert: [ aTextAttributes notNil ] 
-		description: [ 'Text attribute has to be initialized' ].
-	self leaveTextAttributes: { aTextAttributes }
-]
-
-{ #category : #accessing }
-BrTextHoverAttribute >> leaveTextAttributes: aCollectionOfTextAttributes [
-	self 
-		assert: [ aCollectionOfTextAttributes notNil ] 
-		description: [ 'Text attributes have to be initialized' ].
-	self leaveAction: [ :aText :anEventTarget :anEvent |
-		aText attributes: aCollectionOfTextAttributes value ].
-]
-
-{ #category : #'mouse handlers' }
-BrTextHoverAttribute >> mouseEnterEvent: anEvent [
-	self performAction: anEvent.
-	anEvent currentTarget
-		invalidate;
-		requestLayout
-]
-
-{ #category : #'mouse handlers' }
-BrTextHoverAttribute >> mouseLeaveEvent: anEvent [
-	self performLeaveAction: anEvent.
-	anEvent currentTarget 
-		invalidate;
-		requestLayout
+{ #category : #private }
+BrTextHoverAttribute >> performEnterAction: anEvent in: anEditorElement [
+	self enterAction glamourValueWithArgs: {
+		anEvent currentTarget text. "first we pass text"
+		anEvent currentTarget. "then the text piece (word) element"
+		anEditorElement. "then the whole editor element"
+		anEvent "the event itself"
+	}
 ]
 
 { #category : #private }
-BrTextHoverAttribute >> performLeaveAction: anEvent [
-	self leaveAction
-		cull: anEvent currentTarget text
-		cull: anEvent currentTarget
-		cull: anEvent
-]
-
-{ #category : #accessing }
-BrTextHoverAttribute >> removableTextAttribute: aTextAttribute [
-	self 
-		assert: [ aTextAttribute notNil ] 
-		description: [ 'Text attribute has to be initialized' ].
-	self removableTextAttributes: { aTextAttribute }
-]
-
-{ #category : #accessing }
-BrTextHoverAttribute >> removableTextAttributes: aCollectionOfTextAttributes [
-	| theUsedAttributes |
-	self 
-		assert: [ aCollectionOfTextAttributes notNil ] 
-		description: [ 'Text attributes have to be initialized' ].
-	self action: [ :aText :anEventTarget :anEvent |
-		aText attributes: (theUsedAttributes := aCollectionOfTextAttributes value) ].
-	self leaveAction: [ :aText :anEventTarget :anEvent |
-		theUsedAttributes ifNotNil: [ :anInstance |
-			aText clearAttributes: [ :aTextAttribute | anInstance includes: aTextAttribute ] ] ].
+BrTextHoverAttribute >> performLeaveAction: anEvent in: anEditorElement [
+	self leaveAction glamourValueWithArgs: {
+		anEvent currentTarget text. "first we pass text"
+		anEvent currentTarget. "then the text piece (word) element"
+		anEditorElement. "then the whole editor element"
+		anEvent "the event itself"
+	}
 ]
 
 { #category : #events }
-BrTextHoverAttribute >> wantsEvent: anEvent [
+BrTextHoverAttribute >> wantsEvent: anEvent in: anEditorElement [
+	"Return true if I am interested in a given event and want to handle it,
+	false otherwise"
+	<return: #Boolean>
+
 	^ (anEvent isKindOf: BlMouseEnterEvent)
 		or: [ anEvent isKindOf: BlMouseLeaveEvent ]
 ]

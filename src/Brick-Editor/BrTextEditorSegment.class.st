@@ -37,7 +37,7 @@ BrTextEditorSegment >> initializeWith: aBrText from: aTextStart to: aTextEnd [
 	textStart := aTextStart.
 	textEnd := aTextEnd.
 
-	self invalidate
+	self clearCache
 ]
 
 { #category : #'api - operations' }

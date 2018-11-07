@@ -77,7 +77,7 @@ BrTextEditorExamples class >> exampleMethodTextOpen [
 		BlFontGenericFamilyAttribute monospace beNotOverwritableByStyler
 	}.
 	editorElement editor text attributes: {
-		BrTextHoverAttribute new beNotOverwritableByStyler.
+		BrTextHoverStylableAttribute new beNotOverwritableByStyler.
 		BrTextClickAttribute new beNotOverwritableByStyler
 	} from: 39 to: 42.
 	editorElement constraintsDo: [ :c |

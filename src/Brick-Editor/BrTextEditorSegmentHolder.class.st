@@ -22,3 +22,11 @@ BrTextEditorSegmentHolder >> onSelectionChanged [
 	
 	self subclassResponsibility
 ]
+
+{ #category : #updating }
+BrTextEditorSegmentHolder >> onTextChanged [
+	"Is sent when text changed in the editor (for example style attributes).
+	Segment holder should update text elements accordingly"
+	
+	self subclassResponsibility
+]

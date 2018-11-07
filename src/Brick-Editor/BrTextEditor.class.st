@@ -329,7 +329,8 @@ BrTextEditor >> interactions [
 
 { #category : #'private - updating' }
 BrTextEditor >> invalidate: aFromTextIndex to: aToTextIndex [
-	"Invalidate segments (reset their internal cache) within text interval specified by from and to indices"
+	"Update text rendering within an interval defined by provided from and to indices."
+
 	| aCommand |
 	self assertIndex: aFromTextIndex to: aToTextIndex.
 	
@@ -341,7 +342,13 @@ BrTextEditor >> invalidate: aFromTextIndex to: aToTextIndex [
 
 { #category : #'private - updating' }
 BrTextEditor >> invalidateAll [
-	self segmentCollector segments do: #invalidate
+	"Invalidate the rendering (request the redraw, don't create new segments or words)"
+	| aCommand |
+
+	aCommand := self newInvalidateCommand
+		fromIndex: self segmentCollector start;
+		toIndex: self segmentCollector end.
+	self enqueueCommand: aCommand
 ]
 
 { #category : #accessing }
@@ -878,7 +885,8 @@ BrTextEditor >> text: aBrText [
 
 { #category : #'private - updating' }
 BrTextEditor >> update: aFromTextIndex to: aToTextIndex [
-	"Update text rendering within an interval defined by provided from and to indices."
+	"Invalidate segments (reset their internal cache) within text interval specified by from and to indices"
+	
 	| aCommand |
 	self assertIndex: aFromTextIndex to: aToTextIndex.
 	
@@ -890,9 +898,9 @@ BrTextEditor >> update: aFromTextIndex to: aToTextIndex [
 
 { #category : #'private - updating' }
 BrTextEditor >> updateAll [
-	"Update rendering of the whole text within the editor"
+	"Reset segments cache and recreate new words"
 	| aCommand |
-	
+
 	aCommand := self newUpdateCommand
 		fromIndex: self segmentCollector start;
 		toIndex: self segmentCollector end.

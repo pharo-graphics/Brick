@@ -105,3 +105,8 @@ BrTextEditorLineSegmentTextPiece >> updateSelection: aTextElement of: aLineSegme
 					fromIndex: localFrom;
 					toIndex: localTo) ] ]
 ]
+
+{ #category : #updating }
+BrTextEditorLineSegmentTextPiece >> updateText: aTextElement of: aLineSegment in: anEditorElement [
+	aTextElement dispatchEvent: (BrTextEditorTextChangedRequest new editorElement: anEditorElement)
+]

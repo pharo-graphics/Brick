@@ -11,6 +11,14 @@ Class {
 }
 
 { #category : #'pieces - computation' }
+BrTextEditorLineSegment >> clearCache [
+	"Clear all caches and make this segment fresh as if it would just be created and initalized"
+	super clearCache.
+
+	pieces := nil
+]
+
+{ #category : #'pieces - computation' }
 BrTextEditorLineSegment >> computedPieces [
 	<return: #SequenceableCollection of: #BrTextEditorLineSegmentPiece>
 	| thePieces |
@@ -42,14 +50,6 @@ BrTextEditorLineSegment >> initialize [
 	lineSpacing := 0.
 	wordPadding := BlInsets top: 3 bottom: 3.
 	paragraphMargin := BlInsets empty
-]
-
-{ #category : #'pieces - computation' }
-BrTextEditorLineSegment >> invalidate [
-	"Clear all caches and make this segment fresh as if it would just be created and initalized"
-	super invalidate.
-
-	pieces := nil
 ]
 
 { #category : #'attributes - paragraph' }

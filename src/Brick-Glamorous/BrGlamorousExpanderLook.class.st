@@ -55,6 +55,7 @@ BrGlamorousExpanderLook >> initialize [
 			aTriangle geometry: (BlPolygon vertices: {0@0 . 8@0 . 4@8}).
 			aWidget background: Color white.
 			aWidget border: (BlBorder empty).
+			self remove: aShadowLook.
 			self add: aShadowLook ]) 
 ]
 

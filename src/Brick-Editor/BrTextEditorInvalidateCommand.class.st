@@ -15,20 +15,21 @@ BrTextEditorInvalidateCommand >> executeOn: aTextEditor [
 	changedFrom := self fromIndex. "now it is text index"
 	changedTo := self toIndex. "now it is text index"
 
-	"convert from text => to segment index => segment array index"
+	"convert from text => to segment index"
 	aTextEditor segmentCollector
 		cachedSegmentAt: changedFrom
-		ifFound: [ :aSegment | changedFrom := (aSegment index - aTextEditor segmentCollector firstIndex) + 1 ]
-		ifNotFound: [ 1 ].
+		ifFound: [ :aSegment | changedFrom := aSegment index ]
+		ifNotFound: [ changedFrom := 1 ].
 
-	"convert from text => to segment index => segment array index"
+	"convert from text => to segment index"
 	aTextEditor segmentCollector
 		cachedSegmentAt: changedTo
-		ifFound: [ :aSegment | changedTo := (aSegment index - aTextEditor segmentCollector firstIndex) +1 ]
+		ifFound: [ :aSegment | changedTo := aSegment index ]
 		ifNotFound: [ changedTo := aTextEditor segmentCollector segments size ].	
 
-	changedFrom to: changedTo do: [ :anIndex |
-		(aTextEditor segmentCollector segments at: anIndex) invalidate ]
+	aTextEditor
+		notifyItemsChanged: (changedFrom to: changedTo)
+		payload: self newHolderCommand
 ]
 
 { #category : #accessing }
@@ -39,6 +40,11 @@ BrTextEditorInvalidateCommand >> fromIndex [
 { #category : #accessing }
 BrTextEditorInvalidateCommand >> fromIndex: aFromTextIndex [
 	fromIndex := aFromTextIndex
+]
+
+{ #category : #'instance creation' }
+BrTextEditorInvalidateCommand >> newHolderCommand [
+	^ BrTextEditorTextChangedHolderCommand new
 ]
 
 { #category : #accessing }

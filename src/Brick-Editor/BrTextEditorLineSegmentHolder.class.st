@@ -87,6 +87,20 @@ BrTextEditorLineSegmentHolder >> onSelectionChanged [
 		do: [ :aPiece :aPieceElement | aPiece updateSelection: aPieceElement of: segment in: self infiniteElement ]
 ]
 
+{ #category : #updating }
+BrTextEditorLineSegmentHolder >> onTextChanged [
+	"Is sent when text changed in the editor (for example style attributes).
+	Segment holder should update text elements accordingly"
+		
+	self
+		assert: [ segment isNotNil ]
+		description: [ 'Segment must be bound!' ].
+
+	pieces
+		with: pieceElements
+		do: [ :aPiece :aPieceElement | aPiece updateText: aPieceElement of: segment in: self infiniteElement ]
+]
+
 { #category : #accessing }
 BrTextEditorLineSegmentHolder >> segment: anEditorSegment [
 	segment := anEditorSegment.

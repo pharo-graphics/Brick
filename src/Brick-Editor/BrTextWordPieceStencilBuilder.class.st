@@ -21,7 +21,7 @@ BrTextWordPieceStencilBuilder >> buildDefault [
 		padding: (self segmentPiece segment wordPadding);
 		
 		"to support event-handling attributes"
-		addEventHandler: BrTextEditorAttributedLineSegmentTextListener new;
+		addEventHandler: (BrTextEditorAttributedLineSegmentTextListener new editorElement: self editorElement);
 
 		"editor requests to show a cursor as a result of its position change"
 		addEventHandler: BrTextWordPieceShowCursorHandler uniqueInstance;
@@ -37,6 +37,9 @@ BrTextWordPieceStencilBuilder >> buildDefault [
 		
 		"selection changed in the editor, deselect a given interval"
 		addEventHandler: BrTextWordPieceDeselectionHandler uniqueInstance;
+		
+		"text changed in the editor"
+		addEventHandler: BrTextWordPieceTextChangeHandler uniqueInstance;		
 		
 		"when clicking inside of a text piece we should move cursor there and request editor focus"
 		addEventHandler: mouseDownHandler;

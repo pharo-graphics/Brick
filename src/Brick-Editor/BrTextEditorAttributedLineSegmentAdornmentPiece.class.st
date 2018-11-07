@@ -57,3 +57,8 @@ BrTextEditorAttributedLineSegmentAdornmentPiece >> updateFocus: aBoolean of: aTe
 BrTextEditorAttributedLineSegmentAdornmentPiece >> updateSelection: anElement of: aLineSegment in: anEditorElement [
 	"Adornment pieces do not react on selection"
 ]
+
+{ #category : #updating }
+BrTextEditorAttributedLineSegmentAdornmentPiece >> updateText: anElement of: aLineSegment in: anEditorElement [
+	"Adornment pieces do not react on selection"
+]

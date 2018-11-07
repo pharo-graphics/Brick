@@ -4,8 +4,21 @@ I add support of BrTextEventHandlerAttribute - special kind of attribute that ca
 Class {
 	#name : #BrTextEditorAttributedLineSegmentTextListener,
 	#superclass : #BlBasicEventHandler,
-	#category : 'Brick-Editor-Model - Segment-Text-Line-Attributed'
+	#instVars : [
+		'editorElement'
+	],
+	#category : #'Brick-Editor-Model - Segment-Text-Line-Attributed'
 }
+
+{ #category : #accessing }
+BrTextEditorAttributedLineSegmentTextListener >> editorElement [
+	^ editorElement
+]
+
+{ #category : #accessing }
+BrTextEditorAttributedLineSegmentTextListener >> editorElement: anEditorElement [
+	editorElement := anEditorElement
+]
 
 { #category : #events }
 BrTextEditorAttributedLineSegmentTextListener >> handleEvent: aBlMouseEvent [
@@ -24,8 +37,8 @@ BrTextEditorAttributedLineSegmentTextListener >> handleEvent: aBlMouseEvent [
 	theAttributes := anIterator selectAttributes: [ :anAttribute | anAttribute isKindOf: BrTextEventHandlerAttribute ].
 
 	theAttributes do: [ :anAttribute |
-		(anAttribute wantsEvent: aBlMouseEvent)
-			ifTrue: [ anAttribute handleEvent: aBlMouseEvent ] ]
+		(anAttribute wantsEvent: aBlMouseEvent in: self editorElement)
+			ifTrue: [ anAttribute handleEvent: aBlMouseEvent in: self editorElement ] ]
 ]
 
 { #category : #events }

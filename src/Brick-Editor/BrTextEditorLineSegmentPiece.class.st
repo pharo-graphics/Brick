@@ -101,3 +101,9 @@ BrTextEditorLineSegmentPiece >> updateSelection: anElement of: aLineSegment in: 
 	
 	self subclassResponsibility
 ]
+
+{ #category : #updating }
+BrTextEditorLineSegmentPiece >> updateText: anElement of: aLineSegment in: anEditorElement [
+	
+	self subclassResponsibility
+]

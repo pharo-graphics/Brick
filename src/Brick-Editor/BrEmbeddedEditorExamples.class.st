@@ -29,7 +29,7 @@ BrEmbeddedEditorExamples >> embeddedEditorText [
 
 { #category : #'examples - embedded' }
 BrEmbeddedEditorExamples >> embeddedTextEditorElement [
-	<gtExample>
+	"<gtExample>"
 	| anEditorElement |
 
 	anEditorElement := BrTextEditorOnObjectPrintStringExamples new elementOnObjectPrintString
