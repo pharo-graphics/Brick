@@ -1,6 +1,6 @@
 Class {
-	#name : #BrTextExpandButtonAttributeBuilder,
-	#superclass : #Object,
+	#name : #BrTextExpandButtonAttributeStencil,
+	#superclass : #BrStencil,
 	#instVars : [
 		'isExpanded',
 		'attributesCreatingBlock',
@@ -11,37 +11,43 @@ Class {
 }
 
 { #category : #accessing }
-BrTextExpandButtonAttributeBuilder >> attributesCreatingBlock [
+BrTextExpandButtonAttributeStencil >> attributesCreatingBlock [
 	^ attributesCreatingBlock
 ]
 
 { #category : #accessing }
-BrTextExpandButtonAttributeBuilder >> attributesCreatingBlock: anObject [
+BrTextExpandButtonAttributeStencil >> attributesCreatingBlock: anObject [
 	attributesCreatingBlock := anObject
 ]
 
 { #category : #accessing }
-BrTextExpandButtonAttributeBuilder >> beAppend [
+BrTextExpandButtonAttributeStencil >> beAppend [
 	shouldAppend := true
 ]
 
 { #category : #accessing }
-BrTextExpandButtonAttributeBuilder >> beNotOverwritableByStyler [
+BrTextExpandButtonAttributeStencil >> beNotOverwritableByStyler [
 	isOverwritableByStyler := false
 ]
 
 { #category : #accessing }
-BrTextExpandButtonAttributeBuilder >> beOverwritableByStyler [
+BrTextExpandButtonAttributeStencil >> beOverwritableByStyler [
 	isOverwritableByStyler := true
 ]
 
 { #category : #accessing }
-BrTextExpandButtonAttributeBuilder >> beReplace [
+BrTextExpandButtonAttributeStencil >> beReplace [
 	shouldAppend := false
 ]
 
+{ #category : #private }
+BrTextExpandButtonAttributeStencil >> collapsedTextExpandButtonAttribute [
+	^ BrTextExpandButtonAttribute new
+			attributesCreatingBlock: self attributesCreatingBlock.
+]
+
 { #category : #'api - instantiation' }
-BrTextExpandButtonAttributeBuilder >> build [
+BrTextExpandButtonAttributeStencil >> create [
 	<return: #Array of: #BlTextAttribute>
 
 	^ self isExpanded
@@ -50,13 +56,7 @@ BrTextExpandButtonAttributeBuilder >> build [
 ]
 
 { #category : #private }
-BrTextExpandButtonAttributeBuilder >> collapsedTextExpandButtonAttribute [
-	^ BrTextExpandButtonAttribute new
-			attributesCreatingBlock: self attributesCreatingBlock.
-]
-
-{ #category : #private }
-BrTextExpandButtonAttributeBuilder >> expandedTextExpandButtonAndPreviewAttributes [
+BrTextExpandButtonAttributeStencil >> expandedTextExpandButtonAndPreviewAttributes [
 	| anExpandingAttribute aPreviewAttributes |
 	aPreviewAttributes := self attributesCreatingBlock value.
 	anExpandingAttribute := self collapsedTextExpandButtonAttribute
@@ -66,7 +66,7 @@ BrTextExpandButtonAttributeBuilder >> expandedTextExpandButtonAndPreviewAttribut
 ]
 
 { #category : #initialization }
-BrTextExpandButtonAttributeBuilder >> initialize [
+BrTextExpandButtonAttributeStencil >> initialize [
 	super initialize.
 	attributesCreatingBlock := [ OrderedCollection new ].
 	isExpanded := false.
@@ -75,11 +75,11 @@ BrTextExpandButtonAttributeBuilder >> initialize [
 ]
 
 { #category : #accessing }
-BrTextExpandButtonAttributeBuilder >> isExpanded [
+BrTextExpandButtonAttributeStencil >> isExpanded [
 	^ isExpanded
 ]
 
 { #category : #accessing }
-BrTextExpandButtonAttributeBuilder >> isExpanded: anObject [
+BrTextExpandButtonAttributeStencil >> isExpanded: anObject [
 	isExpanded := anObject
 ]

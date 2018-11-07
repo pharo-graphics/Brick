@@ -76,3 +76,13 @@ BrStencil >> gtInspectorStencilElementPreviewIn: aComposite [
 		display: [ self create ];
 		when: [ self create isKindOf: BlElement ]
 ]
+
+{ #category : #'gt-inspector-extension' }
+BrStencil >> gtPreviewFor: aView [
+	<gtView>
+
+	^ aView explicit
+		title: 'Preview';
+		priority: 0;
+		stencil: [ self asElement ]
+]
