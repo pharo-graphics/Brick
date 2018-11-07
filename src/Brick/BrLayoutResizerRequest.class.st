@@ -1,7 +1,7 @@
 Class {
 	#name : #BrLayoutResizerRequest,
 	#superclass : #BrRequest,
-	#category : #'Brick-! Core - Events'
+	#category : #'Brick-Layout Resizer - Events'
 }
 
 { #category : #initialization }

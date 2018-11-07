@@ -5,16 +5,69 @@ Class {
 }
 
 { #category : #'api - style' }
-BrInteractiveCommonLook >> default: aBlock [	
-	self style: [ :aStyler | aStyler default: aBlock ]
+BrInteractiveCommonLook >> collapsed: aStyleBlock [
+	self
+		when: self state collapsed
+		style: aStyleBlock
 ]
 
 { #category : #'api - style' }
-BrInteractiveCommonLook >> disabled: aBlock [	
-	self style: [ :aStyler | aStyler disabled: aBlock ]
+BrInteractiveCommonLook >> default: aStyleBlock [
+	self
+		when: self state default
+		style: aStyleBlock
 ]
 
 { #category : #'api - style' }
-BrInteractiveCommonLook >> enabled: aBlock [	
-	self style: [ :aStyler | aStyler enabled: aBlock ]
+BrInteractiveCommonLook >> disabled: aStyleBlock [
+	self
+		when: self state disabled
+		style: aStyleBlock
+]
+
+{ #category : #'api - style' }
+BrInteractiveCommonLook >> enabled: aStyleBlock [
+	self
+		when: self state enabled
+		style: aStyleBlock
+]
+
+{ #category : #'api - style' }
+BrInteractiveCommonLook >> expanded: aStyleBlock [
+	self
+		when: self state expanded
+		style: aStyleBlock
+]
+
+{ #category : #'api - style' }
+BrInteractiveCommonLook >> focused: aStyleBlock [
+	self
+		when: self state focused
+		style: aStyleBlock
+]
+
+{ #category : #'api - style' }
+BrInteractiveCommonLook >> hovered: aStyleBlock [
+	self
+		when: self state hovered
+		style: aStyleBlock
+]
+
+{ #category : #'api - style' }
+BrInteractiveCommonLook >> pressed: aStyleBlock [
+	self
+		when: self state pressed
+		style: aStyleBlock
+]
+
+{ #category : #accessing }
+BrInteractiveCommonLook >> state [
+	^ BrInteractionState
+]
+
+{ #category : #'api - style' }
+BrInteractiveCommonLook >> unfocused: aStyleBlock [
+	self
+		when: self state unfocused
+		style: aStyleBlock
 ]

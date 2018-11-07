@@ -38,15 +38,15 @@ BrAccordionModel >> headerStencil: aBrStencil [
 BrAccordionModel >> initialize [
 	super initialize.
 	
-	contentStencil := BlElement new
+	contentStencil := [ BlElement new
 		size: 50@50;
 		background: Color red;
-		yourself.
+		yourself ] asStencil.
 		
-	headerStencil := BlElement new
+	headerStencil := [ BlElement new
 		size: 50@50;
 		background: Color blue;
-		yourself
+		yourself ] asStencil
 ]
 
 { #category : #initialization }

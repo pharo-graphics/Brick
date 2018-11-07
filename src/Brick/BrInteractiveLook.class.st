@@ -57,6 +57,11 @@ BrInteractiveLook >> initializeLook [
 BrInteractiveLook >> initializeRequests [
 	super initializeRequests.
 	
+	self requestStates
+]
+
+{ #category : #initialization }
+BrInteractiveLook >> requestStates [
 	self statesChanged: (self request: BrInteractionRequest oneWay)
 ]
 

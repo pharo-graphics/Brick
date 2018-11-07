@@ -1,5 +1,5 @@
 Class {
 	#name : #BrLayoutHorizontalResizerChanged,
 	#superclass : #BrLayoutResizerChanged,
-	#category : #'Brick-! Core - Events'
+	#category : #'Brick-Layout Resizer - Events'
 }

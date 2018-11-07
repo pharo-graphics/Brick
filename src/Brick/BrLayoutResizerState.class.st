@@ -4,7 +4,7 @@ Class {
 	#instVars : [
 		'resizer'
 	],
-	#category : #'Brick-! Core - States'
+	#category : #'Brick-Layout Resizer - States'
 }
 
 { #category : #factory }

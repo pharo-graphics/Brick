@@ -1,7 +1,7 @@
 Class {
 	#name : #BrLayoutHorizontalResizerState,
 	#superclass : #BrLayoutResizerState,
-	#category : #'Brick-! Core - States'
+	#category : #'Brick-Layout Resizer - States'
 }
 
 { #category : #'instance creation' }

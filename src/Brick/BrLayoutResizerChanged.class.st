@@ -4,7 +4,7 @@ Class {
 	#instVars : [
 		'resizer'
 	],
-	#category : #'Brick-! Core - Events'
+	#category : #'Brick-Layout Resizer - Events'
 }
 
 { #category : #accessing }

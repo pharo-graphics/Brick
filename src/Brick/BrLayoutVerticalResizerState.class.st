@@ -1,7 +1,7 @@
 Class {
 	#name : #BrLayoutVerticalResizerState,
 	#superclass : #BrLayoutResizerState,
-	#category : #'Brick-! Core - States'
+	#category : #'Brick-Layout Resizer - States'
 }
 
 { #category : #accessing }
