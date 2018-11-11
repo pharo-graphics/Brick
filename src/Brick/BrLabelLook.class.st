@@ -36,9 +36,9 @@ BrLabelLook >> attributesBuilder [
 { #category : #initialization }
 BrLabelLook >> initialize [
 	super initialize.
-	
+
 	text := 'Label' asRopedText.
-	
+
 	labelElement := BlTextElement new.
 	labelElement clipChildren: false.
 
@@ -79,6 +79,11 @@ BrLabelLook >> label [
 { #category : #accessing }
 BrLabelLook >> labelDo: aBlock [	
 	aBlock value: self label
+]
+
+{ #category : #accessing }
+BrLabelLook >> padding: aBlInsets [
+	self label padding: aBlInsets
 ]
 
 { #category : #accessing }

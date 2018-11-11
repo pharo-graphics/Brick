@@ -23,7 +23,7 @@ BrResizer >> initialize [
 	super initialize.
 	
 	self viewModel: (resizerModel := BrResizerModel new
-		add: (BrInteractiveModel new addStates: {
+		add: (BrInteractiveModel withAll: {
 			locationModel := BrResizerLocationModel new
 		}))
 ]

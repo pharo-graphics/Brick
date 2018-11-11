@@ -19,6 +19,8 @@ BrTextWordPieceStencilBuilder >> buildDefault [
 		text: self text;
 		clipChildren: false;
 		padding: (self segmentPiece segment wordPadding);
+		ascentBaseline;
+		looseMesurement;
 		
 		"to support event-handling attributes"
 		addEventHandler: (BrTextEditorAttributedLineSegmentTextListener new editorElement: self editorElement);

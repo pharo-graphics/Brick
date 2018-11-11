@@ -13,7 +13,7 @@ BrLayoutResizerExamples >> layoutResizerWithPropagation [
 	BlElement new
 		background: (Color gray alpha: 0.2);
 		border: (BlBorder builder dashed paint: Color lightGray; width: 1; build);
-		look: (BrInteractiveLayoutResizerLook new
+		look: (BrLayoutResizerLook new
 			hFitContent: [ :anElement | anElement width: 200 atRandom + 50 ]; 
 			vFitContent: [ :anElement | anElement height: 30 atRandom + 5 ];
 			hMatchParent; "inherit match parent"
@@ -23,7 +23,7 @@ BrLayoutResizerExamples >> layoutResizerWithPropagation [
 
 	widget := BlElement new.
 	widget viewModel: (BrInteractiveModel withAll: { BrLayoutHorizontalResizerModel fitContent. BrLayoutVerticalResizerModel fitContent }).
-	widget look: (BrInteractiveLayoutResizerLook new inherit).
+	widget look: (BrLayoutResizerLook new inherit).
 	widget background: (Color gray alpha: 0.1).
 	widget padding: (BlInsets left: 10 right: 10).
 	widget layout: (BlLinearLayout vertical cellSpacing: 10).

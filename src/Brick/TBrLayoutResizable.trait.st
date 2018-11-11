@@ -4,6 +4,21 @@ Trait {
 }
 
 { #category : #'api - style' }
+TBrLayoutResizable >> exact: aPoint [
+	| aSize |
+	
+	aSize := aPoint asPoint.
+	self hExact: aSize x.
+	self vExact: aSize y
+]
+
+{ #category : #'api - style' }
+TBrLayoutResizable >> fitContent [
+	self hFitContent.
+	self vFitContent
+]
+
+{ #category : #'api - style' }
 TBrLayoutResizable >> hExact: aNumber [
 	self dispatchEvent: (BrLayoutHorizontalResizerWish exact: aNumber)
 ]
@@ -16,6 +31,12 @@ TBrLayoutResizable >> hFitContent [
 { #category : #'api - style' }
 TBrLayoutResizable >> hMatchParent [
 	self dispatchEvent: (BrLayoutHorizontalResizerWish matchParent)
+]
+
+{ #category : #'api - style' }
+TBrLayoutResizable >> matchParent [
+	self hMatchParent.
+	self vMatchParent
 ]
 
 { #category : #'api - style' }

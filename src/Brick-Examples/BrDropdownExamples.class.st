@@ -4,19 +4,19 @@ Class {
 	#category : #'Brick-Examples-Dropdown'
 }
 
-{ #category : #examples }
-BrDropdownExamples >> dropdown [
+{ #category : #'instance creation' }
+BrDropdownExamples >> badgeButton [
 	<gtExample>
-
-	^ BrDropdown new
+	
+	^ BrButton new
+		background: Color orange;
+		label: ('3' asRopedText fontSize: 15; foreground: Color white; bold);
 		layout: BlLinearLayout horizontal;
-		relocate: 200@100;
 		constraintsDo: [ :c | 
 			c horizontal fitContent.
 			c vertical fitContent ];
-		in: [ :aDropdown | aDropdown toggle: [ self toggleButton action: [ aDropdown toggle ] ] ];
-		popup: [ self popupList ];
-		look: (BrDropdownExamples new roundLook)
+		look: BrLabelLook;
+		padding: (BlInsets all: 7)
 ]
 
 { #category : #'instance creation' }
@@ -42,10 +42,74 @@ BrDropdownExamples >> roundLook [
 	^ BrDropdownLook new outskirtsEmbellisher: [ :e | e look: BrDropdownOutskirtsLook new ]
 ]
 
+{ #category : #examples }
+BrDropdownExamples >> roundedDropdownList [
+	<gtExample>
+
+	^ BrDropdown new
+		layout: BlLinearLayout horizontal;
+		relocate: 200@100;
+		constraintsDo: [ :c | 
+			c horizontal fitContent.
+			c vertical fitContent ];
+		in: [ :aDropdown | aDropdown toggle: [ self toggleButton action: [ aDropdown toggle ] ] ];
+		popup: [ self popupList ];
+		look: (BrDropdownExamples new roundLook)
+]
+
+{ #category : #examples }
+BrDropdownExamples >> suggesterBadgeDropdownList [
+	<gtExample>
+	| aDropdown |
+	
+	aDropdown := BrDropdown new
+		layout: BlLinearLayout horizontal;
+		relocate: 200@100;
+		constraintsDo: [ :c | 
+			c horizontal fitContent.
+			c vertical fitContent ].
+	aDropdown toggle: [ self badgeButton action: [ aDropdown toggle ] ].
+	aDropdown popup: [ self popupList ].	
+	aDropdown look: (BrDropdownLook new
+		popupEmbellisher: [ :aPopupElement :aToggleStencil | 
+			| aContainer aPopupWrapper |
+			
+			aPopupWrapper := BlElement new
+				layout: BlLinearLayout vertical;
+				constraintsDo: [ :c |
+					c horizontal fitContent.
+					c vertical fitContent ].
+				
+			aPopupWrapper addChild: aPopupElement.
+			aPopupWrapper border: (BlBorder paint: Color orange width: 1).
+			aPopupWrapper background: Color white.
+			
+			aContainer := BlElement new.
+			aContainer clipChildren: false.
+			aContainer layout: BlLinearLayout vertical.
+			aContainer constraintsDo: [ :c |
+				c horizontal fitContent.
+				c vertical fitContent ].
+			aContainer addChild: (aToggleStencil asElement elevation: (BlRelativeElevation elevation: 2)).
+			aContainer addChild: aPopupWrapper ];
+		outskirtsEmbellisher: [ :anElement | anElement ]).
+	^ aDropdown
+	
+	"^ BrDropdown new
+		layout: BlLinearLayout horizontal;
+		relocate: 200@100;
+		constraintsDo: [ :c | 
+			c horizontal fitContent.
+			c vertical fitContent ];
+		in: [ :aDropdown | aDropdown toggle: [ self toggleButton action: [ aDropdown toggle ] ] ];
+		popup: [ self popupList ];
+		look: (BrDropdownExamples new roundLook)"
+]
+
 { #category : #'instance creation' }
 BrDropdownExamples >> toggleButton [
 	<gtExample>
-	
+
 	^ BrButton new
 		look: BrGlamorousLabelLook + BrGlamorousButtonIconLook + BrLayoutLook linearHorizontal fitContent;
 		padding: (BlInsets top: 6 right: 8 bottom: 6 left: 15);

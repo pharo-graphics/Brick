@@ -161,7 +161,7 @@ BrLook >> remove: aBrLook [
 	aLookInstance := aBrLook asLook.
 	self looks remove: aLookInstance ifAbsent: [ ^ self ].
 	
-	aBrLook widgetDo: [ :anElement | aLookInstance onUninstalledIn: anElement ]
+	aLookInstance widgetDo: [ :anElement | aLookInstance onUninstalledIn: anElement ]
 ]
 
 { #category : #accessing }
