@@ -12,6 +12,11 @@ Class {
 	#category : #'Brick-Badge - UI'
 }
 
+{ #category : #'api - widget' }
+BrBadge >> action: aValuable [
+	self viewModel action: aValuable
+]
+
 { #category : #initialization }
 BrBadge >> initialize [
 	super initialize.
@@ -28,7 +33,7 @@ BrBadge >> initialize [
 				BrLayoutVerticalResizerModel new }))
 ]
 
-{ #category : #accessing }
+{ #category : #'api - widget' }
 BrBadge >> label: aString [
 	labelModel text: aString
 ]

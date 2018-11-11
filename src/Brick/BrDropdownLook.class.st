@@ -7,7 +7,8 @@ Class {
 		'popupEmbellisher',
 		'popupElement',
 		'toggleElement',
-		'outskirtsEmbellisher'
+		'outskirtsEmbellisher',
+		'dropdownTargetSelector'
 	],
 	#category : #'Brick-Dropdown - Look'
 }
@@ -48,8 +49,13 @@ BrDropdownLook >> dropdownExpanded [
 	self widgetDo: [ :aWidget |
 		aWidget isAttachedToSceneGraph
 			ifTrue: [
-				aWidget space addChild: (popupElement := self createPopupElement).
+				(dropdownTargetSelector cull: aWidget) addChild: (popupElement := self createPopupElement).
 				self relocatePopup ] ]
+]
+
+{ #category : #accessing }
+BrDropdownLook >> dropdownTarget: aBlock [
+	dropdownTargetSelector := aBlock
 ]
 
 { #category : #'element handlers' }
@@ -65,7 +71,9 @@ BrDropdownLook >> initialize [
 	popupStencil := BrDropdownModel defaultPopupStencil.
 
 	popupEmbellisher := BrDropdownPopupEmbellisher new.
-	outskirtsEmbellisher := BrDropdownOutskirtsEmbellisher new
+	outskirtsEmbellisher := BrDropdownOutskirtsEmbellisher new.
+	
+	dropdownTargetSelector := [ :aWidget | aWidget space ]
 ]
 
 { #category : #initialization }

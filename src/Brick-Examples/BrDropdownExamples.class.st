@@ -94,16 +94,6 @@ BrDropdownExamples >> suggesterBadgeDropdownList [
 			aContainer addChild: aPopupWrapper ];
 		outskirtsEmbellisher: [ :anElement | anElement ]).
 	^ aDropdown
-	
-	"^ BrDropdown new
-		layout: BlLinearLayout horizontal;
-		relocate: 200@100;
-		constraintsDo: [ :c | 
-			c horizontal fitContent.
-			c vertical fitContent ];
-		in: [ :aDropdown | aDropdown toggle: [ self toggleButton action: [ aDropdown toggle ] ] ];
-		popup: [ self popupList ];
-		look: (BrDropdownExamples new roundLook)"
 ]
 
 { #category : #'instance creation' }
