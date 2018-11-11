@@ -74,14 +74,11 @@ BrExpanderLook >> initialize [
 		expanded: [ self onExpanded ];
 		collapsed: [ self onCollapsed ]).
 
-	self add: (layoutResizerLook := BrInteractiveLayoutResizerLook new
+	self add: (layoutResizerLook := BrLayoutResizerLook new
 		inherit; "for myself"
-		hMatchParentIn: [ :aBlock | self resizableElementsDo: aBlock ];
-		vMatchParentIn: [ :aBlock | self resizableElementsDo: aBlock ];
-		hFitContentIn: [ :aBlock | self resizableElementsDo: aBlock ];
-		vFitContentIn: [ :aBlock | self resizableElementsDo: aBlock ];
-		hExactToMatchParentIn: [ :aBlock | self resizableElementsDo: aBlock ];
-		vExactToMatchParentIn: [ :aBlock | self resizableElementsDo: aBlock ])
+		matchParentToMatchParentIn: [ :aBlock | self resizableElementsDo: aBlock ];
+		exactToMatchParentIn: [ :aBlock | self resizableElementsDo: aBlock ];
+		fitContentToFitContentIn: [ :aBlock | self resizableElementsDo: aBlock ])
 ]
 
 { #category : #initialization }

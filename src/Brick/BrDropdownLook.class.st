@@ -133,7 +133,7 @@ BrDropdownLook >> popupEmbellisher [
 
 { #category : #accessing }
 BrDropdownLook >> popupEmbellisher: anObject [
-	popupEmbellisher := anObject
+	popupEmbellisher := anObject  asStencilBuilder: BrDropdownPopupEmbellisher
 ]
 
 { #category : #geometry }

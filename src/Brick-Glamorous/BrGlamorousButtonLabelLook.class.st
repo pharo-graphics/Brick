@@ -15,8 +15,6 @@ BrGlamorousButtonLabelLook >> initialize [
 		weight: 400;
 		fontName: 'Source Sans Pro'.
 
-	self labelDo: [ :aLabelElement | aLabelElement boundsBaseline ].
-
 	self add: (BrInteractiveLook new style: [ :aStyler |
 		aStyler default: [ self
 			foreground: BrGlamorousColors defaultButtonTextColor;
