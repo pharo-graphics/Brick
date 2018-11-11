@@ -42,8 +42,8 @@ BrTextExpandButtonAttributeStencil >> beReplace [
 
 { #category : #private }
 BrTextExpandButtonAttributeStencil >> collapsedTextExpandButtonAttribute [
-	^ BrTextExpandButtonAttribute new
-			attributesCreatingBlock: self attributesCreatingBlock.
+	^ self textExpandButtonAttributeClass new
+		attributesCreatingBlock: self attributesCreatingBlock
 ]
 
 { #category : #'api - instantiation' }
@@ -82,4 +82,9 @@ BrTextExpandButtonAttributeStencil >> isExpanded [
 { #category : #accessing }
 BrTextExpandButtonAttributeStencil >> isExpanded: anObject [
 	isExpanded := anObject
+]
+
+{ #category : #initialization }
+BrTextExpandButtonAttributeStencil >> textExpandButtonAttributeClass [
+	^ BrTextExpandButtonAttribute
 ]

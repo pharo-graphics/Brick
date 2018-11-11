@@ -14,28 +14,13 @@ Class {
 
 { #category : #accessing }
 BrTextExpandButtonAttribute >> affect: aBrText in: anEditorElement [
-	| aTextEditor |
-
-	aTextEditor := anEditorElement editor.
-
 	^ BlElement new
-		size: 8@11;
+		size: 8 @ 11;
 		margin: (BlInsets top: 2 right: 5 bottom: 0 left: 5);
 		background: (Color gray alpha: 0.4);
-		geometry: (BlPolygon vertices: (isExpanded 	
-			ifTrue: [ { 0@3 . 8@3. 4@11 } ] 
-			ifFalse: [ { 0@3 . 8@7. 0@11 } ]));
-		addEventHandlerOn: BlClickEvent do: [ :anEvent | 
-			isExpanded
-				ifTrue: [ 
-					aBrText clearAttributes: [ :aTextAttribute | createdAttributes includes: aTextAttribute ] ]
-				ifFalse: [ 
-					createdAttributes := (attributesCreatingBlock cull: aBrText cull: aTextEditor) asOrderedCollection.
-					aBrText attributes: createdAttributes ].
-			self isExpanded: isExpanded not.
-			aTextEditor invalidate: aBrText start to: aBrText end.
-			aTextEditor update: aBrText start to: aBrText end ];
-		yourself
+		geometry: self buttonGeometry;
+		addEventHandlerOn: BlClickEvent
+			do: [ :anEvent | self handleEventAffect: aBrText in: anEditorElement editor ]
 ]
 
 { #category : #accessing }
@@ -48,14 +33,46 @@ BrTextExpandButtonAttribute >> attributesCreatingBlock: aBlock [
 	attributesCreatingBlock := aBlock
 ]
 
+{ #category : #private }
+BrTextExpandButtonAttribute >> buttonGeometry [
+	^ BlPolygon
+		vertices:
+			(self isExpanded
+				ifTrue: [ {(0 @ 3).
+					(8 @ 3).
+					(4 @ 11)} ]
+				ifFalse: [ {(0 @ 3).
+					(8 @ 7).
+					(0 @ 11)} ])
+]
+
+{ #category : #private }
+BrTextExpandButtonAttribute >> createAttributesAffect: aBrText in: aTextEditor [
+	createdAttributes := (attributesCreatingBlock
+		cull: aBrText
+		cull: aTextEditor) asOrderedCollection.
+	aBrText attributes: createdAttributes
+]
+
 { #category : #accessing }
 BrTextExpandButtonAttribute >> createdAttributes [
 	^ createdAttributes
 ]
 
 { #category : #accessing }
-BrTextExpandButtonAttribute >> createdAttributes: anObject [
-	createdAttributes := anObject
+BrTextExpandButtonAttribute >> createdAttributes: aCollection [
+	createdAttributes := aCollection
+]
+
+{ #category : #private }
+BrTextExpandButtonAttribute >> handleEventAffect: aBrText in: aTextEditor [
+	isExpanded
+		ifTrue: [ aBrText clearAttributes: [ :aTextAttribute | 
+				self createdAttributes includes: aTextAttribute ] ]
+		ifFalse: [ self createAttributesAffect: aBrText in: aTextEditor ].
+	self isExpanded: isExpanded not.
+	aTextEditor invalidate: aBrText start to: aBrText end.
+	aTextEditor update: aBrText start to: aBrText end
 ]
 
 { #category : #initialization }
