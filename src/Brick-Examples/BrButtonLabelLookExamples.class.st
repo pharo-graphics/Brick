@@ -1,5 +1,5 @@
 "
-!!Playing with label  looks  for buttons
+!! Playing with Label Looks for Buttons
 
 When using a label look, the label look embeds the label element directly in the widget element as a child. In the example below, the look is added directly to the button element:
 ${example:name=BrButtonLabelLookExamples>>#buttonWithDirectlyEmbeddedLabel|expanded=true|expandedPreview=true}$
