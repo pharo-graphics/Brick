@@ -12,5 +12,5 @@ BrGlamorousBadgeWithLabelLook >> initialize [
 	self add: (BrGlamorousLabelLook new
 		foreground: Color white;
 		fontSize: 16;
-		padding: (BlInsets all: 4))
+		padding: (BlInsets all: 6))
 ]
