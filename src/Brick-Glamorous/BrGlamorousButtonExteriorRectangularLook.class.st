@@ -15,6 +15,7 @@ BrGlamorousButtonExteriorRectangularLook >> initialize [
 		aStyler default: [ :aWidget | aWidget
 			height: 24;
 			padding: (BlInsets left: 10 right: 10) ].
+		aStyler huge: [ :aWidget | aWidget height: 48 ].
 		aStyler large: [ :aWidget | aWidget height: 30 ].
 		aStyler small: [ :aWidget | aWidget
 			height: 20;

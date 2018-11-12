@@ -54,6 +54,13 @@ BrInteractiveCommonStyler >> hovered: aStyleBlock [
 ]
 
 { #category : #builder }
+BrInteractiveCommonStyler >> huge: aStyleBlock [
+	self
+		when: self state huge
+		style: aStyleBlock
+]
+
+{ #category : #builder }
 BrInteractiveCommonStyler >> large: aStyleBlock [
 	self
 		when: self state large

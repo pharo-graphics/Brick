@@ -40,6 +40,11 @@ BrInteractionState class >> hovered [
 ]
 
 { #category : #'instance creation' }
+BrInteractionState class >> huge [
+	^ BrDimensionState huge
+]
+
+{ #category : #'instance creation' }
 BrInteractionState class >> large [
 	^ BrDimensionState large
 ]

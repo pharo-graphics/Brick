@@ -22,6 +22,11 @@ BrButton >> beDefault [
 ]
 
 { #category : #'api - dimension' }
+BrButton >> beHuge [
+	dimensionModel beHuge
+]
+
+{ #category : #'api - dimension' }
 BrButton >> beLarge [
 	dimensionModel beLarge
 ]

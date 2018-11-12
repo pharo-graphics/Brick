@@ -18,6 +18,16 @@ BrDimensionState class >> defaultName [
 ]
 
 { #category : #'instance creation' }
+BrDimensionState class >> huge [
+	^ self new dimension: self hugeName
+]
+
+{ #category : #accessing }
+BrDimensionState class >> hugeName [
+	^ #huge
+]
+
+{ #category : #'instance creation' }
 BrDimensionState class >> large [
 	^ self new dimension: self largeName
 ]

@@ -18,6 +18,11 @@ BrDimensionModel >> beDefault [
 ]
 
 { #category : #'api - configuration' }
+BrDimensionModel >> beHuge [
+	self dimension: BrDimensionState hugeName
+]
+
+{ #category : #'api - configuration' }
 BrDimensionModel >> beLarge [
 	self dimension: BrDimensionState largeName
 ]

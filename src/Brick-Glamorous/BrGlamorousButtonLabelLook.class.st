@@ -19,6 +19,7 @@ BrGlamorousButtonLabelLook >> initialize [
 		aStyler default: [ self
 			foreground: BrGlamorousColors defaultButtonTextColor;
 			fontSize: 14 ].
+		aStyler huge: [ self fontSize: 20 ].
 		aStyler large: [ self fontSize: 16 ].
 		aStyler small: [ self fontSize: 12 ].
 		aStyler tiny: [ self fontSize: 10 ].

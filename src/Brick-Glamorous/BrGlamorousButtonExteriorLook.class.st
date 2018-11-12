@@ -1,6 +1,6 @@
 Class {
 	#name : #BrGlamorousButtonExteriorLook,
-	#superclass : #BrInteractiveLook,
+	#superclass : #BrInteractiveCommonLook,
 	#instVars : [
 		'backgroundPaint'
 	],
@@ -23,7 +23,7 @@ BrGlamorousButtonExteriorLook >> initialize [
 
 	backgroundPaint := Color white.
 	
-	self add: (BrInteractiveLook new style: [ :aStyler |
+	self style: [ :aStyler |
 		aStyler default: [ :aWidget |
 			aWidget
 				background: BrGlamorousColors defaultButtonBackgroundColor;
@@ -38,5 +38,5 @@ BrGlamorousButtonExteriorLook >> initialize [
 		aStyler disabled: [ :aWidget |
 			aWidget
 				background: BrGlamorousColors disabledButtonBackgroundColor;
-				border: (BlBorder paint: BrGlamorousColors disabledButtonBorderColor width: 1) ] ])
+				border: (BlBorder paint: BrGlamorousColors disabledButtonBorderColor width: 1) ] ]
 ]
