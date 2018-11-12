@@ -13,7 +13,7 @@ BrGlamorousAccordionHeaderLook >> initialize [
 
 	self addAll: {
 		BrLayoutLook linearHorizontal vFitContent hMatchParent.
-		labelLook := BrGlamorousLabelLook new.
+		labelLook := BrGlamorousTextLabelLook new.
 		BrInteractiveLook new style: [ :aStyler |
 			aStyler default: [ labelLook foreground: BrGlamorousColors defaultHeaderTextColor ].
 			aStyler disabled: [ labelLook foreground: BrGlamorousColors disabledHeaderTextColor ] ] }

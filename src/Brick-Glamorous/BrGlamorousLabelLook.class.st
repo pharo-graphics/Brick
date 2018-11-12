@@ -1,6 +1,6 @@
 Class {
 	#name : #BrGlamorousLabelLook,
-	#superclass : #BrLabelLook,
+	#superclass : #BrGlamorousTextLabelLook,
 	#category : #'Brick-Glamorous-Label'
 }
 
@@ -8,8 +8,13 @@ Class {
 BrGlamorousLabelLook >> initialize [
 	super initialize.
 
-	self
-		fontSize: 14;
-		weight: 400;
-		fontName: 'Source Sans Pro'
+	labelElement padding: (BlInsets all: 1).
+	self add: (BrLayoutResizerLook new inherit)
+]
+
+{ #category : #initialization }
+BrGlamorousLabelLook >> initializeLook [
+	super initializeLook.
+
+	self widget layout: BlLinearLayout vertical alignCenterLeft
 ]

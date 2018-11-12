@@ -180,17 +180,22 @@ BrExamplesShowroom >> columnedList [
 	aList := BrColumnedList new.
 	aList column
 		stencil: [ :aColor :aRowIndex |
-			BlTextElement new
-				text: (aRowIndex asRopedText);
-				padding: (BlInsets all: 12);
-				width: 20 ].
-	aList column
-		stencil: [ :aColor |
-			BlTextElement new
-				text: (aColor asString asRopedText foreground: aColor contrastingForegroundColor);
+			BrLabel new
+				look: (BrGlamorousLabelLook new foreground: aColor contrastingForegroundColor);
+				text: aRowIndex asString;
 				background: aColor;
 				padding: (BlInsets all: 12);
-				constraintsDo: [ :c | c horizontal matchParent ] ].
+				hExact: 50;
+				vMatchParent ].
+	aList column
+		stencil: [ :aColor |
+			BrLabel new
+				look: (BrGlamorousLabelLook new foreground: aColor contrastingForegroundColor);
+				text: aColor asString;
+				background: aColor;
+				padding: (BlInsets all: 12);
+				hMatchParent;
+				vMatchParent ].
 
 	aList display: (Color indexedColors).
 
@@ -205,8 +210,9 @@ BrExamplesShowroom >> glamorousBreadcrumb [
 
 	aBreadcrumb := BrBreadcrumb new.
 	aBreadcrumb look: (BrGlamorousBreadcrumbLook new separator: [
-		BlTextElement new
-			text: ('>' asRopedText thin foreground: Color gray);
+		BrLabel new
+			look: (BrGlamorousLabelLook new thin foreground: Color gray);
+			text: '>';
 			margin: (BlInsets left: 5 right: 5) ]).
 
 	aBreadcrumb addItem: (BrLabel new
@@ -497,9 +503,10 @@ BrExamplesShowroom >> simpleList [
 	^ BrSimpleList new
 		display: (Color indexedColors);
 		stencil: [ :aColor |
-			BlTextElement new
-				text: (aColor asString asRopedText foreground: aColor contrastingForegroundColor);
+			BrLabel new
+				look: (BrGlamorousLabelLook new foreground: aColor contrastingForegroundColor);
+				text: aColor asString;
 				background: aColor;
 				padding: (BlInsets all: 12);
-				constraintsDo: [ :c | c horizontal matchParent ] ]
+				hMatchParent ]
 ]

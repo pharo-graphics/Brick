@@ -21,7 +21,7 @@ BrMaterialToggleLabelledLook >> initialize [
 		"for toggleable background"
 		BrMaterialToggleBackgroundLook.
 		"for the label"
-		BrLabelLook.
+		BrTextLabelLook.
 		"for the shadow"
 		BrShadowLook }
 ]

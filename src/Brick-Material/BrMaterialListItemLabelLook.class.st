@@ -1,7 +1,7 @@
 Class {
 	#name : #BrMaterialListItemLabelLook,
-	#superclass : #BrLabelLook,
-	#category : 'Brick-Material-List'
+	#superclass : #BrTextLabelLook,
+	#category : #'Brick-Material-List'
 }
 
 { #category : #initialization }

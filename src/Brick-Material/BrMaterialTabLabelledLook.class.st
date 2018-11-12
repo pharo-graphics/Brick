@@ -17,7 +17,7 @@ BrMaterialTabLabelledLook >> initialize [
 		"for toggleable background"
 		BrMaterialTabBackgroundLook.
 		"for the label"
-		label := BrLabelLook new }
+		label := BrTextLabelLook new }
 ]
 
 { #category : #initialization }
@@ -29,7 +29,7 @@ BrMaterialTabLabelledLook >> initializeLook [
 
 { #category : #accessing }
 BrMaterialTabLabelledLook >> labelLook [
-	<return: #BrLabelLook>
+	<return: #BrTextLabelLook>
 
 	^ label
 ]

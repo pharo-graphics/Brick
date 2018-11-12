@@ -99,7 +99,7 @@ BrButtonLabelLookExamples >> buttonLabelElement [
 BrButtonLabelLookExamples >> buttonLabelLookWithConstraints [
 	<gtExample>
 
-	^ BrLabelLook new labelDo: [ :aLabelElement | 
+	^ BrTextLabelLook new labelDo: [ :aLabelElement | 
 		aLabelElement constraintsDo: [ :c |
 			c frame vertical alignCenter.
 			c frame horizontal alignCenter ] ]
@@ -109,7 +109,7 @@ BrButtonLabelLookExamples >> buttonLabelLookWithConstraints [
 BrButtonLabelLookExamples >> buttonLabelLookWithoutConstraints [
 	<gtExample>
 
-	^ BrLabelLook asLook
+	^ BrTextLabelLook asLook
 ]
 
 { #category : #'example - instance creation' }

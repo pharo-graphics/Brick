@@ -42,13 +42,13 @@ BrProgressExamples >> example [
 		background: Color transparent;
 		addChild: aProgressElement;
 		addChild: (BrButton new 
-			look: BrLabelLook; 
+			look: BrTextLabelLook; 
 			label: 'minus'; 
 			action: [ 
 				aPercentage := (aPercentage - 10) max: 0. 
 				aProgressElement viewModel percentage: aPercentage ]);
 		addChild: (BrButton new 
-			look: BrLabelLook; 
+			look: BrTextLabelLook; 
 			label: 'plus'; 
 			action: [ 
 				aPercentage := (aPercentage + 10) min: 100. 
