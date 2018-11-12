@@ -20,7 +20,7 @@ BrColumnedList >> defaultListModel [
 BrColumnedList >> initialize [
 	super initialize.
 
-	self look: BrColumnedListLook new + BrLayoutLook frame matchParent.
+	self look: BrColumnedListLook new + BrLayoutLook linearVertical matchParent.
 	self rowStencil: BrListClickableRowStencilBuilder new
 ]
 
