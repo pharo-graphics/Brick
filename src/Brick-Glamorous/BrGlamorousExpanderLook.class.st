@@ -18,10 +18,11 @@ BrGlamorousExpanderLook >> initialize [
 
 	aTriangle := BlElement new
 		size: 8@8;
-		background: (Color white alpha: 0.9).
+		background: (Color white alpha: 0.9);
+		constraintsDo: [ :c | c linear vertical alignCenter ].
 
 	toggle := BlElement new
-		layout: BlLinearLayout vertical;
+		layout: BlLinearLayout horizontal;
 		padding: (BlInsets all: 4);
 		constraintsDo: [ :c |
 			c horizontal fitContent.
@@ -68,6 +69,11 @@ BrGlamorousExpanderLook >> initializeLook [
 		geometry: (BlRectangle cornerRadius: 3);
 		addChild: sidebar;
 		addChild: container as: #content
+]
+
+{ #category : #accessing }
+BrGlamorousExpanderLook >> padding: anInsets [
+	container padding: anInsets
 ]
 
 { #category : #accessing }
