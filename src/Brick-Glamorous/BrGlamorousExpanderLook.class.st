@@ -27,7 +27,7 @@ BrGlamorousExpanderLook >> initialize [
 		constraintsDo: [ :c |
 			c horizontal fitContent.
 			c vertical fitContent ];
-		background: Color gray;
+		background: Color veryVeryLightGray;
 		addChild: aTriangle;
 		"ask expandable model to toggle itself"
 		when: BlClickEvent do: [ self dispatchEvent: BrExpansionToggleWish new ].
