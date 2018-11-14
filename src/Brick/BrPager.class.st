@@ -44,3 +44,27 @@ BrPager >> removePage: aContentElement [
 BrPager >> removePagesAfter: aPageElement [	
 	self viewModel removePagesAfter: aPageElement viewModel
 ]
+
+{ #category : #'api - scrolling' }
+BrPager >> scrollTo: aPageIndex [
+	self dispatchEvent: (BrPagerScrollWish new
+		pageIndex: aPageIndex;
+		isSmooth: false)
+]
+
+{ #category : #'api - scrolling' }
+BrPager >> scrollToLast [
+	self scrollTo: self pages size
+]
+
+{ #category : #'api - scrolling' }
+BrPager >> smoothScrollTo: aPageIndex [
+	self dispatchEvent: (BrPagerScrollWish new
+		pageIndex: aPageIndex;
+		isSmooth: true)
+]
+
+{ #category : #'api - scrolling' }
+BrPager >> smoothScrollToLast [
+	self smoothScrollTo: self pages size
+]

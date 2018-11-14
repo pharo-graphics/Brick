@@ -25,7 +25,12 @@ BrPagerLook >> initializeListeners [
 
 	self when: BrPagerPagesChanged do: [ :anEvent | self onPagesChanged: anEvent pages ].
 	self when: BrPagerPageAddedEvent do: [ :anEvent | self onPageAdded: anEvent page ].
-	self when: BrPagerPageRemovedEvent do: [ :anEvent | self onPageRemoved: anEvent page ]
+	self when: BrPagerPageRemovedEvent do: [ :anEvent | self onPageRemoved: anEvent page ].
+	self when: BrPagerScrollWish do: [ :anEvent |
+		anEvent consumed: true.
+		anEvent isSmooth
+			ifTrue: [ self smoothScrollTo: anEvent pageIndex ]
+			ifFalse: [ self scrollTo: anEvent pageIndex ] ].
 ]
 
 { #category : #initialization }
@@ -97,4 +102,14 @@ BrPagerLook >> pageElements [
 { #category : #accessing }
 BrPagerLook >> pages [
 	^ pages
+]
+
+{ #category : #'api - scrolling' }
+BrPagerLook >> scrollTo: aPageIndex [
+	pagesListElement scrollToPosition: aPageIndex
+]
+
+{ #category : #'api - scrolling' }
+BrPagerLook >> smoothScrollTo: aPageIndex [
+	pagesListElement smoothScrollToPosition: aPageIndex
 ]
