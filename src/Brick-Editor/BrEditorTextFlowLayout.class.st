@@ -93,5 +93,5 @@ BrEditorTextFlowLayout >> measure: anElement with: anExtentSpec [
 			(theElements last isKindOf: BlTextEditElement)
 				ifTrue: [
 					theElements last measure: (BlExtentMeasurementSpec exact:
-						theElements last measuredExtent + (((anElement measuredWidth - aLine width) max: 0) @ 0)) ] ] ]
+						theElements last measuredExtent + (((anElement measuredWidth - aLine width) max: 0) @ theElements last padding height negated)) ] ] ]
 ]
