@@ -10,6 +10,16 @@ Class {
 	#category : #'Brick-Editor-Model - Segment-Text-Line'
 }
 
+{ #category : #'instance creation' }
+BrTextEditorLineSegment >> adornmentPiece: aText with: anAdornmentAttribute [
+	"Create and return a segment piece with adornment"
+	<return: #BrTextEditorLineSegmentPiece>
+
+	^ BrTextEditorAttributedLineSegmentAdornmentPiece new
+		text: aText;
+		adornmentAttribute: anAdornmentAttribute
+]
+
 { #category : #'pieces - computation' }
 BrTextEditorLineSegment >> clearCache [
 	"Clear all caches and make this segment fresh as if it would just be created and initalized"
@@ -52,6 +62,30 @@ BrTextEditorLineSegment >> initialize [
 	paragraphMargin := BlInsets empty
 ]
 
+{ #category : #initialization }
+BrTextEditorLineSegment >> initializeWith: aBrText from: aTextStart to: aTextEnd [
+	| theParagraphAttributes |
+
+	super initializeWith: aBrText from: aTextStart to: aTextEnd.
+
+	theParagraphAttributes := aBrText iterator selectAttributes: #isParagraphAttribute.
+	theParagraphAttributes do: [ :aParagraphAttribute | aParagraphAttribute applyOn: self ]
+]
+
+{ #category : #'pieces - computation' }
+BrTextEditorLineSegment >> itemValueType: anObject [
+	"Return a type of an item within a segment.
+	Note: return value should be never used explicitely, it is only needed
+	for direct comparison, therefore can be any immutable object"
+	<return: #Symbol>
+
+	^ anObject isCharacter
+		ifTrue: [ anObject isSeparator
+			ifTrue: [ #separator ]
+			ifFalse: [ #letter ] ]
+		ifFalse: [ #object ]
+]
+
 { #category : #'attributes - paragraph' }
 BrTextEditorLineSegment >> lineSpacing [
 	<return: #Number>
@@ -77,8 +111,55 @@ BrTextEditorLineSegment >> moveTextBy: aNumber [
 ]
 
 { #category : #'pieces - computation' }
+BrTextEditorLineSegment >> nextAdornment: aBrTextIterator [
+	<return: #BlSubText>
+
+	^  aBrTextIterator nextSegment: [ :aCharacter |
+			aBrTextIterator selectAttributes: [ :anAttribute |
+				anAttribute isParagraphAttribute not
+					and: [ anAttribute isAdornment ] ] ]
+]
+
+{ #category : #'pieces - computation' }
 BrTextEditorLineSegment >> nextSegmentPiece: aBrTextIterator in: aStream [
-	aStream nextPut: (self textPiece: aBrTextIterator nextWord)
+	| initialAdornments anAdornmentText anAdornmentIterator |
+
+	initialAdornments := aBrTextIterator selectAttributes: [ :anAttribute |
+			anAttribute isParagraphAttribute not and: [ anAttribute isAdornment ] ].
+	
+	anAdornmentText := self nextAdornment: aBrTextIterator.
+	
+	initialAdornments
+		detect: #shouldReplace
+		ifFound: [ :aReplacementAttribute |
+			^ aStream nextPut: (self adornmentPiece: anAdornmentText with: aReplacementAttribute) ].
+	
+	anAdornmentIterator := anAdornmentText iterator.
+	[ anAdornmentIterator hasNext ] whileTrue: [
+		| aWordText aWordTextIterator |
+		aWordText := self nextWord: anAdornmentIterator.
+		aWordTextIterator := aWordText iterator.
+		[ aWordTextIterator hasNext ] whileTrue: [
+			self nextSpan: aWordTextIterator in: aStream ] ].
+
+	aStream nextPutAll: (initialAdornments asArray
+		select: #shouldAppend
+		thenCollect: [ :anAppendingAttribute | self adornmentPiece: anAdornmentText with: anAppendingAttribute ])
+]
+
+{ #category : #'pieces - computation' }
+BrTextEditorLineSegment >> nextSpan: aBrTextIterator in: aStream [
+	| aSpanText |
+	
+	aSpanText := aBrTextIterator nextSegment: [ :aCharacter | aBrTextIterator selectAttributes: #isEventHandler ].
+	aStream nextPut: (self textPiece: aSpanText)
+]
+
+{ #category : #'pieces - computation' }
+BrTextEditorLineSegment >> nextWord: aBrTextIterator [
+	<return: #BlSubText>
+
+	^  aBrTextIterator nextSegment: [ :aCharacter | self itemValueType: aCharacter ]
 ]
 
 { #category : #'attributes - paragraph' }

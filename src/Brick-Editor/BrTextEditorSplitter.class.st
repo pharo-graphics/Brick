@@ -1,3 +1,6 @@
+"
+I am responsible for splitting a given piece of text into segments
+"
 Class {
 	#name : #BrTextEditorSplitter,
 	#superclass : #Object,

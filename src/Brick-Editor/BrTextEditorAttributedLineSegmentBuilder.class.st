@@ -7,13 +7,8 @@ Note: I  support adornment elements though special adornment attribute BrTextAdo
 Class {
 	#name : #BrTextEditorAttributedLineSegmentBuilder,
 	#superclass : #BrTextEditorLineSegmentBuilder,
-	#category : #'Brick-Editor-Model - Segment-Text-Line-Attributed'
+	#category : 'Brick-Editor-Model - Segment-Text-Line-Attributed'
 }
-
-{ #category : #initialization }
-BrTextEditorAttributedLineSegmentBuilder >> defaultSplitter [
-	^ BrTextEditorAttributedLineSplitter new
-]
 
 { #category : #splitting }
 BrTextEditorAttributedLineSegmentBuilder >> nextSegment: anIterator in: aStream [

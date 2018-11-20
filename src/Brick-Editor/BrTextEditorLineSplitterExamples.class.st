@@ -1,7 +1,7 @@
 Class {
 	#name : #BrTextEditorLineSplitterExamples,
 	#superclass : #Object,
-	#category : #'Brick-Editor-Examples'
+	#category : 'Brick-Editor-Examples'
 }
 
 { #category : #'examples - split' }

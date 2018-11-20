@@ -11,7 +11,7 @@ Class {
 	#instVars : [
 		'index'
 	],
-	#category : #'Brick-Editor-Model - Segment'
+	#category : 'Brick-Editor-Model - Segment'
 }
 
 { #category : #'pieces - computation' }

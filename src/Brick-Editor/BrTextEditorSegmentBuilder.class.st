@@ -1,4 +1,8 @@
 "
+I am responsible for building and updating segments.
+
+I know what to do with the segment structure when we insert or delete a piece of text from the editor.
+
 I take a piece of text and split it into segments.
 "
 Class {

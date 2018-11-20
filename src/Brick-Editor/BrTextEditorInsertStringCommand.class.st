@@ -10,7 +10,7 @@ Class {
 		'string',
 		'index'
 	],
-	#category : #'Brick-Editor-Commands'
+	#category : 'Brick-Editor-Commands'
 }
 
 { #category : #executing }

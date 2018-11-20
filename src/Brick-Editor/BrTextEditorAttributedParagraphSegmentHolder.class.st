@@ -4,7 +4,7 @@ Class {
 	#instVars : [
 		'segment'
 	],
-	#category : #'Brick-Editor-Model - Segment-Text-Line-Attributed'
+	#category : 'Brick-Editor-Model - Segment-Text-Line-Attributed'
 }
 
 { #category : #initialization }

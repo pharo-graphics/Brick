@@ -9,7 +9,7 @@ Class {
 		'attributesCreatingBlock',
 		'createdAttributes'
 	],
-	#category : #'Brick-Editor-Text-Attributes'
+	#category : 'Brick-Editor-Text-Attributes'
 }
 
 { #category : #accessing }

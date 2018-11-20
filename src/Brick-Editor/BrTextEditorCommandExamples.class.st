@@ -1,7 +1,7 @@
 Class {
 	#name : #BrTextEditorCommandExamples,
 	#superclass : #Object,
-	#category : #'Brick-Editor-Examples'
+	#category : 'Brick-Editor-Examples'
 }
 
 { #category : #'instance creation' }

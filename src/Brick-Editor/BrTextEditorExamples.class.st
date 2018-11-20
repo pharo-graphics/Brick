@@ -36,7 +36,7 @@ Class {
 	#classInstVars : [
 		'loremIpsum'
 	],
-	#category : #'Brick-Editor-Examples'
+	#category : 'Brick-Editor-Examples'
 }
 
 { #category : #cleanup }

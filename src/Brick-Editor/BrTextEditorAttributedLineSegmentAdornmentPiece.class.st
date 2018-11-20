@@ -9,7 +9,7 @@ Class {
 	#instVars : [
 		'adornmentAttribute'
 	],
-	#category : #'Brick-Editor-Model - Segment-Text-Line-Attributed'
+	#category : 'Brick-Editor-Model - Segment-Text-Line-Attributed'
 }
 
 { #category : #accessing }

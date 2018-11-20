@@ -12,7 +12,7 @@ Class {
 	#classInstVars : [
 		'defaultSegmentLayoutBlock'
 	],
-	#category : #'Brick-Editor-Model - Segment-Text-Line'
+	#category : 'Brick-Editor-Model - Segment-Text-Line'
 }
 
 { #category : #cleanup }

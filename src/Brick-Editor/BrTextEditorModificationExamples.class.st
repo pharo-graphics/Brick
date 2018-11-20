@@ -1,7 +1,7 @@
 Class {
 	#name : #BrTextEditorModificationExamples,
 	#superclass : #Object,
-	#category : #'Brick-Editor-Examples'
+	#category : 'Brick-Editor-Examples'
 }
 
 { #category : #'examples - cursor' }
