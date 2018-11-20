@@ -23,8 +23,7 @@ Class {
 	#name : #BrTextAdornmentDynamicAttribute,
 	#superclass : #BrTextAdornmentAttribute,
 	#instVars : [
-		'stencilBuilder',
-		'equality'
+		'stencilBuilder'
 	],
 	#category : #'Brick-Editor-Text-Attributes'
 }
@@ -37,31 +36,6 @@ BrTextAdornmentDynamicAttribute >> affect: aBlText in: anEditorElement [
 		text: aBlText;
 		editor: anEditorElement;
 		asElement
-]
-
-{ #category : #accessing }
-BrTextAdornmentDynamicAttribute >> elementBlock: aBlock [ 
-	self 
-		deprecated: 'Use stencil: instead'
-		on: 	'7 July 2018' 
-		in: 'Pharo-6.0-60540-'.
-	^ self stencil: aBlock
-]
-
-{ #category : #accessing }
-BrTextAdornmentDynamicAttribute >> equality [
-	^ equality
-]
-
-{ #category : #accessing }
-BrTextAdornmentDynamicAttribute >> equality: anObject [
-	equality := anObject
-]
-
-{ #category : #comparing }
-BrTextAdornmentDynamicAttribute >> equals: aTextAttribute [
-	^ aTextAttribute class = self class and: [ 
-		aTextAttribute equality = self equality ]
 ]
 
 { #category : #accessing }

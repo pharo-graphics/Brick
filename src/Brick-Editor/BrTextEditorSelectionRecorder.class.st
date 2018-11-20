@@ -5,7 +5,7 @@ Additionally I play a role of a selection strategy to support single or multiple
 Class {
 	#name : #BrTextEditorSelectionRecorder,
 	#superclass : #Object,
-	#category : 'Brick-Editor-Model - Selection'
+	#category : #'Brick-Editor-Model - Selection'
 }
 
 { #category : #selection }

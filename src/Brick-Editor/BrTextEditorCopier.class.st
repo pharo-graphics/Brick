@@ -1,5 +1,5 @@
 Class {
 	#name : #BrTextEditorCopier,
 	#superclass : #BrTextEditorOperator,
-	#category : 'Brick-Editor-Model'
+	#category : #'Brick-Editor-Model'
 }

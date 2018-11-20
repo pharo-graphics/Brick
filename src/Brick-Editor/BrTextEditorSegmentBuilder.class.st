@@ -9,7 +9,7 @@ Class {
 	#instVars : [
 		'splitter'
 	],
-	#category : 'Brick-Editor-Model - Segment-Text'
+	#category : #'Brick-Editor-Model - Segment-Text'
 }
 
 { #category : #initialization }

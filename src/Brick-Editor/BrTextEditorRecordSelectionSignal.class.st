@@ -7,7 +7,7 @@ Class {
 	#instVars : [
 		'selection'
 	],
-	#category : 'Brick-Editor-Model - Selection'
+	#category : #'Brick-Editor-Model - Selection'
 }
 
 { #category : #printing }

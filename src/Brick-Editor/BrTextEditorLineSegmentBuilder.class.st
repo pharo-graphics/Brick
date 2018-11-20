@@ -10,7 +10,7 @@ Class {
 		'lineStencilBuilder',
 		'wordStencilBuilder'
 	],
-	#category : 'Brick-Editor-Model - Segment-Text-Line'
+	#category : #'Brick-Editor-Model - Segment-Text-Line'
 }
 
 { #category : #initialization }

@@ -11,7 +11,7 @@ Class {
 		'collection',
 		'skip'
 	],
-	#category : 'Brick-Editor-Model - Segment'
+	#category : #'Brick-Editor-Model - Segment'
 }
 
 { #category : #accessing }

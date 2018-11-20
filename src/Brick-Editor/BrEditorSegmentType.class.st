@@ -9,7 +9,7 @@ Class {
 	#classInstVars : [
 		'uniqueInstance'
 	],
-	#category : 'Brick-Editor-Model - Segment'
+	#category : #'Brick-Editor-Model - Segment'
 }
 
 { #category : #cleanup }

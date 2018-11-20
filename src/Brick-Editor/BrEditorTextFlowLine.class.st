@@ -15,7 +15,7 @@ Class {
 		'height',
 		'pushedQueue'
 	],
-	#category : 'Brick-Editor-Layout'
+	#category : #'Brick-Editor-Layout'
 }
 
 { #category : #adding }

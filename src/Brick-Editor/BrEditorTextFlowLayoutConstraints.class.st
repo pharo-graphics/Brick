@@ -9,7 +9,7 @@ Class {
 		'breakLineBefore',
 		'breakLineAfter'
 	],
-	#category : 'Brick-Editor-Layout'
+	#category : #'Brick-Editor-Layout'
 }
 
 { #category : #accessing }

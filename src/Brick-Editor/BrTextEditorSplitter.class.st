@@ -1,7 +1,7 @@
 Class {
 	#name : #BrTextEditorSplitter,
 	#superclass : #Object,
-	#category : 'Brick-Editor-Model - Segment-Text'
+	#category : #'Brick-Editor-Model - Segment-Text'
 }
 
 { #category : #splitting }

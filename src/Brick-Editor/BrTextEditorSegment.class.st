@@ -12,7 +12,7 @@ Class {
 		'textStart',
 		'textEnd'
 	],
-	#category : 'Brick-Editor-Model - Segment-Text'
+	#category : #'Brick-Editor-Model - Segment-Text'
 }
 
 { #category : #printing }

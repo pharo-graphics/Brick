@@ -10,7 +10,7 @@ Class {
 		'lines',
 		'lineSpacing'
 	],
-	#category : 'Brick-Editor-Layout'
+	#category : #'Brick-Editor-Layout'
 }
 
 { #category : #constraints }

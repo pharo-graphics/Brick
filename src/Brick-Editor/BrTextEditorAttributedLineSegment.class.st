@@ -4,7 +4,7 @@ I am a line-based text segment with support of adornment attributes
 Class {
 	#name : #BrTextEditorAttributedLineSegment,
 	#superclass : #BrTextEditorLineSegment,
-	#category : 'Brick-Editor-Model - Segment-Text-Line-Attributed'
+	#category : #'Brick-Editor-Model - Segment-Text-Line-Attributed'
 }
 
 { #category : #'instance creation' }

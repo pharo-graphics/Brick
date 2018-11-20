@@ -1,7 +1,7 @@
 Class {
 	#name : #BrTextEditorCursor,
 	#superclass : #Object,
-	#category : 'Brick-Editor-Model - Cursor'
+	#category : #'Brick-Editor-Model - Cursor'
 }
 
 { #category : #accessing }

@@ -8,7 +8,7 @@ Class {
 		'shouldUpdateSelection',
 		'shouldDeleteSelected'
 	],
-	#category : 'Brick-Editor-Model'
+	#category : #'Brick-Editor-Model'
 }
 
 { #category : #'api - configuration' }

@@ -4,7 +4,7 @@ I am a text segment holder (===BrTextEditorSegment===) designed to be used by ==
 Class {
 	#name : #BrTextEditorSegmentHolder,
 	#superclass : #BrEditorSegmentHolder,
-	#category : 'Brick-Editor-Model - Segment-Text'
+	#category : #'Brick-Editor-Model - Segment-Text'
 }
 
 { #category : #updating }

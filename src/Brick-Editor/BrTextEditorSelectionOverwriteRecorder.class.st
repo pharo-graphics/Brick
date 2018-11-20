@@ -8,7 +8,7 @@ Class {
 	#instVars : [
 		'compositeSelection'
 	],
-	#category : 'Brick-Editor-Model - Selection'
+	#category : #'Brick-Editor-Model - Selection'
 }
 
 { #category : #selection }

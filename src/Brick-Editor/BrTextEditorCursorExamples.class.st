@@ -4,7 +4,7 @@ I exemplify text editor focus behaviour
 Class {
 	#name : #BrTextEditorCursorExamples,
 	#superclass : #Object,
-	#category : 'Brick-Editor-Examples'
+	#category : #'Brick-Editor-Examples'
 }
 
 { #category : #'as yet unclassified' }
