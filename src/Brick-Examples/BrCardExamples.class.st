@@ -22,7 +22,7 @@ BrCardExamples >> verticalCard [
 	anElement := self cardElement.
 	anElement 
 		size: 150@200;
-		look: BrShadowLook + BrTextLabelLook + BrIconLook + BrDescriptionLook + BrGlamorousWithVerticalResizerLook;
+		look: BrShadowLook + BrTextLabelLook + BrIconLook + BrDescriptionLook + BrGlamorousWithVerticalResizerLook + BrGlamorousWithHorizontalResizerLook;
 		background: Color white;
 		margin: (BlInsets all: 10);
 		padding: (BlInsets all: 10);

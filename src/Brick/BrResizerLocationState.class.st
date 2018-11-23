@@ -17,9 +17,19 @@ BrResizerLocationState class >> bottom [
 	^ self location: BrResizerBottomLocation new
 ]
 
+{ #category : #accessing }
+BrResizerLocationState class >> left [
+	^ self location: BrResizerLeftLocation new
+]
+
 { #category : #'instance creation' }
 BrResizerLocationState class >> location: aBrResizerLocation [
 	^ self new location: aBrResizerLocation
+]
+
+{ #category : #accessing }
+BrResizerLocationState class >> right [
+	^ self location: BrResizerRightLocation new
 ]
 
 { #category : #accessing }

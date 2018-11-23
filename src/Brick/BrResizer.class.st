@@ -14,6 +14,16 @@ BrResizer >> beBottom [
 ]
 
 { #category : #location }
+BrResizer >> beLeft [
+	locationModel beLeft
+]
+
+{ #category : #location }
+BrResizer >> beRight [
+	locationModel beRight
+]
+
+{ #category : #location }
 BrResizer >> beTop [
 	locationModel beTop
 ]

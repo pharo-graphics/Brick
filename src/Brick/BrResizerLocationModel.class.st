@@ -13,6 +13,16 @@ BrResizerLocationModel >> beBottom [
 ]
 
 { #category : #location }
+BrResizerLocationModel >> beLeft [
+	self location: BrResizerLeftLocation new
+]
+
+{ #category : #location }
+BrResizerLocationModel >> beRight [
+	self location: BrResizerRightLocation new
+]
+
+{ #category : #location }
 BrResizerLocationModel >> beTop [
 	self location: BrResizerTopLocation new
 ]

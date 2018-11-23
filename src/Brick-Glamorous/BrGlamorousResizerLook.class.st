@@ -15,7 +15,20 @@ BrGlamorousResizerLook >> initialize [
 		bottom: [ :aWidget | aWidget constraintsDo: [ :c |
 			c ignored horizontal alignCenter.
 			c ignored vertical alignBottom ] ];
-		horizontal: [ :aWidget | aWidget constraintsDo: [ :c | c horizontal matchParent. c ignored horizontal weight: 0.4 ]; height: 3 ]).
+		left: [ :aWidget | aWidget constraintsDo: [ :c |
+			c ignored horizontal alignLeft.
+			c ignored vertical alignCenter ] ];
+		right: [ :aWidget | aWidget constraintsDo: [ :c |
+			c ignored horizontal alignRight.
+			c ignored vertical alignCenter ] ];
+		vertical: [ :aWidget | aWidget constraintsDo: [ :c |
+			c horizontal matchParent.
+			c vertical exact: 3.
+			c ignored horizontal weight: 0.4 ] ];
+		horizontal: [ :aWidget | aWidget constraintsDo: [ :c |
+			c horizontal exact: 3.
+			c vertical matchParent.
+			c ignored vertical weight: 0.4 ] ])
 ]
 
 { #category : #initialization }

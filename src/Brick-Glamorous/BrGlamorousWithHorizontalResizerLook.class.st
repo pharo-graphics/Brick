@@ -1,12 +1,12 @@
 Class {
-	#name : #BrGlamorousWithVerticalResizerLook,
+	#name : #BrGlamorousWithHorizontalResizerLook,
 	#superclass : #BrGlamorousWithResizerLook,
 	#category : #'Brick-Glamorous-Resizer'
 }
 
 { #category : #initialization }
-BrGlamorousWithVerticalResizerLook >> initialize [
+BrGlamorousWithHorizontalResizerLook >> initialize [
 	super initialize.
 
-	resizer beBottom
+	resizer beRight
 ]
