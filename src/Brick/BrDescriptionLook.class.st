@@ -41,6 +41,9 @@ BrDescriptionLook >> initialize [
 	
 	descriptionElement := BrEditorElement new.
 	descriptionElement editor: editor.
+	descriptionElement constraintsDo: [ :c | 
+		c vertical matchParent.
+		c horizontal matchParent ].
 
 	attributesBuilder := BlTextDelegatedAttributesBuilder new.
 	attributesBuilder attributesTarget: text.

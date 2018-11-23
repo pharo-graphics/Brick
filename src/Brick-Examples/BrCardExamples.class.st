@@ -31,11 +31,13 @@ BrCardExamples >> verticalCard [
 		description: ((String loremIpsum: 200) asRopedText 
 			foreground: Color gray; fontSize: 10; readonly);
 		picture: PolymorphSystemSettings pharoLogoForm asElement asPannableElement;
-		action: [ :e | self inform: 'Hey! I am a card' ].
+		action: [ :aBrCard | self inform: 'Hey! I am a card' ].
 	aTitleElement := anElement childNamed: #label.
 	aPictureElement := anElement childNamed: #icon.
 	aDescriptionElement := anElement childNamed: #description.
-	aDescriptionElement look: (BrLayoutLook matchParent).
+	self assert: aTitleElement notNil.
+	self assert: aPictureElement notNil.
+	self assert: aDescriptionElement notNil.
 	
 	^ anElement
 ]
