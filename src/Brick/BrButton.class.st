@@ -12,6 +12,11 @@ Class {
 }
 
 { #category : #'api - widget' }
+BrButton >> action [
+	^ self viewModel action
+]
+
+{ #category : #'api - widget' }
 BrButton >> action: aValuable [
 	self viewModel action: aValuable
 ]
@@ -54,6 +59,11 @@ BrButton >> enable [
 { #category : #'api - widget' }
 BrButton >> enabled: aBoolean [
 	activationModel enabled: aBoolean
+]
+
+{ #category : #'api - widget' }
+BrButton >> icon [
+	^ iconModel icon
 ]
 
 { #category : #'api - widget' }
