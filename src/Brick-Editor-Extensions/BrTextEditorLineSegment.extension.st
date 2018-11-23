@@ -4,8 +4,11 @@ Extension { #name : #BrTextEditorLineSegment }
 BrTextEditorLineSegment >> gtInspectorPiecesIn: composite [
 	<gtInspectorPresentationOrder: 0>
 
-	^ composite fastList
+	^ composite fastTable
 		title: 'Pieces' translated;
 		display: [ self pieces ];
-		format: [ :each | GTObjectPrinter asTruncatedTextFrom: each ]
+		column: 'Interval'
+			evaluated: [ :each | (each start to: each end) asString ];
+		column: 'Text'
+			evaluated: [ :each | GTObjectPrinter asTruncatedTextFrom: each ]
 ]

@@ -15,7 +15,7 @@ BrTextEditorLineSegment >> adornmentPiece: aText with: anAdornmentAttribute [
 	"Create and return a segment piece with adornment"
 	<return: #BrTextEditorLineSegmentPiece>
 
-	^ BrTextEditorAttributedLineSegmentAdornmentPiece new
+	^ BrTextEditorLineSegmentAdornmentPiece new
 		text: aText;
 		adornmentAttribute: anAdornmentAttribute
 ]
@@ -38,7 +38,7 @@ BrTextEditorLineSegment >> computedPieces [
 
 		lineIterator := self text iterator.
 		[ lineIterator hasNext ] whileTrue: [
-			self nextSegmentPiece: lineIterator in: aStream ] ].
+			self processSegment: lineIterator in: aStream ] ].
 
 	thePieces := thePieces
 		ifEmpty:[ { self textPiece: (self text from: 0 to: 0) } ]
@@ -65,14 +65,13 @@ BrTextEditorLineSegment >> initialize [
 { #category : #initialization }
 BrTextEditorLineSegment >> initializeWith: aBrText from: aTextStart to: aTextEnd [
 	| theParagraphAttributes |
-
 	super initializeWith: aBrText from: aTextStart to: aTextEnd.
 
 	theParagraphAttributes := aBrText iterator selectAttributes: #isParagraphAttribute.
 	theParagraphAttributes do: [ :aParagraphAttribute | aParagraphAttribute applyOn: self ]
 ]
 
-{ #category : #'pieces - computation' }
+{ #category : #'private - pieces computation' }
 BrTextEditorLineSegment >> itemValueType: anObject [
 	"Return a type of an item within a segment.
 	Note: return value should be never used explicitely, it is only needed
@@ -110,58 +109,6 @@ BrTextEditorLineSegment >> moveTextBy: aNumber [
 		do: [ :aTextPiece | aTextPiece start: aTextPiece start + aNumber end: aTextPiece end + aNumber ]
 ]
 
-{ #category : #'pieces - computation' }
-BrTextEditorLineSegment >> nextAdornment: aBrTextIterator [
-	<return: #BlSubText>
-
-	^  aBrTextIterator nextSegment: [ :aCharacter |
-			aBrTextIterator selectAttributes: [ :anAttribute |
-				anAttribute isParagraphAttribute not
-					and: [ anAttribute isAdornment ] ] ]
-]
-
-{ #category : #'pieces - computation' }
-BrTextEditorLineSegment >> nextSegmentPiece: aBrTextIterator in: aStream [
-	| initialAdornments anAdornmentText anAdornmentIterator |
-
-	initialAdornments := aBrTextIterator selectAttributes: [ :anAttribute |
-			anAttribute isParagraphAttribute not and: [ anAttribute isAdornment ] ].
-	
-	anAdornmentText := self nextAdornment: aBrTextIterator.
-	
-	initialAdornments
-		detect: #shouldReplace
-		ifFound: [ :aReplacementAttribute |
-			^ aStream nextPut: (self adornmentPiece: anAdornmentText with: aReplacementAttribute) ].
-	
-	anAdornmentIterator := anAdornmentText iterator.
-	[ anAdornmentIterator hasNext ] whileTrue: [
-		| aWordText aWordTextIterator |
-		aWordText := self nextWord: anAdornmentIterator.
-		aWordTextIterator := aWordText iterator.
-		[ aWordTextIterator hasNext ] whileTrue: [
-			self nextSpan: aWordTextIterator in: aStream ] ].
-
-	aStream nextPutAll: (initialAdornments asArray
-		select: #shouldAppend
-		thenCollect: [ :anAppendingAttribute | self adornmentPiece: anAdornmentText with: anAppendingAttribute ])
-]
-
-{ #category : #'pieces - computation' }
-BrTextEditorLineSegment >> nextSpan: aBrTextIterator in: aStream [
-	| aSpanText |
-	
-	aSpanText := aBrTextIterator nextSegment: [ :aCharacter | aBrTextIterator selectAttributes: #isEventHandler ].
-	aStream nextPut: (self textPiece: aSpanText)
-]
-
-{ #category : #'pieces - computation' }
-BrTextEditorLineSegment >> nextWord: aBrTextIterator [
-	<return: #BlSubText>
-
-	^  aBrTextIterator nextSegment: [ :aCharacter | self itemValueType: aCharacter ]
-]
-
 { #category : #'attributes - paragraph' }
 BrTextEditorLineSegment >> paragraphMargin [
 	<return: #BlInsets>
@@ -181,6 +128,99 @@ BrTextEditorLineSegment >> pieces [
 	^ self hasPieces
 		ifTrue: [ pieces ]
 		ifFalse: [ pieces := self computedPieces ]
+]
+
+{ #category : #'private - pieces computation' }
+BrTextEditorLineSegment >> processAdornmentAttribute: anAdornmentAttribute of: aText in: aStream [
+	aStream nextPut: (self adornmentPiece: aText with: anAdornmentAttribute)
+]
+
+{ #category : #'private - pieces computation' }
+BrTextEditorLineSegment >> processPureWords: aTextIterator in: aStream [
+	"Process a text within a scope of the given iterator as if it does not contain any adornment attributes
+	nor event handling attributes. At this point we should just split it in words based on the text separator
+	such as space or some other characters abnd create a text piece for each `word`"
+	| aWord |
+	
+	aWord := aTextIterator nextSegment: [ :aCharacter | self itemValueType: aCharacter ].
+	aStream nextPut: (self textPiece: aWord)
+]
+
+{ #category : #'private - pieces computation' }
+BrTextEditorLineSegment >> processSegment: aTextIterator in: aStream [
+	
+	aTextIterator
+		nextSpanAny: [ :eachAttribute | eachAttribute isAdornment and: [ eachAttribute shouldReplace ] ]
+		indicesDo: [ :aStart :anEnd :hasReplacements | 
+			| aSpanIterator |
+			aSpanIterator := (aTextIterator text
+				from: aStart
+				to: anEnd) iterator.
+			[ aSpanIterator hasNext ]
+				whileTrue: [
+					hasReplacements
+						ifTrue: [ self processWithReplacements: aSpanIterator in: aStream ]
+						ifFalse: [ self processWithoutReplacements: aSpanIterator in: aStream ] ] ]
+]
+
+{ #category : #'private - pieces computation' }
+BrTextEditorLineSegment >> processWithReplacements: aTextIterator in: aStream [
+	"There is at least one replacement attribute applied on every character within the scope of the given text iterator"
+	
+	aTextIterator
+		nextAttributedEnd: [ :eachAttribute | eachAttribute isAdornment ]
+		indicesDo: [ :aStart :anEnd :theAdornmentAttributes |
+			| anAdornmentSpan theAttributes |
+			
+			theAttributes := theAdornmentAttributes
+				ifEmpty: [ aTextIterator attributes
+					select: [ :eachAttribute | eachAttribute isAdornment and: [ eachAttribute shouldReplace ] ] ].
+			
+			anAdornmentSpan := aTextIterator text from: aStart to: anEnd.
+			theAttributes do: [ :eachAttribute |
+				self
+					processAdornmentAttribute: eachAttribute
+					of: anAdornmentSpan
+					in: aStream ] ]
+]
+
+{ #category : #'private - pieces computation' }
+BrTextEditorLineSegment >> processWithoutAdornments: aTextIterator in: aStream [
+	"Process a text within the scope of the given iterator as there are no adornment attributes.
+	Now that adornment attributes are filtered we can split text into pieces based on the presence of
+	event handling attributes. Every combination of event handling elements should be a separate text piece
+	with its own unique visual element"
+
+	aTextIterator
+		nextSpan: [ :eachAttribute | eachAttribute isEventHandler ]
+		indicesDo: [ :aStart :anEnd :theEventHandlerAttributes | 
+			| aSpan aSpanIterator |
+			aSpan := aTextIterator text
+				from: aStart
+				to: anEnd.
+			aSpanIterator := aSpan iterator.
+			[ aSpanIterator hasNext ] whileTrue: [
+				self processPureWords: aSpanIterator in: aStream ] ]
+]
+
+{ #category : #'private - pieces computation' }
+BrTextEditorLineSegment >> processWithoutReplacements: aTextIterator in: aStream [
+	"There are no replacement attributes within the scope of the given iterator"
+
+	aTextIterator
+		nextAttributedEnd: [ :eachAttribute | eachAttribute isAdornment and: [ eachAttribute shouldAppend ] ]
+		indicesDo: [ :aStart :anEnd :theEndedAttributes |
+			| aSpan aSpanIterator |
+			aSpan := aTextIterator text from: aStart to: anEnd.
+			aSpanIterator := aSpan iterator.
+			[ aSpanIterator hasNext ] whileTrue: [
+				self processWithoutAdornments: aSpanIterator in: aStream ].
+			
+			theEndedAttributes do: [ :eachAttribute |
+				self
+					processAdornmentAttribute: eachAttribute
+					of: aSpan
+					in: aStream ] ]
 ]
 
 { #category : #accessing }

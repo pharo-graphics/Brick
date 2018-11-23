@@ -7,6 +7,268 @@ Class {
 	#category : 'Brick-Editor-Examples'
 }
 
+{ #category : #'examples - cursor' }
+BrTextEditorLineSegmentExamples >> cursor_in_HACrCrLfBA_at_0 [
+	<gtExample>
+	| aTextEditor aSegment aCursor |
+
+	aTextEditor := self insert_NewLineCrLf_in_HACrBA_At_3.
+	aCursor := BrTextEditorSingleCursor new position: 0.
+	
+	"cursor is in the first segment"
+	aSegment := aTextEditor segmentCollector segments first.
+	self assert: (aCursor
+		insideSubText: aSegment pieces first
+		of: aSegment).
+	
+	"cursor is not in the second segment"
+	aSegment := aTextEditor segmentCollector segments second.
+	self assert: (aCursor
+		insideSubText: aSegment pieces first
+		of: aSegment) not.
+		
+	"cursor is not in the third segment"
+	aSegment := aTextEditor segmentCollector segments third.
+	self assert: (aCursor
+		insideSubText: aSegment pieces first
+		of: aSegment) not.
+
+	^ aTextEditor
+]
+
+{ #category : #'examples - cursor' }
+BrTextEditorLineSegmentExamples >> cursor_in_HACrCrLfBA_at_1 [
+	<gtExample>
+	| aTextEditor aSegment aCursor |
+
+	aTextEditor := self insert_NewLineCrLf_in_HACrBA_At_3.
+	aCursor := BrTextEditorSingleCursor new position: 1.
+	
+	"cursor is in the first segment"
+	aSegment := aTextEditor segmentCollector segments first.
+	self assert: (aCursor
+		insideSubText: aSegment pieces first
+		of: aSegment).
+	
+	"cursor is not in the second segment"
+	aSegment := aTextEditor segmentCollector segments second.
+	self assert: (aCursor
+		insideSubText: aSegment pieces first
+		of: aSegment) not.
+		
+	"cursor is not in the third segment"
+	aSegment := aTextEditor segmentCollector segments third.
+	self assert: (aCursor
+		insideSubText: aSegment pieces first
+		of: aSegment) not.
+
+	^ aTextEditor
+]
+
+{ #category : #'examples - cursor' }
+BrTextEditorLineSegmentExamples >> cursor_in_HACrCrLfBA_at_2 [
+	<gtExample>
+	| aTextEditor aSegment aCursor |
+
+	aTextEditor := self insert_NewLineCrLf_in_HACrBA_At_3.
+	aCursor := BrTextEditorSingleCursor new position: 2.
+	
+	"cursor is in the first segment"
+	aSegment := aTextEditor segmentCollector segments first.
+	self assert: (aCursor
+		insideSubText: aSegment pieces first
+		of: aSegment).
+	
+	"cursor is not in the second segment"
+	aSegment := aTextEditor segmentCollector segments second.
+	self assert: (aCursor
+		insideSubText: aSegment pieces first
+		of: aSegment) not.
+	
+	"cursor is not in the third segment"
+	aSegment := aTextEditor segmentCollector segments third.
+	self assert: (aCursor
+		insideSubText: aSegment pieces first
+		of: aSegment) not.
+
+	^ aTextEditor
+]
+
+{ #category : #'examples - cursor' }
+BrTextEditorLineSegmentExamples >> cursor_in_HACrCrLfBA_at_3 [
+	<gtExample>
+	| aTextEditor aSegment aCursor |
+
+	aTextEditor := self insert_NewLineCrLf_in_HACrBA_At_3.
+	aCursor := BrTextEditorSingleCursor new position: 3.
+
+	"cursor is not in the first segment"
+	aSegment := aTextEditor segmentCollector segments first.
+	self assert: (aCursor
+		insideSubText: aSegment pieces first
+		of: aSegment) not.
+
+	"cursor is in the second segment"
+	aSegment := aTextEditor segmentCollector segments second.
+	self assert: (aCursor
+		insideSubText: aSegment pieces first
+		of: aSegment).
+
+	"cursor is not in the third segment"
+	aSegment := aTextEditor segmentCollector segments third.
+	self assert: (aCursor
+		insideSubText: aSegment pieces first
+		of: aSegment) not.
+
+	^ aTextEditor
+]
+
+{ #category : #'examples - cursor' }
+BrTextEditorLineSegmentExamples >> cursor_in_HACrCrLfBA_at_4 [
+	"In this example cursor is nowhere to be found in UI(in fact it is between Cr and Lf)"
+	<gtExample>
+	| aTextEditor aSegment aCursor |
+
+	aTextEditor := self insert_NewLineCrLf_in_HACrBA_At_3.
+	aCursor := BrTextEditorSingleCursor new position: 4.
+
+	"cursor is not in the first segment"
+	aSegment := aTextEditor segmentCollector segments first.
+	self assert: (aCursor
+		insideSubText: aSegment pieces first
+		of: aSegment) not.
+
+	"cursor is not in the second segment"
+	aSegment := aTextEditor segmentCollector segments second.
+	self assert: (aCursor
+		insideSubText: aSegment pieces first
+		of: aSegment) not.
+
+	"cursor is not in the third segment"
+	aSegment := aTextEditor segmentCollector segments third.
+	self assert: (aCursor
+		insideSubText: aSegment pieces first
+		of: aSegment) not.
+
+	^ aTextEditor
+]
+
+{ #category : #'examples - cursor' }
+BrTextEditorLineSegmentExamples >> cursor_in_HACrCrLfBA_at_5 [
+	<gtExample>
+	| aTextEditor aSegment aCursor |
+
+	aTextEditor := self insert_NewLineCrLf_in_HACrBA_At_3.
+	aCursor := BrTextEditorSingleCursor new position: 5.
+
+	"cursor is not in the first segment"
+	aSegment := aTextEditor segmentCollector segments first.
+	self assert: (aCursor
+		insideSubText: aSegment pieces first
+		of: aSegment) not.
+
+	"cursor is not in the second segment"
+	aSegment := aTextEditor segmentCollector segments second.
+	self assert: (aCursor
+		insideSubText: aSegment pieces first
+		of: aSegment) not.
+
+	"cursor is in the third segment"
+	aSegment := aTextEditor segmentCollector segments third.
+	self assert: (aCursor
+		insideSubText: aSegment pieces first
+		of: aSegment).
+
+	^ aTextEditor
+]
+
+{ #category : #'examples - cursor' }
+BrTextEditorLineSegmentExamples >> cursor_in_HACrCrLfBA_at_6 [
+	<gtExample>
+	| aTextEditor aSegment aCursor |
+
+	aTextEditor := self insert_NewLineCrLf_in_HACrBA_At_3.
+	aCursor := BrTextEditorSingleCursor new position: 6.
+
+	"cursor is not in the first segment"
+	aSegment := aTextEditor segmentCollector segments first.
+	self assert: (aCursor
+		insideSubText: aSegment pieces first
+		of: aSegment) not.
+
+	"cursor is not in the second segment"
+	aSegment := aTextEditor segmentCollector segments second.
+	self assert: (aCursor
+		insideSubText: aSegment pieces first
+		of: aSegment) not.
+
+	"cursor is in the third segment"
+	aSegment := aTextEditor segmentCollector segments third.
+	self assert: (aCursor
+		insideSubText: aSegment pieces first
+		of: aSegment).
+
+	^ aTextEditor
+]
+
+{ #category : #'examples - cursor' }
+BrTextEditorLineSegmentExamples >> cursor_in_HACrCrLfBA_at_7 [
+	<gtExample>
+	| aTextEditor aSegment aCursor |
+
+	aTextEditor := self insert_NewLineCrLf_in_HACrBA_At_3.
+	aCursor := BrTextEditorSingleCursor new position: 7.
+
+	"cursor is not in the first segment"
+	aSegment := aTextEditor segmentCollector segments first.
+	self assert: (aCursor
+		insideSubText: aSegment pieces first
+		of: aSegment) not.
+
+	"cursor is not in the second segment"
+	aSegment := aTextEditor segmentCollector segments second.
+	self assert: (aCursor
+		insideSubText: aSegment pieces first
+		of: aSegment) not.
+
+	"cursor is in the third segment"
+	aSegment := aTextEditor segmentCollector segments third.
+	self assert: (aCursor
+		insideSubText: aSegment pieces first
+		of: aSegment).
+
+	^ aTextEditor
+]
+
+{ #category : #'examples - cursor' }
+BrTextEditorLineSegmentExamples >> cursor_in_HACrCrLfBA_at_8 [
+	<gtExample>
+	| aTextEditor aSegment aCursor |
+
+	aTextEditor := self insert_NewLineCrLf_in_HACrBA_At_3.
+	aCursor := BrTextEditorSingleCursor new position: 8.
+
+	"cursor is not in the first segment"
+	aSegment := aTextEditor segmentCollector segments first.
+	self assert: (aCursor
+		insideSubText: aSegment pieces first
+		of: aSegment) not.
+
+	"cursor is not in the second segment"
+	aSegment := aTextEditor segmentCollector segments second.
+	self assert: (aCursor
+		insideSubText: aSegment pieces first
+		of: aSegment) not.
+
+	"cursor is not in the third segment"
+	aSegment := aTextEditor segmentCollector segments third.
+	self assert: (aCursor
+		insideSubText: aSegment pieces first
+		of: aSegment) not.
+
+	^ aTextEditor
+]
+
 { #category : #'examples - deletion' }
 BrTextEditorLineSegmentExamples >> delete_ACrCr_in_HACrCrBA_at_2_4 [
 	<gtExample>
@@ -663,6 +925,22 @@ BrTextEditorLineSegmentExamples >> insert_HABA_inEmptyAt_0 [
 ]
 
 { #category : #'examples - insertion' }
+BrTextEditorLineSegmentExamples >> insert_Hello_World_inEmptyAt_0 [
+	<gtExample>
+	| aTextEditor |
+	aTextEditor := self emptyEditor.
+
+	aTextEditor insertString: 'Hello World' at: 0.
+
+	self assert: aTextEditor text asString equals: 'Hello World'.
+	self assert: aTextEditor segmentCollector computedSegmentsCount equals: 1.
+	self assert: aTextEditor segmentCollector segments first textInterval equals: (0 to: 11).
+	self assert: aTextEditor segmentCollector cachedInterval equals: (1 to: 1).
+
+	^ aTextEditor
+]
+
+{ #category : #'examples - insertion' }
 BrTextEditorLineSegmentExamples >> insert_Hello_inEmptyAt_0 [
 	<gtExample>
 	| aTextEditor |
@@ -1075,6 +1353,73 @@ BrTextEditorLineSegmentExamples >> lineSegmentBuilder [
 	^ BrTextEditorLineSegmentBuilder new
 ]
 
+{ #category : #'examples - pieces' }
+BrTextEditorLineSegmentExamples >> pieces_Hello_World [
+	<gtExample>
+	| aTextEditor thePieces |
+	
+	aTextEditor := self insert_Hello_World_inEmptyAt_0.
+	
+	thePieces := aTextEditor segmentCollector segments first pieces.
+	self assert: thePieces size equals: 3.
+	
+	self assert: (thePieces first isKindOf: BrTextEditorLineSegmentTextPiece).
+	self assert: thePieces first start equals: 0.
+	self assert: thePieces first end equals: 5.
+	self assert: (thePieces first globalTextIndexToLocal: 0) equals: 0.
+	self assert: (thePieces first globalTextIndexToLocal: 1) equals: 1.
+	self assert: (thePieces first globalTextIndexToLocal: 2) equals: 2.
+	self assert: (thePieces first globalTextIndexToLocal: 3) equals: 3.
+	self assert: (thePieces first globalTextIndexToLocal: 4) equals: 4.
+	self assert: (thePieces first globalTextIndexToLocal: 5) equals: 5.
+	
+	self assert: (thePieces second isKindOf: BrTextEditorLineSegmentTextPiece).
+	self assert: thePieces second start equals: 5.
+	self assert: thePieces second end equals: 6.
+	self assert: (thePieces second globalTextIndexToLocal: 5) equals: 0.
+	self assert: (thePieces second globalTextIndexToLocal: 6) equals: 1.
+
+	self assert: (thePieces third isKindOf: BrTextEditorLineSegmentTextPiece).
+	self assert: thePieces third start equals: 6.
+	self assert: thePieces third end equals: 11.
+	self assert: (thePieces third globalTextIndexToLocal: 6) equals: 0.
+	self assert: (thePieces third globalTextIndexToLocal: 7) equals: 1.
+	self assert: (thePieces third globalTextIndexToLocal: 8) equals: 2.
+	self assert: (thePieces third globalTextIndexToLocal: 9) equals: 3.
+	self assert: (thePieces third globalTextIndexToLocal: 10) equals: 4.
+	self assert: (thePieces third globalTextIndexToLocal: 11) equals: 5.
+	
+	^ aTextEditor
+]
+
+{ #category : #'examples - pieces' }
+BrTextEditorLineSegmentExamples >> pieces_Hello_World_WithReplacement [
+	<gtExample>
+	| aTextEditor thePieces |
+	
+	aTextEditor := self emptyEditor.
+	aTextEditor text: self text_Hello_World_WithReplacement.
+	
+	self assert: aTextEditor segmentCollector computedSegmentsCount equals: 1.
+	
+	thePieces := aTextEditor segmentCollector segments first pieces.
+	self assert: thePieces size equals: 3.
+	
+	self assert: (thePieces first isKindOf: BrTextEditorLineSegmentTextPiece).
+	self assert: thePieces first start equals: 0.
+	self assert: thePieces first end equals: 3.
+	
+	self assert: (thePieces second isKindOf: BrTextEditorLineSegmentAdornmentPiece).
+	self assert: thePieces second start equals: 3.
+	self assert: thePieces second end equals: 8.
+
+	self assert: (thePieces third isKindOf: BrTextEditorLineSegmentTextPiece).
+	self assert: thePieces third start equals: 8.
+	self assert: thePieces third end equals: 11.
+	
+	^ aTextEditor
+]
+
 { #category : #'instance creation' }
 BrTextEditorLineSegmentExamples >> segmentStream [
 	<gtExample>
@@ -1392,6 +1737,37 @@ BrTextEditorLineSegmentExamples >> text_Hello [
 	<gtExample>
 
 	^ BlSubText text: (BlRopedText string: 'Hello')
+]
+
+{ #category : #'instance creation - text' }
+BrTextEditorLineSegmentExamples >> text_Hello_World [
+	<gtExample>
+
+	^ BlSubText text: (BlRopedText string: 'Hello World')
+]
+
+{ #category : #'instance creation - text' }
+BrTextEditorLineSegmentExamples >> text_Hello_World_WithReplacement [
+	<gtExample>
+	| aText |
+
+	aText := ('Hello', String cr, 'World') asRopedText fontSize: 20.
+	(aText from: 4 to: 8)
+		replacingAdornment: [ BlElement new size: 6@6; background: Color red ].
+		
+	^ aText
+]
+
+{ #category : #'instance creation - text' }
+BrTextEditorLineSegmentExamples >> text_Hello_World_WithReplacementAndAppending [
+	<gtExample>
+	| aText |
+
+	aText := self text_Hello_World_WithReplacement.
+	(aText from: 4 to: 8)
+		appendingAdornment: [ BlElement new size: 6@6; background: Color blue ].	
+	
+	^ aText
 ]
 
 { #category : #'instance creation - text' }

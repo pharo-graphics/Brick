@@ -2,26 +2,26 @@
 I add support of BrTextEventHandlerAttribute - special kind of attribute that can handle events
 "
 Class {
-	#name : #BrTextEditorAttributedLineSegmentTextListener,
+	#name : #BrTextEditorLineSegmentTextListener,
 	#superclass : #BlBasicEventHandler,
 	#instVars : [
 		'editorElement'
 	],
-	#category : #'Brick-Editor-Model - Segment-Text-Line-Attributed'
+	#category : #'Brick-Editor-Model - Segment-Text-Line'
 }
 
 { #category : #accessing }
-BrTextEditorAttributedLineSegmentTextListener >> editorElement [
+BrTextEditorLineSegmentTextListener >> editorElement [
 	^ editorElement
 ]
 
 { #category : #accessing }
-BrTextEditorAttributedLineSegmentTextListener >> editorElement: anEditorElement [
+BrTextEditorLineSegmentTextListener >> editorElement: anEditorElement [
 	editorElement := anEditorElement
 ]
 
 { #category : #events }
-BrTextEditorAttributedLineSegmentTextListener >> handleEvent: aBlMouseEvent [
+BrTextEditorLineSegmentTextListener >> handleEvent: aBlMouseEvent [
 	| aTextElement aLocalPosition aTextIndex anIterator theAttributes |
 
 	aTextElement := aBlMouseEvent currentTarget.
@@ -42,7 +42,7 @@ BrTextEditorAttributedLineSegmentTextListener >> handleEvent: aBlMouseEvent [
 ]
 
 { #category : #events }
-BrTextEditorAttributedLineSegmentTextListener >> wantsEvent: anEvent [
+BrTextEditorLineSegmentTextListener >> wantsEvent: anEvent [
 
 	^ (anEvent isKindOf: BlMouseEvent)
 		and: [anEvent currentTarget isAttachedToSceneGraph

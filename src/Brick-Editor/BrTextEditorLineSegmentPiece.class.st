@@ -2,8 +2,10 @@ Class {
 	#name : #BrTextEditorLineSegmentPiece,
 	#superclass : #Object,
 	#instVars : [
+		'segment',
 		'text',
-		'segment'
+		'textStart',
+		'textEnd'
 	],
 	#category : #'Brick-Editor-Model - Segment-Text-Line'
 }
@@ -29,7 +31,7 @@ BrTextEditorLineSegmentPiece >> createElement: anEditorElement [
 BrTextEditorLineSegmentPiece >> end [
 	<return: #Number>
 
-	^ self text end
+	^ textEnd
 ]
 
 { #category : #printing }
@@ -66,12 +68,15 @@ BrTextEditorLineSegmentPiece >> segment: anObject [
 BrTextEditorLineSegmentPiece >> start [
 	<return: #Number>
 
-	^ self text start
+	^ textStart
 ]
 
 { #category : #accessing }
 BrTextEditorLineSegmentPiece >> start: aStartIndex end: anEndIndex [
-	self text start: aStartIndex end: anEndIndex
+	textStart := aStartIndex.
+	textEnd := anEndIndex.
+
+	text start: ((aStartIndex + 1) min: anEndIndex) end: anEndIndex
 ]
 
 { #category : #accessing }
@@ -83,7 +88,10 @@ BrTextEditorLineSegmentPiece >> text [
 
 { #category : #accessing }
 BrTextEditorLineSegmentPiece >> text: aBrSubText [
-	text := aBrSubText
+	text := aBrSubText.
+	
+	textStart := text textOffset.
+	textEnd := textStart + text size
 ]
 
 { #category : #updating }

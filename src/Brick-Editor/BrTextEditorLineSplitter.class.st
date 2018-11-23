@@ -41,10 +41,24 @@ BrTextEditorLineSplitter >> split: aBrText in: aBrEditorSegmentStream [
 
 	anIterator := aBrText iterator.
 
-	[ anIterator hasNext and: [ aBrEditorSegmentStream wantsMore ] ] whileTrue: [		
-		anIterator nextLineIndicesDo: [ :aLineStart :aLineEnd :aLineDelimiterEnd |
-			aBrEditorSegmentStream nextPut: (self newSegment: aBrText from: aLineStart to: aLineEnd delimited: aLineDelimiterEnd) ] ].
+	[ anIterator hasNext and: [ aBrEditorSegmentStream wantsMore ] ] whileTrue: [
+		anIterator
+			nextLineIndicesDo: [ :aLineStart :aLineEnd :aLineDelimiterEnd |
+				aBrEditorSegmentStream nextPut: (self newSegment: aBrText from: aLineStart to: aLineEnd delimited: aLineDelimiterEnd) ]
+			shouldMerge: [ :aLineStart :aLineEnd :aLineDelimiterEnd |
+				(aBrText from: aLineEnd + 1 to: aLineDelimiterEnd) iterator
+					detectAttribute: [ :eachAttribute | self wantsToMergeSegments: eachAttribute ]
+					ifFound: [ true ]
+					ifNone: [ false ] ] ].
 
 	(aBrEditorSegmentStream wantsMore and: [ aBrText last isLineBreak ])
 		ifTrue: [ aBrEditorSegmentStream nextPut: (self newSegment: aBrText from: aBrText size to: aBrText size delimited: aBrText size) ]
+]
+
+{ #category : #testing }
+BrTextEditorLineSplitter >> wantsToMergeSegments: aTextAttribute [
+	"Return true if a given attribute should merge segments and ignore a new line"
+	<return: #Boolean>
+
+	^ aTextAttribute isAdornment and: [ aTextAttribute shouldReplace ]
 ]

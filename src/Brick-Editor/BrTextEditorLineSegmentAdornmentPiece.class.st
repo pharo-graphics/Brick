@@ -4,23 +4,23 @@ I special type of a segment piece that creates an element based on adornment att
 I am created by BrTextEditorAttributedLineSegment - a segment that supports adornment attributes
 "
 Class {
-	#name : #BrTextEditorAttributedLineSegmentAdornmentPiece,
+	#name : #BrTextEditorLineSegmentAdornmentPiece,
 	#superclass : #BrTextEditorLineSegmentPiece,
 	#instVars : [
 		'adornmentAttribute'
 	],
-	#category : 'Brick-Editor-Model - Segment-Text-Line-Attributed'
+	#category : #'Brick-Editor-Model - Segment-Text-Line'
 }
 
 { #category : #accessing }
-BrTextEditorAttributedLineSegmentAdornmentPiece >> adornmentAttribute [
+BrTextEditorLineSegmentAdornmentPiece >> adornmentAttribute [
 	<return: #BrTextAdornmentAttribute>
 
 	^ adornmentAttribute
 ]
 
 { #category : #accessing }
-BrTextEditorAttributedLineSegmentAdornmentPiece >> adornmentAttribute: aBrTextAdornmentAttribute [
+BrTextEditorLineSegmentAdornmentPiece >> adornmentAttribute: aBrTextAdornmentAttribute [
 
 	self
 		assert: [ aBrTextAdornmentAttribute isNotNil ]
@@ -30,12 +30,12 @@ BrTextEditorAttributedLineSegmentAdornmentPiece >> adornmentAttribute: aBrTextAd
 ]
 
 { #category : #'instance creation' }
-BrTextEditorAttributedLineSegmentAdornmentPiece >> createElement: anEditorElement [
+BrTextEditorLineSegmentAdornmentPiece >> createElement: anEditorElement [
 	^ self adornmentAttribute affect: self text in: anEditorElement
 ]
 
 { #category : #accessing }
-BrTextEditorAttributedLineSegmentAdornmentPiece >> start: aStartIndex end: anEndIndex [
+BrTextEditorLineSegmentAdornmentPiece >> start: aStartIndex end: anEndIndex [
 	"Appended pieces must not modify original text"
 	self adornmentAttribute shouldAppend
 		ifTrue: [ ^ self ].
@@ -44,21 +44,21 @@ BrTextEditorAttributedLineSegmentAdornmentPiece >> start: aStartIndex end: anEnd
 ]
 
 { #category : #updating }
-BrTextEditorAttributedLineSegmentAdornmentPiece >> updateCursor: aTextElement of: aLineSegment in: anEditorElement [
+BrTextEditorLineSegmentAdornmentPiece >> updateCursor: aTextElement of: aLineSegment in: anEditorElement [
 	"Adornment pieces do not react on cursor"
 ]
 
 { #category : #updating }
-BrTextEditorAttributedLineSegmentAdornmentPiece >> updateFocus: aBoolean of: aTextPieceElement in: anEditorElement [
+BrTextEditorLineSegmentAdornmentPiece >> updateFocus: aBoolean of: aTextPieceElement in: anEditorElement [
 	"Adornment pieces do not react on focus"
 ]
 
 { #category : #updating }
-BrTextEditorAttributedLineSegmentAdornmentPiece >> updateSelection: anElement of: aLineSegment in: anEditorElement [
+BrTextEditorLineSegmentAdornmentPiece >> updateSelection: anElement of: aLineSegment in: anEditorElement [
 	"Adornment pieces do not react on selection"
 ]
 
 { #category : #updating }
-BrTextEditorAttributedLineSegmentAdornmentPiece >> updateText: anElement of: aLineSegment in: anEditorElement [
+BrTextEditorLineSegmentAdornmentPiece >> updateText: anElement of: aLineSegment in: anEditorElement [
 	"Adornment pieces do not react on selection"
 ]

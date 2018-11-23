@@ -139,6 +139,68 @@ BrTextEditorLineSplitterExamples >> split_Hello [
 	^ aStream
 ]
 
+{ #category : #'examples - split' }
+BrTextEditorLineSplitterExamples >> split_HelloCrBeautifulCrWorldWithReplacement [
+	<gtExample>
+	| aText aSplitter aStream |
+
+	aText := ('Hello', String cr, 'World') asRopedText.
+	(aText from: 4 to: 8) replacingAdornment: [ BlElement new size: 6@6; background: Color red ].
+
+	aSplitter := self textLineSplitter.
+	aStream := self textSegmentStream.
+
+	aSplitter split: aText in: aStream.
+
+	self assert: aStream segments size equals: 1.
+	self assert: aStream segments first textStart equals: 0.
+	self assert: aStream segments first textEnd equals: 11.
+
+	^ aStream
+]
+
+{ #category : #'examples - split' }
+BrTextEditorLineSplitterExamples >> split_HelloCrBeautifulCrWorldWithReplacementAndAppending [
+	<gtExample>
+	| aText aSplitter aStream |
+
+	aText := ('Hello', String cr, 'World') asRopedText.
+	(aText from: 4 to: 8)
+		replacingAdornment: [ BlElement new size: 6@6; background: Color red ];
+		appendingAdornment: [ BlElement new size: 6@6; background: Color blue ].
+
+	aSplitter := self textLineSplitter.
+	aStream := self textSegmentStream.
+
+	aSplitter split: aText in: aStream.
+
+	self assert: aStream segments size equals: 1.
+	self assert: aStream segments first textStart equals: 0.
+	self assert: aStream segments first textEnd equals: 11.
+
+	^ aStream
+]
+
+{ #category : #'examples - split' }
+BrTextEditorLineSplitterExamples >> split_HelloCrWorldWithReplacement [
+	<gtExample>
+	| aText aSplitter aStream |
+
+	aText := ('Hello', String cr, 'World') asRopedText.
+	(aText from: 4 to: 8) replacingAdornment: [ BlElement new size: 6@6; background: Color red ].
+
+	aSplitter := self textLineSplitter.
+	aStream := self textSegmentStream.
+
+	aSplitter split: aText in: aStream.
+
+	self assert: aStream segments size equals: 1.
+	self assert: aStream segments first textStart equals: 0.
+	self assert: aStream segments first textEnd equals: 11.
+
+	^ aStream
+]
+
 { #category : #'examples - split subtext' }
 BrTextEditorLineSplitterExamples >> split_Hello_from_HabaHelloFoo [
 	<gtExample>

@@ -23,7 +23,7 @@ BrTextEditorLineSegmentTextPiece >> globalTextIndexToLocal: aTextIndex [
 
 	^ self text isEmpty
 		ifTrue: [ 0 ]
-		ifFalse: [ aTextIndex - self start + 1 ]
+		ifFalse: [ aTextIndex - self start ]
 ]
 
 { #category : #'api - cursor' }

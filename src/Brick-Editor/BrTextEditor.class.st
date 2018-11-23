@@ -131,7 +131,7 @@ BrTextEditor >> defaultCursors [
 
 { #category : #initialization }
 BrTextEditor >> defaultSegmentBuilder [
-	^ BrTextEditorAttributedLineSegmentBuilder new
+	^ BrTextEditorLineSegmentBuilder new
 ]
 
 { #category : #initialization }

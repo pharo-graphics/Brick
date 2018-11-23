@@ -23,7 +23,7 @@ BrTextWordPieceStencilBuilder >> buildDefault [
 		looseMesurement;
 		
 		"to support event-handling attributes"
-		addEventHandler: (BrTextEditorAttributedLineSegmentTextListener new editorElement: self editorElement);
+		addEventHandler: (BrTextEditorLineSegmentTextListener new editorElement: self editorElement);
 
 		"editor requests to show a cursor as a result of its position change"
 		addEventHandler: BrTextWordPieceShowCursorHandler uniqueInstance;
