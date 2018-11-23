@@ -1,5 +1,10 @@
 "
+! The Moldable Editor
+
 I edit text and provide high level abstractions of essential text editor functionality such as selection, cursor, text insertions and deletions.
+
+I make use of ${class:BrTextAdornmentAttribute}$ to augment text with visual elements. 
+
 I subclass infinite data source in order to be able to smoothly display practically infinite amounts of text.
 "
 Class {
