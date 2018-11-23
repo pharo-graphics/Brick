@@ -17,16 +17,6 @@ BrTextParagraphWordPaddingAttribute >> applyOn: aTextParagraph [
 	aTextParagraph wordPadding: self wordPadding
 ]
 
-{ #category : #comparing }
-BrTextParagraphWordPaddingAttribute >> equals: aTextParagraphAttribute [
-	^ self wordPadding = aTextParagraphAttribute wordPadding
-]
-
-{ #category : #comparing }
-BrTextParagraphWordPaddingAttribute >> hash [
-	^ self class hash bitXor: self wordPadding hash
-]
-
 { #category : #initialization }
 BrTextParagraphWordPaddingAttribute >> initialize [
 	super initialize.

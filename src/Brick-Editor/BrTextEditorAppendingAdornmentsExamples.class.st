@@ -1,5 +1,5 @@
 Class {
 	#name : #BrTextEditorAppendingAdornmentsExamples,
 	#superclass : #BrTextEditorAdornmentsExamples,
-	#category : #'Brick-Editor-Examples'
+	#category : #'Brick-Editor-Documentation'
 }

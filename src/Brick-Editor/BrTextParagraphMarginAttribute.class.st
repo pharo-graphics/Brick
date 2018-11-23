@@ -17,16 +17,6 @@ BrTextParagraphMarginAttribute >> applyOn: aTextParagraph [
 	aTextParagraph paragraphMargin: self paragraphMargin
 ]
 
-{ #category : #comparing }
-BrTextParagraphMarginAttribute >> equals: aTextParagraphAttribute [
-	^ self paragraphMargin = aTextParagraphAttribute paragraphMargin
-]
-
-{ #category : #comparing }
-BrTextParagraphMarginAttribute >> hash [
-	^ self class hash bitXor: self paragraphMargin hash
-]
-
 { #category : #initialization }
 BrTextParagraphMarginAttribute >> initialize [
 	super initialize.

@@ -1,10 +1,10 @@
 "
-I split a piece of text into line segments (BrTextEditorLineSegment)
+I split a piece of text into line segments ${class:BrTextEditorLineSegment}$
 "
 Class {
 	#name : #BrTextEditorLineSplitter,
 	#superclass : #BrTextEditorSplitter,
-	#category : 'Brick-Editor-Model - Segment-Text-Line'
+	#category : #'Brick-Editor-Model - Segment-Text-Line'
 }
 
 { #category : #'instance creation' }
