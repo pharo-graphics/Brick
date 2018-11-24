@@ -37,8 +37,8 @@ BrTextEditorLineSegmentTextListener >> handleEvent: aBlMouseEvent [
 	theAttributes := anIterator selectAttributes: [ :anAttribute | anAttribute isKindOf: BrTextEventHandlerAttribute ].
 
 	theAttributes do: [ :anAttribute |
-		(anAttribute wantsEvent: aBlMouseEvent in: self editorElement)
-			ifTrue: [ anAttribute handleEvent: aBlMouseEvent in: self editorElement ] ]
+		(anAttribute wantsEvent: aBlMouseEvent in: self editorElement editor)
+			ifTrue: [ anAttribute handleEvent: aBlMouseEvent in: self editorElement editor ] ]
 ]
 
 { #category : #events }

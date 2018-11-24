@@ -1,5 +1,5 @@
 Class {
-	#name : #BrTextHoverAttribute,
+	#name : #BrTextCursorAttribute,
 	#superclass : #BrTextEventHandlerAttribute,
 	#instVars : [
 		'enterAction',
@@ -9,41 +9,41 @@ Class {
 }
 
 { #category : #accessing }
-BrTextHoverAttribute >> enterAction [
+BrTextCursorAttribute >> enterAction [
 	^ enterAction
 ]
 
 { #category : #accessing }
-BrTextHoverAttribute >> enterAction: anObject [
+BrTextCursorAttribute >> enterAction: anObject [
 	enterAction := anObject
 ]
 
 { #category : #events }
-BrTextHoverAttribute >> handleEvent: anEvent in: aTextEditor [
+BrTextCursorAttribute >> handleEvent: anEvent in: aTextEditor [
 	"Handle a given event or dispatch it using #sendTo:"
 
-	(anEvent isKindOf: BlMouseEnterEvent)
+	(anEvent isKindOf: BrTextEditorCursorAddedEvent)
 		ifTrue: [ self performEnterAction: anEvent in: aTextEditor ].
 
-	(anEvent isKindOf: BlMouseLeaveEvent)
+	(anEvent isKindOf: BrTextEditorCursorRemovedEvent)
 		ifTrue: [ self performLeaveAction: anEvent in: aTextEditor ].
 ]
 
 { #category : #initialization }
-BrTextHoverAttribute >> initialize [
+BrTextCursorAttribute >> initialize [
 	super initialize.
 
-	enterAction := [ :aText :aTextElement :aTextEditor :anEvent | ].
-	leaveAction := [ :aText :aTextElement :aTextEditor :anEvent | ]
+	enterAction := [ :aTextEditor :anEvent | ].
+	leaveAction := [ :aTextEditor :anEvent | ]
 ]
 
 { #category : #accessing }
-BrTextHoverAttribute >> leaveAction [
+BrTextCursorAttribute >> leaveAction [
 	^ leaveAction
 ]
 
 { #category : #accessing }
-BrTextHoverAttribute >> leaveAction: aBlock [
+BrTextCursorAttribute >> leaveAction: aBlock [
 	self 
 		assert: [ aBlock notNil ] 
 		description: [ 'Leave action should be initialized' ].
@@ -52,31 +52,27 @@ BrTextHoverAttribute >> leaveAction: aBlock [
 ]
 
 { #category : #private }
-BrTextHoverAttribute >> performEnterAction: anEvent in: aTextEditor [
+BrTextCursorAttribute >> performEnterAction: anEvent in: aTextEditor [
 	self enterAction glamourValueWithArgs: {
-		anEvent currentTarget text. "first we pass text"
-		anEvent currentTarget. "then the text piece (word) element"
 		aTextEditor. "then the whole editor element"
 		anEvent "the event itself"
 	}
 ]
 
 { #category : #private }
-BrTextHoverAttribute >> performLeaveAction: anEvent in: aTextEditor [
+BrTextCursorAttribute >> performLeaveAction: anEvent in: aTextEditor [
 	self leaveAction glamourValueWithArgs: {
-		anEvent currentTarget text. "first we pass text"
-		anEvent currentTarget. "then the text piece (word) element"
 		aTextEditor. "then the whole editor element"
 		anEvent "the event itself"
 	}
 ]
 
 { #category : #events }
-BrTextHoverAttribute >> wantsEvent: anEvent in: aTextEditor [
+BrTextCursorAttribute >> wantsEvent: anEvent in: aTextEditor [
 	"Return true if I am interested in a given event and want to handle it,
 	false otherwise"
 	<return: #Boolean>
 
-	^ (anEvent isKindOf: BlMouseEnterEvent)
-		or: [ anEvent isKindOf: BlMouseLeaveEvent ]
+	^ (anEvent isKindOf: BrTextEditorCursorAddedEvent)
+		or: [ anEvent isKindOf: BrTextEditorCursorRemovedEvent ]
 ]

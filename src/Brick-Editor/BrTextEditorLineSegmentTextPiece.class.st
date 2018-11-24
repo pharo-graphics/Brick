@@ -1,9 +1,6 @@
 Class {
 	#name : #BrTextEditorLineSegmentTextPiece,
 	#superclass : #BrTextEditorLineSegmentPiece,
-	#instVars : [
-		'currentCursors'
-	],
 	#category : #'Brick-Editor-Model - Segment-Text-Line'
 }
 
@@ -15,57 +12,6 @@ BrTextEditorLineSegmentTextPiece >> createElement: anEditorElement [
 		text: self text;
 		editorElement: anEditorElement;
 		segmentPiece: self) asElement
-]
-
-{ #category : #'api - cursor' }
-BrTextEditorLineSegmentTextPiece >> globalTextIndexToLocal: aTextIndex [
-	<return: #Number>
-
-	^ self text isEmpty
-		ifTrue: [ 0 ]
-		ifFalse: [ aTextIndex - self start ]
-]
-
-{ #category : #'api - cursor' }
-BrTextEditorLineSegmentTextPiece >> hasCursor: anEditorElement [
-	<return: #Boolean>
-
-	"^ currentCursor isNotNil and: [ currentCursor isVisible ]"
-]
-
-{ #category : #initialization }
-BrTextEditorLineSegmentTextPiece >> initialize [
-	super initialize.
-	
-	currentCursors := Set new
-]
-
-{ #category : #updating }
-BrTextEditorLineSegmentTextPiece >> updateCursor: aTextElement of: aLineSegment in: anEditorElement [
-	| theCursorsInside |
-	
-	theCursorsInside := anEditorElement editor cursor allCursors
-		select: [ :aCursor | aCursor insideSubText: self of: aLineSegment ].
-	
-	"tell to remove all existing cursors"
-	currentCursors do: [ :aCursor |
-		aTextElement dispatchEvent: (BrTextEditorHideCursorRequest new
-				editorElement: anEditorElement;
-				cursorPosition: aCursor position) ].
-
-	"create a collection of new cursors in local coordinates"
-	currentCursors := theCursorsInside collect: [ :aCursor |
-		| aNewCursor |	
-		aNewCursor := aCursor copy.
-		aNewCursor position: (self globalTextIndexToLocal: aCursor position).
-		aNewCursor ].
-
-	"tell to add new cursors"
-	currentCursors do: [ :aCursor |
-		aTextElement dispatchEvent: (BrTextEditorShowCursorRequest new
-			editorElement: anEditorElement;
-			hasFocus: anEditorElement isFocused;
-			cursorPosition: aCursor position) ]
 ]
 
 { #category : #updating }

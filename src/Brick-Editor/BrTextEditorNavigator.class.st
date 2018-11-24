@@ -131,11 +131,12 @@ BrTextEditorNavigator >> notifyCursorAdded: aCursor [
 ]
 
 { #category : #private }
-BrTextEditorNavigator >> notifyCursorChangedAt: aTextIndex [
+BrTextEditorNavigator >> notifyCursorChanged: aCursor [
 	| aCommand |
 
 	aCommand := BrTextEditorCursorChangeCommand new
-		position: aTextIndex.
+		cursor: aCursor;
+		position: aCursor position.
 	self editor enqueueCommand: aCommand
 ]
 
@@ -158,7 +159,7 @@ BrTextEditorNavigator >> privateAddCursor: aNewCursor [
 	
 	self cursor add: aNewCursor.
 
-	self notifyCursorChangedAt: aNewCursor position.
+	self notifyCursorChanged: aNewCursor.
 	self notifyCursorAdded: aNewCursor
 ]
 
@@ -185,17 +186,17 @@ BrTextEditorNavigator >> privateCursorAt: aTextPosition ifFound: aFoundBlock ifN
 
 { #category : #private }
 BrTextEditorNavigator >> privateMoveCursor: aCursor to: aTextIndex [
-	| anOldPosition |
+	| anOldCursor |
 	self
 		assert: [ aCursor position ~= aTextIndex ]
 		description: [ 'Can not move a given cursor to the same location' ].
 	
-	anOldPosition := aCursor position.
+	anOldCursor := aCursor copy.
 	aCursor position: aTextIndex.
 
-	self notifyCursorChangedAt: anOldPosition.
-	self notifyCursorChangedAt: aTextIndex.
-	self notifyCursorMoved: aCursor from: anOldPosition to: aTextIndex
+	self notifyCursorChanged: anOldCursor.
+	self notifyCursorChanged: aCursor.
+	self notifyCursorMoved: aCursor from: anOldCursor position to: aTextIndex
 ]
 
 { #category : #'private - operations' }
@@ -250,7 +251,7 @@ BrTextEditorNavigator >> privateRemoveCursor: aCursorToRemove [
 		description: [ 'Cursor must exist at a given index' ].
 
 	self cursor remove: aCursorToRemove.
-	self notifyCursorChangedAt: aCursorToRemove position.
+	self notifyCursorChanged: aCursorToRemove.
 	self notifyCursorRemoved: aCursorToRemove
 ]
 

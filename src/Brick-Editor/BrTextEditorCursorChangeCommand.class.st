@@ -7,20 +7,36 @@ Class {
 	#name : #BrTextEditorCursorChangeCommand,
 	#superclass : #BrTextEditorCommand,
 	#instVars : [
-		'position'
+		'position',
+		'cursor'
 	],
 	#category : #'Brick-Editor-Commands'
 }
 
+{ #category : #accessing }
+BrTextEditorCursorChangeCommand >> cursor [
+	^ cursor
+]
+
+{ #category : #accessing }
+BrTextEditorCursorChangeCommand >> cursor: anObject [
+	cursor := anObject
+]
+
 { #category : #executing }
 BrTextEditorCursorChangeCommand >> executeOn: aTextEditor [
+	
+	self processAttributesOn: aTextEditor.
+
 	aTextEditor segmentCollector
 		cachedSegmentAt: self position
 		ifFound: [ :aSegment |
 			aTextEditor
 				notifyItemsChanged: (aSegment index to: aSegment index)
 				payload: self newHolderCommand ]
-		ifNotFound: [  ]
+		ifNotFound: [  ].
+		
+	
 ]
 
 { #category : #'instance creation' }
@@ -36,4 +52,26 @@ BrTextEditorCursorChangeCommand >> position [
 { #category : #accessing }
 BrTextEditorCursorChangeCommand >> position: anObject [
 	position := anObject
+]
+
+{ #category : #executing }
+BrTextEditorCursorChangeCommand >> processAttributesOn: aTextEditor [
+	| hasCursor anEvent theEventHandlingAttributes |
+	
+	(aTextEditor text size <= self position)
+		ifFalse: [ ^ self ].
+		
+	theEventHandlingAttributes := (aTextEditor text attributesAt: self position)
+		select: [ :eachAttribute | eachAttribute isEventHandler ].
+		
+	theEventHandlingAttributes
+		ifEmpty: [ ^ self ].
+	
+	hasCursor := aTextEditor cursor anySatisfy: [ :eachCursor | eachCursor position = self position ].
+	anEvent := hasCursor
+		ifTrue: [ BrTextEditorCursorAddedEvent cursor: self cursor ]
+		ifFalse: [ BrTextEditorCursorRemovedEvent cursor: self cursor ].
+
+	(theEventHandlingAttributes wantsEvent: anEvent in: aTextEditor)
+		ifTrue: [ theEventHandlingAttributes handleEvent: anEvent in: aTextEditor ]
 ]

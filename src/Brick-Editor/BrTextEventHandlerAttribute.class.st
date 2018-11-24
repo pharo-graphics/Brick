@@ -17,7 +17,7 @@ BrTextEventHandlerAttribute >> equals: aTextAttribute [
 ]
 
 { #category : #events }
-BrTextEventHandlerAttribute >> handleEvent: anEvent in: anEditorElement [
+BrTextEventHandlerAttribute >> handleEvent: anEvent in: aTextEditor [
 	"Handle a given event or dispatch it using #sendTo:"
 
 	self subclassResponsibility
@@ -38,7 +38,7 @@ BrTextEventHandlerAttribute >> isEventHandler [
 ]
 
 { #category : #events }
-BrTextEventHandlerAttribute >> wantsEvent: anEvent in: anEditorElement [
+BrTextEventHandlerAttribute >> wantsEvent: anEvent in: aTextEditor [
 	"Return true if I am interested in a given event and want to handle it,
 	false otherwise"
 	<return: #Boolean>

@@ -31,10 +31,10 @@ BrTextHoverStylableAttribute >> initialize [
 	super initialize.
 
 	attributes := #().
-	enterAction := [ :aText :aTextElement :anEditorElement :anEvent |
+	enterAction := [ :aText :aTextElement :aTextEditor :anEvent |
 		aText attributes: self attributes.
-		anEditorElement editor invalidateAll ].
-	leaveAction := [ :aText :aTextElement :anEditorElement :anEvent |
+		aTextEditor invalidateAll ].
+	leaveAction := [ :aText :aTextElement :aTextEditor :anEvent |
 		aText clearAttributes: [ :aTextAttribute | self attributes identityIncludes: aTextAttribute ].
-		anEditorElement editor invalidateAll ]
+		aTextEditor invalidateAll ]
 ]
