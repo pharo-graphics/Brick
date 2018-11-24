@@ -3,7 +3,8 @@ Class {
 	#superclass : #BrTextEventHandlerAttribute,
 	#instVars : [
 		'enterAction',
-		'leaveAction'
+		'leaveAction',
+		'isInside'
 	],
 	#category : #'Brick-Editor-Text-Attributes'
 }
@@ -34,7 +35,8 @@ BrTextCursorAttribute >> initialize [
 	super initialize.
 
 	enterAction := [ :aTextEditor :anEvent | ].
-	leaveAction := [ :aTextEditor :anEvent | ]
+	leaveAction := [ :aTextEditor :anEvent | ].
+	isInside := false
 ]
 
 { #category : #accessing }
@@ -53,6 +55,12 @@ BrTextCursorAttribute >> leaveAction: aBlock [
 
 { #category : #private }
 BrTextCursorAttribute >> performEnterAction: anEvent in: aTextEditor [
+
+	isInside
+		ifTrue: [ ^ self ].
+		
+	isInside := true.
+
 	self enterAction glamourValueWithArgs: {
 		aTextEditor. "then the whole editor element"
 		anEvent "the event itself"
@@ -61,6 +69,12 @@ BrTextCursorAttribute >> performEnterAction: anEvent in: aTextEditor [
 
 { #category : #private }
 BrTextCursorAttribute >> performLeaveAction: anEvent in: aTextEditor [
+	
+	isInside
+		ifFalse: [ ^ self ].
+		
+	isInside := false.
+
 	self leaveAction glamourValueWithArgs: {
 		aTextEditor. "then the whole editor element"
 		anEvent "the event itself"

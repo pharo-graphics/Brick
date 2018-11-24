@@ -58,9 +58,9 @@ BrTextEditorCursorChangeCommand >> position: anObject [
 BrTextEditorCursorChangeCommand >> processAttributesOn: aTextEditor [
 	| hasCursor anEvent theEventHandlingAttributes |
 	
-	(aTextEditor text size <= self position)
-		ifFalse: [ ^ self ].
-		
+	(self position >= aTextEditor text size)
+		ifTrue: [ ^ self ].
+
 	theEventHandlingAttributes := (aTextEditor text attributesAt: self position)
 		select: [ :eachAttribute | eachAttribute isEventHandler ].
 		
@@ -72,6 +72,7 @@ BrTextEditorCursorChangeCommand >> processAttributesOn: aTextEditor [
 		ifTrue: [ BrTextEditorCursorAddedEvent cursor: self cursor ]
 		ifFalse: [ BrTextEditorCursorRemovedEvent cursor: self cursor ].
 
-	(theEventHandlingAttributes wantsEvent: anEvent in: aTextEditor)
-		ifTrue: [ theEventHandlingAttributes handleEvent: anEvent in: aTextEditor ]
+	theEventHandlingAttributes do: [ :eachAttribute |
+		(eachAttribute wantsEvent: anEvent in: aTextEditor)
+			ifTrue: [ eachAttribute handleEvent: anEvent in: aTextEditor ] ]
 ]
