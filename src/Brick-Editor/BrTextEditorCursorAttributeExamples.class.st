@@ -5,7 +5,7 @@ Class {
 }
 
 { #category : #public }
-BrTextEditorCursorAttributeExamples >> simple [
+BrTextEditorCursorAttributeExamples >> changingForeground [
 	<gtExample>
 	| text |
 	text := 'Hello World
