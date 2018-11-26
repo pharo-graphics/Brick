@@ -8,8 +8,22 @@ BlElement >> actors [
 ]
 
 { #category : #'*Brick' }
+BlElement >> addLook: aLook [
+	self look
+		ifNil: [ self look: aLook ]
+		ifNotNil: [ self look add: aLook ].
+]
+
+{ #category : #'*Brick' }
 BlElement >> asStencil [
 	^ self
+]
+
+{ #category : #'*Brick' }
+BlElement >> asVerticallyResizableCardDo: aBlock [
+	^ aBlock value: (BlElement new
+		look: BrGlamorousWithVerticalResizerLook + BrShadowLook;
+		addChild: self)
 ]
 
 { #category : #'*Brick' }
