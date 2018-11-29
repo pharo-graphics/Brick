@@ -152,7 +152,7 @@ BrExamplesShowroom >> accordionList [
 		accordion look: BrGlamorousAccordionLook new.
 		accordion margin: (BlInsets all: 5).
 		accordion content: [
-			(GtDocumenter editorForText: 'Hello world')
+			(BrEditorElement new editor: (BrTextEditor new text: 'Hello world' asRopedText))
 				constraintsDo: [ :c | c vertical fitContent ] ].
 		accordion header: [
 			BrButton new
