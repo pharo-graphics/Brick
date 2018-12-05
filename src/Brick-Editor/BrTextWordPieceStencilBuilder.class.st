@@ -15,7 +15,7 @@ Class {
 
 { #category : #'api - instantiation' }
 BrTextWordPieceStencilBuilder >> buildDefault [
-	^ BlTextEditElement new
+	^ BrTextElementWithCursors new
 		text: self text;
 		clipChildren: false;
 		padding: (self segmentPiece segment wordPadding);

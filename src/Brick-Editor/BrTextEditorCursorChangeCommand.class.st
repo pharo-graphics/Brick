@@ -15,6 +15,8 @@ Class {
 
 { #category : #accessing }
 BrTextEditorCursorChangeCommand >> cursor [
+	<return: #BrTextEditorSingleCursor>
+
 	^ cursor
 ]
 
@@ -35,8 +37,6 @@ BrTextEditorCursorChangeCommand >> executeOn: aTextEditor [
 				notifyItemsChanged: (aSegment index to: aSegment index)
 				payload: self newHolderCommand ]
 		ifNotFound: [  ].
-		
-	
 ]
 
 { #category : #'instance creation' }

@@ -45,6 +45,28 @@ BrTextEditorLineSegmentHolder >> createSegmentElement [
 		yourself
 ]
 
+{ #category : #actions }
+BrTextEditorLineSegmentHolder >> moveCursorDown: aCursor [
+	self
+		assert: [ segment isNotNil ]
+		description: [ 'Segment must be bound!' ].
+
+	pieces
+		with: pieceElements
+		do: [ :aPiece :aPieceElement | aPiece moveCursorDown: aCursor pieceElement: aPieceElement of: segment in: self infiniteElement ]
+]
+
+{ #category : #actions }
+BrTextEditorLineSegmentHolder >> moveCursorUp: aCursor [
+	self
+		assert: [ segment isNotNil ]
+		description: [ 'Segment must be bound!' ].
+
+	pieces
+		with: pieceElements
+		do: [ :aPiece :aPieceElement | aPiece moveCursorUp: aCursor pieceElement: aPieceElement of: segment in: self infiniteElement ]
+]
+
 { #category : #updating }
 BrTextEditorLineSegmentHolder >> onCursorChanged [
 	"Is sent when text editor's cursor changes.

@@ -90,7 +90,7 @@ BrEditorTextFlowLayout >> measure: anElement with: anExtentSpec [
 
 	lines do: [ :aLine |
 		aLine elements ifNotEmpty: [ :theElements |
-			(theElements last isKindOf: BlTextEditElement)
+			(theElements last isKindOf: BrTextElementWithCursors)
 				ifTrue: [
 					theElements last measure: (BlExtentMeasurementSpec exact:
 						theElements last measuredExtent + (((anElement measuredWidth - aLine width) max: 0) @ theElements last padding height negated)) ] ] ]
