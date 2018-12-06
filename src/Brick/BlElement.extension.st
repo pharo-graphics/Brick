@@ -20,9 +20,9 @@ BlElement >> asStencil [
 ]
 
 { #category : #'*Brick' }
-BlElement >> asVerticallyResizableCardDo: aBlock [
+BlElement >> asVerticallyResizableDo: aBlock [
 	^ aBlock value: (BlElement new
-		look: BrGlamorousWithVerticalResizerLook + BrShadowLook;
+		look: BrGlamorousWithVerticalResizerLook;
 		addChild: self)
 ]
 

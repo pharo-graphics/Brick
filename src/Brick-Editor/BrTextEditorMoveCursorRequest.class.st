@@ -19,19 +19,9 @@ BrTextEditorMoveCursorRequest >> cursorPosition: anObject [
 	cursorPosition := anObject
 ]
 
-{ #category : #accessing }
-BrTextEditorMoveCursorRequest >> direction [
-	^ direction
-]
-
-{ #category : #accessing }
-BrTextEditorMoveCursorRequest >> direction: anObject [
-	direction := anObject
-]
-
 { #category : #actions }
 BrTextEditorMoveCursorRequest >> down [
-	self direction: #down
+	direction := #down
 ]
 
 { #category : #accessing }
@@ -44,7 +34,17 @@ BrTextEditorMoveCursorRequest >> hasFocus: anObject [
 	hasFocus := anObject
 ]
 
+{ #category : #testing }
+BrTextEditorMoveCursorRequest >> isDown [
+	^ direction = #down
+]
+
+{ #category : #testing }
+BrTextEditorMoveCursorRequest >> isUp [
+	^ direction = #up
+]
+
 { #category : #actions }
 BrTextEditorMoveCursorRequest >> up [
-	self direction: #up
+	direction := #up
 ]

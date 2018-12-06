@@ -17,8 +17,22 @@ BrTextWordPieceMoveCursorHandler >> handleEvent: anEvent [
 	
 	aTextElement cursorAt: anEvent cursorPosition
 		ifFound: [ :aCursorElement |
+			| aFocusFinder aDirection aReceiverElement |
+			aFocusFinder := BlFocusFinder new.
+			aDirection := anEvent isUp
+				ifTrue: [ BlFocusSearchDirectionUp new ]
+				ifFalse: [ BlFocusSearchDirectionDown new ].
 			
+			aReceiverElement := aFocusFinder
+				nextFocus: aTextElement
+				within: anEvent editorElement
+				from: aCursorElement bounds inParent asRectangle
+				along: aDirection.
+			
+			aReceiverElement logCr.
+		
 		]
+		
 		ifNone: [ ]
 	
 ]

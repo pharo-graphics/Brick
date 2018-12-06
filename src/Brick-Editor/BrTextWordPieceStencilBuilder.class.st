@@ -30,6 +30,9 @@ BrTextWordPieceStencilBuilder >> buildDefault [
 		
 		"editor requests to remove a cursor as a result of its position change"
 		addEventHandler: BrTextWordPieceHideCursorHandler uniqueInstance;
+		
+		"when editor requests cursor to move up/down"
+		addEventHandler: BrTextWordPieceMoveCursorHandler uniqueInstance;
 
 		addEventHandler: BrTextWordPieceFocusHandler uniqueInstance;
 		addEventHandler: BrTextWordPieceBlurHandler uniqueInstance;

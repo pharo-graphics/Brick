@@ -13,7 +13,7 @@ Class {
 
 { #category : #'cursor - management' }
 BrTextElementWithCursors >> addCursorAt: aTextPosition [
-	<return: #BlCursorElement>
+	<return: #BrCursorElement>
 	
 	self assertCursorPosition: aTextPosition.
 	
@@ -55,7 +55,7 @@ BrTextElementWithCursors >> cursorAt: aTextPosition ifFound: aFoundBlock ifNone:
 
 { #category : #accessing }
 BrTextElementWithCursors >> cursorElements [
-	<return: #Collection of: #BlCursorElement>
+	<return: #Collection of: #BrCursorElement>
 
 	^ cursorElements
 ]
@@ -103,7 +103,7 @@ BrTextElementWithCursors >> initialize [
 	super initialize.
 
 	cursorElements := OrderedCollection new.
-	cursorStencil := BlCursorStencil uniqueInstance
+	cursorStencil := BrCursorStencil uniqueInstance
 ]
 
 { #category : #layout }
