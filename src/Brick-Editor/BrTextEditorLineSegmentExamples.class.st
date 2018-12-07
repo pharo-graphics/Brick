@@ -1354,6 +1354,38 @@ BrTextEditorLineSegmentExamples >> lineSegmentBuilder [
 ]
 
 { #category : #'examples - pieces' }
+BrTextEditorLineSegmentExamples >> pieces_Hello_1_WithAppending [
+	<gtExample>
+	| aTextEditor thePieces |
+	
+	aTextEditor := self emptyEditor.
+	aTextEditor text: self text_Hello_1_WithAppending.
+	
+	self assert: aTextEditor segmentCollector computedSegmentsCount equals: 1.
+	
+	thePieces := aTextEditor segmentCollector segments first pieces.
+	self assert: thePieces size equals: 4.
+	
+	self assert: (thePieces first isKindOf: BrTextEditorLineSegmentTextPiece).
+	self assert: thePieces first start equals: 0.
+	self assert: thePieces first end equals: 5.
+	
+	self assert: (thePieces second isKindOf: BrTextEditorLineSegmentTextPiece).
+	self assert: thePieces second start equals: 5.
+	self assert: thePieces second end equals: 6.
+
+	self assert: (thePieces third isKindOf: BrTextEditorLineSegmentTextPiece).
+	self assert: thePieces third start equals: 6.
+	self assert: thePieces third end equals: 7.
+	
+	self assert: (thePieces fourth isKindOf: BrTextEditorLineSegmentAdornmentPiece).
+	self assert: thePieces fourth start equals: 0.
+	self assert: thePieces fourth end equals: 7.
+	
+	^ aTextEditor
+]
+
+{ #category : #'examples - pieces' }
 BrTextEditorLineSegmentExamples >> pieces_Hello_World [
 	<gtExample>
 	| aTextEditor thePieces |
@@ -1737,6 +1769,29 @@ BrTextEditorLineSegmentExamples >> text_Hello [
 	<gtExample>
 
 	^ BlSubText text: (BlRopedText string: 'Hello')
+]
+
+{ #category : #'instance creation - text' }
+BrTextEditorLineSegmentExamples >> text_Hello_1_WithAppending [
+	<gtExample>
+	| aText |
+
+	aText := 'Hello 1' asRopedText.
+	aText
+		monospace;
+		fontSize: 14;
+		foreground: Color black.
+
+	(aText from: aText size to: aText size)
+		foreground: Color darkGray.
+
+	aText appendingAdornment: [
+		BlElement new
+			size: 20@20;
+			background: (Color gray alpha: 0.5);
+			geometry: BlEllipse new ].
+
+	^ aText
 ]
 
 { #category : #'instance creation - text' }
