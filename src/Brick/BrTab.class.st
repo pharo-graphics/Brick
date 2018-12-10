@@ -14,6 +14,11 @@ BrTab >> actionsStencil: aStencilBuilder [
 ]
 
 { #category : #'api - accessing' }
+BrTab >> icon [
+	^ iconModel icon
+]
+
+{ #category : #'api - accessing' }
 BrTab >> icon: anElement [
 	iconModel icon: anElement
 ]
@@ -25,6 +30,11 @@ BrTab >> initialize [
 	self viewModel: (BrTabModel new + 
 		(labelModel := BrLabelModel new) +
 		(iconModel := BrIconModel new))
+]
+
+{ #category : #'api - accessing' }
+BrTab >> label [
+	^ labelModel text
 ]
 
 { #category : #'api - accessing' }

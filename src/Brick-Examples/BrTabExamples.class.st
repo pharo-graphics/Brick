@@ -39,6 +39,34 @@ BrTabExamples >> groupHeaderLook [
 ]
 
 { #category : #'examples - ui header' }
+BrTabExamples >> groupHeaderWithAddedTabAtFirstPosition [
+	<gtExample>
+	
+	| aTabGroupModel aHeaderElement aHeaderLook anExistingTabModel anAddedTabModel |
+	aTabGroupModel := self tabGroupWithOneTab.
+	aHeaderLook := self groupHeaderLook.
+	aHeaderElement := BlElement new
+		look: aHeaderLook;
+		viewModel: aTabGroupModel;
+		layout: BlLinearLayout vertical;
+		constraintsDo: [ :c |
+			c horizontal fitContent.
+			c vertical fitContent ].
+	
+	self assert: aHeaderLook tabs size equals: 1.
+	anExistingTabModel := aHeaderLook tabModels first.
+	
+	anAddedTabModel := self tabModel.
+	aTabGroupModel addTab: anAddedTabModel at: 1.
+	
+	self assert: aHeaderLook tabs size equals: 2.
+	self assert: aHeaderLook tabModels first equals: anAddedTabModel.
+	self assert: aHeaderLook tabModels second equals: anExistingTabModel.
+	
+	^ aHeaderElement
+]
+
+{ #category : #'examples - ui header' }
 BrTabExamples >> groupHeaderWithBoundTabs [
 	<gtExample>	
 	| aHeaderElement tabElement1 tabElement2 tabElement3 |
@@ -275,21 +303,48 @@ BrTabExamples >> tabGroupModel [
 { #category : #'examples - tab group model' }
 BrTabExamples >> tabGroupWithOneTab [
 	<gtExample>
-	| aTabGroup aTab |
+	| aTabGroupModel aTab |
 	
-	aTabGroup := self tabGroupModel.
-	self assert: aTabGroup isEmpty.
-	self assert: aTabGroup hasSelectedTab not.
+	aTabGroupModel := self tabGroupModel.
+	self assert: aTabGroupModel isEmpty.
+	self assert: aTabGroupModel hasSelectedTab not.
 	
 	aTab := self tabModel.
 	self assert: aTab isSelected not.
 
-	aTabGroup addTab: aTab.
+	aTabGroupModel addTab: aTab.
 	
 	self assert: aTab isSelected.
+	self assert: aTabGroupModel isNotEmpty.
+	self assert: aTabGroupModel hasSelectedTab.
+	self assert: aTabGroupModel selectedTab equals: aTab.
+
+	^ aTabGroupModel
+]
+
+{ #category : #'examples - tab group model' }
+BrTabExamples >> tabGroupWithTabAddedAtFirstPosition [
+	<gtExample>
+	| aTabGroup anExistingTab anAddedTab |
+	
+	aTabGroup := self tabGroupWithOneTab.
+	anExistingTab := aTabGroup tabs first.
+	
+	anAddedTab := self tabModel.
+
+	aTabGroup addTab: anAddedTab at: 1.
+	
+	"anAddedTab should be first"
+	self assert: aTabGroup tabs first equals: anAddedTab.
+	self assert: aTabGroup tabs second equals: anExistingTab.
+	
+	"a tab selected after adding must become selected"
+	anAddedTab select.
+	
+	self assert: anAddedTab isSelected.
 	self assert: aTabGroup isNotEmpty.
 	self assert: aTabGroup hasSelectedTab.
-	self assert: aTabGroup selectedTab equals: aTab.
+	self assert: aTabGroup selectedTab equals: anAddedTab.
 
 	^ aTabGroup
 ]
