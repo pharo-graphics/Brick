@@ -294,6 +294,16 @@ BrTextEditor >> initializeInteractions [
 	self interactions add: (BlShortcut new
 		combination: (BlKeyCombination builder key: Key arrowRight; build);
 		action: [ self moveCursorRight ]).
+		
+	"up-arrow => move cursor up"
+	self interactions add: (BlShortcut new
+		combination: (BlKeyCombination builder key: Key arrowUp; build);
+		action: [ self moveCursorUp ]).
+		
+	"down-arrow => move cursor down"
+	self interactions add: (BlShortcut new
+		combination: (BlKeyCombination builder key: Key arrowDown; build);
+		action: [ self moveCursorDown ]).
 	
 	"self interactions add: (BlShortcut new
 		combination: (BlKeyCombination builder primary; key: Key arrowRight; build);
@@ -375,6 +385,11 @@ BrTextEditor >> itemTypeAt: aPosition [
 ]
 
 { #category : #'text - cursor' }
+BrTextEditor >> moveCursorDown [
+	self cursor do: [ :eachCursor | self enqueueCommand: (BrTextEditorCursorMoveCommand down cursor:  eachCursor) ]
+]
+
+{ #category : #'text - cursor' }
 BrTextEditor >> moveCursorLeft [
 	"Moves cursor to the left by one character without any other side effects.
 	Note:
@@ -439,6 +454,12 @@ BrTextEditor >> moveCursorToStartPreviousWord [
 
 	self moveCursorTo: newPosition.
 	self selectNone"
+]
+
+{ #category : #'text - cursor' }
+BrTextEditor >> moveCursorUp [
+
+	self cursor do: [ :eachCursor | self enqueueCommand: (BrTextEditorCursorMoveCommand up cursor:  eachCursor) ]
 ]
 
 { #category : #'api - modification' }

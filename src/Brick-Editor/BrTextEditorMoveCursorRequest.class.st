@@ -2,12 +2,23 @@ Class {
 	#name : #BrTextEditorMoveCursorRequest,
 	#superclass : #BrTextEditorRequest,
 	#instVars : [
+		'cursor',
 		'cursorPosition',
 		'hasFocus',
 		'direction'
 	],
 	#category : #'Brick-Editor-UI - Requests'
 }
+
+{ #category : #accessing }
+BrTextEditorMoveCursorRequest >> cursor [
+	^ cursor
+]
+
+{ #category : #accessing }
+BrTextEditorMoveCursorRequest >> cursor: anObject [
+	cursor := anObject
+]
 
 { #category : #accessing }
 BrTextEditorMoveCursorRequest >> cursorPosition [

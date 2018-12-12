@@ -108,10 +108,12 @@ BrTextEditorLineSegmentPiece >> isEmpty [
 
 { #category : #'api - cursor' }
 BrTextEditorLineSegmentPiece >> moveCursorDown: aCursor pieceElement: aPieceElement of: aLineSegment in: anEditorElement [
+
 	aPieceElement dispatchEvent:
 		(BrTextEditorMoveCursorRequest new down
 			editorElement: anEditorElement;
 			hasFocus: anEditorElement isFocused;
+			cursor: aCursor;
 			cursorPosition: (self globalTextIndexToLocal: aCursor position))
 ]
 
@@ -121,6 +123,7 @@ BrTextEditorLineSegmentPiece >> moveCursorUp: aCursor pieceElement: aPieceElemen
 		(BrTextEditorMoveCursorRequest new up
 			editorElement: anEditorElement;
 			hasFocus: anEditorElement isFocused;
+			cursor: aCursor;
 			cursorPosition: (self globalTextIndexToLocal: aCursor position))
 ]
 

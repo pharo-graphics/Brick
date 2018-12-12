@@ -1802,6 +1802,18 @@ BrTextEditorLineSegmentExamples >> text_Hello_World [
 ]
 
 { #category : #'instance creation - text' }
+BrTextEditorLineSegmentExamples >> text_Hello_World_Cr_WithReplacement [
+	<gtExample>
+	| aText |
+
+	aText := ('Hello', String cr, String cr, 'World', String cr) asRopedText fontSize: 20.
+	(aText from: 8 to: 12)
+		replacingAdornment: [ BlElement new size: 6@6; background: Color red ].
+		
+	^ aText
+]
+
+{ #category : #'instance creation - text' }
 BrTextEditorLineSegmentExamples >> text_Hello_World_WithReplacement [
 	<gtExample>
 	| aText |

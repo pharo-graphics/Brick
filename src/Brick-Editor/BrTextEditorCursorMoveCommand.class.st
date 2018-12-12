@@ -8,6 +8,16 @@ Class {
 	#category : #'Brick-Editor-Commands'
 }
 
+{ #category : #actions }
+BrTextEditorCursorMoveCommand class >> down [
+	^ self new down
+]
+
+{ #category : #actions }
+BrTextEditorCursorMoveCommand class >> up [
+	^ self new up
+]
+
 { #category : #accessing }
 BrTextEditorCursorMoveCommand >> cursor [
 	<return: #BrTextEditorSingleCursor>
@@ -30,6 +40,11 @@ BrTextEditorCursorMoveCommand >> direction: aSymbol [
 	direction := aSymbol
 ]
 
+{ #category : #accessing }
+BrTextEditorCursorMoveCommand >> down [
+	direction := #down
+]
+
 { #category : #executing }
 BrTextEditorCursorMoveCommand >> executeOn: aTextEditor [
 
@@ -37,8 +52,8 @@ BrTextEditorCursorMoveCommand >> executeOn: aTextEditor [
 		cachedSegmentAt: self cursor position
 		ifFound: [ :aSegment |
 			aTextEditor
-				notifyItemsChanged: (aSegment index to: aSegment index)
-				payload: self newHolderCommand ]
+				notifyItems: (aSegment index to: aSegment index)
+				event: self newHolderCommand ]
 		ifNotFound: [  ].
 ]
 
@@ -48,4 +63,9 @@ BrTextEditorCursorMoveCommand >> newHolderCommand [
 	^ (self direction = #up
 		ifTrue: [ BrTextEditorCursorMoveUpHolderCommand new ]
 		ifFalse: [ BrTextEditorCursorMoveDownHolderCommand new ]) cursor: self cursor
+]
+
+{ #category : #accessing }
+BrTextEditorCursorMoveCommand >> up [
+	direction := #up
 ]

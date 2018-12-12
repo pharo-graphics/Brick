@@ -17,22 +17,28 @@ BrTextWordPieceMoveCursorHandler >> handleEvent: anEvent [
 	
 	aTextElement cursorAt: anEvent cursorPosition
 		ifFound: [ :aCursorElement |
-			| aFocusFinder aDirection aReceiverElement |
+			| aFocusFinder aDirection |
 			aFocusFinder := BlFocusFinder new.
 			aDirection := anEvent isUp
 				ifTrue: [ BlFocusSearchDirectionUp new ]
 				ifFalse: [ BlFocusSearchDirectionDown new ].
-			
-			aReceiverElement := aFocusFinder
-				nextFocus: aTextElement
+			(aFocusFinder
+				nextFocus: aCursorElement
 				within: anEvent editorElement
-				from: aCursorElement bounds inParent asRectangle
-				along: aDirection.
-			
-			aReceiverElement logCr.
-		
-		]
-		
+				along: aDirection)
+			ifNotNil: [ :aReceiverElement |
+				(aReceiverElement isKindOf: aTextElement class)
+					ifTrue: [
+						| aCursorBoundsInEditor aCursorBoundsInTheOtherText aLocalTextPosition aGlobalTextPosition |
+				
+						aCursorBoundsInEditor := (aCursorElement bounds inParent: anEvent editorElement) bounds copy.
+						aCursorBoundsInTheOtherText := aReceiverElement globalBoundsToMine: aCursorBoundsInEditor fromParent: anEvent editorElement.
+						
+						aLocalTextPosition := aReceiverElement paragraph indexAtPosition: aCursorBoundsInTheOtherText center x @ 0.
+						aGlobalTextPosition := aReceiverElement text textOffset + aLocalTextPosition.
+
+						anEvent editorElement editor navigator
+							move: anEvent cursor to: aGlobalTextPosition;
+							apply ] ] ]
 		ifNone: [ ]
-	
 ]
