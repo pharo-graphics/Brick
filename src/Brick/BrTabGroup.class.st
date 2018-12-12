@@ -10,6 +10,11 @@ BrTabGroup >> addTab: anElement [
 ]
 
 { #category : #'api - adding / removing' }
+BrTabGroup >> addTab: anElement at: anInteger [ 
+	self viewModel addTab: anElement viewModel at: anInteger
+]
+
+{ #category : #'api - adding / removing' }
 BrTabGroup >> addTabs: aCollectionOfElements [
 	self viewModel addTabs: (aCollectionOfElements collect: [ :anElement | anElement viewModel])
 ]

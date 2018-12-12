@@ -6,7 +6,8 @@ Class {
 		'header',
 		'tabbar',
 		'toolbar',
-		'scrollTabbar'
+		'scrollTabbar',
+		'tabModels'
 	],
 	#category : #'Brick-Tabs - Look'
 }
@@ -28,24 +29,34 @@ BrTabGroupHeaderLook >> headerDo: aBlock [
 BrTabGroupHeaderLook >> initialize [
 	super initialize.
 
-	tabs := OrderedDictionary new.
+	tabs := OrderedCollection new. 
 	header := BlElement new.
 	scrollTabbar := BlScrollableElement new.
+	header addChild: scrollTabbar as: #scrolltabbar.
 	tabbar := BlElement new.
 	scrollTabbar addChild: tabbar as: #tabbar.
-	toolbar := BlElement new
+	toolbar := BlElement new.
+	header addChild: toolbar as: #toolbar.
 ]
 
 { #category : #initialization }
 BrTabGroupHeaderLook >> initializeListeners [
 	super initializeListeners.
-
-	self when: BrTabAddedEvent do: [ :anEvent | self onTabAdded: anEvent tab ].
-	self when: BrTabRemovedEvent do: [ :anEvent | self onTabRemoved: anEvent tab ].
-	self when: BrTabsChangedEvent do: [ :anEvent | self onTabsChanged: anEvent tabs ].
-	self when: BrTabSelectedEvent do: [ :anEvent | self onTabSelected: anEvent tab ].
-	self when: BrTabDeselectedEvent do: [ :anEvent | self onTabDeselected: anEvent tab ]
-	
+	self
+		when: BrTabAddedEvent
+		do: [ :anEvent | self onTabAdded: anEvent tab at: anEvent position ].
+	self
+		when: BrTabRemovedEvent
+		do: [ :anEvent | self onTabRemoved: anEvent tab ].
+	self
+		when: BrTabsChangedEvent
+		do: [ :anEvent | self onTabsChanged: anEvent tabs ].
+	self
+		when: BrTabSelectedEvent
+		do: [ :anEvent | self onTabSelected: anEvent tab ].
+	self
+		when: BrTabDeselectedEvent
+		do: [ :anEvent | self onTabDeselected: anEvent tab ]
 ]
 
 { #category : #initialization }
@@ -53,8 +64,6 @@ BrTabGroupHeaderLook >> initializeLook [
 	super initializeLook.
 
 	self widget addChild: header as: #header.
-	header addChild: scrollTabbar as: #scrolltabbar.
-	header addChild: toolbar as: #toolbar
 ]
 
 { #category : #initialization }
@@ -65,16 +74,18 @@ BrTabGroupHeaderLook >> initializeRequests [
 ]
 
 { #category : #hooks }
-BrTabGroupHeaderLook >> onTabAdded: aBrTabModel [
+BrTabGroupHeaderLook >> onTabAdded: aBrTabModel at: anIndex [
+	| anAssoc |
 	self
 		assert: [ self isAttachedToWidget ]
 		description: [ 'I can not receive the tab added event without being attached to a widget' ].
 
-	self tabs at: aBrTabModel put: nil.
+	anAssoc := aBrTabModel -> nil.
+	self tabs add: anAssoc beforeIndex: anIndex.
 
 	aBrTabModel whenAttachedDo: [ :aTabElement |
 		self tabbar removeChildren: self tabElements.
-		self tabs at: aBrTabModel put: aTabElement.
+		anAssoc value: aTabElement.
 		self tabbar addChildren: self tabElements ]
 ]
 
@@ -89,7 +100,7 @@ BrTabGroupHeaderLook >> onTabRemoved: aBrTabModel [
 		assert: [ self isAttachedToWidget ]
 		description: [ 'I can not receive the tab removed event without being attached to a widget' ].
 
-	self tabs removeKey: aBrTabModel.
+	self tabs removeAllSuchThat: [ :eachAssoc | eachAssoc key = aBrTabModel ].
 	aBrTabModel widgetDo: [ :aTabElement |
 		self tabbar removeChild: aTabElement ]
 ]
@@ -104,10 +115,11 @@ BrTabGroupHeaderLook >> onTabSelected: aTabModel [
 BrTabGroupHeaderLook >> onTabsChanged: aCollectionOfTabs [
 	self
 		assert: [ self isAttachedToWidget ]
-		description: [ 'I can not receive the tabs changed event without being attached to a widget' ].
-
+		description:
+			[ 'I can not receive the tabs changed event without being attached to a widget' ].
 	self tabModels do: [ :aTabElement | self onTabRemoved: aTabElement ].
-	aCollectionOfTabs do: [ :aBrTabModel | self onTabAdded: aBrTabModel ]
+	aCollectionOfTabs
+		withIndexDo: [ :aBrTabModel :anIndex | self onTabAdded: aBrTabModel at: anIndex ]
 ]
 
 { #category : #'api - accessing' }
@@ -122,12 +134,14 @@ BrTabGroupHeaderLook >> scrollTabbarDo: aBlock [
 
 { #category : #'private - accessing' }
 BrTabGroupHeaderLook >> tabElements [
-	^ tabs values select: #isNotNil
+	^ self tabs 
+		collect: #value 
+		thenSelect: #isNotNil
 ]
 
 { #category : #'private - accessing' }
 BrTabGroupHeaderLook >> tabModels [
-	^ tabs keys
+	^ self tabs collect: #key
 ]
 
 { #category : #'api - accessing' }

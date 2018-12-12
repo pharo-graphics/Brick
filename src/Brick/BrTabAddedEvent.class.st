@@ -1,5 +1,18 @@
 Class {
 	#name : #BrTabAddedEvent,
 	#superclass : #BrTabEvent,
-	#category : 'Brick-Tabs - Events'
+	#instVars : [
+		'position'
+	],
+	#category : #'Brick-Tabs - Events'
 }
+
+{ #category : #accessing }
+BrTabAddedEvent >> position [
+	^ position
+]
+
+{ #category : #accessing }
+BrTabAddedEvent >> position: anObject [
+	position := anObject
+]

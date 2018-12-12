@@ -15,9 +15,13 @@ BrTabGroupModel class >> with: aCollectionOfTabs [
 
 { #category : #'api - tabs' }
 BrTabGroupModel >> addTab: aBrTabModel [
+	self addTab: aBrTabModel at: self tabs size + 1
+]
 
-	self tabs add: aBrTabModel.
-	self onTabAdded: aBrTabModel
+{ #category : #'api - tabs' }
+BrTabGroupModel >> addTab: aBrTabModel at: anIndex [
+	self tabs add: aBrTabModel beforeIndex: anIndex.
+	self onTabAdded: aBrTabModel at: anIndex
 ]
 
 { #category : #'api - tabs' }
@@ -25,7 +29,7 @@ BrTabGroupModel >> addTabs: aCollectionOfTabModels [
 	aCollectionOfTabModels do: [ :aTabModel | self addTab: aTabModel ]
 ]
 
-{ #category : #'gt-inspector-extension' }
+{ #category : #'gt-extension' }
 BrTabGroupModel >> gtInspectorTabsIn: aComposite [
 	<gtInspectorPresentationOrder: 80>
 
@@ -72,8 +76,8 @@ BrTabGroupModel >> isNotEmpty [
 ]
 
 { #category : #notifying }
-BrTabGroupModel >> notifyTabAdded: aBrTabModel [
-	self dispatchEvent: (BrTabAddedEvent tab: aBrTabModel)
+BrTabGroupModel >> notifyTabAdded: aBrTabModel at: anIndex [
+	self dispatchEvent: ((BrTabAddedEvent tab: aBrTabModel) position: anIndex)
 ]
 
 { #category : #notifying }
@@ -94,17 +98,19 @@ BrTabGroupModel >> onAttachedTo: anElement [
 ]
 
 { #category : #hooks }
-BrTabGroupModel >> onTabAdded: aBrTabModel [
+BrTabGroupModel >> onTabAdded: aBrTabModel at: anIndex [
+	aBrTabModel
+		when: BrTabSelectedEvent
+		do: [ :anEvent | self onTabSelected: anEvent currentTarget ].
+	aBrTabModel
+		when: BrTabDeselectedEvent
+		do: [ :anEvent | self onTabDeselected: anEvent currentTarget ].
+	self notifyTabAdded: aBrTabModel at: anIndex.
 
-	aBrTabModel when: BrTabSelectedEvent do: [ :anEvent | self onTabSelected: anEvent currentTarget ].
-	aBrTabModel when: BrTabDeselectedEvent do: [ :anEvent | self onTabDeselected: anEvent currentTarget ].
-
-	self notifyTabAdded: aBrTabModel.
-	
 	"if user adds a tab marked as selected we should force select it"
 	aBrTabModel isSelected
 		ifTrue: [ ^ self onTabSelected: aBrTabModel ].
-	
+
 	"the first added tab should be selected by default"
 	self tabs size = 1
 		ifTrue: [ aBrTabModel select ]
