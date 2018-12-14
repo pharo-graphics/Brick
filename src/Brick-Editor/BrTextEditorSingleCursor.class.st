@@ -3,9 +3,10 @@ Class {
 	#superclass : #BrTextEditorCursor,
 	#instVars : [
 		'position',
-		'isVisible'
+		'isVisible',
+		'desiredCoordinate'
 	],
-	#category : 'Brick-Editor-Model - Cursor'
+	#category : #'Brick-Editor-Model - Cursor'
 }
 
 { #category : #comparing }
@@ -18,9 +19,28 @@ BrTextEditorSingleCursor >> = anotherObject [
 	^ anotherObject position = self position
 ]
 
+{ #category : #accessing }
+BrTextEditorSingleCursor >> desiredCoordinate [
+	<return: #Number>
+
+	^ desiredCoordinate
+]
+
+{ #category : #accessing }
+BrTextEditorSingleCursor >> desiredCoordinate: aNumber [
+	desiredCoordinate := aNumber
+]
+
 { #category : #enumerating }
 BrTextEditorSingleCursor >> do: aBlock [
 	aBlock value: self
+]
+
+{ #category : #testing }
+BrTextEditorSingleCursor >> hasDesiredCoordinate [
+	<return: #Boolean>
+
+	^ desiredCoordinate isNotNil
 ]
 
 { #category : #comparing }
@@ -87,4 +107,9 @@ BrTextEditorSingleCursor >> printOn: aStream [
 		nextPutAll: 'Cursor (';
 		nextPutAll: self position asString;
 		nextPutAll: ')'
+]
+
+{ #category : #accessing }
+BrTextEditorSingleCursor >> resetDesiredCoordinate [
+	desiredCoordinate := nil
 ]

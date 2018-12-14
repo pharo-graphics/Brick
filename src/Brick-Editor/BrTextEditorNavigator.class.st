@@ -11,7 +11,8 @@ Class {
 	#instVars : [
 		'cursorsToAdd',
 		'cursorsToRemove',
-		'cursorsToMove'
+		'cursorsToMove',
+		'shouldResetDesiredCoordinate'
 	],
 	#category : #'Brick-Editor-Model'
 }
@@ -73,7 +74,8 @@ BrTextEditorNavigator >> initialize [
 
 	cursorsToAdd := Set new.
 	cursorsToRemove := Set new.
-	cursorsToMove := Dictionary new
+	cursorsToMove := Dictionary new.
+	shouldResetDesiredCoordinate := true
 ]
 
 { #category : #'api - configuration' }
@@ -158,6 +160,7 @@ BrTextEditorNavigator >> privateAddCursor: aNewCursor [
 		description: [ 'Cursor must not exist at a given index' ].
 	
 	self cursor add: aNewCursor.
+	self privateUpdateDesiredCoordinate: aNewCursor.
 
 	self notifyCursorChanged: aNewCursor.
 	self notifyCursorAdded: aNewCursor
@@ -193,6 +196,7 @@ BrTextEditorNavigator >> privateMoveCursor: aCursor to: aTextIndex [
 	
 	anOldCursor := aCursor copy.
 	aCursor position: aTextIndex.
+	self privateUpdateDesiredCoordinate: aCursor.
 
 	self notifyCursorChanged: anOldCursor.
 	self notifyCursorChanged: aCursor.
@@ -228,6 +232,7 @@ BrTextEditorNavigator >> privateMoveRegisteredIn: aSet [
 	
 	"cursors that we actually move"
 	theMergedCursors keysAndValuesDo: [ :aNewPosition :aCursor |
+		self privateUpdateDesiredCoordinate: aCursor.
 		aCursor position = aNewPosition
 			ifFalse: [ aCursor position: aNewPosition ] ]
 ]
@@ -251,6 +256,8 @@ BrTextEditorNavigator >> privateRemoveCursor: aCursorToRemove [
 		description: [ 'Cursor must exist at a given index' ].
 
 	self cursor remove: aCursorToRemove.
+	self privateUpdateDesiredCoordinate: aCursorToRemove.
+
 	self notifyCursorChanged: aCursorToRemove.
 	self notifyCursorRemoved: aCursorToRemove
 ]
@@ -258,6 +265,14 @@ BrTextEditorNavigator >> privateRemoveCursor: aCursorToRemove [
 { #category : #'private - operations' }
 BrTextEditorNavigator >> privateRemoveRegisteredIn: aSet [
 	cursorsToRemove do: [ :aCursor | aSet remove: aCursor ]
+]
+
+{ #category : #private }
+BrTextEditorNavigator >> privateUpdateDesiredCoordinate: aCursor [
+	shouldResetDesiredCoordinate
+		ifFalse: [ ^ self ].
+
+	aCursor resetDesiredCoordinate
 ]
 
 { #category : #'api - configuration' }
@@ -302,4 +317,14 @@ BrTextEditorNavigator >> whenRemoved: aBlock [
 	"Subscribe to the cursor removed event and return an event handler"
 
 	^ self when: BrTextEditorCursorRemovedEvent do: aBlock
+]
+
+{ #category : #'api - configuration' }
+BrTextEditorNavigator >> withResettingDesiredCoordinate [
+	shouldResetDesiredCoordinate := true
+]
+
+{ #category : #'api - configuration' }
+BrTextEditorNavigator >> withoutResettingDesiredCoordinate [
+	shouldResetDesiredCoordinate := false
 ]
