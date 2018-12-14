@@ -6,7 +6,7 @@ Class {
 		'shouldUpdateCursor',
 		'shouldUpdateSelection'
 	],
-	#category : 'Brick-Editor-Model'
+	#category : #'Brick-Editor-Model - Operators'
 }
 
 { #category : #'api - configuration' }

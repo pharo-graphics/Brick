@@ -22,7 +22,7 @@ Class {
 		'shouldDeleteSelected',
 		'inputFilter'
 	],
-	#category : #'Brick-Editor-Model'
+	#category : #'Brick-Editor-Model - Operators'
 }
 
 { #category : #'api - configuration' }
@@ -204,11 +204,11 @@ BrTextEditorInserter >> updateCursorsAfterInsertion: aText at: anIndex [
 { #category : #private }
 BrTextEditorInserter >> updateSelectionAfterInsertion: aText at: anIndex [
 	| anExistingSelection |
-	
+
 	anExistingSelection := BlCompositeSelection new select: self editor selection.
 	anExistingSelection reverseDo: [ :aMonotoneSelection |
 		| aNewSelection |
-		
+
 		aNewSelection := self computeSelection: aMonotoneSelection afterInserted: aText at: anIndex.
 		aNewSelection = aMonotoneSelection
 			ifFalse: [
