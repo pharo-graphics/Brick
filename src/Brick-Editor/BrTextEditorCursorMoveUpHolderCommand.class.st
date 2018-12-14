@@ -21,8 +21,3 @@ BrTextEditorCursorMoveUpHolderCommand >> cursor: anObject [
 BrTextEditorCursorMoveUpHolderCommand >> executeOn: aSegmentHolder [
 	aSegmentHolder moveCursorUp: self cursor
 ]
-
-{ #category : #executing }
-BrTextEditorCursorMoveUpHolderCommand >> sendTo: aSegmentHolder [
-	aSegmentHolder moveCursorUp: self cursor
-]

@@ -11,3 +11,8 @@ Class {
 BrTextEditorHolderCommand >> executeOn: aSegmentHolder [
 	self subclassResponsibility
 ]
+
+{ #category : #sending }
+BrTextEditorHolderCommand >> sendTo: aSegmentHolder [
+	self executeOn: aSegmentHolder
+]
