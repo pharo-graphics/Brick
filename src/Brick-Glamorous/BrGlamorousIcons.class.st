@@ -226,7 +226,7 @@ BrGlamorousIcons class >> gtIconsFor: aView [
 			title: 'Icons';
 			priority: -10;
 			items: self allIcons;
-			itemElement: [ :eachIcon | 
+			itemStencil: [ :eachIcon | 
 				BlElement new
 					layout: BlLinearLayout horizontal;
 					margin: (BlInsets all: 3);
