@@ -109,6 +109,13 @@ BrTextEditorNavigator >> moveBy: aDelta [
 ]
 
 { #category : #'api - configuration' }
+BrTextEditorNavigator >> moveDown [
+	"Move all cursors down one line"
+
+	self cursor do: [ :aCursor | operations add: (BrTextEditorNavigatorMoveDownOperation cursor: aCursor) ]
+]
+
+{ #category : #'api - configuration' }
 BrTextEditorNavigator >> moveLeft [
 	"Move all cursors to the left"
 
@@ -136,6 +143,20 @@ BrTextEditorNavigator >> moveTo: aTextPosition [
 		ifNotEmpty: [ operations add: ((BrTextEditorNavigatorMoveToOperation cursor: allCursors first) position: aTextPosition) ].
 	
 	
+]
+
+{ #category : #'api - configuration' }
+BrTextEditorNavigator >> moveToLineStart [
+	"Move all cursors to the start of their corresponding lines"
+
+	self cursor do: [ :aCursor | operations add: (BrTextEditorNavigatorMoveToLineStartOperation cursor: aCursor) ]
+]
+
+{ #category : #'api - configuration' }
+BrTextEditorNavigator >> moveUp [
+	"Move all cursors up one line"
+
+	self cursor do: [ :aCursor | operations add: (BrTextEditorNavigatorMoveUpOperation cursor: aCursor) ]
 ]
 
 { #category : #notifying }
