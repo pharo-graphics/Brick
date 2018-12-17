@@ -82,13 +82,6 @@ BrTextEditorDeleter >> delete [
 	deletionIntervals reverseDo: [ :aMonotoneSelection | self privateDelete: aMonotoneSelection from to: aMonotoneSelection to ]
 ]
 
-{ #category : #private }
-BrTextEditorDeleter >> delete: aFromTextIndex to: aToTextIndex [ 
-	self 
-		deprecated: 'Do not use me!!'.
-	^ self privateDelete: aFromTextIndex to: aToTextIndex
-]
-
 { #category : #'api - configuration' }
 BrTextEditorDeleter >> from: aFromIndex to: aToIndex [
 	"Mark a text interval given by from an to indices as the one to be deleted"

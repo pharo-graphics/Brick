@@ -12,7 +12,10 @@ BrTextEditorNavigatorMoveToLineStartOperation >> performOn: aNavigator [
 	aTextIterator := aText iterator: 1 to: self cursor position.
 	aTextIterator skip: self cursor position.
 
-	aTextIterator peek isLineBreak
+	"if we have a line break before cursor - do nothing"
+	(aTextIterator hasPrevious
+		and: [ (aTextIterator previous; hasPrevious)
+			and: [ aTextIterator peek isLineBreak ] ])
 		ifTrue: [ ^ self ].
 
 	foundLineBreak := false.
