@@ -146,6 +146,13 @@ BrTextEditorNavigator >> moveTo: aTextPosition [
 ]
 
 { #category : #'api - configuration' }
+BrTextEditorNavigator >> moveToLineEnd [
+	"Move all cursors to the end of their corresponding lines"
+
+	self cursor do: [ :aCursor | operations add: (BrTextEditorNavigatorMoveToLineEndOperation cursor: aCursor) ]
+]
+
+{ #category : #'api - configuration' }
 BrTextEditorNavigator >> moveToLineStart [
 	"Move all cursors to the start of their corresponding lines"
 

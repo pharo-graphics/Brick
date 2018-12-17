@@ -177,6 +177,241 @@ BrTextEditorOperatorExamples >> cursor_add_at_1_in_cursors_at_0 [
 ]
 
 { #category : #'examples - cursor' }
+BrTextEditorOperatorExamples >> cursor_moveToLineEnd_in_cursors_at_0 [
+	<gtExample>
+	<label: 'Cursor before the first character of the line should move to the end'>
+	| anEditor theAddedEvents theMovedEvents theRemovedEvents |
+	
+	anEditor := self cursor_add_at_0_in_empty.
+	
+	theAddedEvents := OrderedCollection new.
+	theMovedEvents := OrderedCollection new.
+	theRemovedEvents := OrderedCollection new.
+
+	anEditor navigator
+		whenAdded: [ :anEvent | theAddedEvents add: anEvent ];
+		whenMoved: [ :anEvent | theMovedEvents add: anEvent ];
+		whenRemoved: [ :anEvent | theRemovedEvents add: anEvent ];
+		moveToLineEnd;
+		apply;
+		unsubscribe.
+		
+	self assert: anEditor cursor isNotEmpty.
+	self assert: anEditor cursor allCursors equals: { BrTextEditorSingleCursor new position: 28 }.
+	
+	self assert: theAddedEvents isEmpty.
+	self assert: theMovedEvents size equals: 1.
+	self assert: theMovedEvents first cursor equals: (BrTextEditorSingleCursor new position: 28).
+	self assert: theMovedEvents first oldIndex equals: 0.
+	self assert: theMovedEvents first newIndex equals: 28.
+	self assert: theRemovedEvents isEmpty.
+	
+	^ anEditor
+]
+
+{ #category : #'examples - cursor' }
+BrTextEditorOperatorExamples >> cursor_moveToLineEnd_in_cursors_at_1 [
+	<gtExample>
+	<label: 'Cursor after the first character of the line should move to the end'>
+	| anEditor theAddedEvents theMovedEvents theRemovedEvents |
+	
+	anEditor := self cursor_add_at_0_in_empty.
+	anEditor navigator
+		moveTo: 1;
+		apply.
+	
+	theAddedEvents := OrderedCollection new.
+	theMovedEvents := OrderedCollection new.
+	theRemovedEvents := OrderedCollection new.
+
+	anEditor navigator
+		whenAdded: [ :anEvent | theAddedEvents add: anEvent ];
+		whenMoved: [ :anEvent | theMovedEvents add: anEvent ];
+		whenRemoved: [ :anEvent | theRemovedEvents add: anEvent ];
+		moveToLineEnd;
+		apply;
+		unsubscribe.
+		
+	self assert: anEditor cursor isNotEmpty.
+	self assert: anEditor cursor allCursors equals: { BrTextEditorSingleCursor new position: 28 }.
+	
+	self assert: theAddedEvents isEmpty.
+	self assert: theMovedEvents size equals: 1.
+	self assert: theMovedEvents first cursor equals: (BrTextEditorSingleCursor new position: 28).
+	self assert: theMovedEvents first oldIndex equals: 1.
+	self assert: theMovedEvents first newIndex equals: 28.
+	self assert: theRemovedEvents isEmpty.
+	
+	^ anEditor
+]
+
+{ #category : #'examples - cursor' }
+BrTextEditorOperatorExamples >> cursor_moveToLineEnd_in_cursors_at_201 [
+	<gtExample>
+	<label: 'Cursor before the last character of the whole text should not move'>
+	| anEditor theAddedEvents theMovedEvents theRemovedEvents |
+	
+	anEditor := self cursor_add_at_0_in_empty.
+	anEditor navigator
+		moveTo: 201;
+		apply.
+	
+	theAddedEvents := OrderedCollection new.
+	theMovedEvents := OrderedCollection new.
+	theRemovedEvents := OrderedCollection new.
+
+	anEditor navigator
+		whenAdded: [ :anEvent | theAddedEvents add: anEvent ];
+		whenMoved: [ :anEvent | theMovedEvents add: anEvent ];
+		whenRemoved: [ :anEvent | theRemovedEvents add: anEvent ];
+		moveToLineEnd;
+		apply;
+		unsubscribe.
+		
+	self assert: anEditor cursor isNotEmpty.
+	self assert: anEditor cursor allCursors equals: { BrTextEditorSingleCursor new position: 202 }.
+	
+	self assert: theAddedEvents isEmpty.
+	self assert: theMovedEvents size equals: 1.
+	self assert: theMovedEvents first cursor equals: (BrTextEditorSingleCursor new position: 202).
+	self assert: theMovedEvents first oldIndex equals: 201.
+	self assert: theMovedEvents first newIndex equals: 202.
+	self assert: theRemovedEvents isEmpty.
+	
+	^ anEditor
+]
+
+{ #category : #'examples - cursor' }
+BrTextEditorOperatorExamples >> cursor_moveToLineEnd_in_cursors_at_202 [
+	<gtExample>
+	<label: 'Cursor after the last character of the whole text should not move'>
+	| anEditor theAddedEvents theMovedEvents theRemovedEvents |
+	
+	anEditor := self cursor_add_at_0_in_empty.
+	anEditor navigator
+		moveTo: 202;
+		apply.
+	
+	theAddedEvents := OrderedCollection new.
+	theMovedEvents := OrderedCollection new.
+	theRemovedEvents := OrderedCollection new.
+
+	anEditor navigator
+		whenAdded: [ :anEvent | theAddedEvents add: anEvent ];
+		whenMoved: [ :anEvent | theMovedEvents add: anEvent ];
+		whenRemoved: [ :anEvent | theRemovedEvents add: anEvent ];
+		moveToLineEnd;
+		apply;
+		unsubscribe.
+		
+	self assert: anEditor cursor isNotEmpty.
+	self assert: anEditor cursor allCursors equals: { BrTextEditorSingleCursor new position: 202 }.
+	
+	self assert: theAddedEvents isEmpty.
+	self assert: theMovedEvents isEmpty.
+	self assert: theRemovedEvents isEmpty.
+	
+	^ anEditor
+]
+
+{ #category : #'examples - cursor' }
+BrTextEditorOperatorExamples >> cursor_moveToLineEnd_in_cursors_at_27 [
+	<gtExample>
+	<label: 'Cursor before the last character of the line should move to the end'>
+	| anEditor theAddedEvents theMovedEvents theRemovedEvents |
+	
+	anEditor := self cursor_add_at_0_in_empty.
+	anEditor navigator
+		moveTo: 27;
+		apply.
+	
+	theAddedEvents := OrderedCollection new.
+	theMovedEvents := OrderedCollection new.
+	theRemovedEvents := OrderedCollection new.
+
+	anEditor navigator
+		whenAdded: [ :anEvent | theAddedEvents add: anEvent ];
+		whenMoved: [ :anEvent | theMovedEvents add: anEvent ];
+		whenRemoved: [ :anEvent | theRemovedEvents add: anEvent ];
+		moveToLineEnd;
+		apply;
+		unsubscribe.
+		
+	self assert: anEditor cursor isNotEmpty.
+	self assert: anEditor cursor allCursors equals: { BrTextEditorSingleCursor new position: 28 }.
+	
+	self assert: theAddedEvents isEmpty.
+	self assert: theMovedEvents size equals: 1.
+	self assert: theMovedEvents first cursor equals: (BrTextEditorSingleCursor new position: 28).
+	self assert: theMovedEvents first oldIndex equals: 27.
+	self assert: theMovedEvents first newIndex equals: 28.
+	self assert: theRemovedEvents isEmpty.
+	
+	^ anEditor
+]
+
+{ #category : #'examples - cursor' }
+BrTextEditorOperatorExamples >> cursor_moveToLineEnd_in_cursors_at_28 [
+	<gtExample>
+	<label: 'Cursor after the last character of the line should not move'>
+	| anEditor theAddedEvents theMovedEvents theRemovedEvents |
+	
+	anEditor := self cursor_add_at_0_in_empty.
+	anEditor navigator
+		moveTo: 28;
+		apply.
+	
+	theAddedEvents := OrderedCollection new.
+	theMovedEvents := OrderedCollection new.
+	theRemovedEvents := OrderedCollection new.
+
+	anEditor navigator
+		whenAdded: [ :anEvent | theAddedEvents add: anEvent ];
+		whenMoved: [ :anEvent | theMovedEvents add: anEvent ];
+		whenRemoved: [ :anEvent | theRemovedEvents add: anEvent ];
+		moveToLineEnd;
+		apply;
+		unsubscribe.
+		
+	self assert: anEditor cursor isNotEmpty.
+	self assert: anEditor cursor allCursors equals: { BrTextEditorSingleCursor new position: 28 }.
+	
+	self assert: theAddedEvents isEmpty.
+	self assert: theMovedEvents isEmpty.
+	self assert: theRemovedEvents isEmpty.
+	
+	^ anEditor
+]
+
+{ #category : #'examples - cursor' }
+BrTextEditorOperatorExamples >> cursor_moveToLineEnd_in_empty [
+	<gtExample>
+	| anEditor theAddedEvents theMovedEvents theRemovedEvents |
+	
+	anEditor := self editorOnMultilineText.
+	
+	theAddedEvents := OrderedCollection new.
+	theMovedEvents := OrderedCollection new.
+	theRemovedEvents := OrderedCollection new.
+
+	anEditor navigator
+		whenAdded: [ :anEvent | theAddedEvents add: anEvent ];
+		whenMoved: [ :anEvent | theMovedEvents add: anEvent ];
+		whenRemoved: [ :anEvent | theRemovedEvents add: anEvent ];
+		moveToLineEnd;
+		apply;
+		unsubscribe.
+		
+	self assert: anEditor cursor isEmpty.
+	
+	self assert: theAddedEvents isEmpty.
+	self assert: theMovedEvents isEmpty.
+	self assert: theRemovedEvents isEmpty.
+	
+	^ anEditor
+]
+
+{ #category : #'examples - cursor' }
 BrTextEditorOperatorExamples >> cursor_moveToLineStart_in_cursors_at_0 [
 	<gtExample>
 	<label: 'Cursor before the first character should not be moved'>
@@ -242,7 +477,7 @@ BrTextEditorOperatorExamples >> cursor_moveToLineStart_in_cursors_at_1 [
 { #category : #'examples - cursor' }
 BrTextEditorOperatorExamples >> cursor_moveToLineStart_in_cursors_at_27 [
 	<gtExample>
-	<label: 'Cursor before the last character of the line should move to to the start'>
+	<label: 'Cursor before the last character of the line should move to the start'>
 	| anEditor theAddedEvents theMovedEvents theRemovedEvents |
 	
 	anEditor := self cursor_add_at_0_in_empty.

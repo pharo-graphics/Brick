@@ -307,7 +307,11 @@ BrTextEditor >> initializeInteractions [
 
 	self interactions add: (BlShortcut new
 		combination: (BlKeyCombination builder primary; key: Key arrowLeft; build);
-		action: [ self moveCursorToLineStart ])
+		action: [ self moveCursorToLineStart ]).
+
+	self interactions add: (BlShortcut new
+		combination: (BlKeyCombination builder primary; key: Key arrowRight; build);
+		action: [ self moveCursorToLineEnd ])
 
 	"self interactions add: (BlShortcut new
 		combination: (BlKeyCombination builder primary; key: Key arrowRight; build);
@@ -448,6 +452,18 @@ BrTextEditor >> moveCursorToEndNextWord [
 		skip ifFalse: [ newPosition := textIterator position - 1 ] ].
 
 	self moveCursorTo: newPosition
+]
+
+{ #category : #'text - cursor' }
+BrTextEditor >> moveCursorToLineEnd [
+	"Moves cursors to the end if their corresponding lines.
+	Note:
+		- I don't change current selection.
+		- I request segments update"
+
+	self navigator
+		moveToLineEnd;
+		apply
 ]
 
 { #category : #'text - cursor' }
