@@ -70,7 +70,6 @@ BrTextEditorLayoutMeasurementExamples >> textEditor [
 			aTextElement := BrTextWordPieceStencilBuilder new
 				text: aText;
 				editorElement: anEditorElement;
-				segmentPiece: aSegmentPiece;
 				asElement.
 			aTextElement measurer: self fixedMeasurer.
 			aTextElement ].

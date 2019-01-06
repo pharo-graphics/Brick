@@ -10,8 +10,7 @@ BrTextEditorLineSegmentTextPiece >> createElement: anEditorElement [
 
 	^ (anEditorElement editor segmentBuilder wordStencilBuilder
 		text: self text;
-		editorElement: anEditorElement;
-		segmentPiece: self) asElement
+		editorElement: anEditorElement) asElement
 ]
 
 { #category : #updating }

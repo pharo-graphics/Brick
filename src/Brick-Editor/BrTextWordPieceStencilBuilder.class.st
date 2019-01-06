@@ -3,8 +3,8 @@ Class {
 	#superclass : #BrStencilBuilder,
 	#instVars : [
 		'text',
-		'segmentPiece',
 		'editorElement',
+		'wordPadding',
 		'measurer',
 		'mouseDownHandler',
 		'selectionAcquiredHandler',
@@ -18,7 +18,7 @@ BrTextWordPieceStencilBuilder >> buildDefault [
 	^ BrTextElementWithCursors new
 		text: self text;
 		clipChildren: false;
-		padding: (self segmentPiece segment wordPadding);
+		padding: self wordPadding;
 		ascentBaseline;
 		looseMesurement;
 		
@@ -75,6 +75,7 @@ BrTextWordPieceStencilBuilder >> editorElement: anEditorElement [
 BrTextWordPieceStencilBuilder >> initialize [
 	super initialize.
 	
+	wordPadding := BlInsets top: 3 bottom: 3.
 	measurer := BlTextElementCanvasMeasurer new.
 	mouseDownHandler := BrTextWordPieceMouseDownHandler new.
 	selectionAcquiredHandler := BrTextWordPieceSelectionAcquiredHandler new.
@@ -95,18 +96,7 @@ BrTextWordPieceStencilBuilder >> measurer: aMeasurer [
 BrTextWordPieceStencilBuilder >> paramsOn: aStencilExecutor [
 	aStencilExecutor
 		push: self text;
-		push: self editorElement;
-		push: self segmentPiece
-]
-
-{ #category : #accessing }
-BrTextWordPieceStencilBuilder >> segmentPiece [
-	^ segmentPiece
-]
-
-{ #category : #accessing }
-BrTextWordPieceStencilBuilder >> segmentPiece: anObject [
-	segmentPiece := anObject
+		push: self editorElement
 ]
 
 { #category : #accessing }
@@ -117,4 +107,16 @@ BrTextWordPieceStencilBuilder >> text [
 { #category : #accessing }
 BrTextWordPieceStencilBuilder >> text: anObject [
 	text := anObject
+]
+
+{ #category : #accessing }
+BrTextWordPieceStencilBuilder >> wordPadding [
+	<return: #BlInsets>
+
+	^ wordPadding
+]
+
+{ #category : #accessing }
+BrTextWordPieceStencilBuilder >> wordPadding: aBlInsets [
+	wordPadding := aBlInsets
 ]
