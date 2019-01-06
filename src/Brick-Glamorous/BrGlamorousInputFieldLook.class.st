@@ -12,5 +12,5 @@ BrGlamorousInputFieldLook >> initializeLook [
 		constraintsDo: [ :c | 
 			c vertical fitContent. 
 			c horizontal fitContent.		
-			c padding: (BlInsets top: 1 left: 5 bottom: 1 right: 5 ) ]
+			c padding: (BlInsets top: 5 left: 5 bottom: 5 right: 5 ) ]
 ]

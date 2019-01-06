@@ -30,7 +30,7 @@ BrPagerPagePreviewResizeListener >> height: anObject [
 BrPagerPagePreviewResizeListener >> initialize [
 	super initialize.
 	
-	height := 20
+	height := 10
 ]
 
 { #category : #'api - hooks' }
