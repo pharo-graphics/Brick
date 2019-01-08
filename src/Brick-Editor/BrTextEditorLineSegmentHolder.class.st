@@ -6,13 +6,12 @@ Class {
 	#superclass : #BrTextEditorSegmentHolder,
 	#instVars : [
 		'segment',
-		'pieces',
 		'pieceElements'
 	],
 	#classInstVars : [
 		'defaultSegmentLayoutBlock'
 	],
-	#category : 'Brick-Editor-Model - Segment-Text-Line'
+	#category : #'Brick-Editor-Model - Segment-Text-Line'
 }
 
 { #category : #cleanup }
@@ -51,9 +50,8 @@ BrTextEditorLineSegmentHolder >> moveCursorDown: aCursor [
 		assert: [ segment isNotNil ]
 		description: [ 'Segment must be bound!' ].
 
-	pieces
-		with: pieceElements
-		do: [ :aPiece :aPieceElement | aPiece moveCursorDown: aCursor pieceElement: aPieceElement of: segment in: self infiniteElement ]
+	self piecesAndTheirElementsDo: [ :aPiece :aPieceElement |
+		aPiece moveCursorDown: aCursor pieceElement: aPieceElement of: segment in: self infiniteElement ]
 ]
 
 { #category : #actions }
@@ -62,9 +60,8 @@ BrTextEditorLineSegmentHolder >> moveCursorUp: aCursor [
 		assert: [ segment isNotNil ]
 		description: [ 'Segment must be bound!' ].
 
-	pieces
-		with: pieceElements
-		do: [ :aPiece :aPieceElement | aPiece moveCursorUp: aCursor pieceElement: aPieceElement of: segment in: self infiniteElement ]
+	self piecesAndTheirElementsDo: [ :aPiece :aPieceElement |
+		aPiece moveCursorUp: aCursor pieceElement: aPieceElement of: segment in: self infiniteElement ]
 ]
 
 { #category : #updating }
@@ -76,9 +73,8 @@ BrTextEditorLineSegmentHolder >> onCursorChanged [
 		assert: [ segment isNotNil ]
 		description: [ 'Segment must be bound!' ].
 
-	pieces
-		with: pieceElements
-		do: [ :aPiece :aPieceElement | aPiece updateCursor: aPieceElement of: segment in: self infiniteElement ]
+	self piecesAndTheirElementsDo: [ :aPiece :aPieceElement |
+		aPiece updateCursor: aPieceElement of: segment in: self infiniteElement ]
 ]
 
 { #category : #updating }
@@ -90,9 +86,8 @@ BrTextEditorLineSegmentHolder >> onFocusChanged: aBoolean [
 		assert: [ segment isNotNil ]
 		description: [ 'Segment must be bound!' ].
 
-	pieces
-		with: pieceElements
-		do: [ :aPiece :aPieceElement | aPiece updateFocus: aBoolean of: aPieceElement in: self infiniteElement ]
+	self piecesAndTheirElementsDo: [ :aPiece :aPieceElement |
+		aPiece updateFocus: aBoolean of: aPieceElement in: self infiniteElement ]
 ]
 
 { #category : #updating }
@@ -104,9 +99,8 @@ BrTextEditorLineSegmentHolder >> onSelectionChanged [
 		assert: [ segment isNotNil ]
 		description: [ 'Segment must be bound!' ].
 
-	pieces
-		with: pieceElements
-		do: [ :aPiece :aPieceElement | aPiece updateSelection: aPieceElement of: segment in: self infiniteElement ]
+	self piecesAndTheirElementsDo: [ :aPiece :aPieceElement |
+		aPiece updateSelection: aPieceElement of: segment in: self infiniteElement ]
 ]
 
 { #category : #updating }
@@ -118,27 +112,35 @@ BrTextEditorLineSegmentHolder >> onTextChanged [
 		assert: [ segment isNotNil ]
 		description: [ 'Segment must be bound!' ].
 
-	pieces
-		with: pieceElements
-		do: [ :aPiece :aPieceElement | aPiece updateText: aPieceElement of: segment in: self infiniteElement ]
+	self piecesAndTheirElementsDo: [ :aPiece :aPieceElement |
+		aPiece updateText: aPieceElement of: segment in: self infiniteElement ]
+]
+
+{ #category : #enumerating }
+BrTextEditorLineSegmentHolder >> piecesAndTheirElementsDo: aBlock [
+	segment hasPieces
+		ifFalse: [ ^ self ].
+		
+	segment pieces do: [ :eachPiece |
+		pieceElements
+			at: eachPiece
+			ifPresent: [ :eachPieceElement | aBlock value: eachPiece value: eachPieceElement ] ]
 ]
 
 { #category : #accessing }
 BrTextEditorLineSegmentHolder >> segment: anEditorSegment [
 	segment := anEditorSegment.
 
-	pieces := segment pieces.
-	pieceElements := pieces collect: [ :aPiece | aPiece createElement: self infiniteElement ].
+	pieceElements := OrderedIdentityDictionary new.
+	segment pieces do: [ :aPiece | pieceElements at: aPiece put: (aPiece createElement: self infiniteElement) ].
 	
-	pieces
-		with: pieceElements
-		do: [ :aPiece :aPieceElement |
-			aPiece updateCursor: aPieceElement of: anEditorSegment in: self infiniteElement.
-			aPiece updateSelection: aPieceElement of: anEditorSegment in: self infiniteElement ].
+	self piecesAndTheirElementsDo: [ :aPiece :aPieceElement |
+		aPiece updateCursor: aPieceElement of: anEditorSegment in: self infiniteElement.
+		aPiece updateSelection: aPieceElement of: anEditorSegment in: self infiniteElement ].
 
 	itemElement
 		removeChildren;
-		addChildren: pieceElements;
+		addChildren: pieceElements values;
 		constraintsDo: [ :c | c horizontal resizer: infiniteElement constraints horizontal resizer ];
 		layoutDo: [ :aLayout | aLayout lineSpacing: anEditorSegment lineSpacing ];
 		margin: anEditorSegment paragraphMargin

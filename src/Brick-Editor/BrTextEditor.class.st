@@ -294,17 +294,25 @@ BrTextEditor >> initializeInteractions [
 	self interactions add: (BlShortcut new
 		combination: (BlKeyCombination builder key: Key arrowRight; build);
 		action: [ self moveCursorRight ]).
-		
+
 	"up-arrow => move cursor up"
 	self interactions add: (BlShortcut new
 		combination: (BlKeyCombination builder key: Key arrowUp; build);
 		action: [ self moveCursorUp ]).
-		
+
 	"down-arrow => move cursor down"
 	self interactions add: (BlShortcut new
 		combination: (BlKeyCombination builder key: Key arrowDown; build);
-		action: [ self moveCursorDown ]).
-	
+		action: [ self moveCursorDown ]). 
+
+	self interactions add: (BlShortcut new
+		combination: (BlKeyCombination builder primary; key: Key arrowLeft; build);
+		action: [ self moveCursorToLineStart ]).
+
+	self interactions add: (BlShortcut new
+		combination: (BlKeyCombination builder primary; key: Key arrowRight; build);
+		action: [ self moveCursorToLineEnd ])
+
 	"self interactions add: (BlShortcut new
 		combination: (BlKeyCombination builder primary; key: Key arrowRight; build);
 		action: [ self moveCursorToEndNextWord ]).
@@ -386,7 +394,14 @@ BrTextEditor >> itemTypeAt: aPosition [
 
 { #category : #'text - cursor' }
 BrTextEditor >> moveCursorDown [
-	self cursor do: [ :eachCursor | self enqueueCommand: (BrTextEditorCursorMoveCommand down cursor:  eachCursor) ]
+	"Moves cursor down by one line without any other side effects.
+	Note:
+		- I don't change current selection.
+		- I request segments update"
+
+	self navigator
+		moveDown;
+		apply
 ]
 
 { #category : #'text - cursor' }
@@ -440,6 +455,30 @@ BrTextEditor >> moveCursorToEndNextWord [
 ]
 
 { #category : #'text - cursor' }
+BrTextEditor >> moveCursorToLineEnd [
+	"Moves cursors to the end if their corresponding lines.
+	Note:
+		- I don't change current selection.
+		- I request segments update"
+
+	self navigator
+		moveToLineEnd;
+		apply
+]
+
+{ #category : #'text - cursor' }
+BrTextEditor >> moveCursorToLineStart [
+	"Moves cursors to the start if their corresponding lines.
+	Note:
+		- I don't change current selection.
+		- I request segments update"
+
+	self navigator
+		moveToLineStart;
+		apply
+]
+
+{ #category : #'text - cursor' }
 BrTextEditor >> moveCursorToStartPreviousWord [
 	| textIterator newPosition |
 	"Moves cursor to the left by one character"
@@ -458,8 +497,14 @@ BrTextEditor >> moveCursorToStartPreviousWord [
 
 { #category : #'text - cursor' }
 BrTextEditor >> moveCursorUp [
+	"Moves cursor up by one line without any other side effects.
+	Note:
+		- I don't change current selection.
+		- I request segments update"
 
-	self cursor do: [ :eachCursor | self enqueueCommand: (BrTextEditorCursorMoveCommand up cursor:  eachCursor) ]
+	self navigator
+		moveUp;
+		apply
 ]
 
 { #category : #'api - modification' }

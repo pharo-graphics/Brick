@@ -6,7 +6,7 @@ Class {
 		'shouldUpdateCursor',
 		'shouldUpdateSelection'
 	],
-	#category : 'Brick-Editor-Model'
+	#category : #'Brick-Editor-Model - Operators'
 }
 
 { #category : #'api - configuration' }
@@ -80,13 +80,6 @@ BrTextEditorDeleter >> delete [
 		ifTrue: [ self updateSelection ].
 
 	deletionIntervals reverseDo: [ :aMonotoneSelection | self privateDelete: aMonotoneSelection from to: aMonotoneSelection to ]
-]
-
-{ #category : #private }
-BrTextEditorDeleter >> delete: aFromTextIndex to: aToTextIndex [ 
-	self 
-		deprecated: 'Do not use me!!'.
-	^ self privateDelete: aFromTextIndex to: aToTextIndex
 ]
 
 { #category : #'api - configuration' }

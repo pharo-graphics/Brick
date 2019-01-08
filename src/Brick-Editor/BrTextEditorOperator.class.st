@@ -5,7 +5,7 @@ Class {
 		'editor',
 		'subscriptions'
 	],
-	#category : #'Brick-Editor-Model'
+	#category : #'Brick-Editor-Model - Operators'
 }
 
 { #category : #accessing }

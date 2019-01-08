@@ -11,8 +11,8 @@ Class {
 BrTextEditorFocusChangedCommand >> executeOn: aTextEditor [
 	
 	aTextEditor
-		notifyItemsChanged: aTextEditor segmentCollector cachedInterval
-		payload: self newHolderCommand
+		notifyItems: aTextEditor segmentCollector cachedInterval
+		event: self newHolderCommand
 ]
 
 { #category : #accessing }

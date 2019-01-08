@@ -1,5 +1,5 @@
 "
-I do the hard job of visually updating selection by requesting segment holders to partially update
+I do the hard job of visually updating selection by requesting segment holders to partially update themselves
 "
 Class {
 	#name : #BrTextEditorSelectionUpdateCommand,
@@ -16,7 +16,7 @@ BrTextEditorSelectionUpdateCommand >> executeOn: aTextEditor [
 	| changedFrom changedTo |
 	
 	changedFrom := self fromIndex.
-		
+
 	changedTo := self toIndex.
 
 	aTextEditor segmentCollector
@@ -30,8 +30,8 @@ BrTextEditorSelectionUpdateCommand >> executeOn: aTextEditor [
 		ifNotFound: [ changedTo := aTextEditor segmentCollector segments size ].	
 
 	aTextEditor
-		notifyItemsChanged: (changedFrom to: changedTo)
-		payload: self newHolderCommand
+		notifyItems: (changedFrom to: changedTo)
+		event: self newHolderCommand
 ]
 
 { #category : #accessing }

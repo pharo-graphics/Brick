@@ -24,7 +24,7 @@ BrTextEditorUpdateCommand >> executeOn: aTextEditor [
 	"convert from text => to segment index => segment array index"
 	aTextEditor segmentCollector
 		cachedSegmentAt: changedTo
-		ifFound: [ :aSegment | changedTo := (aSegment index - aTextEditor segmentCollector firstIndex) +1 ]
+		ifFound: [ :aSegment | changedTo := (aSegment index - aTextEditor segmentCollector firstIndex) + 1 ]
 		ifNotFound: [ changedTo := aTextEditor segmentCollector segments size ].	
 
 	changedFrom to: changedTo do: [ :anIndex | (aTextEditor segmentCollector segments at: anIndex) clearCache ].

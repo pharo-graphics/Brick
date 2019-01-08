@@ -9,7 +9,7 @@ Class {
 		'shouldUpdateCursor',
 		'shouldDeselectExisting'
 	],
-	#category : #'Brick-Editor-Model'
+	#category : #'Brick-Editor-Model - Operators'
 }
 
 { #category : #'api - configuration' }

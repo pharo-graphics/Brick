@@ -1,11 +1,11 @@
 Class {
-	#name : #BrTextEditorModificationExamples,
+	#name : #BrTextEditorOperatorExamples,
 	#superclass : #Object,
-	#category : 'Brick-Editor-Examples'
+	#category : #'Brick-Editor-Examples'
 }
 
 { #category : #'examples - cursor' }
-BrTextEditorModificationExamples >> cursor_add_at_0_and_0_in_empty [
+BrTextEditorOperatorExamples >> cursor_add_at_0_and_0_in_empty [
 	<gtExample>
 	| anEditor theAddedEvents theMovedEvents theRemovedEvents |
 	
@@ -38,7 +38,7 @@ BrTextEditorModificationExamples >> cursor_add_at_0_and_0_in_empty [
 ]
 
 { #category : #'examples - cursor' }
-BrTextEditorModificationExamples >> cursor_add_at_0_and_1_in_empty [
+BrTextEditorOperatorExamples >> cursor_add_at_0_and_1_in_empty [
 	<gtExample>
 	| anEditor theAddedEvents theMovedEvents theRemovedEvents |
 	
@@ -74,7 +74,7 @@ BrTextEditorModificationExamples >> cursor_add_at_0_and_1_in_empty [
 ]
 
 { #category : #'examples - cursor' }
-BrTextEditorModificationExamples >> cursor_add_at_0_in_empty [
+BrTextEditorOperatorExamples >> cursor_add_at_0_in_empty [
 	<gtExample>
 	| anEditor theAddedEvents theMovedEvents theRemovedEvents |
 	
@@ -106,7 +106,7 @@ BrTextEditorModificationExamples >> cursor_add_at_0_in_empty [
 ]
 
 { #category : #'examples - cursor' }
-BrTextEditorModificationExamples >> cursor_add_at_1_and_0_in_empty [
+BrTextEditorOperatorExamples >> cursor_add_at_1_and_0_in_empty [
 	<gtExample>
 	| anEditor theAddedEvents theMovedEvents theRemovedEvents |
 
@@ -142,7 +142,7 @@ BrTextEditorModificationExamples >> cursor_add_at_1_and_0_in_empty [
 ]
 
 { #category : #'examples - cursor' }
-BrTextEditorModificationExamples >> cursor_add_at_1_in_cursors_at_0 [
+BrTextEditorOperatorExamples >> cursor_add_at_1_in_cursors_at_0 [
 	<gtExample>
 	| anEditor theAddedEvents theMovedEvents theRemovedEvents |
 	
@@ -177,7 +177,546 @@ BrTextEditorModificationExamples >> cursor_add_at_1_in_cursors_at_0 [
 ]
 
 { #category : #'examples - cursor' }
-BrTextEditorModificationExamples >> cursor_moveTo_0_in_cursors_at_0_and_1 [
+BrTextEditorOperatorExamples >> cursor_moveToLineEnd_in_cursors_at_0 [
+	<gtExample>
+	<label: 'Cursor before the first character of the line should move to the end'>
+	| anEditor theAddedEvents theMovedEvents theRemovedEvents |
+	
+	anEditor := self cursor_add_at_0_in_empty.
+	
+	theAddedEvents := OrderedCollection new.
+	theMovedEvents := OrderedCollection new.
+	theRemovedEvents := OrderedCollection new.
+
+	anEditor navigator
+		whenAdded: [ :anEvent | theAddedEvents add: anEvent ];
+		whenMoved: [ :anEvent | theMovedEvents add: anEvent ];
+		whenRemoved: [ :anEvent | theRemovedEvents add: anEvent ];
+		moveToLineEnd;
+		apply;
+		unsubscribe.
+		
+	self assert: anEditor cursor isNotEmpty.
+	self assert: anEditor cursor allCursors equals: { BrTextEditorSingleCursor new position: 28 }.
+	
+	self assert: theAddedEvents isEmpty.
+	self assert: theMovedEvents size equals: 1.
+	self assert: theMovedEvents first cursor equals: (BrTextEditorSingleCursor new position: 28).
+	self assert: theMovedEvents first oldIndex equals: 0.
+	self assert: theMovedEvents first newIndex equals: 28.
+	self assert: theRemovedEvents isEmpty.
+	
+	^ anEditor
+]
+
+{ #category : #'examples - cursor' }
+BrTextEditorOperatorExamples >> cursor_moveToLineEnd_in_cursors_at_1 [
+	<gtExample>
+	<label: 'Cursor after the first character of the line should move to the end'>
+	| anEditor theAddedEvents theMovedEvents theRemovedEvents |
+	
+	anEditor := self cursor_add_at_0_in_empty.
+	anEditor navigator
+		moveTo: 1;
+		apply.
+	
+	theAddedEvents := OrderedCollection new.
+	theMovedEvents := OrderedCollection new.
+	theRemovedEvents := OrderedCollection new.
+
+	anEditor navigator
+		whenAdded: [ :anEvent | theAddedEvents add: anEvent ];
+		whenMoved: [ :anEvent | theMovedEvents add: anEvent ];
+		whenRemoved: [ :anEvent | theRemovedEvents add: anEvent ];
+		moveToLineEnd;
+		apply;
+		unsubscribe.
+		
+	self assert: anEditor cursor isNotEmpty.
+	self assert: anEditor cursor allCursors equals: { BrTextEditorSingleCursor new position: 28 }.
+	
+	self assert: theAddedEvents isEmpty.
+	self assert: theMovedEvents size equals: 1.
+	self assert: theMovedEvents first cursor equals: (BrTextEditorSingleCursor new position: 28).
+	self assert: theMovedEvents first oldIndex equals: 1.
+	self assert: theMovedEvents first newIndex equals: 28.
+	self assert: theRemovedEvents isEmpty.
+	
+	^ anEditor
+]
+
+{ #category : #'examples - cursor' }
+BrTextEditorOperatorExamples >> cursor_moveToLineEnd_in_cursors_at_201 [
+	<gtExample>
+	<label: 'Cursor before the last character of the whole text should not move'>
+	| anEditor theAddedEvents theMovedEvents theRemovedEvents |
+	
+	anEditor := self cursor_add_at_0_in_empty.
+	anEditor navigator
+		moveTo: 201;
+		apply.
+	
+	theAddedEvents := OrderedCollection new.
+	theMovedEvents := OrderedCollection new.
+	theRemovedEvents := OrderedCollection new.
+
+	anEditor navigator
+		whenAdded: [ :anEvent | theAddedEvents add: anEvent ];
+		whenMoved: [ :anEvent | theMovedEvents add: anEvent ];
+		whenRemoved: [ :anEvent | theRemovedEvents add: anEvent ];
+		moveToLineEnd;
+		apply;
+		unsubscribe.
+		
+	self assert: anEditor cursor isNotEmpty.
+	self assert: anEditor cursor allCursors equals: { BrTextEditorSingleCursor new position: 202 }.
+	
+	self assert: theAddedEvents isEmpty.
+	self assert: theMovedEvents size equals: 1.
+	self assert: theMovedEvents first cursor equals: (BrTextEditorSingleCursor new position: 202).
+	self assert: theMovedEvents first oldIndex equals: 201.
+	self assert: theMovedEvents first newIndex equals: 202.
+	self assert: theRemovedEvents isEmpty.
+	
+	^ anEditor
+]
+
+{ #category : #'examples - cursor' }
+BrTextEditorOperatorExamples >> cursor_moveToLineEnd_in_cursors_at_202 [
+	<gtExample>
+	<label: 'Cursor after the last character of the whole text should not move'>
+	| anEditor theAddedEvents theMovedEvents theRemovedEvents |
+	
+	anEditor := self cursor_add_at_0_in_empty.
+	anEditor navigator
+		moveTo: 202;
+		apply.
+	
+	theAddedEvents := OrderedCollection new.
+	theMovedEvents := OrderedCollection new.
+	theRemovedEvents := OrderedCollection new.
+
+	anEditor navigator
+		whenAdded: [ :anEvent | theAddedEvents add: anEvent ];
+		whenMoved: [ :anEvent | theMovedEvents add: anEvent ];
+		whenRemoved: [ :anEvent | theRemovedEvents add: anEvent ];
+		moveToLineEnd;
+		apply;
+		unsubscribe.
+		
+	self assert: anEditor cursor isNotEmpty.
+	self assert: anEditor cursor allCursors equals: { BrTextEditorSingleCursor new position: 202 }.
+	
+	self assert: theAddedEvents isEmpty.
+	self assert: theMovedEvents isEmpty.
+	self assert: theRemovedEvents isEmpty.
+	
+	^ anEditor
+]
+
+{ #category : #'examples - cursor' }
+BrTextEditorOperatorExamples >> cursor_moveToLineEnd_in_cursors_at_27 [
+	<gtExample>
+	<label: 'Cursor before the last character of the line should move to the end'>
+	| anEditor theAddedEvents theMovedEvents theRemovedEvents |
+	
+	anEditor := self cursor_add_at_0_in_empty.
+	anEditor navigator
+		moveTo: 27;
+		apply.
+	
+	theAddedEvents := OrderedCollection new.
+	theMovedEvents := OrderedCollection new.
+	theRemovedEvents := OrderedCollection new.
+
+	anEditor navigator
+		whenAdded: [ :anEvent | theAddedEvents add: anEvent ];
+		whenMoved: [ :anEvent | theMovedEvents add: anEvent ];
+		whenRemoved: [ :anEvent | theRemovedEvents add: anEvent ];
+		moveToLineEnd;
+		apply;
+		unsubscribe.
+		
+	self assert: anEditor cursor isNotEmpty.
+	self assert: anEditor cursor allCursors equals: { BrTextEditorSingleCursor new position: 28 }.
+	
+	self assert: theAddedEvents isEmpty.
+	self assert: theMovedEvents size equals: 1.
+	self assert: theMovedEvents first cursor equals: (BrTextEditorSingleCursor new position: 28).
+	self assert: theMovedEvents first oldIndex equals: 27.
+	self assert: theMovedEvents first newIndex equals: 28.
+	self assert: theRemovedEvents isEmpty.
+	
+	^ anEditor
+]
+
+{ #category : #'examples - cursor' }
+BrTextEditorOperatorExamples >> cursor_moveToLineEnd_in_cursors_at_28 [
+	<gtExample>
+	<label: 'Cursor after the last character of the line should not move'>
+	| anEditor theAddedEvents theMovedEvents theRemovedEvents |
+	
+	anEditor := self cursor_add_at_0_in_empty.
+	anEditor navigator
+		moveTo: 28;
+		apply.
+	
+	theAddedEvents := OrderedCollection new.
+	theMovedEvents := OrderedCollection new.
+	theRemovedEvents := OrderedCollection new.
+
+	anEditor navigator
+		whenAdded: [ :anEvent | theAddedEvents add: anEvent ];
+		whenMoved: [ :anEvent | theMovedEvents add: anEvent ];
+		whenRemoved: [ :anEvent | theRemovedEvents add: anEvent ];
+		moveToLineEnd;
+		apply;
+		unsubscribe.
+		
+	self assert: anEditor cursor isNotEmpty.
+	self assert: anEditor cursor allCursors equals: { BrTextEditorSingleCursor new position: 28 }.
+	
+	self assert: theAddedEvents isEmpty.
+	self assert: theMovedEvents isEmpty.
+	self assert: theRemovedEvents isEmpty.
+	
+	^ anEditor
+]
+
+{ #category : #'examples - cursor' }
+BrTextEditorOperatorExamples >> cursor_moveToLineEnd_in_empty [
+	<gtExample>
+	| anEditor theAddedEvents theMovedEvents theRemovedEvents |
+	
+	anEditor := self editorOnMultilineText.
+	
+	theAddedEvents := OrderedCollection new.
+	theMovedEvents := OrderedCollection new.
+	theRemovedEvents := OrderedCollection new.
+
+	anEditor navigator
+		whenAdded: [ :anEvent | theAddedEvents add: anEvent ];
+		whenMoved: [ :anEvent | theMovedEvents add: anEvent ];
+		whenRemoved: [ :anEvent | theRemovedEvents add: anEvent ];
+		moveToLineEnd;
+		apply;
+		unsubscribe.
+		
+	self assert: anEditor cursor isEmpty.
+	
+	self assert: theAddedEvents isEmpty.
+	self assert: theMovedEvents isEmpty.
+	self assert: theRemovedEvents isEmpty.
+	
+	^ anEditor
+]
+
+{ #category : #'examples - cursor' }
+BrTextEditorOperatorExamples >> cursor_moveToLineStart_in_cursors_at_0 [
+	<gtExample>
+	<label: 'Cursor before the first character should not be moved'>
+	| anEditor theAddedEvents theMovedEvents theRemovedEvents |
+	
+	anEditor := self cursor_add_at_0_in_empty.
+	
+	theAddedEvents := OrderedCollection new.
+	theMovedEvents := OrderedCollection new.
+	theRemovedEvents := OrderedCollection new.
+
+	anEditor navigator
+		whenAdded: [ :anEvent | theAddedEvents add: anEvent ];
+		whenMoved: [ :anEvent | theMovedEvents add: anEvent ];
+		whenRemoved: [ :anEvent | theRemovedEvents add: anEvent ];
+		moveToLineStart;
+		apply;
+		unsubscribe.
+		
+	self assert: anEditor cursor isNotEmpty.
+	self assert: anEditor cursor allCursors equals: { BrTextEditorSingleCursor new position: 0 }.
+	
+	self assert: theAddedEvents isEmpty.
+	self assert: theMovedEvents isEmpty.
+	self assert: theRemovedEvents isEmpty.
+	
+	^ anEditor
+]
+
+{ #category : #'examples - cursor' }
+BrTextEditorOperatorExamples >> cursor_moveToLineStart_in_cursors_at_1 [
+	<gtExample>
+	<label: 'Cursor after the first character moves before the start of the text'>
+	| anEditor theAddedEvents theMovedEvents theRemovedEvents |
+	
+	anEditor := self cursor_moveTo_1_in_cursors_at_0.
+	
+	theAddedEvents := OrderedCollection new.
+	theMovedEvents := OrderedCollection new.
+	theRemovedEvents := OrderedCollection new.
+
+	anEditor navigator
+		whenAdded: [ :anEvent | theAddedEvents add: anEvent ];
+		whenMoved: [ :anEvent | theMovedEvents add: anEvent ];
+		whenRemoved: [ :anEvent | theRemovedEvents add: anEvent ];
+		moveToLineStart;
+		apply;
+		unsubscribe.
+		
+	self assert: anEditor cursor isNotEmpty.
+	self assert: anEditor cursor allCursors equals: { BrTextEditorSingleCursor new position: 0 }.
+	
+	self assert: theAddedEvents isEmpty.
+	self assert: theMovedEvents size equals: 1.
+	self assert: theMovedEvents first cursor equals: (BrTextEditorSingleCursor new position: 0).
+	self assert: theMovedEvents first oldIndex equals: 1.
+	self assert: theMovedEvents first newIndex equals: 0.
+	self assert: theRemovedEvents isEmpty.
+	
+	^ anEditor
+]
+
+{ #category : #'examples - cursor' }
+BrTextEditorOperatorExamples >> cursor_moveToLineStart_in_cursors_at_27 [
+	<gtExample>
+	<label: 'Cursor before the last character of the line should move to the start'>
+	| anEditor theAddedEvents theMovedEvents theRemovedEvents |
+	
+	anEditor := self cursor_add_at_0_in_empty.
+	anEditor navigator
+		moveTo: 27;
+		apply.
+	
+	theAddedEvents := OrderedCollection new.
+	theMovedEvents := OrderedCollection new.
+	theRemovedEvents := OrderedCollection new.
+
+	anEditor navigator
+		whenAdded: [ :anEvent | theAddedEvents add: anEvent ];
+		whenMoved: [ :anEvent | theMovedEvents add: anEvent ];
+		whenRemoved: [ :anEvent | theRemovedEvents add: anEvent ];
+		moveToLineStart;
+		apply;
+		unsubscribe.
+		
+	self assert: anEditor cursor isNotEmpty.
+	self assert: anEditor cursor allCursors equals: { BrTextEditorSingleCursor new position: 0 }.
+	
+	self assert: theAddedEvents isEmpty.
+	self assert: theMovedEvents size equals: 1.
+	self assert: theMovedEvents first cursor equals: (BrTextEditorSingleCursor new position: 0).
+	self assert: theMovedEvents first oldIndex equals: 27.
+	self assert: theMovedEvents first newIndex equals: 0.
+	self assert: theRemovedEvents isEmpty.
+	
+	^ anEditor
+]
+
+{ #category : #'examples - cursor' }
+BrTextEditorOperatorExamples >> cursor_moveToLineStart_in_cursors_at_28 [
+	<gtExample>
+	<label: 'Cursor after the last character of the line should move to to the start'>
+	| anEditor theAddedEvents theMovedEvents theRemovedEvents |
+	
+	anEditor := self cursor_add_at_0_in_empty.
+	anEditor navigator
+		moveTo: 28;
+		apply.
+	
+	theAddedEvents := OrderedCollection new.
+	theMovedEvents := OrderedCollection new.
+	theRemovedEvents := OrderedCollection new.
+
+	anEditor navigator
+		whenAdded: [ :anEvent | theAddedEvents add: anEvent ];
+		whenMoved: [ :anEvent | theMovedEvents add: anEvent ];
+		whenRemoved: [ :anEvent | theRemovedEvents add: anEvent ];
+		moveToLineStart;
+		apply;
+		unsubscribe.
+		
+	self assert: anEditor cursor isNotEmpty.
+	self assert: anEditor cursor allCursors equals: { BrTextEditorSingleCursor new position: 0 }.
+	
+	self assert: theAddedEvents isEmpty.
+	self assert: theMovedEvents size equals: 1.
+	self assert: theMovedEvents first cursor equals: (BrTextEditorSingleCursor new position: 0).
+	self assert: theMovedEvents first oldIndex equals: 28.
+	self assert: theMovedEvents first newIndex equals: 0.
+	self assert: theRemovedEvents isEmpty.
+	
+	^ anEditor
+]
+
+{ #category : #'examples - cursor' }
+BrTextEditorOperatorExamples >> cursor_moveToLineStart_in_cursors_at_29 [
+	<gtExample>
+	<label: 'Cursor before the first character of the line should not move'>
+	| anEditor theAddedEvents theMovedEvents theRemovedEvents |
+	
+	anEditor := self cursor_add_at_0_in_empty.
+	anEditor navigator
+		moveTo: 29;
+		apply.
+	
+	theAddedEvents := OrderedCollection new.
+	theMovedEvents := OrderedCollection new.
+	theRemovedEvents := OrderedCollection new.
+
+	anEditor navigator
+		whenAdded: [ :anEvent | theAddedEvents add: anEvent ];
+		whenMoved: [ :anEvent | theMovedEvents add: anEvent ];
+		whenRemoved: [ :anEvent | theRemovedEvents add: anEvent ];
+		moveToLineStart;
+		apply;
+		unsubscribe.
+		
+	self assert: anEditor cursor isNotEmpty.
+	self assert: anEditor cursor allCursors equals: { BrTextEditorSingleCursor new position: 29 }.
+
+	self assert: theAddedEvents isEmpty.
+	self assert: theMovedEvents isEmpty.
+	self assert: theRemovedEvents isEmpty.
+	
+	^ anEditor
+]
+
+{ #category : #'examples - cursor' }
+BrTextEditorOperatorExamples >> cursor_moveToLineStart_in_cursors_at_30 [
+	<gtExample>
+	<label: 'Cursor after the first character of the line should move to the start of that line'>
+	| anEditor theAddedEvents theMovedEvents theRemovedEvents |
+	
+	anEditor := self cursor_add_at_0_in_empty.
+	anEditor navigator
+		moveTo: 30;
+		apply.
+	
+	theAddedEvents := OrderedCollection new.
+	theMovedEvents := OrderedCollection new.
+	theRemovedEvents := OrderedCollection new.
+
+	anEditor navigator
+		whenAdded: [ :anEvent | theAddedEvents add: anEvent ];
+		whenMoved: [ :anEvent | theMovedEvents add: anEvent ];
+		whenRemoved: [ :anEvent | theRemovedEvents add: anEvent ];
+		moveToLineStart;
+		apply;
+		unsubscribe.
+		
+	self assert: anEditor cursor isNotEmpty.
+	self assert: anEditor cursor allCursors equals: { BrTextEditorSingleCursor new position: 29 }.
+
+	self assert: theAddedEvents isEmpty.
+	self assert: theMovedEvents size equals: 1.
+	self assert: theMovedEvents first cursor equals: (BrTextEditorSingleCursor new position: 29).
+	self assert: theMovedEvents first oldIndex equals: 30.
+	self assert: theMovedEvents first newIndex equals: 29.
+	self assert: theRemovedEvents isEmpty.
+	
+	^ anEditor
+]
+
+{ #category : #'examples - cursor' }
+BrTextEditorOperatorExamples >> cursor_moveToLineStart_in_cursors_at_40 [
+	<gtExample>
+	<label: 'Cursor before the last character of the line should move to the start of that line'>
+	| anEditor theAddedEvents theMovedEvents theRemovedEvents |
+	
+	anEditor := self cursor_add_at_0_in_empty.
+	anEditor navigator
+		moveTo: 40;
+		apply.
+	
+	theAddedEvents := OrderedCollection new.
+	theMovedEvents := OrderedCollection new.
+	theRemovedEvents := OrderedCollection new.
+
+	anEditor navigator
+		whenAdded: [ :anEvent | theAddedEvents add: anEvent ];
+		whenMoved: [ :anEvent | theMovedEvents add: anEvent ];
+		whenRemoved: [ :anEvent | theRemovedEvents add: anEvent ];
+		moveToLineStart;
+		apply;
+		unsubscribe.
+		
+	self assert: anEditor cursor isNotEmpty.
+	self assert: anEditor cursor allCursors equals: { BrTextEditorSingleCursor new position: 29 }.
+
+	self assert: theAddedEvents isEmpty.
+	self assert: theMovedEvents size equals: 1.
+	self assert: theMovedEvents first cursor equals: (BrTextEditorSingleCursor new position: 29).
+	self assert: theMovedEvents first oldIndex equals: 40.
+	self assert: theMovedEvents first newIndex equals: 29.
+	self assert: theRemovedEvents isEmpty.
+	
+	^ anEditor
+]
+
+{ #category : #'examples - cursor' }
+BrTextEditorOperatorExamples >> cursor_moveToLineStart_in_cursors_at_41 [
+	<gtExample>
+	<label: 'Cursor after the last character of the line should move to the start of that line'>
+	| anEditor theAddedEvents theMovedEvents theRemovedEvents |
+	
+	anEditor := self cursor_add_at_0_in_empty.
+	anEditor navigator
+		moveTo: 41;
+		apply.
+	
+	theAddedEvents := OrderedCollection new.
+	theMovedEvents := OrderedCollection new.
+	theRemovedEvents := OrderedCollection new.
+
+	anEditor navigator
+		whenAdded: [ :anEvent | theAddedEvents add: anEvent ];
+		whenMoved: [ :anEvent | theMovedEvents add: anEvent ];
+		whenRemoved: [ :anEvent | theRemovedEvents add: anEvent ];
+		moveToLineStart;
+		apply;
+		unsubscribe.
+		
+	self assert: anEditor cursor isNotEmpty.
+	self assert: anEditor cursor allCursors equals: { BrTextEditorSingleCursor new position: 29 }.
+
+	self assert: theAddedEvents isEmpty.
+	self assert: theMovedEvents size equals: 1.
+	self assert: theMovedEvents first cursor equals: (BrTextEditorSingleCursor new position: 29).
+	self assert: theMovedEvents first oldIndex equals: 41.
+	self assert: theMovedEvents first newIndex equals: 29.
+	self assert: theRemovedEvents isEmpty.
+	
+	^ anEditor
+]
+
+{ #category : #'examples - cursor' }
+BrTextEditorOperatorExamples >> cursor_moveToLineStart_in_empty [
+	<gtExample>
+	| anEditor theAddedEvents theMovedEvents theRemovedEvents |
+	
+	anEditor := self editorOnMultilineText.
+	
+	theAddedEvents := OrderedCollection new.
+	theMovedEvents := OrderedCollection new.
+	theRemovedEvents := OrderedCollection new.
+
+	anEditor navigator
+		whenAdded: [ :anEvent | theAddedEvents add: anEvent ];
+		whenMoved: [ :anEvent | theMovedEvents add: anEvent ];
+		whenRemoved: [ :anEvent | theRemovedEvents add: anEvent ];
+		moveToLineStart;
+		apply;
+		unsubscribe.
+		
+	self assert: anEditor cursor isEmpty.
+	
+	self assert: theAddedEvents isEmpty.
+	self assert: theMovedEvents isEmpty.
+	self assert: theRemovedEvents isEmpty.
+	
+	^ anEditor
+]
+
+{ #category : #'examples - cursor' }
+BrTextEditorOperatorExamples >> cursor_moveTo_0_in_cursors_at_0_and_1 [
 	<gtExample>
 	| anEditor theAddedEvents theMovedEvents theRemovedEvents |
 	
@@ -210,7 +749,7 @@ BrTextEditorModificationExamples >> cursor_moveTo_0_in_cursors_at_0_and_1 [
 ]
 
 { #category : #'examples - cursor' }
-BrTextEditorModificationExamples >> cursor_moveTo_0_in_empty [
+BrTextEditorOperatorExamples >> cursor_moveTo_0_in_empty [
 	<gtExample>
 	| anEditor theAddedEvents theMovedEvents theRemovedEvents |
 	
@@ -242,7 +781,7 @@ BrTextEditorModificationExamples >> cursor_moveTo_0_in_empty [
 ]
 
 { #category : #'examples - cursor' }
-BrTextEditorModificationExamples >> cursor_moveTo_1_in_cursors_at_0 [
+BrTextEditorOperatorExamples >> cursor_moveTo_1_in_cursors_at_0 [
 	<gtExample>
 	| anEditor theAddedEvents theMovedEvents theRemovedEvents |
 	
@@ -274,7 +813,7 @@ BrTextEditorModificationExamples >> cursor_moveTo_1_in_cursors_at_0 [
 ]
 
 { #category : #'examples - cursor' }
-BrTextEditorModificationExamples >> cursor_moveTo_2_in_cursors_at_0_and_1 [
+BrTextEditorOperatorExamples >> cursor_moveTo_2_in_cursors_at_0_and_1 [
 	<gtExample>
 	| anEditor theAddedEvents theMovedEvents theRemovedEvents |
 
@@ -309,7 +848,7 @@ BrTextEditorModificationExamples >> cursor_moveTo_2_in_cursors_at_0_and_1 [
 ]
 
 { #category : #'examples - cursor' }
-BrTextEditorModificationExamples >> cursor_removeAll_in_cursors_at_0_and_1 [
+BrTextEditorOperatorExamples >> cursor_removeAll_in_cursors_at_0_and_1 [
 	<gtExample>
 	| anEditor theAddedEvents theMovedEvents theRemovedEvents |
 	
@@ -341,7 +880,7 @@ BrTextEditorModificationExamples >> cursor_removeAll_in_cursors_at_0_and_1 [
 ]
 
 { #category : #'examples - cursor' }
-BrTextEditorModificationExamples >> cursor_remove_at_0_in_cursors_at_0 [
+BrTextEditorOperatorExamples >> cursor_remove_at_0_in_cursors_at_0 [
 	<gtExample>
 	| anEditor theAddedEvents theMovedEvents theRemovedEvents |
 	
@@ -372,7 +911,7 @@ BrTextEditorModificationExamples >> cursor_remove_at_0_in_cursors_at_0 [
 ]
 
 { #category : #'examples - cursor' }
-BrTextEditorModificationExamples >> cursor_remove_at_1_and_0_in_cursors_at_0_and_1 [
+BrTextEditorOperatorExamples >> cursor_remove_at_1_and_0_in_cursors_at_0_and_1 [
 	<gtExample>
 	| anEditor theAddedEvents theMovedEvents theRemovedEvents |
 	
@@ -405,7 +944,7 @@ BrTextEditorModificationExamples >> cursor_remove_at_1_and_0_in_cursors_at_0_and
 ]
 
 { #category : #'examples - cursor' }
-BrTextEditorModificationExamples >> cursor_remove_at_1_in_cursors_at_0_and_1 [
+BrTextEditorOperatorExamples >> cursor_remove_at_1_in_cursors_at_0_and_1 [
 	<gtExample>
 	| anEditor theAddedEvents theMovedEvents theRemovedEvents |
 	
@@ -437,7 +976,7 @@ BrTextEditorModificationExamples >> cursor_remove_at_1_in_cursors_at_0_and_1 [
 ]
 
 { #category : #'examples - deletion' }
-BrTextEditorModificationExamples >> delete_0_to_0_cursorAt_0_selection_0_to_0 [
+BrTextEditorOperatorExamples >> delete_0_to_0_cursorAt_0_selection_0_to_0 [
 	<gtExample>
 	| anEditor |
 	
@@ -457,7 +996,7 @@ BrTextEditorModificationExamples >> delete_0_to_0_cursorAt_0_selection_0_to_0 [
 ]
 
 { #category : #'examples - deletion' }
-BrTextEditorModificationExamples >> delete_0_to_0_cursorAt_0_selection_0_to_10 [
+BrTextEditorOperatorExamples >> delete_0_to_0_cursorAt_0_selection_0_to_10 [
 	<gtExample>
 	| anEditor |
 	
@@ -477,7 +1016,7 @@ BrTextEditorModificationExamples >> delete_0_to_0_cursorAt_0_selection_0_to_10 [
 ]
 
 { #category : #'examples - deletion' }
-BrTextEditorModificationExamples >> delete_0_to_1_cursorAt_0_selection_0_to_10 [
+BrTextEditorOperatorExamples >> delete_0_to_1_cursorAt_0_selection_0_to_10 [
 	<gtExample>
 	| anEditor |
 	
@@ -497,7 +1036,7 @@ BrTextEditorModificationExamples >> delete_0_to_1_cursorAt_0_selection_0_to_10 [
 ]
 
 { #category : #'examples - deletion' }
-BrTextEditorModificationExamples >> delete_0_to_28_cursorAt_0_selection_0_to_10 [
+BrTextEditorOperatorExamples >> delete_0_to_28_cursorAt_0_selection_0_to_10 [
 	<gtExample>
 	| anEditor |
 	
@@ -517,7 +1056,7 @@ BrTextEditorModificationExamples >> delete_0_to_28_cursorAt_0_selection_0_to_10 
 ]
 
 { #category : #'examples - deletion' }
-BrTextEditorModificationExamples >> delete_0_to_28_cursorAt_0_selection_0_to_28 [
+BrTextEditorOperatorExamples >> delete_0_to_28_cursorAt_0_selection_0_to_28 [
 	<gtExample>
 	| anEditor |
 	
@@ -537,7 +1076,7 @@ BrTextEditorModificationExamples >> delete_0_to_28_cursorAt_0_selection_0_to_28 
 ]
 
 { #category : #'examples - deletion' }
-BrTextEditorModificationExamples >> delete_0_to_28_cursorAt_0_selection_0_to_29 [
+BrTextEditorOperatorExamples >> delete_0_to_28_cursorAt_0_selection_0_to_29 [
 	<gtExample>
 	| anEditor |
 	
@@ -557,7 +1096,7 @@ BrTextEditorModificationExamples >> delete_0_to_28_cursorAt_0_selection_0_to_29 
 ]
 
 { #category : #'examples - deletion' }
-BrTextEditorModificationExamples >> delete_0_to_28_cursorAt_0_selection_0_to_38 [
+BrTextEditorOperatorExamples >> delete_0_to_28_cursorAt_0_selection_0_to_38 [
 	<gtExample>
 	| anEditor |
 
@@ -577,7 +1116,7 @@ BrTextEditorModificationExamples >> delete_0_to_28_cursorAt_0_selection_0_to_38 
 ]
 
 { #category : #'examples - deletion' }
-BrTextEditorModificationExamples >> delete_0_to_28_cursorAt_0_selection_0_to_38_and_48_to_50 [
+BrTextEditorOperatorExamples >> delete_0_to_28_cursorAt_0_selection_0_to_38_and_48_to_50 [
 	<gtExample>
 	| anEditor |
 
@@ -598,7 +1137,7 @@ BrTextEditorModificationExamples >> delete_0_to_28_cursorAt_0_selection_0_to_38_
 ]
 
 { #category : #'examples - deletion' }
-BrTextEditorModificationExamples >> delete_0_to_28_cursorAt_10_selection_0_to_10 [
+BrTextEditorOperatorExamples >> delete_0_to_28_cursorAt_10_selection_0_to_10 [
 	<gtExample>
 	| anEditor |
 	
@@ -618,7 +1157,7 @@ BrTextEditorModificationExamples >> delete_0_to_28_cursorAt_10_selection_0_to_10
 ]
 
 { #category : #'examples - deletion' }
-BrTextEditorModificationExamples >> delete_0_to_28_cursorAt_28_selection_0_to_10 [
+BrTextEditorOperatorExamples >> delete_0_to_28_cursorAt_28_selection_0_to_10 [
 	<gtExample>
 	| anEditor |
 	
@@ -638,7 +1177,7 @@ BrTextEditorModificationExamples >> delete_0_to_28_cursorAt_28_selection_0_to_10
 ]
 
 { #category : #'examples - deletion' }
-BrTextEditorModificationExamples >> delete_0_to_28_cursorAt_29_selection_0_to_10 [
+BrTextEditorOperatorExamples >> delete_0_to_28_cursorAt_29_selection_0_to_10 [
 	<gtExample>
 	| anEditor |
 	
@@ -658,7 +1197,7 @@ BrTextEditorModificationExamples >> delete_0_to_28_cursorAt_29_selection_0_to_10
 ]
 
 { #category : #'examples - deletion' }
-BrTextEditorModificationExamples >> delete_0_to_28_cursorAt_38_selection_0_to_10 [
+BrTextEditorOperatorExamples >> delete_0_to_28_cursorAt_38_selection_0_to_10 [
 	<gtExample>
 	| anEditor |
 	
@@ -678,14 +1217,14 @@ BrTextEditorModificationExamples >> delete_0_to_28_cursorAt_38_selection_0_to_10
 ]
 
 { #category : #'instance creation' }
-BrTextEditorModificationExamples >> editor [
+BrTextEditorOperatorExamples >> editor [
 	<gtExample>
 	
 	^ BrTextEditor new
 ]
 
 { #category : #'instance creation' }
-BrTextEditorModificationExamples >> editorOnMultilineText [
+BrTextEditorOperatorExamples >> editorOnMultilineText [
 	<gtExample>
 	| anEditor |
 	
@@ -698,7 +1237,7 @@ BrTextEditorModificationExamples >> editorOnMultilineText [
 ]
 
 { #category : #'examples - insertion' }
-BrTextEditorModificationExamples >> filter_insert_Hello123Symbols_onlyAlphaNumeric [
+BrTextEditorOperatorExamples >> filter_insert_Hello123Symbols_onlyAlphaNumeric [
 	<gtExample>
 	| anEditor |
 	
@@ -719,7 +1258,7 @@ BrTextEditorModificationExamples >> filter_insert_Hello123Symbols_onlyAlphaNumer
 ]
 
 { #category : #'examples - insertion' }
-BrTextEditorModificationExamples >> filter_insert_Hello123_onlyDigits [
+BrTextEditorOperatorExamples >> filter_insert_Hello123_onlyDigits [
 	<gtExample>
 	| anEditor |
 	
@@ -740,7 +1279,7 @@ BrTextEditorModificationExamples >> filter_insert_Hello123_onlyDigits [
 ]
 
 { #category : #'examples - insertion' }
-BrTextEditorModificationExamples >> filter_insert_Hello123_onlyLetters [
+BrTextEditorOperatorExamples >> filter_insert_Hello123_onlyLetters [
 	<gtExample>
 	| anEditor |
 	
@@ -761,7 +1300,7 @@ BrTextEditorModificationExamples >> filter_insert_Hello123_onlyLetters [
 ]
 
 { #category : #'examples - insertion' }
-BrTextEditorModificationExamples >> insert_Hello_atCursorAt_0_and_1_selection_no [
+BrTextEditorOperatorExamples >> insert_Hello_atCursorAt_0_and_1_selection_no [
 	<gtExample>
 	<description: '"Insertion at multiple cursors'>
 	| anEditor |
@@ -787,7 +1326,7 @@ BrTextEditorModificationExamples >> insert_Hello_atCursorAt_0_and_1_selection_no
 ]
 
 { #category : #'examples - insertion' }
-BrTextEditorModificationExamples >> insert_Hello_at_0_cursorAt_0_selection_0_to_0 [
+BrTextEditorOperatorExamples >> insert_Hello_at_0_cursorAt_0_selection_0_to_0 [
 	<gtExample>
 	| anEditor |
 	
@@ -808,7 +1347,7 @@ BrTextEditorModificationExamples >> insert_Hello_at_0_cursorAt_0_selection_0_to_
 ]
 
 { #category : #'examples - insertion' }
-BrTextEditorModificationExamples >> insert_Hello_at_0_cursorAt_0_selection_0_to_1 [
+BrTextEditorOperatorExamples >> insert_Hello_at_0_cursorAt_0_selection_0_to_1 [
 	<gtExample>
 	| anEditor |
 	
@@ -829,7 +1368,7 @@ BrTextEditorModificationExamples >> insert_Hello_at_0_cursorAt_0_selection_0_to_
 ]
 
 { #category : #'examples - insertion' }
-BrTextEditorModificationExamples >> insert_Hello_at_0_cursorAt_10_selection_0_to_1_and_8_to_14 [
+BrTextEditorOperatorExamples >> insert_Hello_at_0_cursorAt_10_selection_0_to_1_and_8_to_14 [
 	<gtExample>
 	| anEditor |
 	
@@ -852,7 +1391,7 @@ BrTextEditorModificationExamples >> insert_Hello_at_0_cursorAt_10_selection_0_to
 ]
 
 { #category : #'examples - insertion' }
-BrTextEditorModificationExamples >> insert_Hello_at_0_cursorAt_10_selection_0_to_1_and_8_to_14_no_delete [
+BrTextEditorOperatorExamples >> insert_Hello_at_0_cursorAt_10_selection_0_to_1_and_8_to_14_no_delete [
 	<gtExample>
 	| anEditor |
 	
@@ -878,7 +1417,7 @@ BrTextEditorModificationExamples >> insert_Hello_at_0_cursorAt_10_selection_0_to
 ]
 
 { #category : #'examples - insertion' }
-BrTextEditorModificationExamples >> insert_Hello_at_0_cursorAt_10_selection_0_to_1_and_8_to_14_no_delete_no_selection [
+BrTextEditorOperatorExamples >> insert_Hello_at_0_cursorAt_10_selection_0_to_1_and_8_to_14_no_delete_no_selection [
 	<gtExample>
 	| anEditor |
 	
@@ -905,7 +1444,7 @@ BrTextEditorModificationExamples >> insert_Hello_at_0_cursorAt_10_selection_0_to
 ]
 
 { #category : #'examples - insertion' }
-BrTextEditorModificationExamples >> insert_Hello_at_0_cursorAt_10_selection_0_to_1_and_8_to_14_no_delete_no_selection_no_cursor [
+BrTextEditorOperatorExamples >> insert_Hello_at_0_cursorAt_10_selection_0_to_1_and_8_to_14_no_delete_no_selection_no_cursor [
 	<gtExample>
 	| anEditor |
 	
@@ -933,7 +1472,7 @@ BrTextEditorModificationExamples >> insert_Hello_at_0_cursorAt_10_selection_0_to
 ]
 
 { #category : #'examples - insertion' }
-BrTextEditorModificationExamples >> insert_Hello_at_0_cursorAt_5_selection_0_to_0 [
+BrTextEditorOperatorExamples >> insert_Hello_at_0_cursorAt_5_selection_0_to_0 [
 	<gtExample>
 	| anEditor |
 	
@@ -954,7 +1493,7 @@ BrTextEditorModificationExamples >> insert_Hello_at_0_cursorAt_5_selection_0_to_
 ]
 
 { #category : #'examples - insertion' }
-BrTextEditorModificationExamples >> insert_Hello_at_1_cursorAt_0_selection_0_to_0 [
+BrTextEditorOperatorExamples >> insert_Hello_at_1_cursorAt_0_selection_0_to_0 [
 	<gtExample>
 	| anEditor |
 	
@@ -975,7 +1514,7 @@ BrTextEditorModificationExamples >> insert_Hello_at_1_cursorAt_0_selection_0_to_
 ]
 
 { #category : #'examples - insertion' }
-BrTextEditorModificationExamples >> insert_Hello_at_1_cursorAt_1_selection_0_to_0 [
+BrTextEditorOperatorExamples >> insert_Hello_at_1_cursorAt_1_selection_0_to_0 [
 	<gtExample>
 	| anEditor |
 	
@@ -996,7 +1535,7 @@ BrTextEditorModificationExamples >> insert_Hello_at_1_cursorAt_1_selection_0_to_
 ]
 
 { #category : #'instance creation' }
-BrTextEditorModificationExamples >> multilineText [
+BrTextEditorOperatorExamples >> multilineText [
 	<gtExample>
 	
 	^ 'A summer river being crossed
@@ -1013,7 +1552,7 @@ Seems far away.' asRopedText
 ]
 
 { #category : #'examples - selection' }
-BrTextEditorModificationExamples >> selectedFirstLine [
+BrTextEditorOperatorExamples >> selectedFirstLine [
 	<gtExample>
 	| anEditor |
 
