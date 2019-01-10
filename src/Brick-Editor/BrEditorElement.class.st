@@ -4,8 +4,6 @@ I represent a scrollable editor element. I support scrolling, selection and othe
 Class {
 	#name : #BrEditorElement,
 	#superclass : #BlInfiniteElement,
-	#traits : 'TBrLayoutResizable',
-	#classTraits : 'TBrLayoutResizable classTrait',
 	#category : #'Brick-Editor-UI'
 }
 
@@ -27,17 +25,6 @@ BrEditorElement >> editor [
 { #category : #accessing }
 BrEditorElement >> editor: aBrTextEdior [
 	self dataSource: aBrTextEdior
-]
-
-{ #category : #initialization }
-BrEditorElement >> initialize [
-	super initialize.
-	
-	self viewModel: (BrInteractiveModel withAll: {
-		BrLayoutHorizontalResizerModel matchParent.
-		BrLayoutVerticalResizerModel fitContent }).
-
-	self look: (BrLayoutResizerLook inherit)
 ]
 
 { #category : #scrolling }
