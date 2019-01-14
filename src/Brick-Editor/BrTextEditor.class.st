@@ -848,6 +848,8 @@ BrTextEditor >> selectedText [
 
 { #category : #'api - modification' }
 BrTextEditor >> selecter [
+	<return: #BrTextEditorSelecter>
+
 	^ BrTextEditorSelecter new editor: self
 ]
 

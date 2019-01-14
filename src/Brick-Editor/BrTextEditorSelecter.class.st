@@ -87,3 +87,35 @@ BrTextEditorSelecter >> updateCursors [
 BrTextEditorSelecter >> withoutCursorUpdate [
 	shouldUpdateCursor := false
 ]
+
+{ #category : #'api - configuration' }
+BrTextEditorSelecter >> wordAt: aTextIndex [
+	"Select a word or a whitespace at a given text index"
+	| aTextIterator hasWordToTheLeft hasWordToTheRight shouldBeWord aWordStart aWordEnd  |
+	
+	aTextIterator := self text iterator skip: aTextIndex.
+	
+	hasWordToTheLeft := aTextIterator hasPrevious and: [ aTextIterator peer isSeparator not ].
+	hasWordToTheRight := aTextIterator hasNext and: [ aTextIterator peek isSeparator not ].
+	shouldBeWord := hasWordToTheLeft or: hasWordToTheRight.
+	
+	aWordStart := aTextIndex.
+	aWordEnd := aTextIndex.
+	
+	aTextIterator hasNext ifTrue: [
+		aTextIterator
+			nextSegment: [ :eachCharacter | eachCharacter isSeparator not ]
+			indicesDo: [ :aStart :anEnd :isWord |
+				isWord = shouldBeWord
+					ifTrue: [ aWordEnd := anEnd ] ] ].
+	
+	aTextIterator := self text iterator skip: aTextIndex.
+	aTextIterator hasPrevious ifTrue: [
+		aTextIterator
+			previousSegment: [ :eachCharacter | eachCharacter isSeparator not ]
+			indicesDo: [ :aStart :anEnd :isWord |
+				isWord = shouldBeWord
+					ifTrue: [ aWordStart := aStart ] ] ].
+			
+	selection select: aWordStart to: aWordEnd
+]

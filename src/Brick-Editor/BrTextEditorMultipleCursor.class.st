@@ -10,9 +10,24 @@ Class {
 	#category : 'Brick-Editor-Model - Cursor'
 }
 
+{ #category : #comparing }
+BrTextEditorMultipleCursor >> = anotherObject [
+	self == anotherObject
+		ifTrue: [ ^ true ].
+	(anotherObject isKindOf: self class)
+		ifFalse: [ ^ false ].
+
+	^ anotherObject cursors = self cursors
+]
+
 { #category : #adding }
 BrTextEditorMultipleCursor >> add: aSingleCursor [
 	self cursors add: aSingleCursor
+]
+
+{ #category : #adding }
+BrTextEditorMultipleCursor >> addAll: aCollectionOfSingleCursor [
+	self cursors addAll: aCollectionOfSingleCursor
 ]
 
 { #category : #accessing }
@@ -29,6 +44,11 @@ BrTextEditorMultipleCursor >> do: aBlock [
 	^ self cursors do: aBlock
 ]
 
+{ #category : #comparing }
+BrTextEditorMultipleCursor >> hash [
+	^ self class hash bitXor: self cursors hash
+]
+
 { #category : #initialization }
 BrTextEditorMultipleCursor >> initialize [
 	super initialize.
@@ -41,7 +61,7 @@ BrTextEditorMultipleCursor >> printOn: aStream [
 
 	self isEmpty
 		ifTrue: [ aStream nextPutAll: 'Empty' ]
-		ifFalse: [ aStream print: self cursors ]
+		ifFalse: [ aStream nextPutAll: ($, join: self cursors) ]
 ]
 
 { #category : #adding }

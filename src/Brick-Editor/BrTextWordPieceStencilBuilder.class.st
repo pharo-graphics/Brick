@@ -7,6 +7,7 @@ Class {
 		'wordPadding',
 		'measurer',
 		'mouseDownHandler',
+		'doubleClickHandler',
 		'selectionAcquiredHandler',
 		'selectionLostHandler'
 	],
@@ -48,6 +49,9 @@ BrTextWordPieceStencilBuilder >> buildDefault [
 		
 		"when clicking inside of a text piece we should move cursor there and request editor focus"
 		addEventHandler: mouseDownHandler;
+		
+		"when double-clicking inside of a text piece we should select the whole word"
+		addEventHandler: doubleClickHandler;
 
 		"text piece got inside of selected area"
 		addEventHandler: selectionAcquiredHandler;
@@ -67,6 +71,7 @@ BrTextWordPieceStencilBuilder >> editorElement: anEditorElement [
 	editorElement := anEditorElement.
 
 	mouseDownHandler editorElement: anEditorElement.
+	doubleClickHandler editorElement: anEditorElement.
 	selectionAcquiredHandler editorElement: anEditorElement.
 	selectionLostHandler editorElement: anEditorElement.
 ]
@@ -78,6 +83,7 @@ BrTextWordPieceStencilBuilder >> initialize [
 	wordPadding := BlInsets top: 3 bottom: 3.
 	measurer := BlTextElementCanvasMeasurer new.
 	mouseDownHandler := BrTextWordPieceMouseDownHandler new.
+	doubleClickHandler := BrTextWordPieceDoubleClickHandler new.
 	selectionAcquiredHandler := BrTextWordPieceSelectionAcquiredHandler new.
 	selectionLostHandler := BrTextWordPieceSelectionLostHandler new.
 ]
