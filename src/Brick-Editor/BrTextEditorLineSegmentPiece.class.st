@@ -153,6 +153,15 @@ BrTextEditorLineSegmentPiece >> printOn: aStream [
 	self text printOn: aStream
 ]
 
+{ #category : #'api - cursor' }
+BrTextEditorLineSegmentPiece >> screenToCursor: aTransformation of: anEditorElement in: aPieceElement [
+
+	aPieceElement dispatchEvent:
+		(BrTextEditorScreenToCursorRequest new
+			transformation: aTransformation;
+			editorElement: anEditorElement)
+]
+
 { #category : #accessing }
 BrTextEditorLineSegmentPiece >> segment [
 	^ segment

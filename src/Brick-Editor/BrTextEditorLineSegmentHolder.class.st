@@ -50,6 +50,23 @@ BrTextEditorLineSegmentHolder >> createSegmentElement [
 ]
 
 { #category : #actions }
+BrTextEditorLineSegmentHolder >> explicitScreenToCursor: aTransformation [
+	| aBoundsInEditor aPositionInSegment |
+	
+	aBoundsInEditor := (itemElement bounds inParent: self infiniteElement) bounds.
+	
+	(aBoundsInEditor containsPoint: aTransformation screenPosition)
+		ifFalse: [ ^ self ].
+			
+	aPositionInSegment := (itemElement globalBoundsToMine: (BlBounds origin: aTransformation screenPosition extent: 0@0) fromParent: self infiniteElement) center.
+	self piecesAndTheirElementsDo: [ :aPiece :aPieceElement |
+		(aPieceElement bounds inParent bounds containsPoint: aPositionInSegment)
+			ifTrue: [ ^ aPiece screenToCursor: aTransformation of: self infiniteElement in: aPieceElement ] ].
+		
+	
+]
+
+{ #category : #actions }
 BrTextEditorLineSegmentHolder >> moveCursorDown: aCursor [
 	self
 		assert: [ segment isNotNil ]
@@ -130,6 +147,11 @@ BrTextEditorLineSegmentHolder >> piecesAndTheirElementsDo: aBlock [
 		pieceElements
 			at: eachPiece
 			ifPresent: [ :eachPieceElement | aBlock value: eachPiece value: eachPieceElement ] ]
+]
+
+{ #category : #actions }
+BrTextEditorLineSegmentHolder >> screenToCursor: aTransformation [
+	aTransformation evaluateOn: self
 ]
 
 { #category : #accessing }
