@@ -4,6 +4,20 @@ Class {
 	#category : 'Brick-Editor-Model - Cursor'
 }
 
+{ #category : #'instance creation' }
+BrTextEditorCursor class >> at: aTextIndex [
+	<return: #BrTextEditorSingleCursor>
+
+	^ BrTextEditorSingleCursor at: aTextIndex
+]
+
+{ #category : #'instance creation' }
+BrTextEditorCursor class >> atAll: aCollectionOfTextIndices [
+	<return: #BrTextEditorMultipleCursor>
+
+	^ BrTextEditorMultipleCursor new addAll: (aCollectionOfTextIndices collect: [ :aTextIndex | BrTextEditorSingleCursor at: aTextIndex ])
+]
+
 { #category : #accessing }
 BrTextEditorCursor >> allCursors [
 	^ Array streamContents: [ :aStream | self do: [ :aCursor | aStream nextPut: aCursor ] ]

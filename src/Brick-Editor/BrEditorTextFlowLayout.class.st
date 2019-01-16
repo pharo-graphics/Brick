@@ -65,8 +65,13 @@ BrEditorTextFlowLayout >> measure: anElement with: anExtentSpec [
 	| maxWidth maxHeight aCurrentLine totalContentWidth totalContentHeight |
 	
 	"compute how much space is available along both axes"
-	maxWidth := (anExtentSpec widthSpec size ifNil: [ Float infinity ]) - anElement padding width.
-	maxHeight := (anExtentSpec heightSpec size ifNil: [ Float infinity ]) - anElement padding height.
+	maxWidth := (anExtentSpec widthSpec isUnspecified
+		ifTrue: [ SmallInteger maxVal ]
+		ifFalse: [ anExtentSpec widthSpec size ]) - anElement padding width.
+		
+	maxHeight := (anExtentSpec heightSpec isUnspecified
+		ifTrue: [ SmallInteger maxVal ]
+		ifFalse: [ anExtentSpec heightSpec size ]) - anElement padding height.
 
 	"Actually a linked list of lines"
 	lines := BrEditorTextFlowLine new maxWidth: maxWidth.

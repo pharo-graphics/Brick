@@ -1477,57 +1477,6 @@ BrTextEditorLineSegmentExamples >> segment_in_Empty_at_0 [
 ]
 
 { #category : #'examples - segments' }
-BrTextEditorLineSegmentExamples >> segment_in_Empty_at_1 [
-	<gtExample>
-	| aTextEditor aSegment |
-	
-	aTextEditor := self emptyEditor.
-	
-	aTextEditor segmentCollector
-		cachedSegmentAt: 0
-		ifFound: [ :aFoundSegment | aSegment := aFoundSegment ]
-		ifNotFound: [].
-
-	self assert: aSegment index equals: 1.
-
-	^ aTextEditor
-]
-
-{ #category : #'examples - segments' }
-BrTextEditorLineSegmentExamples >> segment_in_Empty_at_2 [
-	<gtExample>
-	| aTextEditor aSegment |
-	
-	aTextEditor := self emptyEditor.
-	
-	aTextEditor segmentCollector
-		cachedSegmentAt: 0
-		ifFound: [ :aFoundSegment | aSegment := aFoundSegment ]
-		ifNotFound: [].
-
-	self assert: aSegment index equals: 1.
-
-	^ aTextEditor
-]
-
-{ #category : #'examples - segments' }
-BrTextEditorLineSegmentExamples >> segment_in_Empty_at_3 [
-	<gtExample>
-	| aTextEditor aSegment |
-	
-	aTextEditor := self emptyEditor.
-	
-	aTextEditor segmentCollector
-		cachedSegmentAt: 0
-		ifFound: [ :aFoundSegment | aSegment := aFoundSegment ]
-		ifNotFound: [].
-
-	self assert: aSegment index equals: 1.
-
-	^ aTextEditor
-]
-
-{ #category : #'examples - segments' }
 BrTextEditorLineSegmentExamples >> segment_in_HACrCrLfBA_at_0 [
 	<gtExample>
 	| aTextEditor aSegment |

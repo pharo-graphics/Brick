@@ -21,6 +21,19 @@ BrTextEditorSelecter >> all [
 		to: self text size
 ]
 
+{ #category : #private }
+BrTextEditorSelecter >> characterType: aCharacter [
+	<return: #Symbol>
+	
+	(self isWordChar: aCharacter)
+		ifTrue: [ ^ #word ].
+		
+	aCharacter isSeparator
+		ifTrue: [ ^ #separator ].
+		
+	^ #other
+]
+
 { #category : #'api - configuration' }
 BrTextEditorSelecter >> from: aFromIndex to: aToIndex [
 	selection select: aFromIndex to: aToIndex
@@ -33,6 +46,13 @@ BrTextEditorSelecter >> initialize [
 	selection := BlCompositeSelection new.
 	shouldUpdateCursor := true.
 	shouldDeselectExisting := false
+]
+
+{ #category : #private }
+BrTextEditorSelecter >> isWordChar: aCharacter [
+	<return: #Number>
+
+	^ aCharacter isAlphaNumeric
 ]
 
 { #category : #'api - configuration' }
@@ -86,4 +106,37 @@ BrTextEditorSelecter >> updateCursors [
 { #category : #'api - configuration' }
 BrTextEditorSelecter >> withoutCursorUpdate [
 	shouldUpdateCursor := false
+]
+
+{ #category : #'api - configuration' }
+BrTextEditorSelecter >> wordAt: aTextIndex [
+	"Select a word or a whitespace at a given text index"
+	| aTextIterator hasWordToTheLeft hasWordToTheRight shouldBeWord aWordStart aWordEnd aDesiredType |
+	
+	aTextIterator := self text iterator skip: aTextIndex.
+	
+	hasWordToTheLeft := aTextIterator hasPrevious and: [ self isWordChar: aTextIterator peer ].
+	hasWordToTheRight := aTextIterator hasNext and: [ self isWordChar: aTextIterator peek ].
+	shouldBeWord := hasWordToTheLeft or: hasWordToTheRight.
+	
+	aWordStart := aTextIndex.
+	aWordEnd := aTextIndex.
+	
+	aTextIterator hasNext ifTrue: [
+		aTextIterator
+			nextSegment: [ :eachCharacter | self characterType: eachCharacter ]
+			indicesDo: [ :aStart :anEnd :aType |
+				aDesiredType := aType.
+				(shouldBeWord not or: [ (aType = #word and: [ shouldBeWord ]) ])
+					ifTrue: [ aWordEnd := anEnd ] ] ].
+	
+	aTextIterator := self text iterator skip: aTextIndex.
+	aTextIterator hasPrevious ifTrue: [
+		aTextIterator
+			previousSegment: [ :eachCharacter | self characterType: eachCharacter ]
+			indicesDo: [ :aStart :anEnd :aType |
+				((aType = #word and: [ shouldBeWord ]) or: [ (aDesiredType isNil or: [ aType = aDesiredType ] ) ])
+					ifTrue: [ aWordStart := aStart ] ] ].
+			
+	selection select: aWordStart to: aWordEnd
 ]

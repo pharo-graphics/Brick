@@ -20,5 +20,5 @@ BrTextEditorNavigatorMoveToLineEndOperation >> performOn: aNavigator [
 
 	aNavigator
 		privateRegisterForMove: self cursor
-		by: (aTextIterator position - self cursor position - 1 - foundLineBreak asBit)
+		by: (aTextIterator position - self cursor position - foundLineBreak asBit)
 ]

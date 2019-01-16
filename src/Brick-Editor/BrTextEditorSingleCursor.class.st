@@ -9,6 +9,11 @@ Class {
 	#category : #'Brick-Editor-Model - Cursor'
 }
 
+{ #category : #accessing }
+BrTextEditorSingleCursor class >> at: aTextIndex [
+	^ self new position: aTextIndex
+]
+
 { #category : #comparing }
 BrTextEditorSingleCursor >> = anotherObject [
 	self == anotherObject
