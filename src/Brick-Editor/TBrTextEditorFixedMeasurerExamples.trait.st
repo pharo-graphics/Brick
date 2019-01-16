@@ -16,6 +16,31 @@ TBrTextEditorFixedMeasurerExamples >> descent [
 	^ 20
 ]
 
+{ #category : #'instance creation' }
+TBrTextEditorFixedMeasurerExamples >> editorFor: aText [
+	<return: #BrEditor>
+	| anEditor |
+
+	anEditor := BrEditor new.
+	anEditor fitContent.
+	anEditor text: (aText asRopedText lineSpacing: self lineSpacing; paragraphMargin: self paragraphMargin; wordPadding: self wordPadding).
+	
+	anEditor editor segmentBuilder
+		wordStencil: [ :aWordText :anEditorElement |
+			| aTextElement |
+			aTextElement := BrTextWordPieceStencilBuilder new
+				text: aWordText;
+				editorElement: anEditorElement;
+				asElement.
+			aTextElement measurer: (self fixedMeasurer textOffset: ((aWordText start - 1) max: 0)).
+			aTextElement ].
+	
+	anEditor requestFocus.
+	anEditor forceLayout.
+
+	^ anEditor
+]
+
 { #category : #'private - instance creation' }
 TBrTextEditorFixedMeasurerExamples >> fixedMeasurer [
 	^ BlTextElementFixedMeasurer new
@@ -32,7 +57,7 @@ TBrTextEditorFixedMeasurerExamples >> glyphHeight [
 
 { #category : #'private - font metrics' }
 TBrTextEditorFixedMeasurerExamples >> glyphWidth [
-	^ 20
+	^ 30
 ]
 
 { #category : #'private - font metrics' }

@@ -38,6 +38,7 @@ BrTextEditorLineSegmentHolder >> createSegmentElement [
 	^ BrTextEditorSegmentElement new
 		layout: self class defaultSegmentLayout;
 		focusability: BlFocusability after;
+		clipChildren: false;
 		constraintsDo: [ :c |
 			c horizontal matchParent.
 			c vertical fitContent ];

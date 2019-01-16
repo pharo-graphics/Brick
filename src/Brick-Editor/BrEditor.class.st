@@ -6,6 +6,20 @@ Class {
 	#category : #'Brick-Editor-UI'
 }
 
+{ #category : #'editor - accessing' }
+BrEditor >> cursors [
+	<return: #BrTextEditorMultipleCursor>
+	
+	^ self editor cursor
+]
+
+{ #category : #'editor - operations' }
+BrEditor >> deleter [
+	<return: #BrTextEditorDeleter>
+
+	^ self editor deleter
+]
+
 { #category : #initialization }
 BrEditor >> initialize [
 	super initialize.
@@ -17,6 +31,34 @@ BrEditor >> initialize [
 		BrLayoutVerticalResizerModel fitContent }).
 
 	self look: (BrLayoutResizerLook inherit)
+]
+
+{ #category : #'editor - operations' }
+BrEditor >> inserter [
+	<return: #BrTextEditorInserter>
+
+	^ self editor inserter
+]
+
+{ #category : #'editor - operations' }
+BrEditor >> navigator [
+	<return: #BrTextEditorNavigator>
+
+	^ self editor navigator
+]
+
+{ #category : #'editor - operations' }
+BrEditor >> selecter [
+	<return: #BrTextEditorSelecter>
+
+	^ self editor selecter
+]
+
+{ #category : #'editor - accessing' }
+BrEditor >> selection [
+	<return: #BlSelection>
+
+	^ self editor selection
 ]
 
 { #category : #'editor - accessing' }

@@ -24,8 +24,8 @@ BrTextEditorNavigatorExamples >> cursor_add_at_0_and_0_in_empty [
 		apply;
 		unsubscribe.
 
-	self assert: anEditor cursor isNotEmpty.
-	self assert: anEditor cursor allCursors equals: { BrTextEditorSingleCursor new position: 0 }.
+	self assert: anEditor cursors isNotEmpty.
+	self assert: anEditor cursors allCursors equals: { BrTextEditorSingleCursor new position: 0 }.
 
 	self assert: theAddedEvents size equals: 1.
 	self assert: (theAddedEvents collect: #cursor) asArray equals: {
@@ -57,8 +57,8 @@ BrTextEditorNavigatorExamples >> cursor_add_at_0_and_1_in_empty [
 		apply;
 		unsubscribe.
 
-	self assert: anEditor cursor isNotEmpty.
-	self assert: anEditor cursor allCursors equals: {
+	self assert: anEditor cursors isNotEmpty.
+	self assert: anEditor cursors allCursors equals: {
 		BrTextEditorSingleCursor new position: 0.
 		BrTextEditorSingleCursor new position: 1 }.
 		
@@ -92,8 +92,8 @@ BrTextEditorNavigatorExamples >> cursor_add_at_0_in_empty [
 		apply;
 		unsubscribe.
 		
-	self assert: anEditor cursor isNotEmpty.
-	self assert: anEditor cursor allCursors equals: { BrTextEditorSingleCursor new position: 0 }.
+	self assert: anEditor cursors isNotEmpty.
+	self assert: anEditor cursors allCursors equals: { BrTextEditorSingleCursor new position: 0 }.
 	
 	self assert: theAddedEvents size equals: 1.
 	self assert: (theAddedEvents collect: #cursor) asArray equals: {
@@ -125,8 +125,8 @@ BrTextEditorNavigatorExamples >> cursor_add_at_1_and_0_in_empty [
 		apply;
 		unsubscribe.
 
-	self assert: anEditor cursor isNotEmpty.
-	self assert: anEditor cursor allCursors equals: {
+	self assert: anEditor cursors isNotEmpty.
+	self assert: anEditor cursors allCursors equals: {
 		BrTextEditorSingleCursor new position: 0.
 		BrTextEditorSingleCursor new position: 1 }.
 
@@ -160,8 +160,8 @@ BrTextEditorNavigatorExamples >> cursor_add_at_1_in_cursors_at_0 [
 		apply;
 		unsubscribe.
 
-	self assert: anEditor cursor isNotEmpty.
-	self assert: anEditor cursor allCursors equals: {
+	self assert: anEditor cursors isNotEmpty.
+	self assert: anEditor cursors allCursors equals: {
 		BrTextEditorSingleCursor new position: 0.
 		BrTextEditorSingleCursor new position: 1.
 	}.
@@ -196,8 +196,8 @@ BrTextEditorNavigatorExamples >> cursor_moveToLineEnd_in_cursors_at_0 [
 		apply;
 		unsubscribe.
 		
-	self assert: anEditor cursor isNotEmpty.
-	self assert: anEditor cursor allCursors equals: { BrTextEditorSingleCursor new position: 28 }.
+	self assert: anEditor cursors isNotEmpty.
+	self assert: anEditor cursors allCursors equals: { BrTextEditorSingleCursor new position: 28 }.
 	
 	self assert: theAddedEvents isEmpty.
 	self assert: theMovedEvents size equals: 1.
@@ -232,8 +232,8 @@ BrTextEditorNavigatorExamples >> cursor_moveToLineEnd_in_cursors_at_1 [
 		apply;
 		unsubscribe.
 		
-	self assert: anEditor cursor isNotEmpty.
-	self assert: anEditor cursor allCursors equals: { BrTextEditorSingleCursor new position: 28 }.
+	self assert: anEditor cursors isNotEmpty.
+	self assert: anEditor cursors allCursors equals: { BrTextEditorSingleCursor new position: 28 }.
 	
 	self assert: theAddedEvents isEmpty.
 	self assert: theMovedEvents size equals: 1.
@@ -268,8 +268,8 @@ BrTextEditorNavigatorExamples >> cursor_moveToLineEnd_in_cursors_at_201 [
 		apply;
 		unsubscribe.
 		
-	self assert: anEditor cursor isNotEmpty.
-	self assert: anEditor cursor allCursors equals: { BrTextEditorSingleCursor new position: 202 }.
+	self assert: anEditor cursors isNotEmpty.
+	self assert: anEditor cursors allCursors equals: { BrTextEditorSingleCursor new position: 202 }.
 	
 	self assert: theAddedEvents isEmpty.
 	self assert: theMovedEvents size equals: 1.
@@ -304,8 +304,8 @@ BrTextEditorNavigatorExamples >> cursor_moveToLineEnd_in_cursors_at_202 [
 		apply;
 		unsubscribe.
 		
-	self assert: anEditor cursor isNotEmpty.
-	self assert: anEditor cursor allCursors equals: { BrTextEditorSingleCursor new position: 202 }.
+	self assert: anEditor cursors isNotEmpty.
+	self assert: anEditor cursors allCursors equals: { BrTextEditorSingleCursor new position: 202 }.
 	
 	self assert: theAddedEvents isEmpty.
 	self assert: theMovedEvents isEmpty.
@@ -337,8 +337,8 @@ BrTextEditorNavigatorExamples >> cursor_moveToLineEnd_in_cursors_at_27 [
 		apply;
 		unsubscribe.
 		
-	self assert: anEditor cursor isNotEmpty.
-	self assert: anEditor cursor allCursors equals: { BrTextEditorSingleCursor new position: 28 }.
+	self assert: anEditor cursors isNotEmpty.
+	self assert: anEditor cursors allCursors equals: { BrTextEditorSingleCursor new position: 28 }.
 	
 	self assert: theAddedEvents isEmpty.
 	self assert: theMovedEvents size equals: 1.
@@ -373,8 +373,8 @@ BrTextEditorNavigatorExamples >> cursor_moveToLineEnd_in_cursors_at_28 [
 		apply;
 		unsubscribe.
 		
-	self assert: anEditor cursor isNotEmpty.
-	self assert: anEditor cursor allCursors equals: { BrTextEditorSingleCursor new position: 28 }.
+	self assert: anEditor cursors isNotEmpty.
+	self assert: anEditor cursors allCursors equals: { BrTextEditorSingleCursor new position: 28 }.
 	
 	self assert: theAddedEvents isEmpty.
 	self assert: theMovedEvents isEmpty.
@@ -402,7 +402,7 @@ BrTextEditorNavigatorExamples >> cursor_moveToLineEnd_in_empty [
 		apply;
 		unsubscribe.
 		
-	self assert: anEditor cursor isEmpty.
+	self assert: anEditor cursors isEmpty.
 	
 	self assert: theAddedEvents isEmpty.
 	self assert: theMovedEvents isEmpty.
@@ -431,8 +431,8 @@ BrTextEditorNavigatorExamples >> cursor_moveToLineStart_in_cursors_at_0 [
 		apply;
 		unsubscribe.
 		
-	self assert: anEditor cursor isNotEmpty.
-	self assert: anEditor cursor allCursors equals: { BrTextEditorSingleCursor new position: 0 }.
+	self assert: anEditor cursors isNotEmpty.
+	self assert: anEditor cursors allCursors equals: { BrTextEditorSingleCursor new position: 0 }.
 	
 	self assert: theAddedEvents isEmpty.
 	self assert: theMovedEvents isEmpty.
@@ -461,8 +461,8 @@ BrTextEditorNavigatorExamples >> cursor_moveToLineStart_in_cursors_at_1 [
 		apply;
 		unsubscribe.
 		
-	self assert: anEditor cursor isNotEmpty.
-	self assert: anEditor cursor allCursors equals: { BrTextEditorSingleCursor new position: 0 }.
+	self assert: anEditor cursors isNotEmpty.
+	self assert: anEditor cursors allCursors equals: { BrTextEditorSingleCursor new position: 0 }.
 	
 	self assert: theAddedEvents isEmpty.
 	self assert: theMovedEvents size equals: 1.
@@ -497,8 +497,8 @@ BrTextEditorNavigatorExamples >> cursor_moveToLineStart_in_cursors_at_27 [
 		apply;
 		unsubscribe.
 		
-	self assert: anEditor cursor isNotEmpty.
-	self assert: anEditor cursor allCursors equals: { BrTextEditorSingleCursor new position: 0 }.
+	self assert: anEditor cursors isNotEmpty.
+	self assert: anEditor cursors allCursors equals: { BrTextEditorSingleCursor new position: 0 }.
 	
 	self assert: theAddedEvents isEmpty.
 	self assert: theMovedEvents size equals: 1.
@@ -533,8 +533,8 @@ BrTextEditorNavigatorExamples >> cursor_moveToLineStart_in_cursors_at_28 [
 		apply;
 		unsubscribe.
 		
-	self assert: anEditor cursor isNotEmpty.
-	self assert: anEditor cursor allCursors equals: { BrTextEditorSingleCursor new position: 0 }.
+	self assert: anEditor cursors isNotEmpty.
+	self assert: anEditor cursors allCursors equals: { BrTextEditorSingleCursor new position: 0 }.
 	
 	self assert: theAddedEvents isEmpty.
 	self assert: theMovedEvents size equals: 1.
@@ -569,8 +569,8 @@ BrTextEditorNavigatorExamples >> cursor_moveToLineStart_in_cursors_at_29 [
 		apply;
 		unsubscribe.
 		
-	self assert: anEditor cursor isNotEmpty.
-	self assert: anEditor cursor allCursors equals: { BrTextEditorSingleCursor new position: 29 }.
+	self assert: anEditor cursors isNotEmpty.
+	self assert: anEditor cursors allCursors equals: { BrTextEditorSingleCursor new position: 29 }.
 
 	self assert: theAddedEvents isEmpty.
 	self assert: theMovedEvents isEmpty.
@@ -602,8 +602,8 @@ BrTextEditorNavigatorExamples >> cursor_moveToLineStart_in_cursors_at_30 [
 		apply;
 		unsubscribe.
 		
-	self assert: anEditor cursor isNotEmpty.
-	self assert: anEditor cursor allCursors equals: { BrTextEditorSingleCursor new position: 29 }.
+	self assert: anEditor cursors isNotEmpty.
+	self assert: anEditor cursors allCursors equals: { BrTextEditorSingleCursor new position: 29 }.
 
 	self assert: theAddedEvents isEmpty.
 	self assert: theMovedEvents size equals: 1.
@@ -638,8 +638,8 @@ BrTextEditorNavigatorExamples >> cursor_moveToLineStart_in_cursors_at_40 [
 		apply;
 		unsubscribe.
 		
-	self assert: anEditor cursor isNotEmpty.
-	self assert: anEditor cursor allCursors equals: { BrTextEditorSingleCursor new position: 29 }.
+	self assert: anEditor cursors isNotEmpty.
+	self assert: anEditor cursors allCursors equals: { BrTextEditorSingleCursor new position: 29 }.
 
 	self assert: theAddedEvents isEmpty.
 	self assert: theMovedEvents size equals: 1.
@@ -674,8 +674,8 @@ BrTextEditorNavigatorExamples >> cursor_moveToLineStart_in_cursors_at_41 [
 		apply;
 		unsubscribe.
 		
-	self assert: anEditor cursor isNotEmpty.
-	self assert: anEditor cursor allCursors equals: { BrTextEditorSingleCursor new position: 29 }.
+	self assert: anEditor cursors isNotEmpty.
+	self assert: anEditor cursors allCursors equals: { BrTextEditorSingleCursor new position: 29 }.
 
 	self assert: theAddedEvents isEmpty.
 	self assert: theMovedEvents size equals: 1.
@@ -706,7 +706,7 @@ BrTextEditorNavigatorExamples >> cursor_moveToLineStart_in_empty [
 		apply;
 		unsubscribe.
 		
-	self assert: anEditor cursor isEmpty.
+	self assert: anEditor cursors isEmpty.
 	
 	self assert: theAddedEvents isEmpty.
 	self assert: theMovedEvents isEmpty.
@@ -735,8 +735,8 @@ BrTextEditorNavigatorExamples >> cursor_moveTo_0_in_cursors_at_0_and_1 [
 		apply;
 		unsubscribe.
 
-	self assert: anEditor cursor isNotEmpty.
-	self assert: anEditor cursor allCursors equals: { BrTextEditorSingleCursor new position: 0 }.
+	self assert: anEditor cursors isNotEmpty.
+	self assert: anEditor cursors allCursors equals: { BrTextEditorSingleCursor new position: 0 }.
 	
 	self assert: theAddedEvents isEmpty.
 	self assert: theMovedEvents isEmpty.
@@ -767,8 +767,8 @@ BrTextEditorNavigatorExamples >> cursor_moveTo_0_in_empty [
 		apply;
 		unsubscribe.
 		
-	self assert: anEditor cursor isNotEmpty.
-	self assert: anEditor cursor allCursors equals: { BrTextEditorSingleCursor new position: 0 }.
+	self assert: anEditor cursors isNotEmpty.
+	self assert: anEditor cursors allCursors equals: { BrTextEditorSingleCursor new position: 0 }.
 	
 	self assert: theAddedEvents size equals: 1.
 	self assert: (theAddedEvents collect: #cursor) asArray equals: {
@@ -799,8 +799,8 @@ BrTextEditorNavigatorExamples >> cursor_moveTo_1_in_cursors_at_0 [
 		apply;
 		unsubscribe.
 
-	self assert: anEditor cursor isNotEmpty.
-	self assert: anEditor cursor allCursors equals: { BrTextEditorSingleCursor new position: 1 }.
+	self assert: anEditor cursors isNotEmpty.
+	self assert: anEditor cursors allCursors equals: { BrTextEditorSingleCursor new position: 1 }.
 	
 	self assert: theAddedEvents isEmpty.
 	self assert: theMovedEvents size equals: 1.
@@ -831,8 +831,8 @@ BrTextEditorNavigatorExamples >> cursor_moveTo_2_in_cursors_at_0_and_1 [
 		apply;
 		unsubscribe.
 
-	self assert: anEditor cursor isNotEmpty.
-	self assert: anEditor cursor allCursors equals: { BrTextEditorSingleCursor new position: 2 }.
+	self assert: anEditor cursors isNotEmpty.
+	self assert: anEditor cursors allCursors equals: { BrTextEditorSingleCursor new position: 2 }.
 
 	self assert: theAddedEvents isEmpty.
 	self assert: theMovedEvents size equals: 1.
@@ -866,7 +866,7 @@ BrTextEditorNavigatorExamples >> cursor_removeAll_in_cursors_at_0_and_1 [
 		apply;
 		unsubscribe.
 
-	self assert: anEditor cursor isEmpty.
+	self assert: anEditor cursors isEmpty.
 	
 	self assert: theAddedEvents isEmpty.
 	self assert: theMovedEvents isEmpty.
@@ -898,7 +898,7 @@ BrTextEditorNavigatorExamples >> cursor_remove_at_0_in_cursors_at_0 [
 		apply;
 		unsubscribe.
 
-	self assert: anEditor cursor isEmpty.
+	self assert: anEditor cursors isEmpty.
 
 	self assert: theAddedEvents isEmpty.
 	self assert: theMovedEvents isEmpty.
@@ -930,7 +930,7 @@ BrTextEditorNavigatorExamples >> cursor_remove_at_1_and_0_in_cursors_at_0_and_1 
 		apply;
 		unsubscribe.
 
-	self assert: anEditor cursor isEmpty.
+	self assert: anEditor cursors isEmpty.
 	
 	self assert: theAddedEvents isEmpty.
 	self assert: theMovedEvents isEmpty.
@@ -962,8 +962,8 @@ BrTextEditorNavigatorExamples >> cursor_remove_at_1_in_cursors_at_0_and_1 [
 		apply;
 		unsubscribe.
 
-	self assert: anEditor cursor isNotEmpty.
-	self assert: anEditor cursor allCursors equals: { BrTextEditorSingleCursor new position: 0 }.
+	self assert: anEditor cursors isNotEmpty.
+	self assert: anEditor cursors allCursors equals: { BrTextEditorSingleCursor new position: 0 }.
 	
 	self assert: theAddedEvents isEmpty.
 	self assert: theMovedEvents isEmpty.

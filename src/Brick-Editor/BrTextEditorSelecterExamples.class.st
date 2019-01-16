@@ -15,9 +15,9 @@ BrTextEditorSelecterExamples >> select_word_at_0 [
 		select.
 
 	self assert: anEditor selection equals: (BlCompositeSelection new select: 0 to: 1).
-	self assert: anEditor selectedText asString equals: 'A'.
+	self assert: anEditor editor selectedText asString equals: 'A'.
 
-	self assert: anEditor cursor equals: (BrTextEditorCursor atAll: #(1)).
+	self assert: anEditor cursors equals: (BrTextEditorCursor atAll: #(1)).
 
 	^ anEditor
 ]
@@ -33,9 +33,9 @@ BrTextEditorSelecterExamples >> select_word_at_1 [
 		select.
 
 	self assert: anEditor selection equals: (BlCompositeSelection new select: 0 to: 1).
-	self assert: anEditor selectedText asString equals: 'A'.
+	self assert: anEditor editor selectedText asString equals: 'A'.
 
-	self assert: anEditor cursor equals: (BrTextEditorCursor atAll: #(1)).
+	self assert: anEditor cursors equals: (BrTextEditorCursor atAll: #(1)).
 
 	^ anEditor
 ]
@@ -51,9 +51,9 @@ BrTextEditorSelecterExamples >> select_word_at_2 [
 		select.
 
 	self assert: anEditor selection equals: (BlCompositeSelection new select: 2 to: 8).
-	self assert: anEditor selectedText asString equals: 'summer'.
+	self assert: anEditor editor selectedText asString equals: 'summer'.
 
-	self assert: anEditor cursor equals: (BrTextEditorCursor atAll: #(8)).
+	self assert: anEditor cursors equals: (BrTextEditorCursor atAll: #(8)).
 
 	^ anEditor
 ]
@@ -70,26 +70,9 @@ BrTextEditorSelecterExamples >> select_word_at_2_and_10 [
 		select.
 
 	self assert: anEditor selection equals: (BlCompositeSelection new select: 2 to: 8; select: 9 to: 14).
-	self assert: anEditor selectedText asString equals: 'summer river'.
+	self assert: anEditor editor selectedText asString equals: 'summer river'.
 
-	self assert: anEditor cursor equals: (BrTextEditorCursor atAll: #(8 14)).
-
-	^ anEditor
-]
-
-{ #category : #'examples - selection' }
-BrTextEditorSelecterExamples >> selectedFirstLine [
-	<gtExample>
-	| anEditor |
-
-	anEditor := self editorOnMultilineText.
-	"low level selection method does not change cursor position"
-	anEditor select: 0 to: 28.
-
-	self assert: anEditor selection equals: (BlCompositeSelection new select: 0 to: 28).
-	self assert: anEditor selectedText asString equals: 'A summer river being crossed'.
-
-	self assert: anEditor cursor isEmpty.
+	self assert: anEditor cursors equals: (BrTextEditorCursor atAll: #(8 14)).
 
 	^ anEditor
 ]
