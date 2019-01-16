@@ -34,6 +34,9 @@ BrTextWordPieceStencilBuilder >> buildDefault [
 		
 		"when editor requests cursor to move up/down"
 		addEventHandler: BrTextWordPieceMoveCursorHandler uniqueInstance;
+		
+		"for screen position to cursor index transformation"
+		addEventHandler: BrTextWordPieceScreenToCursorHandler uniqueInstance;
 
 		addEventHandler: BrTextWordPieceFocusHandler uniqueInstance;
 		addEventHandler: BrTextWordPieceBlurHandler uniqueInstance;
