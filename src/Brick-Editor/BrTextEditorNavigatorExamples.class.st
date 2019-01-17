@@ -715,6 +715,68 @@ BrTextEditorNavigatorExamples >> cursor_moveToLineStart_in_empty [
 	^ anEditor
 ]
 
+{ #category : #'examples - move to screen' }
+BrTextEditorNavigatorExamples >> cursor_moveToScreen_1_middle_in_empty [
+	<gtExample>
+	<label: 'Click on the left half of the first character'>
+	| anEditor theAddedEvents theMovedEvents theRemovedEvents |
+	
+	anEditor := self editorOnMultilineText.
+	
+	theAddedEvents := OrderedCollection new.
+	theMovedEvents := OrderedCollection new.
+	theRemovedEvents := OrderedCollection new.
+
+	anEditor navigator
+		whenAdded: [ :anEvent | theAddedEvents add: anEvent ];
+		whenMoved: [ :anEvent | theMovedEvents add: anEvent ];
+		whenRemoved: [ :anEvent | theRemovedEvents add: anEvent ];
+		moveToScreenPosition: (self paragraphMargin left + (self glyphWidth / 2.0)) @ (self paragraphMargin top + (self glyphHeight / 2.0));
+		apply;
+		unsubscribe.
+		
+	self assert: anEditor cursors isNotEmpty.
+	self assert: anEditor cursors equals: (BrTextEditorCursor atAll: #(0)).
+	
+	self assert: theAddedEvents size equals: 1.
+	self assert: (theAddedEvents collect: #cursor) asArray equals: (BrTextEditorCursor atAll: #(0)) allCursors.
+	self assert: theMovedEvents isEmpty.
+	self assert: theRemovedEvents isEmpty.
+	
+	^ anEditor
+]
+
+{ #category : #'examples - move to screen' }
+BrTextEditorNavigatorExamples >> cursor_moveToScreen_1_right_half_in_empty [
+	<gtExample>
+	<label: 'Click on the right half of the first character'>
+	| anEditor theAddedEvents theMovedEvents theRemovedEvents |
+	
+	anEditor := self editorOnMultilineText.
+	
+	theAddedEvents := OrderedCollection new.
+	theMovedEvents := OrderedCollection new.
+	theRemovedEvents := OrderedCollection new.
+
+	anEditor navigator
+		whenAdded: [ :anEvent | theAddedEvents add: anEvent ];
+		whenMoved: [ :anEvent | theMovedEvents add: anEvent ];
+		whenRemoved: [ :anEvent | theRemovedEvents add: anEvent ];
+		moveToScreenPosition: (self paragraphMargin left + (self glyphWidth / 2.0) + 1) @ (self paragraphMargin top + (self glyphHeight / 2.0));
+		apply;
+		unsubscribe.
+		
+	self assert: anEditor cursors isNotEmpty.
+	self assert: anEditor cursors equals: (BrTextEditorCursor atAll: #(1)).
+	
+	self assert: theAddedEvents size equals: 1.
+	self assert: (theAddedEvents collect: #cursor) asArray equals: (BrTextEditorCursor atAll: #(1)) allCursors.
+	self assert: theMovedEvents isEmpty.
+	self assert: theRemovedEvents isEmpty.
+	
+	^ anEditor
+]
+
 { #category : #'examples - move to' }
 BrTextEditorNavigatorExamples >> cursor_moveTo_0_in_cursors_at_0_and_1 [
 	<gtExample>
@@ -748,7 +810,7 @@ BrTextEditorNavigatorExamples >> cursor_moveTo_0_in_cursors_at_0_and_1 [
 	^ anEditor
 ]
 
-{ #category : #'examples - move to screen' }
+{ #category : #'examples - move to' }
 BrTextEditorNavigatorExamples >> cursor_moveTo_0_in_empty [
 	<gtExample>
 	| anEditor theAddedEvents theMovedEvents theRemovedEvents |
@@ -763,7 +825,7 @@ BrTextEditorNavigatorExamples >> cursor_moveTo_0_in_empty [
 		whenAdded: [ :anEvent | theAddedEvents add: anEvent ];
 		whenMoved: [ :anEvent | theMovedEvents add: anEvent ];
 		whenRemoved: [ :anEvent | theRemovedEvents add: anEvent ];
-		moveToScreenPosition: 0;
+		moveTo: 0;
 		apply;
 		unsubscribe.
 		
