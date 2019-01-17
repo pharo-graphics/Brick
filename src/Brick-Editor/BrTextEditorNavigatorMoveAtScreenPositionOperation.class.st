@@ -9,19 +9,12 @@ Class {
 
 { #category : #matching }
 BrTextEditorNavigatorMoveAtScreenPositionOperation >> performOn: aNavigator [
-	| aTransformation aGlobalTextIndex |
+	| aGlobalTextIndex |
 	
-	aGlobalTextIndex := nil.
+	aGlobalTextIndex := aNavigator
+		findTextIndexAtScreenPosition: self screenPosition
+		ifAbsent: [ ^ self ].
 
-	aTransformation := BrTextEditorExplicitScreenToCursorTransformation new screenPosition: self screenPosition.
-	aTransformation whenTransformed: [ :aTextIndex | aGlobalTextIndex := aTextIndex ].
-	
-	aNavigator editor enqueueCommand: (BrTextEditorScreenToCursorCommand new transformation: aTransformation).
-	
-	"could not find a text index for a given screen position"
-	aGlobalTextIndex
-		ifNil: [ ^ self ].
-		
 	aNavigator
 		privateRegisterForMove: self cursor
 		by: (aGlobalTextIndex - self cursor position)

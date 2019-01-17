@@ -82,6 +82,52 @@ BrTextEditorNavigator >> apply [
 	theMovedCursors do: [ :anAssociation | self privateMoveCursor: anAssociation key to: anAssociation value position ]
 ]
 
+{ #category : #'api - utility' }
+BrTextEditorNavigator >> findTextIndexAtScreenPosition: aScreenPosition [
+	"Convert screen position to a text index"
+	<return: #Number>
+	| aTransformation aGlobalTextIndex |
+	
+	aGlobalTextIndex := nil.
+
+	aTransformation := BrTextEditorExplicitScreenToCursorTransformation new screenPosition: aScreenPosition.
+	aTransformation whenTransformed: [ :aTextIndex | aGlobalTextIndex := aTextIndex ].
+	
+	self editor enqueueCommand: (BrTextEditorScreenToCursorCommand new transformation: aTransformation).
+	
+	"could not find a text index for a given screen position"
+	self
+		assert: [ aGlobalTextIndex isNotNil ]
+		description: [ 'There must always be some text index found' ].
+		
+	^ aGlobalTextIndex
+]
+
+{ #category : #'api - utility' }
+BrTextEditorNavigator >> findTextIndexAtScreenPosition: aScreenPosition ifAbsent: anExceptionBlock [
+	"Convert screen position to a text index"
+	<return: #Number>
+	| aTransformation aGlobalTextIndex |
+	
+	aGlobalTextIndex := nil.
+
+	aTransformation := BrTextEditorExplicitScreenToCursorTransformation new screenPosition: aScreenPosition.
+	aTransformation whenTransformed: [ :aTextIndex | aGlobalTextIndex := aTextIndex ].
+	
+	self editor enqueueCommand: (BrTextEditorScreenToCursorCommand new transformation: aTransformation).
+	
+	aGlobalTextIndex
+		ifNotNil: [ ^ aGlobalTextIndex ]
+		ifNil: [ self flag: 'Until I figure out why it can be nil'. ^ anExceptionBlock value ].
+	
+	"could not find a text index for a given screen position"
+	self
+		assert: [ aGlobalTextIndex isNotNil ]
+		description: [ 'There must always be some text index found' ].
+		
+	^ aGlobalTextIndex
+]
+
 { #category : #initialization }
 BrTextEditorNavigator >> initialize [
 	super initialize.
