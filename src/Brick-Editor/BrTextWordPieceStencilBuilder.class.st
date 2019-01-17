@@ -86,7 +86,7 @@ BrTextWordPieceStencilBuilder >> initialize [
 	
 	wordPadding := BlInsets top: 3 bottom: 3.
 	measurer := BlTextElementCanvasMeasurer new.
-	mouseDownHandler := BrTextWordPieceMouseDownHandler new.
+	mouseDownHandler := BrTextEditorMouseDownHandler new.
 	doubleClickHandler := BrTextWordPieceDoubleClickHandler new.
 	selectionAcquiredHandler := BrTextWordPieceSelectionAcquiredHandler new.
 	selectionLostHandler := BrTextWordPieceSelectionLostHandler new.

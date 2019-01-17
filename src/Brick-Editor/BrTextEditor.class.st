@@ -567,6 +567,7 @@ BrTextEditor >> onAttached: anEditorElement [
 	anEditorElement addEventHandler: BrTextEditorSelectionHandler new.
 	anEditorElement addEventHandler: BrTextEditorInsertionHandler new.
 	anEditorElement addEventHandler: BrTextEditorDeletionHandler new.
+	anEditorElement addEventHandler: (BrTextEditorMouseDownHandler new editorElement: anEditorElement).
 
 	self interactions do: [ :anInteraction | anEditorElement addShortcut: anInteraction ].
 

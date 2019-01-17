@@ -34,6 +34,13 @@ BrTextEditorNavigator >> addAt: aTextPosition [
 	operations add: (BrTextEditorNavigatorAddCursorOperation cursor: (self privateNewCursorAt: aTextPosition))
 ]
 
+{ #category : #'api - configuration' }
+BrTextEditorNavigator >> addAtScreenPosition: aScreenPosition [
+	"Add a cursor at a given screen position"
+
+	operations add: ((BrTextEditorNavigatorAddAtScreenPositionOperation cursor: (self privateNewCursorAt: 0)) screenPosition: aScreenPosition)
+]
+
 { #category : #'api - processing' }
 BrTextEditorNavigator >> apply [
 	| theCurrentCursors theNewCursors theSameCursors theAddedCursors theRemovedCursors theMovedCursors theCurrentCursorsArray theNewCursorsArray |
@@ -131,8 +138,8 @@ BrTextEditorNavigator >> moveRight [
 
 { #category : #'api - configuration' }
 BrTextEditorNavigator >> moveTo: aTextPosition [
-	| allCursors |
 	"Move all cursors to a given position (basically, remove all cursors except one)"
+	| allCursors |
 	self privateAssertPosition: aTextPosition.
 
 	allCursors := self cursor allCursors.
@@ -159,8 +166,8 @@ BrTextEditorNavigator >> moveToLineStart [
 
 { #category : #'api - configuration' }
 BrTextEditorNavigator >> moveToScreenPosition: aScreenPosition [
-	| allCursors |
 	"Move all cursors to a given screen position (basically, remove all cursors except one)"
+	| allCursors |
 
 	allCursors := self cursor allCursors.
 	allCursors allButFirstDo: [ :aCursor | operations add: (BrTextEditorNavigatorRemoveCursorOperation cursor: aCursor) ].

@@ -6,7 +6,8 @@ Class {
 	#superclass : #BrTextEditorSegmentHolder,
 	#instVars : [
 		'segment',
-		'pieceElements'
+		'pieceElements',
+		'mouseDownHandler'
 	],
 	#classInstVars : [
 		'defaultSegmentLayoutBlock'
@@ -38,6 +39,7 @@ BrTextEditorLineSegmentHolder >> createSegmentElement [
 	^ BrTextEditorSegmentElement new
 		layout: self class defaultSegmentLayout;
 		focusability: BlFocusability after;
+		addEventHandler: (mouseDownHandler := BrTextEditorMouseDownHandler new);
 		clipChildren: false;
 		constraintsDo: [ :c |
 			c horizontal matchParent.
@@ -52,19 +54,32 @@ BrTextEditorLineSegmentHolder >> createSegmentElement [
 
 { #category : #actions }
 BrTextEditorLineSegmentHolder >> explicitScreenToCursor: aTransformation [
-	| aBoundsInEditor aPositionInSegment |
+	| anInnerEditorBounds aBoundsInEditor aPositionInSegment aClosestPieceElement aClosestPiece aTransformedScreenPosition |
 	
+	anInnerEditorBounds := self infiniteElement bounds inLocal bounds copy expandBy: self infiniteElement padding negated.
+	aTransformedScreenPosition := anInnerEditorBounds clamp: aTransformation screenPosition.
 	aBoundsInEditor := (itemElement bounds inParent: self infiniteElement) bounds.
-	
-	(aBoundsInEditor containsPoint: aTransformation screenPosition)
+
+	(aTransformedScreenPosition y between: aBoundsInEditor top and: aBoundsInEditor bottom)
 		ifFalse: [ ^ self ].
 			
-	aPositionInSegment := (itemElement globalBoundsToMine: (BlBounds origin: aTransformation screenPosition extent: 0@0) fromParent: self infiniteElement) center.
+	aPositionInSegment := (itemElement globalBoundsToMine: (BlBounds origin: aTransformation screenPosition extent: 0@0) fromParent: self infiniteElement) center.	
+	segment hasPieces
+		ifFalse: [ ^ self ].
+	
+	"trying to find a segment that actually contains a given position"
 	self piecesAndTheirElementsDo: [ :aPiece :aPieceElement |
 		(aPieceElement bounds inParent bounds containsPoint: aPositionInSegment)
 			ifTrue: [ ^ aPiece screenToCursor: aTransformation of: self infiniteElement in: aPieceElement ] ].
 		
+	"clicked outside of a segent piece, should find the closest element"
 	
+	aClosestPieceElement := itemElement layout findClosestChildOf: itemElement to: aPositionInSegment.
+	aClosestPiece := pieceElements
+		keyAtValue: aClosestPieceElement
+		ifAbsent: [ ^ self ].
+		
+	aClosestPiece screenToCursor: aTransformation of: self infiniteElement in: aClosestPieceElement
 ]
 
 { #category : #actions }
@@ -158,7 +173,8 @@ BrTextEditorLineSegmentHolder >> screenToCursor: aTransformation [
 { #category : #accessing }
 BrTextEditorLineSegmentHolder >> segment: anEditorSegment [
 	segment := anEditorSegment.
-
+	
+	mouseDownHandler editorElement: self infiniteElement.
 	pieceElements := OrderedIdentityDictionary new.
 	segment pieces do: [ :aPiece | pieceElements at: aPiece put: (aPiece createElement: self infiniteElement) ].
 	
@@ -171,5 +187,5 @@ BrTextEditorLineSegmentHolder >> segment: anEditorSegment [
 		addChildren: pieceElements values;
 		constraintsDo: [ :c | c horizontal resizer: infiniteElement constraints horizontal resizer ];
 		layoutDo: [ :aLayout | aLayout lineSpacing: anEditorSegment lineSpacing ];
-		margin: anEditorSegment paragraphMargin
+		padding: anEditorSegment paragraphMargin
 ]

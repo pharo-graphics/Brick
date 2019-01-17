@@ -716,9 +716,71 @@ BrTextEditorNavigatorExamples >> cursor_moveToLineStart_in_empty [
 ]
 
 { #category : #'examples - move to screen' }
-BrTextEditorNavigatorExamples >> cursor_moveToScreen_1_middle_in_empty [
+BrTextEditorNavigatorExamples >> cursor_moveToScreen_1_left_half_in_empty [
 	<gtExample>
 	<label: 'Click on the left half of the first character'>
+	| anEditor theAddedEvents theMovedEvents theRemovedEvents |
+
+	anEditor := self editorOnMultilineText.
+
+	theAddedEvents := OrderedCollection new.
+	theMovedEvents := OrderedCollection new.
+	theRemovedEvents := OrderedCollection new.
+
+	anEditor navigator
+		whenAdded: [ :anEvent | theAddedEvents add: anEvent ];
+		whenMoved: [ :anEvent | theMovedEvents add: anEvent ];
+		whenRemoved: [ :anEvent | theRemovedEvents add: anEvent ];
+		moveToScreenPosition: (self paragraphMargin left + (self glyphWidth / 2.0) - 1) @ (self paragraphMargin top + (self glyphHeight / 2.0));
+		apply;
+		unsubscribe.
+
+	self assert: anEditor cursors isNotEmpty.
+	self assert: anEditor cursors equals: (BrTextEditorCursor atAll: #(0)).
+
+	self assert: theAddedEvents size equals: 1.
+	self assert: (theAddedEvents collect: #cursor) asArray equals: (BrTextEditorCursor atAll: #(0)) allCursors.
+	self assert: theMovedEvents isEmpty.
+	self assert: theRemovedEvents isEmpty.
+	
+	^ anEditor
+]
+
+{ #category : #'examples - move to screen' }
+BrTextEditorNavigatorExamples >> cursor_moveToScreen_1_left_in_empty [
+	<gtExample>
+	<label: 'Click on a whitespace to the left from the first character'>
+	| anEditor theAddedEvents theMovedEvents theRemovedEvents |
+	
+	anEditor := self editorOnMultilineText.
+	
+	theAddedEvents := OrderedCollection new.
+	theMovedEvents := OrderedCollection new.
+	theRemovedEvents := OrderedCollection new.
+
+	anEditor navigator
+		whenAdded: [ :anEvent | theAddedEvents add: anEvent ];
+		whenMoved: [ :anEvent | theMovedEvents add: anEvent ];
+		whenRemoved: [ :anEvent | theRemovedEvents add: anEvent ];
+		moveToScreenPosition: (self paragraphMargin left / 2.0) @ (self paragraphMargin top + (self glyphHeight / 2.0));
+		apply;
+		unsubscribe.
+
+	self assert: anEditor cursors isNotEmpty.
+	self assert: anEditor cursors equals: (BrTextEditorCursor atAll: #(0)).
+	
+	self assert: theAddedEvents size equals: 1.
+	self assert: (theAddedEvents collect: #cursor) asArray equals: (BrTextEditorCursor atAll: #(0)) allCursors.
+	self assert: theMovedEvents isEmpty.
+	self assert: theRemovedEvents isEmpty.
+	
+	^ anEditor
+]
+
+{ #category : #'examples - move to screen' }
+BrTextEditorNavigatorExamples >> cursor_moveToScreen_1_middle_in_empty [
+	<gtExample>
+	<label: 'Click right in the middle of the first character'>
 	| anEditor theAddedEvents theMovedEvents theRemovedEvents |
 	
 	anEditor := self editorOnMultilineText.
@@ -771,6 +833,37 @@ BrTextEditorNavigatorExamples >> cursor_moveToScreen_1_right_half_in_empty [
 	
 	self assert: theAddedEvents size equals: 1.
 	self assert: (theAddedEvents collect: #cursor) asArray equals: (BrTextEditorCursor atAll: #(1)) allCursors.
+	self assert: theMovedEvents isEmpty.
+	self assert: theRemovedEvents isEmpty.
+	
+	^ anEditor
+]
+
+{ #category : #'examples - move to screen' }
+BrTextEditorNavigatorExamples >> cursor_moveToScreen_41_right_in_empty [
+	<gtExample>
+	<label: 'Click on the right half of the 41th character'>
+	| anEditor theAddedEvents theMovedEvents theRemovedEvents |
+
+	anEditor := self editorOnMultilineText.
+
+	theAddedEvents := OrderedCollection new.
+	theMovedEvents := OrderedCollection new.
+	theRemovedEvents := OrderedCollection new.
+
+	anEditor navigator
+		whenAdded: [ :anEvent | theAddedEvents add: anEvent ];
+		whenMoved: [ :anEvent | theMovedEvents add: anEvent ];
+		whenRemoved: [ :anEvent | theRemovedEvents add: anEvent ];
+		moveToScreenPosition: (400@100);
+		apply;
+		unsubscribe.
+
+	self assert: anEditor cursors isNotEmpty.
+	self assert: anEditor cursors equals: (BrTextEditorCursor atAll: #(41)).
+
+	self assert: theAddedEvents size equals: 1.
+	self assert: (theAddedEvents collect: #cursor) asArray equals: (BrTextEditorCursor atAll: #(41)) allCursors.
 	self assert: theMovedEvents isEmpty.
 	self assert: theRemovedEvents isEmpty.
 	

@@ -9,7 +9,7 @@ BrTextWordPieceScreenToCursorHandler >> eventClass [
 	^ BrTextEditorScreenToCursorRequest
 ]
 
-{ #category : #'as yet unclassified' }
+{ #category : #geometry }
 BrTextWordPieceScreenToCursorHandler >> explicitScreenToCursor: aTransformation for: anEvent [
 	| aLocalPosition aLocalTextIndex aGobaltextIndex |
 	
