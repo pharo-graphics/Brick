@@ -19,11 +19,15 @@ TBrTextEditorFixedMeasurerExamples >> descent [
 { #category : #'instance creation' }
 TBrTextEditorFixedMeasurerExamples >> editorFor: aText [
 	<return: #BrEditor>
-	| anEditor |
+	| anEditor aRopedText |
+
+	aRopedText := aText asRopedText lineSpacing: self lineSpacing; paragraphMargin: self paragraphMargin; wordPadding: self wordPadding.
 
 	anEditor := BrEditor new.
 	anEditor fitContent.
-	anEditor text: (aText asRopedText lineSpacing: self lineSpacing; paragraphMargin: self paragraphMargin; wordPadding: self wordPadding).
+	anEditor text: aRopedText.
+	
+	BlDevCrossover on: anEditor.
 	
 	anEditor editor segmentBuilder
 		wordStencil: [ :aWordText :anEditorElement |

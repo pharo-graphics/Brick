@@ -61,6 +61,7 @@ BrTextWordPieceStencilBuilder >> buildDefault [
 
 		"text piece got outside of then selected area"
 		addEventHandler: selectionLostHandler;
+
 		yourself
 ]
 
