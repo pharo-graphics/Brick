@@ -33,6 +33,7 @@ BrTextEditorMouseDownHandler >> handleEvent: anEvent [
 	aScreenPosition := (self editorElement localBoundsToMine: (BlBounds origin: anEvent localPosition extent: 0@0) fromChild: anEvent currentTarget) center.
 	
 	self editorElement editor deselecter all deselect.
+	self editorElement requestFocus.
 	
 	aNavigator := self editorElement editor navigator.
 	anEvent modifiers isPrimaryModifier

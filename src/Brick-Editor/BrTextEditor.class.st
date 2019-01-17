@@ -571,10 +571,6 @@ BrTextEditor >> onAttached: anEditorElement [
 
 	self interactions do: [ :anInteraction | anEditorElement addShortcut: anInteraction ].
 
-	anEditorElement when: BlMouseDownEvent do: [ :anEvent |
-		anEvent consumed: true.
-		anEvent currentTarget requestFocus.
-		self selectNone ].
 	anEditorElement when: BlMouseUpEvent do: [ :anEvent | anEvent consumed: true ].
 	anEditorElement when: BlClickEvent do: [ :anEvent | anEvent consumed: true ].
 	anEditorElement when: BlFocusEvent do: [ self onGotFocus ].
