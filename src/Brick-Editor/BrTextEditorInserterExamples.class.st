@@ -10,7 +10,7 @@ BrTextEditorInserterExamples >> filter_insert_Hello123Symbols_onlyAlphaNumeric [
 	| anEditor |
 	
 	anEditor := self editorOnMultilineText.	
-	anEditor moveCursorTo: 0.
+	anEditor editor moveCursorTo: 0.
 
 	anEditor inserter
 		at: 0;
@@ -19,7 +19,7 @@ BrTextEditorInserterExamples >> filter_insert_Hello123Symbols_onlyAlphaNumeric [
 		insert.
 
 	self assert: anEditor text asString equals: ('Hello123', self multilineText asString).
-	self assert: anEditor cursor allCursors equals: { BrTextEditorSingleCursor new position: 8 }.
+	self assert: anEditor cursors allCursors equals: { BrTextEditorSingleCursor new position: 8 }.
 	self assert: anEditor selection isEmpty.
 
 	^ anEditor
@@ -31,7 +31,7 @@ BrTextEditorInserterExamples >> filter_insert_Hello123_onlyDigits [
 	| anEditor |
 	
 	anEditor := self editorOnMultilineText.	
-	anEditor moveCursorTo: 0.
+	anEditor editor moveCursorTo: 0.
 
 	anEditor inserter
 		at: 0;
@@ -40,7 +40,7 @@ BrTextEditorInserterExamples >> filter_insert_Hello123_onlyDigits [
 		insert.
 
 	self assert: anEditor text asString equals: ('123', self multilineText asString).
-	self assert: anEditor cursor allCursors equals: { BrTextEditorSingleCursor new position: 3 }.
+	self assert: anEditor cursors allCursors equals: { BrTextEditorSingleCursor new position: 3 }.
 	self assert: anEditor selection isEmpty.
 
 	^ anEditor
@@ -52,7 +52,7 @@ BrTextEditorInserterExamples >> filter_insert_Hello123_onlyLetters [
 	| anEditor |
 	
 	anEditor := self editorOnMultilineText.	
-	anEditor moveCursorTo: 0.
+	anEditor editor moveCursorTo: 0.
 
 	anEditor inserter
 		at: 0;
@@ -61,7 +61,7 @@ BrTextEditorInserterExamples >> filter_insert_Hello123_onlyLetters [
 		insert.
 
 	self assert: anEditor text asString equals: ('Hello', self multilineText asString).
-	self assert: anEditor cursor allCursors equals: { BrTextEditorSingleCursor new position: 5 }.
+	self assert: anEditor cursors allCursors equals: { BrTextEditorSingleCursor new position: 5 }.
 	self assert: anEditor selection isEmpty.
 
 	^ anEditor
@@ -85,7 +85,7 @@ BrTextEditorInserterExamples >> insert_Hello_atCursorAt_0_and_1_selection_no [
 		insert.
 
 	self assert: anEditor text asString equals: ('Hello', (self multilineText from: 1 to: 1) asString, 'Hello', (self multilineText from: 2 to: self multilineText size) asString).
-	self assert: anEditor cursor allCursors equals: {
+	self assert: anEditor cursors allCursors equals: {
 		BrTextEditorSingleCursor new position: 5.
 		BrTextEditorSingleCursor new position: 11 }.
 	self assert: anEditor selection isEmpty.
@@ -99,8 +99,8 @@ BrTextEditorInserterExamples >> insert_Hello_at_0_cursorAt_0_selection_0_to_0 [
 	| anEditor |
 	
 	anEditor := self editorOnMultilineText.
-	anEditor moveCursorTo: 0.
-	anEditor select: 0 to: 0.
+	anEditor editor moveCursorTo: 0.
+	anEditor editor select: 0 to: 0.
 	
 	anEditor inserter
 		at: 0;
@@ -108,7 +108,7 @@ BrTextEditorInserterExamples >> insert_Hello_at_0_cursorAt_0_selection_0_to_0 [
 		insert.
 
 	self assert: anEditor text asString equals: ('Hello', self multilineText asString).
-	self assert: anEditor cursor allCursors equals: { BrTextEditorSingleCursor new position: 5 }.
+	self assert: anEditor cursors allCursors equals: { BrTextEditorSingleCursor new position: 5 }.
 	self assert: anEditor selection isEmpty.
 
 	^ anEditor
@@ -120,8 +120,8 @@ BrTextEditorInserterExamples >> insert_Hello_at_0_cursorAt_0_selection_0_to_1 [
 	| anEditor |
 	
 	anEditor := self editorOnMultilineText.
-	anEditor moveCursorTo: 0.
-	anEditor select: 0 to: 1.
+	anEditor editor moveCursorTo: 0.
+	anEditor editor select: 0 to: 1.
 
 	anEditor inserter
 		at: 0;
@@ -129,7 +129,7 @@ BrTextEditorInserterExamples >> insert_Hello_at_0_cursorAt_0_selection_0_to_1 [
 		insert.
 
 	self assert: anEditor text asString equals: ('Hello', (self multilineText from: 2 to: self multilineText size) asString).
-	self assert: anEditor cursor allCursors equals: { BrTextEditorSingleCursor new position: 5 }.
+	self assert: anEditor cursors allCursors equals: { BrTextEditorSingleCursor new position: 5 }.
 	self assert: anEditor selection isEmpty.
 
 	^ anEditor
@@ -141,10 +141,10 @@ BrTextEditorInserterExamples >> insert_Hello_at_0_cursorAt_10_selection_0_to_1_a
 	| anEditor |
 	
 	anEditor := self editorOnMultilineText.
-	anEditor moveCursorTo: 10.
+	anEditor editor moveCursorTo: 10.
 	
-	anEditor select: 0 to: 1. "A"
-	anEditor select: 8 to: 14. " river"
+	anEditor editor select: 0 to: 1. "A"
+	anEditor editor select: 8 to: 14. " river"
 
 	anEditor inserter
 		at: 0;
@@ -152,7 +152,7 @@ BrTextEditorInserterExamples >> insert_Hello_at_0_cursorAt_10_selection_0_to_1_a
 		insert.
 
 	self assert: anEditor text asString equals: ('Hello', (self multilineText from: 2 to: 7) asString, (self multilineText from: 14 to: self multilineText size) asString).
-	self assert: anEditor cursor allCursors equals: { BrTextEditorSingleCursor new position: 12 }.
+	self assert: anEditor cursors allCursors equals: { BrTextEditorSingleCursor new position: 12 }.
 	self assert: anEditor selection isEmpty.
 
 	^ anEditor
@@ -164,9 +164,9 @@ BrTextEditorInserterExamples >> insert_Hello_at_0_cursorAt_10_selection_0_to_1_a
 	| anEditor |
 	
 	anEditor := self editorOnMultilineText.
-	anEditor moveCursorTo: 10.
-	anEditor select: 0 to: 1. "A"
-	anEditor select: 8 to: 14. " river"
+	anEditor editor moveCursorTo: 10.
+	anEditor editor select: 0 to: 1. "A"
+	anEditor editor select: 8 to: 14. " river"
 
 	anEditor inserter
 		at: 0;
@@ -175,7 +175,7 @@ BrTextEditorInserterExamples >> insert_Hello_at_0_cursorAt_10_selection_0_to_1_a
 		insert.
 
 	self assert: anEditor text asString equals: ('Hello', self multilineText asString).
-	self assert: anEditor cursor allCursors equals: { BrTextEditorSingleCursor new position: 15 }.
+	self assert: anEditor cursors allCursors equals: { BrTextEditorSingleCursor new position: 15 }.
 	self assert: anEditor selection allSelections equals: {
 		BlSelection from: 5 to: 6.
 		BlSelection from: 13 to: 19.
@@ -190,9 +190,9 @@ BrTextEditorInserterExamples >> insert_Hello_at_0_cursorAt_10_selection_0_to_1_a
 	| anEditor |
 	
 	anEditor := self editorOnMultilineText.
-	anEditor moveCursorTo: 10.
-	anEditor select: 0 to: 1. "A"
-	anEditor select: 8 to: 14. " river"
+	anEditor editor moveCursorTo: 10.
+	anEditor editor select: 0 to: 1. "A"
+	anEditor editor select: 8 to: 14. " river"
 
 	anEditor inserter
 		at: 0;
@@ -202,7 +202,7 @@ BrTextEditorInserterExamples >> insert_Hello_at_0_cursorAt_10_selection_0_to_1_a
 		insert.
 
 	self assert: anEditor text asString equals: ('Hello', self multilineText asString).
-	self assert: anEditor cursor allCursors equals: { BrTextEditorSingleCursor new position: 15 }.
+	self assert: anEditor cursors allCursors equals: { BrTextEditorSingleCursor new position: 15 }.
 	self assert: anEditor selection allSelections equals: {
 		BlSelection from: 0 to: 1.
 		BlSelection from: 8 to: 14.
@@ -217,9 +217,9 @@ BrTextEditorInserterExamples >> insert_Hello_at_0_cursorAt_10_selection_0_to_1_a
 	| anEditor |
 	
 	anEditor := self editorOnMultilineText.
-	anEditor moveCursorTo: 10.
-	anEditor select: 0 to: 1. "A"
-	anEditor select: 8 to: 14. " river"
+	anEditor editor moveCursorTo: 10.
+	anEditor editor select: 0 to: 1. "A"
+	anEditor editor select: 8 to: 14. " river"
 
 	anEditor inserter
 		at: 0;
@@ -230,7 +230,7 @@ BrTextEditorInserterExamples >> insert_Hello_at_0_cursorAt_10_selection_0_to_1_a
 		insert.
 
 	self assert: anEditor text asString equals: ('Hello', self multilineText asString).
-	self assert: anEditor cursor allCursors equals: { BrTextEditorSingleCursor new position: 10 }.
+	self assert: anEditor cursors allCursors equals: { BrTextEditorSingleCursor new position: 10 }.
 	self assert: anEditor selection allSelections equals: {
 		BlSelection from: 0 to: 1.
 		BlSelection from: 8 to: 14.
@@ -245,8 +245,8 @@ BrTextEditorInserterExamples >> insert_Hello_at_0_cursorAt_5_selection_0_to_0 [
 	| anEditor |
 	
 	anEditor := self editorOnMultilineText.
-	anEditor moveCursorTo: 5.
-	anEditor select: 0 to: 0.
+	anEditor editor moveCursorTo: 5.
+	anEditor editor select: 0 to: 0.
 
 	anEditor inserter
 		at: 0;
@@ -254,7 +254,7 @@ BrTextEditorInserterExamples >> insert_Hello_at_0_cursorAt_5_selection_0_to_0 [
 		insert.
 
 	self assert: anEditor text asString equals: ('Hello', self multilineText asString).
-	self assert: anEditor cursor allCursors equals: { BrTextEditorSingleCursor new position: 10 }.
+	self assert: anEditor cursors allCursors equals: { BrTextEditorSingleCursor new position: 10 }.
 	self assert: anEditor selection isEmpty.
 
 	^ anEditor
@@ -266,8 +266,8 @@ BrTextEditorInserterExamples >> insert_Hello_at_1_cursorAt_0_selection_0_to_0 [
 	| anEditor |
 	
 	anEditor := self editorOnMultilineText.
-	anEditor moveCursorTo: 0.
-	anEditor select: 0 to: 0.
+	anEditor editor moveCursorTo: 0.
+	anEditor editor select: 0 to: 0.
 	
 	anEditor inserter
 		at: 1;
@@ -275,7 +275,7 @@ BrTextEditorInserterExamples >> insert_Hello_at_1_cursorAt_0_selection_0_to_0 [
 		insert.
 
 	self assert: anEditor text asString equals: (self multilineText first asString, 'Hello', ((self multilineText from: 2 to: self multilineText size) asString)).
-	self assert: anEditor cursor allCursors equals: { BrTextEditorSingleCursor new position: 0 }.
+	self assert: anEditor cursors allCursors equals: { BrTextEditorSingleCursor new position: 0 }.
 	self assert: anEditor selection isEmpty.
 
 	^ anEditor
@@ -287,8 +287,8 @@ BrTextEditorInserterExamples >> insert_Hello_at_1_cursorAt_1_selection_0_to_0 [
 	| anEditor |
 	
 	anEditor := self editorOnMultilineText.
-	anEditor moveCursorTo: 1.
-	anEditor select: 0 to: 0.
+	anEditor editor moveCursorTo: 1.
+	anEditor editor select: 0 to: 0.
 	
 	anEditor inserter
 		at: 1;
@@ -296,7 +296,7 @@ BrTextEditorInserterExamples >> insert_Hello_at_1_cursorAt_1_selection_0_to_0 [
 		insert.
 
 	self assert: anEditor text asString equals: (self multilineText first asString, 'Hello', ((self multilineText from: 2 to: self multilineText size) asString)).
-	self assert: anEditor cursor allCursors equals: { BrTextEditorSingleCursor new position: 6 }.
+	self assert: anEditor cursors allCursors equals: { BrTextEditorSingleCursor new position: 6 }.
 	self assert: anEditor selection isEmpty.
 
 	^ anEditor

@@ -34,6 +34,13 @@ BrTextEditorNavigator >> addAt: aTextPosition [
 	operations add: (BrTextEditorNavigatorAddCursorOperation cursor: (self privateNewCursorAt: aTextPosition))
 ]
 
+{ #category : #'api - configuration' }
+BrTextEditorNavigator >> addAtScreenPosition: aScreenPosition [
+	"Add a cursor at a given screen position"
+
+	operations add: ((BrTextEditorNavigatorAddAtScreenPositionOperation cursor: (self privateNewCursorAt: 0)) screenPosition: aScreenPosition)
+]
+
 { #category : #'api - processing' }
 BrTextEditorNavigator >> apply [
 	| theCurrentCursors theNewCursors theSameCursors theAddedCursors theRemovedCursors theMovedCursors theCurrentCursorsArray theNewCursorsArray |
@@ -73,6 +80,52 @@ BrTextEditorNavigator >> apply [
 	theRemovedCursors do: [ :aCursor | self privateRemoveCursor: aCursor ].
 	theAddedCursors do: [ :aCursor | self privateAddCursor: aCursor ].
 	theMovedCursors do: [ :anAssociation | self privateMoveCursor: anAssociation key to: anAssociation value position ]
+]
+
+{ #category : #'api - utility' }
+BrTextEditorNavigator >> findTextIndexAtScreenPosition: aScreenPosition [
+	"Convert screen position to a text index"
+	<return: #Number>
+	| aTransformation aGlobalTextIndex |
+	
+	aGlobalTextIndex := nil.
+
+	aTransformation := BrTextEditorExplicitScreenToCursorTransformation new screenPosition: aScreenPosition.
+	aTransformation whenTransformed: [ :aTextIndex | aGlobalTextIndex := aTextIndex ].
+	
+	self editor enqueueCommand: (BrTextEditorScreenToCursorCommand new transformation: aTransformation).
+	
+	"could not find a text index for a given screen position"
+	self
+		assert: [ aGlobalTextIndex isNotNil ]
+		description: [ 'There must always be some text index found' ].
+		
+	^ aGlobalTextIndex
+]
+
+{ #category : #'api - utility' }
+BrTextEditorNavigator >> findTextIndexAtScreenPosition: aScreenPosition ifAbsent: anExceptionBlock [
+	"Convert screen position to a text index"
+	<return: #Number>
+	| aTransformation aGlobalTextIndex |
+	
+	aGlobalTextIndex := nil.
+
+	aTransformation := BrTextEditorExplicitScreenToCursorTransformation new screenPosition: aScreenPosition.
+	aTransformation whenTransformed: [ :aTextIndex | aGlobalTextIndex := aTextIndex ].
+	
+	self editor enqueueCommand: (BrTextEditorScreenToCursorCommand new transformation: aTransformation).
+	
+	aGlobalTextIndex
+		ifNotNil: [ ^ aGlobalTextIndex ]
+		ifNil: [ self flag: 'Until I figure out why it can be nil'. ^ anExceptionBlock value ].
+	
+	"could not find a text index for a given screen position"
+	self
+		assert: [ aGlobalTextIndex isNotNil ]
+		description: [ 'There must always be some text index found' ].
+		
+	^ aGlobalTextIndex
 ]
 
 { #category : #initialization }
@@ -131,8 +184,8 @@ BrTextEditorNavigator >> moveRight [
 
 { #category : #'api - configuration' }
 BrTextEditorNavigator >> moveTo: aTextPosition [
-	| allCursors |
 	"Move all cursors to a given position (basically, remove all cursors except one)"
+	| allCursors |
 	self privateAssertPosition: aTextPosition.
 
 	allCursors := self cursor allCursors.
@@ -141,8 +194,6 @@ BrTextEditorNavigator >> moveTo: aTextPosition [
 	allCursors
 		ifEmpty: [ operations add: (BrTextEditorNavigatorAddCursorOperation cursor: (self privateNewCursorAt: aTextPosition)) ]
 		ifNotEmpty: [ operations add: ((BrTextEditorNavigatorMoveToOperation cursor: allCursors first) position: aTextPosition) ].
-	
-	
 ]
 
 { #category : #'api - configuration' }
@@ -157,6 +208,19 @@ BrTextEditorNavigator >> moveToLineStart [
 	"Move all cursors to the start of their corresponding lines"
 
 	self cursor do: [ :aCursor | operations add: (BrTextEditorNavigatorMoveToLineStartOperation cursor: aCursor) ]
+]
+
+{ #category : #'api - configuration' }
+BrTextEditorNavigator >> moveToScreenPosition: aScreenPosition [
+	"Move all cursors to a given screen position (basically, remove all cursors except one)"
+	| allCursors |
+
+	allCursors := self cursor allCursors.
+	allCursors allButFirstDo: [ :aCursor | operations add: (BrTextEditorNavigatorRemoveCursorOperation cursor: aCursor) ].
+	
+	allCursors
+		ifEmpty: [ operations add: ((BrTextEditorNavigatorAddAtScreenPositionOperation cursor: (self privateNewCursorAt: 0)) screenPosition: aScreenPosition) ]
+		ifNotEmpty: [ operations add: ((BrTextEditorNavigatorMoveAtScreenPositionOperation cursor: allCursors first) screenPosition: aScreenPosition) ].
 ]
 
 { #category : #'api - configuration' }

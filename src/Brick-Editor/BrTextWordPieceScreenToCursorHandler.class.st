@@ -9,11 +9,13 @@ BrTextWordPieceScreenToCursorHandler >> eventClass [
 	^ BrTextEditorScreenToCursorRequest
 ]
 
-{ #category : #'as yet unclassified' }
+{ #category : #geometry }
 BrTextWordPieceScreenToCursorHandler >> explicitScreenToCursor: aTransformation for: anEvent [
-	| aLocalTextIndex aGobaltextIndex |
+	| aLocalPosition aLocalTextIndex aGobaltextIndex |
 	
-	aLocalTextIndex := anEvent currentTarget paragraph indexAtPosition: anEvent localPosition.
+	aLocalPosition := (anEvent currentTarget globalBoundsToMine: (BlBounds origin: aTransformation screenPosition extent: 0@0) fromParent: anEvent editorElement) center.
+	
+	aLocalTextIndex := anEvent currentTarget paragraph indexAtPosition: aLocalPosition.
 	aGobaltextIndex := (anEvent currentTarget text start + aLocalTextIndex - 1) max: 0.
 	
 	aTransformation transformed: aGobaltextIndex

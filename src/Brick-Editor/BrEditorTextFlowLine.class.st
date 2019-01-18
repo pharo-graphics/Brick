@@ -13,9 +13,10 @@ Class {
 		'nextLine',
 		'width',
 		'height',
-		'pushedQueue'
+		'pushedQueue',
+		'origin'
 	],
-	#category : 'Brick-Editor-Layout'
+	#category : #'Brick-Editor-Layout'
 }
 
 { #category : #adding }
@@ -49,6 +50,17 @@ BrEditorTextFlowLine >> count [
 		ifFalse: [ 0 ])
 ]
 
+{ #category : #geometry }
+BrEditorTextFlowLine >> distanceTo: aPoint [
+	"Compute the vertical distance from me to a given point"
+	<return: #Number>
+	| aClampedCoordinate |
+	
+	aClampedCoordinate := (aPoint y min: (self origin y + self height)) max: self origin y.
+	
+	^ (aPoint y - aClampedCoordinate) abs
+]
+
 { #category : #enumerating }
 BrEditorTextFlowLine >> do: aBlock [
 	"Evaluate aBlock with each of my next lines as the argument"
@@ -64,6 +76,26 @@ BrEditorTextFlowLine >> elements [
 	<return: #OrderedCollection>
 
 	^ elements
+]
+
+{ #category : #geometry }
+BrEditorTextFlowLine >> findClosestElementTo: aPoint [
+	<return: #BlElement>
+	| aClosestElement aClosestDistance |
+	
+	aClosestElement := elements first.
+	aClosestDistance := aClosestElement distanceToX: aPoint.
+	
+	elements do: [ :eachElement | 
+		| eachDistance |
+		
+		eachDistance := eachElement distanceToX: aPoint.
+		eachDistance < aClosestDistance
+			ifTrue: [
+				aClosestDistance := eachDistance.
+				aClosestElement := eachElement ] ].
+		
+	^ aClosestElement
 ]
 
 { #category : #testing }
@@ -100,6 +132,7 @@ BrEditorTextFlowLine >> initialize [
 	maxWidth := Float infinity.
 	width := 0.
 	height := 0.
+	origin := 0@0.
 	availableWidth := maxWidth.
 	elements := OrderedCollection new.
 	pushedQueue := LinkedList new
@@ -139,6 +172,18 @@ BrEditorTextFlowLine >> nextLine [
 			maxWidth: maxWidth;
 			pushedQueue: pushedQueue;
 			yourself ]
+]
+
+{ #category : #accessing }
+BrEditorTextFlowLine >> origin [
+	<return: #Point>
+
+	^ origin
+]
+
+{ #category : #accessing }
+BrEditorTextFlowLine >> origin: aPoint [
+	origin := aPoint
 ]
 
 { #category : #private }

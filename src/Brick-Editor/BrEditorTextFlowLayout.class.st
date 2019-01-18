@@ -18,6 +18,35 @@ BrEditorTextFlowLayout class >> constraints [
 	^ BrEditorTextFlowLayoutConstraints new
 ]
 
+{ #category : #geometry }
+BrEditorTextFlowLayout >> findClosestChildOf: anElement to: aPoint [
+	<return: #BlElement>
+	| aClosestLine |
+
+	aClosestLine := self findClosestLineTo: aPoint.
+	^ aClosestLine findClosestElementTo: aPoint
+]
+
+{ #category : #geometry }
+BrEditorTextFlowLayout >> findClosestLineTo: aPoint [
+	<return: #BrEditorTextFlowLine>
+	| aClosestLine aClosestDistance |
+	
+	aClosestLine := lines.
+	aClosestDistance := aClosestLine distanceTo: aPoint.
+	
+	lines do: [ :eachLine | 
+		| eachDistance |
+		
+		eachDistance := eachLine distanceTo: aPoint.
+		eachDistance < aClosestDistance
+			ifTrue: [
+				aClosestDistance := eachDistance.
+				aClosestLine := eachLine ] ].
+		
+	^ aClosestLine
+]
+
 { #category : #initialization }
 BrEditorTextFlowLayout >> initialize [
 	super initialize.
@@ -36,6 +65,7 @@ BrEditorTextFlowLayout >> layout: anElement in: aRectangle [
 	aTop := anOffsetY.
 	
 	lines do: [ :aLine |
+		aLine origin: aLeft @ aTop.
 		aLine elements do: [ :aChildElement |
 			| aWidth aMarginedTop |
 			aLeft := aLeft + aChildElement margin left.

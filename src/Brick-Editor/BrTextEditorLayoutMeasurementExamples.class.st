@@ -11,68 +11,28 @@ BrTextEditorLayoutMeasurementExamples class >> isAbstract [
 	^ true
 ]
 
-{ #category : #'instance creation' }
-BrTextEditorLayoutMeasurementExamples >> editorElement [
+{ #category : #'examples - measurement' }
+BrTextEditorLayoutMeasurementExamples >> fit_content_Hello [
 	<gtExample>
 	| anEditorElement |
-	
-	anEditorElement := BrEditorElement new.
-	anEditorElement editor: self textEditor.
-	
+
+	anEditorElement := self editorFor: 'Hello'.
+
+	self assert: anEditorElement width equals: (5 * self glyphWidth) + (self paragraphMargin width).
+	self assert: anEditorElement height equals: self glyphHeight + (self wordPadding height) + (self lineSpacing * 0) + (self paragraphMargin height).
+
 	^ anEditorElement
 ]
 
-{ #category : #'instance creation' }
-BrTextEditorLayoutMeasurementExamples >> editorElementFitContentBoth [
+{ #category : #'examples - measurement' }
+BrTextEditorLayoutMeasurementExamples >> fit_content_Hello_World [
 	<gtExample>
-	
-	^ self editorElement
-		constraintsDo: [ :c |
-			c horizontal fitContent.
-			c vertical fitContent ]
-]
+	| anEditorElement |
 
-{ #category : #'instance creation' }
-BrTextEditorLayoutMeasurementExamples >> editorElementMatchParentBoth [
-	<gtExample>
-	
-	^ self editorElement
-		constraintsDo: [ :c |
-			c horizontal matchParent.
-			c vertical matchParent ]
-]
+	anEditorElement := self editorFor: 'Hello World'.
 
-{ #category : #'instance creation' }
-BrTextEditorLayoutMeasurementExamples >> editorElementMatchParentHorizontalFitContentVertical [
-	<gtExample>
-	
-	^ self editorElement
-		constraintsDo: [ :c |
-			c horizontal matchParent.
-			c vertical fitContent ]
-]
+	self assert: anEditorElement width equals: (11 * self glyphWidth) + (self paragraphMargin width).
+	self assert: anEditorElement height equals: self glyphHeight + (self wordPadding height) + (self lineSpacing * 0) + (self paragraphMargin height).
 
-{ #category : #'instance creation' }
-BrTextEditorLayoutMeasurementExamples >> text [
-	^ '' asRopedText
-]
-
-{ #category : #'instance creation' }
-BrTextEditorLayoutMeasurementExamples >> textEditor [
-	<gtExample>	
-	| aTextEditor |
-
-	aTextEditor := BrTextEditor new.
-	aTextEditor text: (self text lineSpacing: self lineSpacing; paragraphMargin: self paragraphMargin; wordPadding: self wordPadding).
-	aTextEditor segmentBuilder
-		wordStencil: [ :aText :anEditorElement :aSegmentPiece |
-			| aTextElement |
-			aTextElement := BrTextWordPieceStencilBuilder new
-				text: aText;
-				editorElement: anEditorElement;
-				asElement.
-			aTextElement measurer: self fixedMeasurer.
-			aTextElement ].
-		
-	^ aTextEditor
+	^ anEditorElement
 ]

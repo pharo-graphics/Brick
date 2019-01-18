@@ -34,6 +34,9 @@ BrTextWordPieceStencilBuilder >> buildDefault [
 		
 		"when editor requests cursor to move up/down"
 		addEventHandler: BrTextWordPieceMoveCursorHandler uniqueInstance;
+		
+		"for screen position to cursor index transformation"
+		addEventHandler: BrTextWordPieceScreenToCursorHandler uniqueInstance;
 
 		addEventHandler: BrTextWordPieceFocusHandler uniqueInstance;
 		addEventHandler: BrTextWordPieceBlurHandler uniqueInstance;
@@ -58,6 +61,7 @@ BrTextWordPieceStencilBuilder >> buildDefault [
 
 		"text piece got outside of then selected area"
 		addEventHandler: selectionLostHandler;
+
 		yourself
 ]
 
@@ -82,7 +86,7 @@ BrTextWordPieceStencilBuilder >> initialize [
 	
 	wordPadding := BlInsets top: 3 bottom: 3.
 	measurer := BlTextElementCanvasMeasurer new.
-	mouseDownHandler := BrTextWordPieceMouseDownHandler new.
+	mouseDownHandler := BrTextEditorMouseDownHandler new.
 	doubleClickHandler := BrTextWordPieceDoubleClickHandler new.
 	selectionAcquiredHandler := BrTextWordPieceSelectionAcquiredHandler new.
 	selectionLostHandler := BrTextWordPieceSelectionLostHandler new.
