@@ -42,23 +42,3 @@ BrTextEditorLineSegmentAdornmentPiece >> start: aStartIndex end: anEndIndex [
 
 	super start: aStartIndex end: anEndIndex
 ]
-
-{ #category : #updating }
-BrTextEditorLineSegmentAdornmentPiece >> updateCursor: aTextElement of: aLineSegment in: anEditorElement [
-	"Adornment pieces do not react on cursor"
-]
-
-{ #category : #updating }
-BrTextEditorLineSegmentAdornmentPiece >> updateFocus: aBoolean of: aTextPieceElement in: anEditorElement [
-	"Adornment pieces do not react on focus"
-]
-
-{ #category : #updating }
-BrTextEditorLineSegmentAdornmentPiece >> updateSelection: anElement of: aLineSegment in: anEditorElement [
-	"Adornment pieces do not react on selection"
-]
-
-{ #category : #updating }
-BrTextEditorLineSegmentAdornmentPiece >> updateText: anElement of: aLineSegment in: anEditorElement [
-	"Adornment pieces do not react on selection"
-]
