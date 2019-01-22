@@ -56,6 +56,64 @@ BrTextEditorSelecter >> isWordChar: aCharacter [
 ]
 
 { #category : #'api - configuration' }
+BrTextEditorSelecter >> moveOneToLeft [
+	"Select and move a cursor one character to the left"
+	| theCursorsOnTheLeft theCursorsOnTheRight theCursorsOutside |
+	
+	theCursorsOnTheLeft := self cursors
+		select: [ :aCursor | self selection anySatisfy: [ :aSelection | aCursor position = aSelection from ] ].
+		
+	theCursorsOnTheRight := self cursors
+		select: [ :aCursor | self selection anySatisfy: [ :aSelection | aCursor position = aSelection to ] ].
+	
+	theCursorsOutside := self cursors
+		select: [ :aCursor | (self selection anySatisfy: [ :aSelection | aCursor position between: aSelection from and: aSelection to ]) not ].
+		
+	"the cursor is on the right side of the selection, we should deselect right most character"
+	theCursorsOnTheRight do: [ :aCursor |
+		self editor deselecter
+			from: aCursor position - 1 to: aCursor position;
+			deselect ].
+	
+	"the cursor is on the left side of the selection, we should extend it by one character to the left"
+	theCursorsOnTheLeft do: [ :aCursor | 
+		self from: ((aCursor position - 1) max: 0) to: aCursor position ].
+
+	"if a cursor is not inside any selected interval, then we simply select one char to the left from it"
+	theCursorsOutside do: [ :aCursor |
+		self from: ((aCursor position - 1) max: 0) to: aCursor position ]
+]
+
+{ #category : #'api - configuration' }
+BrTextEditorSelecter >> moveOneToRight [
+	"Select and move a cursor one character to the right"
+	| theCursorsOnTheLeft theCursorsOnTheRight theCursorsOutside |
+	
+	theCursorsOnTheLeft := self cursors
+		select: [ :aCursor | self selection anySatisfy: [ :aSelection | aCursor position = aSelection from ] ].
+		
+	theCursorsOnTheRight := self cursors
+		select: [ :aCursor | self selection anySatisfy: [ :aSelection | aCursor position = aSelection to ] ].
+	
+	theCursorsOutside := self cursors
+		select: [ :aCursor | (self selection anySatisfy: [ :aSelection | aCursor position between: aSelection from and: aSelection to ]) not ].
+		
+	"the cursor is on the left side of the selection, we should deselect left most character"
+	theCursorsOnTheLeft do: [ :aCursor |
+		self editor deselecter
+			from: aCursor position to: aCursor position + 1;
+			deselect ].
+	
+	"the cursor is on the right side of the selection, we should extend it by one character to the right"
+	theCursorsOnTheRight do: [ :aCursor | 
+		self from: aCursor position to: ((aCursor position + 1) min: self text size) ].
+
+	"if a cursor is not inside any selected interval, then we simply select one char to the right from it"
+	theCursorsOutside do: [ :aCursor |
+		self from: aCursor position to: ((aCursor position + 1) min: self text size) ]
+]
+
+{ #category : #'api - configuration' }
 BrTextEditorSelecter >> overwrite [
 	"Deselect any selections if they exist and overwrite with the new selection"
 	

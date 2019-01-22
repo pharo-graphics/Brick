@@ -31,6 +31,16 @@ BrTextEditorDeselecter >> initialize [
 	selection := BlCompositeSelection new
 ]
 
+{ #category : #'api - processing' }
+BrTextEditorDeselecter >> outsideOfCursor [
+	"Remove all selections that don't contain any existing cursor"
+
+	self selection do: [ :aMonotoneSelection |
+		self cursors do: [ :aCursor |
+			(aCursor position = aMonotoneSelection from or: [ aCursor position = aMonotoneSelection to ])
+				ifFalse: [ self from: aMonotoneSelection from to: aMonotoneSelection to ] ] ]
+]
+
 { #category : #private }
 BrTextEditorDeselecter >> privateDeselect: aFromTextIndex to: aToTextIndex [
 	"Deselect text within an interval defined by provided from and to indices without any other side effects.
