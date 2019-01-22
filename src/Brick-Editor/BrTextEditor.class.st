@@ -299,15 +299,23 @@ BrTextEditor >> initializeInteractions [
 				moveRight;
 				apply ]).
 
-	"left-arrow => move cursor left"
+	"left-arrow => move cursor left and deselect everything"
 	self interactions add: (BlShortcut new
 		combination: (BlKeyCombination builder key: Key arrowLeft; build);
-		action: [ self moveCursorLeft ]).
+		action: [
+			self deselecter all deselect.
+			self navigator
+				moveLeft;
+				apply ]).
 
-	"right-arrow => move cursor right"
+	"right-arrow => move cursor right and deselect everything"
 	self interactions add: (BlShortcut new
 		combination: (BlKeyCombination builder key: Key arrowRight; build);
-		action: [ self moveCursorRight ]).
+		action: [
+			self deselecter all deselect.
+			self navigator
+				moveRight;
+				apply ]).
 
 	"up-arrow => move cursor up"
 	self interactions add: (BlShortcut new
@@ -415,30 +423,6 @@ BrTextEditor >> moveCursorDown [
 
 	self navigator
 		moveDown;
-		apply
-]
-
-{ #category : #'text - cursor' }
-BrTextEditor >> moveCursorLeft [
-	"Moves cursor to the left by one character without any other side effects.
-	Note:
-		- I don't change current selection.
-		- I request segments update"
-
-	self navigator
-		moveLeft;
-		apply
-]
-
-{ #category : #'text - cursor' }
-BrTextEditor >> moveCursorRight [
-	"Moves cursor to the right by one character without any other side effects.
-	Note:
-		- I don't change current selection.
-		- I request segments update"
-
-	self navigator
-		moveRight;
 		apply
 ]
 
