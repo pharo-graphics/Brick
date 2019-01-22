@@ -6,5 +6,13 @@ Class {
 
 { #category : #matching }
 BrTextEditorNavigatorMoveUpOperation >> performOn: aNavigator [
-	aNavigator editor enqueueCommand: (BrTextEditorCursorMoveCommand up cursor: self cursor)
+	| aGlobalTextIndex |
+	
+	aGlobalTextIndex := aNavigator
+		findTextIndexAboveCursor: self cursor
+		ifAbsent: [ ^ self ].
+
+	aNavigator
+		privateRegisterForMove: self cursor
+		by: (aGlobalTextIndex - self cursor position)
 ]
