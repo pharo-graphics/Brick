@@ -26,3 +26,13 @@ BrTextEditorScreenToCursorCommand >> newHolderCommand [
 	^ BrTextEditorScreenToCursorHolderCommand new
 		transformation: self transformation
 ]
+
+{ #category : #accessing }
+BrTextEditorScreenToCursorCommand >> transformation [
+	^ transformation
+]
+
+{ #category : #accessing }
+BrTextEditorScreenToCursorCommand >> transformation: anObject [
+	transformation := anObject
+]
