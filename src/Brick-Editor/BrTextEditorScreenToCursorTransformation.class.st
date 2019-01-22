@@ -7,22 +7,22 @@ Class {
 	#category : #'Brick-Editor-Model - Cursor'
 }
 
-{ #category : #'as yet unclassified' }
+{ #category : #dispatching }
 BrTextEditorScreenToCursorTransformation >> evaluateOn: anObject [
 	self subclassResponsibility
 ]
 
-{ #category : #'as yet unclassified' }
+{ #category : #dispatching }
 BrTextEditorScreenToCursorTransformation >> evaluateOn: anObject for: anEvent [
 	self subclassResponsibility
 ]
 
-{ #category : #visiting }
+{ #category : #accessing }
 BrTextEditorScreenToCursorTransformation >> transformed: aTextIndex [
 	resultBlock value: aTextIndex
 ]
 
-{ #category : #'as yet unclassified' }
+{ #category : #accessing }
 BrTextEditorScreenToCursorTransformation >> whenTransformed: aBlock [
 	resultBlock := aBlock
 ]

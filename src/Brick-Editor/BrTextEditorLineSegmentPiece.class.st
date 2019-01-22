@@ -106,27 +106,6 @@ BrTextEditorLineSegmentPiece >> isEmpty [
 	^ self text isEmpty
 ]
 
-{ #category : #'api - cursor' }
-BrTextEditorLineSegmentPiece >> moveCursorDown: aCursor pieceElement: aPieceElement of: aLineSegment in: anEditorElement [
-
-	aPieceElement dispatchEvent:
-		(BrTextEditorMoveCursorRequest new down
-			editorElement: anEditorElement;
-			hasFocus: anEditorElement isFocused;
-			cursor: aCursor;
-			cursorPosition: (self globalTextIndexToLocal: aCursor position))
-]
-
-{ #category : #'api - cursor' }
-BrTextEditorLineSegmentPiece >> moveCursorUp: aCursor pieceElement: aPieceElement of: aLineSegment in: anEditorElement [
-	aPieceElement dispatchEvent:
-		(BrTextEditorMoveCursorRequest new up
-			editorElement: anEditorElement;
-			hasFocus: anEditorElement isFocused;
-			cursor: aCursor;
-			cursorPosition: (self globalTextIndexToLocal: aCursor position))
-]
-
 { #category : #'cursor - hooks' }
 BrTextEditorLineSegmentPiece >> onCursorAdded: aCursor to: aPieceElement in: anEditorElement [
 	"Is sent when a cursor is added to a given piece element within provided editor element"

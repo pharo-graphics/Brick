@@ -52,7 +52,7 @@ BrTextEditorLineSegmentHolder >> createSegmentElement [
 		yourself
 ]
 
-{ #category : #actions }
+{ #category : #cursor }
 BrTextEditorLineSegmentHolder >> explicitScreenToCursor: aTransformation [
 	| anInnerEditorBounds aBoundsInEditor aPositionInSegment aClosestPieceElement aClosestPiece aTransformedScreenPosition |
 	
@@ -80,26 +80,6 @@ BrTextEditorLineSegmentHolder >> explicitScreenToCursor: aTransformation [
 		ifAbsent: [ ^ self ].
 		
 	aClosestPiece screenToCursor: aTransformation of: self infiniteElement in: aClosestPieceElement
-]
-
-{ #category : #actions }
-BrTextEditorLineSegmentHolder >> moveCursorDown: aCursor [
-	self
-		assert: [ segment isNotNil ]
-		description: [ 'Segment must be bound!' ].
-
-	self piecesAndTheirElementsDo: [ :aPiece :aPieceElement |
-		aPiece moveCursorDown: aCursor pieceElement: aPieceElement of: segment in: self infiniteElement ]
-]
-
-{ #category : #actions }
-BrTextEditorLineSegmentHolder >> moveCursorUp: aCursor [
-	self
-		assert: [ segment isNotNil ]
-		description: [ 'Segment must be bound!' ].
-
-	self piecesAndTheirElementsDo: [ :aPiece :aPieceElement |
-		aPiece moveCursorUp: aCursor pieceElement: aPieceElement of: segment in: self infiniteElement ]
 ]
 
 { #category : #updating }
@@ -165,7 +145,16 @@ BrTextEditorLineSegmentHolder >> piecesAndTheirElementsDo: aBlock [
 			ifPresent: [ :eachPieceElement | aBlock value: eachPiece value: eachPieceElement ] ]
 ]
 
-{ #category : #actions }
+{ #category : #cursor }
+BrTextEditorLineSegmentHolder >> relativeScreenToCursor: aTransformation [	
+	"trying to find a segment that actually contains a given position"
+
+	self piecesAndTheirElementsDo: [ :aPiece :aPieceElement |
+		(aTransformation cursor position between: aPiece start and: aPiece end)
+			ifTrue: [ ^ aPiece screenToCursor: aTransformation of: self infiniteElement in: aPieceElement ] ]
+]
+
+{ #category : #cursor }
 BrTextEditorLineSegmentHolder >> screenToCursor: aTransformation [
 	aTransformation evaluateOn: self
 ]

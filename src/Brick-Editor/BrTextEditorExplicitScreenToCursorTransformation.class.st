@@ -7,12 +7,12 @@ Class {
 	#category : #'Brick-Editor-Model - Cursor'
 }
 
-{ #category : #'as yet unclassified' }
+{ #category : #dispatching }
 BrTextEditorExplicitScreenToCursorTransformation >> evaluateOn: anObject [
 	anObject explicitScreenToCursor: self
 ]
 
-{ #category : #'as yet unclassified' }
+{ #category : #dispatching }
 BrTextEditorExplicitScreenToCursorTransformation >> evaluateOn: anObject for: anEvent [
 	anObject explicitScreenToCursor: self for: anEvent
 ]

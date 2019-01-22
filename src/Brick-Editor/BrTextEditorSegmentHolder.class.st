@@ -7,16 +7,6 @@ Class {
 	#category : 'Brick-Editor-Model - Segment-Text'
 }
 
-{ #category : #actions }
-BrTextEditorSegmentHolder >> moveCursorDown: aCursor [
-	self subclassResponsibility
-]
-
-{ #category : #actions }
-BrTextEditorSegmentHolder >> moveCursorUp: aCursor [
-	self subclassResponsibility
-]
-
 { #category : #updating }
 BrTextEditorSegmentHolder >> onCursorChanged [
 	"Is sent when text editor's cursor changes.
