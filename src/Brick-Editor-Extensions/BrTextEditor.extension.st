@@ -8,13 +8,6 @@ BrTextEditor >> gtInspectorSegmentsIn: aComposite [
 ]
 
 { #category : #'*Brick-Editor-Extensions' }
-BrTextEditor >> gtInspectorTextIn: aComposite [
-	<gtInspectorPresentationOrder: 15>
-
-	^ self text gtInspectorTextIn: aComposite
-]
-
-{ #category : #'*Brick-Editor-Extensions' }
 BrTextEditor >> gtLiveFor: aView [
 	<gtView>
 
