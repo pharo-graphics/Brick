@@ -10,7 +10,12 @@ Class {
 
 { #category : #accessing }
 BrTextEditorOperator >> cursor [
-	^ self editor cursor
+	^ self cursors
+]
+
+{ #category : #accessing }
+BrTextEditorOperator >> cursors [
+	^ self editor cursors
 ]
 
 { #category : #accessing }

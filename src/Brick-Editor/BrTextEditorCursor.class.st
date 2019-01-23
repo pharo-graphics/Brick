@@ -140,3 +140,11 @@ BrTextEditorCursor >> isNotEmpty [
 
 	^ self isEmpty not
 ]
+
+{ #category : #enumerating }
+BrTextEditorCursor >> select: aBlock [ 	
+	^ Array streamContents: [ :aStream |
+			self do: [ :anElement |
+				(aBlock value: anElement)
+					ifTrue: [ aStream nextPut: anElement ] ] ]
+]
