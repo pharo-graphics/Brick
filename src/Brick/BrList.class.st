@@ -50,10 +50,10 @@ BrList >> initializeEventHandlers [
 					rowIndex: anEvent rowIndex;
 					rowValue: anEvent rowValue) ] ];
 		addShortcut: (BlShortcut new
-			combination: (BlKeyCombination builder key: Key arrowDown; build);
+			combination: (BlKeyCombination builder arrowDown build);
 			action: [ self selectNext ] );
 		addShortcut: (BlShortcut new
-			combination: (BlKeyCombination builder key: Key arrowUp; build);
+			combination: (BlKeyCombination builder arrowUp build);
 			action: [ self selectPrevious ] )
 ]
 
