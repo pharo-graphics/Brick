@@ -54,10 +54,9 @@ BrTextEditorLineSegmentHolder >> createSegmentElement [
 
 { #category : #cursor }
 BrTextEditorLineSegmentHolder >> explicitScreenToCursor: aTransformation [
-	| anInnerEditorBounds aBoundsInEditor aPositionInSegment aClosestPieceElement aClosestPiece aTransformedScreenPosition |
+	| aBoundsInEditor aPositionInSegment aClosestPieceElement aClosestPiece aTransformedScreenPosition |
 	
-	anInnerEditorBounds := self infiniteElement bounds inLocal bounds copy expandBy: self infiniteElement padding negated.
-	aTransformedScreenPosition := anInnerEditorBounds clamp: aTransformation screenPosition.
+	aTransformedScreenPosition := aTransformation screenPosition.
 	aBoundsInEditor := (itemElement bounds inParent: self infiniteElement) bounds.
 	
 	"if location is above the first segment then the index is 0"
