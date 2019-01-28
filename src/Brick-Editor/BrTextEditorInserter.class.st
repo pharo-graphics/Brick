@@ -44,6 +44,19 @@ BrTextEditorInserter >> atEnd [
 	self at: self text size
 ]
 
+{ #category : #'api - configuration' }
+BrTextEditorInserter >> beforeSelectedLines [
+	| aCollectionOfLineStarts |
+	
+	aCollectionOfLineStarts := OrderedCollection new.
+	
+	self selection do: [ :aMonotoneSelection |
+		aCollectionOfLineStarts add: (self findLineStartBefore: aMonotoneSelection from + 1).
+		aCollectionOfLineStarts addAll: (self findLineStartsBetween: aMonotoneSelection from + 1 and: aMonotoneSelection to) ].
+
+	aCollectionOfLineStarts asSet do: [ :anIndex | self at: anIndex ]
+]
+
 { #category : #private }
 BrTextEditorInserter >> computeIndexMovement: anIndex afterInserted: aText at: anInsertionIndex [
 	"Compute by how much a given text index should be moved after a privided text is inserted at a given insertion index"
@@ -87,6 +100,13 @@ BrTextEditorInserter >> deleteSelectedText [
 	aDeleter delete
 ]
 
+{ #category : #'api - configuration' }
+BrTextEditorInserter >> indentation [
+	"Insert an indentation (Tab)"
+
+	text := String tab
+]
+
 { #category : #initialization }
 BrTextEditorInserter >> initialize [
 	super initialize.
@@ -128,6 +148,14 @@ BrTextEditorInserter >> lineEnding [
 	text := OSPlatform current lineEnding
 ]
 
+{ #category : #private }
+BrTextEditorInserter >> lineStartIndicesInsideOfSelection: aMonotoneSelection [
+	<return: #Collection of: #Number>
+	| anIterator |
+
+	self text 
+]
+
 { #category : #'api - configuration' }
 BrTextEditorInserter >> onlyAlphaNumeric [
 	self inputFilter: BrTextEditorAlphaNumericInputFilter new
@@ -141,6 +169,13 @@ BrTextEditorInserter >> onlyDigits [
 { #category : #'api - configuration' }
 BrTextEditorInserter >> onlyLetters [
 	self inputFilter: BrTextEditorLetterInputFilter new
+]
+
+{ #category : #'api - configuration' }
+BrTextEditorInserter >> prependToSelectedLines [
+	"Prepent text to all lines that have selection"
+	
+	
 ]
 
 { #category : #private }

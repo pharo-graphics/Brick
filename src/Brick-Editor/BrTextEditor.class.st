@@ -270,7 +270,7 @@ BrTextEditor >> initializeInteractions [
 				selected;
 				oneBeforeCursor;
 				delete ]).
-			
+
 	self interactions add: (BlShortcut new
 		combination: BlKeyCombination return;
 		action: [
@@ -278,6 +278,22 @@ BrTextEditor >> initializeInteractions [
 				atCursor;
 				lineEnding;
 				insert ]).
+
+	self interactions add: (BlShortcut new
+		combination: BlKeyCombination tab;
+		action: [
+			self selection isEmpty
+				ifTrue: [
+					self inserter
+						atCursor;
+						indentation;
+						insert ]
+				ifFalse: [
+					self inserter
+						indentation;
+						beforeSelectedLines;
+						withoutSelectionDelete;
+						insert ] ]).
 
 	self interactions add: (BlShortcut new
 		combination: BlKeyCombination primaryA;

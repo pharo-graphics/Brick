@@ -301,3 +301,102 @@ BrTextEditorInserterExamples >> insert_Hello_at_1_cursorAt_1_selection_0_to_0 [
 
 	^ anEditor
 ]
+
+{ #category : #'examples - indentation' }
+BrTextEditorInserterExamples >> insert_indentation_selection_0_to_1 [
+	<gtExample>
+	| anEditor |
+
+	anEditor := self editorOnMultilineText.
+	anEditor selecter
+		from: 0 to: 1;
+		select.
+
+	anEditor inserter
+		indentation;
+		beforeSelectedLines;
+		withoutSelectionDelete;
+		insert.
+
+	self assert: anEditor text asString equals: (String tab, self multilineText asString).
+	self assert: anEditor selection allSelections equals: {
+		BlSelection from: 1 to: 2.
+	}.
+
+	^ anEditor
+]
+
+{ #category : #'examples - indentation' }
+BrTextEditorInserterExamples >> insert_indentation_selection_0_to_41 [
+	<gtExample>
+	| anEditor |
+
+	anEditor := self editorOnMultilineText.
+	anEditor selecter
+		from: 0 to: 41;
+		select.
+
+	anEditor inserter
+		indentation;
+		beforeSelectedLines;
+		withoutSelectionDelete;
+		insert.
+
+	self assert: anEditor text asString equals: (String tab, (self multilineText from: 1 to: 29) asString, String tab, (self multilineText from: 30 to: self multilineText size) asString).
+	self assert: anEditor selection allSelections equals: {
+		BlSelection from: 1 to: 43.
+	}.
+
+	^ anEditor
+]
+
+{ #category : #'examples - indentation' }
+BrTextEditorInserterExamples >> insert_indentation_selection_1_to_2 [
+	<gtExample>
+	| anEditor |
+
+	anEditor := self editorOnMultilineText.
+	anEditor selecter
+		from: 1 to: 2;
+		select.
+
+	anEditor inserter
+		indentation;
+		beforeSelectedLines;
+		withoutSelectionDelete;
+		insert.
+
+	self assert: anEditor text asString equals: (String tab, self multilineText asString).
+	self assert: anEditor selection allSelections equals: {
+		BlSelection from: 2 to: 3.
+	}.
+
+	^ anEditor
+]
+
+{ #category : #'examples - indentation' }
+BrTextEditorInserterExamples >> insert_indentation_selection_29_to_67 [
+	<gtExample>
+	| anEditor |
+
+	anEditor := self editorOnMultilineText.
+	anEditor selecter
+		from: 29 to: 67;
+		select.
+
+	anEditor inserter
+		indentation;
+		beforeSelectedLines;
+		withoutSelectionDelete;
+		insert.
+
+	self assert: anEditor text asString equals: (
+		(self multilineText from: 1 to: 29) asString,
+		String tab, (self multilineText from: 30 to: 42) asString,
+		String tab, (self multilineText from: 43 to: self multilineText size) asString).
+	self assert: anEditor selection allSelections equals: {
+		BlSelection from: 30 to: 69.
+	}.
+
+	^ anEditor
+]
