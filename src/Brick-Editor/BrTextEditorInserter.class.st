@@ -122,6 +122,13 @@ BrTextEditorInserter >> insert [
 ]
 
 { #category : #'api - configuration' }
+BrTextEditorInserter >> lineEnding [
+	"Insert a line ending (Cr, Lf or CrLf depending on the current platform)"
+
+	text := OSPlatform current lineEnding
+]
+
+{ #category : #'api - configuration' }
 BrTextEditorInserter >> onlyAlphaNumeric [
 	self inputFilter: BrTextEditorAlphaNumericInputFilter new
 ]

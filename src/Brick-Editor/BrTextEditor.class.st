@@ -254,27 +254,51 @@ BrTextEditor >> initialize [
 
 { #category : #interactions }
 BrTextEditor >> initializeInteractions [
+	
+	self interactions add: (BlShortcut new
+		combination: BlKeyCombination delete;
+		action: [
+			self deleter
+				selected;
+				oneAfterCursor;
+				delete ]).
+	
+	self interactions add: (BlShortcut new
+		combination: BlKeyCombination backspace;
+		action: [
+			self deleter
+				selected;
+				oneBeforeCursor;
+				delete ]).
+			
+	self interactions add: (BlShortcut new
+		combination: BlKeyCombination return;
+		action: [
+			self inserter
+				atCursor;
+				lineEnding;
+				insert ]).
 
 	self interactions add: (BlShortcut new
-		combination: (BlKeyCombination builder primary a build);
+		combination: BlKeyCombination primaryA;
 		action: [ self selecter all select ]).
 
 	self interactions add: (BlShortcut new
-		combination: (BlKeyCombination builder primary x build);
+		combination: BlKeyCombination primaryX;
 		action: [ self cutSelected ]).
 
 	self interactions add: (BlShortcut new
-		combination: (BlKeyCombination builder primary c build);
+		combination: BlKeyCombination primaryC;
 		action: [ self copySelected ]).
 
 	"Paste a text from the clipboard at the current cursor position.
 	I delete any currently selected text and update cursor position"
 	self interactions add: (BlShortcut new
-		combination: (BlKeyCombination builder primary v build);
+		combination: BlKeyCombination primaryV;
 		action: [ self paster fromClipboard atCursor paste ]).
 
 	self interactions add: (BlShortcut new
-		combination: (BlKeyCombination builder escape build);
+		combination: BlKeyCombination escape;
 		action: [ self selectNone ]).
 
 	self interactions add: (BlShortcut new
@@ -564,7 +588,6 @@ BrTextEditor >> onAttached: anEditorElement [
 
 	anEditorElement addEventHandler: BrTextEditorSelectionHandler new.
 	anEditorElement addEventHandler: BrTextEditorInsertionHandler new.
-	anEditorElement addEventHandler: BrTextEditorDeletionHandler new.
 	anEditorElement addEventHandler: (BrTextEditorMouseDownHandler new editorElement: anEditorElement).
 
 	self interactions do: [ :anInteraction | anEditorElement addShortcut: anInteraction ].
@@ -613,7 +636,6 @@ BrTextEditor >> onDetached: anEditorElement [
 
 	anEditorElement removeEventHandlersSuchThat: [ :aHandler | aHandler isKindOf: BrTextEditorSelectionHandler ].
 	anEditorElement removeEventHandlersSuchThat: [ :aHandler | aHandler isKindOf: BrTextEditorInsertionHandler ].
-	anEditorElement removeEventHandlersSuchThat: [ :aHandler | aHandler isKindOf: BrTextEditorDeletionHandler ].
 
 	self interactions do: [ :anInteraction | anEditorElement removeShortcut: anInteraction ].
 
