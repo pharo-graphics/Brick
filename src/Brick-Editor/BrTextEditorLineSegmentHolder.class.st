@@ -59,9 +59,18 @@ BrTextEditorLineSegmentHolder >> explicitScreenToCursor: aTransformation [
 	anInnerEditorBounds := self infiniteElement bounds inLocal bounds copy expandBy: self infiniteElement padding negated.
 	aTransformedScreenPosition := anInnerEditorBounds clamp: aTransformation screenPosition.
 	aBoundsInEditor := (itemElement bounds inParent: self infiniteElement) bounds.
+	
+	"if location is above the first segment then the index is 0"
+	((segment isFirstIn: self editor) and: [ aTransformedScreenPosition y < aBoundsInEditor top ])
+		ifTrue: [ ^ aTransformation transformed: 0 ].
 
+	"if location is below the last segment then the index is text size"
+	((segment isLastIn: self editor) and: [ aTransformedScreenPosition y > aBoundsInEditor bottom ])
+		ifTrue: [ ^ aTransformation transformed: self editor text size ].	
+
+	"not in this segment, ignoring"
 	(aTransformedScreenPosition y between: aBoundsInEditor top and: aBoundsInEditor bottom)
-		ifFalse: [ ^ self ].
+		ifFalse: [  ^ self ].
 			
 	aPositionInSegment := (itemElement globalBoundsToMine: (BlBounds origin: aTransformation screenPosition extent: 0@0) fromParent: self infiniteElement) center.	
 	segment hasPieces

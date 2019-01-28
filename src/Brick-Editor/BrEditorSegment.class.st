@@ -37,6 +37,20 @@ BrEditorSegment >> index: aNumber [
 	index := aNumber
 ]
 
+{ #category : #testing }
+BrEditorSegment >> isFirstIn: aTextEditor [
+	"Return true if I am absolutely the very first segment (not first cached) in a given text editor"
+
+	^ self index = 1
+]
+
+{ #category : #testing }
+BrEditorSegment >> isLastIn: aTextEditor [
+	"Return true if I am absolutely the very last segment (not last cached) in a given text editor"
+
+	^ self index = aTextEditor segmentCollector segments size
+]
+
 { #category : #accessing }
 BrEditorSegment >> segmentType [
 	"Return a type of this segment responsible for creation
