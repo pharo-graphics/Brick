@@ -4,6 +4,7 @@ Class {
 	#instVars : [
 		'classOrMetaClass',
 		'workspace',
+		'isForWorkspace',
 		'parser',
 		'environment'
 	],
@@ -1000,6 +1001,16 @@ BrTextStylerST80 >> classOrMetaClass: aBehavior [
 { #category : #accessing }
 BrTextStylerST80 >> environment: anObject [ 
 	environment := anObject
+]
+
+{ #category : #accessing }
+BrTextStylerST80 >> isForWorkspace [
+	^ isForWorkspace ifNil: [ workspace notNil ]
+]
+
+{ #category : #accessing }
+BrTextStylerST80 >> isForWorkspace: aBoolean [
+	isForWorkspace := aBoolean
 ]
 
 { #category : #private }
