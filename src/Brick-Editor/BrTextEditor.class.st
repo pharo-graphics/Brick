@@ -338,6 +338,28 @@ BrTextEditor >> initializeInteractions [
 			self navigator
 				moveRight;
 				apply ]).
+			
+	self interactions add: (BlShortcut new
+		combination: (BlKeyCombination builder shift arrowUp build);
+		action: [
+			self selecter
+				withoutCursorUpdate;
+				moveOneUp;
+				select.
+			self navigator
+				moveUp;
+				apply ]).
+			
+	self interactions add: (BlShortcut new
+		combination: (BlKeyCombination builder shift arrowDown build);
+		action: [
+			self selecter
+				withoutCursorUpdate;
+				moveOneDown;
+				select.
+			self navigator
+				moveDown;
+				apply ]).
 
 	"left-arrow => move cursor left and deselect everything"
 	self interactions add: (BlShortcut new

@@ -45,6 +45,12 @@ BrTextEditorCursor >> anySatisfy: aBlock [
 	^ false
 ]
 
+{ #category : #enumerating }
+BrTextEditorCursor >> collect: aBlock [ 	
+	^ Array streamContents: [ :aStream |
+		self do: [ :anElement | aStream nextPut: (aBlock value: anElement) ] ]
+]
+
 { #category : #accessing }
 BrTextEditorCursor >> cursorsCount [
 	<return: #Number>

@@ -79,6 +79,106 @@ BrTextEditorOperator >> findLineStartsBetween: aTextStart and: aTextEnd [
 				ifTrue: [ aStream nextPut: aTextIterator position ] ] ]
 ]
 
+{ #category : #'api - utility' }
+BrTextEditorOperator >> findTextIndexAboveCursor: aCursor ifAbsent: anExceptionBlock [
+	"Find a text index one line above the given cursor"
+	<return: #Number>
+	| aTransformation aGlobalTextIndex |
+	
+	aGlobalTextIndex := nil.
+
+	aTransformation := BrTextEditorRelativeScreenToCursorTransformation new
+		cursor: aCursor;
+		beUp;
+		whenTransformed: [ :aTextIndex | aGlobalTextIndex := aTextIndex ].
+	
+	self editor enqueueCommand: (BrTextEditorScreenToCursorCommand new transformation: aTransformation).
+	
+	aGlobalTextIndex
+		ifNotNil: [ ^ aGlobalTextIndex ]
+		ifNil: [ self flag: 'Until I figure out why it can be nil'. ^ anExceptionBlock value ].
+	
+	"could not find a text index for a given screen position"
+	self
+		assert: [ aGlobalTextIndex isNotNil ]
+		description: [ 'There must always be some text index found' ].
+		
+	^ aGlobalTextIndex
+]
+
+{ #category : #'api - utility' }
+BrTextEditorOperator >> findTextIndexAtScreenPosition: aScreenPosition [
+	"Convert screen position to a text index"
+	<return: #Number>
+	| aTransformation aGlobalTextIndex |
+	
+	aGlobalTextIndex := nil.
+
+	aTransformation := BrTextEditorExplicitScreenToCursorTransformation new screenPosition: aScreenPosition.
+	aTransformation whenTransformed: [ :aTextIndex | aGlobalTextIndex := aTextIndex ].
+	
+	self editor enqueueCommand: (BrTextEditorScreenToCursorCommand new transformation: aTransformation).
+	
+	"could not find a text index for a given screen position"
+	self
+		assert: [ aGlobalTextIndex isNotNil ]
+		description: [ 'There must always be some text index found' ].
+		
+	^ aGlobalTextIndex
+]
+
+{ #category : #'api - utility' }
+BrTextEditorOperator >> findTextIndexAtScreenPosition: aScreenPosition ifAbsent: anExceptionBlock [
+	"Convert screen position to a text index"
+	<return: #Number>
+	| aTransformation aGlobalTextIndex |
+	
+	aGlobalTextIndex := nil.
+
+	aTransformation := BrTextEditorExplicitScreenToCursorTransformation new screenPosition: aScreenPosition.
+	aTransformation whenTransformed: [ :aTextIndex | aGlobalTextIndex := aTextIndex ].
+	
+	self editor enqueueCommand: (BrTextEditorScreenToCursorCommand new transformation: aTransformation).
+	
+	aGlobalTextIndex
+		ifNotNil: [ ^ aGlobalTextIndex ]
+		ifNil: [ self flag: 'Until I figure out why it can be nil'. ^ anExceptionBlock value ].
+	
+	"could not find a text index for a given screen position"
+	self
+		assert: [ aGlobalTextIndex isNotNil ]
+		description: [ 'There must always be some text index found' ].
+		
+	^ aGlobalTextIndex
+]
+
+{ #category : #'api - utility' }
+BrTextEditorOperator >> findTextIndexBelowCursor: aCursor ifAbsent: anExceptionBlock [
+	"Find a text index one line below the given cursor"
+	<return: #Number>
+	| aTransformation aGlobalTextIndex |
+	
+	aGlobalTextIndex := nil.
+
+	aTransformation := BrTextEditorRelativeScreenToCursorTransformation new
+		cursor: aCursor;
+		beDown;
+		whenTransformed: [ :aTextIndex | aGlobalTextIndex := aTextIndex ].
+	
+	self editor enqueueCommand: (BrTextEditorScreenToCursorCommand new transformation: aTransformation).
+	
+	aGlobalTextIndex
+		ifNotNil: [ ^ aGlobalTextIndex ]
+		ifNil: [ self flag: 'Until I figure out why it can be nil'. ^ anExceptionBlock value ].
+	
+	"could not find a text index for a given screen position"
+	self
+		assert: [ aGlobalTextIndex isNotNil ]
+		description: [ 'There must always be some text index found' ].
+		
+	^ aGlobalTextIndex
+]
+
 { #category : #initialization }
 BrTextEditorOperator >> initialize [
 	super initialize.
