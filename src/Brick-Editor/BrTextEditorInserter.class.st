@@ -128,6 +128,8 @@ BrTextEditorInserter >> insert [
 	| aFilteredText |
 	
 	aFilteredText := inputFilter filter: text.
+	aFilteredText isEmpty
+		ifTrue: [ ^ self ].
 
 	shouldDeleteSelected
 		ifTrue: [ self deleteSelectedText ].
