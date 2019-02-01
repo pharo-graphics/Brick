@@ -15,7 +15,7 @@ BaselineOfBrickOld >> baseline: spec [
 		   baseline: 'Bloc' with: [ spec
 				postLoadDoIt: #postLoadBloc:;
 				loads: #(stub); "Stub does not load anything here. We load Bloc in postLoadBloc:"
-				repository: 'github://pharo-graphics/Bloc/src' ];
+				repository: 'github://feenkcom/Bloc/src' ];
 			
 			package: #'Brick' with: [ spec requires: #('Bloc') ];
 			package: #'Brick-Editor' with: [ spec requires: #('Brick'). ];
