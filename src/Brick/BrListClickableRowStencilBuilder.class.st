@@ -23,7 +23,8 @@ BrListClickableRowStencilBuilder >> buildDefault [
 		when: BlClickEvent
 			do: [ :anEvent | 
 			anEvent consumed: true.
-			aList selectOne: anIndex dueTo: anEvent ];
+			aList selectOne: anIndex dueTo: anEvent.
+			aList requestFocus ];
 		when: BlDoubleClickEvent
 			do: [ :anEvent |
 			anEvent consumed: true.
