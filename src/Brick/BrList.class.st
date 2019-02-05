@@ -35,7 +35,7 @@ BrList >> initialize [
 { #category : #initialization }
 BrList >> initializeEventHandlers [
 	"shortcuts only work when list has focus.
-	click handler must not be adde as a filter"
+	click handler must not be added as a filter"
 	self
 		when: BlClickEvent do: [ :anEvent | anEvent currentTarget requestFocus ];
 		when: BrListItemElementAttached do: [ :anEvent |

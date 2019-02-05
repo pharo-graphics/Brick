@@ -3,9 +3,9 @@ Class {
 	#superclass : #BrLook,
 	#instVars : [
 		'listElement',
-		'rowStencilBuilder'
+		'itemStencilBuilder'
 	],
-	#category : 'Brick-List - Look'
+	#category : #'Brick-List - Look'
 }
 
 { #category : #initialization }
@@ -17,7 +17,7 @@ BrSimpleListLook >> initialize [
 		c horizontal matchParent.
 		c vertical matchParent ].
 	
-	self rowStencilBuilder: BrSimpleListRowStencilBuilder new
+	self itemStencilBuilder: BrSimpleListRowStencilBuilder new
 ]
 
 { #category : #initialization }
@@ -45,6 +45,14 @@ BrSimpleListLook >> initializeRequests [
 ]
 
 { #category : #accessing }
+BrSimpleListLook >> itemStencilBuilder: aStencilBuilder [
+	"aStencilBuilder is expected to be a subclass of BrListRowStencil or a valuable"
+	itemStencilBuilder := aStencilBuilder asStencilBuilder: BrListRowStencilBuilder.
+
+	listElement dataSource rowStencilBuilder: itemStencilBuilder
+]
+
+{ #category : #accessing }
 BrSimpleListLook >> listElement [
 	^ listElement
 ]
@@ -57,12 +65,4 @@ BrSimpleListLook >> onItemsChanged: aCollectionOfObjects [
 { #category : #hooks }
 BrSimpleListLook >> onSelectionChanged: aBlSelection [
 	listElement dataSource selection: aBlSelection
-]
-
-{ #category : #accessing }
-BrSimpleListLook >> rowStencilBuilder: aStencilBuilder [
-	"aStencilBuilder is expected to be a subclass of BrListRowStencil or a valuable"
-	rowStencilBuilder := aStencilBuilder asStencilBuilder: BrListRowStencilBuilder.
-
-	listElement dataSource rowStencilBuilder: rowStencilBuilder
 ]

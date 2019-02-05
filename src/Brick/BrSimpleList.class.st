@@ -18,5 +18,5 @@ BrSimpleList >> initialize [
 
 { #category : #'api - scripting' }
 BrSimpleList >> stencil: aListRowStencilBuilder [
-	self look rowStencilBuilder: aListRowStencilBuilder
+	self look itemStencilBuilder: aListRowStencilBuilder
 ]
