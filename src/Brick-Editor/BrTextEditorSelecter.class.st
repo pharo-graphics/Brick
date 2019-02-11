@@ -56,6 +56,36 @@ BrTextEditorSelecter >> isWordChar: aCharacter [
 ]
 
 { #category : #'api - configuration' }
+BrTextEditorSelecter >> moveOneDown [
+	"Select and move a cursor one line down"
+	| theNewCursorPositions theCursorsOnTheLeft theCursorsOnTheRight theCursorsOutside |
+
+	theNewCursorPositions := (self cursors collect: [ :aCursor |
+		aCursor -> (self
+			findTextIndexBelowCursor: aCursor
+			ifAbsent: [ aCursor position ]) ]) as: OrderedIdentityDictionary.
+
+	theCursorsOnTheLeft := self cursors
+		select: [ :aCursor | self selection anySatisfy: [ :aSelection | aCursor position = aSelection from ] ].
+		
+	theCursorsOnTheRight := self cursors
+		select: [ :aCursor | self selection anySatisfy: [ :aSelection | aCursor position = aSelection to ] ].
+	
+	theCursorsOutside := self cursors
+		select: [ :aCursor | (self selection anySatisfy: [ :aSelection | aCursor position between: aSelection from and: aSelection to ]) not ].
+
+	"the cursor is on the left side of the selection, we should deselect left most character"
+	theCursorsOnTheLeft do: [ :aCursor |
+		self editor deselecter
+			from: aCursor position to: (theNewCursorPositions at: aCursor);
+			deselect ].
+	
+	"the cursor is on the right side of the selection or is not inside any selection, we should extend it by one character to the right"
+	theCursorsOnTheRight, theCursorsOutside do: [ :aCursor | 
+		self from: aCursor position to: ((theNewCursorPositions at: aCursor) min: self text size) ].
+]
+
+{ #category : #'api - configuration' }
 BrTextEditorSelecter >> moveOneToLeft [
 	"Select and move a cursor one character to the left"
 	| theCursorsOnTheLeft theCursorsOnTheRight theCursorsOutside |
@@ -75,13 +105,9 @@ BrTextEditorSelecter >> moveOneToLeft [
 			from: aCursor position - 1 to: aCursor position;
 			deselect ].
 	
-	"the cursor is on the left side of the selection, we should extend it by one character to the left"
-	theCursorsOnTheLeft do: [ :aCursor | 
+	"the cursor is on the left side of the selection or is not inside any selection, we should extend it by one character to the left"
+	theCursorsOnTheLeft, theCursorsOutside do: [ :aCursor | 
 		self from: ((aCursor position - 1) max: 0) to: aCursor position ].
-
-	"if a cursor is not inside any selected interval, then we simply select one char to the left from it"
-	theCursorsOutside do: [ :aCursor |
-		self from: ((aCursor position - 1) max: 0) to: aCursor position ]
 ]
 
 { #category : #'api - configuration' }
@@ -104,13 +130,39 @@ BrTextEditorSelecter >> moveOneToRight [
 			from: aCursor position to: aCursor position + 1;
 			deselect ].
 	
-	"the cursor is on the right side of the selection, we should extend it by one character to the right"
-	theCursorsOnTheRight do: [ :aCursor | 
+	"the cursor is on the right side of the selection or is not inside any selection, we should extend it by one character to the right"
+	theCursorsOnTheRight, theCursorsOutside do: [ :aCursor | 
 		self from: aCursor position to: ((aCursor position + 1) min: self text size) ].
+]
 
-	"if a cursor is not inside any selected interval, then we simply select one char to the right from it"
-	theCursorsOutside do: [ :aCursor |
-		self from: aCursor position to: ((aCursor position + 1) min: self text size) ]
+{ #category : #'api - configuration' }
+BrTextEditorSelecter >> moveOneUp [
+	"Select and move a cursor one line up"
+	| theNewCursorPositions theCursorsOnTheLeft theCursorsOnTheRight theCursorsOutside |
+
+	theNewCursorPositions := (self cursors collect: [ :aCursor |
+		aCursor -> (self
+			findTextIndexAboveCursor: aCursor
+			ifAbsent: [ aCursor position ]) ]) as: OrderedIdentityDictionary.
+
+	theCursorsOnTheLeft := self cursors
+		select: [ :aCursor | self selection anySatisfy: [ :aSelection | aCursor position = aSelection from ] ].
+		
+	theCursorsOnTheRight := self cursors
+		select: [ :aCursor | self selection anySatisfy: [ :aSelection | aCursor position = aSelection to ] ].
+	
+	theCursorsOutside := self cursors
+		select: [ :aCursor | (self selection anySatisfy: [ :aSelection | aCursor position between: aSelection from and: aSelection to ]) not ].
+
+	"the cursor is on the right side of the selection, we should deselect from the new potential position to its current location"
+	theCursorsOnTheRight do: [ :aCursor |
+		self editor deselecter
+			from: (theNewCursorPositions at: aCursor) to: aCursor position;
+			deselect ].
+	
+	"the cursor is on the left side of the selection or is not inside any selection, we should extend it to the new potential location"
+	theCursorsOnTheLeft, theCursorsOutside do: [ :aCursor | 
+		self from: (theNewCursorPositions at: aCursor) to: aCursor position ]
 ]
 
 { #category : #'api - configuration' }

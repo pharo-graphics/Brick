@@ -254,31 +254,71 @@ BrTextEditor >> initialize [
 
 { #category : #interactions }
 BrTextEditor >> initializeInteractions [
+	
+	self interactions add: (BlShortcut new
+		combination: BlKeyCombination delete;
+		action: [
+			self deleter
+				selected;
+				oneAfterCursor;
+				delete ]).
+	
+	self interactions add: (BlShortcut new
+		combination: BlKeyCombination backspace;
+		action: [
+			self deleter
+				selected;
+				oneBeforeCursor;
+				delete ]).
 
 	self interactions add: (BlShortcut new
-		combination: (BlKeyCombination builder primary; key: Key a; build);
+		combination: BlKeyCombination return;
+		action: [
+			self inserter
+				atCursor;
+				lineEnding;
+				insert ]).
+
+	self interactions add: (BlShortcut new
+		combination: BlKeyCombination tab;
+		action: [
+			self selection isEmpty
+				ifTrue: [
+					self inserter
+						atCursor;
+						indentation;
+						insert ]
+				ifFalse: [
+					self inserter
+						indentation;
+						beforeSelectedLines;
+						withoutSelectionDelete;
+						insert ] ]).
+
+	self interactions add: (BlShortcut new
+		combination: BlKeyCombination primaryA;
 		action: [ self selecter all select ]).
 
 	self interactions add: (BlShortcut new
-		combination: (BlKeyCombination builder primary; key: Key x; build);
+		combination: BlKeyCombination primaryX;
 		action: [ self cutSelected ]).
 
 	self interactions add: (BlShortcut new
-		combination: (BlKeyCombination builder primary; key: Key c; build);
+		combination: BlKeyCombination primaryC;
 		action: [ self copySelected ]).
 
 	"Paste a text from the clipboard at the current cursor position.
 	I delete any currently selected text and update cursor position"
 	self interactions add: (BlShortcut new
-		combination: (BlKeyCombination builder primary; key: Key v; build);
+		combination: BlKeyCombination primaryV;
 		action: [ self paster fromClipboard atCursor paste ]).
 
 	self interactions add: (BlShortcut new
-		combination: (BlKeyCombination builder escape; build);
+		combination: BlKeyCombination escape;
 		action: [ self selectNone ]).
 
 	self interactions add: (BlShortcut new
-		combination: (BlKeyCombination builder shift; key: Key arrowLeft; build);
+		combination: (BlKeyCombination builder shift arrowLeft build);
 		action: [
 			self selecter
 				withoutCursorUpdate;
@@ -289,7 +329,7 @@ BrTextEditor >> initializeInteractions [
 				apply ]).
 
 	self interactions add: (BlShortcut new
-		combination: (BlKeyCombination builder shift; key: Key arrowRight; build);
+		combination: (BlKeyCombination builder shift arrowRight build);
 		action: [
 			self selecter
 				withoutCursorUpdate;
@@ -298,10 +338,32 @@ BrTextEditor >> initializeInteractions [
 			self navigator
 				moveRight;
 				apply ]).
+			
+	self interactions add: (BlShortcut new
+		combination: (BlKeyCombination builder shift arrowUp build);
+		action: [
+			self selecter
+				withoutCursorUpdate;
+				moveOneUp;
+				select.
+			self navigator
+				moveUp;
+				apply ]).
+			
+	self interactions add: (BlShortcut new
+		combination: (BlKeyCombination builder shift arrowDown build);
+		action: [
+			self selecter
+				withoutCursorUpdate;
+				moveOneDown;
+				select.
+			self navigator
+				moveDown;
+				apply ]).
 
 	"left-arrow => move cursor left and deselect everything"
 	self interactions add: (BlShortcut new
-		combination: (BlKeyCombination builder key: Key arrowLeft; build);
+		combination: (BlKeyCombination builder arrowLeft build);
 		action: [
 			self deselecter all deselect.
 			self navigator
@@ -310,7 +372,7 @@ BrTextEditor >> initializeInteractions [
 
 	"right-arrow => move cursor right and deselect everything"
 	self interactions add: (BlShortcut new
-		combination: (BlKeyCombination builder key: Key arrowRight; build);
+		combination: (BlKeyCombination builder arrowRight build);
 		action: [
 			self deselecter all deselect.
 			self navigator
@@ -319,28 +381,28 @@ BrTextEditor >> initializeInteractions [
 
 	"up-arrow => move cursor up"
 	self interactions add: (BlShortcut new
-		combination: (BlKeyCombination builder key: Key arrowUp; build);
+		combination: (BlKeyCombination builder arrowUp build);
 		action: [ self moveCursorUp ]).
 
 	"down-arrow => move cursor down"
 	self interactions add: (BlShortcut new
-		combination: (BlKeyCombination builder key: Key arrowDown; build);
+		combination: (BlKeyCombination builder arrowDown build);
 		action: [ self moveCursorDown ]). 
 
 	self interactions add: (BlShortcut new
-		combination: (BlKeyCombination builder primary; key: Key arrowLeft; build);
+		combination: (BlKeyCombination builder primary arrowLeft build);
 		action: [ self moveCursorToLineStart ]).
 
 	self interactions add: (BlShortcut new
-		combination: (BlKeyCombination builder primary; key: Key arrowRight; build);
+		combination: (BlKeyCombination builder primary arrowRight build);
 		action: [ self moveCursorToLineEnd ])
 
 	"self interactions add: (BlShortcut new
-		combination: (BlKeyCombination builder primary; key: Key arrowRight; build);
+		combination: (BlKeyCombination builder primary arrowRight build);
 		action: [ self moveCursorToEndNextWord ]).
 
 	self interactions add: (BlShortcut new
-		combination: (BlKeyCombination builder primary; key: Key arrowLeft; build);
+		combination: (BlKeyCombination builder primary arrowLeft build);
 		action: [ self moveCursorToStartPreviousWord ])."
 ]
 
@@ -564,7 +626,6 @@ BrTextEditor >> onAttached: anEditorElement [
 
 	anEditorElement addEventHandler: BrTextEditorSelectionHandler new.
 	anEditorElement addEventHandler: BrTextEditorInsertionHandler new.
-	anEditorElement addEventHandler: BrTextEditorDeletionHandler new.
 	anEditorElement addEventHandler: (BrTextEditorMouseDownHandler new editorElement: anEditorElement).
 
 	self interactions do: [ :anInteraction | anEditorElement addShortcut: anInteraction ].
@@ -613,7 +674,6 @@ BrTextEditor >> onDetached: anEditorElement [
 
 	anEditorElement removeEventHandlersSuchThat: [ :aHandler | aHandler isKindOf: BrTextEditorSelectionHandler ].
 	anEditorElement removeEventHandlersSuchThat: [ :aHandler | aHandler isKindOf: BrTextEditorInsertionHandler ].
-	anEditorElement removeEventHandlersSuchThat: [ :aHandler | aHandler isKindOf: BrTextEditorDeletionHandler ].
 
 	self interactions do: [ :anInteraction | anEditorElement removeShortcut: anInteraction ].
 

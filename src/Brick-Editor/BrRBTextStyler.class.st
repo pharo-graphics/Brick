@@ -187,12 +187,15 @@ BrRBTextStyler >> parse: aText isMethod: isMethod [
 BrRBTextStyler >> privateStyle: aText [ 
     | ast |
 
-    ast := self parse: aText isMethod: workspace isNil.
+    ast := self parse: aText isMethod: self isForWorkspace not.
     ast methodNode compilationContext: (CompilationContext new
             class: (classOrMetaClass ifNil: [UndefinedObject]);
 				forSyntaxHighlighting: true;
-				bindings: (workspace ifNil: [ Dictionary new ]);
-            requestor: workspace).
+				requestor: workspace).
+				"Requestor already has support for obtaining the bindings. 
+				Adding both the requestor and the bindings creates two scopes
+				that are used for looking up variables."
+				"bindings: (workspace ifNil: [ Dictionary new ]);"
     ast doSemanticAnalysis.
 
 

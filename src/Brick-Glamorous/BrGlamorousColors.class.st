@@ -1,3 +1,8 @@
+"
+I define colors used for Glamorous Toolkit.
+
+Here is the list of available colors: ${class:BrGlamorousColors|show=gtColorsFor:|expanded=true}$
+"
 Class {
 	#name : #BrGlamorousColors,
 	#superclass : #SharedPool,
