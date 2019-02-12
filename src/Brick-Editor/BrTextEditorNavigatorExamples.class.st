@@ -76,13 +76,18 @@ BrTextEditorNavigatorExamples >> cursor_add_at_0_and_1_in_empty [
 { #category : #'examples - add' }
 BrTextEditorNavigatorExamples >> cursor_add_at_0_in_empty [
 	<gtExample>
-	| anEditor theAddedEvents theMovedEvents theRemovedEvents |
+	| anEditor theAddedEvents theMovedEvents theRemovedEvents addedCursorElements removedCursorElements |
 	
 	anEditor := self editorOnMultilineText.
 	
 	theAddedEvents := OrderedCollection new.
 	theMovedEvents := OrderedCollection new.
 	theRemovedEvents := OrderedCollection new.
+	addedCursorElements := OrderedCollection new.
+	removedCursorElements := OrderedCollection new.
+	
+	self subscribe: BrTextEditorCursorElementAddedEvent do: [ :anEvent | addedCursorElements add: anEvent cursorElement ] for: anEditor.
+	self subscribe: BrTextEditorCursorElementRemovedEvent do: [ :anEvent | removedCursorElements add: anEvent cursorElement ] for: anEditor.
 
 	anEditor navigator
 		whenAdded: [ :anEvent | theAddedEvents add: anEvent ];
@@ -92,6 +97,11 @@ BrTextEditorNavigatorExamples >> cursor_add_at_0_in_empty [
 		apply;
 		unsubscribe.
 		
+	anEditor forceLayout.
+		
+	self unsubscribe: BrTextEditorCursorElementAddedEvent from: anEditor.
+	self unsubscribe: BrTextEditorCursorElementRemovedEvent from: anEditor.
+
 	self assert: anEditor cursors isNotEmpty.
 	self assert: anEditor cursors allCursors equals: { BrTextEditorSingleCursor new position: 0 }.
 	
@@ -101,6 +111,9 @@ BrTextEditorNavigatorExamples >> cursor_add_at_0_in_empty [
 	}.
 	self assert: theMovedEvents isEmpty.
 	self assert: theRemovedEvents isEmpty.
+	self assert: addedCursorElements size equals: 1.
+	self assert: addedCursorElements first textPosition equals: 0.
+	self assert: removedCursorElements isEmpty.
 	
 	^ anEditor
 ]
@@ -173,6 +186,51 @@ BrTextEditorNavigatorExamples >> cursor_add_at_1_in_cursors_at_0 [
 	self assert: theMovedEvents isEmpty.
 	self assert: theRemovedEvents isEmpty.
 
+	^ anEditor
+]
+
+{ #category : #'examples - add' }
+BrTextEditorNavigatorExamples >> cursor_add_at_1_in_empty [
+	<gtExample>
+	| anEditor theAddedEvents theMovedEvents theRemovedEvents addedCursorElements removedCursorElements |
+	
+	anEditor := self editorOnMultilineText.
+
+	theAddedEvents := OrderedCollection new.
+	theMovedEvents := OrderedCollection new.
+	theRemovedEvents := OrderedCollection new.
+	addedCursorElements := OrderedCollection new.
+	removedCursorElements := OrderedCollection new.
+
+	self subscribe: BrTextEditorCursorElementAddedEvent do: [ :anEvent | addedCursorElements add: anEvent cursorElement ] for: anEditor.
+	self subscribe: BrTextEditorCursorElementRemovedEvent do: [ :anEvent | removedCursorElements add: anEvent cursorElement ] for: anEditor.
+
+	anEditor navigator
+		whenAdded: [ :anEvent | theAddedEvents add: anEvent ];
+		whenMoved: [ :anEvent | theMovedEvents add: anEvent ];
+		whenRemoved: [ :anEvent | theRemovedEvents add: anEvent ];
+		addAt: 1;
+		apply;
+		unsubscribe.
+
+	anEditor forceLayout.
+
+	self unsubscribe: BrTextEditorCursorElementAddedEvent from: anEditor.
+	self unsubscribe: BrTextEditorCursorElementRemovedEvent from: anEditor.
+
+	self assert: anEditor cursors isNotEmpty.
+	self assert: anEditor cursors allCursors equals: { BrTextEditorSingleCursor new position: 1 }.
+	
+	self assert: theAddedEvents size equals: 1.
+	self assert: (theAddedEvents collect: #cursor) asArray equals: {
+		BrTextEditorSingleCursor new position: 1.
+	}.
+	self assert: theMovedEvents isEmpty.
+	self assert: theRemovedEvents isEmpty.
+	self assert: addedCursorElements size equals: 1.
+	self assert: addedCursorElements first textPosition equals: 0.
+	self assert: removedCursorElements isEmpty.
+	
 	^ anEditor
 ]
 

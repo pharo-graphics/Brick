@@ -36,3 +36,13 @@ In the moonlight,
 The color and scent of the wisteria
 Seems far away.' asRopedText
 ]
+
+{ #category : #'private - events' }
+BrTextEditorOperatorExamples >> subscribe: anEventClass do: aBlock for: anElement [
+	anElement when: anEventClass do: aBlock
+]
+
+{ #category : #'private - events' }
+BrTextEditorOperatorExamples >> unsubscribe: anEventClass from: anElement [
+	anElement removeEventHandlersSuchThat: [ :anEventHandler | (anEventHandler isKindOf: BlEventHandler) and: [ anEventHandler eventClass = anEventClass ] ]
+]

@@ -54,6 +54,19 @@ BrTextEditorLineSegment >> initializeWith: aBrText from: aTextStart to: aTextEnd
 	theParagraphAttributes do: [ :aParagraphAttribute | aParagraphAttribute applyOn: self ]
 ]
 
+{ #category : #testing }
+BrTextEditorLineSegment >> isLastTextPiece: aSegmentPiece [
+	<return: #Boolean>
+	
+	self hasPieces
+		ifFalse: [ ^ false ].
+
+	self pieces reverseDo: [ :eachPiece |
+		eachPiece isText ifTrue: [ ^ eachPiece == aSegmentPiece ] ].
+	
+	^ false
+]
+
 { #category : #'attributes - paragraph' }
 BrTextEditorLineSegment >> lineSpacing [
 	<return: #Number>

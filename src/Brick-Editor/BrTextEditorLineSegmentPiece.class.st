@@ -106,6 +106,11 @@ BrTextEditorLineSegmentPiece >> isEmpty [
 	^ self text isEmpty
 ]
 
+{ #category : #testing }
+BrTextEditorLineSegmentPiece >> isText [
+	^ false
+]
+
 { #category : #'cursor - hooks' }
 BrTextEditorLineSegmentPiece >> onCursorAdded: aCursor to: aPieceElement in: anEditorElement [
 	"Is sent when a cursor is added to a given piece element within provided editor element"

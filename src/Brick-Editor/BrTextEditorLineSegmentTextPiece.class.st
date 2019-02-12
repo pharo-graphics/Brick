@@ -13,6 +13,11 @@ BrTextEditorLineSegmentTextPiece >> createElement: anEditorElement [
 		editorElement: anEditorElement) asElement
 ]
 
+{ #category : #testing }
+BrTextEditorLineSegmentTextPiece >> isText [
+	^ true
+]
+
 { #category : #updating }
 BrTextEditorLineSegmentTextPiece >> updateText: aTextElement of: aLineSegment in: anEditorElement [
 	aTextElement dispatchEvent: (BrTextEditorTextChangedRequest new editorElement: anEditorElement)
