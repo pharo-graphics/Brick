@@ -1,6 +1,8 @@
 Class {
 	#name : #BrList,
 	#superclass : #BlElement,
+	#traits : 'TBrLayoutResizable',
+	#classTraits : 'TBrLayoutResizable classTrait',
 	#instVars : [
 		'selectionModel'
 	],
@@ -28,7 +30,12 @@ BrList >> display: aCollectionOfValues [
 BrList >> initialize [
 	super initialize.
 	
-	self viewModel: (self defaultListModel add: (selectionModel := BrSelectionModel new)).
+	self viewModel: (self defaultListModel
+		add: (selectionModel := BrSelectionModel new);
+		add: (BrInteractiveModel withAll: {
+			BrLayoutHorizontalResizerModel matchParent.
+			BrLayoutVerticalResizerModel matchParent })).
+
 	self initializeEventHandlers
 ]
 
