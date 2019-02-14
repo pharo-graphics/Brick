@@ -30,6 +30,8 @@ container
 Class {
 	#name : #BrAccordion,
 	#superclass : #BlElement,
+	#traits : 'TBrLayoutResizable',
+	#classTraits : 'TBrLayoutResizable classTrait',
 	#instVars : [
 		'accordionModel',
 		'expandableModel'
@@ -65,8 +67,10 @@ BrAccordion >> initialize [
 		addAll: {
 			BrInteractiveModel new
 				withFocus;
-				addState: (expandableModel := BrExpandableModel new)
-		})
+				addStates: {
+					expandableModel := BrExpandableModel new.
+					BrLayoutHorizontalResizerModel matchParent.
+					BrLayoutVerticalResizerModel fitContent } })
 ]
 
 { #category : #'api - testing' }
