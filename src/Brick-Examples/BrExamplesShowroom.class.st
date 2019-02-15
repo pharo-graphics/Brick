@@ -127,11 +127,9 @@ BrExamplesShowroom >> accordion [
 	| accordion |
 
 	accordion := BrAccordion new.
+	accordion vExact: 200.
 	accordion look: BrGlamorousAccordionLook new.
-	accordion content: [
-		BlElement new
-			size: 200@100;
-			background: Color paleRed ].
+	accordion content: [ BlElement new background: Color paleRed ].
 	accordion header: [
 		BrButton new
 			look: BrGlamorousAccordionHeaderLook new;
@@ -151,9 +149,7 @@ BrExamplesShowroom >> accordionList [
 		accordion := BrAccordion new.
 		accordion look: BrGlamorousAccordionLook new.
 		accordion margin: (BlInsets all: 5).
-		accordion content: [
-			(BrEditorElement new editor: (BrTextEditor new text: 'Hello world' asRopedText))
-				constraintsDo: [ :c | c vertical fitContent ] ].
+		accordion content: [ (BrEditor new text: 'Hello world' asRopedText) ].
 		accordion header: [
 			BrButton new
 				look: BrGlamorousAccordionHeaderLook new;

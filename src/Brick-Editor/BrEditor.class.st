@@ -25,6 +25,7 @@ BrEditor >> initialize [
 	super initialize.
 	
 	self editor: BrTextEditor new.
+	self padding: (BlInsets all: 5).
 	
 	self viewModel: (BrInteractiveModel withAll: {
 		BrLayoutHorizontalResizerModel matchParent.
