@@ -42,6 +42,19 @@ BrTreeNode >> childrenNodesDo: aBlock [
 	children valuesDo: [ :eachNode | eachNode ifNotNil: aBlock ]
 ]
 
+{ #category : #controlling }
+BrTreeNode >> collapse [
+	| anExpandedSize |
+	self isExpanded
+		ifFalse: [ ^ self ].
+	
+	anExpandedSize := self size.
+
+	isExpanded := false.
+	
+	self notifyCollapsed: anExpandedSize
+]
+
 { #category : #accessing }
 BrTreeNode >> computation [
 	^ computation
@@ -108,6 +121,19 @@ BrTreeNode >> localIndexToGlobal: anIndex [
 { #category : #'instance creation' }
 BrTreeNode >> newSubNode: aValue [
 	^ (self class on: aValue computed: self computation) parent: self
+]
+
+{ #category : #notifying }
+BrTreeNode >> notifyCollapsed: anExpandedSize [
+	| aFromIndex aToIndex |
+	
+	aFromIndex := self localIndexToGlobal: 1.
+	aToIndex := self localIndexToGlobal: anExpandedSize.
+	
+	self root announcer announce: (BrTreeNodeCollapsed new
+		from: aFromIndex;
+		to: aToIndex;
+		node: self)
 ]
 
 { #category : #notifying }
