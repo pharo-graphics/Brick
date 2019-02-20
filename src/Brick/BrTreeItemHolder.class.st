@@ -3,10 +3,10 @@ Class {
 	#superclass : #BlInfiniteHolder,
 	#instVars : [
 		'rowStencilBuilder',
-		'listElement',
-		'rowValue'
+		'rowValue',
+		'treeElement'
 	],
-	#category : #'Brick-List - Support'
+	#category : #'Brick-Tree - Support'
 }
 
 { #category : #initialization }
@@ -18,29 +18,15 @@ BrTreeItemHolder >> initialize [
 ]
 
 { #category : #accessing }
-BrTreeItemHolder >> listElement [
-	^ listElement
-]
-
-{ #category : #accessing }
-BrTreeItemHolder >> listElement: aListWidgetElement [
-	self 
-		assert: [ aListWidgetElement isNotNil ]
-		description: [ 'List must not be nil' ].
-
-	listElement := aListWidgetElement
-]
-
-{ #category : #accessing }
 BrTreeItemHolder >> rowStencilBuilder [
-	<return: #BrListRowStencilBuilder>
+	<return: #BrTreeRowStencilBuilder>
 
 	^ rowStencilBuilder
 ]
 
 { #category : #accessing }
-BrTreeItemHolder >> rowStencilBuilder: aBrListRowStencil [
-	rowStencilBuilder := aBrListRowStencil
+BrTreeItemHolder >> rowStencilBuilder: aBrTreeRowStencilBuilder [
+	rowStencilBuilder := aBrTreeRowStencilBuilder
 ]
 
 { #category : #accessing }
@@ -49,8 +35,20 @@ BrTreeItemHolder >> rowValue [
 ]
 
 { #category : #'api - binding' }
-BrTreeItemHolder >> rowValue: anObject at: aRowIndex level: aLevelIndex [
-	"aLevelIndex represents how deep in the tree a node is located"
-
+BrTreeItemHolder >> rowValue: aTreeNode at: aRowIndex [
 	self subclassResponsibility
+]
+
+{ #category : #accessing }
+BrTreeItemHolder >> treeElement [
+	^ treeElement
+]
+
+{ #category : #accessing }
+BrTreeItemHolder >> treeElement: aTreeWidgetElement [
+	self 
+		assert: [ aTreeWidgetElement isNotNil ]
+		description: [ 'Tree must not be nil' ].
+
+	treeElement := aTreeWidgetElement
 ]

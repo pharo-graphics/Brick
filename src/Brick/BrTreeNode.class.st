@@ -23,6 +23,31 @@ BrTreeNode >> announcer [
 ]
 
 { #category : #accessing }
+BrTreeNode >> at: anIndex [
+	<return: #BrTreeNode>
+	| aLocalIndex |
+
+	self
+		assert: [ anIndex between: 1 and: self size ]
+		description: [ 'Index must be within node bounds' ].
+
+	anIndex = 1
+		ifTrue: [ ^ self ].
+	
+	aLocalIndex := anIndex - 1.	
+	
+	self childrenNodesDo: [ :eachNode |
+		| aNodeSize |
+		
+		aNodeSize := eachNode size.
+		aLocalIndex <= aNodeSize
+			ifTrue: [ ^ eachNode at: aLocalIndex ].
+		aLocalIndex := aLocalIndex - aNodeSize ].
+	
+	self error: 'Must not reach'
+]
+
+{ #category : #accessing }
 BrTreeNode >> children [
 	^ children keys
 ]
@@ -60,10 +85,20 @@ BrTreeNode >> computation [
 	^ computation
 ]
 
+{ #category : #accessing }
+BrTreeNode >> depth [
+	^ self hasParent
+		ifTrue: [ self parent depth + 1 ]
+		ifFalse: [ 0 ]
+]
+
 { #category : #controlling }
 BrTreeNode >> expand [
 	
 	self isExpanded
+		ifTrue: [ ^ self ].
+		
+	self isEmpty
 		ifTrue: [ ^ self ].
 
 	children keysAndValuesDo: [ :eachValue :eachNode |
@@ -184,6 +219,13 @@ BrTreeNode >> size [
 		self childrenNodesDo: [ :eachNode | aSize := aSize + eachNode size ] ].
 	
 	^ aSize
+]
+
+{ #category : #controlling }
+BrTreeNode >> toggle [
+	self isExpanded
+		ifTrue: [ self collapse ]
+		ifFalse: [ self expand ]
 ]
 
 { #category : #accessing }

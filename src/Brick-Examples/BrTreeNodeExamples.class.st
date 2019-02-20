@@ -26,7 +26,6 @@ BrTreeNodeExamples >> collapse_depth_1 [
 	self assert: anAnnouncement from equals: 1.
 	self assert: anAnnouncement to equals: 3.
 	
-
 	^ aNode
 ]
 
@@ -34,23 +33,25 @@ BrTreeNodeExamples >> collapse_depth_1 [
 BrTreeNodeExamples >> depth_1 [
 	<gtExample>
 	| aRope aNode |
-	
+
 	aRope := BlConcatenationRope
 		left: (BlCollectionRope collection: 'Hello')
 		right: (BlCollectionRope collection: 'World').
 
 	aNode := BrTreeNode on: aRope computed: [ :eachRope | eachRope children ].
-	
+
 	self assert: aNode isExpanded not.
 	self assert: aNode children equals: { aRope left . aRope right }.
-	
+
 	"they have never been expanded, so empty"
 	self assert: aNode childrenNodes equals: #().
-	
+
 	self assert: aNode size equals: 1.
 	self assert: aNode value == aRope.
 	self assert: aNode hasParent not.
-	
+
+	self assert: (aNode at: 1) equals: aNode.
+
 	^ aNode
 ]
 
@@ -75,6 +76,11 @@ BrTreeNodeExamples >> expand_depth_1 [
 	self assert: anAnnouncement node == aNode.
 	self assert: anAnnouncement from equals: 1.
 	self assert: anAnnouncement to equals: 3.
+	
+	
+	self assert: (aNode at: 1) equals: aNode.
+	self assert: (aNode at: 2) equals: aNode childrenNodes first.
+	self assert: (aNode at: 3) equals: aNode childrenNodes second.
 	
 
 	^ aNode
