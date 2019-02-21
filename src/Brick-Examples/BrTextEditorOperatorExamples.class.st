@@ -3,7 +3,7 @@ Class {
 	#superclass : #Object,
 	#traits : 'TBrTextEditorFixedMeasurerExamples',
 	#classTraits : 'TBrTextEditorFixedMeasurerExamples classTrait',
-	#category : #'Brick-Editor-Examples - Operators'
+	#category : #'Brick-Examples-Editor'
 }
 
 { #category : #'instance creation' }

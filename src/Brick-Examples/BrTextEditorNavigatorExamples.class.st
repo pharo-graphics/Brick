@@ -1,7 +1,7 @@
 Class {
 	#name : #BrTextEditorNavigatorExamples,
 	#superclass : #BrTextEditorOperatorExamples,
-	#category : #'Brick-Editor-Examples - Operators'
+	#category : #'Brick-Examples-Editor'
 }
 
 { #category : #'examples - add' }

@@ -3,7 +3,7 @@ Class {
 	#superclass : #BrEditorElement,
 	#traits : 'TBrLayoutResizable',
 	#classTraits : 'TBrLayoutResizable classTrait',
-	#category : #'Brick-Editor-UI'
+	#category : #'Brick-Editor - UI'
 }
 
 { #category : #'editor - accessing' }
