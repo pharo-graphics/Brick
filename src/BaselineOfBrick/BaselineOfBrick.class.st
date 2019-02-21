@@ -17,12 +17,12 @@ BaselineOfBrick >> baseline: spec [
 			baseline: 'Beacon' with: [
 				spec repository: 'github://pharo-project/pharo-beacon/repository' ].
 		spec 
-			package: #Brick with: [
-				spec requires: #('Bloc' ). ];
 			package: #'Brick-Editor' with: [
-				spec requires: #('Brick' 'Beacon' ). ];
+				spec requires: #('Bloc' 'Beacon' ) ];
+			package: #Brick with: [
+				spec requires: #('Bloc' 'Brick-Editor' 'Beacon'). ];
 			package: #'Brick-Editor-Extensions' with: [
-				spec requires: #('Brick' 'Brick-Editor' ). ];
+				spec requires: #('Brick'). ];
 			package: #'Brick-Material' with: [
 				spec requires: #('Brick' ). ];
 			package: #'Brick-Hydra' with: [
