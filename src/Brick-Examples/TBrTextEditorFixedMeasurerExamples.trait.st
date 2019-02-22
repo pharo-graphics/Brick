@@ -24,6 +24,7 @@ TBrTextEditorFixedMeasurerExamples >> editorFor: aText [
 	aRopedText := aText asRopedText lineSpacing: self lineSpacing; paragraphMargin: self paragraphMargin; wordPadding: self wordPadding.
 
 	anEditor := BrEditor new.
+	anEditor look: BrEditorLook new.
 	anEditor fitContent.
 	anEditor text: aRopedText.
 	

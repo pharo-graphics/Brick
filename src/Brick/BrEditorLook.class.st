@@ -4,7 +4,9 @@ Class {
 	#traits : 'TBlTextStyleable',
 	#classTraits : 'TBlTextStyleable classTrait',
 	#instVars : [
-		'attributesBuilder'
+		'attributesBuilder',
+		'text',
+		'styler'
 	],
 	#category : #'Brick-Editor - Look'
 }
@@ -20,20 +22,48 @@ BrEditorLook >> attributesBuilder [
 BrEditorLook >> initialize [
 	super initialize.
 	
-	attributesBuilder := BlTextDelegatedAttributesBuilder new.
-	attributesBuilder beNotOverwritableByStyler
+	styler := BlTextNullStyler new.
+	text := '' asRopedText.
+	
+	attributesBuilder := BlTextDelegatedAttributesBuilder new attributesTarget: text.
+	attributesBuilder beNotOverwritableByStyler.
+	attributesBuilder whenAdded: [  ].
+	
+	self add: BrLayoutResizerLook inherit
 ]
 
 { #category : #initialization }
 BrEditorLook >> initializeListeners [
 	super initializeListeners.
 	
-	
+	self when: BrEditorStylerChanged do: [ :anEvent | self styler: anEvent styler ].
+	self when: BrEditorTextChanged do: [ :anEvent | self text: anEvent text ]
 ]
 
 { #category : #initialization }
 BrEditorLook >> initializeLook [
-	super initializeLook.
+	super initializeLook
+]
+
+{ #category : #initialization }
+BrEditorLook >> initializeRequests [
+	super initializeRequests.
+
+	self request: BrEditorStylerRequest new.
+	self request: BrEditorTextRequest new
+]
+
+{ #category : #accessing }
+BrEditorLook >> styler: aStyler [
+	styler := aStyler.
 	
-	attributesBuilder attributesTarget: self widget text
+	self widgetDo: [ :aWidget | aWidget editor styler: aStyler ]
+]
+
+{ #category : #accessing }
+BrEditorLook >> text: aText [
+	text := aText.
+	attributesBuilder attributesTarget: text.
+	
+	self widgetDo: [ :aWidget | aWidget editor text: aText ]
 ]
