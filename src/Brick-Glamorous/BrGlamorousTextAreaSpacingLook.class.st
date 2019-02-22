@@ -1,11 +1,11 @@
 Class {
-	#name : #BrGlamorousTextAreaLook,
-	#superclass : #BrGlamorousEditorLook,
-	#category : 'Brick-Glamorous-Editor'
+	#name : #BrGlamorousTextAreaSpacingLook,
+	#superclass : #BrGlamorousEditorSpacingLook,
+	#category : #'Brick-Glamorous-Editor'
 }
 
 { #category : #initialization }
-BrGlamorousTextAreaLook >> initializeLook [
+BrGlamorousTextAreaSpacingLook >> initializeLook [
 	super initializeLook.
 
 	self widget
