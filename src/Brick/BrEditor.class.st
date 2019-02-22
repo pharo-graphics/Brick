@@ -3,6 +3,9 @@ Class {
 	#superclass : #BrEditorElement,
 	#traits : 'TBrLayoutResizable',
 	#classTraits : 'TBrLayoutResizable classTrait',
+	#instVars : [
+		'editorModel'
+	],
 	#category : #'Brick-Editor - UI'
 }
 
@@ -27,11 +30,10 @@ BrEditor >> initialize [
 	self editor: BrTextEditor new.
 	self padding: (BlInsets all: 5).
 	
-	self viewModel: (BrInteractiveModel withAll: {
-		BrLayoutHorizontalResizerModel matchParent.
-		BrLayoutVerticalResizerModel fitContent }).
-
-	self look: (BrLayoutResizerLook inherit)
+	self viewModel: (editorModel := BrEditorModel new
+			add: (BrInteractiveModel withAll: {
+				BrLayoutHorizontalResizerModel matchParent.
+				BrLayoutVerticalResizerModel fitContent }))
 ]
 
 { #category : #'editor - operations' }
@@ -64,20 +66,20 @@ BrEditor >> selection [
 
 { #category : #'editor - accessing' }
 BrEditor >> styler [
-	^ self editor styler
+	^ editorModel styler
 ]
 
 { #category : #'editor - accessing' }
 BrEditor >> styler: aStyler [
-	self editor styler: aStyler
+	editorModel styler: aStyler
 ]
 
 { #category : #'editor - accessing' }
 BrEditor >> text [
-	^ self editor text
+	^ editorModel text
 ]
 
 { #category : #'editor - accessing' }
 BrEditor >> text: aBlText [
-	self editor text: aBlText asRopedText
+	editorModel text: aBlText asRopedText
 ]
