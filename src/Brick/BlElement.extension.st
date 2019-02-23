@@ -15,6 +15,13 @@ BlElement >> addLook: aLook [
 ]
 
 { #category : #'*Brick' }
+BlElement >> addViewModel: aViewModel [
+	self viewModel
+		ifNil: [ self viewModel: aViewModel ]
+		ifNotNil: [ self viewModel add: aViewModel ].
+]
+
+{ #category : #'*Brick' }
 BlElement >> asStencil [
 	^ self
 ]

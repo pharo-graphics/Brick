@@ -1,11 +1,11 @@
 Class {
-	#name : #BrGlamorousInputFieldLook,
-	#superclass : #BrGlamorousEditorLook,
-	#category : 'Brick-Glamorous-Editor'
+	#name : #BrGlamorousInputFieldSpacingLook,
+	#superclass : #BrGlamorousEditorSpacingLook,
+	#category : #'Brick-Glamorous-Editor'
 }
 
 { #category : #initialization }
-BrGlamorousInputFieldLook >> initializeLook [
+BrGlamorousInputFieldSpacingLook >> initializeLook [
 	super initializeLook.
 		
 	self widgetContent
