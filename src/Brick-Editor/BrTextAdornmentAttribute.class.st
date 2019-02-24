@@ -32,16 +32,6 @@ BrTextAdornmentAttribute >> beReplace [
 	shouldAppend := false
 ]
 
-{ #category : #comparing }
-BrTextAdornmentAttribute >> equals: aTextAttribute [
-	^ aTextAttribute  == self
-]
-
-{ #category : #comparing }
-BrTextAdornmentAttribute >> hash [
-	^ self identityHash
-]
-
 { #category : #initialization }
 BrTextAdornmentAttribute >> initialize [
 	super initialize.
@@ -71,4 +61,9 @@ BrTextAdornmentAttribute >> shouldAppend [
 { #category : #testing }
 BrTextAdornmentAttribute >> shouldReplace [
 	^ shouldAppend not
+]
+
+{ #category : #comparing }
+BrTextAdornmentAttribute >> type [
+	^ self
 ]

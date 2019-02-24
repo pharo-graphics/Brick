@@ -22,6 +22,18 @@ BrTextParagraphLineSpacingAttribute >> applyOn: aTextParagraph [
 	aTextParagraph lineSpacing: self lineSpacing
 ]
 
+{ #category : #comparing }
+BrTextParagraphLineSpacingAttribute >> equals: anAnotherAttribute [
+	^ self lineSpacing = anAnotherAttribute lineSpacing
+]
+
+{ #category : #comparing }
+BrTextParagraphLineSpacingAttribute >> hash [
+	"Answer an integer value that is related to the identity of the receiver."
+
+	^ super hash bitXor: self lineSpacing hash
+]
+
 { #category : #initialization }
 BrTextParagraphLineSpacingAttribute >> initialize [
 	super initialize.
