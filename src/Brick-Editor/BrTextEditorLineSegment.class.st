@@ -41,7 +41,7 @@ BrTextEditorLineSegment >> initialize [
 	super initialize.
 
 	lineSpacing := 0.
-	wordPadding := BlInsets top: 3 bottom: 3.
+	wordPadding := BlInsets empty.
 	paragraphMargin := BlInsets empty
 ]
 
