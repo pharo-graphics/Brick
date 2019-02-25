@@ -13,6 +13,13 @@ TBlTextStyleable >> glamorousCodeFontAndSize [
 ]
 
 { #category : #'*Brick-Glamorous' }
+TBlTextStyleable >> glamorousCodeFontAndSmallSize [
+	^ self 
+		glamorousCodeFont;
+		fontSize: 10
+]
+
+{ #category : #'*Brick-Glamorous' }
 TBlTextStyleable >> glamorousMonospace [
 	^ self glamorousCodeFont
 ]
