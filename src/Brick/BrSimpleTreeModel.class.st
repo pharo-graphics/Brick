@@ -1,8 +1,5 @@
 Class {
 	#name : #BrSimpleTreeModel,
-	#superclass : #BrWidgetModel,
-	#instVars : [
-		'items'
-	],
+	#superclass : #BrTreeModel,
 	#category : #'Brick-Tree - Model'
 }

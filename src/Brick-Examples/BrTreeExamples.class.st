@@ -45,3 +45,16 @@ BrTreeExamples >> rawTree [
 
 	^ treeElement
 ]
+
+{ #category : #'as yet unclassified' }
+BrTreeExamples >> widgetTree [
+	<gtExample>
+	|  aRope aTree |
+	
+	aRope := BlConcatenationRopeExamples new attributes_small_2_to_3.
+
+	aTree := BrSimpleTree new.
+	aTree root: aRope computed: [ :eachRope | eachRope children ].
+
+	^ aTree
+]

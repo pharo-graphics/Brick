@@ -1,8 +1,8 @@
 Class {
 	#name : #BrColumnedTreeModel,
-	#superclass : #BrWidgetModel,
+	#superclass : #BrTreeModel,
 	#instVars : [
-		'items'
+		'columns'
 	],
 	#category : #'Brick-Tree - Model'
 }
