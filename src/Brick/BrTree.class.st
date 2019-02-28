@@ -14,6 +14,11 @@ BrTree >> defaultTreeModel [
 	^ self subclassResponsibility
 ]
 
+{ #category : #'api - tree' }
+BrTree >> expandRoot [
+	self viewModel expandRoot
+]
+
 { #category : #initialization }
 BrTree >> initialize [
 	super initialize.

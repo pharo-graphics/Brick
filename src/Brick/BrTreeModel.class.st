@@ -12,6 +12,11 @@ BrTreeModel >> computation [
 	^ rootNode computation
 ]
 
+{ #category : #'api - tree' }
+BrTreeModel >> expandRoot [
+	rootNode expand
+]
+
 { #category : #initialization }
 BrTreeModel >> initialize [
 	super initialize.
