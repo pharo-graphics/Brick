@@ -22,7 +22,8 @@ BrSimpleTreeLook >> initialize [
 BrSimpleTreeLook >> initializeListeners [
 	super initializeListeners.
 	
-	self when: BrTreeChildrenChanged do: [ :anEvent | self root: anEvent root ]
+	self when: BrTreeChildrenChanged do: [ :anEvent | self root: anEvent root ].
+	self when: BrSelectionChanged do: [ :anEvent | self onSelectionChanged: anEvent selection ]
 ]
 
 { #category : #initialization }
@@ -40,7 +41,8 @@ BrSimpleTreeLook >> initializeLook [
 BrSimpleTreeLook >> initializeRequests [
 	super initializeRequests.
 	
-	self request: BrTreeChildrenRequest new
+	self request: BrTreeChildrenRequest new.
+	self request: BrSelectionRequest new
 ]
 
 { #category : #initialization }
@@ -49,6 +51,11 @@ BrSimpleTreeLook >> itemStencilBuilder: aStencilBuilder [
 	itemStencilBuilder := aStencilBuilder asStencilBuilder: BrTreeRowStencilBuilder.
 
 	treeElement dataSource rowStencilBuilder: itemStencilBuilder
+]
+
+{ #category : #hooks }
+BrSimpleTreeLook >> onSelectionChanged: aBlSelection [
+	treeElement dataSource selection: aBlSelection
 ]
 
 { #category : #initialization }

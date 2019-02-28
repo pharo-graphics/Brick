@@ -6,7 +6,9 @@ Class {
 
 { #category : #'instance creation' }
 BrSimpleTreeDataSource >> onBindHolder: anElementHolder at: aPosition [
-	anElementHolder rowValue: (rootNode at: aPosition) at: aPosition
+	anElementHolder rowValue: (rootNode at: aPosition) at: aPosition.
+
+	super onBindHolder: anElementHolder at: aPosition
 ]
 
 { #category : #'instance creation' }

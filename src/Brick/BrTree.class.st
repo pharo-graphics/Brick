@@ -24,3 +24,8 @@ BrTree >> initialize [
 			BrLayoutHorizontalResizerModel matchParent.
 			BrLayoutVerticalResizerModel matchParent })).
 ]
+
+{ #category : #'api - selection' }
+BrTree >> selectOne: anIndex dueTo: aSourceEvent [
+	selectionModel selectOne: anIndex dueTo: aSourceEvent
+]

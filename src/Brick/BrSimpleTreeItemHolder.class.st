@@ -11,6 +11,7 @@ BrSimpleTreeItemHolder >> rowValue: aTreeNode at: aRowIndex [
 	rowValue := aTreeNode.
 
 	aStencil := self rowStencilBuilder
+		treeElement: treeElement;
 		treeNode: aTreeNode;
 		rowIndex: aRowIndex;
 		build.

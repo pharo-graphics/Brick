@@ -19,6 +19,13 @@ BrInteractiveCommonLook >> default: aStyleBlock [
 ]
 
 { #category : #'api - style' }
+BrInteractiveCommonLook >> deselected: aStyleBlock [
+	self
+		when: self state deselected
+		style: aStyleBlock
+]
+
+{ #category : #'api - style' }
 BrInteractiveCommonLook >> disabled: aStyleBlock [
 	self
 		when: self state disabled
@@ -57,6 +64,13 @@ BrInteractiveCommonLook >> hovered: aStyleBlock [
 BrInteractiveCommonLook >> pressed: aStyleBlock [
 	self
 		when: self state pressed
+		style: aStyleBlock
+]
+
+{ #category : #'api - style' }
+BrInteractiveCommonLook >> selected: aStyleBlock [
+	self
+		when: self state selected
 		style: aStyleBlock
 ]
 

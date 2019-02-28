@@ -19,6 +19,13 @@ BrInteractiveCommonStyler >> default: aStyleBlock [
 ]
 
 { #category : #builder }
+BrInteractiveCommonStyler >> deselected: aStyleBlock [
+	self
+		when: self state deselected
+		style: aStyleBlock
+]
+
+{ #category : #builder }
 BrInteractiveCommonStyler >> disabled: aStyleBlock [
 	self
 		when: self state disabled
@@ -71,6 +78,13 @@ BrInteractiveCommonStyler >> large: aStyleBlock [
 BrInteractiveCommonStyler >> pressed: aStyleBlock [
 	self
 		when: self state pressed
+		style: aStyleBlock
+]
+
+{ #category : #builder }
+BrInteractiveCommonStyler >> selected: aStyleBlock [
+	self
+		when: self state selected
 		style: aStyleBlock
 ]
 
