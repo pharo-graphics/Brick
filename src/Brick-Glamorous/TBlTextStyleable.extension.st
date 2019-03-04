@@ -67,3 +67,8 @@ TBlTextStyleable >> glamorousRegularFontAndSize [
 TBlTextStyleable >> glamorousRegularSize [
 	self fontSize: 14
 ]
+
+{ #category : #'*Brick-Glamorous' }
+TBlTextStyleable >> glamorousRegularSmallSize [
+	self fontSize: 12
+]
