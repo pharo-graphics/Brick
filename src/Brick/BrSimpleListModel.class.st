@@ -27,6 +27,11 @@ BrSimpleListModel >> initialize [
 ]
 
 { #category : #'api - accessing' }
+BrSimpleListModel >> itemAt: anIndex [
+	^ self items at: anIndex
+]
+
+{ #category : #'api - accessing' }
 BrSimpleListModel >> items [
 	<return: #Collection of: #BrWidgetModel>
 

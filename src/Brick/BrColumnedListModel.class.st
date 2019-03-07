@@ -65,6 +65,11 @@ BrColumnedListModel >> initialize [
 ]
 
 { #category : #'api - accessing' }
+BrColumnedListModel >> itemAt: anIndex [
+	^ self items at: anIndex
+]
+
+{ #category : #'api - accessing' }
 BrColumnedListModel >> items [
 	<return: #Collection of: #Object>
 	

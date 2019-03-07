@@ -31,6 +31,11 @@ BrTreeModel >> initializeListeners [
 	self when: BrTreeChildrenRequest reply: [ :aResponse | aResponse root: self root ]
 ]
 
+{ #category : #accessing }
+BrTreeModel >> itemAt: anIndex [
+	^ self root at: anIndex
+]
+
 { #category : #notifying }
 BrTreeModel >> notifyChildrenChanged [
 	self dispatchEvent: (BrTreeChildrenChanged new root: self root)
