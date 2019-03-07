@@ -16,7 +16,7 @@ Class {
 BrTextExpandButtonAttribute >> affect: aBrText in: anEditorElement [
 	^ BlElement new
 		size: 8 @ 11;
-		margin: (BlInsets top: 2 right: 5 bottom: 0 left: 5);
+		margin: (BlInsets top: 1 right: 5 bottom: 0 left: 5);
 		background: (Color gray alpha: 0.4);
 		geometry: self buttonGeometry;
 		addEventHandlerOn: BlClickEvent

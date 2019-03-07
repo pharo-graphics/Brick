@@ -2,8 +2,7 @@ Class {
 	#name : #BrSimpleListLook,
 	#superclass : #BrLook,
 	#instVars : [
-		'listElement',
-		'itemStencilBuilder'
+		'listElement'
 	],
 	#category : #'Brick-List - Look'
 }
@@ -47,6 +46,7 @@ BrSimpleListLook >> initializeRequests [
 
 { #category : #accessing }
 BrSimpleListLook >> itemStencilBuilder: aStencilBuilder [
+	| itemStencilBuilder |
 	"aStencilBuilder is expected to be a subclass of BrListRowStencil or a valuable"
 	itemStencilBuilder := aStencilBuilder asStencilBuilder: BrListRowStencilBuilder.
 
