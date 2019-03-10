@@ -4,7 +4,7 @@ Class {
 	#instVars : [
 		'columns'
 	],
-	#category : #'Brick-! Core'
+	#category : #'Brick-Column - Model'
 }
 
 { #category : #'private - adding' }

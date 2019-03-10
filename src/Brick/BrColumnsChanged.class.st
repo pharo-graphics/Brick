@@ -4,7 +4,7 @@ Class {
 	#instVars : [
 		'columns'
 	],
-	#category : #'Brick-! Core - Events'
+	#category : #'Brick-Column - Events'
 }
 
 { #category : #accessing }

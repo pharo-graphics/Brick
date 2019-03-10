@@ -20,7 +20,7 @@ Class {
 		'title',
 		'stencilBuilder'
 	],
-	#category : #'Brick-! Core - Support'
+	#category : #'Brick-Column - Model'
 }
 
 { #category : #accessing }
@@ -28,19 +28,19 @@ BrColumn >> initialize [
 	super initialize.
 
 	title := 'Column'.
-	stencilBuilder := BrColumnedListCellStencilBuilder new
+	stencilBuilder := BrColumnCellStencilBuilder new
 ]
 
 { #category : #accessing }
 BrColumn >> stencil [
-	<return: #BrColumnedListCellStencilBuilder>
+	<return: #BrColumnCellStencilBuilder>
 	
 	^ stencilBuilder
 ]
 
 { #category : #accessing }
 BrColumn >> stencil: aStencil [
-	stencilBuilder := aStencil asStencilBuilder: BrColumnedListCellStencilBuilder
+	stencilBuilder := aStencil asStencilBuilder: BrColumnCellStencilBuilder
 ]
 
 { #category : #accessing }

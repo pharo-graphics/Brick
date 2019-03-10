@@ -189,7 +189,7 @@ BrColumnedListExamples >> compositeAllClassesAndPackageWithIndexUsingBuilders [
 
 	aList column
 		title: 'Class';
-		stencil: BrColumnedListNameCellStencilBuilder new.
+		stencil: BrColumnNameCellStencilBuilder new.
 
 	aList column
 		title: 'Package';

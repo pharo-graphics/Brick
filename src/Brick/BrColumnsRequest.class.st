@@ -1,7 +1,7 @@
 Class {
 	#name : #BrColumnsRequest,
 	#superclass : #BrRequest,
-	#category : #'Brick-! Core - Events'
+	#category : #'Brick-Column - Events'
 }
 
 { #category : #initialization }

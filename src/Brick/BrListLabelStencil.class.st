@@ -16,7 +16,7 @@ Class {
 	#instVars : [
 		'text'
 	],
-	#category : 'Brick-List - Stencil'
+	#category : #'Brick-Column - Stencil'
 }
 
 { #category : #'instance creation' }

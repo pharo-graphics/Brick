@@ -1,33 +1,33 @@
 Class {
-	#name : #BrColumnedListCellStencilBuilder,
+	#name : #BrColumnCellStencilBuilder,
 	#superclass : #BrStencilBuilder,
 	#instVars : [
 		'rowIndex',
 		'columnIndex',
 		'rowValue'
 	],
-	#category : 'Brick-List - Support'
+	#category : #'Brick-Column - Stencil'
 }
 
 { #category : #'api - instantiation' }
-BrColumnedListCellStencilBuilder >> buildDefault [
+BrColumnCellStencilBuilder >> buildDefault [
 	^ BrListLabelStencil new text: self rowValue asRopedText
 ]
 
 { #category : #accessing }
-BrColumnedListCellStencilBuilder >> columnIndex [
+BrColumnCellStencilBuilder >> columnIndex [
 	<return: #Number>
 
 	^ columnIndex
 ]
 
 { #category : #accessing }
-BrColumnedListCellStencilBuilder >> columnIndex: aNumber [
+BrColumnCellStencilBuilder >> columnIndex: aNumber [
 	columnIndex := aNumber
 ]
 
 { #category : #'api - instantiation' }
-BrColumnedListCellStencilBuilder >> paramsOn: aStencilExecutor [
+BrColumnCellStencilBuilder >> paramsOn: aStencilExecutor [
 
 	aStencilExecutor
 		push: self rowValue;
@@ -36,23 +36,23 @@ BrColumnedListCellStencilBuilder >> paramsOn: aStencilExecutor [
 ]
 
 { #category : #accessing }
-BrColumnedListCellStencilBuilder >> rowIndex [
+BrColumnCellStencilBuilder >> rowIndex [
 	<return: #Number>
 
 	^ rowIndex
 ]
 
 { #category : #accessing }
-BrColumnedListCellStencilBuilder >> rowIndex: aNumber [
+BrColumnCellStencilBuilder >> rowIndex: aNumber [
 	rowIndex := aNumber
 ]
 
 { #category : #accessing }
-BrColumnedListCellStencilBuilder >> rowValue [
+BrColumnCellStencilBuilder >> rowValue [
 	^ rowValue
 ]
 
 { #category : #accessing }
-BrColumnedListCellStencilBuilder >> rowValue: anObject [
+BrColumnCellStencilBuilder >> rowValue: anObject [
 	rowValue := anObject
 ]
