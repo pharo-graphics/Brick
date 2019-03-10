@@ -9,11 +9,6 @@ Class {
 	#category : #'Brick-Tree - UI'
 }
 
-{ #category : #initialization }
-BrTree >> defaultTreeModel [
-	^ self subclassResponsibility
-]
-
 { #category : #'api - tree' }
 BrTree >> expandRoot [
 	self viewModel expandRoot
@@ -23,11 +18,18 @@ BrTree >> expandRoot [
 BrTree >> initialize [
 	super initialize.
 
-	self viewModel: (self defaultTreeModel
+	self viewModel: (BrTreeModel new
 		add: (selectionModel := BrSelectionModel new);
 		add: (BrInteractiveModel withAll: {
 			BrLayoutHorizontalResizerModel matchParent.
 			BrLayoutVerticalResizerModel matchParent })).
+]
+
+{ #category : #accessing }
+BrTree >> root: anObject computed: aComputationBlock [
+	"Set the root object and a computation block applied on each child recursively"
+
+	self viewModel root: anObject computed: aComputationBlock
 ]
 
 { #category : #'api - selection' }

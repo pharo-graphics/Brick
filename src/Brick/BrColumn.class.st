@@ -1,5 +1,5 @@
 "
-I represent a column within a columned list. A column has associated title and a cell stencil builder.
+I represent a column within a columned model. A column has associated title and a cell stencil builder.
 
 Cell stencil builder builds a stencil or an element for each cell within a columned list taking row value, row index and current column index into account.
 
@@ -9,21 +9,22 @@ Cell stencil builder builds a stencil or an element for each cell within a colum
 aColumn := BrListColumn new.
 aColumn title: 'Column'.
 aColumn stencil: [ :aRowValue :aRowIndex :aColumnIndex | BrListLabelStencil new text: aRowValue asString ].
-aColumn	
+aColumn
+
 ]]]
 "
 Class {
-	#name : #BrListColumn,
+	#name : #BrColumn,
 	#superclass : #Object,
 	#instVars : [
 		'title',
 		'stencilBuilder'
 	],
-	#category : 'Brick-List - Model'
+	#category : #'Brick-! Core - Support'
 }
 
-{ #category : #initialization }
-BrListColumn >> initialize [
+{ #category : #accessing }
+BrColumn >> initialize [
 	super initialize.
 
 	title := 'Column'.
@@ -31,25 +32,25 @@ BrListColumn >> initialize [
 ]
 
 { #category : #accessing }
-BrListColumn >> stencil [
+BrColumn >> stencil [
 	<return: #BrColumnedListCellStencilBuilder>
 	
 	^ stencilBuilder
 ]
 
-{ #category : #'api - accessing' }
-BrListColumn >> stencil: aStencil [
+{ #category : #accessing }
+BrColumn >> stencil: aStencil [
 	stencilBuilder := aStencil asStencilBuilder: BrColumnedListCellStencilBuilder
 ]
 
-{ #category : #'api - accessing' }
-BrListColumn >> title [
+{ #category : #accessing }
+BrColumn >> title [
 	<return: #String>
 
 	^ title
 ]
 
-{ #category : #'api - accessing' }
-BrListColumn >> title: aStringOrText [
+{ #category : #accessing }
+BrColumn >> title: aStringOrText [
 	title := aStringOrText
 ]

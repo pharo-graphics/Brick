@@ -83,8 +83,10 @@ BrColumnedListExamples >> columnedListModel [
 	<gtExample>
 	| aColumnedListModel |
 	
-	aColumnedListModel := BrColumnedListModel new.
-	self assert: aColumnedListModel columns isEmpty.
+	aColumnedListModel := BrListModel new.
+	aColumnedListModel add: BrColumnedModel new.
+	
+	self assert: aColumnedListModel children first columns isEmpty.
 	
 	^ aColumnedListModel
 ]
@@ -247,7 +249,7 @@ BrColumnedListExamples >> createColumnedListRowWithBlock [
 BrColumnedListExamples >> listColumn [
 	<gtExample>
 	| aListColumn |
-	aListColumn := BrListColumn new.
+	aListColumn := BrColumn new.
 	
 	self assert: aListColumn title equals: 'Column'.
 

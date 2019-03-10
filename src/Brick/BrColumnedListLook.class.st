@@ -24,7 +24,7 @@ BrColumnedListLook >> initializeListeners [
 	super initializeListeners.
 	
 	self when: BrListItemsChangedEvent do: [ :anEvent | self onItemsChanged: anEvent items ].
-	self when: BrListColumnsChangedEvent do: [ :anEvent | self onColumnsChanged: anEvent columns ].
+	self when: BrColumnsChanged do: [ :anEvent | self onColumnsChanged: anEvent columns ].
 	self when: BrSelectionChanged do: [ :anEvent | self onSelectionChanged: anEvent selection ]
 ]
 
@@ -44,7 +44,7 @@ BrColumnedListLook >> initializeRequests [
 	super initializeRequests.
 	
 	self request: BrListItemsRequest new.
-	self request: BrListColumnsRequest new.
+	self request: BrColumnsRequest new.
 	self request: BrSelectionRequest new
 ]
 

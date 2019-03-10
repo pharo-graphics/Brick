@@ -1,21 +1,21 @@
 Class {
-	#name : #BrColumnedList,
-	#superclass : #BrList,
+	#name : #BrColumnedTree,
+	#superclass : #BrTree,
 	#instVars : [
 		'columnedModel'
 	],
-	#category : #'Brick-List - UI'
+	#category : #'Brick-Tree - UI'
 }
 
 { #category : #'api - scripting' }
-BrColumnedList >> column [
+BrColumnedTree >> column [
 	<return: #BlColumn>
 
 	^ columnedModel column
 ]
 
 { #category : #initialization }
-BrColumnedList >> initialize [
+BrColumnedTree >> initialize [
 	super initialize.
 
 	self viewModel add: (columnedModel := BrColumnedModel new).
@@ -25,6 +25,6 @@ BrColumnedList >> initialize [
 ]
 
 { #category : #'api - scripting' }
-BrColumnedList >> rowStencil: aRowStencil [
+BrColumnedTree >> rowStencil: aRowStencil [
 	self look rowStencilBuilder: aRowStencil
 ]

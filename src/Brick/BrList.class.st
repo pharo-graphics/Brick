@@ -9,11 +9,6 @@ Class {
 	#category : #'Brick-List - UI'
 }
 
-{ #category : #initialization }
-BrList >> defaultListModel [
-	^ self subclassResponsibility
-]
-
 { #category : #'api - selection' }
 BrList >> deselectAll [
 	"Deselect all items"
@@ -30,7 +25,7 @@ BrList >> display: aCollectionOfValues [
 BrList >> initialize [
 	super initialize.
 	
-	self viewModel: (self defaultListModel
+	self viewModel: (BrListModel new
 		add: (selectionModel := BrSelectionModel new);
 		add: (BrInteractiveModel withAll: {
 			BrLayoutHorizontalResizerModel matchParent.

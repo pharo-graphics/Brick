@@ -5,11 +5,6 @@ Class {
 }
 
 { #category : #initialization }
-BrGridList >> defaultListModel [
-	^ BrSimpleListModel new
-]
-
-{ #category : #initialization }
 BrGridList >> initialize [
 	super initialize.
 

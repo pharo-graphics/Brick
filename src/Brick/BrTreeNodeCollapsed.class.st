@@ -6,7 +6,7 @@ Class {
 		'to',
 		'node'
 	],
-	#category : #'Brick-Tree - Model'
+	#category : #'Brick-Tree - Events'
 }
 
 { #category : #accessing }

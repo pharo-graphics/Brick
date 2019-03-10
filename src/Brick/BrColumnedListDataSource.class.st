@@ -9,7 +9,7 @@ Class {
 
 { #category : #accessing }
 BrColumnedListDataSource >> columns [
-	<return: #Collection of: #BrListColumn>
+	<return: #Collection of: #BrColumn>
 	^ columns
 ]
 

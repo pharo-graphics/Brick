@@ -1,17 +1,14 @@
-"
-I am a simple list model without column support
-"
 Class {
-	#name : #BrSimpleListModel,
+	#name : #BrListModel,
 	#superclass : #BrWidgetModel,
 	#instVars : [
 		'items'
 	],
-	#category : 'Brick-List - Model'
+	#category : #'Brick-List - Model'
 }
 
 { #category : #'gt-inspector-extension' }
-BrSimpleListModel >> gtInspectorItemsIn: aComposite [
+BrListModel >> gtInspectorItemsIn: aComposite [
 	<gtInspectorPresentationOrder: 2>
 
 	^ aComposite fastList
@@ -20,35 +17,35 @@ BrSimpleListModel >> gtInspectorItemsIn: aComposite [
 ]
 
 { #category : #initialization }
-BrSimpleListModel >> initialize [
+BrListModel >> initialize [
 	super initialize.
 	
 	items := #()
 ]
 
 { #category : #'api - accessing' }
-BrSimpleListModel >> itemAt: anIndex [
+BrListModel >> itemAt: anIndex [
 	^ self items at: anIndex
 ]
 
 { #category : #'api - accessing' }
-BrSimpleListModel >> items [
-	<return: #Collection of: #BrWidgetModel>
-
+BrListModel >> items [
+	<return: #Collection of: #Object>
+	
 	^ items
 ]
 
 { #category : #'api - accessing' }
-BrSimpleListModel >> items: aCollectionOfBrWidgetModel [
+BrListModel >> items: aCollectionOfBrWidgetModel [
 
 	items := aCollectionOfBrWidgetModel.
 	self dispatchEvent: (BrListItemsChangedEvent items: self items)
 ]
 
 { #category : #hooks }
-BrSimpleListModel >> onAttachedTo: anElement [
+BrListModel >> onAttachedTo: anElement [
 	super onAttachedTo: anElement.
 
 	"answer if somebody is interested in what items I have"
-	self when: BrListItemsRequest reply: [ BrListItemsChangedEvent items: self items ]
+	self when: BrListItemsRequest reply: [ :aResponse | aResponse items: self items ]
 ]

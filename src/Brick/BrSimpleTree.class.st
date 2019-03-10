@@ -5,22 +5,10 @@ Class {
 }
 
 { #category : #initialization }
-BrSimpleTree >> defaultTreeModel [
-	^ BrSimpleTreeModel new
-]
-
-{ #category : #initialization }
 BrSimpleTree >> initialize [
 	super initialize.
 	
 	self look: BrSimpleTreeLook new
-]
-
-{ #category : #accessing }
-BrSimpleTree >> root: anObject computed: aComputationBlock [
-	"Set the root object and a computation block applied on each child recursively"
-
-	self viewModel root: anObject computed: aComputationBlock
 ]
 
 { #category : #accessing }
