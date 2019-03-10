@@ -38,13 +38,19 @@ BrColumnedTreeItemHolder >> rowValue: aTreeNode at: aRowIndex [
 
 	itemElement := aRowStencil asElement.
 
-	theCellElements := self columns withIndexCollect: [ :aColumn :aColumnIndex |	
-		(aColumn stencil
+	theCellElements := self columns withIndexCollect: [ :aColumn :aColumnIndex |
+		| aCellElement |
+		aCellElement := (aColumn stencil
 			rowValue: rowValue;
 			rowIndex: aRowIndex;
 			columnIndex: aColumnIndex;
-			build) asElement ].
+			build) asElement.
+		
+		aColumn width applyOn: aCellElement.
+		aCellElement ].
 
+	self columns first width applyOn: (itemElement childNamed: #expander).
 	itemElement addChild: theCellElements first in: #expander.
+
 	itemElement addChildren: theCellElements allButFirst
 ]

@@ -18,17 +18,19 @@ Class {
 	#superclass : #Object,
 	#instVars : [
 		'title',
-		'stencilBuilder'
+		'stencilBuilder',
+		'width'
 	],
 	#category : #'Brick-Column - Model'
 }
 
-{ #category : #accessing }
+{ #category : #initialization }
 BrColumn >> initialize [
 	super initialize.
 
 	title := 'Column'.
-	stencilBuilder := BrColumnCellStencilBuilder new
+	stencilBuilder := BrColumnCellStencilBuilder new.
+	width := BrColumnUndefinedWidth new
 ]
 
 { #category : #accessing }
@@ -53,4 +55,21 @@ BrColumn >> title [
 { #category : #accessing }
 BrColumn >> title: aStringOrText [
 	title := aStringOrText
+]
+
+{ #category : #accessing }
+BrColumn >> weight: aNumber [
+	width := BrColumnProportionalWidth new weight: aNumber
+]
+
+{ #category : #accessing }
+BrColumn >> width [
+	<return: #BrColumnWidth>
+
+	^ width
+]
+
+{ #category : #accessing }
+BrColumn >> width: aNumber [
+	width := BrColumnFixedWidth new width: aNumber
 ]

@@ -57,9 +57,11 @@ BrTreeExamples >> widgetColumnedTree [
 	aTree root: aRope computed: [ :eachRope | eachRope children ].
 	aTree column
 		title: 'Text';
+		width: 150;
 		stencil: [ :aTreeNode | BrColumnCellLabelStencil new text: aTreeNode value ].
 	aTree column
 		title: 'Length';
+		weight: 2;
 		stencil: [ :aTreeNode | BrColumnCellLabelStencil new text: aTreeNode value size asString ].
 
 	^ aTree
