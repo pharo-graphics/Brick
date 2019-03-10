@@ -20,11 +20,12 @@ BrColumnedTree >> initialize [
 
 	self viewModel add: (columnedModel := BrColumnedModel new).
 
-	self look: BrColumnedListLook new.
-	self rowStencil: BrListClickableRowStencilBuilder new
+	self look: BrColumnedTreeLook new
 ]
 
 { #category : #'api - scripting' }
 BrColumnedTree >> rowStencil: aRowStencil [
+	"A row stencil builder can be a valuable of the form [ :aTreeNode :anIndex :aTreeWidget | ]"
+
 	self look rowStencilBuilder: aRowStencil
 ]

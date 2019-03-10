@@ -13,7 +13,7 @@ BrSimpleTree >> initialize [
 
 { #category : #accessing }
 BrSimpleTree >> stencil: aTreeRowStencilBuilder [
-	"Astencil builder can be a valuable of the form [ :aTreeNode :anIndex :aTreeWidget | ]"
+	"A stencil builder can be a valuable of the form [ :aTreeNode :anIndex :aTreeWidget | ]"
 
-	self look itemStencilBuilder: aTreeRowStencilBuilder
+	self look rowStencilBuilder: aTreeRowStencilBuilder
 ]
