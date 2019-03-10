@@ -14,6 +14,6 @@ BrSimpleTreeRowStencilBuilder >> buildDefault [
 		rowIndex: self rowIndex;
 		treeElement: self treeElement) asElement.
 
-	aContainer addChild: (BlTextElement new text: self treeNode value gtDisplayString asRopedText).
+	aContainer addChild: (BlTextElement new text: self treeNode value gtDisplayString asRopedText) in: #expander.
 	^ aContainer
 ]

@@ -44,6 +44,7 @@ BrColumnedTreeItemHolder >> rowValue: aTreeNode at: aRowIndex [
 			rowIndex: aRowIndex;
 			columnIndex: aColumnIndex;
 			build) asElement ].
-	
-	itemElement addChildren: theCellElements
+
+	itemElement addChild: theCellElements first in: #expander.
+	itemElement addChildren: theCellElements allButFirst
 ]

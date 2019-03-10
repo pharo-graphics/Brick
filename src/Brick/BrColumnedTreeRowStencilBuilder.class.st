@@ -7,7 +7,7 @@ Class {
 { #category : #'api - instantiation' }
 BrColumnedTreeRowStencilBuilder >> buildDefault [
 	<return: #BrStencil or: #BlElement>
-	| aContainer aNode aRowIndex |
+	| aContainer aNode aRowIndex anExpander |
 	
 	aNode := self treeNode.
 	aRowIndex := self rowIndex.
@@ -21,14 +21,20 @@ BrColumnedTreeRowStencilBuilder >> buildDefault [
 		BrButtonModel new action: [ :aWidget :aButtonModel :anEvent | self treeElement selectOne: aRowIndex dueTo: anEvent ].
 		BrInteractiveModel new addState: BrSelectModel new
 	}).
-	
-	aContainer padding: (BlInsets left: aNode depth * 15).
+
 	aContainer constraintsDo: [ :c |
 		c horizontal matchParent.
 		c vertical fitContent ].
 	aContainer layout: BlLinearLayout horizontal alignCenterLeft.
 
-	aContainer addChild: (
+	anExpander := BlElement new.
+	anExpander padding: (BlInsets left: aNode depth * 15).
+	anExpander constraintsDo: [ :c |
+		c horizontal matchParent.
+		c vertical fitContent ].
+	anExpander layout: BlLinearLayout horizontal alignCenterLeft.
+	
+	anExpander addChild: (
 		BlElement new
 			geometry: BlEllipse new;
 			margin: (BlInsets all: 2);
@@ -51,6 +57,8 @@ BrColumnedTreeRowStencilBuilder >> buildDefault [
 					ifTrue: [ BlPolygon vertices: { 2@2 . 10@2 . 6@10 } ]
 					ifFalse: [ BlPolygon vertices: { 2@2 . 10@6 . 2@10 } ]))
 			).
+		
+	aContainer addChild: anExpander as: #expander.
 
 	^ aContainer
 ]
