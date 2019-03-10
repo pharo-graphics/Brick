@@ -11,7 +11,7 @@ Class {
 
 { #category : #'api - instantiation' }
 BrColumnCellStencilBuilder >> buildDefault [
-	^ BrListLabelStencil new text: self rowValue asRopedText
+	^ BrColumnCellLabelStencil new text: self rowValue asRopedText
 ]
 
 { #category : #accessing }

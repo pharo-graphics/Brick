@@ -12,7 +12,7 @@ BrColumnedListExamples >> addColorIndexColumn [
 	aColumnedListModel := self columnedListModel.
 	aColumnedListModel column
 		title: 'Index';
-		stencil: [ :aRowValue :aRowIndex | BrListLabelStencil new text: aRowIndex asString ].
+		stencil: [ :aRowValue :aRowIndex | BrColumnCellLabelStencil new text: aRowIndex asString ].
 
 	self assert: aColumnedListModel columns size equals: 1.
 	self assert: aColumnedListModel columns first title equals: 'Index'.
@@ -28,7 +28,7 @@ BrColumnedListExamples >> addColorNameColumn [
 	aColumnedListModel := self addColorIndexColumn.
 	aColumnedListModel column
 		title: 'Color';
-		stencil: [ :aRowValue :aRowIndex | BrListLabelStencil new text: aRowValue name asString ].
+		stencil: [ :aRowValue :aRowIndex | BrColumnCellLabelStencil new text: aRowValue name asString ].
 
 	self assert: aColumnedListModel columns size equals: 2.
 	self assert: aColumnedListModel columns second title equals: 'Color'.
@@ -137,11 +137,11 @@ BrColumnedListExamples >> compositeAllClassesAndPackage [
 	aList display: Smalltalk allClasses.
 	aList column
 		title: 'Class';
-		stencil: [ :aClass | BrListLabelStencil new text: aClass name asString ].
+		stencil: [ :aClass | BrColumnCellLabelStencil new text: aClass name asString ].
 		
 	aList column
 		title: 'Package';
-		stencil: [ :aClass | BrListLabelStencil new text: aClass package name asString ].
+		stencil: [ :aClass | BrColumnCellLabelStencil new text: aClass package name asString ].
 
 	^ aList
 ]
@@ -163,11 +163,11 @@ BrColumnedListExamples >> compositeAllClassesAndPackageWithIndex [
 
 	aList column
 		title: 'Class';
-		stencil: [ :aClass | (BrListLabelStencil new text: aClass name asString) asElement width: 200 ].
+		stencil: [ :aClass | (BrColumnCellLabelStencil new text: aClass name asString) asElement width: 200 ].
 
 	aList column
 		title: 'Package';
-		stencil: [ :aClass | BrListLabelStencil new text: aClass package name asString ].
+		stencil: [ :aClass | BrColumnCellLabelStencil new text: aClass package name asString ].
 
 	^ aList
 ]
@@ -193,7 +193,7 @@ BrColumnedListExamples >> compositeAllClassesAndPackageWithIndexUsingBuilders [
 
 	aList column
 		title: 'Package';
-		stencil: [ :aClass | BrListLabelStencil new text: aClass package name asString ].
+		stencil: [ :aClass | BrColumnCellLabelStencil new text: aClass package name asString ].
 
 	^ aList
 ]

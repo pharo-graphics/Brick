@@ -42,7 +42,7 @@ BrListStencilExamples >> listLabelStencil [
 	<gtExample>
 	| aStencil |
 	
-	aStencil := BrListLabelStencil new.
+	aStencil := BrColumnCellLabelStencil new.
 	self assert: aStencil text asString equals: 'Label'.
 
 	^ aStencil

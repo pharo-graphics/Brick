@@ -7,6 +7,5 @@ Class {
 { #category : #'api - instantiation' }
 BrColumnNameCellStencilBuilder >> buildDefault [
 	
-	^ BrListLabelStencil new
-		text: self rowValue name asRopedText
+	^ BrColumnCellLabelStencil new text: self rowValue name asRopedText
 ]

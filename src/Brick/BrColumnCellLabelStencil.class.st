@@ -1,6 +1,4 @@
 "
-! Use BrColumnCellLabelStencil instead
-
 I create a label only element to be used within a list widget, both in a simple and columned lists.
 
 [[[
@@ -13,7 +11,7 @@ anElement := aStencil create
 ]]]
 "
 Class {
-	#name : #BrListLabelStencil,
+	#name : #BrColumnCellLabelStencil,
 	#superclass : #BrStencil,
 	#instVars : [
 		'text'
@@ -22,7 +20,7 @@ Class {
 }
 
 { #category : #'instance creation' }
-BrListLabelStencil class >> fitContent: aText [
+BrColumnCellLabelStencil class >> fitContent: aText [
 	^ BlTextElement new
 		margin: (BlInsets all: 3);
 		text: aText asRopedText;
@@ -31,13 +29,8 @@ BrListLabelStencil class >> fitContent: aText [
 			c vertical fitContent ]
 ]
 
-{ #category : #deprecation }
-BrListLabelStencil class >> isDeprecated [
-	^ true
-]
-
 { #category : #'instance creation' }
-BrListLabelStencil class >> matchParent: aText [
+BrColumnCellLabelStencil class >> matchParent: aText [
 	^ BlTextElement new
 		margin: (BlInsets all: 3);
 		text: aText asRopedText;
@@ -47,7 +40,7 @@ BrListLabelStencil class >> matchParent: aText [
 ]
 
 { #category : #'api - instantiation' }
-BrListLabelStencil >> create [
+BrColumnCellLabelStencil >> create [
 	^ BlTextElement new
 		margin: (BlInsets all: 3);
 		text: self text;
@@ -57,20 +50,20 @@ BrListLabelStencil >> create [
 ]
 
 { #category : #initialization }
-BrListLabelStencil >> initialize [
+BrColumnCellLabelStencil >> initialize [
 	super initialize.
 	
 	text := 'Label' asRopedText
 ]
 
 { #category : #accessing }
-BrListLabelStencil >> text [
+BrColumnCellLabelStencil >> text [
 	<return: #BlText>
 
 	^ text
 ]
 
 { #category : #accessing }
-BrListLabelStencil >> text: aBrTextOrString [
+BrColumnCellLabelStencil >> text: aBrTextOrString [
 	text := aBrTextOrString asRopedText
 ]
