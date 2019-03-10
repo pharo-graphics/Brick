@@ -27,6 +27,8 @@ BrTreeDataSource >> itemCount [
 
 { #category : #'instance creation' }
 BrTreeDataSource >> onBindHolder: anElementHolder at: aPosition [
+	anElementHolder rowValue: (rootNode at: aPosition) at: aPosition.
+
 	(self selection contains: aPosition)
 		ifTrue: [ anElementHolder itemElement dispatchEvent: (BrSelectedWish new selected: true) ]
 		ifFalse: [ anElementHolder itemElement dispatchEvent: (BrSelectedWish new selected: false) ]
