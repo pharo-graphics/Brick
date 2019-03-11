@@ -28,6 +28,13 @@ BrExpansionChanged >> expanded: aBoolean [
 	expanded := aBoolean
 ]
 
+{ #category : #initialization }
+BrExpansionChanged >> initialize [
+	super initialize.
+	
+	expanded := false
+]
+
 { #category : #testing }
 BrExpansionChanged >> isCollapsed [
 	^ self expanded not

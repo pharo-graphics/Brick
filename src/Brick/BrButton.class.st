@@ -6,7 +6,8 @@ Class {
 		'iconModel',
 		'activationModel',
 		'interactiveModel',
-		'dimensionModel'
+		'dimensionModel',
+		'expandableModel'
 	],
 	#category : #'Brick-Button - UI'
 }
@@ -83,7 +84,8 @@ BrButton >> initialize [
 				activationModel := BrActivationModel new.
 				BrPressModel new.
 				BrHoverModel new.
-				dimensionModel := BrDimensionModel new
+				dimensionModel := BrDimensionModel new.
+				expandableModel := BrExpandableModel new
 			}))
 ]
 

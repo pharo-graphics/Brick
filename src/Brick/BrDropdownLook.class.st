@@ -40,16 +40,26 @@ BrDropdownLook >> dropdownCollapsed [
 	self isExpanded
 		ifFalse: [ ^ self ].
 
+	toggleElement visibility: BlVisibility visible.
+
 	self popupElement removeFromParent.
 	popupElement := nil
 ]
 
 { #category : #hooks }
 BrDropdownLook >> dropdownExpanded [
+	self isExpanded
+		ifTrue: [ ^ self ].
+
+	toggleElement visibility: BlVisibility hidden.
+
 	self widgetDo: [ :aWidget |
 		aWidget isAttachedToSceneGraph
 			ifTrue: [
 				(dropdownTargetSelector cull: aWidget) addChild: (popupElement := self createPopupElement).
+				
+				(popupElement childNamed: #toggle) dispatchEvent: (BrExpansionWish expand).
+				
 				self relocatePopup ] ]
 ]
 
@@ -73,17 +83,16 @@ BrDropdownLook >> initialize [
 	popupEmbellisher := BrDropdownPopupEmbellisher new.
 	outskirtsEmbellisher := BrDropdownOutskirtsEmbellisher new.
 	
-	dropdownTargetSelector := [ :aWidget | aWidget space ]
+	dropdownTargetSelector := [ :aWidget | aWidget space ].
+	
+	self add: (BrInteractiveCommonLook new
+		collapsed: [ self dropdownCollapsed ];
+		expanded: [ self dropdownExpanded ])
 ]
 
 { #category : #initialization }
 BrDropdownLook >> initializeListeners [
 	super initializeListeners.
-
-	self when: BrExpansionChanged do: [ :anEvent |
-		anEvent isExpanded
-			ifTrue: [ self dropdownExpanded ]
-			ifFalse: [ self dropdownCollapsed ] ].
 
 	self when: BrDropdownPopupStencilChanged do: [ :anEvent | self popupStencil: anEvent stencil ].
 	self when: BrDropdownToggleStencilChanged do: [ :anEvent | self toggleStencil: anEvent stencil ]

@@ -2,26 +2,18 @@ Class {
 	#name : #BrTreeModel,
 	#superclass : #BrWidgetModel,
 	#instVars : [
-		'rootNode'
+		'rootNode',
+		'isRootShown'
 	],
 	#category : #'Brick-Tree - Model'
 }
-
-{ #category : #accessing }
-BrTreeModel >> computation [
-	^ rootNode computation
-]
-
-{ #category : #'api - tree' }
-BrTreeModel >> expandRoot [
-	rootNode expand
-]
 
 { #category : #initialization }
 BrTreeModel >> initialize [
 	super initialize.
 
-	rootNode := BrTreeNode on: nil computed: [ :eachChild | #() ]
+	rootNode := BrTreeNode on: nil computed: [ :eachChild | #() ].
+	isRootShown := false
 ]
 
 { #category : #initialization }
@@ -33,7 +25,16 @@ BrTreeModel >> initializeListeners [
 
 { #category : #accessing }
 BrTreeModel >> itemAt: anIndex [
-	^ self root at: anIndex
+	^ self root at: anIndex + (isRootShown not asBit)
+]
+
+{ #category : #accessing }
+BrTreeModel >> items: aCollectionOfItems children: aBlockOrValuable [
+	rootNode := BrTreeNode on: aCollectionOfItems computed: #value.
+	rootNode children: aCollectionOfItems computed: aBlockOrValuable.
+	rootNode expand.
+
+	self notifyChildrenChanged
 ]
 
 { #category : #notifying }
@@ -52,9 +53,4 @@ BrTreeModel >> root [
 BrTreeModel >> root: anObject computed: aBlockOrValuable [
 	rootNode := BrTreeNode on: anObject computed: aBlockOrValuable.
 	self notifyChildrenChanged
-]
-
-{ #category : #accessing }
-BrTreeModel >> rootValue [
-	^ rootNode value
 ]

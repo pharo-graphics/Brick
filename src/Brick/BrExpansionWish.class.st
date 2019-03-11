@@ -33,3 +33,8 @@ BrExpansionWish >> initialize [
 	
 	expanded := false
 ]
+
+{ #category : #testing }
+BrExpansionWish >> isExpanded [
+	^ expanded
+]

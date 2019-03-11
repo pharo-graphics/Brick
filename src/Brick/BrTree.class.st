@@ -9,11 +9,6 @@ Class {
 	#category : #'Brick-Tree - UI'
 }
 
-{ #category : #'api - tree' }
-BrTree >> expandRoot [
-	self viewModel expandRoot
-]
-
 { #category : #initialization }
 BrTree >> initialize [
 	super initialize.
@@ -26,10 +21,10 @@ BrTree >> initialize [
 ]
 
 { #category : #accessing }
-BrTree >> root: anObject computed: aComputationBlock [
-	"Set the root object and a computation block applied on each child recursively"
+BrTree >> items: aCollectionOfItems children: aBlockOrValuable [
+	"Set the root itemss and a computation block applied on each child recursively"
 
-	self viewModel root: anObject computed: aComputationBlock
+	self viewModel items: aCollectionOfItems children: aBlockOrValuable
 ]
 
 { #category : #'api - selection' }

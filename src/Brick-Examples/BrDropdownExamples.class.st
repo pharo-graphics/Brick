@@ -24,22 +24,18 @@ BrDropdownExamples >> popupList [
 	<gtExample>
 	
 	^ BrSimpleListExamples new exampleWithSelection
-		lookDo: [ :aLook | aLook listElement constraintsDo: [ :c |
-			c vertical fitContent.
-			c horizontal matchParent.
-			c maxHeight: 200 ] ];
+		lookDo: [ :aLook | aLook listElement constraintsDo: [ :c | c maxHeight: 200 ] ];
 		layout: BlLinearLayout vertical;
 		padding: (BlInsets all: 5);
-		constraintsDo: [ :c |
-			c vertical fitContent.
-			c horizontal exact: 200 ]
+		vFitContent;
+		hExact: 200
 ]
 
 { #category : #'instance creation' }
 BrDropdownExamples >> roundLook [
 	<gtExample>
 
-	^ BrDropdownLook new outskirtsEmbellisher: [ :e | e look: BrDropdownOutskirtsLook new ]
+	^ BrDropdownLook new
 ]
 
 { #category : #examples }
@@ -101,7 +97,7 @@ BrDropdownExamples >> toggleButton [
 	<gtExample>
 
 	^ BrButton new
-		look: BrGlamorousButtonWithLabelLook;
+		look: BrGlamorousDropdownToggleButtonWithLabelAndIconLook;
 		padding: (BlInsets top: 6 right: 8 bottom: 6 left: 15);
 		label: 'instance';
 		icon: (BlElement new

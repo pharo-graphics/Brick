@@ -22,12 +22,12 @@ BrTreeDataSource >> itemCount [
 	"Return the total number of items in the data set"
 	<return: #Number>
 
-	^ rootNode size
+	^ rootNode size - 1
 ]
 
 { #category : #'instance creation' }
 BrTreeDataSource >> onBindHolder: anElementHolder at: aPosition [
-	anElementHolder rowValue: (rootNode at: aPosition) at: aPosition.
+	anElementHolder rowValue: (rootNode at: aPosition + 1) at: aPosition.
 
 	(self selection contains: aPosition)
 		ifTrue: [ anElementHolder itemElement dispatchEvent: (BrSelectedWish new selected: true) ]
@@ -52,12 +52,6 @@ BrTreeDataSource >> rootNode: aTreeNode [
 	rootNode announcer weak when: BrTreeNodeExpanded send: #onExpanded: to: self.
 	rootNode announcer weak when: BrTreeNodeCollapsed send: #onCollapsed: to: self.
 	
-	self notifyChanged
-]
-
-{ #category : #accessing }
-BrTreeDataSource >> rootValue: anObject computaton: aBlock [
-	rootNode := BrTreeNode on: anObject computed: aBlock.
 	self notifyChanged
 ]
 

@@ -52,6 +52,15 @@ BrTreeNode >> children [
 	^ children keys
 ]
 
+{ #category : #'instance creation' }
+BrTreeNode >> children: aCollectionOfValues computed: aComputationBlock [
+	
+	children := OrderedIdentityDictionary new.
+
+	aCollectionOfValues do: [ :eachValue |
+		children at: eachValue put: ((self class on: eachValue computed: aComputationBlock) parent: self) ]
+]
+
 { #category : #accessing }
 BrTreeNode >> childrenDo: aBlock [
 	children keysDo: aBlock
