@@ -1,6 +1,10 @@
 Class {
 	#name : #BrColumnedTreeRowStencilBuilder,
 	#superclass : #BrTreeRowStencilBuilder,
+	#instVars : [
+		'cellSpacing',
+		'padding'
+	],
 	#category : #'Brick-Tree - Stencil'
 }
 
@@ -25,14 +29,15 @@ BrColumnedTreeRowStencilBuilder >> buildDefault [
 	aContainer constraintsDo: [ :c |
 		c horizontal matchParent.
 		c vertical fitContent ].
-	aContainer layout: BlLinearLayout horizontal alignCenterLeft.
+	aContainer layout: (BlLinearLayout horizontal alignCenterLeft cellSpacing: self cellSpacing).
+	aContainer padding: self padding.
 
 	anExpander := BlElement new.
 	anExpander padding: (BlInsets left: aNode depth * 15).
 	anExpander constraintsDo: [ :c |
 		c horizontal matchParent.
 		c vertical fitContent ].
-	anExpander layout: BlLinearLayout horizontal alignCenterLeft.
+	anExpander layout: (BlLinearLayout horizontal alignCenterLeft cellSpacing: self cellSpacing).
 	
 	anExpander addChild: (
 		BlElement new
@@ -61,4 +66,32 @@ BrColumnedTreeRowStencilBuilder >> buildDefault [
 	aContainer addChild: anExpander as: #expander.
 
 	^ aContainer
+]
+
+{ #category : #accessing }
+BrColumnedTreeRowStencilBuilder >> cellSpacing [
+	^ cellSpacing
+]
+
+{ #category : #accessing }
+BrColumnedTreeRowStencilBuilder >> cellSpacing: aNumber [
+	cellSpacing := aNumber
+]
+
+{ #category : #initialization }
+BrColumnedTreeRowStencilBuilder >> initialize [
+	super initialize.
+	
+	cellSpacing := 0.
+	padding := BlInsets empty
+]
+
+{ #category : #accessing }
+BrColumnedTreeRowStencilBuilder >> padding [
+	^ padding
+]
+
+{ #category : #accessing }
+BrColumnedTreeRowStencilBuilder >> padding: aBlInsets [
+	padding := aBlInsets
 ]
