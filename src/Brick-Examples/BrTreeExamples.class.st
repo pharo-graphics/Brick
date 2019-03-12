@@ -54,7 +54,7 @@ BrTreeExamples >> widgetColumnedTree [
 	aRope := BlConcatenationRopeExamples new attributes_small_2_to_3.
 
 	aTree := BrColumnedTree new.
-	aTree root: aRope computed: [ :eachRope | eachRope children ].
+	aTree items: { aRope } children: [ :eachRope | eachRope children ].
 	aTree column
 		title: 'Text';
 		width: 150;
@@ -75,7 +75,7 @@ BrTreeExamples >> widgetTree [
 	aRope := BlConcatenationRopeExamples new attributes_small_2_to_3.
 
 	aTree := BrSimpleTree new.
-	aTree root: aRope computed: [ :eachRope | eachRope children ].
+	aTree items: { aRope } children: [ :eachRope | eachRope children ].
 
 	^ aTree
 ]

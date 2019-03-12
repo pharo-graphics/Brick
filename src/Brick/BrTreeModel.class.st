@@ -25,13 +25,15 @@ BrTreeModel >> initializeListeners [
 
 { #category : #accessing }
 BrTreeModel >> itemAt: anIndex [
-	^ self root at: anIndex + (isRootShown not asBit)
+	^ self root at: anIndex
 ]
 
 { #category : #accessing }
 BrTreeModel >> items: aCollectionOfItems children: aBlockOrValuable [
+
 	rootNode := BrTreeNode on: aCollectionOfItems computed: #value.
 	rootNode children: aCollectionOfItems computed: aBlockOrValuable.
+	rootNode hide.
 	rootNode expand.
 
 	self notifyChildrenChanged
@@ -47,10 +49,4 @@ BrTreeModel >> root [
 	<return: #BrTreeNode>
 
 	^ rootNode
-]
-
-{ #category : #accessing }
-BrTreeModel >> root: anObject computed: aBlockOrValuable [
-	rootNode := BrTreeNode on: anObject computed: aBlockOrValuable.
-	self notifyChildrenChanged
 ]

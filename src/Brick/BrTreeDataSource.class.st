@@ -22,12 +22,12 @@ BrTreeDataSource >> itemCount [
 	"Return the total number of items in the data set"
 	<return: #Number>
 
-	^ rootNode size - 1
+	^ rootNode size
 ]
 
 { #category : #'instance creation' }
 BrTreeDataSource >> onBindHolder: anElementHolder at: aPosition [
-	anElementHolder rowValue: (rootNode at: aPosition + 1) at: aPosition.
+	anElementHolder rowValue: (rootNode at: aPosition) at: aPosition.
 
 	(self selection contains: aPosition)
 		ifTrue: [ anElementHolder itemElement dispatchEvent: (BrSelectedWish new selected: true) ]

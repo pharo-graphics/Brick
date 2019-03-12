@@ -6,6 +6,7 @@ Class {
 		'computation',
 		'children',
 		'isExpanded',
+		'isHidden',
 		'parent',
 		'announcer'
 	],
@@ -31,10 +32,10 @@ BrTreeNode >> at: anIndex [
 		assert: [ anIndex between: 1 and: self size ]
 		description: [ 'Index must be within node bounds' ].
 
-	anIndex = 1
+	(anIndex + isHidden asBit) = 1
 		ifTrue: [ ^ self ].
 	
-	aLocalIndex := anIndex - 1.	
+	aLocalIndex := anIndex - 1 + isHidden asBit.	
 	
 	self childrenNodesDo: [ :eachNode |
 		| aNodeSize |
@@ -98,7 +99,7 @@ BrTreeNode >> computation [
 BrTreeNode >> depth [
 	^ self hasParent
 		ifTrue: [ self parent depth + 1 ]
-		ifFalse: [ 0 ]
+		ifFalse: [ 0 - isHidden asBit ]
 ]
 
 { #category : #controlling }
@@ -125,13 +126,19 @@ BrTreeNode >> hasParent [
 	^ parent isNotNil
 ]
 
+{ #category : #controlling }
+BrTreeNode >> hide [
+	isHidden := true
+]
+
 { #category : #initialization }
 BrTreeNode >> initialize [
 	super initialize.
 	
 	children := OrderedIdentityDictionary new.
 	computation := [ #() ].
-	isExpanded := false
+	isExpanded := false.
+	isHidden := false
 ]
 
 { #category : #testing }
@@ -145,6 +152,11 @@ BrTreeNode >> isEmpty [
 { #category : #accessing }
 BrTreeNode >> isExpanded [
 	^ isExpanded
+]
+
+{ #category : #testing }
+BrTreeNode >> isHidden [
+	^ isHidden
 ]
 
 { #category : #private }
@@ -223,7 +235,7 @@ BrTreeNode >> size [
 	<return: #Number>
 	| aSize |
 	
-	aSize := 1.
+	aSize := 1 - isHidden asBit.
 	self isExpanded ifTrue: [
 		self childrenNodesDo: [ :eachNode | aSize := aSize + eachNode size ] ].
 	
