@@ -25,7 +25,16 @@ BrTreeModel >> initializeListeners [
 
 { #category : #accessing }
 BrTreeModel >> itemAt: anIndex [
+	<return: #BrTreeNode>
+
 	^ self root at: anIndex
+]
+
+{ #category : #accessing }
+BrTreeModel >> itemCount [
+	<return: #Number>
+
+	^ self root size
 ]
 
 { #category : #accessing }

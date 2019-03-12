@@ -11,10 +11,11 @@ Class {
 { #category : #'api - instantiation' }
 BrColumnedTreeRowStencilBuilder >> buildDefault [
 	<return: #BrStencil or: #BlElement>
-	| aContainer aNode aRowIndex anExpander |
+	| aContainer aNode aRowIndex anExpander aTreeElement |
 	
 	aNode := self treeNode.
 	aRowIndex := self rowIndex.
+	aTreeElement := self treeElement.
 
 	aContainer := BlElement new.
 	aContainer look: (BrInteractiveCommonLook new
@@ -22,9 +23,16 @@ BrColumnedTreeRowStencilBuilder >> buildDefault [
 		deselected: [ :aWidget | aWidget background: (Color transparent) ]).
 
 	aContainer viewModel: (BrWidgetModel new addAll: { 
-		BrButtonModel new action: [ :aWidget :aButtonModel :anEvent | self treeElement selectOne: aRowIndex dueTo: anEvent ].
+		BrButtonModel new action: [ :aWidget :aButtonModel :anEvent |
+			aTreeElement selectOne: aRowIndex dueTo: anEvent.
+			aTreeElement requestFocus ].
 		BrInteractiveModel new addState: BrSelectModel new
 	}).
+	aContainer
+		when: BlDoubleClickEvent
+		do: [ :anEvent |
+			anEvent consumed: true.
+			aTreeElement dispatchEvent: (BrSelectionDoubleClicked new selection: aTreeElement selection; sourceEvent: anEvent) ].
 
 	aContainer constraintsDo: [ :c |
 		c horizontal matchParent.
