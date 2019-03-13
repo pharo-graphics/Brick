@@ -76,7 +76,7 @@ BrLinearNormalizer >> minimumValue: anEntity [
 	
 	minimumValue isNil
 		ifTrue:
-			[minimumValue := (self context collect: [ :each | self command cull: each ])
+			[minimumValue := (self context)
 				inject: 100000000000 
 				into: [:minimum :entity | minimum min: (self command cull: entity)]].
 	^minimumValue
