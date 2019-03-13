@@ -32,8 +32,11 @@ BrTree >> initializeEventHandlers [
 			combination: (BlKeyCombination arrowUp);
 			action: [ self selectPrevious ] );
 		addShortcut: (BlShortcut new
-			combination: (BlKeyCombination return);
-			action: [ self toggleSelected ] )
+			combination: (BlKeyCombination arrowLeft);
+			action: [ self selectedNodeDo: #collapse ] );
+		addShortcut: (BlShortcut new
+			combination: (BlKeyCombination arrowRight);
+			action: [ self selectedNodeDo: #expand ] )
 ]
 
 { #category : #accessing }
@@ -51,12 +54,14 @@ BrTree >> maxSelectionIndex [
 ]
 
 { #category : #'api - selection' }
-BrTree >> toggleSelected [
-	selectionModel selection isEmpty
+BrTree >> selectedNodeDo: aBlock [
+	"Evaluate aBlock with the currently selected node"
+
+	self selection isEmpty
 		ifTrue: [ ^ self ].
 	
 	(self selection from between: 1 and: self viewModel itemCount)
 		ifFalse: [ ^ self ].
 	
-	(self viewModel itemAt: self selection from) toggle
+	aBlock value: (self viewModel itemAt: self selection from)
 ]

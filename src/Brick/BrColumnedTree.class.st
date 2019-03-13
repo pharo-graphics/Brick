@@ -9,7 +9,7 @@ Class {
 
 { #category : #'api - scripting' }
 BrColumnedTree >> column [
-	<return: #BlColumn>
+	<return: #BrColumn>
 
 	^ columnedModel column
 ]
