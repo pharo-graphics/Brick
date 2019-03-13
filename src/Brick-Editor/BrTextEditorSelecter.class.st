@@ -36,6 +36,9 @@ BrTextEditorSelecter >> characterType: aCharacter [
 
 { #category : #'api - configuration' }
 BrTextEditorSelecter >> from: aFromIndex to: aToIndex [
+	aFromIndex = aToIndex
+		ifTrue: [ ^ self ].
+
 	selection select: aFromIndex to: aToIndex
 ]
 
@@ -185,6 +188,10 @@ BrTextEditorSelecter >> privateSelect: aFromTextIndex to: aToTextIndex [
 		- I request segments update"
 	| aCommand |
 	
+	self
+		assert: [ aFromTextIndex < aToTextIndex ]
+		description: [ 'Must select at least one character' ].
+	
 	aCommand := BrTextEditorSelectCommand new
 		fromIndex: aFromTextIndex;
 		toIndex: aToTextIndex.
@@ -193,6 +200,9 @@ BrTextEditorSelecter >> privateSelect: aFromTextIndex to: aToTextIndex [
 
 { #category : #'api - processing' }
 BrTextEditorSelecter >> select [
+
+	selection isEmpty
+		ifTrue: [ ^ self ].
 
 	shouldDeselectExisting
 		ifTrue: [ self privateDeselectExisting ].

@@ -4,6 +4,46 @@ Class {
 	#category : #'Brick-Examples-Editor'
 }
 
+{ #category : #'examples - all' }
+BrTextEditorSelecterExamples >> select_all_in_empty [
+	<gtExample>
+	| anEditor |
+
+	anEditor := self editorOnEmptyText.
+	anEditor selecter all select.
+
+	anEditor selecter all select.
+
+	self assert: anEditor cursors isEmpty.
+	self assert: anEditor selection isEmpty.
+
+	^ anEditor
+]
+
+{ #category : #'examples - all' }
+BrTextEditorSelecterExamples >> select_all_in_empty_with_curor [
+	<gtExample>
+	| anEditor |
+
+	anEditor := self editorOnEmptyText.
+
+	anEditor navigator
+		addAt: 0;
+		apply.
+	
+	self assert: anEditor cursors isNotEmpty.
+	self assert: anEditor cursors allCursors equals: { BrTextEditorSingleCursor new position: 0 }.
+	self assert: anEditor selection isEmpty.
+
+	anEditor selecter all select.
+
+	self assert: anEditor cursors isNotEmpty.
+	self assert: anEditor cursors allCursors equals: { BrTextEditorSingleCursor new position: 0 }.
+	self assert: anEditor selection isEmpty.
+
+	^ anEditor
+]
+
 { #category : #'examples - word' }
 BrTextEditorSelecterExamples >> select_word_at_0 [
 	<gtExample>

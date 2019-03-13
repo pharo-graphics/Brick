@@ -7,6 +7,20 @@ Class {
 }
 
 { #category : #'instance creation' }
+BrTextEditorOperatorExamples >> editorOnEmptyText [
+	<gtExample>
+	| anEditor anEditorElement |
+	
+	anEditorElement := self editorFor: '' asRopedText.
+	anEditor := anEditorElement editor.
+	
+	self assert: anEditor cursor isEmpty.	
+	self assert: anEditor selection isEmpty.
+	
+	^ anEditorElement
+]
+
+{ #category : #'instance creation' }
 BrTextEditorOperatorExamples >> editorOnMultilineText [
 	<gtExample>
 	| anEditor anEditorElement |
