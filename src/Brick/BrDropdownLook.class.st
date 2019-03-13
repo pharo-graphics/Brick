@@ -58,8 +58,8 @@ BrDropdownLook >> dropdownExpanded [
 			ifTrue: [
 				(dropdownTargetSelector cull: aWidget) addChild: (popupElement := self createPopupElement).
 				
-				(popupElement childNamed: #toggle) dispatchEvent: (BrExpansionWish expand).
-				
+				"(popupElement childNamed: #toggle) dispatchEvent: (BrExpansionWish expand).
+"				
 				self relocatePopup ] ]
 ]
 
