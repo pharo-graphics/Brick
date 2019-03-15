@@ -10,7 +10,6 @@ BrTextEditorSelecterExamples >> select_all_in_empty [
 	| anEditor |
 
 	anEditor := self editorOnEmptyText.
-	anEditor selecter all select.
 
 	anEditor selecter all select.
 
