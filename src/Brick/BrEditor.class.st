@@ -33,7 +33,7 @@ BrEditor >> initialize [
 	self viewModel: (editorModel := BrEditorModel new
 			add: (BrInteractiveModel withAll: {
 				BrLayoutHorizontalResizerModel matchParent.
-				BrLayoutVerticalResizerModel fitContent }))
+				BrLayoutVerticalResizerModel matchParent }))
 ]
 
 { #category : #'editor - operations' }
