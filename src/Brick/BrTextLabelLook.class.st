@@ -34,6 +34,12 @@ BrTextLabelLook >> attributesBuilder [
 ]
 
 { #category : #initialization }
+BrTextLabelLook >> finalizeLook [
+	super finalizeLook.
+	self widgetContent removeChildNamed: #label
+]
+
+{ #category : #initialization }
 BrTextLabelLook >> initialize [
 	super initialize.
 
@@ -57,7 +63,6 @@ BrTextLabelLook >> initializeListeners [
 { #category : #initialization }
 BrTextLabelLook >> initializeLook [
 	super initializeLook.
-
 	labelElement text: text.
 	self widgetContent addChild: labelElement as: #label
 ]
@@ -96,7 +101,6 @@ BrTextLabelLook >> text [
 { #category : #accessing }
 BrTextLabelLook >> text: aTextOrString [
 	text := aTextOrString asRopedText.
-	
 	self attributesBuilder attributesTarget: text.
 	self label text: text
 ]

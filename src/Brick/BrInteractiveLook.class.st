@@ -18,11 +18,6 @@ Class {
 	#category : #'Brick-! Core'
 }
 
-{ #category : #initialization }
-BrInteractiveLook >> buildStylesOn: aStyler [
-	
-]
-
 { #category : #'element handlers' }
 BrInteractiveLook >> elementAddedToSuperParent: anEvent [
 	self initializeRequests
@@ -44,13 +39,8 @@ BrInteractiveLook >> initializeListeners [
 
 { #category : #initialization }
 BrInteractiveLook >> initializeLook [
-	| aStyler |
 	super initializeLook.
-	
-	aStyler := BrInteractiveCommonStyler new.
-	self buildStylesOn: aStyler.
-	
-	styles addAllFirst: aStyler styles
+	styles addAllFirst: BrInteractiveCommonStyler new styles
 ]
 
 { #category : #initialization }

@@ -172,6 +172,22 @@ BrExamplesShowroom >> accordionList [
 	^ container
 ]
 
+{ #category : #buttons }
+BrExamplesShowroom >> buttonLookChange [
+	<gtExample>
+	^ BrButton new
+		look: BrMaterialButtonLook;
+		label: 'Change to Glamorous';
+		action: [ :e | 
+			(e look isKindOf: BrMaterialButtonLook)
+				ifTrue: [ e
+						look: BrGlamorousButtonWithLabelLook;
+						label: 'Change to Material' ]
+				ifFalse: [ e
+						look: BrMaterialButtonLook;
+						label: 'Change to Glamorous' ] ]
+]
+
 { #category : #list }
 BrExamplesShowroom >> columnedList [
 	<gtExample>

@@ -5,9 +5,9 @@ Class {
 	#name : #BrLook,
 	#superclass : #BrActor,
 	#instVars : [
-		'postInitializedBlock'
+		'stateCache'
 	],
-	#category : 'Brick-! Core'
+	#category : #'Brick-! Core'
 }
 
 { #category : #'api - composition' }
@@ -75,8 +75,7 @@ BrLook >> hash [
 { #category : #initialization }
 BrLook >> initialize [
 	super initialize.
-
-	postInitializedBlock := [  ]
+	stateCache := Dictionary new
 ]
 
 { #category : #initialization }
@@ -111,47 +110,27 @@ BrLook >> onDetached: anElement [
 { #category : #'api - hooks' }
 BrLook >> onInstalledIn: anElement [
 	super onInstalledIn: anElement.
-
 	self
 		assert: [ widget isNil ]
 		description: [ 'Can not install the same look instance on multiple widgets' ].
-
 	widget := anElement.
 	self onAttachedTo: anElement.
-
 	self initializeLook.
 	"we must send events after look initialization where we set defaults"
 	self initializeRequests.
-	
-	self looks do: [ :aLook | aLook onInstalledIn: anElement ].
-
-	
-	self postInitialize
+	self looks do: [ :aLook | aLook onInstalledIn: anElement ]
 ]
 
 { #category : #'api - hooks' }
 BrLook >> onUninstalledIn: anElement [
 	super onUninstalledIn: anElement.
-	
 	self
 		assert: [ self widget == anElement ]
 		description: [ 'Can not uninstall from a different widget' ].
-
-	self onDetached: anElement.
+	self looks reverse do: [ :aLook | aLook onUninstalledIn: anElement ].
 	self finalizeLook.
-	widget := nil.
-	
-	self looks do: [ :aLook | aLook onUninstalledIn: anElement ]
-]
-
-{ #category : #initialization }
-BrLook >> postInitialize [
-	postInitializedBlock cull: self widget cull: self
-]
-
-{ #category : #accessing }
-BrLook >> postInitialized: aBlock [
-	postInitializedBlock := aBlock
+	self onDetached: anElement.
+	widget := nil
 ]
 
 { #category : #'api - composition' }

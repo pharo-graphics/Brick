@@ -18,6 +18,14 @@ BrGlamorousButtonExteriorLook >> backgroundPaint: anObject [
 ]
 
 { #category : #initialization }
+BrGlamorousButtonExteriorLook >> finalizeLook [
+	super finalizeLook.
+	self widget
+		background: (stateCache at: #background);
+		border: (stateCache at: #border)
+]
+
+{ #category : #initialization }
 BrGlamorousButtonExteriorLook >> initialize [
 	super initialize.
 
@@ -39,4 +47,12 @@ BrGlamorousButtonExteriorLook >> initialize [
 			aWidget
 				background: BrGlamorousColors disabledButtonBackgroundColor;
 				border: (BlBorder paint: BrGlamorousColors disabledButtonBorderColor width: 1) ] ]
+]
+
+{ #category : #initialization }
+BrGlamorousButtonExteriorLook >> initializeLook [
+	super initializeLook.
+	stateCache
+		at: #background put: self widget background;
+		at: #border put: self widget border
 ]
