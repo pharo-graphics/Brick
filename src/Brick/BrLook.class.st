@@ -61,6 +61,11 @@ BrLook >> asLook [
 	^ self
 ]
 
+{ #category : #accessing }
+BrLook >> changes [
+	^ changes
+]
+
 { #category : #initialization }
 BrLook >> finalizeLook [
 	"Override me to clean up widget state after the look is removed.
