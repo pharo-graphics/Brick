@@ -11,36 +11,22 @@ Class {
 BrGlamorousButtonExteriorRectangularLook >> initialize [
 	super initialize.
 	changes
+		add: (#(widget height) asBrLookPropertyChangeWithValue: 24);
 		add:
-			(BrLookPropertyChange new
-				path: #(widget height);
-				value: 24;
-				yourself);
+			(#(widget padding)
+				asBrLookPropertyChangeWithValue: (BlInsets left: 10 right: 10));
 		add:
-			(BrLookPropertyChange new
-				path: #(widget padding);
-				value: (BlInsets left: 10 right: 10);
-				yourself);
+			(#(widgetContent constraints horizontal resizer)
+				asBrLookPropertyChangeWithValue: BlLayoutFitContentResizer uniqueInstance);
 		add:
-			(BrLookPropertyChange new
-				path: #(widgetContent constraints horizontal resizer);
-				value: BlLayoutFitContentResizer uniqueInstance;
-				yourself);
+			(#(widgetContent layout)
+				asBrLookPropertyChangeWithValue: BlLinearLayout horizontal alignCenter);
 		add:
-			(BrLookPropertyChange new
-				path: #(widgetContent layout);
-				value: BlLinearLayout horizontal alignCenter;
-				yourself);
+			(#(widgetContent background)
+				asBrLookPropertyChangeWithValue: self backgroundPaint asBlBackground);
 		add:
-			(BrLookPropertyChange new
-				path: #(widgetContent background);
-				value: self backgroundPaint asBlBackground;
-				yourself);
-		add:
-			(BrLookPropertyChange new
-				path: #(widgetContent geometry);
-				value: (BlRectangle cornerRadius: 4);
-				yourself).
+			(#(widgetContent geometry)
+				asBrLookPropertyChangeWithValue: (BlRectangle cornerRadius: 4)).
 	self
 		style: [ :aStyler | 
 			aStyler
