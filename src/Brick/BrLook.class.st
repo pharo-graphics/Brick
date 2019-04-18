@@ -5,8 +5,7 @@ Class {
 	#name : #BrLook,
 	#superclass : #BrActor,
 	#instVars : [
-		'changes',
-		'stateCache'
+		'changes'
 	],
 	#category : #'Brick-! Core'
 }
@@ -66,6 +65,7 @@ BrLook >> asLook [
 BrLook >> finalizeLook [
 	"Override me to clean up widget state after the look is removed.
 	For example, if a look adds shadow effect to the element, that shadow effect should be removed when we remove the look"
+	changes downOn: self
 ]
 
 { #category : #comparing }
@@ -76,7 +76,6 @@ BrLook >> hash [
 { #category : #initialization }
 BrLook >> initialize [
 	super initialize.
-	stateCache := Dictionary new.
 	changes := BrLookChanges new
 ]
 
@@ -89,6 +88,7 @@ BrLook >> initializeListeners [
 
 { #category : #initialization }
 BrLook >> initializeLook [
+	changes upOn: self
 ]
 
 { #category : #initialization }
@@ -129,7 +129,7 @@ BrLook >> onUninstalledIn: anElement [
 	self
 		assert: [ self widget == anElement ]
 		description: [ 'Can not uninstall from a different widget' ].
-	self looks reverse do: [ :aLook | aLook onUninstalledIn: anElement ].
+	self looks reversed do: [ :aLook | aLook onUninstalledIn: anElement ].
 	self finalizeLook.
 	self onDetached: anElement.
 	widget := nil

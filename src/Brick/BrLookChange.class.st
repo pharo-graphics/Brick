@@ -27,7 +27,7 @@ BrLookChange >> downOn: aLook [
 	| current |
 	self assert: [ initialized ].
 	current := read value: aLook.
-	(current == new and: [ new ~= old ])
+	current ~~ old
 		ifTrue: [ down value: aLook value: old value: new ].
 	old := nil.
 	new := nil.

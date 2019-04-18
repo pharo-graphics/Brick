@@ -18,41 +18,38 @@ BrGlamorousButtonExteriorLook >> backgroundPaint: anObject [
 ]
 
 { #category : #initialization }
-BrGlamorousButtonExteriorLook >> finalizeLook [
-	super finalizeLook.
-	self widget
-		background: (stateCache at: #background);
-		border: (stateCache at: #border)
-]
-
-{ #category : #initialization }
 BrGlamorousButtonExteriorLook >> initialize [
 	super initialize.
-
+	changes
+		add:
+			(BrLookPropertyChange new
+				path: #(widget background);
+				value: BrGlamorousColors defaultButtonBackgroundColor asBlBackground;
+				yourself);
+		add:
+			(BrLookPropertyChange new
+				path: #(widget border);
+				value: (BlBorder paint: BrGlamorousColors defaultButtonBorderColor width: 1);
+				yourself).
 	backgroundPaint := Color white.
-	
-	self style: [ :aStyler |
-		aStyler default: [ :aWidget |
-			aWidget
-				background: BrGlamorousColors defaultButtonBackgroundColor;
-				border: (BlBorder paint: BrGlamorousColors defaultButtonBorderColor width: 1) ].
-
-		aStyler hovered: [ :aWidget |
-			aWidget border: (BlBorder paint: BrGlamorousColors hoveredButtonBorderColor width: 1) ].
-
-		aStyler pressed: [ :aWidget |
-			aWidget border: (BlBorder paint: BrGlamorousColors pressedButtonBorderColor width: 1) ].
-
-		aStyler disabled: [ :aWidget |
-			aWidget
-				background: BrGlamorousColors disabledButtonBackgroundColor;
-				border: (BlBorder paint: BrGlamorousColors disabledButtonBorderColor width: 1) ] ]
-]
-
-{ #category : #initialization }
-BrGlamorousButtonExteriorLook >> initializeLook [
-	super initializeLook.
-	stateCache
-		at: #background put: self widget background;
-		at: #border put: self widget border
+	self
+		style: [ :aStyler | 
+			aStyler
+				default: [ :aWidget | 
+					aWidget
+						background: BrGlamorousColors defaultButtonBackgroundColor;
+						border: (BlBorder paint: BrGlamorousColors defaultButtonBorderColor width: 1) ].
+			aStyler
+				hovered: [ :aWidget | 
+					aWidget
+						border: (BlBorder paint: BrGlamorousColors hoveredButtonBorderColor width: 1) ].
+			aStyler
+				pressed: [ :aWidget | 
+					aWidget
+						border: (BlBorder paint: BrGlamorousColors pressedButtonBorderColor width: 1) ].
+			aStyler
+				disabled: [ :aWidget | 
+					aWidget
+						background: BrGlamorousColors disabledButtonBackgroundColor;
+						border: (BlBorder paint: BrGlamorousColors disabledButtonBorderColor width: 1) ] ]
 ]

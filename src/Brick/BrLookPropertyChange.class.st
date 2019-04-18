@@ -13,7 +13,7 @@ BrLookPropertyChange >> initialize [
 	super initialize.
 	read := [ :e | self readOn: e ].
 	up := [ :e :f | self writeOn: e value: value ].
-	down := [ :e :f :g | self writeOn: e value: g ]
+	down := [ :e :f :g | self writeOn: e value: f ]
 ]
 
 { #category : #accessing }
