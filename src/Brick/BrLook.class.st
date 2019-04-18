@@ -5,6 +5,7 @@ Class {
 	#name : #BrLook,
 	#superclass : #BrActor,
 	#instVars : [
+		'changes',
 		'stateCache'
 	],
 	#category : #'Brick-! Core'
@@ -75,7 +76,8 @@ BrLook >> hash [
 { #category : #initialization }
 BrLook >> initialize [
 	super initialize.
-	stateCache := Dictionary new
+	stateCache := Dictionary new.
+	changes := BrLookChanges new
 ]
 
 { #category : #initialization }

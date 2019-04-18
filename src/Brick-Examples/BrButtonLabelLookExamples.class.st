@@ -8,7 +8,7 @@ If the button has a more complex structure, this behaviour can cause problems. I
 ${example:name=BrButtonLabelLookExamples>>#buttonWithModelAndWrongContentPlacement|expanded=true|expandedPreview=true}$
 
 To change this behavior, the label look  provides more control over where the label is inserted into the button element: to identify the element in the button element where the label should be placed, the look looks for an element marked with ==#content==. There shoud be only one element marked with  ==#content==.  To fix the problem from the above example,  we can mark the ==aContent== element with ==#content== when adding it to the button element:
-[[[example:name=BrButtonLabelLookExamples>>#buttonWithModelAndLookWithoutConstraints|expanded=true|expandedPreview=true]]]
+${example:name=BrButtonLabelLookExamples>>#buttonWithModelAndLookWithoutConstraints|expanded=true|expandedPreview=true}$
 
 The label look can directly change properties of the label element. This can be usefull when one wants to change layout properties or update graphical properties of the label:
 ${example:name=BrButtonLabelLookExamples>>#buttonWithChangedConstraintsInLook|expanded=true|expandedPreview=true}$
