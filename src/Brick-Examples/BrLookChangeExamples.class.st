@@ -23,9 +23,9 @@ BrLookChangeExamples >> buttonLookChange [
 { #category : #buttons }
 BrLookChangeExamples >> buttonLookPropertyChange [
 	<gtExample>
-	| red wide notSoWide fat pointy round roundish changes label |
-	red := #(widget background)
-		asBrLookPropertyChangeWithValue: Color red asBlBackground.
+	| blue wide notSoWide fat pointy round roundish changes label |
+	blue := #(widget background)
+		asBrLookPropertyChangeWithValue: BrGlamorousColors hoveredButtonTextColor asBlBackground.
 	wide := #(widget width) asBrLookPropertyChangeWithValue: 500.
 	notSoWide := #(widget width) asBrLookPropertyChangeWithValue: 350.
 	fat := #(widget padding)
@@ -36,7 +36,7 @@ BrLookChangeExamples >> buttonLookPropertyChange [
 		asBrLookPropertyChangeWithValue: BlEllipse new.
 	roundish := #(widget geometry)
 		asBrLookPropertyChangeWithValue: (BlRectangle cornerRadius: 10).
-	changes := {(#red -> red).
+	changes := {(#blue -> blue).
 	(#wide -> wide).
 	(#notSoWide -> notSoWide).
 	(#fat -> fat).
