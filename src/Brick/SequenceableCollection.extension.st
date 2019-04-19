@@ -1,6 +1,14 @@
 Extension { #name : #SequenceableCollection }
 
 { #category : #'*Brick' }
+SequenceableCollection >> asBrLookChildAddChangeWithValue: anObject [
+	^ BrLookChildAddChange new
+		path: self;
+		value: anObject;
+		yourself
+]
+
+{ #category : #'*Brick' }
 SequenceableCollection >> asBrLookPropertyChangeWithValue: anObject [
 	^ BrLookPropertyChange new
 		path: self;

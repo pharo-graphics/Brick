@@ -12,7 +12,7 @@ Class {
 BrLookPropertyChange >> initialize [
 	super initialize.
 	read := [ :e | self readOn: e ].
-	up := [ :e :f | self writeOn: e value: value ].
+	up := [ :e :f | self writeOn: e value: value value ].
 	down := [ :e :f :g | self writeOn: e value: f ]
 ]
 

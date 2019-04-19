@@ -16,23 +16,18 @@ BrShadowLook >> color: aColor [
 { #category : #initialization }
 BrShadowLook >> finalizeLook [
 	super finalizeLook.
-
-	self widgetDo: [ :aWidget | aWidget effect: BlNullEffect new ].
 	shadow := self shadow copyWithColor: self shadow color
 ]
 
 { #category : #initialization }
 BrShadowLook >> initialize [
 	super initialize.
-
-	shadow := (BlDropShadowEffect color: (Color black alpha: 0.3) width: 4 offset: 0@1)
-]
-
-{ #category : #initialization }
-BrShadowLook >> initializeLook [
-	super initializeLook.
-
-	self updateShadow
+	changes
+		add: (#(widget effect) asBrLookPropertyChangeWithValue: [ self shadow ]).
+	shadow := BlDropShadowEffect
+		color: (Color black alpha: 0.3)
+		width: 4
+		offset: 0 @ 1
 ]
 
 { #category : #accessing }
@@ -45,11 +40,8 @@ BrShadowLook >> shadow [
 { #category : #accessing }
 BrShadowLook >> shadow: aBlDropShadowEffect [
 	shadow := aBlDropShadowEffect.
-
-	self updateShadow
-]
-
-{ #category : #updating }
-BrShadowLook >> updateShadow [
-	self widgetDo: [ :aWidget | aWidget effect: self shadow ]
+	self
+		widgetDo: [ changes
+				downOn: self;
+				upOn: self ]
 ]
