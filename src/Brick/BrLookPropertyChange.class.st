@@ -28,7 +28,7 @@ BrLookPropertyChange >> path: anObject [
 
 { #category : #initialization }
 BrLookPropertyChange >> readOn: aLook [
-	^ path copy inject: aLook into: [ :e :f | e perform: f ]
+	^ path inject: aLook into: [ :e :f | e perform: f ]
 ]
 
 { #category : #accessing }

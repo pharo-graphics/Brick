@@ -9,6 +9,14 @@ SequenceableCollection >> asBrLookChildAddChangeWithValue: anObject [
 ]
 
 { #category : #'*Brick' }
+SequenceableCollection >> asBrLookCopyPropertyChangeWithValue: anObject [
+	^ BrLookCopyPropertyChange new
+		path: self;
+		value: anObject;
+		yourself
+]
+
+{ #category : #'*Brick' }
 SequenceableCollection >> asBrLookPropertyChangeWithValue: anObject [
 	^ BrLookPropertyChange new
 		path: self;
