@@ -6,9 +6,14 @@ Class {
 
 { #category : #initialization }
 BrLookChildAddChange >> containerOn: aLook [
-	^ (path copyFrom: 1 to: path size - 1)
-		inject: aLook widget
-		into: [ :e :f | e childNamed: f ]
+	self flag: 'ugly hack around widgetContent'.
+	^ path first = #content
+		ifTrue: [ (path copyFrom: 2 to: path size - 1)
+				inject: aLook widgetContent
+				into: [ :e :f | e childNamed: f ] ]
+		ifFalse: [ (path copyFrom: 1 to: path size - 1)
+				inject: aLook widget
+				into: [ :e :f | e childNamed: f ] ]
 ]
 
 { #category : #initialization }

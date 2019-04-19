@@ -3,9 +3,6 @@ Class {
 	#superclass : #Object,
 	#instVars : [
 		'initialized',
-		'old',
-		'new',
-		'read',
 		'up',
 		'down'
 	],
@@ -25,9 +22,7 @@ BrLookChange >> down: anObject [
 { #category : #initialization }
 BrLookChange >> downOn: aLook [
 	self assert: [ initialized ].
-	down value: aLook value: old value: new.
-	old := nil.
-	new := nil.
+	down value: aLook.
 	initialized := false
 ]
 
@@ -35,9 +30,8 @@ BrLookChange >> downOn: aLook [
 BrLookChange >> initialize [
 	super initialize.
 	initialized := false.
-	read := [ :e |  ].
-	up := [ :e :f |  ].
-	down := [ :e :f :g |  ]
+	up := [ :e |  ].
+	down := [ :e |  ]
 ]
 
 { #category : #accessing }
@@ -48,36 +42,6 @@ BrLookChange >> initialized [
 { #category : #accessing }
 BrLookChange >> initialized: anObject [
 	initialized := anObject
-]
-
-{ #category : #accessing }
-BrLookChange >> new [
-	^ new
-]
-
-{ #category : #accessing }
-BrLookChange >> new: anObject [
-	new := anObject
-]
-
-{ #category : #accessing }
-BrLookChange >> old [
-	^ old
-]
-
-{ #category : #accessing }
-BrLookChange >> old: anObject [
-	old := anObject
-]
-
-{ #category : #accessing }
-BrLookChange >> read [
-	^ read
-]
-
-{ #category : #accessing }
-BrLookChange >> read: anObject [
-	read := anObject
 ]
 
 { #category : #accessing }
@@ -93,8 +57,6 @@ BrLookChange >> up: anObject [
 { #category : #initialization }
 BrLookChange >> upOn: aLook [
 	self assert: [ initialized not ].
-	old := read value: aLook.
-	up value: aLook value: old.
-	new := read value: aLook.
+	up value: aLook.
 	initialized := true
 ]

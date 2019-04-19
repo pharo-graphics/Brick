@@ -2,11 +2,23 @@ Class {
 	#name : #BrLookPropertyChange,
 	#superclass : #BrLookChange,
 	#instVars : [
+		'old',
+		'new',
+		'read',
 		'path',
 		'value'
 	],
 	#category : #'Brick-! Core'
 }
+
+{ #category : #initialization }
+BrLookPropertyChange >> downOn: aLook [
+	self assert: [ initialized ].
+	down value: aLook value: old value: new.
+	old := nil.
+	new := nil.
+	initialized := false
+]
 
 { #category : #initialization }
 BrLookPropertyChange >> initialize [
@@ -29,6 +41,15 @@ BrLookPropertyChange >> path: anObject [
 { #category : #initialization }
 BrLookPropertyChange >> readOn: aLook [
 	^ path inject: aLook into: [ :e :f | e perform: f ]
+]
+
+{ #category : #initialization }
+BrLookPropertyChange >> upOn: aLook [
+	self assert: [ initialized not ].
+	old := read value: aLook.
+	up value: aLook value: old.
+	new := read value: aLook.
+	initialized := true
 ]
 
 { #category : #accessing }
