@@ -14,11 +14,9 @@ BrColumnedListLook >> initialize [
 	
 	listElement := BrInfiniteListElement new.
 	listElement dataSource: BrColumnedListDataSource new.
-	listElement constraintsDo: [ :c | 
-		c horizontal matchParent.
-		c vertical matchParent ].
 
-	self rowStencilBuilder: BrColumnedListRowStencilBuilder new
+	self rowStencilBuilder: BrColumnedListRowStencilBuilder new.
+	self add: (BrLayoutResizerLook inherit inherit: listElement).
 ]
 
 { #category : #initialization }
@@ -26,7 +24,7 @@ BrColumnedListLook >> initializeListeners [
 	super initializeListeners.
 	
 	self when: BrListItemsChangedEvent do: [ :anEvent | self onItemsChanged: anEvent items ].
-	self when: BrListColumnsChangedEvent do: [ :anEvent | self onColumnsChanged: anEvent columns ].
+	self when: BrColumnsChanged do: [ :anEvent | self onColumnsChanged: anEvent columns ].
 	self when: BrSelectionChanged do: [ :anEvent | self onSelectionChanged: anEvent selection ]
 ]
 
@@ -35,7 +33,10 @@ BrColumnedListLook >> initializeLook [
 	super initializeLook.
 	
 	listElement dataSource listElement: self widgetContent.
-	self widgetContent addChild: listElement as: #list.
+
+	self widgetContent
+		layout: BlLinearLayout vertical;
+		addChild: listElement as: #list.
 ]
 
 { #category : #initialization }
@@ -43,7 +44,7 @@ BrColumnedListLook >> initializeRequests [
 	super initializeRequests.
 	
 	self request: BrListItemsRequest new.
-	self request: BrListColumnsRequest new.
+	self request: BrColumnsRequest new.
 	self request: BrSelectionRequest new
 ]
 

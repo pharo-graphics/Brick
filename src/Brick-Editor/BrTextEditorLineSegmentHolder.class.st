@@ -183,6 +183,5 @@ BrTextEditorLineSegmentHolder >> segment: anEditorSegment [
 		removeChildren;
 		addChildren: pieceElements values;
 		constraintsDo: [ :c | c horizontal resizer: infiniteElement constraints horizontal resizer ];
-		layoutDo: [ :aLayout | aLayout lineSpacing: anEditorSegment lineSpacing ];
 		padding: anEditorSegment paragraphMargin
 ]

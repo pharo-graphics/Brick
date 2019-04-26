@@ -13,16 +13,6 @@ Class {
 BrTextParagraphAttribute >> applyOn: aTextParagraph [
 ]
 
-{ #category : #comparing }
-BrTextParagraphAttribute >> equals: aTextParagraphAttribute [
-	^ self class = aTextParagraphAttribute class
-]
-
-{ #category : #comparing }
-BrTextParagraphAttribute >> hash [
-	^ self class hash
-]
-
 { #category : #testing }
 BrTextParagraphAttribute >> isParagraphAttribute [
 	"Return true if I am a special paragraph attribute, false otherwise"

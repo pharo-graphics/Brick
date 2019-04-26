@@ -64,7 +64,7 @@ BrSimpleListExamples >> listLook [
 BrSimpleListExamples >> listModel [
 	<gtExample>
 	
-	^ BrSimpleListModel new
+	^ BrListModel new
 ]
 
 { #category : #'examples - material' }

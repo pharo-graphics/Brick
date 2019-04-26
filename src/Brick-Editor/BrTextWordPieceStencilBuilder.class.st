@@ -21,7 +21,7 @@ BrTextWordPieceStencilBuilder >> buildDefault [
 		clipChildren: false;
 		padding: self wordPadding;
 		ascentBaseline;
-		looseMesurement;
+		editorMesurement;
 		
 		"to support event-handling attributes"
 		addEventHandler: (BrTextEditorLineSegmentTextListener new editorElement: self editorElement);
@@ -81,12 +81,12 @@ BrTextWordPieceStencilBuilder >> editorElement: anEditorElement [
 BrTextWordPieceStencilBuilder >> initialize [
 	super initialize.
 	
-	wordPadding := BlInsets top: 3 bottom: 3.
+	wordPadding := BlInsets top: 0 bottom: 0.
 	measurer := BlTextElementCanvasMeasurer new.
 	mouseDownHandler := BrTextEditorMouseDownHandler new.
 	doubleClickHandler := BrTextWordPieceDoubleClickHandler new.
 	selectionAcquiredHandler := BrTextWordPieceSelectionAcquiredHandler new.
-	selectionLostHandler := BrTextWordPieceSelectionLostHandler new.
+	selectionLostHandler := BrTextWordPieceSelectionLostHandler new
 ]
 
 { #category : #accessing }

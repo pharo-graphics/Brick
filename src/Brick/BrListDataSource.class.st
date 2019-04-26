@@ -36,6 +36,8 @@ BrListDataSource >> listElement: anObject [
 
 { #category : #'instance creation' }
 BrListDataSource >> onBindHolder: anElementHolder at: aPosition [
+	anElementHolder rowValue: (self rowValues at: aPosition) at: aPosition.
+
 	(self selection contains: aPosition)
 		ifTrue: [ anElementHolder itemElement effect: (BlOverlayAboveEffect new paint: (Color gray alpha: 0.15)) ]
 		ifFalse: [ anElementHolder itemElement effect: BlNullEffect new ]

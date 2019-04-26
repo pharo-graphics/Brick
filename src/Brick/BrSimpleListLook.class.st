@@ -2,8 +2,7 @@ Class {
 	#name : #BrSimpleListLook,
 	#superclass : #BrLook,
 	#instVars : [
-		'listElement',
-		'itemStencilBuilder'
+		'listElement'
 	],
 	#category : #'Brick-List - Look'
 }
@@ -13,11 +12,9 @@ BrSimpleListLook >> initialize [
 	super initialize.
 	
 	listElement := BrInfiniteListElement new.
-	listElement constraintsDo: [ :c | 
-		c horizontal matchParent.
-		c vertical matchParent ].
-	
-	self itemStencilBuilder: BrSimpleListRowStencilBuilder new
+
+	self itemStencilBuilder: BrSimpleListRowStencilBuilder new.
+	self add: (BrLayoutResizerLook inherit inherit: listElement).
 ]
 
 { #category : #initialization }
@@ -33,7 +30,10 @@ BrSimpleListLook >> initializeLook [
 	super initializeLook.
 	
 	listElement dataSource listElement: self widgetContent.
-	self widgetContent addChild: listElement as: #list
+
+	self widgetContent
+		layout: BlLinearLayout vertical;
+		addChild: listElement as: #list
 ]
 
 { #category : #initialization }
@@ -46,6 +46,7 @@ BrSimpleListLook >> initializeRequests [
 
 { #category : #accessing }
 BrSimpleListLook >> itemStencilBuilder: aStencilBuilder [
+	| itemStencilBuilder |
 	"aStencilBuilder is expected to be a subclass of BrListRowStencil or a valuable"
 	itemStencilBuilder := aStencilBuilder asStencilBuilder: BrListRowStencilBuilder.
 

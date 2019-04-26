@@ -70,7 +70,12 @@ BrGlamorousAccordionLook >> initialize [
 		aStyler focused: [
 			headerBar background: (BrGlamorousColors primaryBorderColor alpha: 0.4).
 			contentBar background: (BrGlamorousColors primaryBorderColor alpha: 0.2) ].
-		aStyler expanded: [ contentBar visibility: BlVisibility visible ] ])
+		aStyler expanded: [ contentBar visibility: BlVisibility visible ] ]).
+
+	self add: (BrLayoutResizerLook inherit
+		inherit: wrapper;
+		inherit: contentContainer;
+		inheritIn: [ :aBlock | aBlock value: (contentElement ifNil: [ BlElement new ]) ]).
 ]
 
 { #category : #initialization }
@@ -79,13 +84,10 @@ BrGlamorousAccordionLook >> initializeLook [
 	super initializeLook.
 	
 	wrapper addChildFirst: headerElement.
-	self widget addChild: wrapper.
 
 	self widget
 		layout: BlLinearLayout horizontal;
-		constraintsDo: [ :c |
-			c horizontal matchParent.
-			c vertical fitContent ]
+		addChild: wrapper
 ]
 
 { #category : #'instance creation' }
@@ -112,11 +114,7 @@ BrGlamorousAccordionLook >> newContentBar [
 BrGlamorousAccordionLook >> newContentContainer [
 	<return: #BlElement>
 
-	^ BlElement new
-		layout: BlLinearLayout horizontal;
-		constraintsDo: [ :c |
-			c horizontal matchParent.
-			c vertical fitContent ]
+	^ BlElement new layout: BlLinearLayout horizontal
 ]
 
 { #category : #'instance creation' }
@@ -142,9 +140,5 @@ BrGlamorousAccordionLook >> newHeaderContainer [
 BrGlamorousAccordionLook >> newWrapper [
 	<return: #BlElement>
 
-	^ BlElement new
-		layout: BlLinearLayout vertical;
-		constraintsDo: [ :c |
-			c horizontal matchParent.
-			c vertical fitContent ]
+	^ BlElement new layout: BlLinearLayout vertical
 ]

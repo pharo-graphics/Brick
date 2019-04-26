@@ -1,10 +1,12 @@
 "
+! Use BrColumnCellLabelStencil instead
+
 I create a label only element to be used within a list widget, both in a simple and columned lists.
 
 [[[
 | aStencil anElement |
 
-aStencil := BrListLabelStencil new.
+aStencil := BrColumnCellLabelStencil new.
 aStencil text: 'List row'.
 anElement := aStencil create
 
@@ -16,7 +18,7 @@ Class {
 	#instVars : [
 		'text'
 	],
-	#category : 'Brick-List - Stencil'
+	#category : #'Brick-Column - Stencil'
 }
 
 { #category : #'instance creation' }
@@ -27,6 +29,11 @@ BrListLabelStencil class >> fitContent: aText [
 		constraintsDo: [ :c |
 			c horizontal fitContent.
 			c vertical fitContent ]
+]
+
+{ #category : #deprecation }
+BrListLabelStencil class >> isDeprecated [
+	^ true
 ]
 
 { #category : #'instance creation' }

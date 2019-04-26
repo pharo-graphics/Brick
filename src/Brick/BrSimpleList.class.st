@@ -5,15 +5,10 @@ Class {
 }
 
 { #category : #initialization }
-BrSimpleList >> defaultListModel [
-	^ BrSimpleListModel new
-]
-
-{ #category : #initialization }
 BrSimpleList >> initialize [
 	super initialize.
 
-	self look: BrSimpleListLook new + BrLayoutLook frame matchParent
+	self look: BrSimpleListLook new
 ]
 
 { #category : #'api - scripting' }

@@ -15,6 +15,11 @@ BrInteractionState class >> default [
 ]
 
 { #category : #'instance creation' }
+BrInteractionState class >> deselected [
+	^ self selected not
+]
+
+{ #category : #'instance creation' }
 BrInteractionState class >> disabled [
 	^ BrDisabledState new
 ]
@@ -52,6 +57,11 @@ BrInteractionState class >> large [
 { #category : #'instance creation' }
 BrInteractionState class >> pressed [
 	^ BrPressedState new
+]
+
+{ #category : #'instance creation' }
+BrInteractionState class >> selected [
+	^ BrSelectedState new
 ]
 
 { #category : #'instance creation' }

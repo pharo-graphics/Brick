@@ -7,25 +7,11 @@ Class {
 	#category : #'Brick-Editor-Text-Attributes'
 }
 
-{ #category : #comparing }
-BrTextEventHandlerAttribute >> equals: aTextAttribute [
-	"Return true if I am equal to a given text attribute assuming that
-	it has the same type as me"
-	<return: #Boolean>
-
-	^ self species = aTextAttribute species
-]
-
 { #category : #events }
 BrTextEventHandlerAttribute >> handleEvent: anEvent in: aTextEditor [
 	"Handle a given event or dispatch it using #sendTo:"
 
 	self subclassResponsibility
-]
-
-{ #category : #comparing }
-BrTextEventHandlerAttribute >> hash [
-	^ self identityHash
 ]
 
 { #category : #testing }
@@ -35,6 +21,11 @@ BrTextEventHandlerAttribute >> isEventHandler [
 	<return: #Boolean>
 
 	^ true
+]
+
+{ #category : #comparing }
+BrTextEventHandlerAttribute >> type [
+	^ self
 ]
 
 { #category : #events }

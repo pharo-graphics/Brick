@@ -20,8 +20,8 @@ BrDropdownPopupEmbellisher >> buildDefault [
 	aContainer constraintsDo: [ :c |
 		c horizontal fitContent.
 		c vertical fitContent ].
-	aContainer addChild: (self toggleStencil asElement).
-	aContainer addChild: self popupElement.
+	aContainer addChild: (self toggleStencil asElement) as: #toggle.
+	aContainer addChild: self popupElement as: #popup. 
 
 	^ aContainer
 ]

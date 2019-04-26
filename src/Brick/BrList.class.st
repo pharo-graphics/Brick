@@ -1,23 +1,10 @@
 Class {
 	#name : #BrList,
 	#superclass : #BlElement,
-	#instVars : [
-		'selectionModel'
-	],
+	#traits : 'TBrLayoutResizable + TBrSelectable',
+	#classTraits : 'TBrLayoutResizable classTrait + TBrSelectable classTrait',
 	#category : #'Brick-List - UI'
 }
-
-{ #category : #initialization }
-BrList >> defaultListModel [
-	^ self subclassResponsibility
-]
-
-{ #category : #'api - selection' }
-BrList >> deselectAll [
-	"Deselect all items"
-
-	selectionModel deselectAll
-]
 
 { #category : #'api - scripting' }
 BrList >> display: aCollectionOfValues [
@@ -28,7 +15,12 @@ BrList >> display: aCollectionOfValues [
 BrList >> initialize [
 	super initialize.
 	
-	self viewModel: (self defaultListModel add: (selectionModel := BrSelectionModel new)).
+	self viewModel: (BrListModel new
+		add: (selectionModel := BrSelectionModel new);
+		add: (BrInteractiveModel withAll: {
+			BrLayoutHorizontalResizerModel matchParent.
+			BrLayoutVerticalResizerModel matchParent })).
+
 	self initializeEventHandlers
 ]
 
@@ -39,13 +31,13 @@ BrList >> initializeEventHandlers [
 	self
 		when: BlClickEvent do: [ :anEvent | anEvent currentTarget requestFocus ];
 		when: BrListItemElementAttached do: [ :anEvent |
-			(selectionModel contains: anEvent rowIndex)
+			(self isSelectedAt: anEvent rowIndex)
 				ifTrue: [ self dispatchEvent: (BrListSelectedItemAttached new
 					itemElement: anEvent itemElement;
 					rowIndex: anEvent rowIndex;
 					rowValue: anEvent rowValue) ] ];
 		when: BrListItemElementDetached do: [ :anEvent |
-			(selectionModel contains: anEvent rowIndex)
+			(self isSelectedAt: anEvent rowIndex)
 				ifTrue: [ self dispatchEvent: (BrListSelectedItemDetached new
 					rowIndex: anEvent rowIndex;
 					rowValue: anEvent rowValue) ] ];
@@ -68,32 +60,8 @@ BrList >> items: aCollectionOfValues [
 ]
 
 { #category : #'api - selection' }
-BrList >> selectNext [
-	selectionModel selection isEmpty
-		ifTrue: [ self selectOne: 1  ]
-		ifFalse: [ self selectOne: ((selectionModel selection to + 1) min: self viewModel items size) ]
-]
-
-{ #category : #'api - selection' }
-BrList >> selectOne: anIndex [
-	selectionModel selectOne: anIndex
-]
-
-{ #category : #'api - selection' }
-BrList >> selectOne: anIndex dueTo: aSourceEvent [
-	selectionModel selectOne: anIndex dueTo: aSourceEvent
-]
-
-{ #category : #'api - selection' }
-BrList >> selectPrevious [
-	selectionModel selection isEmpty
-		ifTrue: [ self selectOne: 1  ]
-		ifFalse: [ self selectOne: ((selectionModel selection to - 1) max: 1) ]
-]
-
-{ #category : #'api - selection' }
-BrList >> selection [
-	<return: #BlSelection>
-
-	^ selectionModel selection
+BrList >> maxSelectionIndex [
+	<return: #Number>
+	
+	^ self items size
 ]
