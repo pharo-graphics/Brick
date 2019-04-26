@@ -23,7 +23,7 @@ BrGlamorousButtonLabelLook >> initialize [
 		aStyler large: [ self fontSize: 16 ].
 		aStyler small: [ self fontSize: 12 ].
 		aStyler tiny: [ self fontSize: 10 ].
-		aStyler hovered: [ self foreground: BrGlamorousColors pressedButtonTextColor ].
+		aStyler hovered: [ self foreground: BrGlamorousColors hoveredButtonTextColor ].
 		aStyler pressed: [ self foreground: BrGlamorousColors pressedButtonTextColor ].
 		aStyler disabled: [ self foreground: BrGlamorousColors disabledButtonTextColor ] ])
 ]
