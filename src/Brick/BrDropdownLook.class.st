@@ -88,7 +88,7 @@ BrDropdownLook >> initialize [
 				expanded: [ self dropdownExpanded ]).
 	changes
 		add:
-			(BrLookChanges new
+			(BrLookChange new
 				up: [ :e | self initializeToggleElement ];
 				down: [ :e | 
 					toggleElement ifNotNil: #removeFromParent.
