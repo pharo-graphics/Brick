@@ -10,30 +10,39 @@ Class {
 { #category : #initialization }
 BrGlamorousTabLook >> initialize [
 	super initialize.
-
 	self add: BrGlamorousTabLabelLook new.
-
 	bar := BlElement new.
 	bar visibility: BlVisibility hidden.
 	bar background: BrGlamorousColors primaryBorderColor.
-	bar constraintsDo: [ :c |
-		c ignoreByLayout.
-		c ignored vertical alignBottom.
-		c vertical exact: 2.
-		c horizontal matchParent ]
+	bar
+		constraintsDo: [ :c | 
+			c ignoreByLayout.
+			c ignored vertical alignBottom.
+			c vertical exact: 2.
+			c horizontal matchParent ].
+	changes
+		add:
+			(#(widgetContent layout)
+				asBrLookPropertyChangeWithValue: [ BlLinearLayout horizontal alignCenter ]).
+	changes
+		add:
+			(#(widgetContent padding)
+				asBrLookPropertyChangeWithValue: [ BlInsets
+						top: 10
+						left: 12
+						bottom: 10
+						right: 12 ]).
+	changes
+		add: (#(content bar) asBrLookChildAddAsChangeWithValue: [ bar ])
 ]
 
 { #category : #initialization }
 BrGlamorousTabLook >> initializeLook [
 	super initializeLook.
-
 	self widgetContent
-		layout: BlLinearLayout horizontal alignCenter;
-		padding: (BlInsets top: 10 left: 12 bottom: 10 right: 12);
-		constraintsDo: [ :c |
+		constraintsDo: [ :c | 
 			c vertical matchParent.
-			c horizontal fitContent ];
-		addChild: bar
+			c horizontal fitContent ]
 ]
 
 { #category : #'event handling' }

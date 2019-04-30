@@ -23,14 +23,14 @@ BrTabGroupContentLook >> contentDo: aBlock [
 { #category : #initialization }
 BrTabGroupContentLook >> initialize [
 	super initialize.
-
 	content := BlElement new
 		layout: BlLinearLayout horizontal;
-		constraintsDo: [ :c |
+		constraintsDo: [ :c | 
 			c horizontal matchParent.
 			c vertical fitContent ].
-		
-	contentElementsCache := IdentityDictionary new
+	contentElementsCache := IdentityDictionary new.
+	changes
+		add: (#(content) asBrLookChildAddAsChangeWithValue: [ content ])
 ]
 
 { #category : #initialization }
@@ -39,13 +39,6 @@ BrTabGroupContentLook >> initializeListeners [
 
 	self when: BrTabSelectedEvent do: [ :anEvent | self onTabSelected: anEvent tab ].
 	self when: BrTabDeselectedEvent do: [ :anEvent | self onTabDeselected: anEvent tab ]
-]
-
-{ #category : #initialization }
-BrTabGroupContentLook >> initializeLook [
-	super initializeLook.
-
-	self widget addChild: content as: #content
 ]
 
 { #category : #initialization }

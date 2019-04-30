@@ -10,11 +10,15 @@ Class {
 { #category : #initialization }
 BrSimpleListLook >> initialize [
 	super initialize.
-	
 	listElement := BrInfiniteListElement new.
-
 	self itemStencilBuilder: BrSimpleListRowStencilBuilder new.
 	self add: (BrLayoutResizerLook inherit inherit: listElement).
+	changes
+		add: (#(content list) asBrLookChildAddAsChangeWithValue: [ listElement ]).
+	changes
+		add:
+			(#(widgetContent layout)
+				asBrLookPropertyChangeWithValue: [ BlLinearLayout vertical ])
 ]
 
 { #category : #initialization }
@@ -28,12 +32,7 @@ BrSimpleListLook >> initializeListeners [
 { #category : #initialization }
 BrSimpleListLook >> initializeLook [
 	super initializeLook.
-	
-	listElement dataSource listElement: self widgetContent.
-
-	self widgetContent
-		layout: BlLinearLayout vertical;
-		addChild: listElement as: #list
+	listElement dataSource listElement: self widgetContent
 ]
 
 { #category : #initialization }

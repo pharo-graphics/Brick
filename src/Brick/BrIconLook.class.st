@@ -43,12 +43,18 @@ BrIconLook >> iconDo: aBlock [
 { #category : #initialization }
 BrIconLook >> initialize [
 	super initialize.
-	
+
 	"default icon"
 	iconElement := BlElement new.
-	iconElement size: 6@6.
+	iconElement size: 6 @ 6.
 	iconElement background: Color red.
 	iconElement geometry: BlEllipse new.
+	changes
+		add:
+			(BrLookChange new
+				up: [ :e | self updateIcon ];
+				down: [ :e | iconElement ifNotNil: #removeFromParent ];
+				yourself)
 ]
 
 { #category : #initialization }
@@ -56,13 +62,6 @@ BrIconLook >> initializeListeners [
 	super initializeListeners.
 
 	self when: BrIconChanged do: [ :anEvent | self icon: anEvent icon ]
-]
-
-{ #category : #initialization }
-BrIconLook >> initializeLook [
-	super initializeLook.
-
-	self updateIcon
 ]
 
 { #category : #initialization }

@@ -48,46 +48,41 @@ BrGlamorousAccordionLook >> headerBarWidth [
 { #category : #initialization }
 BrGlamorousAccordionLook >> initialize [
 	super initialize.
-
 	wrapper := self newWrapper.
 	headerBar := self newHeaderBar.
 	contentBar := self newContentBar.
-
 	headerContainer := self newHeaderContainer.
 	headerContainer addChild: headerBar.
-
 	contentContainer := self newContentContainer.
 	contentContainer addChild: contentBar.
-
 	wrapper addChild: headerContainer as: #header.
 	wrapper addChild: contentContainer as: #content.
-	
-	self add: (BrInteractiveLook new style: [ :aStyler |
-		aStyler default: [
-			headerBar background: (Color gray alpha: 0.4).
-			contentBar background: (Color gray alpha: 0.2).
-			contentBar visibility: BlVisibility gone ].
-		aStyler focused: [
-			headerBar background: (BrGlamorousColors primaryBorderColor alpha: 0.4).
-			contentBar background: (BrGlamorousColors primaryBorderColor alpha: 0.2) ].
-		aStyler expanded: [ contentBar visibility: BlVisibility visible ] ]).
-
-	self add: (BrLayoutResizerLook inherit
-		inherit: wrapper;
-		inherit: contentContainer;
-		inheritIn: [ :aBlock | aBlock value: (contentElement ifNil: [ BlElement new ]) ]).
-]
-
-{ #category : #initialization }
-BrGlamorousAccordionLook >> initializeLook [
-	"We need to add wrapper first in order for the widget to find header and content containers"
-	super initializeLook.
-	
-	wrapper addChildFirst: headerElement.
-
-	self widget
-		layout: BlLinearLayout horizontal;
-		addChild: wrapper
+	self
+		add:
+			(BrInteractiveLook new
+				style: [ :aStyler | 
+					aStyler
+						default: [ headerBar background: (Color gray alpha: 0.4).
+							contentBar background: (Color gray alpha: 0.2).
+							contentBar visibility: BlVisibility gone ].
+					aStyler
+						focused: [ headerBar
+								background: (BrGlamorousColors primaryBorderColor alpha: 0.4).
+							contentBar
+								background: (BrGlamorousColors primaryBorderColor alpha: 0.2) ].
+					aStyler expanded: [ contentBar visibility: BlVisibility visible ] ]).
+	self
+		add:
+			(BrLayoutResizerLook inherit
+				inherit: wrapper;
+				inherit: contentContainer;
+				inheritIn: [ :aBlock | aBlock value: (contentElement ifNil: [ BlElement new ]) ]).
+	changes
+		add:
+			(#(widget layout)
+				asBrLookPropertyChangeWithValue: [ BlLinearLayout horizontal ]).
+	changes
+		add: (#(content wrapper) asBrLookChildAddAsChangeWithValue: [ wrapper ])
 ]
 
 { #category : #'instance creation' }

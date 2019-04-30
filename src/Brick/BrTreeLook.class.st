@@ -10,9 +10,14 @@ Class {
 { #category : #initialization }
 BrTreeLook >> initialize [
 	super initialize.
-	
 	treeElement := BrInfiniteTreeElement new.
-	self add: (BrLayoutResizerLook inherit inherit: treeElement)
+	self add: (BrLayoutResizerLook inherit inherit: treeElement).
+	changes
+		add: (#(content tree) asBrLookChildAddAsChangeWithValue: [ treeElement ]).
+	changes
+		add:
+			(#(widgetContent layout)
+				asBrLookPropertyChangeWithValue: [ BlLinearLayout vertical ])
 ]
 
 { #category : #initialization }
@@ -26,12 +31,7 @@ BrTreeLook >> initializeListeners [
 { #category : #initialization }
 BrTreeLook >> initializeLook [
 	super initializeLook.
-	
-	treeElement dataSource treeElement: self widgetContent.
-
-	self widgetContent
-		layout: BlLinearLayout vertical;
-		addChild: treeElement as: #tree
+	treeElement dataSource treeElement: self widgetContent
 ]
 
 { #category : #initialization }

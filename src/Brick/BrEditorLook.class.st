@@ -41,11 +41,6 @@ BrEditorLook >> initializeListeners [
 ]
 
 { #category : #initialization }
-BrEditorLook >> initializeLook [
-	super initializeLook
-]
-
-{ #category : #initialization }
 BrEditorLook >> initializeRequests [
 	super initializeRequests.
 

@@ -28,8 +28,7 @@ BrTabGroupHeaderLook >> headerDo: aBlock [
 { #category : #initialization }
 BrTabGroupHeaderLook >> initialize [
 	super initialize.
-
-	tabs := OrderedCollection new. 
+	tabs := OrderedCollection new.
 	header := BlElement new.
 	scrollTabbar := BlScrollableElement new.
 	header addChild: scrollTabbar as: #scrolltabbar.
@@ -37,6 +36,7 @@ BrTabGroupHeaderLook >> initialize [
 	scrollTabbar addChild: tabbar as: #tabbar.
 	toolbar := BlElement new.
 	header addChild: toolbar as: #toolbar.
+	changes add: (#(header) asBrLookChildAddAsChangeWithValue: [ header ])
 ]
 
 { #category : #initialization }
@@ -57,13 +57,6 @@ BrTabGroupHeaderLook >> initializeListeners [
 	self
 		when: BrTabDeselectedEvent
 		do: [ :anEvent | self onTabDeselected: anEvent tab ]
-]
-
-{ #category : #initialization }
-BrTabGroupHeaderLook >> initializeLook [
-	super initializeLook.
-
-	self widget addChild: header as: #header.
 ]
 
 { #category : #initialization }

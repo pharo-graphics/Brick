@@ -20,6 +20,7 @@ BrEntailmentLook >> initializeListeners [
 
 { #category : #initialization }
 BrEntailmentLook >> initializeLook [
+	self flag: 'FIXME is the still used?'.
 	super initializeLook.
 	
 	self updateWidget

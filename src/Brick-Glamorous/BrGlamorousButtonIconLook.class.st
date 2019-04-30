@@ -14,8 +14,3 @@ BrGlamorousButtonIconLook >> initialize [
 		aStyler small: [ self icon 
 			transformDo: [ :t | t scaleBy: 0.75] ]])
 ]
-
-{ #category : #initialization }
-BrGlamorousButtonIconLook >> initializeLook [
-	super initializeLook
-]

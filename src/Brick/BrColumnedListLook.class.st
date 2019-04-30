@@ -11,12 +11,22 @@ Class {
 { #category : #initialization }
 BrColumnedListLook >> initialize [
 	super initialize.
-	
 	listElement := BrInfiniteListElement new.
 	listElement dataSource: BrColumnedListDataSource new.
-
 	self rowStencilBuilder: BrColumnedListRowStencilBuilder new.
 	self add: (BrLayoutResizerLook inherit inherit: listElement).
+	changes
+		add:
+			(BrLookChange new
+				up: [ :e | listElement dataSource listElement: self widgetContent ];
+				down: [ :e |  ];
+				yourself).
+	changes
+		add: (#(content list) asBrLookChildAddAsChangeWithValue: [ listElement ]).
+	changes
+		add:
+			(#(widgetContent layout)
+				asBrLookPropertyChangeWithValue: [ BlLinearLayout vertical ])
 ]
 
 { #category : #initialization }
@@ -26,17 +36,6 @@ BrColumnedListLook >> initializeListeners [
 	self when: BrListItemsChangedEvent do: [ :anEvent | self onItemsChanged: anEvent items ].
 	self when: BrColumnsChanged do: [ :anEvent | self onColumnsChanged: anEvent columns ].
 	self when: BrSelectionChanged do: [ :anEvent | self onSelectionChanged: anEvent selection ]
-]
-
-{ #category : #initialization }
-BrColumnedListLook >> initializeLook [
-	super initializeLook.
-	
-	listElement dataSource listElement: self widgetContent.
-
-	self widgetContent
-		layout: BlLinearLayout vertical;
-		addChild: listElement as: #list.
 ]
 
 { #category : #initialization }

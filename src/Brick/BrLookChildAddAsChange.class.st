@@ -1,37 +1,36 @@
 Class {
-	#name : #BrLookChildAddChange,
+	#name : #BrLookChildAddAsChange,
 	#superclass : #BrLookPropertyChange,
-	#instVars : [
-		'child'
-	],
 	#category : #'Brick-! Core'
 }
 
 { #category : #initialization }
-BrLookChildAddChange >> containerOn: aLook [
+BrLookChildAddAsChange >> containerOn: aLook [
 	self flag: 'ugly hack around widgetContent'.
 	^ path first = #content
 		ifTrue: [ path size >= 2
-				ifTrue: [ (path copyFrom: 2 to: path size)
+				ifTrue: [ (path copyFrom: 2 to: path size - 1)
 						inject: aLook widgetContent
 						into: [ :e :f | e childNamed: f ] ]
 				ifFalse: [ aLook widget ] ]
-		ifFalse: [ (path copyFrom: 1 to: path size)
+		ifFalse: [ (path copyFrom: 1 to: path size - 1)
 				inject: aLook widget
 				into: [ :e :f | e childNamed: f ] ]
 ]
 
 { #category : #initialization }
-BrLookChildAddChange >> readOn: aLook [
-	^ child
+BrLookChildAddAsChange >> readOn: aLook [
+	^ (self containerOn: aLook)
+		childNamed: path last
+		ifFound: #yourself
+		ifNone: nil
 ]
 
 { #category : #initialization }
-BrLookChildAddChange >> writeOn: aLook value: anObject [
+BrLookChildAddAsChange >> writeOn: aLook value: anObject [
 	| container |
 	container := self containerOn: aLook.
 	^ anObject
-		ifNil: [ container removeChild: child ]
-		ifNotNil: [ child := anObject.
-			container addChild: anObject ]
+		ifNil: [ container removeChildNamed: path last ]
+		ifNotNil: [ container addChild: anObject as: path last ]
 ]

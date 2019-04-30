@@ -20,25 +20,26 @@ BrGridListLook >> columnCount: aNumber [
 { #category : #initialization }
 BrGridListLook >> initialize [
 	super initialize.
-	
 	items := #().
 	itemElements := #().
 	selection := BlSelection empty.
-
 	listElement := BlElement new.
 	listElement layout: (BlGridLayout horizontal columnCount: 2).
-	listElement constraintsDo: [ :c | 
-		c horizontal matchParent.
-		c vertical fitContent ].
-	
+	listElement
+		constraintsDo: [ :c | 
+			c horizontal matchParent.
+			c vertical fitContent ].
 	scrollableElement := BlScrollableElement new.
-	scrollableElement constraintsDo: [ :c | 
-		c horizontal matchParent.
-		c vertical matchParent ].
-	
+	scrollableElement
+		constraintsDo: [ :c | 
+			c horizontal matchParent.
+			c vertical matchParent ].
 	scrollableElement addChild: listElement as: #list.
-	
-	self itemStencilBuilder: BrSimpleListRowStencilBuilder new
+	self itemStencilBuilder: BrSimpleListRowStencilBuilder new.
+	changes
+		add:
+			(#(content scrollable)
+				asBrLookChildAddAsChangeWithValue: [ scrollableElement ])
 ]
 
 { #category : #initialization }
@@ -47,13 +48,6 @@ BrGridListLook >> initializeListeners [
 
 	self when: BrListItemsChangedEvent do: [ :anEvent | self onItemsChanged: anEvent items ].
 	self when: BrSelectionChanged do: [ :anEvent | self onSelectionChanged: anEvent selection ]
-]
-
-{ #category : #initialization }
-BrGridListLook >> initializeLook [
-	super initializeLook.
-
-	self widgetContent addChild: scrollableElement
 ]
 
 { #category : #accessing }

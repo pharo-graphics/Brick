@@ -42,11 +42,6 @@ BrMaterialTabBackgroundLook >> initialize [
 ]
 
 { #category : #'event handling' }
-BrMaterialTabBackgroundLook >> initializeLook [
-	super initializeLook.
-]
-
-{ #category : #'event handling' }
 BrMaterialTabBackgroundLook >> tabDeselected [
 	super tabDeselected.
 

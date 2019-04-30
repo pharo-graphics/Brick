@@ -23,25 +23,36 @@ BrHydraSwitchWithTrackLook >> cornerRadius: aNumber [
 { #category : #initialization }
 BrHydraSwitchWithTrackLook >> initialize [
 	super initialize.
-	
 	cornerRadius := 0.
 	thumb := self newThumbElement.
-	track := self newTrackElement
+	track := self newTrackElement.
+	changes
+		add:
+			(#(widget layout)
+				asBrLookPropertyChangeWithValue: [ BlFrameLayout new ]).
+	changes
+		add:
+			(#(widget padding)
+				asBrLookPropertyChangeWithValue: [ BlInsets all: 4 ]).
+	changes
+		add:
+			(#(widget border)
+				asBrLookPropertyChangeWithValue: [ BlBorder builder
+						width: 1;
+						build ]).
+	changes
+		add:
+			(#(widget geometry)
+				asBrLookPropertyChangeWithValue: [ BlRectangle new ]).
+	changes
+		add: (#(widget size) asBrLookPropertyChangeWithValue: [ 48 @ 18 ]).
+	changes add: (#(track) asBrLookChildAddAsChangeWithValue: [ track ]).
+	changes add: (#(thumb) asBrLookChildAddAsChangeWithValue: [ thumb ])
 ]
 
 { #category : #initialization }
 BrHydraSwitchWithTrackLook >> initializeLook [
 	super initializeLook.
-
-	self widget
-		layout: BlFrameLayout new;
-		padding: (BlInsets all: 4);
-		border: (BlBorder builder width: 1; build);
-		geometry: (BlRectangle new);
-		size: 48@18.
-
-	self widget addChildren: { track . thumb }.
-	
 	self updateColor.
 	self updateCornerRadius
 ]

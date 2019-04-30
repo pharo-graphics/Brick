@@ -17,13 +17,17 @@ BrGlamorousEditorSpacingLook >> focusEvent: anEvent [
 	self widgetContent border: (BlBorder paint: FocusedEditorBorderColor width: 1)
 ]
 
-{ #category : #initialization }
-BrGlamorousEditorSpacingLook >> initializeLook [
-	super initializeLook.
-	
-	self widgetContent
-		background: Color white;
-		border: (BlBorder paint: EditorBorderColor width: 1)
+{ #category : #'as yet unclassified' }
+BrGlamorousEditorSpacingLook >> initialize [
+	super initialize.
+	changes
+		add:
+			(#(widgetContent background)
+				asBrLookPropertyChangeWithValue: [ Color white ]).
+	changes
+		add:
+			(#(widgetContent border)
+				asBrLookPropertyChangeWithValue: [ BlBorder paint: EditorBorderColor width: 1 ])
 ]
 
 { #category : #'mouse handlers' }

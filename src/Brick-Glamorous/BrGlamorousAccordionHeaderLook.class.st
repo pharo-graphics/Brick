@@ -10,19 +10,18 @@ Class {
 { #category : #initialization }
 BrGlamorousAccordionHeaderLook >> initialize [
 	super initialize.
-
-	self addAll: {
-		BrLayoutLook linearHorizontal vFitContent hMatchParent.
-		labelLook := BrGlamorousTextLabelLook new.
-		BrInteractiveLook new style: [ :aStyler |
-			aStyler default: [ labelLook foreground: BrGlamorousColors defaultHeaderTextColor ].
-			aStyler disabled: [ labelLook foreground: BrGlamorousColors disabledHeaderTextColor ] ] }
-]
-
-{ #category : #initialization }
-BrGlamorousAccordionHeaderLook >> initializeLook [
-	super initializeLook.
-	
-	self widget
-		padding: (BlInsets all: 12)
+	self
+		addAll:
+			{BrLayoutLook linearHorizontal vFitContent hMatchParent.
+			(labelLook := BrGlamorousTextLabelLook new).
+			(BrInteractiveLook new
+				style: [ :aStyler | 
+					aStyler
+						default: [ labelLook foreground: BrGlamorousColors defaultHeaderTextColor ].
+					aStyler
+						disabled: [ labelLook foreground: BrGlamorousColors disabledHeaderTextColor ] ])}.
+	changes
+		add:
+			(#(widget padding)
+				asBrLookPropertyChangeWithValue: [ BlInsets all: 12 ])
 ]

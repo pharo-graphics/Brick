@@ -11,12 +11,14 @@ Class {
 { #category : #initialization }
 BrPagerLook >> initialize [
 	super initialize.
-
 	pages := OrderedDictionary new.
 	pagesListElement := BrInfinitePagerElement new.
-	pagesListElement constraintsDo: [ :c | 
-		c horizontal matchParent.
-		c vertical matchParent ]
+	pagesListElement
+		constraintsDo: [ :c | 
+			c horizontal matchParent.
+			c vertical matchParent ].
+	changes
+		add: (#(content list) asBrLookChildAddAsChangeWithValue: [ pagesListElement ])
 ]
 
 { #category : #initialization }
@@ -31,13 +33,6 @@ BrPagerLook >> initializeListeners [
 		anEvent isSmooth
 			ifTrue: [ self smoothScrollTo: anEvent pageIndex ]
 			ifFalse: [ self scrollTo: anEvent pageIndex ] ].
-]
-
-{ #category : #initialization }
-BrPagerLook >> initializeLook [
-	super initializeLook.
-	
-	self widgetContent addChild: pagesListElement as: #list
 ]
 
 { #category : #initialization }

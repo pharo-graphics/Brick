@@ -7,13 +7,21 @@ Class {
 	#category : #'Brick-Material-Buttons - Support'
 }
 
+{ #category : #'as yet unclassified' }
+BrMaterialButtonLayoutLook >> initialize [
+	super initialize.
+	changes
+		add:
+			(#(widget layout)
+				asBrLookPropertyChangeWithValue: [ BlLinearLayout horizontal alignCenter ])
+]
+
 { #category : #initialization }
 BrMaterialButtonLayoutLook >> initializeLook [
 	super initializeLook.
-	
-	widget layout: BlLinearLayout horizontal alignCenter.
-	widget constraintsDo: [ :c |
-		c horizontal fitContent.
-		c vertical fitContent.
-		c padding: (BlInsets all: 6) ]
+	self widget
+		constraintsDo: [ :c | 
+			c horizontal fitContent.
+			c vertical fitContent.
+			c padding: (BlInsets all: 6) ]
 ]

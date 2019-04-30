@@ -4,12 +4,43 @@ Class {
 	#category : #'Brick-Glamorous-Dropdown'
 }
 
-{ #category : #initialization }
-GtDropdownOutskirtsLook >> initializeLook [
-	super initializeLook.
-
-	self widget
-		geometry: (BlRectangle cornerRadius: 12);
-		background: Color white;
-		border: (BlBorder paint: BrGlamorousColors defaultButtonBorderColor width: 1)
+{ #category : #'as yet unclassified' }
+GtDropdownOutskirtsLook >> initialize [
+	super initialize.
+	changes
+		add:
+			(#(widget geometry)
+				asBrLookPropertyChangeWithValue: [ BlRectangle cornerRadius: 12 ]).
+	changes
+		add:
+			(#(widget background) asBrLookPropertyChangeWithValue: [ Color white ]).
+	changes
+		add:
+			(#(widget border)
+				asBrLookPropertyChangeWithValue:
+					[ BlBorder paint: BrGlamorousColors defaultButtonBorderColor width: 1 ]).
+	changes
+		add:
+			(#(widget geometry)
+				asBrLookPropertyChangeWithValue: [ BlRectangle cornerRadius: 12 ]).
+	changes
+		add:
+			(#(widget background) asBrLookPropertyChangeWithValue: [ Color white ]).
+	changes
+		add:
+			(#(widget border)
+				asBrLookPropertyChangeWithValue:
+					[ BlBorder paint: BrGlamorousColors defaultButtonBorderColor width: 1 ]).
+	changes
+		add:
+			(#(widget geometry)
+				asBrLookPropertyChangeWithValue: [ BlRectangle cornerRadius: 12 ]).
+	changes
+		add:
+			(#(widget background) asBrLookPropertyChangeWithValue: [ Color white ]).
+	changes
+		add:
+			(#(widget border)
+				asBrLookPropertyChangeWithValue:
+					[ BlBorder paint: BrGlamorousColors defaultButtonBorderColor width: 1 ])
 ]

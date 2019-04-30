@@ -62,10 +62,16 @@ BrMaterialListItemLook >> height: aNumber [
 { #category : #initialization }
 BrMaterialListItemLook >> initialize [
 	super initialize.
-
-	self addAll: { layoutLook := BrLayoutLook linearHorizontal hMatchParent layoutDo: [ :aLayout | aLayout alignCenterLeft ] }.
-	
-	self beCompact
+	self
+		addAll:
+			{(layoutLook := BrLayoutLook linearHorizontal hMatchParent
+				layoutDo: [ :aLayout | aLayout alignCenterLeft ])}.
+	self beCompact.
+	changes
+		add: (#(widget padding) asBrLookPropertyChangeWithValue: [ self padding ]).
+	changes
+		add:
+			(#(widget background) asBrLookPropertyChangeWithValue: [ Color white ])
 ]
 
 { #category : #initialization }
@@ -74,15 +80,6 @@ BrMaterialListItemLook >> initializeListeners [
 	
 	self when: BlMouseEnterEvent do: [ self widgetDo: [ :aWidget | aWidget background: (Color gray alpha: 0.1) ] ].
 	self when: BlMouseLeaveEvent do: [ self widgetDo: [ :aWidget | aWidget background: Color transparent ] ]
-]
-
-{ #category : #initialization }
-BrMaterialListItemLook >> initializeLook [
-	super initializeLook.
-
-	self widget
-		padding: self padding;
-		background: Color white
 ]
 
 { #category : #configuration }

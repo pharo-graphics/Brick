@@ -15,23 +15,33 @@ BrHydraSwitchRadioLook >> deactivatedColor [
 { #category : #initialization }
 BrHydraSwitchRadioLook >> initialize [
 	super initialize.
-	
-	thumb := self newThumbElement
+	thumb := self newThumbElement.
+	changes
+		add:
+			(#(widget layout)
+				asBrLookPropertyChangeWithValue: [ BlFrameLayout new ]).
+	changes
+		add:
+			(#(widget padding)
+				asBrLookPropertyChangeWithValue: [ BlInsets all: 3 ]).
+	changes
+		add:
+			(#(widget border)
+				asBrLookPropertyChangeWithValue: [ BlBorder builder
+						width: 1;
+						build ]).
+	changes
+		add:
+			(#(widget geometry) asBrLookPropertyChangeWithValue: [ BlEllipse new ]).
+	changes
+		add: (#(content thumb) asBrLookChildAddAsChangeWithValue: [ thumb ]).
+	changes
+		add: (#(widget size) asBrLookPropertyChangeWithValue: [ 20 @ 20 ])
 ]
 
 { #category : #initialization }
 BrHydraSwitchRadioLook >> initializeLook [
 	super initializeLook.
-
-	self widget
-		size: 20@20;
-		layout: BlFrameLayout new;
-		padding: (BlInsets all: 3);
-		border: (BlBorder builder width: 1; build);
-		geometry: BlEllipse new.
-
-	self widget addChild: thumb.
-
 	self updateColor
 ]
 

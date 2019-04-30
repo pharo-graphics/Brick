@@ -76,18 +76,24 @@ BrDropdownLookNew >> elementPositionInSpaceChanged: anEvent [
 { #category : #initialization }
 BrDropdownLookNew >> initialize [
 	super initialize.
-
 	toggleStencil := BrDropdownModel defaultToggleStencil.
 	popupStencil := BrDropdownModel defaultPopupStencil.
-
 	popupEmbellisher := BrDropdownPopupEmbellisher new.
 	outskirtsEmbellisher := BrDropdownOutskirtsEmbellisher new.
-	
 	dropdownTargetSelector := [ :aWidget | aWidget space ].
-	
-	self add: (BrInteractiveCommonLook new
-		collapsed: [ self dropdownCollapsed ];
-		expanded: [ self dropdownExpanded ])
+	self
+		add:
+			(BrInteractiveCommonLook new
+				collapsed: [ self dropdownCollapsed ];
+				expanded: [ self dropdownExpanded ]).
+	changes
+		add:
+			(BrLookChanges new
+				up: [ :e | self initializeToggleElement ];
+				down: [ :e | 
+					toggleElement ifNotNil: #removeFromParent.
+					popupElement ifNotNil: #removeFromParent ];
+				yourself)
 ]
 
 { #category : #initialization }
@@ -96,13 +102,6 @@ BrDropdownLookNew >> initializeListeners [
 
 	self when: BrDropdownPopupStencilChanged do: [ :anEvent | self popupStencil: anEvent stencil ].
 	self when: BrDropdownToggleStencilChanged do: [ :anEvent | self toggleStencil: anEvent stencil ]
-]
-
-{ #category : #initialization }
-BrDropdownLookNew >> initializeLook [
-	super initializeLook.
-
-	self initializeToggleElement
 ]
 
 { #category : #initialization }

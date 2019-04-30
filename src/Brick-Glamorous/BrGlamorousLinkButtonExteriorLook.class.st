@@ -23,32 +23,36 @@ BrGlamorousLinkButtonExteriorLook >> backgroundPaint: anObject [
 { #category : #initialization }
 BrGlamorousLinkButtonExteriorLook >> initialize [
 	super initialize.
-
 	backgroundPaint := BrGlamorousColors disabledButtonBackgroundColor.
-	
-	self style: [ :aStyler |
-		aStyler default: [ :aWidget |
-			aWidget background: self backgroundPaint ].
-
-		aStyler hovered: [ :aWidget |
-			aWidget background: BrGlamorousColors hoveredButtonTextColor ].
-
-		aStyler pressed: [ :aWidget |
-			aWidget background: BrGlamorousColors pressedButtonTextColor ].
-
-		aStyler disabled: [ :aWidget |
-			aWidget background: BrGlamorousColors disabledButtonTextColor ] ]
+	self
+		style: [ :aStyler | 
+			aStyler
+				default: [ :aWidget | aWidget background: self backgroundPaint ].
+			aStyler
+				hovered:
+					[ :aWidget | aWidget background: BrGlamorousColors hoveredButtonTextColor ].
+			aStyler
+				pressed:
+					[ :aWidget | aWidget background: BrGlamorousColors pressedButtonTextColor ].
+			aStyler
+				disabled:
+					[ :aWidget | aWidget background: BrGlamorousColors disabledButtonTextColor ] ].
+	changes
+		add:
+			(#(widgetContent layout)
+				asBrLookPropertyChangeWithValue: [ BlLinearLayout horizontal alignCenter ]).
+	changes
+		add:
+			(#(widgetContent geometry)
+				asBrLookPropertyChangeWithValue: [ BlRectangle cornerRadius: 4 ])
 ]
 
 { #category : #initialization }
 BrGlamorousLinkButtonExteriorLook >> initializeLook [
 	super initializeLook.
-
 	self widgetContent
 		constraintsDo: [ :c | 
 			c horizontal fitContent.
 			c vertical fitContent.
-			c padding: (BlInsets all: 3) ];
-		layout: BlLinearLayout horizontal alignCenter;
-		geometry: (BlRectangle cornerRadius: 4)
+			c padding: (BlInsets all: 3) ]
 ]

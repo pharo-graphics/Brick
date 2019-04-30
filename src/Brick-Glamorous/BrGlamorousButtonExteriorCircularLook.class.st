@@ -10,18 +10,18 @@ Class {
 { #category : #initialization }
 BrGlamorousButtonExteriorCircularLook >> initialize [
 	super initialize.
-	
-	self style: [ :aStyler |
-		aStyler default: [ self widgetContent size: 24@24 ].
-	]
-]
-
-{ #category : #initialization }
-BrGlamorousButtonExteriorCircularLook >> initializeLook [
-	super initializeLook.
-	
-	self widgetContent
-		layout: BlLinearLayout horizontal alignCenter;
-		background: self backgroundPaint;
-		geometry: BlCircle new
+	self
+		style: [ :aStyler | aStyler default: [ self widgetContent size: 24 @ 24 ] ].
+	changes
+		add:
+			(#(widgetContent layout)
+				asBrLookPropertyChangeWithValue: [ BlLinearLayout horizontal alignCenter ]).
+	changes
+		add:
+			(#(widgetContent background)
+				asBrLookPropertyChangeWithValue: [ self backgroundPaint ]).
+	changes
+		add:
+			(#(widgetContent geometry)
+				asBrLookPropertyChangeWithValue: [ BlCircle new ])
 ]

@@ -10,15 +10,15 @@ Class {
 { #category : #initialization }
 BrGlamorousWithResizerLook >> initialize [
 	super initialize.
-
-	resizer := self newResizer
+	resizer := self newResizer.
+	changes
+		add: (#(content) asBrLookChildAddChangeWithValue: [ resizer ])
 ]
 
 { #category : #initialization }
 BrGlamorousWithResizerLook >> initializeLook [
+	self flag: 'resizer is added/removed by look, nothing to rollback'.
 	super initializeLook.
-	
-	self widgetContent addChild: resizer.
 	resizer target: self widgetContent
 ]
 

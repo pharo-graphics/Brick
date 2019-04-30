@@ -53,6 +53,10 @@ BrProgressLook >> initialize [
 	super initialize.
 	amount := 0.
 	total := 100.
+	changes
+		add:
+			(#(widgetContent layout)
+				asBrLookPropertyChangeWithValue: [ BlFrameLayout new ])
 ]
 
 { #category : #initialization }
@@ -68,16 +72,13 @@ BrProgressLook >> initializeListeners [
 BrProgressLook >> initializeLook [
 	super initializeLook.
 	"Ensure a progress element"
-	self widgetContent 
-		layout: BlFrameLayout new.
 	self widgetProgress
-		constraintsDo: [ :c |
-				c horizontal matchParent.
-				c vertical matchParent.
-				c frame horizontal weight: self fraction.
-				c frame horizontal alignLeft.
-				c frame vertical alignCenter ]
-	
+		constraintsDo: [ :c | 
+			c horizontal matchParent.
+			c vertical matchParent.
+			c frame horizontal weight: self fraction.
+			c frame horizontal alignLeft.
+			c frame vertical alignCenter ]
 ]
 
 { #category : #initialization }

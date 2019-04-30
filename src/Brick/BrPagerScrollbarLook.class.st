@@ -25,14 +25,18 @@ BrPagerScrollbarLook >> buildPreviewOfThePage: aPageContentElement [
 { #category : #initialization }
 BrPagerScrollbarLook >> initialize [
 	super initialize.
-
 	pages := OrderedDictionary new.
 	scrollbarElement := BlElement new.
 	scrollbarElement margin: (BlInsets top: 5).
 	scrollbarElement layout: BlLinearLayout horizontal alignCenter.
-	scrollbarElement constraintsDo: [ :c | 
-		c horizontal matchParent.
-		c vertical fitContent ]
+	scrollbarElement
+		constraintsDo: [ :c | 
+			c horizontal matchParent.
+			c vertical fitContent ].
+	changes
+		add:
+			(#(content preview)
+				asBrLookChildAddAsChangeWithValue: [ scrollbarElement ])
 ]
 
 { #category : #initialization }
@@ -42,13 +46,6 @@ BrPagerScrollbarLook >> initializeListeners [
 	self when: BrPagerPagesChanged do: [ :anEvent | self onPagesChanged: anEvent pages ].
 	self when: BrPagerPageAddedEvent do: [ :anEvent | self onPageAdded: anEvent page ].
 	self when: BrPagerPageRemovedEvent do: [ :anEvent | self onPageRemoved: anEvent page ]
-]
-
-{ #category : #initialization }
-BrPagerScrollbarLook >> initializeLook [
-	super initializeLook.
-
-	self widgetContent addChild: scrollbarElement as: #preview
 ]
 
 { #category : #initialization }

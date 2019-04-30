@@ -15,23 +15,34 @@ BrHydraSwitchWithoutTrackLook >> deactivatedColor [
 { #category : #initialization }
 BrHydraSwitchWithoutTrackLook >> initialize [
 	super initialize.
-	
-	thumb := self newThumbElement
+	thumb := self newThumbElement.
+	changes
+		add:
+			(#(widget layout)
+				asBrLookPropertyChangeWithValue: [ BlFrameLayout new ]).
+	changes
+		add:
+			(#(widget padding)
+				asBrLookPropertyChangeWithValue: [ BlInsets all: 3 ]).
+	changes
+		add:
+			(#(widget border)
+				asBrLookPropertyChangeWithValue: [ BlBorder builder
+						width: 1;
+						build ]).
+	changes
+		add:
+			(#(widget geometry)
+				asBrLookPropertyChangeWithValue: [ BlRectangle cornerRadius: 8 ]).
+	changes
+		add: (#(content thumb) asBrLookChildAddAsChangeWithValue: [ thumb ]).
+	changes
+		add: (#(widget size) asBrLookPropertyChangeWithValue: [ 36 @ 20 ])
 ]
 
 { #category : #initialization }
 BrHydraSwitchWithoutTrackLook >> initializeLook [
 	super initializeLook.
-
-	self widget
-		size: 36@20;
-		layout: BlFrameLayout new;
-		padding: (BlInsets all: 3);
-		border: (BlBorder builder width: 1; build);
-		geometry: (BlRectangle cornerRadius: 8).
-
-	self widget addChild: thumb.
-
 	self updateColor
 ]
 

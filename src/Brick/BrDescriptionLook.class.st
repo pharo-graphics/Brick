@@ -34,20 +34,21 @@ BrDescriptionLook >> descriptionDo: aBlock [
 { #category : #initialization }
 BrDescriptionLook >> initialize [
 	super initialize.
-	
 	text := 'Description' asRopedText.
-	
 	editor := BrTextEditor new.
-	
 	descriptionElement := BrEditorElement new.
 	descriptionElement editor: editor.
-	descriptionElement constraintsDo: [ :c | 
-		c vertical matchParent.
-		c horizontal matchParent ].
-
+	descriptionElement
+		constraintsDo: [ :c | 
+			c vertical matchParent.
+			c horizontal matchParent ].
 	attributesBuilder := BlTextDelegatedAttributesBuilder new.
 	attributesBuilder attributesTarget: text.
-	attributesBuilder whenAdded: [ descriptionElement text: text ]
+	attributesBuilder whenAdded: [ descriptionElement text: text ].
+	changes
+		add:
+			(#(content description)
+				asBrLookChildAddAsChangeWithValue: [ descriptionElement ])
 ]
 
 { #category : #initialization }
@@ -55,14 +56,6 @@ BrDescriptionLook >> initializeListeners [
 	super initializeListeners.
 	
 	self when: BrDescriptionChanged do: [ :anEvent | self text: anEvent text ]
-]
-
-{ #category : #initialization }
-BrDescriptionLook >> initializeLook [
-	super initializeLook.
-
-	editor text: text.
-	self widgetContent addChild: descriptionElement as: #description
 ]
 
 { #category : #initialization }

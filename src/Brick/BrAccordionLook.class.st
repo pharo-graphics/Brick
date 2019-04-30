@@ -82,13 +82,6 @@ BrAccordionLook >> initializeListeners [
 ]
 
 { #category : #initialization }
-BrAccordionLook >> initializeLook [
-	super initializeLook.
-
-	headerElement := headerStencil asElement
-]
-
-{ #category : #initialization }
 BrAccordionLook >> initializeRequests [
 	super initializeRequests.
 	
