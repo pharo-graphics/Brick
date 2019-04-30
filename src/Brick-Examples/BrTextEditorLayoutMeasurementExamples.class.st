@@ -6,14 +6,10 @@ Class {
 	#category : #'Brick-Examples-Editor'
 }
 
-{ #category : #testing }
-BrTextEditorLayoutMeasurementExamples class >> isAbstract [
-	^ true
-]
-
 { #category : #'examples - measurement' }
 BrTextEditorLayoutMeasurementExamples >> fit_content_Hello [
 	<gtExample>
+	<noTest>
 	| anEditorElement |
 
 	anEditorElement := self editorFor: 'Hello'.
@@ -27,6 +23,7 @@ BrTextEditorLayoutMeasurementExamples >> fit_content_Hello [
 { #category : #'examples - measurement' }
 BrTextEditorLayoutMeasurementExamples >> fit_content_Hello_World [
 	<gtExample>
+	<noTest>
 	| anEditorElement |
 
 	anEditorElement := self editorFor: 'Hello World'.
