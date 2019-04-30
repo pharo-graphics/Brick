@@ -25,10 +25,11 @@ TBrTextEditorFixedMeasurerExamples >> editorFor: aText [
 
 	anEditor := BrEditor new.
 	anEditor look: BrEditorLook new.
+	anEditor padding: BlInsets empty.
 	anEditor fitContent.
 	anEditor text: aRopedText.
 	
-	"BlDevCrossover on: anEditor."
+	BlDevCrossover on: anEditor.
 	
 	anEditor editor segmentBuilder
 		wordStencil: [ :aWordText :anEditorElement |
