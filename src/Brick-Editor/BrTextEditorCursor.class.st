@@ -125,7 +125,7 @@ BrTextEditorCursor >> errorNotFound: anObject [
 { #category : #accessing }
 BrTextEditorCursor >> first [
 	"Return the first cursor sorted by position. Throw an error if there are no cursors"
-	<return: #BlTextEditorSingleCursor>
+	<return: #BrTextEditorSingleCursor>
 
 	^ (self allCursors sorted: [ :a :b | a position < b position ]) first
 ]
