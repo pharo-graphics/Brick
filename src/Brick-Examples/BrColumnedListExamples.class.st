@@ -7,6 +7,7 @@ Class {
 { #category : #'examples - model' }
 BrColumnedListExamples >> addColorIndexColumn [
 	<gtExample>
+	<noTest>
 	| aColumnedListModel |
 
 	aColumnedListModel := self columnedListModel.
@@ -23,6 +24,7 @@ BrColumnedListExamples >> addColorIndexColumn [
 { #category : #'examples - model' }
 BrColumnedListExamples >> addColorNameColumn [
 	<gtExample>
+	<noTest>
 	| aColumnedListModel |
 	
 	aColumnedListModel := self addColorIndexColumn.
@@ -39,6 +41,7 @@ BrColumnedListExamples >> addColorNameColumn [
 { #category : #'examples - model' }
 BrColumnedListExamples >> addColorValueColumn [
 	<gtExample>
+	<noTest>
 	| aColumnedListModel |
 	
 	aColumnedListModel := self addColorNameColumn.
@@ -94,6 +97,7 @@ BrColumnedListExamples >> columnedListModel [
 { #category : #'examples - model' }
 BrColumnedListExamples >> columnedListModelWithColorAsItems [
 	<gtExample>
+	<noTest>
 	| aColumnedListModel |
 	
 	aColumnedListModel := self addColorValueColumn.
@@ -118,6 +122,7 @@ BrColumnedListExamples >> columnedListWithLook [
 { #category : #'examples - look' }
 BrColumnedListExamples >> columnedListWithLookAndModelForColors [
 	<gtExample>
+	<noTest>
 	| aColumnedListElement aColumnedListModel |
 
 	aColumnedListElement := self columnedListWithLook.
