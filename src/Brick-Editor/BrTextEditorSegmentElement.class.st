@@ -8,6 +8,8 @@ Override me for more advanced customizations
 Class {
 	#name : #BrTextEditorSegmentElement,
 	#superclass : #BlElement,
+	#traits : 'TBlDrawingCache',
+	#classTraits : 'TBlDrawingCache classTrait',
 	#instVars : [
 		'cachedSurface',
 		'session',
