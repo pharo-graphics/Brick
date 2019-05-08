@@ -9,6 +9,23 @@ Class {
 	#category : #'Brick-! Core'
 }
 
+{ #category : #converting }
+BrLookChange >> asElementFor: aLook [
+	^ BrButton new
+		look: BrGlamorousButtonWithLabelLook;
+		label:
+			(initialized
+				ifTrue: [ 'Down ' , self class name ]
+				ifFalse: [ 'Up ' , self class name ]);
+		action: [ :e | 
+			initialized
+				ifTrue: [ self downOn: aLook.
+					e label: 'Up ' , self class name ]
+				ifFalse: [ self upOn: aLook.
+					e label: 'Down ' , self class name ] ];
+		yourself
+]
+
 { #category : #accessing }
 BrLookChange >> down [
 	^ down

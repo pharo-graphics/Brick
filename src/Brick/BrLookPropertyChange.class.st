@@ -11,6 +11,23 @@ Class {
 	#category : #'Brick-! Core'
 }
 
+{ #category : #'as yet unclassified' }
+BrLookPropertyChange >> asElementFor: aLook [
+	^ BrButton new
+		look: BrGlamorousButtonWithLabelLook;
+		label:
+			(initialized
+				ifTrue: [ 'Down ' , self class name , ' ' , path asString ]
+				ifFalse: [ 'Up ' , self class name , ' ' , path asString ]);
+		action: [ :e | 
+			initialized
+				ifTrue: [ self downOn: aLook.
+					e label: 'Up ' , self class name , ' ' , path asString ]
+				ifFalse: [ self upOn: aLook.
+					e label: 'Down ' , self class name , ' ' , path asString ] ];
+		yourself
+]
+
 { #category : #initialization }
 BrLookPropertyChange >> downOn: aLook [
 	self assert: [ initialized ].

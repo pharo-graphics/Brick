@@ -13,6 +13,17 @@ BrLookChanges >> add: aChange [
 	changes add: aChange
 ]
 
+{ #category : #converting }
+BrLookChanges >> asElementFor: aLook [
+	^ BlElement new
+		layout: BlLinearLayout vertical;
+		constraintsDo: [ :c | 
+			c horizontal fitContent.
+			c vertical fitContent ];
+		addChildren: (changes collect: [ :e | e asElementFor: aLook ]);
+		yourself
+]
+
 { #category : #initialization }
 BrLookChanges >> downOn: aLook [
 	self assert: [ initialized ].
