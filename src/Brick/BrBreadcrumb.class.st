@@ -43,6 +43,11 @@ BrBreadcrumb >> numberOfItems [
 ]
 
 { #category : #'api - adding / removing' }
+BrBreadcrumb >> removeAllItems [
+	self viewModel removeAllItems
+]
+
+{ #category : #'api - adding / removing' }
 BrBreadcrumb >> removeItem: anElement [
 	self viewModel removeItem: anElement viewModel
 ]
