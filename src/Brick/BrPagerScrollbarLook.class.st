@@ -18,12 +18,12 @@ BrPagerScrollbarLook >> buildPreviewOfThePage: aPageContentElement [
 		border: (BlBorder paint: Color gray width: 2);
 		look: (BrInteractiveCommonLook new
 			default: [ :aWidget | aWidget
-				border: (aWidget border copyWithOpacity: 0.5);
+				border: (aWidget border copyWithOpacity: 0.4);
 				background: Color transparent ];
-			hovered: [ :aWidget | aWidget
-				border: (aWidget border copyWithOpacity: 0.8);
-				background: (Color gray alpha: 0.2) ];
-			pressed: [ :aWidget | aWidget background: (Color gray alpha: 0.3) ]).
+			hovered: [ :aWidget | aWidget background: (Color gray alpha: 0.4) ];
+			pressed: [ :aWidget | aWidget
+				border: (aWidget border copyWithOpacity: 0.5);
+				background: (Color gray alpha: 0.5) ]).
 		
 	aPageContentElement addEventHandler: (BrPagerPagePreviewResizeListener new previewElement: aPreviewElement).
 	aPreviewElement when: BlClickEvent do: [ :anEvent |
