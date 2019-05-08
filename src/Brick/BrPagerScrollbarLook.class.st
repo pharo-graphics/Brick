@@ -13,11 +13,22 @@ BrPagerScrollbarLook >> buildPreviewOfThePage: aPageContentElement [
 	| aPreviewElement |
 	aPageContentElement removeEventHandlersSuchThat: [ :each | each isKindOf: BrPagerPagePreviewResizeListener ].
 
-	aPreviewElement := BlElement new
+	aPreviewElement := BrButton new
 		margin: (BlInsets all: 3);
-		border: (BlBorder paint: Color gray width: 2).
+		border: (BlBorder paint: Color gray width: 2);
+		look: (BrInteractiveCommonLook new
+			default: [ :aWidget | aWidget
+				border: (aWidget border copyWithOpacity: 0.5);
+				background: Color transparent ];
+			hovered: [ :aWidget | aWidget
+				border: (aWidget border copyWithOpacity: 0.8);
+				background: (Color gray alpha: 0.2) ];
+			pressed: [ :aWidget | aWidget background: (Color gray alpha: 0.3) ]).
 		
 	aPageContentElement addEventHandler: (BrPagerPagePreviewResizeListener new previewElement: aPreviewElement).
+	aPreviewElement when: BlClickEvent do: [ :anEvent |
+		anEvent consumed: true.
+		self widget smoothScrollTo: (self pageElements indexOf: aPageContentElement) ].
 	
 	^ aPreviewElement
 ]
@@ -33,10 +44,7 @@ BrPagerScrollbarLook >> initialize [
 		constraintsDo: [ :c | 
 			c horizontal matchParent.
 			c vertical fitContent ].
-	changes
-		add:
-			(#(content preview)
-				asBrLookChildAddAsChangeWithValue: [ scrollbarElement ])
+	changes add: (#(content preview) asBrLookChildAddAsChangeWithValue: [ scrollbarElement ])
 ]
 
 { #category : #initialization }
