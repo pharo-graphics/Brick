@@ -23,7 +23,7 @@ BrGlamorousButtonExteriorRectangularLook >> initialize [
 				asBrLookPropertyChangeWithValue: BlLinearLayout horizontal alignCenter);
 		add:
 			(#(widgetContent background)
-				asBrLookPropertyChangeWithValue: self backgroundPaint asBlBackground);
+				asBrLookPropertyChangeWithValue: self backgroundPaint);
 		add:
 			(#(widgetContent geometry)
 				asBrLookPropertyChangeWithValue: (BlRectangle cornerRadius: 4)).

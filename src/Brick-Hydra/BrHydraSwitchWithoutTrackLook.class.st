@@ -27,9 +27,7 @@ BrHydraSwitchWithoutTrackLook >> initialize [
 	changes
 		add:
 			(#(widget border)
-				asBrLookPropertyChangeWithValue: [ BlBorder builder
-						width: 1;
-						build ]).
+				asBrLookPropertyChangeWithValue: [ :e | e copyWithWidth: 1 ]).
 	changes
 		add:
 			(#(widget geometry)

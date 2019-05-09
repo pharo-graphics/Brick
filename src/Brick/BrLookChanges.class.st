@@ -10,18 +10,13 @@ Class {
 
 { #category : #adding }
 BrLookChanges >> add: aChange [
+	aChange source: thisContext sender method.
 	changes add: aChange
 ]
 
-{ #category : #converting }
-BrLookChanges >> asElementFor: aLook [
-	^ BlElement new
-		layout: BlLinearLayout vertical;
-		constraintsDo: [ :c | 
-			c horizontal fitContent.
-			c vertical fitContent ];
-		addChildren: (changes collect: [ :e | e asElementFor: aLook ]);
-		yourself
+{ #category : #accessing }
+BrLookChanges >> changes [
+	^ changes
 ]
 
 { #category : #initialization }

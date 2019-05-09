@@ -11,23 +11,6 @@ Class {
 	#category : #'Brick-! Core'
 }
 
-{ #category : #'as yet unclassified' }
-BrLookPropertyChange >> asElementFor: aLook [
-	^ BrButton new
-		look: BrGlamorousButtonWithLabelLook;
-		label:
-			(initialized
-				ifTrue: [ 'Down ' , self class name , ' ' , path asString ]
-				ifFalse: [ 'Up ' , self class name , ' ' , path asString ]);
-		action: [ :e | 
-			initialized
-				ifTrue: [ self downOn: aLook.
-					e label: 'Up ' , self class name , ' ' , path asString ]
-				ifFalse: [ self upOn: aLook.
-					e label: 'Down ' , self class name , ' ' , path asString ] ];
-		yourself
-]
-
 { #category : #initialization }
 BrLookPropertyChange >> downOn: aLook [
 	self assert: [ initialized ].
@@ -41,7 +24,13 @@ BrLookPropertyChange >> downOn: aLook [
 BrLookPropertyChange >> initialize [
 	super initialize.
 	read := [ :e | self readOn: e ].
-	up := [ :e :f | self writeOn: e value: value value ].
+	up := [ :e :f | 
+	self
+		writeOn: e
+		value:
+			(value isBlock
+				ifTrue: [ value cull: f ]
+				ifFalse: [ value ]) ].
 	down := [ :e :f :g | self writeOn: e value: f ]
 ]
 
@@ -53,6 +42,11 @@ BrLookPropertyChange >> path [
 { #category : #accessing }
 BrLookPropertyChange >> path: anObject [
 	path := anObject
+]
+
+{ #category : #printing }
+BrLookPropertyChange >> printOn: aStream [
+	aStream nextPutAll: (' ' join: (path collect: #asString))
 ]
 
 { #category : #initialization }

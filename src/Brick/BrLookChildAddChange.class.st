@@ -21,6 +21,12 @@ BrLookChildAddChange >> containerOn: aLook [
 				into: [ :e :f | e childNamed: f ] ]
 ]
 
+{ #category : #printing }
+BrLookChildAddChange >> printOn: aStream [
+	aStream nextPutAll: 'add child '.
+	super printOn: aStream
+]
+
 { #category : #initialization }
 BrLookChildAddChange >> readOn: aLook [
 	^ child
