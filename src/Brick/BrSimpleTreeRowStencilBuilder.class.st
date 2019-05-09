@@ -3,7 +3,8 @@ Class {
 	#superclass : #BrTreeRowStencilBuilder,
 	#instVars : [
 		'cellSpacing',
-		'padding'
+		'padding',
+		'text'
 	],
 	#category : #'Brick-Tree - Stencil'
 }
@@ -11,7 +12,7 @@ Class {
 { #category : #'api - instantiation' }
 BrSimpleTreeRowStencilBuilder >> buildDefault [
 	<return: #BrStencil or: #BlElement>
-	| aContainer |
+	| aContainer aText |
 
 	aContainer := (BrColumnedTreeRowStencilBuilder new
 		treeNode: self treeNode;
@@ -20,7 +21,9 @@ BrSimpleTreeRowStencilBuilder >> buildDefault [
 		padding: self padding;
 		cellSpacing: self cellSpacing) asElement.
 
-	aContainer addChild: (BlTextElement new text: self treeNode value gtDisplayString asRopedText) in: #expander.
+	aText := text glamourValue: self treeNode value.
+	aContainer addChild: (BrColumnCellLabelStencil new text: aText) asElement in: #expander.
+
 	^ aContainer
 ]
 
@@ -39,7 +42,8 @@ BrSimpleTreeRowStencilBuilder >> initialize [
 	super initialize.
 	
 	cellSpacing := 0.
-	padding := BlInsets empty
+	padding := BlInsets empty.
+	text := [ :aNodeValue | aNodeValue gtDisplayString asRopedText ]
 ]
 
 { #category : #accessing }
@@ -50,4 +54,14 @@ BrSimpleTreeRowStencilBuilder >> padding [
 { #category : #accessing }
 BrSimpleTreeRowStencilBuilder >> padding: aBlInsets [
 	padding := aBlInsets
+]
+
+{ #category : #accessing }
+BrSimpleTreeRowStencilBuilder >> text [
+	^ text
+]
+
+{ #category : #accessing }
+BrSimpleTreeRowStencilBuilder >> text: aTextOrBlock [
+	text := aTextOrBlock
 ]

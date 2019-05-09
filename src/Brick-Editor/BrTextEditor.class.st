@@ -390,6 +390,30 @@ BrTextEditor >> initializeInteractions [
 		action: [ self moveCursorDown ]). 
 
 	self interactions add: (BlShortcut new
+		combination: (BlKeyCombination builder primary arrowRight build);
+		action: [ self moveCursorToEndNextWord ]).
+
+	self interactions add: (BlShortcut new
+		combination: (BlKeyCombination builder primary arrowLeft build);
+		action: [ self moveCursorToStartPreviousWord ]).
+
+	self interactions add: (BlShortcut new
+		combination: BlKeyCombination home;
+		action: [ self moveCursorToLineStart ]).
+
+	self interactions add: (BlShortcut new
+		combination: BlKeyCombination end;
+		action: [ self moveCursorToLineEnd ]).
+
+	"Callback for platform specific interactions"
+	OSPlatform current initializeBrickInteractionsFor: self
+]
+
+{ #category : #interactions }
+BrTextEditor >> initializeMacInteractions [
+	"Add and override key definitions which are Mac specific"
+
+	self interactions add: (BlShortcut new
 		combination: (BlKeyCombination builder primary arrowLeft build);
 		action: [ self moveCursorToLineStart ]).
 
@@ -397,13 +421,6 @@ BrTextEditor >> initializeInteractions [
 		combination: (BlKeyCombination builder primary arrowRight build);
 		action: [ self moveCursorToLineEnd ])
 
-	"self interactions add: (BlShortcut new
-		combination: (BlKeyCombination builder primary arrowRight build);
-		action: [ self moveCursorToEndNextWord ]).
-
-	self interactions add: (BlShortcut new
-		combination: (BlKeyCombination builder primary arrowLeft build);
-		action: [ self moveCursorToStartPreviousWord ])."
 ]
 
 { #category : #initialization }
@@ -501,15 +518,15 @@ BrTextEditor >> moveCursorTo: aTextIndex [
 { #category : #'text - cursor' }
 BrTextEditor >> moveCursorToEndNextWord [
 	| textIterator newPosition |
-	"Moves cursor to the left by one character"
+	"Moves cursor to the end of the next word"
 
-	textIterator := self text iterator: (self cursor first position max: 1) to: self text size.
 	newPosition := self cursor first position.
+	textIterator := self text iterator: (newPosition max: 1) to: self text size.
 	[ textIterator hasNext and: [ newPosition = self cursor first position ] ] whileTrue: [
 		| skip |
 		skip := textIterator peek isSeparator.
 		textIterator nextWord.
-		skip ifFalse: [ newPosition := textIterator position - 1 ] ].
+		skip ifFalse: [ newPosition := textIterator position ] ].
 
 	self moveCursorTo: newPosition
 ]
@@ -540,19 +557,17 @@ BrTextEditor >> moveCursorToLineStart [
 
 { #category : #'text - cursor' }
 BrTextEditor >> moveCursorToStartPreviousWord [
-	| textIterator newPosition |
+	| newPosition |
 	"Moves cursor to the left by one character"
 
-	"textIterator := self text iterator: 1 to: (self cursor position max: 1).
-	newPosition := self cursor position.
-	[ textIterator hasNext and: [ newPosition = self cursor position ] ] whileTrue: [
-		| skip |
-		skip := textIterator peek isSeparator.
-		textIterator nextWord.
-		skip ifFalse: [ newPosition := textIterator position - 1 ] ].
+	newPosition := self cursor first position - 1.
+	[ newPosition > 0 and: [ (self text at: newPosition) isSeparator ] ] whileTrue:
+		[ newPosition := newPosition - 1 ].
+	[ newPosition = 0 or: [ (self text at: newPosition) isSeparator ] ] whileFalse:
+		[ newPosition := newPosition - 1 ].
 
-	self moveCursorTo: newPosition.
-	self selectNone"
+	newPosition := newPosition max: 0.
+	self moveCursorTo: newPosition
 ]
 
 { #category : #'text - cursor' }

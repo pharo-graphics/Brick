@@ -7,8 +7,9 @@ Class {
 { #category : #initialization }
 BrGlamorousBreadcrumbLook >> initialize [
 	super initialize.
-	
-	self addAll: { 
-		BrLayoutLook linearHorizontal fitContent
-	}
+
+	self add: BrLayoutResizerLook inherit.
+	changes
+		add: (#(widget layout)
+		asBrLookPropertyChangeWithValue: [ BlLinearLayout horizontal alignCenterLeft ])
 ]
