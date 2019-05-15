@@ -207,6 +207,12 @@ BrTextEditorExamples >> adormentDynamicAttribute [
 	^ self newElement editor: self editorWithAdormentDynamicAttribute
 ]
 
+{ #category : #'examples - editing' }
+BrTextEditorExamples >> brickString [
+	<gtExample>
+	^ 'Brick'
+]
+
 { #category : #'examples - Morph>>#fullDrawOn:' }
 BrTextEditorExamples >> editorOnMorphFullDrawOn [
 	<gtExample>
@@ -233,10 +239,43 @@ BrTextEditorExamples >> editorWithAdormentDynamicAttribute [
 	^ editor
 ]
 
+{ #category : #'examples - editing' }
+BrTextEditorExamples >> editorWithBrickText [
+	<gtExample>
+	| anEditor aText |
+	anEditor := self newEditor.
+	aText := self brickString asRopedText.
+	anEditor text: aText.
+	self assert: anEditor text equals: aText.
+	^ anEditor
+]
+
+{ #category : #'examples - editing' }
+BrTextEditorExamples >> editorWithLastHiddenCharacter [
+	<gtExample>
+	| anEditor |
+	anEditor := self editorWithBrickText.
+	(anEditor text from: anEditor text size to: anEditor text size)
+		attribute: self newHideTextAttribute.
+	self assert: anEditor text asString equals: self brickString.
+	^ anEditor
+]
+
 { #category : #'examples - editor' }
 BrTextEditorExamples >> editorWithMethod [
 	<gtExample>
 	^ self newEditor text: self newMethodText
+]
+
+{ #category : #'examples - editing' }
+BrTextEditorExamples >> editorWithSecondHiddenCharacter [
+	<gtExample>
+	| anEditor |
+	anEditor := self editorWithBrickText.
+	(anEditor text from: 2 to: 2)
+		attribute: self newHideTextAttribute.
+	self assert: anEditor text asString equals: self brickString.
+	^ anEditor
 ]
 
 { #category : #examples }
@@ -288,6 +327,46 @@ BrTextEditorExamples >> elementWithMethod [
 	^ self newElement editor: self editorWithMethod
 ]
 
+{ #category : #'examples - editing' }
+BrTextEditorExamples >> insertLineFeedString [
+	<gtExample>
+	| anEditor |
+	anEditor := self editorWithBrickText.
+	anEditor insertString: String lf at: anEditor text size.
+	self assert: anEditor text asString equals: self brickString, String lf.
+	^ anEditor
+]
+
+{ #category : #'examples - editing' }
+BrTextEditorExamples >> insertLineFeedStringAfterLastHiddenCharacter [
+	<gtExample>
+	| anEditor |
+	anEditor := self editorWithLastHiddenCharacter.
+	anEditor insertString: String lf at: anEditor text size.
+	self assert: anEditor text asString equals: self brickString, String lf.
+	^ anEditor
+]
+
+{ #category : #'examples - editing' }
+BrTextEditorExamples >> insertLineFeedStringAfterSecondHiddenCharacter [
+	<gtExample>
+	| anEditor |
+	anEditor := self editorWithSecondHiddenCharacter.
+	anEditor insertString: String lf at: 2.
+	self assert: anEditor text asString equals: 'B', String lf, 'rick'.
+	^ anEditor
+]
+
+{ #category : #'examples - editing' }
+BrTextEditorExamples >> insertLineFeedStringBeforeSecondHiddenCharacter [
+	<gtExample>
+	| anEditor |
+	anEditor := self editorWithSecondHiddenCharacter.
+	anEditor insertString: String lf at: 1.
+	self assert: anEditor text asString equals: 'B', String lf, 'rick'.
+	^ anEditor
+]
+
 { #category : #'instance creation' }
 BrTextEditorExamples >> newEditor [
 	<gtExample>
@@ -304,6 +383,14 @@ BrTextEditorExamples >> newElement [
 			c horizontal matchParent.
 			c vertical matchParent ];
 		yourself
+]
+
+{ #category : #'examples - editing' }
+BrTextEditorExamples >> newHideTextAttribute [
+	<gtExample>
+	^ BrTextAdornmentDynamicAttribute new
+		beReplace;
+		stencil: [ BlElement new size: 0@0 ]
 ]
 
 { #category : #'instance creation' }
