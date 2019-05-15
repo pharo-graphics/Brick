@@ -328,6 +328,26 @@ BrTextEditorExamples >> elementWithMethod [
 ]
 
 { #category : #'examples - editing' }
+BrTextEditorExamples >> insertAStringAfterLastHiddenCharacter [
+	<gtExample>
+	| anEditor |
+	anEditor := self editorWithLastHiddenCharacter.
+	anEditor insertString: '_' at: anEditor text size.
+	self assert: anEditor text asString equals: self brickString, '_'.
+	^ anEditor
+]
+
+{ #category : #'examples - editing' }
+BrTextEditorExamples >> insertAStringAfterSecondHiddenCharacter [
+	<gtExample>
+	| anEditor |
+	anEditor := self editorWithSecondHiddenCharacter.
+	anEditor insertString: '_' at: 2.
+	self assert: anEditor text asString equals: 'Br_ick'.
+	^ anEditor
+]
+
+{ #category : #'examples - editing' }
 BrTextEditorExamples >> insertLineFeedString [
 	<gtExample>
 	| anEditor |
@@ -353,7 +373,7 @@ BrTextEditorExamples >> insertLineFeedStringAfterSecondHiddenCharacter [
 	| anEditor |
 	anEditor := self editorWithSecondHiddenCharacter.
 	anEditor insertString: String lf at: 2.
-	self assert: anEditor text asString equals: 'B', String lf, 'rick'.
+	self assert: anEditor text asString equals: 'Br', String lf, 'ick'.
 	^ anEditor
 ]
 
