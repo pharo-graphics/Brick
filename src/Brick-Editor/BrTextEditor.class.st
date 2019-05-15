@@ -222,6 +222,14 @@ BrTextEditor >> enqueueCommand: aBrTextEditorInsertCommand [
 	commandMutex critical: [ aBrTextEditorInsertCommand executeOn: self ]
 ]
 
+{ #category : #accessing }
+BrTextEditor >> gtStringFor: aView [
+	<gtView>
+	^ (self text 
+		gtStringFor: aView)
+		priority: 5
+]
+
 { #category : #'text - selection' }
 BrTextEditor >> hasSelection [
 	"Return true of there is at least one selected character, false otherwise"
