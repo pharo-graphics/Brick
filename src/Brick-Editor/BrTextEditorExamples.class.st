@@ -256,7 +256,7 @@ BrTextEditorExamples >> editorWithLastHiddenCharacter [
 	| anEditor |
 	anEditor := self editorWithBrickText.
 	(anEditor text from: anEditor text size to: anEditor text size)
-		attribute: self newHideTextAttribute.
+		attribute: self newBeReplaceTextAttribute.
 	self assert: anEditor text asString equals: self brickString.
 	^ anEditor
 ]
@@ -273,7 +273,7 @@ BrTextEditorExamples >> editorWithSecondHiddenCharacter [
 	| anEditor |
 	anEditor := self editorWithBrickText.
 	(anEditor text from: 2 to: 2)
-		attribute: self newHideTextAttribute.
+		attribute: self newBeReplaceTextAttribute.
 	self assert: anEditor text asString equals: self brickString.
 	^ anEditor
 ]
@@ -387,6 +387,16 @@ BrTextEditorExamples >> insertLineFeedStringBeforeSecondHiddenCharacter [
 	^ anEditor
 ]
 
+{ #category : #'examples - editing' }
+BrTextEditorExamples >> newBeReplaceTextAttribute [
+	<gtExample>
+	^ BrTextAdornmentDynamicAttribute new
+		beReplace;
+		stencil: [ BlElement new 
+			size: 10@10; 
+			background: Color lightGray ]
+]
+
 { #category : #'instance creation' }
 BrTextEditorExamples >> newEditor [
 	<gtExample>
@@ -403,14 +413,6 @@ BrTextEditorExamples >> newElement [
 			c horizontal matchParent.
 			c vertical matchParent ];
 		yourself
-]
-
-{ #category : #'examples - editing' }
-BrTextEditorExamples >> newHideTextAttribute [
-	<gtExample>
-	^ BrTextAdornmentDynamicAttribute new
-		beReplace;
-		stencil: [ BlElement new size: 0@0 ]
 ]
 
 { #category : #'instance creation' }

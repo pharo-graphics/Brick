@@ -5,6 +5,50 @@ Class {
 }
 
 { #category : #'examples - split' }
+BrTextEditorLineSplitterExamples >> beReplaceTextAttribute [
+	<gtExample>
+	^ BrTextAdornmentDynamicAttribute new
+		beReplace;
+		stencil: [ BlElement new 
+			size: 10@10; 
+			background: Color lightGray ]
+]
+
+{ #category : #'examples - split' }
+BrTextEditorLineSplitterExamples >> split_BeReplacedTextAtribute_FollowedByLf [
+	<gtExample>
+	| aText aSplitter aStream aTextAttribute theAttributes |
+
+	aTextAttribute := self beReplaceTextAttribute.
+	aText := 'Hello' asRopedText attribute: aTextAttribute.
+	
+	self assert: aText size equals: 5.
+	theAttributes := (aText from: aText size to: aText size) iterator attributes.
+	self assert: theAttributes size equals: 1.
+	self assert: theAttributes first equals: aTextAttribute.
+
+	aText insertText: String lf at: aText size.
+	self assert: aText size equals: 6.
+	theAttributes := (aText from: aText size to: aText size) iterator attributes.
+	self assert: theAttributes size equals: 1.
+	self assert: theAttributes first equals: aTextAttribute.
+	
+	aSplitter := self textLineSplitter.
+	aStream := self textSegmentStream.
+
+	aSplitter split: aText in: aStream.
+
+	self assert: aStream segments size equals: 2.
+	self assert: aStream segments first textStart equals: 0.
+	self assert: aStream segments first textEnd equals: 5.
+	
+	self assert: aStream segments second textStart equals: 6.
+	self assert: aStream segments second textEnd equals: 6.
+
+	^ aStream
+]
+
+{ #category : #'examples - split' }
 BrTextEditorLineSplitterExamples >> split_Cr [
 	<gtExample>
 	| aText aSplitter aStream |
