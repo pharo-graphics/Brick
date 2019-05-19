@@ -7,8 +7,8 @@ Class {
 { #category : #initialization }
 BrTabLook >> initialize [
 	super initialize.
-	changes
-		add:
+	self
+		addChange:
 			(BrLookChange new
 				up: [ :e | 
 					"here we define default tab look (independent from the view model)"

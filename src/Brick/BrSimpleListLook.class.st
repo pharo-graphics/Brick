@@ -13,14 +13,12 @@ BrSimpleListLook >> initialize [
 	listElement := BrInfiniteListElement new.
 	self itemStencilBuilder: BrSimpleListRowStencilBuilder new.
 	self add: (BrLayoutResizerLook inherit inherit: listElement).
-	changes
-		add: (#(content list) asBrLookChildAddAsChangeWithValue: [ listElement ]).
-	changes
-		add:
-			(#(widgetContent layout)
-				asBrLookPropertyChangeWithValue: [ BlLinearLayout vertical ]).
-	changes
-		add:
+	self addChangeAddChildAs: #(content list) with: [ listElement ].
+	self
+		addChangeProperty: #(widgetContent layout)
+		with: [ BlLinearLayout vertical ].
+	self
+		addChange:
 			(BrLookChange new
 				up: [ :e | listElement dataSource listElement: self widgetContent ];
 				down: [ :e |  ];

@@ -36,7 +36,7 @@ BrTabGroupHeaderLook >> initialize [
 	scrollTabbar addChild: tabbar as: #tabbar.
 	toolbar := BlElement new.
 	header addChild: toolbar as: #toolbar.
-	changes add: (#(header) asBrLookChildAddAsChangeWithValue: [ header ])
+	self addChangeAddChildAs: #(header) with: [ header ]
 ]
 
 { #category : #initialization }

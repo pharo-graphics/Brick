@@ -12,14 +12,12 @@ BrTreeLook >> initialize [
 	super initialize.
 	treeElement := BrInfiniteTreeElement new.
 	self add: (BrLayoutResizerLook inherit inherit: treeElement).
-	changes
-		add: (#(content tree) asBrLookChildAddAsChangeWithValue: [ treeElement ]).
-	changes
-		add:
-			(#(widgetContent layout)
-				asBrLookPropertyChangeWithValue: [ BlLinearLayout vertical ]).
-	changes
-		add:
+	self addChangeAddChildAs: #(content tree) with: [ treeElement ].
+	self
+		addChangeProperty: #(widgetContent layout)
+		with: [ BlLinearLayout vertical ].
+	self
+		addChange:
 			(BrLookChange new
 				up: [ :e | treeElement dataSource treeElement: self widgetContent ];
 				down: [ :e |  ];

@@ -17,8 +17,7 @@ BrPagerLook >> initialize [
 		constraintsDo: [ :c | 
 			c horizontal matchParent.
 			c vertical matchParent ].
-	changes
-		add: (#(content list) asBrLookChildAddAsChangeWithValue: [ pagesListElement ])
+	self addChangeAddChildAs: #(content list) with: [ pagesListElement ]
 ]
 
 { #category : #initialization }

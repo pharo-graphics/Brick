@@ -18,8 +18,8 @@ BrMaterialTabLabelledLook >> initialize [
 			"for the label"
 			(label := BrTextLabelLook new)}.
 	"for basic layout parameters"
-	changes
-		add:
+	self
+		addChange:
 			(BrLookChange new
 				up: [ :e | label thin ];
 				down: [ :e |  ];

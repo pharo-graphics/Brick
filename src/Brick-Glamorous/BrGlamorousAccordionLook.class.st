@@ -77,12 +77,10 @@ BrGlamorousAccordionLook >> initialize [
 				inherit: wrapper;
 				inherit: contentContainer;
 				inheritIn: [ :aBlock | aBlock value: (contentElement ifNil: [ BlElement new ]) ]).
-	changes
-		add:
-			(#(widget layout)
-				asBrLookPropertyChangeWithValue: [ BlLinearLayout horizontal ]).
-	changes
-		add: (#(content wrapper) asBrLookChildAddAsChangeWithValue: [ wrapper ])
+	self
+		addChangeProperty: #(widget layout)
+		with: [ BlLinearLayout horizontal ].
+	self addChangeAddChildAs: #(content wrapper) with: [ wrapper ]
 ]
 
 { #category : #'instance creation' }

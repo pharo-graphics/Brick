@@ -29,8 +29,7 @@ BrTabGroupContentLook >> initialize [
 			c horizontal matchParent.
 			c vertical fitContent ].
 	contentElementsCache := IdentityDictionary new.
-	changes
-		add: (#(content) asBrLookChildAddAsChangeWithValue: [ content ])
+	self addChangeAddChildAs: #(content) with: [ content ]
 ]
 
 { #category : #initialization }

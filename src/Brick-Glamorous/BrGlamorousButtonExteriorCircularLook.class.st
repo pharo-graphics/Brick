@@ -12,16 +12,13 @@ BrGlamorousButtonExteriorCircularLook >> initialize [
 	super initialize.
 	self
 		style: [ :aStyler | aStyler default: [ self widgetContent size: 24 @ 24 ] ].
-	changes
-		add:
-			(#(widgetContent layout)
-				asBrLookPropertyChangeWithValue: [ BlLinearLayout horizontal alignCenter ]).
-	changes
-		add:
-			(#(widgetContent background)
-				asBrLookPropertyChangeWithValue: [ self backgroundPaint ]).
-	changes
-		add:
-			(#(widgetContent geometry)
-				asBrLookPropertyChangeWithValue: [ BlCircle new ])
+	self
+		addChangeProperty: #(widgetContent layout)
+		with: [ BlLinearLayout horizontal alignCenter ].
+	self
+		addChangeProperty: #(widgetContent background)
+		with: [ self backgroundPaint ].
+	self
+		addChangeProperty: #(widgetContent geometry)
+		with: [ BlCircle new ]
 ]

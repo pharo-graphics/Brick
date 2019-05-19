@@ -37,24 +37,19 @@ BrGlamorousLinkButtonExteriorLook >> initialize [
 			aStyler
 				disabled:
 					[ :aWidget | aWidget background: BrGlamorousColors disabledButtonTextColor ] ].
-	changes
-		add:
-			(#(widgetContent layout)
-				asBrLookPropertyChangeWithValue: [ BlLinearLayout horizontal alignCenter ]).
-	changes
-		add:
-			(#(widgetContent geometry)
-				asBrLookPropertyChangeWithValue: [ BlRectangle cornerRadius: 4 ]).
-	changes
-		add:
-			(#(widgetContent constraints vertical resizer)
-				asBrLookPropertyChangeWithValue: BlLayoutResizer fitContent).
-	changes
-		add:
-			(#(widgetContent constraints horizontal resizer)
-				asBrLookPropertyChangeWithValue: BlLayoutResizer fitContent).
-	changes
-		add:
-			(#(widgetContent padding)
-				asBrLookPropertyChangeWithValue: [ BlInsets all: 3 ])
+	self
+		addChangeProperty: #(widgetContent layout)
+		with: [ BlLinearLayout horizontal alignCenter ].
+	self
+		addChangeProperty: #(widgetContent geometry)
+		with: [ BlRectangle cornerRadius: 4 ].
+	self
+		addChangeProperty: #(widgetContent constraints vertical resizer)
+		with: BlLayoutResizer fitContent.
+	self
+		addChangeProperty: #(widgetContent constraints horizontal resizer)
+		with: BlLayoutResizer fitContent.
+	self
+		addChangeProperty: #(widgetContent padding)
+		with: [ BlInsets all: 3 ]
 ]

@@ -7,23 +7,17 @@ Class {
 	#category : #'Brick-Material-Buttons - Support'
 }
 
-{ #category : #'as yet unclassified' }
+{ #category : #accessing }
 BrMaterialButtonLayoutLook >> initialize [
 	super initialize.
-	changes
-		add:
-			(#(widget layout)
-				asBrLookPropertyChangeWithValue: [ BlLinearLayout horizontal alignCenter ]).
-	changes
-		add:
-			(#(widget constraints vertical resizer)
-				asBrLookPropertyChangeWithValue: BlLayoutResizer fitContent).
-	changes
-		add:
-			(#(widget constraints horizontal resizer)
-				asBrLookPropertyChangeWithValue: BlLayoutResizer fitContent).
-	changes
-		add:
-			(#(widget padding)
-				asBrLookPropertyChangeWithValue: [ BlInsets all: 6 ])
+	self
+		addChangeProperty: #(widget layout)
+		with: [ BlLinearLayout horizontal alignCenter ].
+	self
+		addChangeProperty: #(widget constraints vertical resizer)
+		with: BlLayoutResizer fitContent.
+	self
+		addChangeProperty: #(widget constraints horizontal resizer)
+		with: BlLayoutResizer fitContent.
+	self addChangeProperty: #(widget padding) with: [ BlInsets all: 6 ]
 ]

@@ -36,8 +36,7 @@ BrTextLabelLook >> attributesBuilder [
 { #category : #initialization }
 BrTextLabelLook >> initialize [
 	super initialize.
-	changes
-		add: (#(content label) asBrLookChildAddAsChangeWithValue: [ self label ]).
+	self addChangeAddChildAs: #(content label) with: [ self label ].
 	text := 'Label' asRopedText.
 	labelElement := BlTextElement new.
 	labelElement clipChildren: false.

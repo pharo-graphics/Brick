@@ -164,8 +164,8 @@ BrLayoutLook >> initialize [
 	horizontalAlignment := BlNullAlignment horizontal.
 	verticalAlignment := BlNullAlignment vertical.
 	consraintsBlock := [ :c |  ].
-	changes
-		add:
+	self
+		addChange:
 			(BrLookChange new
 				up: [ :e | 
 					self targetElement
@@ -173,16 +173,14 @@ BrLayoutLook >> initialize [
 						do: [ self widgetDo: [ self onAddedToParent ] ] ];
 				down: [ :e |  ];
 				yourself).
-	changes
-		add:
-			(#(targetElement constraints horizontal resizer)
-				asBrLookPropertyChangeWithValue: [ self horizontalResizer ]).
-	changes
-		add:
-			(#(targetElement constraints vertical resizer)
-				asBrLookPropertyChangeWithValue: [ self verticalResizer ]).
-	changes
-		add:
+	self
+		addChangeProperty: #(targetElement constraints horizontal resizer)
+		with: [ self horizontalResizer ].
+	self
+		addChangeProperty: #(targetElement constraints vertical resizer)
+		with: [ self verticalResizer ].
+	self
+		addChange:
 			(BrLookChange new
 				up: [ :e | 
 					self targetElement constraintsDo: [ :c | consraintsBlock value: c ].

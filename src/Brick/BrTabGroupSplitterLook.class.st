@@ -16,8 +16,7 @@ BrTabGroupSplitterLook >> initialize [
 		constraintsDo: [ :c | 
 			c horizontal matchParent.
 			c vertical exact: 1 ].
-	changes
-		add: (#(splitter) asBrLookChildAddAsChangeWithValue: [ splitter ])
+	self addChangeAddChildAs: #(splitter) with: [ splitter ]
 ]
 
 { #category : #accessing }

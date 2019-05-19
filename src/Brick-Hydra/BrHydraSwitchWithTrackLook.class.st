@@ -26,28 +26,17 @@ BrHydraSwitchWithTrackLook >> initialize [
 	cornerRadius := 0.
 	thumb := self newThumbElement.
 	track := self newTrackElement.
-	changes
-		add:
-			(#(widget layout)
-				asBrLookPropertyChangeWithValue: [ BlFrameLayout new ]).
-	changes
-		add:
-			(#(widget padding)
-				asBrLookPropertyChangeWithValue: [ BlInsets all: 4 ]).
-	changes
-		add:
-			(#(widget border)
-				asBrLookPropertyChangeWithValue: [ :e | e copyWithWidth: 1 ]).
-	changes
-		add:
-			(#(widget geometry)
-				asBrLookPropertyChangeWithValue: [ BlRectangle new ]).
-	changes
-		add: (#(widget size) asBrLookPropertyChangeWithValue: [ 48 @ 18 ]).
-	changes add: (#(track) asBrLookChildAddAsChangeWithValue: [ track ]).
-	changes add: (#(thumb) asBrLookChildAddAsChangeWithValue: [ thumb ]).
-	changes
-		add:
+	self addChangeProperty: #(widget layout) with: [ BlFrameLayout new ].
+	self addChangeProperty: #(widget padding) with: [ BlInsets all: 4 ].
+	self
+		addChangeProperty: #(widget border)
+		with: [ :e | e copyWithWidth: 1 ].
+	self addChangeProperty: #(widget geometry) with: [ BlRectangle new ].
+	self addChangeProperty: #(widget size) with: [ 48 @ 18 ].
+	self addChangeAddChildAs: #(track) with: [ track ].
+	self addChangeAddChildAs: #(thumb) with: [ thumb ].
+	self
+		addChange:
 			(BrLookChange new
 				up: [ :e | 
 					self updateColor.

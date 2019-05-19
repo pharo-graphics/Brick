@@ -67,11 +67,8 @@ BrMaterialListItemLook >> initialize [
 			{(layoutLook := BrLayoutLook linearHorizontal hMatchParent
 				layoutDo: [ :aLayout | aLayout alignCenterLeft ])}.
 	self beCompact.
-	changes
-		add: (#(widget padding) asBrLookPropertyChangeWithValue: [ self padding ]).
-	changes
-		add:
-			(#(widget background) asBrLookPropertyChangeWithValue: [ Color white ])
+	self addChangeProperty: #(widget padding) with: [ self padding ].
+	self addChangeProperty: #(widget background) with: [ Color white ]
 ]
 
 { #category : #initialization }

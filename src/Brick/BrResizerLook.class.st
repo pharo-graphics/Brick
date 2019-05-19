@@ -13,8 +13,8 @@ Class {
 BrResizerLook >> initialize [
 	super initialize.
 	location := BrResizerBottomLocation new.
-	changes
-		add:
+	self
+		addChange:
 			(BrLookChange new
 				up: [ :e | self updateListener ];
 				down: [ :e |  ];

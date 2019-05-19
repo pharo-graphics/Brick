@@ -11,10 +11,9 @@ Class {
 BrGlamorousWithResizerLook >> initialize [
 	super initialize.
 	resizer := self newResizer.
-	changes
-		add: (#(content) asBrLookChildAddChangeWithValue: [ resizer ]).
-	changes
-		add:
+	self addChangeAddChild: #(content) with: [ resizer ].
+	self
+		addChange:
 			(BrLookChange new
 				up: [ :e | resizer target: self widgetContent ];
 				down: [ :e |  ];

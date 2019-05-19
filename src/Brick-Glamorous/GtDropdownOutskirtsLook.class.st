@@ -4,19 +4,15 @@ Class {
 	#category : #'Brick-Glamorous-Dropdown'
 }
 
-{ #category : #'as yet unclassified' }
+{ #category : #accessing }
 GtDropdownOutskirtsLook >> initialize [
 	super initialize.
-	changes
-		add:
-			(#(widget geometry)
-				asBrLookPropertyChangeWithValue: [ BlRectangle cornerRadius: 12 ]).
-	changes
-		add:
-			(#(widget background) asBrLookPropertyChangeWithValue: [ Color white ]).
-	changes
-		add:
-			(#(widget border)
-				asBrLookPropertyChangeWithValue:
-					[ BlBorder paint: BrGlamorousColors defaultButtonBorderColor width: 1 ])
+	self
+		addChangeProperty: #(widget geometry)
+		with: [ BlRectangle cornerRadius: 12 ].
+	self addChangeProperty: #(widget background) with: [ Color white ].
+	self
+		addChangeProperty: #(widget border)
+		with:
+			[ BlBorder paint: BrGlamorousColors defaultButtonBorderColor width: 1 ]
 ]

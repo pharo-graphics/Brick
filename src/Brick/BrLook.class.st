@@ -56,12 +56,58 @@ BrLook >> addAll: aCollectionOfLooks [
 	aCollectionOfLooks do: [ :aLook | self add: aLook ]
 ]
 
+{ #category : #'api - changes' }
+BrLook >> addChange: aLookChange [
+	changes add: aLookChange.
+	widget ifNotNil: [ aLookChange upOn: self ]
+]
+
+{ #category : #'api - changes' }
+BrLook >> addChangeAddChild: aCollection with: aBlock [
+	self
+		addChange:
+			(BrLookAddChildChange new
+				path: aCollection;
+				value: aBlock;
+				yourself)
+]
+
+{ #category : #'api - changes' }
+BrLook >> addChangeAddChildAs: aCollection with: aBlock [
+	self
+		addChange:
+			(BrLookAddChildAsChange new
+				path: aCollection;
+				value: aBlock;
+				yourself)
+]
+
+{ #category : #'api - changes' }
+BrLook >> addChangeProperty: aCollection with: aBlock [
+	self
+		addChange:
+			(BrLookPropertyChange new
+				path: aCollection;
+				value: aBlock;
+				yourself)
+]
+
+{ #category : #'api - changes' }
+BrLook >> addChangeProperty: aCollection withCopy: aBlock [
+	self
+		addChange:
+			(BrLookPropertyCopyChange new
+				path: aCollection;
+				value: aBlock;
+				yourself)
+]
+
 { #category : #'api - composition' }
 BrLook >> asLook [
 	^ self
 ]
 
-{ #category : #accessing }
+{ #category : #'api - changes' }
 BrLook >> changes [
 	^ changes
 ]

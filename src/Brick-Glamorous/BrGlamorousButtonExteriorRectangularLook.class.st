@@ -10,23 +10,22 @@ Class {
 { #category : #initialization }
 BrGlamorousButtonExteriorRectangularLook >> initialize [
 	super initialize.
-	changes
-		add: (#(widget height) asBrLookPropertyChangeWithValue: 24);
-		add:
-			(#(widget padding)
-				asBrLookPropertyChangeWithValue: (BlInsets left: 10 right: 10));
-		add:
-			(#(widgetContent constraints horizontal resizer)
-				asBrLookPropertyChangeWithValue: BlLayoutFitContentResizer uniqueInstance);
-		add:
-			(#(widgetContent layout)
-				asBrLookPropertyChangeWithValue: BlLinearLayout horizontal alignCenter);
-		add:
-			(#(widgetContent background)
-				asBrLookPropertyChangeWithValue: self backgroundPaint);
-		add:
-			(#(widgetContent geometry)
-				asBrLookPropertyChangeWithValue: (BlRectangle cornerRadius: 4)).
+	self addChangeProperty: #(widget height) with: 24.
+	self
+		addChangeProperty: #(widget padding)
+		with: (BlInsets left: 10 right: 10).
+	self
+		addChangeProperty: #(widgetContent constraints horizontal resizer)
+		with: BlLayoutFitContentResizer uniqueInstance.
+	self
+		addChangeProperty: #(widgetContent layout)
+		with: BlLinearLayout horizontal alignCenter.
+	self
+		addChangeProperty: #(widgetContent background)
+		with: self backgroundPaint.
+	self
+		addChangeProperty: #(widgetContent geometry)
+		with: (BlRectangle cornerRadius: 4).
 	self
 		style: [ :aStyler | 
 			aStyler

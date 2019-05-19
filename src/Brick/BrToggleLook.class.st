@@ -7,8 +7,8 @@ Class {
 { #category : #initialization }
 BrToggleLook >> initialize [
 	super initialize.
-	changes
-		add:
+	self
+		addChange:
 			(BrLookChange new
 				up: [ :e | 
 					self toggleDeactivated.

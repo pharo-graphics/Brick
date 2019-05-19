@@ -86,8 +86,8 @@ BrDropdownLook >> initialize [
 			(BrInteractiveCommonLook new
 				collapsed: [ self dropdownCollapsed ];
 				expanded: [ self dropdownExpanded ]).
-	changes
-		add:
+	self
+		addChange:
 			(BrLookChange new
 				up: [ :e | self initializeToggleElement ];
 				down: [ :e | 

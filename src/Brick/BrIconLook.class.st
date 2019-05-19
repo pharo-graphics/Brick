@@ -49,8 +49,8 @@ BrIconLook >> initialize [
 	iconElement size: 6 @ 6.
 	iconElement background: Color red.
 	iconElement geometry: BlEllipse new.
-	changes
-		add:
+	self
+		addChange:
 			(BrLookChange new
 				up: [ :e | self updateIcon ];
 				down: [ :e | iconElement ifNotNil: #removeFromParent ];

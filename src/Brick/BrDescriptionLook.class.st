@@ -45,10 +45,9 @@ BrDescriptionLook >> initialize [
 	attributesBuilder := BlTextDelegatedAttributesBuilder new.
 	attributesBuilder attributesTarget: text.
 	attributesBuilder whenAdded: [ descriptionElement text: text ].
-	changes
-		add:
-			(#(content description)
-				asBrLookChildAddAsChangeWithValue: [ descriptionElement ])
+	self
+		addChangeAddChildAs: #(content description)
+		with: [ descriptionElement ]
 ]
 
 { #category : #initialization }

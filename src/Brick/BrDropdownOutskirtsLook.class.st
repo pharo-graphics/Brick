@@ -4,14 +4,11 @@ Class {
 	#category : #'Brick-Dropdown - Look'
 }
 
-{ #category : #'as yet unclassified' }
+{ #category : #accessing }
 BrDropdownOutskirtsLook >> initialize [
 	super initialize.
-	changes
-		add:
-			(#(widget background) asBrLookPropertyChangeWithValue: [ Color white ]).
-	changes
-		add:
-			(#(widget border)
-				asBrLookPropertyChangeWithValue: [ BlBorder paint: Color gray width: 1 ])
+	self addChangeProperty: #(widget background) with: [ Color white ].
+	self
+		addChangeProperty: #(widget border)
+		with: [ BlBorder paint: Color gray width: 1 ]
 ]

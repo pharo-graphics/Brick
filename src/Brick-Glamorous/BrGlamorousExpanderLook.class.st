@@ -68,18 +68,14 @@ BrGlamorousExpanderLook >> initialize [
 					aWidget border: BlBorder empty.
 					self remove: aShadowLook.
 					self add: aShadowLook ]).
-	changes
-		add: (#(content) asBrLookChildAddAsChangeWithValue: [ container ]).
-	changes
-		add:
-			(#(widget layout)
-				asBrLookPropertyChangeWithValue: [ BlLinearLayout horizontal ]).
-	changes
-		add:
-			(#(widget geometry)
-				asBrLookPropertyChangeWithValue: [ BlRectangle cornerRadius: 3 ]).
-	changes
-		add: (#(content sidebar) asBrLookChildAddAsChangeWithValue: [ sidebar ])
+	self addChangeAddChildAs: #(content) with: [ container ].
+	self
+		addChangeProperty: #(widget layout)
+		with: [ BlLinearLayout horizontal ].
+	self
+		addChangeProperty: #(widget geometry)
+		with: [ BlRectangle cornerRadius: 3 ].
+	self addChangeAddChildAs: #(content sidebar) with: [ sidebar ]
 ]
 
 { #category : #accessing }

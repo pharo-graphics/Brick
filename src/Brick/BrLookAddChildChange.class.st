@@ -1,5 +1,5 @@
 Class {
-	#name : #BrLookChildAddChange,
+	#name : #BrLookAddChildChange,
 	#superclass : #BrLookPropertyChange,
 	#instVars : [
 		'child'
@@ -8,7 +8,7 @@ Class {
 }
 
 { #category : #initialization }
-BrLookChildAddChange >> containerOn: aLook [
+BrLookAddChildChange >> containerOn: aLook [
 	self flag: 'ugly hack around widgetContent'.
 	^ path first = #content
 		ifTrue: [ path size >= 2
@@ -22,18 +22,18 @@ BrLookChildAddChange >> containerOn: aLook [
 ]
 
 { #category : #printing }
-BrLookChildAddChange >> printOn: aStream [
+BrLookAddChildChange >> printOn: aStream [
 	aStream nextPutAll: 'add child '.
 	super printOn: aStream
 ]
 
 { #category : #initialization }
-BrLookChildAddChange >> readOn: aLook [
+BrLookAddChildChange >> readOn: aLook [
 	^ child
 ]
 
 { #category : #initialization }
-BrLookChildAddChange >> writeOn: aLook value: anObject [
+BrLookAddChildChange >> writeOn: aLook value: anObject [
 	| container |
 	container := self containerOn: aLook.
 	^ anObject

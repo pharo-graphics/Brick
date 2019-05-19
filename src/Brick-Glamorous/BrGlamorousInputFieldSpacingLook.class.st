@@ -7,20 +7,17 @@ Class {
 { #category : #initialization }
 BrGlamorousInputFieldSpacingLook >> initialize [
 	super initialize.
-	changes
-		add:
-			(#(widgetContent constraints vertical resizer)
-				asBrLookPropertyChangeWithValue: [ BlLayoutResizer fitContent ]).
-	changes
-		add:
-			(#(widgetContent constraints horizontal resizer)
-				asBrLookPropertyChangeWithValue: [ BlLayoutResizer fitContent ]).
-	changes
-		add:
-			(#(widgetContent padding)
-				asBrLookPropertyChangeWithValue: [ BlInsets
-						top: 5
-						left: 5
-						bottom: 5
-						right: 5 ])
+	self
+		addChangeProperty: #(widgetContent constraints vertical resizer)
+		with: [ BlLayoutResizer fitContent ].
+	self
+		addChangeProperty: #(widgetContent constraints horizontal resizer)
+		with: [ BlLayoutResizer fitContent ].
+	self
+		addChangeProperty: #(widgetContent padding)
+		with: [ BlInsets
+				top: 5
+				left: 5
+				bottom: 5
+				right: 5 ]
 ]

@@ -44,7 +44,9 @@ BrPagerScrollbarLook >> initialize [
 		constraintsDo: [ :c | 
 			c horizontal matchParent.
 			c vertical fitContent ].
-	changes add: (#(content preview) asBrLookChildAddAsChangeWithValue: [ scrollbarElement ])
+	self
+		addChangeAddChildAs: #(content preview)
+		with: [ scrollbarElement ]
 ]
 
 { #category : #initialization }

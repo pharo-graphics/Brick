@@ -9,8 +9,7 @@ BrMaterialListItemLabelLook >> initialize [
 	super initialize.
 	self fontSize: 16.
 	self fontName: 'Roboto'.
-	changes
-		add:
-			(#(label constraints horizontal resizer)
-				asBrLookPropertyChangeWithValue: BlLayoutResizer matchParent)
+	self
+		addChangeProperty: #(label constraints horizontal resizer)
+		with: BlLayoutResizer matchParent
 ]

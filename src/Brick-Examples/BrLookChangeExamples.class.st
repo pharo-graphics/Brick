@@ -24,18 +24,34 @@ BrLookChangeExamples >> buttonLookChange [
 BrLookChangeExamples >> buttonLookPropertyChange [
 	<gtExample>
 	| blue wide notSoWide fat pointy round roundish changes label |
-	blue := #(widget background)
-		asBrLookPropertyChangeWithValue: BrGlamorousColors hoveredButtonTextColor asBlBackground.
-	wide := #(widget width) asBrLookPropertyChangeWithValue: 500.
-	notSoWide := #(widget width) asBrLookPropertyChangeWithValue: 350.
-	fat := #(widget padding)
-		asBrLookPropertyChangeWithValue: (BlInsets all: 50).
-	pointy := #(widget geometry)
-		asBrLookPropertyChangeWithValue: BlRectangle new.
-	round := #(widget geometry)
-		asBrLookPropertyChangeWithValue: BlEllipse new.
-	roundish := #(widget geometry)
-		asBrLookPropertyChangeWithValue: (BlRectangle cornerRadius: 10).
+	blue := BrLookPropertyChange new
+		path: #(widget background);
+		value: [ BrGlamorousColors hoveredButtonTextColor asBlBackground ];
+		yourself.
+	wide := BrLookPropertyChange new
+		path: #(widget width);
+		value: [ 500 ];
+		yourself.
+	notSoWide := BrLookPropertyChange new
+		path: #(widget width);
+		value: [ 350 ];
+		yourself.
+	fat := BrLookPropertyChange new
+		path: #(widget padding);
+		value: [ BlInsets all: 50 ];
+		yourself.
+	pointy := BrLookPropertyChange new
+		path: #(widget geometry);
+		value: [ BlRectangle new ];
+		yourself.
+	round := BrLookPropertyChange new
+		path: #(widget geometry);
+		value: [ BlEllipse new ];
+		yourself.
+	roundish := BrLookPropertyChange new
+		path: #(widget geometry);
+		value: [ BlRectangle cornerRadius: 10 ];
+		yourself.
 	changes := {(#blue -> blue).
 	(#wide -> wide).
 	(#notSoWide -> notSoWide).

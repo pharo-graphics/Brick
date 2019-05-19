@@ -20,13 +20,12 @@ BrGlamorousButtonExteriorLook >> backgroundPaint: anObject [
 { #category : #initialization }
 BrGlamorousButtonExteriorLook >> initialize [
 	super initialize.
-	changes
-		add:
-			(#(widget background)
-				asBrLookPropertyChangeWithValue: BrGlamorousColors defaultButtonBackgroundColor asBlBackground);
-		add:
-			(#(widget border)
-				asBrLookPropertyChangeWithValue: (BlBorder paint: BrGlamorousColors defaultButtonBorderColor width: 1)).
+	self
+		addChangeProperty: #(widget background)
+		with: BrGlamorousColors defaultButtonBackgroundColor asBlBackground.
+	self
+		addChangeProperty: #(widget border)
+		with: (BlBorder paint: BrGlamorousColors defaultButtonBorderColor width: 1).
 	backgroundPaint := Color white.
 	self
 		style: [ :aStyler | 

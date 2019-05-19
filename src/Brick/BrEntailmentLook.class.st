@@ -11,12 +11,12 @@ Class {
 BrEntailmentLook >> initialize [
 	self flag: 'FIXME is the still used?'.
 	super initialize.
-	changes
-		add:
+	self
+		addChange:
 			(BrLookChange new
-				up: [ :e | 	self updateWidget ];
+				up: [ :e | self updateWidget ];
 				down: [ :e |  ];
-				yourself).
+				yourself)
 ]
 
 { #category : #initialization }

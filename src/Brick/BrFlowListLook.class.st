@@ -31,10 +31,9 @@ BrFlowListLook >> initialize [
 			c vertical matchParent ].
 	scrollableElement addChild: listElement as: #list.
 	self itemStencilBuilder: BrSimpleListRowStencilBuilder new.
-	changes
-		add:
-			(#(content scrollable)
-				asBrLookChildAddAsChangeWithValue: [ scrollableElement ])
+	self
+		addChangeAddChildAs: #(content scrollable)
+		with: [ scrollableElement ]
 ]
 
 { #category : #initialization }

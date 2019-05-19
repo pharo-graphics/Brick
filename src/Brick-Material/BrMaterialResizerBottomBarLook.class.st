@@ -4,31 +4,24 @@ Class {
 	#category : 'Brick-Material-Collection'
 }
 
-{ #category : #'as yet unclassified' }
+{ #category : #accessing }
 BrMaterialResizerBottomBarLook >> initialize [
 	super initialize.
-	changes
-		add:
-			(#(widget background)
-				asBrLookPropertyChangeWithValue: [ Color gray alpha: 0.5 ]).
-	changes
-		add:
-			(#(widget geometry)
-				asBrLookPropertyChangeWithValue: [ BlRectangle cornerRadius: 2 ]).
-	changes
-		add:
-			(#(widget constraints vertical resizer)
-				asBrLookPropertyChangeWithValue: [ BlLayoutResizer exact: 4 ]).
-	changes
-		add:
-			(#(widget constraints vertical resizer)
-				asBrLookPropertyChangeWithValue: [ BlLayoutResizer exact: 70 ]).
-	changes
-		add:
-			(#(widget margin)
-				asBrLookPropertyChangeWithValue: [ BlInsets bottom: 4 ]).
-	changes
-		add:
+	self
+		addChangeProperty: #(widget background)
+		with: [ Color gray alpha: 0.5 ].
+	self
+		addChangeProperty: #(widget geometry)
+		with: [ BlRectangle cornerRadius: 2 ].
+	self
+		addChangeProperty: #(widget constraints vertical resizer)
+		with: [ BlLayoutResizer exact: 4 ].
+	self
+		addChangeProperty: #(widget constraints vertical resizer)
+		with: [ BlLayoutResizer exact: 70 ].
+	self addChangeProperty: #(widget margin) with: [ BlInsets bottom: 4 ].
+	self
+		addChange:
 			(BrLookChange new
 				up: [ :e | 
 					self widget

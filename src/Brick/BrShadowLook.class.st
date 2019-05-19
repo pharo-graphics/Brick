@@ -16,9 +16,7 @@ BrShadowLook >> color: aColor [
 { #category : #initialization }
 BrShadowLook >> initialize [
 	super initialize.
-	changes
-		add:
-			(#(widget effect) asBrLookCopyPropertyChangeWithValue: [ self shadow ]).
+	self addChangeProperty: #(widget effect) withCopy: [ self shadow ].
 	shadow := BlDropShadowEffect
 		color: (Color black alpha: 0.3)
 		width: 2

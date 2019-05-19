@@ -53,20 +53,17 @@ BrProgressLook >> initialize [
 	super initialize.
 	amount := 0.
 	total := 100.
-	changes
-		add:
-			(#(widgetContent layout)
-				asBrLookPropertyChangeWithValue: [ BlFrameLayout new ]).
-	changes
-		add:
-			(#(widgetProgress constraints vertical resizer)
-				asBrLookPropertyChangeWithValue: BlLayoutResizer matchParent).
-	changes
-		add:
-			(#(widgetProgress constraints horizontal resizer)
-				asBrLookPropertyChangeWithValue: BlLayoutResizer matchParent).
-	changes
-		add:
+	self
+		addChangeProperty: #(widgetContent layout)
+		with: [ BlFrameLayout new ].
+	self
+		addChangeProperty: #(widgetProgress constraints vertical resizer)
+		with: BlLayoutResizer matchParent.
+	self
+		addChangeProperty: #(widgetProgress constraints horizontal resizer)
+		with: BlLayoutResizer matchParent.
+	self
+		addChange:
 			(BrLookChange new
 				up: [ :e | 
 					self widgetProgress

@@ -15,18 +15,16 @@ BrColumnedListLook >> initialize [
 	listElement dataSource: BrColumnedListDataSource new.
 	self rowStencilBuilder: BrColumnedListRowStencilBuilder new.
 	self add: (BrLayoutResizerLook inherit inherit: listElement).
-	changes
-		add:
+	self
+		addChange:
 			(BrLookChange new
 				up: [ :e | listElement dataSource listElement: self widgetContent ];
 				down: [ :e |  ];
 				yourself).
-	changes
-		add: (#(content list) asBrLookChildAddAsChangeWithValue: [ listElement ]).
-	changes
-		add:
-			(#(widgetContent layout)
-				asBrLookPropertyChangeWithValue: [ BlLinearLayout vertical ])
+	self addChangeAddChildAs: #(content list) with: [ listElement ].
+	self
+		addChangeProperty: #(widgetContent layout)
+		with: [ BlLinearLayout vertical ]
 ]
 
 { #category : #initialization }

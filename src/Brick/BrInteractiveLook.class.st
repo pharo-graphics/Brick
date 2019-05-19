@@ -27,8 +27,8 @@ BrInteractiveLook >> elementAddedToSuperParent: anEvent [
 BrInteractiveLook >> initialize [
 	super initialize.
 	styles := OrderedCollection new.
-	changes
-		add:
+	self
+		addChange:
 			(BrLookChange new
 				up: [ :e | styles addAllFirst: BrInteractiveCommonStyler new styles ];
 				down: [ :e |  ];

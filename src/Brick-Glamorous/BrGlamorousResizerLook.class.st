@@ -42,12 +42,10 @@ BrGlamorousResizerLook >> initialize [
 							c horizontal exact: 3.
 							c vertical matchParent.
 							c ignored vertical weight: 0.4 ] ]).
-	changes
-		add:
-			(#(widget background)
-				asBrLookPropertyChangeWithValue: [ Color gray alpha: 0.4 ]).
-	changes
-		add:
-			(#(widget geometry)
-				asBrLookPropertyChangeWithValue: [ BlRectangle cornerRadius: 2 ])
+	self
+		addChangeProperty: #(widget background)
+		with: [ Color gray alpha: 0.4 ].
+	self
+		addChangeProperty: #(widget geometry)
+		with: [ BlRectangle cornerRadius: 2 ]
 ]

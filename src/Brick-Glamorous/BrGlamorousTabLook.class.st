@@ -20,28 +20,23 @@ BrGlamorousTabLook >> initialize [
 			c ignored vertical alignBottom.
 			c vertical exact: 2.
 			c horizontal matchParent ].
-	changes
-		add:
-			(#(widgetContent layout)
-				asBrLookPropertyChangeWithValue: [ BlLinearLayout horizontal alignCenter ]).
-	changes
-		add:
-			(#(widgetContent padding)
-				asBrLookPropertyChangeWithValue: [ BlInsets
-						top: 10
-						left: 12
-						bottom: 10
-						right: 12 ]).
-	changes
-		add: (#(content bar) asBrLookChildAddAsChangeWithValue: [ bar ]).
-	changes
-		add:
-			(#(widgetContent constraints vertical resizer)
-				asBrLookPropertyChangeWithValue: BlLayoutResizer matchParent).
-	changes
-		add:
-			(#(widgetContent constraints horizontal resizer)
-				asBrLookPropertyChangeWithValue: BlLayoutResizer fitContent)
+	self
+		addChangeProperty: #(widgetContent layout)
+		with: [ BlLinearLayout horizontal alignCenter ].
+	self
+		addChangeProperty: #(widgetContent padding)
+		with: [ BlInsets
+				top: 10
+				left: 12
+				bottom: 10
+				right: 12 ].
+	self addChangeAddChildAs: #(content bar) with: [ bar ].
+	self
+		addChangeProperty: #(widgetContent constraints vertical resizer)
+		with: BlLayoutResizer matchParent.
+	self
+		addChangeProperty: #(widgetContent constraints horizontal resizer)
+		with: BlLayoutResizer fitContent
 ]
 
 { #category : #'event handling' }

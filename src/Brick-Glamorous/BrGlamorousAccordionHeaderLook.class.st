@@ -20,8 +20,5 @@ BrGlamorousAccordionHeaderLook >> initialize [
 						default: [ labelLook foreground: BrGlamorousColors defaultHeaderTextColor ].
 					aStyler
 						disabled: [ labelLook foreground: BrGlamorousColors disabledHeaderTextColor ] ])}.
-	changes
-		add:
-			(#(widget padding)
-				asBrLookPropertyChangeWithValue: [ BlInsets all: 12 ])
+	self addChangeProperty: #(widget padding) with: [ BlInsets all: 12 ]
 ]

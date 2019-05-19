@@ -21,10 +21,8 @@ BrGlamorousBadgeLook >> initialize [
 				exact: [ :aWidget | aWidget layoutDo: [ :aLayout | aLayout beLoose ] ];
 				fitContent: [ :aWidget | aWidget layoutDo: [ :aLayout | aLayout beLoose ] ];
 				matchParent: [ :aWidget | aWidget layoutDo: [ :aLayout | aLayout beTight ] ]).
-	changes
-		add: (#(content) asBrLookChildAddAsChangeWithValue: [ contentContainer ]).
-	changes
-		add:
-			(#(widget layout)
-				asBrLookPropertyChangeWithValue: [ (BlSquaredLayout on: BlLinearLayout vertical alignCenter) beLoose ])
+	self addChangeAddChildAs: #(content) with: [ contentContainer ].
+	self
+		addChangeProperty: #(widget layout)
+		with: [ (BlSquaredLayout on: BlLinearLayout vertical alignCenter) beLoose ]
 ]
