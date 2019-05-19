@@ -9,21 +9,20 @@ Class {
 
 { #category : #initialization }
 BrEntailmentLook >> initialize [
+	self flag: 'FIXME is the still used?'.
 	super initialize.
+	changes
+		add:
+			(BrLookChange new
+				up: [ :e | 	self updateWidget ];
+				down: [ :e |  ];
+				yourself).
 ]
 
 { #category : #initialization }
 BrEntailmentLook >> initializeListeners [
 	super initializeListeners.
 
-]
-
-{ #category : #initialization }
-BrEntailmentLook >> initializeLook [
-	self flag: 'FIXME is the still used?'.
-	super initializeLook.
-	
-	self updateWidget
 ]
 
 { #category : #initialization }

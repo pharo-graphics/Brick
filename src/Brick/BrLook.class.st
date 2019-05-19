@@ -66,13 +66,6 @@ BrLook >> changes [
 	^ changes
 ]
 
-{ #category : #initialization }
-BrLook >> finalizeLook [
-	"Override me to clean up widget state after the look is removed.
-	For example, if a look adds shadow effect to the element, that shadow effect should be removed when we remove the look"
-	changes downOn: self
-]
-
 { #category : #comparing }
 BrLook >> hash [
 	^ self class hash
@@ -92,11 +85,6 @@ BrLook >> initializeListeners [
 ]
 
 { #category : #initialization }
-BrLook >> initializeLook [
-	changes upOn: self
-]
-
-{ #category : #initialization }
 BrLook >> initializeRequests [
 	"Override me to implement requests to the view model to synchronise its properties"
 ]
@@ -106,14 +94,6 @@ BrLook >> looks [
 	^ self children
 ]
 
-{ #category : #hooks }
-BrLook >> onAttachedTo: anElement [
-]
-
-{ #category : #hooks }
-BrLook >> onDetached: anElement [
-]
-
 { #category : #'api - hooks' }
 BrLook >> onInstalledIn: anElement [
 	super onInstalledIn: anElement.
@@ -121,8 +101,7 @@ BrLook >> onInstalledIn: anElement [
 		assert: [ widget isNil ]
 		description: [ 'Can not install the same look instance on multiple widgets' ].
 	widget := anElement.
-	self onAttachedTo: anElement.
-	self initializeLook.
+	changes upOn: self.
 	"we must send events after look initialization where we set defaults"
 	self initializeRequests.
 	self looks do: [ :aLook | aLook onInstalledIn: anElement ]
@@ -135,8 +114,7 @@ BrLook >> onUninstalledIn: anElement [
 		assert: [ self widget == anElement ]
 		description: [ 'Can not uninstall from a different widget' ].
 	self looks reversed do: [ :aLook | aLook onUninstalledIn: anElement ].
-	self finalizeLook.
-	self onDetached: anElement.
+	changes downOn: self.
 	widget := nil
 ]
 

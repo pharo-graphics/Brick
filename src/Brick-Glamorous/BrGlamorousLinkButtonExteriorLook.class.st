@@ -44,15 +44,17 @@ BrGlamorousLinkButtonExteriorLook >> initialize [
 	changes
 		add:
 			(#(widgetContent geometry)
-				asBrLookPropertyChangeWithValue: [ BlRectangle cornerRadius: 4 ])
-]
-
-{ #category : #initialization }
-BrGlamorousLinkButtonExteriorLook >> initializeLook [
-	super initializeLook.
-	self widgetContent
-		constraintsDo: [ :c | 
-			c horizontal fitContent.
-			c vertical fitContent.
-			c padding: (BlInsets all: 3) ]
+				asBrLookPropertyChangeWithValue: [ BlRectangle cornerRadius: 4 ]).
+	changes
+		add:
+			(#(widgetContent constraints vertical resizer)
+				asBrLookPropertyChangeWithValue: BlLayoutResizer fitContent).
+	changes
+		add:
+			(#(widgetContent constraints horizontal resizer)
+				asBrLookPropertyChangeWithValue: BlLayoutResizer fitContent).
+	changes
+		add:
+			(#(widgetContent padding)
+				asBrLookPropertyChangeWithValue: [ BlInsets all: 3 ])
 ]

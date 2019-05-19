@@ -17,7 +17,13 @@ BrTreeLook >> initialize [
 	changes
 		add:
 			(#(widgetContent layout)
-				asBrLookPropertyChangeWithValue: [ BlLinearLayout vertical ])
+				asBrLookPropertyChangeWithValue: [ BlLinearLayout vertical ]).
+	changes
+		add:
+			(BrLookChange new
+				up: [ :e | treeElement dataSource treeElement: self widgetContent ];
+				down: [ :e |  ];
+				yourself)
 ]
 
 { #category : #initialization }
@@ -26,12 +32,6 @@ BrTreeLook >> initializeListeners [
 	
 	self when: BrTreeChildrenChanged do: [ :anEvent | self root: anEvent root ].
 	self when: BrSelectionChanged do: [ :anEvent | self onSelectionChanged: anEvent selection ]
-]
-
-{ #category : #initialization }
-BrTreeLook >> initializeLook [
-	super initializeLook.
-	treeElement dataSource treeElement: self widgetContent
 ]
 
 { #category : #initialization }

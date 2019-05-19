@@ -33,16 +33,15 @@ BrGlamorousTabLook >> initialize [
 						bottom: 10
 						right: 12 ]).
 	changes
-		add: (#(content bar) asBrLookChildAddAsChangeWithValue: [ bar ])
-]
-
-{ #category : #initialization }
-BrGlamorousTabLook >> initializeLook [
-	super initializeLook.
-	self widgetContent
-		constraintsDo: [ :c | 
-			c vertical matchParent.
-			c horizontal fitContent ]
+		add: (#(content bar) asBrLookChildAddAsChangeWithValue: [ bar ]).
+	changes
+		add:
+			(#(widgetContent constraints vertical resizer)
+				asBrLookPropertyChangeWithValue: BlLayoutResizer matchParent).
+	changes
+		add:
+			(#(widgetContent constraints horizontal resizer)
+				asBrLookPropertyChangeWithValue: BlLayoutResizer fitContent)
 ]
 
 { #category : #'event handling' }

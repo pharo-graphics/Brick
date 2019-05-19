@@ -12,8 +12,13 @@ Class {
 { #category : #initialization }
 BrResizerLook >> initialize [
 	super initialize.
-	
-	location := BrResizerBottomLocation new
+	location := BrResizerBottomLocation new.
+	changes
+		add:
+			(BrLookChange new
+				up: [ :e | self updateListener ];
+				down: [ :e |  ];
+				yourself)
 ]
 
 { #category : #initialization }
@@ -22,13 +27,6 @@ BrResizerLook >> initializeListeners [
 
 	self when: BrResizerLocationChanged do: [ :anEvent | self location: anEvent location ].
 	self when: BrResizerTargetChanged do: [ :anEvent | self target: anEvent targetElement ]
-]
-
-{ #category : #initialization }
-BrResizerLook >> initializeLook [
-	super initializeLook.
-	
-	self updateListener
 ]
 
 { #category : #initialization }

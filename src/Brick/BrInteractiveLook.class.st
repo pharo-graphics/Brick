@@ -26,8 +26,13 @@ BrInteractiveLook >> elementAddedToSuperParent: anEvent [
 { #category : #initialization }
 BrInteractiveLook >> initialize [
 	super initialize.
-	
-	styles := OrderedCollection new
+	styles := OrderedCollection new.
+	changes
+		add:
+			(BrLookChange new
+				up: [ :e | styles addAllFirst: BrInteractiveCommonStyler new styles ];
+				down: [ :e |  ];
+				yourself)
 ]
 
 { #category : #initialization }
@@ -35,12 +40,6 @@ BrInteractiveLook >> initializeListeners [
 	super initializeListeners.
 	
 	self when: BrInteractionChanged do: [ :anEvent | self statesChanged: anEvent ]
-]
-
-{ #category : #initialization }
-BrInteractiveLook >> initializeLook [
-	super initializeLook.
-	styles addAllFirst: BrInteractiveCommonStyler new styles
 ]
 
 { #category : #initialization }

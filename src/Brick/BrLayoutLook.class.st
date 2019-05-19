@@ -159,30 +159,37 @@ BrLayoutLook >> initialize [
 
 	"to indicate that we don't influence existing element layout"
 	layout := nil.
-
 	horizontalResizer := BlLayoutResizer fitContent.
 	verticalResizer := BlLayoutResizer fitContent.
-
 	horizontalAlignment := BlNullAlignment horizontal.
 	verticalAlignment := BlNullAlignment vertical.
-
-	consraintsBlock := [ :c | ]
-]
-
-{ #category : #initialization }
-BrLayoutLook >> initializeLook [
-	super initializeLook.
-
-	self targetElement
-		constraintsDo: [ :c |
-			c horizontal resizer: self horizontalResizer.
-			c vertical resizer: self verticalResizer.
-			consraintsBlock value: c ].
-
-	self layout
-		ifNotNil: [ self targetElement layout: self layout ].
-
-	self updateAlignment
+	consraintsBlock := [ :c |  ].
+	changes
+		add:
+			(BrLookChange new
+				up: [ :e | 
+					self targetElement
+						when: BlElementAddedToParentEvent
+						do: [ self widgetDo: [ self onAddedToParent ] ] ];
+				down: [ :e |  ];
+				yourself).
+	changes
+		add:
+			(#(targetElement constraints horizontal resizer)
+				asBrLookPropertyChangeWithValue: [ self horizontalResizer ]).
+	changes
+		add:
+			(#(targetElement constraints vertical resizer)
+				asBrLookPropertyChangeWithValue: [ self verticalResizer ]).
+	changes
+		add:
+			(BrLookChange new
+				up: [ :e | 
+					self targetElement constraintsDo: [ :c | consraintsBlock value: c ].
+					self layout ifNotNil: [ self targetElement layout: self layout ].
+					self updateAlignment ];
+				down: [ :e |  ];
+				yourself)
 ]
 
 { #category : #accessing }
@@ -227,11 +234,6 @@ BrLayoutLook >> onAddedToParent [
 	self targetElement parent
 		when: BlElementLayoutChangedEvent
 		do: [ self onLayoutChanged ]
-]
-
-{ #category : #initialization }
-BrLayoutLook >> onAttachedTo: anElement [
-	self targetElement when: BlElementAddedToParentEvent do: [ self widgetDo: [ self onAddedToParent ] ]
 ]
 
 { #category : #hooks }

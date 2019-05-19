@@ -7,14 +7,10 @@ Class {
 { #category : #initialization }
 BrMaterialListItemLabelLook >> initialize [
 	super initialize.
-	
 	self fontSize: 16.
-	self fontName: 'Roboto'
-]
-
-{ #category : #initialization }
-BrMaterialListItemLabelLook >> initializeLook [
-	super initializeLook.
-
-	self labelDo: [ :anElement | anElement constraintsDo: [ :c | c horizontal matchParent ] ]
+	self fontName: 'Roboto'.
+	changes
+		add:
+			(#(label constraints horizontal resizer)
+				asBrLookPropertyChangeWithValue: BlLayoutResizer matchParent)
 ]

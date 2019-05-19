@@ -13,15 +13,17 @@ BrMaterialButtonLayoutLook >> initialize [
 	changes
 		add:
 			(#(widget layout)
-				asBrLookPropertyChangeWithValue: [ BlLinearLayout horizontal alignCenter ])
-]
-
-{ #category : #initialization }
-BrMaterialButtonLayoutLook >> initializeLook [
-	super initializeLook.
-	self widget
-		constraintsDo: [ :c | 
-			c horizontal fitContent.
-			c vertical fitContent.
-			c padding: (BlInsets all: 6) ]
+				asBrLookPropertyChangeWithValue: [ BlLinearLayout horizontal alignCenter ]).
+	changes
+		add:
+			(#(widget constraints vertical resizer)
+				asBrLookPropertyChangeWithValue: BlLayoutResizer fitContent).
+	changes
+		add:
+			(#(widget constraints horizontal resizer)
+				asBrLookPropertyChangeWithValue: BlLayoutResizer fitContent).
+	changes
+		add:
+			(#(widget padding)
+				asBrLookPropertyChangeWithValue: [ BlInsets all: 6 ])
 ]

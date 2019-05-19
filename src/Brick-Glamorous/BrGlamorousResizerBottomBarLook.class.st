@@ -14,18 +14,28 @@ BrGlamorousResizerBottomBarLook >> initialize [
 	changes
 		add:
 			(#(widget geometry)
-				asBrLookPropertyChangeWithValue: [ BlRectangle cornerRadius: 2 ])
-]
-
-{ #category : #initialization }
-BrGlamorousResizerBottomBarLook >> initializeLook [
-	super initializeLook.
-	self widget
-		constraintsDo: [ :c | 
-			c ignoreByLayout.
-			c vertical exact: 4.
-			c horizontal exact: 70.
-			c ignored vertical alignBottom.
-			c ignored horizontal alignCenter.
-			c margin: (BlInsets bottom: 4) ]
+				asBrLookPropertyChangeWithValue: [ BlRectangle cornerRadius: 2 ]).
+	changes
+		add:
+			(#(widget constraints vertical resizer)
+				asBrLookPropertyChangeWithValue: [ BlLayoutResizer exact: 4 ]).
+	changes
+		add:
+			(#(widget constraints horizontal resizer)
+				asBrLookPropertyChangeWithValue: [ BlLayoutResizer exact: 70 ]).
+	changes
+		add:
+			(#(widget margin)
+				asBrLookPropertyChangeWithValue: [ BlInsets bottom: 4 ]).
+	changes
+		add:
+			(BrLookChange new
+				up: [ :e | 
+					self widget
+						constraintsDo: [ :c | 
+							c ignoreByLayout.
+							c ignored vertical alignBottom.
+							c ignored horizontal alignCenter ] ];
+				down: [ :e |  ];
+				yourself)
 ]

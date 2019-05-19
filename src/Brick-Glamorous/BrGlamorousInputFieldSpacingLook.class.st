@@ -5,12 +5,22 @@ Class {
 }
 
 { #category : #initialization }
-BrGlamorousInputFieldSpacingLook >> initializeLook [
-	super initializeLook.
-		
-	self widgetContent
-		constraintsDo: [ :c | 
-			c vertical fitContent. 
-			c horizontal fitContent.		
-			c padding: (BlInsets top: 5 left: 5 bottom: 5 right: 5 ) ]
+BrGlamorousInputFieldSpacingLook >> initialize [
+	super initialize.
+	changes
+		add:
+			(#(widgetContent constraints vertical resizer)
+				asBrLookPropertyChangeWithValue: [ BlLayoutResizer fitContent ]).
+	changes
+		add:
+			(#(widgetContent constraints horizontal resizer)
+				asBrLookPropertyChangeWithValue: [ BlLayoutResizer fitContent ]).
+	changes
+		add:
+			(#(widgetContent padding)
+				asBrLookPropertyChangeWithValue: [ BlInsets
+						top: 5
+						left: 5
+						bottom: 5
+						right: 5 ])
 ]

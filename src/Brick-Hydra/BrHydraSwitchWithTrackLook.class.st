@@ -45,14 +45,15 @@ BrHydraSwitchWithTrackLook >> initialize [
 	changes
 		add: (#(widget size) asBrLookPropertyChangeWithValue: [ 48 @ 18 ]).
 	changes add: (#(track) asBrLookChildAddAsChangeWithValue: [ track ]).
-	changes add: (#(thumb) asBrLookChildAddAsChangeWithValue: [ thumb ])
-]
-
-{ #category : #initialization }
-BrHydraSwitchWithTrackLook >> initializeLook [
-	super initializeLook.
-	self updateColor.
-	self updateCornerRadius
+	changes add: (#(thumb) asBrLookChildAddAsChangeWithValue: [ thumb ]).
+	changes
+		add:
+			(BrLookChange new
+				up: [ :e | 
+					self updateColor.
+					self updateCornerRadius ];
+				down: [ :e |  ];
+				yourself)
 ]
 
 { #category : #'instance creation' }

@@ -35,13 +35,13 @@ BrHydraSwitchWithoutTrackLook >> initialize [
 	changes
 		add: (#(content thumb) asBrLookChildAddAsChangeWithValue: [ thumb ]).
 	changes
-		add: (#(widget size) asBrLookPropertyChangeWithValue: [ 36 @ 20 ])
-]
-
-{ #category : #initialization }
-BrHydraSwitchWithoutTrackLook >> initializeLook [
-	super initializeLook.
-	self updateColor
+		add: (#(widget size) asBrLookPropertyChangeWithValue: [ 36 @ 20 ]).
+	changes
+		add:
+			(BrLookChange new
+				up: [ :e | self updateColor ];
+				down: [ :e |  ];
+				yourself)
 ]
 
 { #category : #'instance creation' }

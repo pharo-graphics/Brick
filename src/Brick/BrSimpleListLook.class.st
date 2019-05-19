@@ -18,7 +18,13 @@ BrSimpleListLook >> initialize [
 	changes
 		add:
 			(#(widgetContent layout)
-				asBrLookPropertyChangeWithValue: [ BlLinearLayout vertical ])
+				asBrLookPropertyChangeWithValue: [ BlLinearLayout vertical ]).
+	changes
+		add:
+			(BrLookChange new
+				up: [ :e | listElement dataSource listElement: self widgetContent ];
+				down: [ :e |  ];
+				yourself)
 ]
 
 { #category : #initialization }
@@ -27,12 +33,6 @@ BrSimpleListLook >> initializeListeners [
 
 	self when: BrListItemsChangedEvent do: [ :anEvent | self onItemsChanged: anEvent items ].
 	self when: BrSelectionChanged do: [ :anEvent | self onSelectionChanged: anEvent selection ]
-]
-
-{ #category : #initialization }
-BrSimpleListLook >> initializeLook [
-	super initializeLook.
-	listElement dataSource listElement: self widgetContent
 ]
 
 { #category : #initialization }

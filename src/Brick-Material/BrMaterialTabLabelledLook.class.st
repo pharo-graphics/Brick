@@ -10,21 +10,20 @@ Class {
 { #category : #initialization }
 BrMaterialTabLabelledLook >> initialize [
 	super initialize.
-
-	self addAll: {
-		"for basic layout parameters"
-		BrMaterialButtonLayoutLook.
-		"for toggleable background"
-		BrMaterialTabBackgroundLook.
-		"for the label"
-		label := BrTextLabelLook new }
-]
-
-{ #category : #initialization }
-BrMaterialTabLabelledLook >> initializeLook [
-	super initializeLook.
-	
-	label thin
+	self
+		addAll:
+			{BrMaterialButtonLayoutLook.
+			"for toggleable background"
+			BrMaterialTabBackgroundLook.
+			"for the label"
+			(label := BrTextLabelLook new)}.
+	"for basic layout parameters"
+	changes
+		add:
+			(BrLookChange new
+				up: [ :e | label thin ];
+				down: [ :e |  ];
+				yourself)
 ]
 
 { #category : #accessing }

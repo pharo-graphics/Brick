@@ -5,6 +5,20 @@ Class {
 }
 
 { #category : #initialization }
+BrTabLook >> initialize [
+	super initialize.
+	changes
+		add:
+			(BrLookChange new
+				up: [ :e | 
+					"here we define default tab look (independent from the view model)"
+					self tabDeselected.
+					self tabEnabled ];
+				down: [ :e |  ];
+				yourself)
+]
+
+{ #category : #initialization }
 BrTabLook >> initializeListeners [
 	super initializeListeners.
 	
@@ -12,15 +26,6 @@ BrTabLook >> initializeListeners [
 	self when: BrTabDeselectedEvent do: [ self tabDeselected ].
 	self when: BrTabEnabledEvent do: [ self tabEnabled ].
 	self when: BrTabDisabledEvent do: [ self tabDisabled ]
-]
-
-{ #category : #initialization }
-BrTabLook >> initializeLook [
-	super initializeLook.
-
-	"here we define default tab look (independent from the view model)"
-	self tabDeselected.
-	self tabEnabled
 ]
 
 { #category : #initialization }
