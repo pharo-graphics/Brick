@@ -6,7 +6,8 @@ Class {
 		'popupStencil',
 		'popupEmbellisher',
 		'popupElement',
-		'toggleElement'
+		'toggleElement',
+		'collapseEventHandler'
 	],
 	#category : #'Brick-Dropdown - Look'
 }
@@ -36,12 +37,10 @@ BrDropdownLook >> createToggleElement [
 
 { #category : #hooks }
 BrDropdownLook >> dropdownCollapsed [
-
 	self isExpanded
 		ifFalse: [ ^ self ].
-
+	self uninstallCollapseListener.
 	toggleElement visibility: BlVisibility visible.
-
 	self popupElement removeFromParent.
 	popupElement := nil
 ]
@@ -55,7 +54,8 @@ BrDropdownLook >> dropdownExpanded [
 		widgetDo: [ :aWidget | 
 			aWidget isAttachedToSceneGraph
 				ifTrue: [ aWidget space addChild: (popupElement := self createPopupElement).
-					self relocatePopup ] ]
+					self relocatePopup ] ].
+	self installCollapseListener
 ]
 
 { #category : #'element handlers' }
@@ -66,6 +66,12 @@ BrDropdownLook >> elementPositionInSpaceChanged: anEvent [
 { #category : #initialization }
 BrDropdownLook >> initialize [
 	super initialize.
+	collapseEventHandler := BlEventHandler
+		on: BlClickEvent
+		do: [ :e | 
+			(e target hasParent: popupElement)
+				ifFalse: [ self widget
+						viewModelDo: [ :f | f children first children first collapse ] ] ].
 	toggleStencil := BrDropdownModel defaultToggleStencil.
 	popupStencil := BrDropdownModel defaultPopupStencil.
 	popupEmbellisher := BrDropdownPopupEmbellisher new.
@@ -74,6 +80,13 @@ BrDropdownLook >> initialize [
 			(BrInteractiveCommonLook new
 				collapsed: [ self dropdownCollapsed ];
 				expanded: [ self dropdownExpanded ]).
+	changes
+		add:
+			(BrLookChange new
+				down: [ :e | 
+					self isExpanded
+						ifFalse: [ self uninstallCollapseListener ] ];
+				yourself).
 	changes
 		add:
 			(BrLookChange new
@@ -104,6 +117,11 @@ BrDropdownLook >> initializeRequests [
 BrDropdownLook >> initializeToggleElement [
 	toggleElement ifNotNil: #removeFromParent.
 	self widget addChild: (toggleElement := self createToggleElement)
+]
+
+{ #category : #'as yet unclassified' }
+BrDropdownLook >> installCollapseListener [
+	self widgetDo: [ :e | e space root addEventHandler: collapseEventHandler ]
 ]
 
 { #category : #testing }
@@ -171,4 +189,10 @@ BrDropdownLook >> toggleStencil [
 BrDropdownLook >> toggleStencil: aBrStencil [
 	toggleStencil := aBrStencil asStencil.
 	self widgetDo: [ self initializeToggleElement ]
+]
+
+{ #category : #'as yet unclassified' }
+BrDropdownLook >> uninstallCollapseListener [
+	self
+		widgetDo: [ :e | e space root removeEventHandler: collapseEventHandler ]
 ]
