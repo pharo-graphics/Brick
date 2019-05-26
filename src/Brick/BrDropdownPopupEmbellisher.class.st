@@ -10,19 +10,17 @@ Class {
 
 { #category : #'api - instantiation' }
 BrDropdownPopupEmbellisher >> buildDefault [
-	| aContainer |
 	<return: #Object>
-	
+	| aContainer toggleElement |
 	aContainer := BlElement new.
-	aContainer background: Color white.
-	aContainer look: BrShadowLook new.
+	toggleElement := self toggleStencil asElement.
 	aContainer layout: BlLinearLayout vertical.
-	aContainer constraintsDo: [ :c |
-		c horizontal fitContent.
-		c vertical fitContent ].
-	aContainer addChild: (self toggleStencil asElement) as: #toggle.
-	aContainer addChild: self popupElement as: #popup. 
-
+	aContainer
+		constraintsDo: [ :c | 
+			c horizontal fitContent.
+			c vertical fitContent ].
+	aContainer addChild: toggleElement as: #toggle.
+	aContainer addChild: self popupElement as: #popup.
 	^ aContainer
 ]
 

@@ -35,7 +35,7 @@ BrDropdownExamples >> popupList [
 BrDropdownExamples >> roundLook [
 	<gtExample>
 
-	^ BrDropdownLook new
+	^ BrGlamorousDropdownLook new
 ]
 
 { #category : #examples }
@@ -66,8 +66,8 @@ BrDropdownExamples >> suggesterBadgeDropdownList [
 			c vertical fitContent ].
 	aDropdown toggle: [ self badgeButton action: [ aDropdown toggle ] ].
 	aDropdown popup: [ self popupList ].	
-	aDropdown look: (BrDropdownLook new
-		popupEmbellisher: [ :aPopupElement :aToggleStencil | 
+	aDropdown look: (BrGlamorousDropdownLook new
+		"popupEmbellisher: [ :aPopupElement :aToggleStencil | 
 			| aContainer aPopupWrapper |
 			
 			aPopupWrapper := BlElement new
@@ -88,7 +88,7 @@ BrDropdownExamples >> suggesterBadgeDropdownList [
 				c vertical fitContent ].
 			aContainer addChild: (aToggleStencil asElement elevation: (BlRelativeElevation elevation: 2)).
 			aContainer addChild: aPopupWrapper ];
-		outskirtsEmbellisher: [ :anElement | anElement ]).
+		outskirtsEmbellisher: [ :anElement | anElement ]").
 	^ aDropdown
 ]
 
@@ -97,7 +97,7 @@ BrDropdownExamples >> toggleButton [
 	<gtExample>
 
 	^ BrButton new
-		look: BrGlamorousDropdownToggleButtonWithLabelAndIconLook;
+		look: BrGlamorousButtonWithLabelAndIconLook;
 		padding: (BlInsets top: 6 right: 8 bottom: 6 left: 15);
 		label: 'instance';
 		icon: (BlElement new
