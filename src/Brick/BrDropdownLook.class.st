@@ -14,25 +14,22 @@ Class {
 
 { #category : #'instance creation' }
 BrDropdownLook >> createPopupElement [
-	"Create a popup element from a stencil and embellish it using outskirts embellisher"
+	"Create a popup element from a stencil"
+
 	<return: #BlElement>
 	| aPopupElement |
-
 	aPopupElement := (self popupEmbellisher
 		toggleStencil: self toggleStencil;
 		popupElement: self popupStencil asElement) asElement.
-
-	"^ (self outskirtsEmbellisher element: aPopupElement) asElement"
 	^ aPopupElement
 ]
 
 { #category : #'instance creation' }
 BrDropdownLook >> createToggleElement [
-	"Create a toggle element from a stencil and embellish it using outskirts embellisher"
-	<return: #BlElement>
+	"Create a toggle element from a stencil"
 
-	"^ (self outskirtsEmbellisher element: self toggleStencil asElement) asElement"
-	^self toggleStencil asElement
+	<return: #BlElement>
+	^ self toggleStencil asElement
 ]
 
 { #category : #hooks }
@@ -89,8 +86,7 @@ BrDropdownLook >> initialize [
 					self isExpanded
 						ifFalse: [ self uninstallCollapseListener ] ];
 				yourself).
-	changes
-		add:
+	self addChange:
 			(BrLookChange new
 				up: [ :e | self initializeToggleElement ];
 				down: [ :e | 
@@ -196,5 +192,7 @@ BrDropdownLook >> toggleStencil: aBrStencil [
 { #category : #'as yet unclassified' }
 BrDropdownLook >> uninstallCollapseListener [
 	self
-		widgetDo: [ :e | e space root removeEventFilter: collapseEventHandler ]
+		widgetDo: [ :e | 
+			e isAttachedToSceneGraph
+				ifTrue: [ e space root removeEventFilter: collapseEventHandler ] ]
 ]
