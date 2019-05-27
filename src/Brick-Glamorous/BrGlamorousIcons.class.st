@@ -170,6 +170,11 @@ BrGlamorousIcons class >> eg [
 ]
 
 { #category : #icons }
+BrGlamorousIcons class >> empty [
+	^ Form extent: 16@16 
+]
+
+{ #category : #icons }
 BrGlamorousIcons class >> file [
 	^ self icons
 		at: #file ifAbsentPut: [(Form
