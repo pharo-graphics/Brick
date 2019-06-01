@@ -7,7 +7,8 @@ Class {
 		'popupEmbellisher',
 		'popupElement',
 		'toggleElement',
-		'collapseEventHandler'
+		'collapseEventHandler',
+		'dropdownTarget'
 	],
 	#category : #'Brick-Dropdown - Look'
 }
@@ -50,9 +51,15 @@ BrDropdownLook >> dropdownExpanded [
 	self
 		widgetDo: [ :aWidget | 
 			aWidget isAttachedToSceneGraph
-				ifTrue: [ aWidget space addChild: (popupElement := self createPopupElement).
+				ifTrue: [ (dropdownTarget cull: aWidget)
+						addChild: (popupElement := self createPopupElement).
 					self relocatePopup ] ].
 	self installCollapseListener
+]
+
+{ #category : #accessing }
+BrDropdownLook >> dropdownTarget: anObject [
+	dropdownTarget := anObject
 ]
 
 { #category : #'element handlers' }
@@ -63,6 +70,7 @@ BrDropdownLook >> elementPositionInSpaceChanged: anEvent [
 { #category : #initialization }
 BrDropdownLook >> initialize [
 	super initialize.
+	dropdownTarget := #space.
 	collapseEventHandler := BlEventHandler
 		on: BlClickEvent
 		do: [ :e | 
@@ -86,7 +94,8 @@ BrDropdownLook >> initialize [
 					self isExpanded
 						ifFalse: [ self uninstallCollapseListener ] ];
 				yourself).
-	self addChange:
+	self
+		addChange:
 			(BrLookChange new
 				up: [ :e | self initializeToggleElement ];
 				down: [ :e | 
