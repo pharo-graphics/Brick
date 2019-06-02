@@ -63,7 +63,7 @@ BrGlamorousDropdownGeometry >> cornerRadius: anObject [
 { #category : #initialization }
 BrGlamorousDropdownGeometry >> initialize [
 	super initialize.
-	cornerRadius := 5.
+	cornerRadius := 0.
 	toggleExtent := 50 @ 20
 ]
 

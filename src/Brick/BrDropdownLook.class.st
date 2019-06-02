@@ -5,6 +5,7 @@ Class {
 		'toggleStencil',
 		'popupStencil',
 		'popupEmbellisher',
+		'outskirtsEmbellisher',
 		'popupElement',
 		'toggleElement',
 		'collapseEventHandler',
@@ -22,7 +23,7 @@ BrDropdownLook >> createPopupElement [
 	aPopupElement := (self popupEmbellisher
 		toggleStencil: self toggleStencil;
 		popupElement: self popupStencil asElement) asElement.
-	^ aPopupElement
+	^ (self outskirtsEmbellisher element: aPopupElement) asElement
 ]
 
 { #category : #'instance creation' }
@@ -82,6 +83,7 @@ BrDropdownLook >> initialize [
 	toggleStencil := BrDropdownModel defaultToggleStencil.
 	popupStencil := BrDropdownModel defaultPopupStencil.
 	popupEmbellisher := BrDropdownPopupEmbellisher new.
+	outskirtsEmbellisher := BrDropdownOutskirtsEmbellisher new.
 	self
 		add:
 			(BrInteractiveCommonLook new
@@ -136,6 +138,17 @@ BrDropdownLook >> isExpanded [
 	<return: #Boolean>
 
 	^ popupElement isNotNil and: [ popupElement isAttachedToSceneGraph ]
+]
+
+{ #category : #accessing }
+BrDropdownLook >> outskirtsEmbellisher [
+	^ outskirtsEmbellisher
+]
+
+{ #category : #accessing }
+BrDropdownLook >> outskirtsEmbellisher: anObject [
+	outskirtsEmbellisher := anObject
+		asStencilBuilder: BrDropdownOutskirtsEmbellisher
 ]
 
 { #category : #accessing }
