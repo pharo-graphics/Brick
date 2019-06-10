@@ -10,6 +10,5 @@ BrGlamorousTextLabelLook >> initialize [
 
 	self
 		fontSize: 14;
-		weight: 400;
 		fontName: 'Source Sans Pro'
 ]
