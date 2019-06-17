@@ -5,7 +5,6 @@ Class {
 		'toggleStencil',
 		'toggleElement',
 		'popupElement',
-		'direction',
 		'container'
 	],
 	#category : #'Brick-Dropdown - Stencils'
@@ -47,7 +46,6 @@ BrDropdownPopupEmbellisher >> buildDefault [
 	aContainer addChild: toggle as: #toggle.
 	aContainer addChild: popup as: #popup.
 	container := aContainer.
-	direction := #bottom -> #left.
 	^ aContainer
 ]
 
@@ -70,46 +68,34 @@ BrDropdownPopupEmbellisher >> popupElement: anObject [
 
 { #category : #'as yet unclassified' }
 BrDropdownPopupEmbellisher >> popupPositionFrom: aWidget [
-	| anOriginalToggle aToggleBoundsInContainer aPopupTarget theBoundsOfOriginalToggleInPopupTarget |
-
-	anOriginalToggle := aWidget.
-	aPopupTarget := container parent.
-
-	theBoundsOfOriginalToggleInPopupTarget := (anOriginalToggle bounds inSpace inChild: aPopupTarget).
-	
-
-	true ifTrue: [ ^ theBoundsOfOriginalToggleInPopupTarget position ].
-	
-
-	aToggleBoundsInContainer := toggleElement bounds inParent: container parent.
-
-
-	('widget ' , aWidget bounds inSpace topRight asString) logCr.
-	container size = (0 @ 0)
-		ifTrue: [ [ 2 seconds wait.
-			self relocatePopup ] fork.
-			^ container globalPointToParent: aWidget bounds inSpace topLeft ].
-	('size: ' , (container width @ 0) asString) logCr.
-	(aWidget bounds inSpace topRight - (container width @ 0)) asString logCr.
-	direction = (#bottom -> #right)
-		ifTrue: [ ^ container globalPointToParent: aWidget bounds inSpace topLeft ].
-	direction = (#bottom -> #left)
-		ifTrue: [ ^ container
-				globalPointToParent: aWidget bounds inSpace topRight - (container width @ 0) ].
-	direction = (#top -> #right)
-		ifTrue: [ ^ container
-				globalPointToParent: aWidget bounds inSpace topLeft - (0 @ container height) ].
-	direction = (#top -> #left)
-		ifTrue: [ ^ container
-				globalPointToParent: aWidget bounds inSpace topRight - (container width @ container height) ].
-	Error signal: 'direction not supported'
+	| toggleBoundsInTarget targetSize containerSize |
+	container parent ifNil: [ ^ 0 @ 0 ].
+	toggleBoundsInTarget := aWidget bounds inSpace
+		inChild: container parent.
+	targetSize := container parent size.
+	containerSize := container size.
+	targetSize - toggleBoundsInTarget topLeft >= containerSize
+		ifTrue: [ ^ toggleBoundsInTarget topLeft ].
+	targetSize - (toggleBoundsInTarget topRight - (container width @ 0))
+		>= containerSize
+		ifTrue: [ ^ toggleBoundsInTarget topRight - (container width @ 0) ].
+	targetSize
+		- (toggleBoundsInTarget bottomLeft - (0 @ container height))
+		>= containerSize
+		ifTrue: [ ^ toggleBoundsInTarget bottomLeft - (0 @ container height) ].
+	targetSize
+		-
+			(toggleBoundsInTarget bottomRight
+				- (container width @ container height)) >= containerSize
+		ifTrue: [ ^ toggleBoundsInTarget bottomRight
+				- (container width @ container height) ].
+	^ toggleBoundsInTarget topLeft
 ]
 
 { #category : #geometry }
 BrDropdownPopupEmbellisher >> relocatePopup [
 	| p |
 	p := self popupPositionFrom: toggleElement.
-	p asString logCr.
 	container relocate: p
 ]
 
