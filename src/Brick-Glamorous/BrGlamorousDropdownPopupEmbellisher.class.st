@@ -8,9 +8,9 @@ Class {
 BrGlamorousDropdownPopupEmbellisher >> buildDefault [
 	<return: #Object>
 	| aContainer geometry toggleElement |
-	aContainer := BlElement new.
+	aContainer := super buildDefault.
 	geometry := BrGlamorousDropdownGeometry new.
-	toggleElement := self toggleStencil asElement.
+	toggleElement := aContainer childNamed: #toggle.
 	toggleElement
 		addEventHandlerOn: BlElementExtentChangedEvent
 		do: [ :anEvent | 
@@ -21,15 +21,8 @@ BrGlamorousDropdownPopupEmbellisher >> buildDefault [
 		do: [ :anEvent | 
 			toggleElement border ~= BlBorder empty
 				ifTrue: [ toggleElement border: BlBorder empty ] ].
-	aContainer geometry: geometry.
+	"aContainer geometry: geometry."
 	aContainer background: Color white.
 	aContainer look: BrShadowLook new.
-	aContainer layout: BlLinearLayout vertical.
-	aContainer
-		constraintsDo: [ :c | 
-			c horizontal fitContent.
-			c vertical fitContent ].
-	aContainer addChild: toggleElement as: #toggle.
-	aContainer addChild: self popupElement as: #popup.
 	^ aContainer
 ]
