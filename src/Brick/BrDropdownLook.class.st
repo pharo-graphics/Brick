@@ -22,7 +22,8 @@ BrDropdownLook >> createPopupElement [
 	| aPopupElement |
 	aPopupElement := (self popupEmbellisher
 		toggleStencil: self toggleStencil;
-		popupElement: self popupStencil asElement) asElement.
+		popupElement: self popupStencil asElement;
+		toggleElement: toggleElement) asElement.
 	^ (self outskirtsEmbellisher element: aPopupElement) asElement
 ]
 
@@ -54,7 +55,7 @@ BrDropdownLook >> dropdownExpanded [
 			aWidget isAttachedToSceneGraph
 				ifTrue: [ (dropdownTarget cull: aWidget)
 						addChild: (popupElement := self createPopupElement).
-					self relocatePopup ] ].
+					self relocatePopup] ].
 	self installCollapseListener
 ]
 
@@ -168,16 +169,6 @@ BrDropdownLook >> popupEmbellisher: anObject [
 	popupEmbellisher := anObject  asStencilBuilder: BrDropdownPopupEmbellisher
 ]
 
-{ #category : #geometry }
-BrDropdownLook >> popupPosition [
-	"Return a popup position relative to the on space coordinates"
-
-	<return: #Point>
-	| boundsInSpace |
-	boundsInSpace := self widget bounds inSpace.
-	^ self popupElement globalPointToParent: boundsInSpace position
-]
-
 { #category : #accessing }
 BrDropdownLook >> popupStencil [
 	<return: #BrStencil>
@@ -194,8 +185,7 @@ BrDropdownLook >> popupStencil: aBrStencil [
 BrDropdownLook >> relocatePopup [
 	self isExpanded
 		ifFalse: [ ^ self ].
-
-	self popupElement relocate: self popupPosition
+	popupEmbellisher relocatePopup
 ]
 
 { #category : #accessing }
