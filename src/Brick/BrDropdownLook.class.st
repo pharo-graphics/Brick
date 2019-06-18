@@ -22,8 +22,8 @@ BrDropdownLook >> createPopupElement [
 	| aPopupElement |
 	aPopupElement := (self popupEmbellisher
 		toggleStencil: self toggleStencil;
-		popupElement: self popupStencil asElement;
-		toggleElement: toggleElement) asElement.
+		popupStencil: self popupStencil;
+		anchor: toggleElement) asElement.
 	^ (self outskirtsEmbellisher element: aPopupElement) asElement
 ]
 
