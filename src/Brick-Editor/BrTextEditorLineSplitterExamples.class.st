@@ -27,7 +27,7 @@ BrTextEditorLineSplitterExamples >> split_BeReplacedTextAtribute_FollowedByLf [
 	self assert: theAttributes size equals: 1.
 	self assert: theAttributes first equals: aTextAttribute.
 
-	aText insertText: String lf at: aText size.
+	aText insertString: String lf at: aText size.
 	self assert: aText size equals: 6.
 	theAttributes := (aText from: aText size to: aText size) iterator attributes.
 	self assert: theAttributes size equals: 1.
