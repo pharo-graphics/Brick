@@ -9,29 +9,52 @@ BrAnchoredPopupPositionerExamples >> anchor [
 	<gtExample>
 	^ BlElement new
 		size: 30 @ 20;
-		background: Color blue;
+		background: Color green;
+		yourself
+]
+
+{ #category : #accessing }
+BrAnchoredPopupPositionerExamples >> anchorContainer [
+	<gtExample>
+	^ BlElement new
+		layout: BlLinearLayout horizontal;
+		background: Color yellow;
+		padding:
+			(BlInsets
+				top: 5
+				left: 7
+				bottom: 11
+				right: 17);
+		constraintsDo: [ :c | 
+			c horizontal matchParent.
+			c vertical matchParent ];
 		yourself
 ]
 
 { #category : #'as yet unclassified' }
 BrAnchoredPopupPositionerExamples >> anchorPosition: aBlock relocatePopup: anotherBlock assertPopupMaxBounds: yetAnotherBlock [
-	| space positioner anchor target popup popupSize popupPreferredMaxBoundsInTarget |
+	| space positioner anchor anchorContainer target targetContainer popup popupSize popupPreferredMaxBoundsInTarget |
 	space := BlSpace new
 		extent: 800 @ 600;
 		yourself.
 	positioner := self anchoredPopupPositioner.
 	anchor := positioner anchor.
 	target := positioner target.
+	anchorContainer := self anchorContainer.
+	targetContainer := self targetContainer.
 	popup := self popup.
 	anchor constraintsDo: [ :c | c ignoreByLayout ].
 	popup constraintsDo: [ :c | c ignoreByLayout ].
-	target addChild: anchor.
+	targetContainer addChild: target.
+	target addChild: anchorContainer.
+	anchorContainer addChild: anchor.
 	target addChild: popup.
 	space root
+		layout: BlLinearLayout horizontal;
 		constraintsDo: [ :c | 
 			c horizontal matchParent.
 			c vertical matchParent ];
-		addChild: target.
+		addChild: targetContainer.
 	space doUpdateLayout.
 	anchor relocate: (aBlock cull: target cull: anchor).
 	space doUpdateLayout.
@@ -94,8 +117,8 @@ BrAnchoredPopupPositionerExamples >> defaultToBottomRight [
 BrAnchoredPopupPositionerExamples >> popup [
 	<gtExample>
 	^ BlElement new
-		background: (Color yellow alpha: 0.5);
-		border: (BlBorder paint: Color black asBlPaint width: 1);
+		background: Color white;
+		border: (BlBorder paint: Color blue asBlPaint width: 1);
 		yourself
 ]
 
@@ -103,8 +126,34 @@ BrAnchoredPopupPositionerExamples >> popup [
 BrAnchoredPopupPositionerExamples >> target [
 	<gtExample>
 	^ BlElement new
+		layout: BlLinearLayout horizontal;
 		size: 300 @ 200;
+		transformDo: [ :t | t scaleBy: 0.5 @ 0.5 ];
+		background: Color orange;
+		padding:
+			(BlInsets
+				top: 5
+				left: 7
+				bottom: 11
+				right: 17);
+		yourself
+]
+
+{ #category : #accessing }
+BrAnchoredPopupPositionerExamples >> targetContainer [
+	<gtExample>
+	^ BlElement new
+		layout: BlLinearLayout horizontal;
 		background: Color red;
+		padding:
+			(BlInsets
+				top: 5
+				left: 7
+				bottom: 11
+				right: 17);
+		constraintsDo: [ :c | 
+			c horizontal matchParent.
+			c vertical matchParent ];
 		yourself
 ]
 
@@ -123,8 +172,9 @@ BrAnchoredPopupPositionerExamples >> topLeft [
 BrAnchoredPopupPositionerExamples >> topRight [
 	<gtExample>
 	^ self
-		anchorPosition:
-			[ :target :anchor | (target size - anchor size) / 8 + (0 @ (6 / 8 * target size y)) ]
+		anchorPosition: [ :target :anchor | 
+			(target size - anchor size) / 8
+				+ (0 @ (6 / 8 * (target size - anchor size) y)) ]
 		relocatePopup:
 			[ :popupPreferredMaxBoundsInTarget :popupSize | popupPreferredMaxBoundsInTarget bottomLeft - (0 @ popupSize y) ]
 		assertPopupMaxBounds: [ :target :anchor :popup | 

@@ -41,7 +41,7 @@ BrAnchoredPopupPositioner >> popupBottomLeftMaxBoundsInTarget [
 	anchorBounds := self anchorBoundsInTarget.
 	^ BlBounds
 		origin: 0 @ anchorBounds bottom
-		corner: anchorBounds right @ target bounds bottom
+		corner: anchorBounds right @ target size y
 ]
 
 { #category : #'as yet unclassified' }
@@ -50,7 +50,7 @@ BrAnchoredPopupPositioner >> popupBottomRightMaxBoundsInTarget [
 	anchorBounds := self anchorBoundsInTarget.
 	^ BlBounds
 		origin: anchorBounds bottomLeft
-		corner: target bounds bottomRight
+		corner: target size
 ]
 
 { #category : #'as yet unclassified' }
