@@ -26,6 +26,7 @@ BrDropdownExamples >> coloredDropdown [
 	dropdown := BrDropdown new
 		layout: BlLinearLayout horizontal;
 		background: Color green;
+		look: BrDropdownLook;
 		constraintsDo: [ :c | 
 			c horizontal fitContent.
 			c vertical fitContent ];
@@ -35,7 +36,8 @@ BrDropdownExamples >> coloredDropdown [
 				when: BlClickEvent do: [ dropdown toggle ] ];
 		popup: [ BlElement new
 				size: 120 @ 150;
-				background: Color red ].
+				background: Color red;
+				border: (BlBorder paint: Color black asBlPaint width: 5) ].
 	^ dropdown
 ]
 

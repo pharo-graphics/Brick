@@ -89,7 +89,7 @@ BrAnchoredPopupPositioner >> popupPreferredMaxBoundsInTarget: anExtent [
 			allPopupBounds
 				add: #top -> #left -> popupPreferredMaxBoundsInTarget.
 			fallback := (allPopupBounds
-				sorted: [ :a :b | a value asRectangle area > b value asRectangle area ])
+				sorted: [ :a :b | a value asRectangle area >= b value asRectangle area ])
 				first.
 			popupPreferredPosition := fallback key.
 			popupPreferredMaxBoundsInTarget := fallback value.
@@ -98,7 +98,30 @@ BrAnchoredPopupPositioner >> popupPreferredMaxBoundsInTarget: anExtent [
 
 { #category : #'as yet unclassified' }
 BrAnchoredPopupPositioner >> popupPreferredPosition [
+	"Answers an association of symbols, e.g. #top->#right, to denote the relative position of the popup to the anchor.
+	Requires #popupPreferredMaxBoundsInTarget: to be called before to initialize it, answers nil otherwise."
+
 	^ popupPreferredPosition
+]
+
+{ #category : #'as yet unclassified' }
+BrAnchoredPopupPositioner >> popupPreferredPositionIsBottom [
+	^ popupPreferredPosition key = #bottom
+]
+
+{ #category : #'as yet unclassified' }
+BrAnchoredPopupPositioner >> popupPreferredPositionIsLeft [
+	^ popupPreferredPosition value = #left
+]
+
+{ #category : #'as yet unclassified' }
+BrAnchoredPopupPositioner >> popupPreferredPositionIsRight [
+	^ popupPreferredPosition value = #right
+]
+
+{ #category : #'as yet unclassified' }
+BrAnchoredPopupPositioner >> popupPreferredPositionIsTop [
+	^ popupPreferredPosition key = #top
 ]
 
 { #category : #'as yet unclassified' }
