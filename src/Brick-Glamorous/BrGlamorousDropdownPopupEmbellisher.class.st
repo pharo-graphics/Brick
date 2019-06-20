@@ -11,6 +11,10 @@ BrGlamorousDropdownPopupEmbellisher >> buildDefault [
 	super buildDefault.
 	geometry := BrGlamorousDropdownGeometry new
 		dropdown: container;
+		cornerRadius:
+			((toggle geometry respondsTo: #cornerRadii)
+				ifTrue: [ toggle geometry cornerRadii max ]
+				ifFalse: [ 0 ]);
 		yourself.
 	toggle
 		addEventHandlerOn: BlElementExtentChangedEvent
@@ -18,10 +22,12 @@ BrGlamorousDropdownPopupEmbellisher >> buildDefault [
 	toggle
 		addEventHandlerOn: BlElementBorderChangedEvent
 		do: [ :anEvent | 
-			toggle border ~= BlBorder empty
-				ifTrue: [ toggle border: BlBorder empty ] ].
+			toggle border paint isTransparent
+				ifFalse: [ toggle
+						border: (toggle border copyWithPaint: BlTransparentPaint uniqueInstance) ] ].
 	container geometry: geometry.
-	container background: Color white.
+	container background: toggle background.
+	container border: toggle border.
 	container look: BrShadowLook new.
 	^ container
 ]

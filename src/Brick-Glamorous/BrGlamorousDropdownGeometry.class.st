@@ -14,6 +14,7 @@ BrGlamorousDropdownGeometry >> buildPathOnSpartaCanvas: aCanvas [
 	Assumes bounds are overlapping or touching, gaps will lead to only parts included in geometry."
 
 	| bounds vertices xs ys areas corners points directions initialCursor initialDirection cursor direction path |
+	"1. compute areas covered by children bounds"
 	bounds := dropdown children collect: [ :e | e bounds asRectangle ].
 	vertices := bounds
 		flatCollect: [ :e | 
@@ -33,6 +34,7 @@ BrGlamorousDropdownGeometry >> buildPathOnSpartaCanvas: aCanvas [
 							(Rectangle
 								origin: (xs at: j) @ (ys at: i)
 								corner: (xs at: j + 1) @ (ys at: i + 1)) ] ].
+	"2. detect corners around covered area"
 	corners := (Array2D rows: xs size columns: ys size element: false)
 		withIndicesCollect: [ :e :i :j | 
 			| topLeft topRight bottomLeft bottomRight neighbours |
@@ -49,6 +51,7 @@ BrGlamorousDropdownGeometry >> buildPathOnSpartaCanvas: aCanvas [
 				ifFalse: [ (neighbours = 0 or: [ neighbours = 4 ])
 						ifTrue: [ false ]
 						ifFalse: [ topLeft = bottomRight ] ] ].
+	"3. collect corner points and direction on which they were detected"
 	points := OrderedCollection new.
 	directions := OrderedCollection new.
 	initialCursor := ((corners atRow: 1) detectIndex: #yourself) @ 1.
@@ -68,12 +71,14 @@ BrGlamorousDropdownGeometry >> buildPathOnSpartaCanvas: aCanvas [
 					[ "backtrack to original cursor, rotate direction, skip reverse reaching direction"
 					cursor := backtrackingCursor.
 					direction := direction y negated @ direction x.
+					"skip reverse direction, would find previous point"
 					direction = backtrackingDirection negated
 						ifTrue: [ direction := direction y negated @ direction x ].
 					false ] ].
 	points add: (xs at: cursor x) @ (ys at: cursor y).
 	directions add: direction ]
 		doWhileFalse: [ cursor = initialCursor and: [ direction = initialDirection ] ].
+	"4. compute path with rounded corners"
 	path := aCanvas path.
 	path
 		moveTo: points first + (cornerRadius @ cornerRadius * directions second).

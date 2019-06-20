@@ -33,11 +33,13 @@ BrDropdownExamples >> coloredDropdown [
 		toggle: [ BlElement new
 				size: 20 @ 20;
 				background: Color blue;
-				when: BlClickEvent do: [ dropdown toggle ] ];
+				geometry: (BlRectangle cornerRadius: 5);
+				yourself ];
 		popup: [ BlElement new
 				size: 120 @ 150;
 				background: Color red;
-				border: (BlBorder paint: Color black asBlPaint width: 5) ].
+				border: (BlBorder paint: Color black asBlPaint width: 5);
+				yourself ].
 	^ dropdown
 ]
 
@@ -63,16 +65,15 @@ BrDropdownExamples >> roundLook [
 { #category : #examples }
 BrDropdownExamples >> roundedDropdownList [
 	<gtExample>
-
 	^ BrDropdown new
 		layout: BlLinearLayout horizontal;
-		relocate: 200@100;
+		relocate: 200 @ 100;
 		constraintsDo: [ :c | 
 			c horizontal fitContent.
 			c vertical fitContent ];
-		in: [ :aDropdown | aDropdown toggle: [ self toggleButton action: [ aDropdown toggle ] ] ];
+		in: [ :aDropdown | aDropdown toggle: [ self toggleButton ] ];
 		popup: [ self popupList ];
-		look: (BrDropdownExamples new roundLook)
+		look: BrDropdownExamples new roundLook
 ]
 
 { #category : #'as yet unclassified' }
@@ -168,7 +169,7 @@ BrDropdownExamples >> suggesterBadgeDropdownList [
 		constraintsDo: [ :c | 
 			c horizontal fitContent.
 			c vertical fitContent ].
-	aDropdown toggle: [ self badgeButton action: [ aDropdown toggle ] ].
+	aDropdown toggle: [ self badgeButton ].
 	aDropdown popup: [ self popupList ].	
 	aDropdown look: (BrGlamorousDropdownLook new
 		"popupEmbellisher: [ :aPopupElement :aToggleStencil | 
