@@ -7,22 +7,21 @@ Class {
 { #category : #'api - instantiation' }
 BrGlamorousDropdownPopupEmbellisher >> buildDefault [
 	<return: #Object>
-	| aContainer geometry toggleElement |
-	aContainer := super buildDefault.
-	geometry := BrGlamorousDropdownGeometry new.
-	toggleElement := aContainer childNamed: #toggle.
-	toggleElement
+	| geometry |
+	super buildDefault.
+	geometry := BrGlamorousDropdownGeometry new
+		dropdown: container;
+		yourself.
+	toggle
 		addEventHandlerOn: BlElementExtentChangedEvent
-		do: [ :anEvent | 
-			geometry toggleExtent: toggleElement geometryBounds extent.
-			aContainer invalidate ].
-	toggleElement
+		do: [ :anEvent | container invalidate ].
+	toggle
 		addEventHandlerOn: BlElementBorderChangedEvent
 		do: [ :anEvent | 
-			toggleElement border ~= BlBorder empty
-				ifTrue: [ toggleElement border: BlBorder empty ] ].
-	"aContainer geometry: geometry."
-	aContainer background: Color white.
-	aContainer look: BrShadowLook new.
-	^ aContainer
+			toggle border ~= BlBorder empty
+				ifTrue: [ toggle border: BlBorder empty ] ].
+	container geometry: geometry.
+	container background: Color white.
+	container look: BrShadowLook new.
+	^ container
 ]

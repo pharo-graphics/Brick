@@ -92,15 +92,10 @@ BrDropdownPopupEmbellisher >> relocatePopup [
 	positioner popupPreferredPositionIsLeft
 		ifTrue: [ toggle constraintsDo: [ :c | c linear horizontal alignRight ] ]
 		ifFalse: [ toggle constraintsDo: [ :c | c linear horizontal alignLeft ] ].
-	popupWrapper bounds extent logCr.
-	popupMaxBounds extent logCr.
 	popupWrapper
 		constraintsDo: [ :c | 
 			c maxWidth: popupMaxBounds width.
 			c maxHeight: popupMaxBounds height ].
-	"container removeFromParent.
-	container forceLayout.
-	positioner target addChild: container."
 	positioner popupPreferredPosition = (#bottom -> #right)
 		ifTrue: [ container relocate: anchorBounds topLeft.
 			^ self ].

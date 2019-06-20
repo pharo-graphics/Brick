@@ -26,7 +26,7 @@ BrDropdownExamples >> coloredDropdown [
 	dropdown := BrDropdown new
 		layout: BlLinearLayout horizontal;
 		background: Color green;
-		look: BrDropdownLook;
+		look: BrGlamorousDropdownLook;
 		constraintsDo: [ :c | 
 			c horizontal fitContent.
 			c vertical fitContent ];

@@ -3,50 +3,79 @@ Class {
 	#superclass : #BlGeometry,
 	#instVars : [
 		'cornerRadius',
-		'toggleExtent'
+		'dropdown'
 	],
 	#category : #'Brick-Glamorous-Dropdown'
 }
 
 { #category : #'as yet unclassified' }
 BrGlamorousDropdownGeometry >> buildPathOnSpartaCanvas: aCanvas [
-	| bounds origin dropdownExtent path |
-	bounds := self geometryBounds.
-	origin := bounds origin.
-	dropdownExtent := bounds extent - (0 @ toggleExtent y)
-		max: toggleExtent x @ 0.
+	"Computes boundaries according to https://stackoverflow.com/questions/289779/calculating-a-boundary-around-several-linked-rectangles"
+
+	| bounds vertices xs ys areas corners points directions initialCursor initialDirection cursor direction path |
+	bounds := dropdown children collect: [ :e | e bounds asRectangle ].
+	vertices := bounds
+		flatCollect: [ :e | 
+			{e origin.
+			e corner} ].
+	xs := (vertices collect: #x) asSet asOrderedCollection sorted.
+	ys := (vertices collect: #y) asSet asOrderedCollection sorted.
+	areas := (Array2D
+		rows: xs size - 1
+		columns: ys size - 1
+		element: false)
+		withIndicesCollect: [ :e :i :j | 
+			bounds
+				anySatisfy: [ :f | 
+					f
+						containsRect:
+							(Rectangle
+								origin: (xs at: j) @ (ys at: i)
+								corner: (xs at: j + 1) @ (ys at: i + 1)) ] ].
+	corners := (Array2D rows: xs size columns: ys size element: false)
+		withIndicesCollect: [ :e :i :j | 
+			| topLeft topRight bottomLeft bottomRight neighbours |
+			topLeft := areas at: i - 1 at: j - 1 ifInvalid: false.
+			topRight := areas at: i - 1 at: j ifInvalid: false.
+			bottomLeft := areas at: i at: j - 1 ifInvalid: false.
+			bottomRight := areas at: i at: j ifInvalid: false.
+			neighbours := ({topLeft.
+			topRight.
+			bottomLeft.
+			bottomRight} select: #yourself) size.
+			neighbours odd
+				ifTrue: [ true ]
+				ifFalse: [ (neighbours = 0 or: [ neighbours = 4 ])
+						ifTrue: [ false ]
+						ifFalse: [ topLeft = bottomRight ] ] ].
+	points := OrderedCollection new.
+	directions := OrderedCollection new.
+	initialCursor := ((corners atRow: 1) detectIndex: #yourself) @ 1.
+	initialDirection := 0 @ -1.
+	cursor := initialCursor.
+	direction := initialDirection.
+	points add: (xs at: cursor x) @ (ys at: cursor y).
+	directions add: direction.
+	[ | backtrackingCursor backtrackingDirection |
+	backtrackingCursor := cursor.
+	backtrackingDirection := direction.
+	direction := direction y negated @ direction x.
+	[ cursor := cursor + direction ]
+		doWhileFalse: [ (cursor transposed <= corners extent and: [ cursor >= (1 @ 1) ])
+				ifTrue: [ corners at: cursor y at: cursor x ]
+				ifFalse:
+					[ "backtrack to original cursor, rotate direction, skip reverse reaching direction"
+					cursor := backtrackingCursor.
+					direction := direction y negated @ direction x.
+					direction = backtrackingDirection negated
+						ifTrue: [ direction := direction y negated @ direction x ].
+					false ] ].
+	points add: (xs at: cursor x) @ (ys at: cursor y).
+	directions add: direction ]
+		doWhileFalse: [ cursor = initialCursor and: [ direction = initialDirection ] ].
 	path := aCanvas path.
-	path
-		moveTo: origin + (0 @ toggleExtent y);
-		lineTo: origin + (0 @ cornerRadius);
-		cwArcTo: origin + (cornerRadius @ 0);
-		lineTo: origin + ((toggleExtent x - cornerRadius) @ 0);
-		cwArcTo: origin + (toggleExtent x @ cornerRadius).
-	dropdownExtent x - toggleExtent x >= (2 * cornerRadius)
-		ifTrue: [ path
-				lineTo: origin + (toggleExtent x @ (toggleExtent y - cornerRadius));
-				ccwArcTo: origin + ((toggleExtent x + cornerRadius) @ toggleExtent y);
-				lineTo: origin + ((dropdownExtent x - cornerRadius) @ toggleExtent y);
-				cwArcTo: origin + (dropdownExtent x @ (toggleExtent y + cornerRadius)) ]
-		ifFalse: [ path lineTo: origin + toggleExtent.
-			dropdownExtent x - toggleExtent x >= cornerRadius
-				ifTrue: [ path
-						lineTo: origin + ((dropdownExtent x - cornerRadius) @ toggleExtent y);
-						cwArcTo: origin + (dropdownExtent x @ (toggleExtent y + cornerRadius)) ]
-				ifFalse: [ path lineTo: origin + (dropdownExtent x @ toggleExtent y) ] ].
-	path
-		lineTo:
-			origin
-				+
-					(dropdownExtent x @ (dropdownExtent y + toggleExtent y - cornerRadius));
-		cwArcTo:
-			origin
-				+
-					((dropdownExtent x - cornerRadius)
-						@ (dropdownExtent y + toggleExtent y));
-		lineTo: origin + (cornerRadius @ (dropdownExtent y + toggleExtent y));
-		cwArcTo: origin + (0 @ (dropdownExtent y + toggleExtent y - cornerRadius));
-		lineTo: origin + (0 @ toggleExtent y).
+	path moveTo: points removeFirst.
+	[ points isEmpty ] whileFalse: [ path lineTo: points removeFirst ].
 	^ path build
 ]
 
@@ -60,24 +89,23 @@ BrGlamorousDropdownGeometry >> cornerRadius: anObject [
 	cornerRadius := anObject
 ]
 
+{ #category : #accessing }
+BrGlamorousDropdownGeometry >> dropdown [
+	^ dropdown
+]
+
+{ #category : #accessing }
+BrGlamorousDropdownGeometry >> dropdown: anObject [
+	dropdown := anObject
+]
+
 { #category : #initialization }
 BrGlamorousDropdownGeometry >> initialize [
 	super initialize.
-	cornerRadius := 5.
-	toggleExtent := 50 @ 20
+	cornerRadius := 5
 ]
 
 { #category : #geometry }
 BrGlamorousDropdownGeometry >> matchExtent: aPoint [
 	extent := aPoint
-]
-
-{ #category : #accessing }
-BrGlamorousDropdownGeometry >> toggleExtent [
-	^ toggleExtent
-]
-
-{ #category : #accessing }
-BrGlamorousDropdownGeometry >> toggleExtent: anObject [
-	toggleExtent := anObject
 ]
