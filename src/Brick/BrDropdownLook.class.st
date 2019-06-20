@@ -8,36 +8,15 @@ Class {
 		'outskirtsEmbellisher',
 		'popupElement',
 		'toggleElement',
-		'collapseEventHandler',
 		'dropdownTarget',
+		'collapseEventHandler',
 		'expandEventHandler'
 	],
 	#category : #'Brick-Dropdown - Look'
 }
 
-{ #category : #'instance creation' }
-BrDropdownLook >> createPopupElement [
-	"Create a popup element from a stencil"
-
-	<return: #BlElement>
-	| aPopupElement |
-	aPopupElement := (self popupEmbellisher
-		toggleStencil: self toggleStencil;
-		popupStencil: self popupStencil;
-		anchor: toggleElement) asElement.
-	^ (self outskirtsEmbellisher element: aPopupElement) asElement
-]
-
-{ #category : #'instance creation' }
-BrDropdownLook >> createToggleElement [
-	"Create a toggle element from a stencil"
-
-	<return: #BlElement>
-	^ self toggleStencil asElement
-]
-
 { #category : #hooks }
-BrDropdownLook >> dropdownCollapsed [
+BrDropdownLook >> collapsed [
 	self isExpanded
 		ifFalse: [ ^ self ].
 	self
@@ -49,8 +28,37 @@ BrDropdownLook >> dropdownCollapsed [
 	popupElement := nil
 ]
 
+{ #category : #'instance creation' }
+BrDropdownLook >> createPopupElement [
+	"Create a popup element from a stencil"
+
+	<return: #BlElement>
+	| aPopupElement |
+	aPopupElement := (self popupEmbellisher
+		toggleStencil: self toggleStencil;
+		popupStencil: self popupStencil;
+		anchor: toggleElement) asElement
+		constraintsDo: [ :c | c ignoreByLayout ];
+		yourself.
+	^ (self outskirtsEmbellisher element: aPopupElement) asElement
+]
+
+{ #category : #'instance creation' }
+BrDropdownLook >> createToggleElement [
+	"Create a toggle element from a stencil"
+
+	<return: #BlElement>
+	^ (self outskirtsEmbellisher element: self toggleStencil asElement)
+		asElement
+]
+
+{ #category : #'element handlers' }
+BrDropdownLook >> elementPositionInSpaceChanged: anEvent [
+	self relocatePopup
+]
+
 { #category : #hooks }
-BrDropdownLook >> dropdownExpanded [
+BrDropdownLook >> expanded [
 	self isExpanded
 		ifTrue: [ ^ self ].
 	toggleElement visibility: BlVisibility hidden.
@@ -61,16 +69,6 @@ BrDropdownLook >> dropdownExpanded [
 						addChild: (popupElement := self createPopupElement).
 					self relocatePopup ].
 			aWidget space root addEventFilter: collapseEventHandler ]
-]
-
-{ #category : #accessing }
-BrDropdownLook >> dropdownTarget: anObject [
-	dropdownTarget := anObject
-]
-
-{ #category : #'element handlers' }
-BrDropdownLook >> elementPositionInSpaceChanged: anEvent [
-	self relocatePopup
 ]
 
 { #category : #initialization }
@@ -95,17 +93,17 @@ BrDropdownLook >> initialize [
 	self
 		add:
 			(BrInteractiveCommonLook new
-				collapsed: [ self dropdownCollapsed ];
-				expanded: [ self dropdownExpanded ]).
+				collapsed: [ self collapsed ];
+				expanded: [ self expanded ]).
 	self
 		addChange:
 			(BrLookChange new
 				up: [ :e | 
-					self dropdownCollapsed.
+					self collapsed.
 					toggleElement := self createToggleElement.
 					self widget addChild: toggleElement ];
 				down: [ :e | 
-					self dropdownCollapsed.
+					self collapsed.
 					toggleElement ifNotNil: #removeFromParent.
 					toggleElement := nil ];
 				yourself)
@@ -172,6 +170,11 @@ BrDropdownLook >> relocatePopup [
 	self isExpanded
 		ifFalse: [ ^ self ].
 	popupEmbellisher relocatePopup
+]
+
+{ #category : #accessing }
+BrDropdownLook >> target: anObject [
+	dropdownTarget := anObject
 ]
 
 { #category : #accessing }

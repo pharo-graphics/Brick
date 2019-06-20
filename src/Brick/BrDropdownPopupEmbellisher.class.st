@@ -33,7 +33,6 @@ BrDropdownPopupEmbellisher >> buildDefault [
 	container
 		layout: BlLinearLayout vertical;
 		constraintsDo: [ :c | 
-			c ignoreByLayout.
 			c horizontal fitContent.
 			c vertical fitContent ].
 	toggle := self toggleStencil asElement.

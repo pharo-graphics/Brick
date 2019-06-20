@@ -94,55 +94,55 @@ BrDropdownExamples >> scaledAndAlignedDropdowns [
 		constraintsDo: [ :c | 
 			c frame horizontal alignLeft.
 			c frame vertical alignTop ];
-		look: (BrGlamorousDropdownLook new dropdownTarget: [ container ]);
+		look: (BrGlamorousDropdownLook new target: [ container ]);
 		yourself.
 	topCenter := self coloredDropdown
 		constraintsDo: [ :c | 
 			c frame horizontal alignCenter.
 			c frame vertical alignTop ];
-		look: (BrGlamorousDropdownLook new dropdownTarget: [ container ]);
+		look: (BrGlamorousDropdownLook new target: [ container ]);
 		yourself.
 	topRight := self coloredDropdown
 		constraintsDo: [ :c | 
 			c frame horizontal alignRight.
 			c frame vertical alignTop ];
-		look: (BrGlamorousDropdownLook new dropdownTarget: [ container ]);
+		look: (BrGlamorousDropdownLook new target: [ container ]);
 		yourself.
 	centerLeft := self coloredDropdown
 		constraintsDo: [ :c | 
 			c frame horizontal alignLeft.
 			c frame vertical alignCenter ];
-		look: (BrGlamorousDropdownLook new dropdownTarget: [ container ]);
+		look: (BrGlamorousDropdownLook new target: [ container ]);
 		yourself.
 	centerCenter := self coloredDropdown
 		constraintsDo: [ :c | 
 			c frame horizontal alignCenter.
 			c frame vertical alignCenter ];
-		look: (BrGlamorousDropdownLook new dropdownTarget: [ container ]);
+		look: (BrGlamorousDropdownLook new target: [ container ]);
 		yourself.
 	centerRight := self coloredDropdown
 		constraintsDo: [ :c | 
 			c frame horizontal alignRight.
 			c frame vertical alignCenter ];
-		look: (BrGlamorousDropdownLook new dropdownTarget: [ container ]);
+		look: (BrGlamorousDropdownLook new target: [ container ]);
 		yourself.
 	bottomLeft := self coloredDropdown
 		constraintsDo: [ :c | 
 			c frame horizontal alignLeft.
 			c frame vertical alignBottom ];
-		look: (BrGlamorousDropdownLook new dropdownTarget: [ container ]);
+		look: (BrGlamorousDropdownLook new target: [ container ]);
 		yourself.
 	bottomCenter := self coloredDropdown
 		constraintsDo: [ :c | 
 			c frame horizontal alignCenter.
 			c frame vertical alignBottom ];
-		look: (BrGlamorousDropdownLook new dropdownTarget: [ container ]);
+		look: (BrGlamorousDropdownLook new target: [ container ]);
 		yourself.
 	bottomRight := self coloredDropdown
 		constraintsDo: [ :c | 
 			c frame horizontal alignRight.
 			c frame vertical alignBottom ];
-		look: (BrGlamorousDropdownLook new dropdownTarget: [ container ]);
+		look: (BrGlamorousDropdownLook new target: [ container ]);
 		yourself.
 	container
 		addChildren:
