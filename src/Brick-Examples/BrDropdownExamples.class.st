@@ -85,7 +85,7 @@ BrDropdownExamples >> scaledAndAlignedDropdowns [
 			c horizontal matchParent.
 			c vertical matchParent ].
 	container size: 200 @ 200.
-	container background: Color gray.
+	container background: Color veryLightGray.
 	container layout: BlFrameLayout new.
 	container transformDo: [ :t | t scaleBy: 2 @ 2 ].
 	container relocate: 100 @ 100.

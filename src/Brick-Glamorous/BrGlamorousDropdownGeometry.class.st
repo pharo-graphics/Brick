@@ -10,7 +10,8 @@ Class {
 
 { #category : #'as yet unclassified' }
 BrGlamorousDropdownGeometry >> buildPathOnSpartaCanvas: aCanvas [
-	"Computes boundaries according to https://stackoverflow.com/questions/289779/calculating-a-boundary-around-several-linked-rectangles"
+	"Computes boundaries according to https://stackoverflow.com/questions/289779/calculating-a-boundary-around-several-linked-rectangles.
+	Assumes bounds are overlapping or touching, gaps will lead to only parts included in geometry."
 
 	| bounds vertices xs ys areas corners points directions initialCursor initialDirection cursor direction path |
 	bounds := dropdown children collect: [ :e | e bounds asRectangle ].
@@ -74,8 +75,21 @@ BrGlamorousDropdownGeometry >> buildPathOnSpartaCanvas: aCanvas [
 	directions add: direction ]
 		doWhileFalse: [ cursor = initialCursor and: [ direction = initialDirection ] ].
 	path := aCanvas path.
-	path moveTo: points removeFirst.
-	[ points isEmpty ] whileFalse: [ path lineTo: points removeFirst ].
+	path
+		moveTo: points first + (cornerRadius @ cornerRadius * directions second).
+	"last points is same as first, remove it"
+	points removeFirst.
+	directions removeFirst.
+	points
+		withIndexDo: [ :e :i | 
+			| directionIncoming directionOutgoing next |
+			directionIncoming := directions at: i.
+			directionOutgoing := directions at: i \\ points size + 1.
+			path lineTo: e - (cornerRadius @ cornerRadius * directionIncoming).
+			next := e + (cornerRadius @ cornerRadius * directionOutgoing).
+			(directionIncoming crossProduct: directionOutgoing) < 0
+				ifTrue: [ path ccwArcTo: next ]
+				ifFalse: [ path cwArcTo: next ] ].
 	^ path build
 ]
 
@@ -102,7 +116,7 @@ BrGlamorousDropdownGeometry >> dropdown: anObject [
 { #category : #initialization }
 BrGlamorousDropdownGeometry >> initialize [
 	super initialize.
-	cornerRadius := 5
+	cornerRadius := 10
 ]
 
 { #category : #geometry }
