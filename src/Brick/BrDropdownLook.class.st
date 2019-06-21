@@ -25,7 +25,6 @@ BrDropdownLook >> collapsed [
 				ifTrue: [ e space root removeEventFilter: collapseEventHandler ] ].
 	toggleElement visibility: BlVisibility visible.
 	popupElement removeFromParent.
-	popupElement := nil
 ]
 
 { #category : #'instance creation' }
@@ -66,7 +65,10 @@ BrDropdownLook >> expanded [
 		widgetDo: [ :aWidget | 
 			aWidget isAttachedToSceneGraph
 				ifTrue: [ (dropdownTarget cull: aWidget)
-						addChild: (popupElement := self createPopupElement).
+						addChild:
+							(popupElement
+								ifNil: [ popupElement := self createPopupElement ]
+								ifNotNil: [ popupElement removeFromParent ]).
 					self relocatePopup ].
 			aWidget space root addEventFilter: collapseEventHandler ]
 ]
@@ -141,6 +143,11 @@ BrDropdownLook >> outskirtsEmbellisher [
 BrDropdownLook >> outskirtsEmbellisher: anObject [
 	outskirtsEmbellisher := anObject
 		asStencilBuilder: BrDropdownOutskirtsEmbellisher
+]
+
+{ #category : #accessing }
+BrDropdownLook >> popupElement [
+	^ popupElement
 ]
 
 { #category : #accessing }
