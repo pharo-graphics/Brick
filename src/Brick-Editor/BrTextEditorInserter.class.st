@@ -46,6 +46,7 @@ BrTextEditorInserter >> atEnd [
 
 { #category : #'api - configuration' }
 BrTextEditorInserter >> beforeSelectedLines [
+	"We insert text at the beginning of all selected lines"
 	| aCollectionOfLineStarts |
 	
 	aCollectionOfLineStarts := OrderedCollection new.
@@ -150,12 +151,14 @@ BrTextEditorInserter >> lineEnding [
 	text := OSPlatform current lineEnding
 ]
 
-{ #category : #private }
-BrTextEditorInserter >> lineStartIndicesInsideOfSelection: aMonotoneSelection [
-	<return: #Collection of: #Number>
-	| anIterator |
+{ #category : #'api - configuration' }
+BrTextEditorInserter >> lineEndingWithWhitespace [
+	"Insert a line ending (Cr, Lf or CrLf depending on the current platform)
+	additionally  adding a whitespace from the previous line according to a cursor"
 
-	self text 
+	text := self cursor isEmpty
+		ifTrue: [ OSPlatform current lineEnding ]
+		ifFalse: [ OSPlatform current lineEnding, (self findWhitespaceOfLineBefore: self cursor first position) ]
 ]
 
 { #category : #'api - configuration' }
@@ -171,13 +174,6 @@ BrTextEditorInserter >> onlyDigits [
 { #category : #'api - configuration' }
 BrTextEditorInserter >> onlyLetters [
 	self inputFilter: BrTextEditorLetterInputFilter new
-]
-
-{ #category : #'api - configuration' }
-BrTextEditorInserter >> prependToSelectedLines [
-	"Prepent text to all lines that have selection"
-	
-	
 ]
 
 { #category : #private }

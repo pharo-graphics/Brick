@@ -284,7 +284,7 @@ BrTextEditor >> initializeInteractions [
 		action: [
 			self inserter
 				atCursor;
-				lineEnding;
+				lineEndingWithWhitespace;
 				insert ]).
 
 	self interactions add: (BlShortcut new
