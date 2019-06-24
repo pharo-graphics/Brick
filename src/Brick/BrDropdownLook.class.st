@@ -8,7 +8,6 @@ Class {
 		'outskirtsEmbellisher',
 		'popupElement',
 		'toggleElement',
-		'dropdownTarget',
 		'collapseEventHandler',
 		'expandEventHandler'
 	],
@@ -64,7 +63,7 @@ BrDropdownLook >> expanded [
 	self
 		widgetDo: [ :aWidget | 
 			aWidget isAttachedToSceneGraph
-				ifTrue: [ (dropdownTarget cull: aWidget)
+				ifTrue: [ aWidget space
 						addChild:
 							(popupElement
 								ifNil: [ popupElement := self createPopupElement ]
@@ -76,7 +75,6 @@ BrDropdownLook >> expanded [
 { #category : #initialization }
 BrDropdownLook >> initialize [
 	super initialize.
-	dropdownTarget := #space.
 	collapseEventHandler := BlEventHandler
 		on: BlClickEvent
 		do: [ :e | 
@@ -177,11 +175,6 @@ BrDropdownLook >> relocatePopup [
 	self isExpanded
 		ifFalse: [ ^ self ].
 	popupEmbellisher relocatePopup
-]
-
-{ #category : #accessing }
-BrDropdownLook >> target: anObject [
-	dropdownTarget := anObject
 ]
 
 { #category : #accessing }
