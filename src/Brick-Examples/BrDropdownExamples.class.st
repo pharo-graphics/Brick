@@ -4,6 +4,75 @@ Class {
 	#category : #'Brick-Examples-Dropdown'
 }
 
+{ #category : #'as yet unclassified' }
+BrDropdownExamples >> alignedDropdowns [
+	<gtExample>
+	| container topLeft topCenter topRight centerLeft centerCenter centerRight bottomLeft bottomCenter bottomRight |
+	container := BlElement new
+		constraintsDo: [ :c | 
+			c horizontal matchParent.
+			c vertical matchParent ];
+		padding: (BlInsets all: 10);
+		layout: BlFrameLayout new.
+	topLeft := self coloredDropdown
+		constraintsDo: [ :c | 
+			c frame horizontal alignLeft.
+			c frame vertical alignTop ];
+		yourself.
+	topCenter := self coloredDropdown
+		constraintsDo: [ :c | 
+			c frame horizontal alignCenter.
+			c frame vertical alignTop ];
+		yourself.
+	topRight := self coloredDropdown
+		constraintsDo: [ :c | 
+			c frame horizontal alignRight.
+			c frame vertical alignTop ];
+		yourself.
+	centerLeft := self coloredDropdown
+		constraintsDo: [ :c | 
+			c frame horizontal alignLeft.
+			c frame vertical alignCenter ];
+		yourself.
+	centerCenter := self coloredDropdown
+		constraintsDo: [ :c | 
+			c frame horizontal alignCenter.
+			c frame vertical alignCenter ];
+		yourself.
+	centerRight := self coloredDropdown
+		constraintsDo: [ :c | 
+			c frame horizontal alignRight.
+			c frame vertical alignCenter ];
+		yourself.
+	bottomLeft := self coloredDropdown
+		constraintsDo: [ :c | 
+			c frame horizontal alignLeft.
+			c frame vertical alignBottom ];
+		yourself.
+	bottomCenter := self coloredDropdown
+		constraintsDo: [ :c | 
+			c frame horizontal alignCenter.
+			c frame vertical alignBottom ];
+		yourself.
+	bottomRight := self coloredDropdown
+		constraintsDo: [ :c | 
+			c frame horizontal alignRight.
+			c frame vertical alignBottom ];
+		yourself.
+	container
+		addChildren:
+			{topLeft.
+			topCenter.
+			topRight.
+			centerLeft.
+			centerCenter.
+			centerRight.
+			bottomLeft.
+			bottomCenter.
+			bottomRight}.
+	^ container
+]
+
 { #category : #'instance creation' }
 BrDropdownExamples >> badgeButton [
 	<gtExample>
@@ -44,7 +113,6 @@ BrDropdownExamples >> coloredDropdown [
 		clipChildren: false;
 		toggle: [ BrButton new
 				size: 20 @ 20;
-				"margin: (BlInsets left: 10 right: 10);"
 				geometry: (BlRectangle cornerRadius: 10);
 				look:
 					(BrInteractiveCommonLook new
@@ -125,116 +193,31 @@ BrDropdownExamples >> roundedDropdownList [
 { #category : #'as yet unclassified' }
 BrDropdownExamples >> scaledAndAlignedDropdowns [
 	<gtExample>
-	| container topLeft topCenter topRight centerLeft centerCenter centerRight bottomLeft bottomCenter bottomRight |
-	container := BlElement new
-		constraintsDo: [ :c | 
-			c ignoreByLayout.
-			c horizontal matchParent.
-			c vertical matchParent ];
+	^ self alignedDropdowns
+		constraintsDo: [ :c | c ignoreByLayout ];
 		size: 200 @ 200;
 		background: Color white;
 		look: BrShadowLook new;
 		padding: (BlInsets all: 10);
 		margin: (BlInsets all: 10);
-		layout: BlFrameLayout new;
 		transformDo: [ :t | t scaleBy: 2 @ 2 ];
-		relocate: 120 @ 120.
-	topLeft := self coloredDropdown
-		constraintsDo: [ :c | 
-			c frame horizontal alignLeft.
-			c frame vertical alignTop ];
-		yourself.
-	topCenter := self coloredDropdown
-		constraintsDo: [ :c | 
-			c frame horizontal alignCenter.
-			c frame vertical alignTop ];
-		yourself.
-	topRight := self coloredDropdown
-		constraintsDo: [ :c | 
-			c frame horizontal alignRight.
-			c frame vertical alignTop ];
-		yourself.
-	centerLeft := self coloredDropdown
-		constraintsDo: [ :c | 
-			c frame horizontal alignLeft.
-			c frame vertical alignCenter ];
-		yourself.
-	centerCenter := self coloredDropdown
-		constraintsDo: [ :c | 
-			c frame horizontal alignCenter.
-			c frame vertical alignCenter ];
-		yourself.
-	centerRight := self coloredDropdown
-		constraintsDo: [ :c | 
-			c frame horizontal alignRight.
-			c frame vertical alignCenter ];
-		yourself.
-	bottomLeft := self coloredDropdown
-		constraintsDo: [ :c | 
-			c frame horizontal alignLeft.
-			c frame vertical alignBottom ];
-		yourself.
-	bottomCenter := self coloredDropdown
-		constraintsDo: [ :c | 
-			c frame horizontal alignCenter.
-			c frame vertical alignBottom ];
-		yourself.
-	bottomRight := self coloredDropdown
-		constraintsDo: [ :c | 
-			c frame horizontal alignRight.
-			c frame vertical alignBottom ];
-		yourself.
-	container
-		addChildren:
-			{topLeft.
-			topCenter.
-			topRight.
-			centerLeft.
-			centerCenter.
-			centerRight.
-			bottomLeft.
-			bottomCenter.
-			bottomRight}.
-			
-	^ container
+		relocate: 120 @ 120;
+		yourself
 ]
 
 { #category : #examples }
 BrDropdownExamples >> suggesterBadgeDropdownList [
 	<gtExample>
 	| aDropdown |
-	
 	aDropdown := BrDropdown new
 		layout: BlLinearLayout horizontal;
-		relocate: 200@100;
+		relocate: 200 @ 100;
 		constraintsDo: [ :c | 
 			c horizontal fitContent.
 			c vertical fitContent ].
 	aDropdown toggle: [ self badgeButton ].
-	aDropdown popup: [ self popupList ].	
-	aDropdown look: (BrGlamorousDropdownLook new
-		"popupEmbellisher: [ :aPopupElement :aToggleStencil | 
-			| aContainer aPopupWrapper |
-			
-			aPopupWrapper := BlElement new
-				layout: BlLinearLayout vertical;
-				constraintsDo: [ :c |
-					c horizontal fitContent.
-					c vertical fitContent ].
-				
-			aPopupWrapper addChild: aPopupElement.
-			aPopupWrapper border: (BlBorder paint: Color orange width: 1).
-			aPopupWrapper background: Color white.
-			
-			aContainer := BlElement new.
-			aContainer clipChildren: false.
-			aContainer layout: BlLinearLayout vertical.
-			aContainer constraintsDo: [ :c |
-				c horizontal fitContent.
-				c vertical fitContent ].
-			aContainer addChild: (aToggleStencil asElement elevation: (BlRelativeElevation elevation: 2)).
-			aContainer addChild: aPopupWrapper ];
-		outskirtsEmbellisher: [ :anElement | anElement ]").
+	aDropdown popup: [ self popupList ].
+	aDropdown look: BrGlamorousDropdownLook new.
 	^ aDropdown
 ]
 
