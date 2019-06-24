@@ -69,14 +69,15 @@ BrDropdownPopupEmbellisher >> popupStencil: anObject [
 
 { #category : #geometry }
 BrDropdownPopupEmbellisher >> relocatePopup [
-	| positioner anchorBounds popupMaxBounds |
+	| positioner anchorBounds popupMaxBounds scale preferredPosition |
 	container parent ifNil: [ ^ self ].
 	positioner := BrAnchoredPopupPositioner
 		anchor: anchor
 		target: container parent.
+	scale := anchor globalScale.
 	anchorBounds := positioner anchorBoundsInTarget.
 	popupMaxBounds := positioner
-		popupPreferredMaxBoundsInTarget: popup size.
+		popupPreferredMaxBoundsInTarget: popup size * scale.
 	positioner popupPreferredPositionIsTop
 		ifTrue: [ container
 				removeChildren;
@@ -96,18 +97,22 @@ BrDropdownPopupEmbellisher >> relocatePopup [
 			c maxWidth: popupMaxBounds width.
 			c maxHeight: popupMaxBounds height ].
 	positioner popupPreferredPosition = (#bottom -> #right)
-		ifTrue: [ container relocate: anchorBounds topLeft.
-			^ self ].
+		ifTrue: [ preferredPosition := anchorBounds topLeft ].
 	positioner popupPreferredPosition = (#bottom -> #left)
-		ifTrue:
-			[ container relocate: anchorBounds topRight - (popupWrapper width @ 0).
-			^ self ].
+		ifTrue: [ preferredPosition := anchorBounds topRight
+				- (popupWrapper width @ 0 * scale) ].
 	positioner popupPreferredPosition = (#top -> #right)
-		ifTrue:
-			[ container relocate: anchorBounds topLeft - (0 @ popupWrapper height).
-			^ self ].
-	self assert: [ positioner popupPreferredPosition = (#top -> #left) ].
-	container relocate: anchorBounds topRight - popupWrapper size
+		ifTrue: [ preferredPosition := anchorBounds topLeft
+				- (0 @ popupWrapper height * scale) ].
+	positioner popupPreferredPosition = (#top -> #left)
+		ifTrue: [ preferredPosition := anchorBounds topRight
+				- (popupWrapper size * scale) ].
+	container
+		transformDo: [ :t | 
+			t
+				origin: BlAffineTransformationTopLeftOrigin new;
+				scaleBy: scale;
+				translateBy: preferredPosition ]
 ]
 
 { #category : #accessing }

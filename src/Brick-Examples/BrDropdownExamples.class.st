@@ -31,7 +31,9 @@ BrDropdownExamples >> coloredDropdown [
 				ifTrue: [ e
 						background: Color white;
 						border: (BlBorder paint: Color white asBlPaint width: 3) ]
-				ifFalse: [ e look: BrShadowLook ].
+				ifFalse: [ e look
+						ifNil: [ e look: BrShadowLook ]
+						ifNotNil: [ (e look hasActor: BrShadowLook) ifFalse: [ e look add: BrShadowLook ] ] ].
 			e ].
 	dropdown
 		layout: BlLinearLayout horizontal;
@@ -40,20 +42,37 @@ BrDropdownExamples >> coloredDropdown [
 			c horizontal fitContent.
 			c vertical fitContent ];
 		clipChildren: false;
-		toggle: [ BlElement new
+		toggle: [ BrButton new
 				size: 20 @ 20;
+				"margin: (BlInsets left: 10 right: 10);"
 				geometry: (BlRectangle cornerRadius: 10);
-				background: BrGlamorousColors hoveredButtonBorderColor;
-				border:
-					(BlBorder
-						paint: BrGlamorousColors defaultButtonBackgroundColor
-						width: 3) yourself ];
+				look:
+					(BrInteractiveCommonLook new
+						default: [ :e | 
+							e
+								background: BrGlamorousColors defaultButtonBorderColor;
+								border:
+									(BlBorder
+										paint: BrGlamorousColors defaultButtonBackgroundColor
+										width: 3) ];
+						hovered: [ :e | 
+							e
+								background: BrGlamorousColors hoveredButtonBorderColor;
+								border:
+									(BlBorder
+										paint: BrGlamorousColors defaultButtonBackgroundColor
+										width: 3) ]);
+				yourself ];
 		popup: [ BlElement new
-				size: 180 @ 150;
+				layout: BlLinearLayout vertical;
+				constraintsDo: [ :c | 
+					c horizontal fitContent.
+					c vertical fitContent ];
 				addChild:
 					(BrEditor new
 						look: BrGlamorousCodeEditorLook;
-						text: '<content>
+						text:
+							'<content>
 
 
 
@@ -185,6 +204,84 @@ BrDropdownExamples >> scaledAndAlignedDropdowns [
 			bottomLeft.
 			bottomCenter.
 			bottomRight}.
+			
+	^ container
+]
+
+{ #category : #'as yet unclassified' }
+BrDropdownExamples >> scaledAndAlignedDropdowns2 [
+	<gtExample>
+	| container topLeft topCenter topRight centerLeft centerCenter centerRight bottomLeft bottomCenter bottomRight |
+	container := BlElement new
+		constraintsDo: [ :c | 
+			c ignoreByLayout.
+			c horizontal matchParent.
+			c vertical matchParent ];
+		size: 200 @ 200;
+		background: Color white;
+		look: BrShadowLook new;
+		padding: (BlInsets all: 10);
+		margin: (BlInsets all: 10);
+		layout: BlFrameLayout new;
+		transformDo: [ :t | t scaleBy: 2 @ 2 ];
+		relocate: 120 @ 120.
+	topLeft := self coloredDropdown
+		constraintsDo: [ :c | 
+			c frame horizontal alignLeft.
+			c frame vertical alignTop ];
+		yourself.
+	topCenter := self coloredDropdown
+		constraintsDo: [ :c | 
+			c frame horizontal alignCenter.
+			c frame vertical alignTop ];
+		yourself.
+	topRight := self coloredDropdown
+		constraintsDo: [ :c | 
+			c frame horizontal alignRight.
+			c frame vertical alignTop ];
+		yourself.
+	centerLeft := self coloredDropdown
+		constraintsDo: [ :c | 
+			c frame horizontal alignLeft.
+			c frame vertical alignCenter ];
+		yourself.
+	centerCenter := self coloredDropdown
+		constraintsDo: [ :c | 
+			c frame horizontal alignCenter.
+			c frame vertical alignCenter ];
+		yourself.
+	centerRight := self coloredDropdown
+		constraintsDo: [ :c | 
+			c frame horizontal alignRight.
+			c frame vertical alignCenter ];
+		yourself.
+	bottomLeft := self coloredDropdown
+		constraintsDo: [ :c | 
+			c frame horizontal alignLeft.
+			c frame vertical alignBottom ];
+		yourself.
+	bottomCenter := self coloredDropdown
+		constraintsDo: [ :c | 
+			c frame horizontal alignCenter.
+			c frame vertical alignBottom ];
+		yourself.
+	bottomRight := self coloredDropdown
+		constraintsDo: [ :c | 
+			c frame horizontal alignRight.
+			c frame vertical alignBottom ];
+		yourself.
+	container
+		addChildren:
+			{topLeft.
+			topCenter.
+			topRight.
+			centerLeft.
+			centerCenter.
+			centerRight.
+			bottomLeft.
+			bottomCenter.
+			bottomRight}.
+			
 	^ container
 ]
 

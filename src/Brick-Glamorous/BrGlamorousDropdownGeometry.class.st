@@ -23,8 +23,8 @@ BrGlamorousDropdownGeometry >> buildPathOnSpartaCanvas: aCanvas [
 	xs := (vertices collect: #x) asSet asOrderedCollection sorted.
 	ys := (vertices collect: #y) asSet asOrderedCollection sorted.
 	areas := (Array2D
-		rows: xs size - 1
-		columns: ys size - 1
+		rows: ys size - 1
+		columns: xs size - 1
 		element: false)
 		withIndicesCollect: [ :e :i :j | 
 			bounds
