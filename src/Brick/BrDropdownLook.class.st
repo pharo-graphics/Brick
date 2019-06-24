@@ -9,7 +9,8 @@ Class {
 		'popupElement',
 		'toggleElement',
 		'collapseEventHandler',
-		'expandEventHandler'
+		'expandEventHandler',
+		'reusePopup'
 	],
 	#category : #'Brick-Dropdown - Look'
 }
@@ -65,9 +66,9 @@ BrDropdownLook >> expanded [
 			aWidget isAttachedToSceneGraph
 				ifTrue: [ aWidget space
 						addChild:
-							(popupElement
-								ifNil: [ popupElement := self createPopupElement ]
-								ifNotNil: [ popupElement removeFromParent ]).
+							((popupElement isNil or: [ reusePopup not ])
+								ifTrue: [ popupElement := self createPopupElement ]
+								ifFalse: [ popupElement removeFromParent ]).
 					self relocatePopup ].
 			aWidget space root addEventFilter: collapseEventHandler ]
 ]
@@ -75,6 +76,7 @@ BrDropdownLook >> expanded [
 { #category : #initialization }
 BrDropdownLook >> initialize [
 	super initialize.
+	reusePopup := false.
 	collapseEventHandler := BlEventHandler
 		on: BlClickEvent
 		do: [ :e | 
@@ -175,6 +177,16 @@ BrDropdownLook >> relocatePopup [
 	self isExpanded
 		ifFalse: [ ^ self ].
 	popupEmbellisher relocatePopup
+]
+
+{ #category : #accessing }
+BrDropdownLook >> reusePopup [
+	^ reusePopup
+]
+
+{ #category : #accessing }
+BrDropdownLook >> reusePopup: anObject [
+	reusePopup := anObject
 ]
 
 { #category : #accessing }

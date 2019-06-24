@@ -95,6 +95,7 @@ BrDropdownExamples >> coloredDropdown [
 	dropdown := BrDropdown new.
 	look := BrGlamorousDropdownLook new.
 	look
+		reusePopup: true;
 		outskirtsEmbellisher: [ :e | 
 			dropdown viewModel children first stateModels first isExpanded
 				ifTrue: [ e
