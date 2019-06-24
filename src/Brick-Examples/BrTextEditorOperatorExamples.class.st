@@ -34,6 +34,342 @@ BrTextEditorOperatorExamples >> editorOnMultilineText [
 	^ anEditorElement
 ]
 
+{ #category : #'utility - examples' }
+BrTextEditorOperatorExamples >> findWhitespaceInEmptyAt_0 [
+	<gtExample>
+	| text editor whitespace |
+	
+	text := '' asRopedText.
+	editor := BrTextEditor new text: text.
+	whitespace := editor inserter findWhitespaceOfLineBefore: 0.
+	
+	self assert: whitespace = ''.
+	
+	^ whitespace
+]
+
+{ #category : #'utility - examples' }
+BrTextEditorOperatorExamples >> findWhitespaceIn_Hello_at_0 [
+	<gtExample>
+	| text editor whitespace |
+	
+	text := 'Hello' asRopedText.
+	editor := BrTextEditor new text: text.
+	whitespace := editor inserter findWhitespaceOfLineBefore: 0.
+	
+	self assert: whitespace = ''.
+	
+	^ whitespace
+]
+
+{ #category : #'utility - examples' }
+BrTextEditorOperatorExamples >> findWhitespaceIn_Hello_at_1 [
+	<gtExample>
+	| text editor whitespace |
+	
+	text := 'Hello' asRopedText.
+	editor := BrTextEditor new text: text.
+	whitespace := editor inserter findWhitespaceOfLineBefore: 1.
+
+	self assert: whitespace = ''.
+
+	^ whitespace
+]
+
+{ #category : #'utility - examples' }
+BrTextEditorOperatorExamples >> findWhitespaceIn_Hello_at_2 [
+	<gtExample>
+	| text editor whitespace |
+	
+	text := 'Hello' asRopedText.
+	editor := BrTextEditor new text: text.
+	whitespace := editor inserter findWhitespaceOfLineBefore: 2.
+
+	self assert: whitespace = ''.
+
+	^ whitespace
+]
+
+{ #category : #'utility - examples' }
+BrTextEditorOperatorExamples >> findWhitespaceIn_Hello_at_3 [
+	<gtExample>
+	| text editor whitespace |
+	
+	text := 'Hello' asRopedText.
+	editor := BrTextEditor new text: text.
+	whitespace := editor inserter findWhitespaceOfLineBefore: 3.
+
+	self assert: whitespace = ''.
+
+	^ whitespace
+]
+
+{ #category : #'utility - examples' }
+BrTextEditorOperatorExamples >> findWhitespaceIn_Hello_at_4 [
+	<gtExample>
+	| text editor whitespace |
+	
+	text := 'Hello' asRopedText.
+	editor := BrTextEditor new text: text.
+	whitespace := editor inserter findWhitespaceOfLineBefore: 4.
+
+	self assert: whitespace = ''.
+
+	^ whitespace
+]
+
+{ #category : #'utility - examples' }
+BrTextEditorOperatorExamples >> findWhitespaceIn_Hello_at_5 [
+	<gtExample>
+	| text editor whitespace |
+	
+	text := 'Hello' asRopedText.
+	editor := BrTextEditor new text: text.
+	whitespace := editor inserter findWhitespaceOfLineBefore: 5.
+
+	self assert: whitespace = ''.
+
+	^ whitespace
+]
+
+{ #category : #'utility - examples' }
+BrTextEditorOperatorExamples >> findWhitespaceIn_Hello_cr_World_at_6 [
+	<gtExample>
+	| text editor whitespace |
+	
+	text := ('Hello', String cr, 'World') asRopedText.
+	editor := BrTextEditor new text: text.
+	whitespace := editor inserter findWhitespaceOfLineBefore: 6.
+	
+	self assert: whitespace = ''.
+	
+	^ whitespace
+]
+
+{ #category : #'utility - examples' }
+BrTextEditorOperatorExamples >> findWhitespaceIn_Hello_cr_World_at_7 [
+	<gtExample>
+	| text editor whitespace |
+	
+	text := ('Hello', String cr, 'World') asRopedText.
+	editor := BrTextEditor new text: text.
+	whitespace := editor inserter findWhitespaceOfLineBefore: 7.
+	
+	self assert: whitespace = ''.
+	
+	^ whitespace
+]
+
+{ #category : #'utility - examples' }
+BrTextEditorOperatorExamples >> findWhitespaceIn_Hello_cr_World_at_8 [
+	<gtExample>
+	| text editor whitespace |
+	
+	text := ('Hello', String cr, 'World') asRopedText.
+	editor := BrTextEditor new text: text.
+	whitespace := editor inserter findWhitespaceOfLineBefore: 8.
+	
+	self assert: whitespace = ''.
+	
+	^ whitespace
+]
+
+{ #category : #'utility - examples' }
+BrTextEditorOperatorExamples >> findWhitespaceIn_Hello_cr_space_World_at_6 [
+	<gtExample>
+	| text editor whitespace |
+	
+	text := ('Hello', String cr, ' World') asRopedText.
+	editor := BrTextEditor new text: text.
+	whitespace := editor inserter findWhitespaceOfLineBefore: 6.
+	
+	self assert: whitespace = ''.
+	
+	^ whitespace
+]
+
+{ #category : #'utility - examples' }
+BrTextEditorOperatorExamples >> findWhitespaceIn_Hello_cr_space_World_at_7 [
+	<gtExample>
+	| text editor whitespace |
+	
+	text := ('Hello', String cr, ' World') asRopedText.
+	editor := BrTextEditor new text: text.
+	whitespace := editor inserter findWhitespaceOfLineBefore: 7.
+	
+	self assert: whitespace = ' '.
+	
+	^ whitespace
+]
+
+{ #category : #'utility - examples' }
+BrTextEditorOperatorExamples >> findWhitespaceIn_Hello_cr_space_World_at_8 [
+	<gtExample>
+	| text editor whitespace |
+	
+	text := ('Hello', String cr, ' World') asRopedText.
+	editor := BrTextEditor new text: text.
+	whitespace := editor inserter findWhitespaceOfLineBefore: 8.
+	
+	self assert: whitespace = ' '.
+	
+	^ whitespace
+]
+
+{ #category : #'utility - examples' }
+BrTextEditorOperatorExamples >> findWhitespaceIn_space_Hello_at_0 [
+	<gtExample>
+	| text editor whitespace |
+	
+	text := ' Hello' asRopedText.
+	editor := BrTextEditor new text: text.
+	whitespace := editor inserter findWhitespaceOfLineBefore: 0.
+	
+	self assert: whitespace = ''.
+	
+	^ whitespace
+]
+
+{ #category : #'utility - examples' }
+BrTextEditorOperatorExamples >> findWhitespaceIn_space_Hello_at_1 [
+	<gtExample>
+	| text editor whitespace |
+	
+	text := ' Hello' asRopedText.
+	editor := BrTextEditor new text: text.
+	whitespace := editor inserter findWhitespaceOfLineBefore: 1.
+	
+	self assert: whitespace = ' '.
+	
+	^ whitespace
+]
+
+{ #category : #'utility - examples' }
+BrTextEditorOperatorExamples >> findWhitespaceIn_space_Hello_at_2 [
+	<gtExample>
+	| text editor whitespace |
+	
+	text := ' Hello' asRopedText.
+	editor := BrTextEditor new text: text.
+	whitespace := editor inserter findWhitespaceOfLineBefore: 2.
+	
+	self assert: whitespace = ' '.
+	
+	^ whitespace
+]
+
+{ #category : #'utility - examples' }
+BrTextEditorOperatorExamples >> findWhitespaceIn_space_at_0 [
+	<gtExample>
+	| text editor whitespace |
+	
+	text := ' ' asRopedText.
+	editor := BrTextEditor new text: text.
+	whitespace := editor inserter findWhitespaceOfLineBefore: 0.
+	
+	self assert: whitespace = ''.
+	
+	^ whitespace
+]
+
+{ #category : #'utility - examples' }
+BrTextEditorOperatorExamples >> findWhitespaceIn_space_at_1 [
+	<gtExample>
+	| text editor whitespace |
+	
+	text := ' ' asRopedText.
+	editor := BrTextEditor new text: text.
+	whitespace := editor inserter findWhitespaceOfLineBefore: 1.
+	
+	self assert: whitespace = ' '.
+	
+	^ whitespace
+]
+
+{ #category : #'utility - examples' }
+BrTextEditorOperatorExamples >> findWhitespaceIn_space_space_at_0 [
+	<gtExample>
+	| text editor whitespace |
+	
+	text := '  ' asRopedText.
+	editor := BrTextEditor new text: text.
+	whitespace := editor inserter findWhitespaceOfLineBefore: 0.
+	
+	self assert: whitespace = ''.
+	
+	^ whitespace
+]
+
+{ #category : #'utility - examples' }
+BrTextEditorOperatorExamples >> findWhitespaceIn_space_space_at_1 [
+	<gtExample>
+	| text editor whitespace |
+	
+	text := '  ' asRopedText.
+	editor := BrTextEditor new text: text.
+	whitespace := editor inserter findWhitespaceOfLineBefore: 1.
+	
+	self assert: whitespace = ' '.
+	
+	^ whitespace
+]
+
+{ #category : #'utility - examples' }
+BrTextEditorOperatorExamples >> findWhitespaceIn_space_space_at_2 [
+	<gtExample>
+	| text editor whitespace |
+	
+	text := '  ' asRopedText.
+	editor := BrTextEditor new text: text.
+	whitespace := editor inserter findWhitespaceOfLineBefore: 2.
+	
+	self assert: whitespace = '  '.
+	
+	^ whitespace
+]
+
+{ #category : #'utility - examples' }
+BrTextEditorOperatorExamples >> findWhitespaceIn_space_tab_at_0 [
+	<gtExample>
+	| text editor whitespace |
+	
+	text := (' ', String tab) asRopedText.
+	editor := BrTextEditor new text: text.
+	whitespace := editor inserter findWhitespaceOfLineBefore: 0.
+	
+	self assert: whitespace = ''.
+	
+	^ whitespace
+]
+
+{ #category : #'utility - examples' }
+BrTextEditorOperatorExamples >> findWhitespaceIn_space_tab_at_1 [
+	<gtExample>
+	| text editor whitespace |
+	
+	text := (' ', String tab) asRopedText.
+	editor := BrTextEditor new text: text.
+	whitespace := editor inserter findWhitespaceOfLineBefore: 1.
+	
+	self assert: whitespace = ' '.
+	
+	^ whitespace
+]
+
+{ #category : #'utility - examples' }
+BrTextEditorOperatorExamples >> findWhitespaceIn_space_tab_at_2 [
+	<gtExample>
+	| text editor whitespace |
+	
+	text := (' ', String tab) asRopedText.
+	editor := BrTextEditor new text: text.
+	whitespace := editor inserter findWhitespaceOfLineBefore: 2.
+	
+	self assert: whitespace = (' ', String tab).
+	
+	^ whitespace
+]
+
 { #category : #'instance creation' }
 BrTextEditorOperatorExamples >> multilineText [
 	<gtExample>

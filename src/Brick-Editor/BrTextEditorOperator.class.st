@@ -48,10 +48,16 @@ BrTextEditorOperator >> findLineEndAfter: aTextIndex [
 
 { #category : #private }
 BrTextEditorOperator >> findLineStartBefore: aTextIndex [
+	"Please note, I return 0 for the first line"
 	<return: #Number>
 	| aText aTextIterator foundLineBreak |
 
 	aText := self text.
+	
+	self
+		assert: [ aTextIndex <= aText size ]
+		description: [ 'Text index must not exceed text size' ].
+
 	aTextIterator := aText iterator: (1 min: aText size) to: aTextIndex.
 	aTextIterator skip: ((aTextIndex - 1) max: 0).
 
@@ -177,6 +183,28 @@ BrTextEditorOperator >> findTextIndexBelowCursor: aCursor ifAbsent: anExceptionB
 		description: [ 'There must always be some text index found' ].
 		
 	^ aGlobalTextIndex
+]
+
+{ #category : #private }
+BrTextEditorOperator >> findWhitespaceOfLineBefore: aTextIndex [
+	| aLineStartIndex aText aTextIterator isFound |
+	<return: #String>
+
+	aText := self text.
+	aLineStartIndex := (self findLineStartBefore: aTextIndex) + aText size isZero not asBit.
+
+	aTextIterator := aText iterator: aLineStartIndex to: aTextIndex.
+
+	isFound := false.
+	[ aTextIterator hasNext and: [
+		aTextIterator peek = Character space
+			or: [ aTextIterator peek = Character tab ] ] ]
+				whileTrue: [ isFound := true. aTextIterator next ].
+
+	isFound
+		ifFalse: [ ^ '' ].
+
+	^ (aText from: (aLineStartIndex min: aTextIterator position) to: aTextIterator position) asString
 ]
 
 { #category : #initialization }
