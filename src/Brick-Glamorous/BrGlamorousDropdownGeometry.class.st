@@ -54,7 +54,9 @@ BrGlamorousDropdownGeometry >> buildPathOnSpartaCanvas: aCanvas [
 	"3. collect corner points and direction on which they were detected"
 	points := OrderedCollection new.
 	directions := OrderedCollection new.
-	initialCursor := ((corners atRow: 1) detectIndex: #yourself) @ 1.
+	initialCursor := ((corners atRow: 1)
+		detectIndex: #yourself
+		ifNone: [ ^ self ]) @ 1.
 	initialDirection := 0 @ -1.
 	cursor := initialCursor.
 	direction := initialDirection.
