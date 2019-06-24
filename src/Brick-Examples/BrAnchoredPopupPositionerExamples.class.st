@@ -102,7 +102,7 @@ BrAnchoredPopupPositionerExamples >> bottomRight [
 			[ :target :anchor :popup | BlBounds origin: (anchor bounds inSpace inChild: target) bottomLeft corner: target size ]
 ]
 
-{ #category : #'as yet unclassified' }
+{ #category : #accessing }
 BrAnchoredPopupPositionerExamples >> defaultToBottomRight [
 	<gtExample>
 	^ self
@@ -110,7 +110,7 @@ BrAnchoredPopupPositionerExamples >> defaultToBottomRight [
 		relocatePopup:
 			[ :popupPreferredMaxBoundsInTarget :popupSize | popupPreferredMaxBoundsInTarget topLeft ]
 		assertPopupMaxBounds:
-			[ :target :anchor :popup | BlBounds origin: anchor bounds bottomLeft corner: target size ]
+			[ :target :anchor :popup | BlBounds origin: (anchor bounds inSpace inChild: target) bottomLeft corner: target size ]
 ]
 
 { #category : #accessing }
