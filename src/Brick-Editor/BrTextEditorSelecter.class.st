@@ -258,5 +258,5 @@ BrTextEditorSelecter >> wordAt: aTextIndex [
 				((aType = #word and: [ shouldBeWord ]) or: [ (aDesiredType isNil or: [ aType = aDesiredType ] ) ])
 					ifTrue: [ aWordStart := aStart ] ] ].
 			
-	selection select: aWordStart to: aWordEnd
+	self from: aWordStart to: aWordEnd
 ]
