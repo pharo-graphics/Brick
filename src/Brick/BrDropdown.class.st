@@ -25,6 +25,13 @@ BrDropdown >> initialize [
 		addAll: { BrInteractiveModel new addState: (expandedModel := BrExpandableModel new) })
 ]
 
+{ #category : #'hooks - children' }
+BrDropdown >> onRemovedFromSceneGraph [
+	super onRemovedFromSceneGraph.
+	self flag: 'FIXME force removing collapsing dropdown when removed'.
+	self viewModel children first stateModels first collapse
+]
+
 { #category : #'api - widget' }
 BrDropdown >> popup: aBrStencil [
 	self viewModel popupStencil: aBrStencil

@@ -7,29 +7,31 @@ Class {
 { #category : #'api - instantiation' }
 BrGlamorousDropdownPopupEmbellisher >> buildDefault [
 	<return: #Object>
-	| aContainer geometry toggleElement |
-	aContainer := BlElement new.
-	geometry := BrGlamorousDropdownGeometry new.
-	toggleElement := self toggleStencil asElement.
-	toggleElement
+	| geometry |
+	super buildDefault.
+	self
+		flag: 'TODO find alternative to work around reflection to check for radius'.
+	geometry := BrGlamorousDropdownGeometry new
+		dropdown: container;
+		cornerRadius:
+			((toggle geometry respondsTo: #cornerRadii)
+				ifTrue: [ toggle geometry cornerRadii max ]
+				ifFalse: [ (toggle geometry respondsTo: #radius)
+						ifTrue: [ toggle geometry radius ]
+						ifFalse: [ 0 ] ]);
+		yourself.
+	toggle
 		addEventHandlerOn: BlElementExtentChangedEvent
-		do: [ :anEvent | 
-			geometry toggleExtent: toggleElement geometryBounds extent.
-			aContainer invalidate ].
-	toggleElement
+		do: [ :anEvent | container invalidate ].
+	toggle
 		addEventHandlerOn: BlElementBorderChangedEvent
 		do: [ :anEvent | 
-			toggleElement border ~= BlBorder empty
-				ifTrue: [ toggleElement border: BlBorder empty ] ].
-	aContainer geometry: geometry.
-	aContainer background: Color white.
-	aContainer look: BrShadowLook new.
-	aContainer layout: BlLinearLayout vertical.
-	aContainer
-		constraintsDo: [ :c | 
-			c horizontal fitContent.
-			c vertical fitContent ].
-	aContainer addChild: toggleElement as: #toggle.
-	aContainer addChild: self popupElement as: #popup.
-	^ aContainer
+			toggle border paint isTransparent
+				ifFalse: [ toggle
+						border: (toggle border copyWithPaint: BlTransparentPaint uniqueInstance) ] ].
+	container geometry: geometry.
+	container background: toggle background.
+	container border: toggle border.
+	container look: BrShadowLook new.
+	^ container
 ]
