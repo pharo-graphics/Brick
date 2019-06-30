@@ -27,9 +27,10 @@ BrDropdown >> initialize [
 
 { #category : #'hooks - children' }
 BrDropdown >> onRemovedFromSceneGraph [
+	"Ensures that the dropdown state is reset to collapsed, which will remove dropdown decorators in space."
+
 	super onRemovedFromSceneGraph.
-	self flag: 'FIXME force removing collapsing dropdown when removed'.
-	self viewModel children first stateModels first collapse
+	self collapse
 ]
 
 { #category : #'api - widget' }
