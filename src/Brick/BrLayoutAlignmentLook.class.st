@@ -4,6 +4,34 @@ Class {
 	#category : #'Brick-Layout Alignment - Look'
 }
 
+{ #category : #'instance creation' }
+BrLayoutAlignmentLook class >> forHorizontalLinearLayout [
+	^ self new
+		topLeft: [ :aWidget | aWidget layout: BlLinearLayout horizontal alignTopLeft ];
+		topCenter: [ :aWidget | aWidget layout: BlLinearLayout horizontal alignTopCenter ];
+		topRight: [ :aWidget | aWidget layout: BlLinearLayout horizontal alignTopRight ];
+		centerLeft: [ :aWidget | aWidget layout: BlLinearLayout horizontal alignCenterLeft ];
+		center: [ :aWidget | aWidget layout: BlLinearLayout horizontal alignCenter ];
+		centerRight: [ :aWidget | aWidget layout: BlLinearLayout horizontal alignCenterRight ];
+		bottomLeft: [ :aWidget | aWidget layout: BlLinearLayout horizontal alignBottomLeft ];
+		bottomCenter: [ :aWidget | aWidget layout: BlLinearLayout horizontal alignBottomCenter ];
+		bottomRight: [ :aWidget | aWidget layout: BlLinearLayout horizontal alignBottomRight ]
+]
+
+{ #category : #'instance creation' }
+BrLayoutAlignmentLook class >> forVerticalLinearLayout [
+	^ self new
+		topLeft: [ :aWidget | aWidget layout: BlLinearLayout vertical alignTopLeft ];
+		topCenter: [ :aWidget | aWidget layout: BlLinearLayout vertical alignTopCenter ];
+		topRight: [ :aWidget | aWidget layout: BlLinearLayout vertical alignTopRight ];
+		centerLeft: [ :aWidget | aWidget layout: BlLinearLayout vertical alignCenterLeft ];
+		center: [ :aWidget | aWidget layout: BlLinearLayout vertical alignCenter ];
+		centerRight: [ :aWidget | aWidget layout: BlLinearLayout vertical alignCenterRight ];
+		bottomLeft: [ :aWidget | aWidget layout: BlLinearLayout vertical alignBottomLeft ];
+		bottomCenter: [ :aWidget | aWidget layout: BlLinearLayout vertical alignBottomCenter ];
+		bottomRight: [ :aWidget | aWidget layout: BlLinearLayout vertical alignBottomRight ]
+]
+
 { #category : #geometry }
 BrLayoutAlignmentLook >> bottomCenter: aBlock [
 	self

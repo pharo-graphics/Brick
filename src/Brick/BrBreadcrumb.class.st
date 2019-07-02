@@ -1,8 +1,8 @@
 Class {
 	#name : #BrBreadcrumb,
 	#superclass : #BlElement,
-	#traits : 'TBrLayoutResizable',
-	#classTraits : 'TBrLayoutResizable classTrait',
+	#traits : 'TBrLayoutResizable + TBrLayoutAlignable',
+	#classTraits : 'TBrLayoutResizable classTrait + TBrLayoutAlignable classTrait',
 	#category : #'Brick-Breadcrumb - UI'
 }
 
@@ -31,7 +31,8 @@ BrBreadcrumb >> initialize [
 	self viewModel: (BrBreadcrumbModel new
 		add: (BrInteractiveModel withAll: {
 			BrLayoutHorizontalResizerModel fitContent.
-			BrLayoutVerticalResizerModel fitContent }))
+			BrLayoutVerticalResizerModel fitContent.
+			BrLayoutAlignmentModel centerLeft }))
 ]
 
 { #category : #accessing }

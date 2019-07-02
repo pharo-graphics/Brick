@@ -10,52 +10,52 @@ Class {
 	#category : #'Brick-Layout Alignment - States'
 }
 
-{ #category : #accessing }
+{ #category : #'instance creation' }
 BrLayoutAlignmentState class >> alignment: anObject [
 	^ self new alignment: anObject
 ]
 
-{ #category : #accessing }
+{ #category : #'instance creation' }
 BrLayoutAlignmentState class >> bottomCenter [
 	^ self alignment: BottomCenter
 ]
 
-{ #category : #accessing }
+{ #category : #'instance creation' }
 BrLayoutAlignmentState class >> bottomLeft [
 	^ self alignment: BottomLeft
 ]
 
-{ #category : #accessing }
+{ #category : #'instance creation' }
 BrLayoutAlignmentState class >> bottomRight [
 	^ self alignment: BottomRight
 ]
 
-{ #category : #accessing }
+{ #category : #'instance creation' }
 BrLayoutAlignmentState class >> center [
 	^ self alignment: Center
 ]
 
-{ #category : #accessing }
+{ #category : #'instance creation' }
 BrLayoutAlignmentState class >> centerLeft [
 	^ self alignment: CenterLeft
 ]
 
-{ #category : #accessing }
+{ #category : #'instance creation' }
 BrLayoutAlignmentState class >> centerRight [
 	^ self alignment: CenterRight
 ]
 
-{ #category : #accessing }
+{ #category : #'instance creation' }
 BrLayoutAlignmentState class >> topCenter [
 	^ self alignment: TopCenter
 ]
 
-{ #category : #accessing }
+{ #category : #'instance creation' }
 BrLayoutAlignmentState class >> topLeft [
 	^ self alignment: TopLeft
 ]
 
-{ #category : #accessing }
+{ #category : #'instance creation' }
 BrLayoutAlignmentState class >> topRight [
 	^ self alignment: TopRight
 ]

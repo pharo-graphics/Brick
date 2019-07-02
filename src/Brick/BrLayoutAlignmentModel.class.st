@@ -10,6 +10,56 @@ Class {
 	#category : #'Brick-Layout Alignment - Model'
 }
 
+{ #category : #'instance creation' }
+BrLayoutAlignmentModel class >> alignment: anObject [
+	^ self new alignment: anObject
+]
+
+{ #category : #'instance creation' }
+BrLayoutAlignmentModel class >> bottomCenter [
+	^ self alignment: BottomCenter
+]
+
+{ #category : #'instance creation' }
+BrLayoutAlignmentModel class >> bottomLeft [
+	^ self alignment: BottomLeft
+]
+
+{ #category : #'instance creation' }
+BrLayoutAlignmentModel class >> bottomRight [
+	^ self alignment: BottomRight
+]
+
+{ #category : #'instance creation' }
+BrLayoutAlignmentModel class >> center [
+	^ self alignment: Center
+]
+
+{ #category : #'instance creation' }
+BrLayoutAlignmentModel class >> centerLeft [
+	^ self alignment: CenterLeft
+]
+
+{ #category : #'instance creation' }
+BrLayoutAlignmentModel class >> centerRight [
+	^ self alignment: CenterRight
+]
+
+{ #category : #'instance creation' }
+BrLayoutAlignmentModel class >> topCenter [
+	^ self alignment: TopCenter
+]
+
+{ #category : #'instance creation' }
+BrLayoutAlignmentModel class >> topLeft [
+	^ self alignment: TopLeft
+]
+
+{ #category : #'instance creation' }
+BrLayoutAlignmentModel class >> topRight [
+	^ self alignment: TopRight
+]
+
 { #category : #accessing }
 BrLayoutAlignmentModel >> alignment [
 	^ alignment

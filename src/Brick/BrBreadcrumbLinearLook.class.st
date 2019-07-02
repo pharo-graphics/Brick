@@ -1,6 +1,9 @@
 Class {
 	#name : #BrBreadcrumbLinearLook,
 	#superclass : #BrBreadcrumbLook,
+	#instVars : [
+		'resizerLook'
+	],
 	#category : #'Brick-Breadcrumb - Look'
 }
 
@@ -22,7 +25,17 @@ BrBreadcrumbLinearLook >> addItemsAndSeparators [
 	currentItemElements do: [ :eachItemElement |
 		self widgetContent addChild: eachItemElement.
 		self separators at: eachItemElement ifPresent: [ :eachSeparatorElement |
-			self widgetContent addChild: eachSeparatorElement ] ]
+			self widgetContent addChild: eachSeparatorElement ] ].
+	
+	resizerLook requestStates
+]
+
+{ #category : #initialization }
+BrBreadcrumbLinearLook >> initialize [
+	super initialize.
+
+	self add: (resizerLook := BrLayoutResizerLook new inherit).
+	self add: (BrLayoutAlignmentLook forHorizontalLinearLayout)
 ]
 
 { #category : #hooks }
