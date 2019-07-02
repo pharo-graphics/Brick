@@ -90,6 +90,11 @@ BrPagerModel >> pages: aCollectionOfPages [
 ]
 
 { #category : #'api - adding / removing' }
+BrPagerModel >> removeAllPages [
+	self pages reverseDo: [ :eachPage | self removePage: eachPage ]
+]
+
+{ #category : #'api - adding / removing' }
 BrPagerModel >> removePage: aPageModel [
 	self pages remove: aPageModel.
 	self onPageRemoved: aPageModel

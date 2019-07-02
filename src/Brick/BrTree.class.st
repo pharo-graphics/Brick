@@ -6,6 +6,11 @@ Class {
 	#category : #'Brick-Tree - UI'
 }
 
+{ #category : #'api - tree' }
+BrTree >> expandAll [
+	self viewModel expandAll
+]
+
 { #category : #initialization }
 BrTree >> initialize [
 	super initialize.

@@ -2,18 +2,21 @@ Class {
 	#name : #BrTreeModel,
 	#superclass : #BrWidgetModel,
 	#instVars : [
-		'rootNode',
-		'isRootShown'
+		'rootNode'
 	],
 	#category : #'Brick-Tree - Model'
 }
+
+{ #category : #'expanding-collapsing' }
+BrTreeModel >> expandAll [
+	self root withAllChildrenNodesBreadthFirstDo: [ :eachNode | eachNode expand ]
+]
 
 { #category : #initialization }
 BrTreeModel >> initialize [
 	super initialize.
 
-	rootNode := BrTreeNode on: nil computed: [ :eachChild | #() ].
-	isRootShown := false
+	rootNode := BrTreeNode on: nil computed: [ :eachChild | #() ]
 ]
 
 { #category : #initialization }

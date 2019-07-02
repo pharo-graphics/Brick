@@ -18,7 +18,7 @@ BrPager >> hasPageAfter: aPageElement [
 BrPager >> initialize [
 	super initialize.
 	
-	self look: BrPagerScrollbarLook new + BrPagerLook new + BrLayoutLook linearVertical.
+	self look: BrPagerScrollbarLook new + BrScrollablePagerLook new + BrLayoutLook linearVertical.
 	self viewModel: BrPagerModel new
 ]
 
@@ -33,6 +33,11 @@ BrPager >> pageAfter: aBlElement ifFound: aFoundBlock ifNone: aNoneBlock [
 { #category : #'api - accessing' }
 BrPager >> pages [
 	^ self viewModel pages
+]
+
+{ #category : #'api - adding / removing' }
+BrPager >> removeAllPages [
+	self viewModel removeAllPages
 ]
 
 { #category : #'api - adding / removing' }

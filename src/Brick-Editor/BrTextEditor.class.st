@@ -622,7 +622,7 @@ BrTextEditor >> newUpdateCommand [
 
 { #category : #'event firing' }
 BrTextEditor >> notifyDeletedFrom: aFromIndex to: aToIndex [
-	self fireEvent: (BrTextEditorDeletedEvent new
+	self dispatchEvent: (BrTextEditorDeletedEvent new
 		editor: self;
 		fromIndex: aFromIndex;
 		toIndex: aToIndex)
@@ -630,17 +630,17 @@ BrTextEditor >> notifyDeletedFrom: aFromIndex to: aToIndex [
 
 { #category : #'event firing' }
 BrTextEditor >> notifyDeselelected [
-	self fireEvent: (BrTextEditorDeselectedEvent new)
+	self dispatchEvent: (BrTextEditorDeselectedEvent new)
 ]
 
 { #category : #'event firing' }
 BrTextEditor >> notifyInserted: aText at: aTextIndex [
-	self fireEvent: (BrTextEditorInsertedEvent text: aText at: aTextIndex)
+	self dispatchEvent: (BrTextEditorInsertedEvent text: aText at: aTextIndex)
 ]
 
 { #category : #'event firing' }
 BrTextEditor >> notifySelelectedFrom: aFromIndex to: aToIndex [
-	self fireEvent: (BrTextEditorSelectedEvent new fromIndex: aFromIndex; toIndex: aToIndex)
+	self dispatchEvent: (BrTextEditorSelectedEvent new fromIndex: aFromIndex; toIndex: aToIndex)
 ]
 
 { #category : #hooks }

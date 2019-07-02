@@ -18,6 +18,12 @@ BrTreeNode class >> on: anObject computed: aComputationBlock [
 	^ self new value: anObject computation: aComputationBlock
 ]
 
+{ #category : #enumeration }
+BrTreeNode >> allChildrenNodesBreadthFirstDo: aBlock [ 
+	self childrenNodesDo: aBlock.
+	self childrenNodesDo: [ :eachNode | eachNode allChildrenNodesBreadthFirstDo: aBlock ]
+]
+
 { #category : #accessing }
 BrTreeNode >> announcer [
 	^ announcer ifNil: [ announcer := Announcer new ]
@@ -62,7 +68,7 @@ BrTreeNode >> children: aCollectionOfValues computed: aComputationBlock [
 		children at: eachValue put: ((self class on: eachValue computed: aComputationBlock) parent: self) ]
 ]
 
-{ #category : #accessing }
+{ #category : #enumeration }
 BrTreeNode >> childrenDo: aBlock [
 	children keysDo: aBlock
 ]
@@ -72,7 +78,7 @@ BrTreeNode >> childrenNodes [
 	^ children values reject: #isNil
 ]
 
-{ #category : #accessing }
+{ #category : #enumeration }
 BrTreeNode >> childrenNodesDo: aBlock [
 	children valuesDo: [ :eachNode | eachNode ifNotNil: aBlock ]
 ]
@@ -104,7 +110,6 @@ BrTreeNode >> depth [
 
 { #category : #controlling }
 BrTreeNode >> expand [
-	
 	self isExpanded
 		ifTrue: [ ^ self ].
 		
@@ -259,4 +264,10 @@ BrTreeNode >> value: anObject computation: aComputationBlock [
 	value := anObject.
 	computation := aComputationBlock.
 	self precomputeChildrenValues
+]
+
+{ #category : #enumeration }
+BrTreeNode >> withAllChildrenNodesBreadthFirstDo: aBlock [ 
+	aBlock value: self.
+	self allChildrenNodesBreadthFirstDo: aBlock
 ]

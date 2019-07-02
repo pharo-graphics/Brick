@@ -2,8 +2,7 @@ Class {
 	#name : #BrResizerModel,
 	#superclass : #BrWidgetModel,
 	#instVars : [
-		'target',
-		'location'
+		'target'
 	],
 	#category : #'Brick-Resizer - Model'
 }
