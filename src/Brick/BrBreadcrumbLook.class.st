@@ -9,27 +9,6 @@ Class {
 	#category : #'Brick-Breadcrumb - Look'
 }
 
-{ #category : #'private - update' }
-BrBreadcrumbLook >> addItemsAndSeparators [
-	| currentItemElements currentSeparatorElements |
-
-	currentItemElements := self itemElements.
-	self separators removeKey: currentItemElements last ifAbsent: [  ].
-	currentItemElements allButLastDo: [ :eachItemElement |
-		self separators at: eachItemElement ifAbsentPut: self newSeparator ].
-
-	currentSeparatorElements := self separatorElements.
-
-	self
-		assert: [ (currentItemElements size - 1) = currentSeparatorElements size ]
-		description: [ 'There must be one separator less then amount of items' ].
-
-	currentItemElements do: [ :eachItemElement |
-		self widgetContent addChild: eachItemElement.
-		self separators at: eachItemElement ifPresent: [ :eachSeparatorElement |
-			self widgetContent addChild: eachSeparatorElement ] ]
-]
-
 { #category : #initialization }
 BrBreadcrumbLook >> initialize [
 	super initialize.
@@ -47,8 +26,8 @@ BrBreadcrumbLook >> initialize [
 BrBreadcrumbLook >> initializeListeners [
 	super initializeListeners.
 
-	self when: BrBreadcrumbItemAddedEvent do: [ :anEvent | self onItemAdded: anEvent item ].
-	self when: BrBreadcrumbItemRemovedEvent do: [ :anEvent | self onItemRemoved: anEvent item ]
+	self when: BrBreadcrumbItemAddedEvent do: [ :anEvent | self onItemAdded: anEvent item at: anEvent index ].
+	self when: BrBreadcrumbItemRemovedEvent do: [ :anEvent | self onItemRemoved: anEvent item at: anEvent index ]
 ]
 
 { #category : #'private - accessing' }
@@ -73,34 +52,31 @@ BrBreadcrumbLook >> newSeparator [
 ]
 
 { #category : #hooks }
-BrBreadcrumbLook >> onItemAdded: aWidgetModel [
+BrBreadcrumbLook >> onItemAdded: aWidgetModel at: anIndex [
 	self
 		assert: [ self isAttachedToWidget ]
 		description: [ 'I can not receive the item added event without being attached to a widget' ].
 
 	self items at: aWidgetModel put: nil.
 
-	aWidgetModel whenAttachedDo: [ :aToolbarItemElement |
-		self removeItemsAndSeparators.
-		self items at: aWidgetModel put: aToolbarItemElement.
-		self addItemsAndSeparators ]
+	aWidgetModel whenAttachedDo: [ :anItemElement |
+		self items at: aWidgetModel put: anItemElement.
+		self onItemAttached: anItemElement at: anIndex ]
 ]
 
 { #category : #hooks }
-BrBreadcrumbLook >> onItemRemoved: aWidgetModel [
-	self
-		assert: [ self isAttachedToWidget ]
-		description: [ 'I can not receive the item removed event without being attached to a widget' ].
-	
-	self widgetDo: [ self removeItemsAndSeparators ].
-	self items removeKey: aWidgetModel.
-	self widgetDo: [ self addItemsAndSeparators ]
+BrBreadcrumbLook >> onItemAttached: anItemElement at: anIndex [
+	self subclassResponsibility
 ]
 
-{ #category : #'private - update' }
-BrBreadcrumbLook >> removeItemsAndSeparators [
-	self widgetContent removeChildren: self itemElements.
-	self widgetContent removeChildren: self separatorElements
+{ #category : #hooks }
+BrBreadcrumbLook >> onItemRemoved: aWidgetModel at: anIndex [
+	self subclassResponsibility
+]
+
+{ #category : #hooks }
+BrBreadcrumbLook >> onSeparatorChanged: aSeparatorStencil [
+	self subclassResponsibility
 ]
 
 { #category : #accessing }
@@ -110,10 +86,7 @@ BrBreadcrumbLook >> separator: aStencil [
 		description: [ 'Stencil must not be nil' ].
 
 	separatorStencil := aStencil asStencil.
-
-	self widgetDo: [
-		self removeItemsAndSeparators.
-		self addItemsAndSeparators ]
+	self onSeparatorChanged: separatorStencil
 ]
 
 { #category : #'private - accessing' }

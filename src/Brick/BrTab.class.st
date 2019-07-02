@@ -1,11 +1,13 @@
 Class {
 	#name : #BrTab,
 	#superclass : #BlElement,
+	#traits : 'TBrLayoutAlignable',
+	#classTraits : 'TBrLayoutAlignable classTrait',
 	#instVars : [
 		'labelModel',
 		'iconModel'
 	],
-	#category : 'Brick-Tabs - UI'
+	#category : #'Brick-Tabs - UI'
 }
 
 { #category : #'api - accessing' }
@@ -29,7 +31,10 @@ BrTab >> initialize [
 
 	self viewModel: (BrTabModel new + 
 		(labelModel := BrLabelModel new) +
-		(iconModel := BrIconModel new))
+		(iconModel := BrIconModel new) +
+		(BrInteractiveModel withAll: {
+			BrLayoutAlignmentModel new centerLeft
+	}))
 ]
 
 { #category : #'api - accessing' }

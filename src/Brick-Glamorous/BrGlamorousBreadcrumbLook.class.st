@@ -1,6 +1,6 @@
 Class {
 	#name : #BrGlamorousBreadcrumbLook,
-	#superclass : #BrBreadcrumbLook,
+	#superclass : #BrBreadcrumbLinearLook,
 	#category : #'Brick-Glamorous-Breadcrumb'
 }
 

@@ -9,6 +9,15 @@ BrLayoutResizerLook class >> inherit [
 	^ self new inherit
 ]
 
+{ #category : #'api - style' }
+BrLayoutResizerLook >> anyToFitContent [
+	"Always fit content irrelevant from what model says"
+
+	self
+		hAnyToFitContent;
+		vAnyToFitContent
+]
+
 { #category : #'private - testing' }
 BrLayoutResizerLook >> canRedirectTo: anElement [
 	self widget == anElement
@@ -65,6 +74,16 @@ BrLayoutResizerLook >> fitContentToFitContentIn: aBlock [
 
 	self hFitContentToFitContentIn: aBlock.
 	self vFitContentToFitContentIn: aBlock
+]
+
+{ #category : #'api - style' }
+BrLayoutResizerLook >> hAnyToFitContent [
+	"Always fit content horizontally irrelevant from what model says"
+
+	self
+		hExactToFitContent;
+		hFitContent;
+		hMatchParentToFitContent
 ]
 
 { #category : #'api - style' }

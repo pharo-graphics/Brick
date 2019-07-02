@@ -14,7 +14,7 @@ BrBreadcrumbModel >> addItem: aWidgetModel [
 		description: [ 'Can not add nil widget model' ].
 
 	self items add: aWidgetModel.
-	self onItemAdded: aWidgetModel
+	self onItemAdded: aWidgetModel at: self items size
 ]
 
 { #category : #testing }
@@ -53,13 +53,13 @@ BrBreadcrumbModel >> items [
 ]
 
 { #category : #notifying }
-BrBreadcrumbModel >> notifyItemAdded: aWidgetModel [
-	self dispatchEvent: (BrBreadcrumbItemAddedEvent item: aWidgetModel)
+BrBreadcrumbModel >> notifyItemAdded: aWidgetModel at: anIndex [
+	self dispatchEvent: ((BrBreadcrumbItemAddedEvent item: aWidgetModel) index: anIndex)
 ]
 
 { #category : #notifying }
-BrBreadcrumbModel >> notifyItemRemoved: aWidgetModel [
-	self dispatchEvent: (BrBreadcrumbItemRemovedEvent item: aWidgetModel)
+BrBreadcrumbModel >> notifyItemRemoved: aWidgetModel at: anItemIndex [
+	self dispatchEvent: ((BrBreadcrumbItemRemovedEvent item: aWidgetModel) index: anItemIndex)
 ]
 
 { #category : #accessing }
@@ -70,13 +70,13 @@ BrBreadcrumbModel >> numberOfItems [
 ]
 
 { #category : #hooks }
-BrBreadcrumbModel >> onItemAdded: aWidgetModel [
-	self notifyItemAdded: aWidgetModel.
+BrBreadcrumbModel >> onItemAdded: aWidgetModel at: anIndex [
+	self notifyItemAdded: aWidgetModel at: anIndex
 ]
 
 { #category : #hooks }
 BrBreadcrumbModel >> onItemRemoved: aWidgetModel at: anItemIndex [
-	self notifyItemRemoved: aWidgetModel
+	self notifyItemRemoved: aWidgetModel at: anItemIndex
 ]
 
 { #category : #'api - items' }

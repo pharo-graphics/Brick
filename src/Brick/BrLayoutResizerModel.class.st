@@ -35,7 +35,7 @@ BrLayoutResizerModel >> fitContent [
 { #category : #initialization }
 BrLayoutResizerModel >> initialize [
 	super initialize.
-	
+
 	resizer := BlLayoutResizer exact: 50
 ]
 

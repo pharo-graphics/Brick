@@ -10,14 +10,11 @@ Class {
 { #category : #initialization }
 BrScrollablePagerLook >> initialize [
 	super initialize.
-	
-	pagesListElement := BrInfinitePagerElement new.
-	pagesListElement
-		constraintsDo: [ :c | 
-			c horizontal matchParent.
-			c vertical matchParent ].
 
-	self addChangeAddChildAs: #(content list) with: [ pagesListElement ]
+	pagesListElement := BrInfinitePagerElement new.
+
+	self addChangeAddChildAs: #(content list) with: [ pagesListElement ].
+	self add: (BrLayoutResizerLook inherit inherit: pagesListElement)
 ]
 
 { #category : #initialization }
