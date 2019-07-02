@@ -25,6 +25,14 @@ BrDropdown >> initialize [
 		addAll: { BrInteractiveModel new addState: (expandedModel := BrExpandableModel new) })
 ]
 
+{ #category : #'hooks - children' }
+BrDropdown >> onRemovedFromSceneGraph [
+	"Ensures that the dropdown state is reset to collapsed, which will remove dropdown decorators in space."
+
+	super onRemovedFromSceneGraph.
+	self collapse
+]
+
 { #category : #'api - widget' }
 BrDropdown >> popup: aBrStencil [
 	self viewModel popupStencil: aBrStencil
