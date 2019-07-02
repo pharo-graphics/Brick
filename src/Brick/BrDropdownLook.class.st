@@ -8,9 +8,10 @@ Class {
 		'outskirtsEmbellisher',
 		'popupElement',
 		'toggleElement',
-		'collapseEventHandler',
-		'expandEventHandler',
-		'reusePopup'
+		'reusePopup',
+		'clickOutsideEventHandler',
+		'clickToggleEventHandler',
+		'pressEscEventHandler'
 	],
 	#category : #'Brick-Dropdown - Look'
 }
@@ -22,9 +23,11 @@ BrDropdownLook >> collapsed [
 	self
 		widgetDo: [ :e | 
 			e isAttachedToSceneGraph
-				ifTrue: [ e space root removeEventFilter: collapseEventHandler ] ].
+				ifTrue: [ e space root
+						removeEventFilter: clickOutsideEventHandler;
+						removeEventHandler: clickOutsideEventHandler ] ].
 	toggleElement visibility: BlVisibility visible.
-	popupElement removeFromParent.
+	popupElement removeFromParent
 ]
 
 { #category : #'instance creation' }
@@ -70,14 +73,16 @@ BrDropdownLook >> expanded [
 								ifTrue: [ popupElement := self createPopupElement ]
 								ifFalse: [ popupElement removeFromParent ]).
 					self relocatePopup ].
-			aWidget space root addEventFilter: collapseEventHandler ]
+			aWidget space root
+				addEventFilter: clickOutsideEventHandler;
+				addEventHandler: pressEscEventHandler ]
 ]
 
 { #category : #initialization }
 BrDropdownLook >> initialize [
 	super initialize.
 	reusePopup := false.
-	collapseEventHandler := BlEventHandler
+	clickOutsideEventHandler := BlEventHandler
 		on: BlClickEvent
 		do: [ :e | 
 			(e target ~~ toggleElement
@@ -85,9 +90,14 @@ BrDropdownLook >> initialize [
 						and: [ e target ~~ popupElement
 								and: [ (e target hasParent: popupElement) not ] ] ])
 				ifTrue: [ self widget collapse ] ].
-	expandEventHandler := BlEventHandler
+	clickToggleEventHandler := BlEventHandler
 		on: BlClickEvent
 		do: [ :e | self widget toggle ].
+	pressEscEventHandler := BlEventHandler
+		on: BlKeyUpEvent
+		do: [ :e | 
+			e key = BlKeyboardKey escape
+				ifTrue: [ self widget collapse ] ].
 	toggleStencil := BrDropdownModel defaultToggleStencil.
 	popupStencil := BrDropdownModel defaultPopupStencil.
 	popupEmbellisher := BrDropdownPopupEmbellisher new.
@@ -199,7 +209,7 @@ BrDropdownLook >> toggleStencil [
 { #category : #accessing }
 BrDropdownLook >> toggleStencil: aBrStencil [
 	toggleStencil := [ aBrStencil asStencil asElement
-		addEventHandler: expandEventHandler;
+		addEventHandler: clickToggleEventHandler;
 		yourself ] asStencil.
 	self
 		widgetDo: [ :e | 

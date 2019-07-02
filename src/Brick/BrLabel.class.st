@@ -6,6 +6,12 @@ Class {
 	#category : #'Brick-Label - UI'
 }
 
+{ #category : #printing }
+BrLabel >> gtDisplayString [ 
+
+	^self text asString
+]
+
 { #category : #initialization }
 BrLabel >> initialize [
 	super initialize.
