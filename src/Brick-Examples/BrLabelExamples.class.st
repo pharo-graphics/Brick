@@ -15,7 +15,7 @@ BrLabelExamples >> glamorousLabel [
 	self assert: (aLabel viewModel isKindOf: BrLabelModel).
 	self assert: aLabel viewModel text asString equals: 'Label'.
 	self assert: (aLabel layout isKindOf: BlLinearLayout).
-	self assert: aLabel layout isVertical.
+	self assert: aLabel layout isHorizontal.
 	self assert: aLabel layout horizontalAlignment equals: BlHorizontalAlignment start.
 	self assert: aLabel layout verticalAlignment equals: BlVerticalAlignment center.
 	self assert: (aLabel constraints horizontal resizer isFitContent).
