@@ -1,6 +1,8 @@
 Class {
 	#name : #BrButton,
 	#superclass : #BlElement,
+	#traits : 'TBrLayoutAlignable + TBrLayoutResizable',
+	#classTraits : 'TBrLayoutAlignable classTrait + TBrLayoutResizable classTrait',
 	#instVars : [
 		'labelModel',
 		'iconModel',
@@ -85,7 +87,11 @@ BrButton >> initialize [
 				BrPressModel new.
 				BrHoverModel new.
 				dimensionModel := BrDimensionModel new.
-				expandableModel := BrExpandableModel new
+				expandableModel := BrExpandableModel new.
+				BrSelectModel new.
+				BrLayoutAlignmentModel new.
+				BrLayoutHorizontalResizerModel fitContent.
+				BrLayoutVerticalResizerModel fitContent
 			}))
 ]
 

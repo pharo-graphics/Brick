@@ -7,6 +7,11 @@ Class {
 	#category : #'Brick-! Core - Events'
 }
 
+{ #category : #accessing }
+BrSelectedWish class >> selected: aBoolean [
+	^ self new selected: aBoolean
+]
+
 { #category : #initialization }
 BrSelectedWish >> initialize [
 	super initialize.

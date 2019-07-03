@@ -52,6 +52,11 @@ BrPager >> removePage: aContentElement [
 ]
 
 { #category : #'api - adding / removing' }
+BrPager >> removePageAt: anIndex [	
+	self viewModel removePageAt: anIndex
+]
+
+{ #category : #'api - adding / removing' }
 BrPager >> removePagesAfter: aPageElement [	
 	self viewModel removePagesAfter: aPageElement viewModel
 ]

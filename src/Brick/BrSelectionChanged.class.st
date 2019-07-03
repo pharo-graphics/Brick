@@ -68,3 +68,11 @@ BrSelectionChanged >> sourceEvent [
 BrSelectionChanged >> sourceEvent: anEvent [
 	sourceEvent := anEvent
 ]
+
+{ #category : #'api - accessing' }
+BrSelectionChanged >> withIndexDo: aBlock [
+	"[ :anIndex :isSelected | ]"
+
+	self deselectedDo: [ :anInterval | anInterval do: [ :anIndex | aBlock value: anIndex value: false ] ].
+	self selectedDo: [ :anInterval | anInterval do: [ :anIndex | aBlock value: anIndex value: true ] ]
+]

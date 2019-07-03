@@ -96,8 +96,19 @@ BrPagerModel >> removeAllPages [
 
 { #category : #'api - adding / removing' }
 BrPagerModel >> removePage: aPageModel [
-	self pages remove: aPageModel.
-	self onPageRemoved: aPageModel
+	| aPageIndex |
+	
+	aPageIndex := self pages indexOf: aPageModel.
+	self removePageAt: aPageIndex
+]
+
+{ #category : #'api - adding / removing' }
+BrPagerModel >> removePageAt: aPageIndex [
+	| aPageToRemove |
+	
+	aPageToRemove := self pages at: aPageIndex.
+	self pages removeAt: aPageIndex.
+	self onPageRemoved: aPageToRemove
 ]
 
 { #category : #'api - adding / removing' }
