@@ -29,7 +29,7 @@ BrProportionalPagerLook >> onPage: aPageModel elementAttached: aPageElement [
 
 	aPageElement
 		constraintsDo: [ :c | c horizontal matchParent ].
-	
+
 	pagesListElement hasChildren
 		ifTrue: [
 			| aResizerTarget aResizer |

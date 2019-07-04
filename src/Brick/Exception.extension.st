@@ -17,7 +17,7 @@ Exception >> asDebuggableElement [
 	container layout: BlLinearLayout vertical.
 	container addChild: textElement.
 	debugButton := BrButton new.
-	debugButton look: BrGlamorousButtonExteriorRectangularLook + BrGlamorousButtonLabelLook.
+	debugButton look: BrGlamorousButtonWithLabelLook.
 	debugButton label: 'Debug'.
 	debugButton action: [ 
 		[

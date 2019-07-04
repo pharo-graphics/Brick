@@ -2,13 +2,13 @@
 I define the rectangular exterior of the button
 "
 Class {
-	#name : #BrGlamorousButtonExteriorRectangularLook,
-	#superclass : #BrGlamorousButtonExteriorLook,
+	#name : #BrGlamorousButtonRectangularLook,
+	#superclass : #BrInteractiveCommonLook,
 	#category : #'Brick-Glamorous-Buttons - Support'
 }
 
 { #category : #initialization }
-BrGlamorousButtonExteriorRectangularLook >> initialize [
+BrGlamorousButtonRectangularLook >> initialize [
 	super initialize.
 	self addChangeProperty: #(widget height) with: 24.
 	self
@@ -20,9 +20,7 @@ BrGlamorousButtonExteriorRectangularLook >> initialize [
 	self
 		addChangeProperty: #(widgetContent layout)
 		with: BlLinearLayout horizontal alignCenter.
-	self
-		addChangeProperty: #(widgetContent background)
-		with: self backgroundPaint.
+
 	self
 		addChangeProperty: #(widgetContent geometry)
 		with: (BlRectangle cornerRadius: 4).
