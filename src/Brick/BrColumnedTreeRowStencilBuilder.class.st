@@ -3,7 +3,9 @@ Class {
 	#superclass : #BrTreeRowStencilBuilder,
 	#instVars : [
 		'cellSpacing',
-		'padding'
+		'padding',
+		'indentation',
+		'selectableBlock'
 	],
 	#category : #'Brick-Tree - Stencil'
 }
@@ -18,21 +20,26 @@ BrColumnedTreeRowStencilBuilder >> buildDefault [
 	aTreeElement := self treeElement.
 
 	aContainer := BlElement new.
-	aContainer look: (BrInteractiveCommonLook new
-		selected: [ :aWidget | aWidget background: (Color gray alpha: 0.2) ];
-		deselected: [ :aWidget | aWidget background: (Color transparent) ]).
+	
+	(selectableBlock valueWithArguments: { aNode . aRowIndex . aTreeElement })
+		ifTrue: [
+			aContainer look: (BrInteractiveCommonLook new
+				selected: [ :aWidget | aWidget background: (Color gray alpha: 0.2) ];
+				deselected: [ :aWidget | aWidget background: (Color transparent) ]).
 
-	aContainer viewModel: (BrWidgetModel new addAll: { 
-		BrButtonModel new action: [ :aWidget :aButtonModel :anEvent |
-			aTreeElement selectOne: aRowIndex dueTo: anEvent.
-			aTreeElement requestFocus ].
-		BrInteractiveModel new addState: BrSelectModel new
-	}).
-	aContainer
-		when: BlDoubleClickEvent
-		do: [ :anEvent |
-			anEvent consumed: true.
-			aTreeElement dispatchEvent: (BrSelectionDoubleClicked new selection: aTreeElement selection; sourceEvent: anEvent) ].
+			aContainer viewModel: (BrWidgetModel new addAll: { 
+				BrButtonModel new action: [ :aWidget :aButtonModel :anEvent |
+					aTreeElement selectOne: aRowIndex dueTo: anEvent.
+					aTreeElement requestFocus ].
+				BrInteractiveModel new addState: BrSelectModel new
+			}).
+			
+			aContainer
+				when: BlDoubleClickEvent
+				do: [ :anEvent |
+					anEvent consumed: true.
+					aTreeElement dispatchEvent: (BrSelectionDoubleClicked new selection: aTreeElement selection; sourceEvent: anEvent) ] ].
+	
 
 	aContainer constraintsDo: [ :c |
 		c horizontal matchParent.
@@ -41,7 +48,7 @@ BrColumnedTreeRowStencilBuilder >> buildDefault [
 	aContainer padding: self padding.
 
 	anExpander := BlElement new.
-	anExpander padding: (BlInsets left: aNode depth * 15).
+	anExpander padding: (BlInsets left: aNode depth * self indentation).
 	anExpander constraintsDo: [ :c |
 		c horizontal matchParent.
 		c vertical fitContent ].
@@ -86,12 +93,24 @@ BrColumnedTreeRowStencilBuilder >> cellSpacing: aNumber [
 	cellSpacing := aNumber
 ]
 
+{ #category : #accessing }
+BrColumnedTreeRowStencilBuilder >> indentation [
+	^ indentation
+]
+
+{ #category : #accessing }
+BrColumnedTreeRowStencilBuilder >> indentation: aNumber [
+	indentation := aNumber
+]
+
 { #category : #initialization }
 BrColumnedTreeRowStencilBuilder >> initialize [
 	super initialize.
 	
 	cellSpacing := 0.
-	padding := BlInsets empty
+	padding := BlInsets empty.
+	indentation := 15.
+	selectableBlock := [ :eachNode :eachIndex :aTree | true ]
 ]
 
 { #category : #accessing }
@@ -102,4 +121,9 @@ BrColumnedTreeRowStencilBuilder >> padding [
 { #category : #accessing }
 BrColumnedTreeRowStencilBuilder >> padding: aBlInsets [
 	padding := aBlInsets
+]
+
+{ #category : #accessing }
+BrColumnedTreeRowStencilBuilder >> selectable: aValuable [
+	selectableBlock := aValuable
 ]
