@@ -21,7 +21,7 @@ BrColumnedTreeRowStencilBuilder >> buildDefault [
 
 	aContainer := BlElement new.
 	
-	(selectableBlock valueWithArguments: { aNode . aRowIndex . aTreeElement })
+	(selectableBlock valueWithEnoughArguments: { aNode . aRowIndex . aTreeElement })
 		ifTrue: [
 			aContainer look: (BrInteractiveCommonLook new
 				selected: [ :aWidget | aWidget background: (Color gray alpha: 0.2) ];
