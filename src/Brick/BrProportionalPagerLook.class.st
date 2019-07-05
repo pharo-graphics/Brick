@@ -12,7 +12,7 @@ Class {
 BrProportionalPagerLook >> initialize [
 	super initialize.
 
-	resizers := OrderPreservingDictionary new.
+	resizers := OrderedDictionary new.
 
 	pagesListElement := BlElement new.
 	pagesListElement layout: BlLinearLayout horizontal.

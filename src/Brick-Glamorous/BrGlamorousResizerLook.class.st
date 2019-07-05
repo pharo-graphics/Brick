@@ -34,12 +34,12 @@ BrGlamorousResizerLook >> initialize [
 					aWidget
 						constraintsDo: [ :c | 
 							c horizontal matchParent.
-							c vertical exact: 3.
+							c vertical exact: 1.
 							c ignored horizontal weight: 0.4 ] ];
 				horizontal: [ :aWidget | 
 					aWidget
 						constraintsDo: [ :c | 
-							c horizontal exact: 3.
+							c horizontal exact: 1.
 							c vertical matchParent.
 							c ignored vertical weight: 0.4 ] ]).
 	self
