@@ -13,7 +13,8 @@ Class {
 		'cursorsToRemove',
 		'cursorsToMove',
 		'shouldResetDesiredCoordinate',
-		'operations'
+		'operations',
+		'dueTo'
 	],
 	#category : #'Brick-Editor-Model - Operators'
 }
@@ -79,7 +80,18 @@ BrTextEditorNavigator >> apply [
 
 	theRemovedCursors do: [ :aCursor | self privateRemoveCursor: aCursor ].
 	theAddedCursors do: [ :aCursor | self privateAddCursor: aCursor ].
-	theMovedCursors do: [ :anAssociation | self privateMoveCursor: anAssociation key to: anAssociation value position ]
+	theMovedCursors do: [ :anAssociation | self privateMoveCursor: anAssociation key to: anAssociation value position ].
+	dueTo := nil
+]
+
+{ #category : #accessing }
+BrTextEditorNavigator >> dueTo [
+	^ dueTo
+]
+
+{ #category : #accessing }
+BrTextEditorNavigator >> dueTo: aTextEditorOperator [
+	dueTo := aTextEditorOperator
 ]
 
 { #category : #initialization }
@@ -201,7 +213,7 @@ BrTextEditorNavigator >> notifyCursorChanged: aCursor [
 
 { #category : #notifying }
 BrTextEditorNavigator >> notifyCursorMoved: aCursor from: aFromIndex to: aToIndex [
-	self editor dispatchEvent: (BrTextEditorCursorMovedEvent cursor: aCursor from: aFromIndex to: aToIndex)
+	self editor dispatchEvent: (BrTextEditorCursorMovedEvent cursor: aCursor from: aFromIndex to: aToIndex dueTo: (dueTo ifNil: [self]))
 ]
 
 { #category : #notifying }

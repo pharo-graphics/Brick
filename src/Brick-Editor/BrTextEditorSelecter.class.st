@@ -218,6 +218,7 @@ BrTextEditorSelecter >> updateCursors [
 	| aNavigator |
 	
 	aNavigator := self editor navigator.
+	aNavigator dueTo: self.
 	aNavigator removeAll.
 	self selection do: [ :aMonotoneSelection | aNavigator addAt: aMonotoneSelection to ].
 	aNavigator apply

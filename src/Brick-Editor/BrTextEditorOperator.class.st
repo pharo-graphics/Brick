@@ -214,6 +214,16 @@ BrTextEditorOperator >> initialize [
 	subscriptions := OrderedCollection new
 ]
 
+{ #category : #testing }
+BrTextEditorOperator >> isDeleter [
+	^ false
+]
+
+{ #category : #testing }
+BrTextEditorOperator >> isInserter [
+	^ false
+]
+
 { #category : #accessing }
 BrTextEditorOperator >> selection [
 	^ self editor selection

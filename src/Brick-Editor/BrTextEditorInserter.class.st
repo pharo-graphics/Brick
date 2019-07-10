@@ -144,6 +144,11 @@ BrTextEditorInserter >> insert [
 			ifTrue: [ self updateSelectionAfterInsertion: aFilteredText at: anIndex ] ]
 ]
 
+{ #category : #testing }
+BrTextEditorInserter >> isInserter [
+	^ true
+]
+
 { #category : #'api - configuration' }
 BrTextEditorInserter >> lineEnding [
 	"Insert a line ending (Cr, Lf or CrLf depending on the current platform)"
@@ -237,6 +242,7 @@ BrTextEditorInserter >> updateCursorsAfterInsertion: aText at: anIndex [
 
 		aCursorDelta isZero
 			ifFalse: [ self editor navigator
+				dueTo: self;
 				move: aCursor by: aCursorDelta;
 				apply ] ]
 ]

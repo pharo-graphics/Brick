@@ -101,6 +101,11 @@ BrTextEditorDeleter >> initialize [
 	shouldUpdateSelection := true
 ]
 
+{ #category : #testing }
+BrTextEditorDeleter >> isDeleter [
+	^ true
+]
+
 { #category : #'api - configuration' }
 BrTextEditorDeleter >> oneAfterCursor [
 	"Delete one symbol after the cursors"
@@ -158,6 +163,7 @@ BrTextEditorDeleter >> updateCursors [
 		aCursorDelta := self computeCursorMovement: aCursor.
 		aCursorDelta isZero
 			ifFalse: [ self editor navigator
+				dueTo: self;
 				move: aCursor by: aCursorDelta;
 				apply ] ]
 ]
