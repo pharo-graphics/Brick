@@ -25,6 +25,11 @@ BrDropdown >> initialize [
 		addAll: { BrInteractiveModel new addState: (expandedModel := BrExpandableModel new) })
 ]
 
+{ #category : #testing }
+BrDropdown >> isExpanded [
+	^ expandedModel isExpanded
+]
+
 { #category : #'hooks - children' }
 BrDropdown >> onRemovedFromSceneGraph [
 	"Ensures that the dropdown state is reset to collapsed, which will remove dropdown decorators in space."
