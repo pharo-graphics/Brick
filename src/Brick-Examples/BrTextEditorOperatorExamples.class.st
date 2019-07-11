@@ -6,6 +6,43 @@ Class {
 	#category : #'Brick-Examples-Editor'
 }
 
+{ #category : #'focus - examples' }
+BrTextEditorOperatorExamples >> editorCreatesOneCursorOnFocus [
+	<gtExample>
+	| anEditor aSpace |
+	
+	anEditor := self editorHasNoFocusByDefault.
+	
+	aSpace := BlSpace new.
+	aSpace host: BlHeadlessHost new.
+	aSpace addChild: anEditor.
+	
+	self assert: anEditor cursors isEmpty.
+	
+	anEditor requestFocus.
+	aSpace pulse.
+	
+	self assert: anEditor isFocused.
+	self assert: anEditor hasFocus.
+	self assert: anEditor cursors allCursors equals: { BrTextEditorSingleCursor new position: 0 }.
+	
+	aSpace removeChild: anEditor.
+	
+	^ anEditor
+]
+
+{ #category : #'focus - examples' }
+BrTextEditorOperatorExamples >> editorHasNoFocusByDefault [
+	<gtExample>
+	| anEditor |
+	
+	anEditor := BrEditor new.
+	self assert: anEditor isFocused not.
+	self assert: anEditor hasFocus not.
+	
+	^ anEditor
+]
+
 { #category : #'instance creation' }
 BrTextEditorOperatorExamples >> editorOnEmptyText [
 	<gtExample>
