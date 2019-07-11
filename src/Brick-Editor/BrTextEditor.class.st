@@ -707,6 +707,10 @@ BrTextEditor >> onDetached: anEditorElement [
 
 { #category : #'private - focus' }
 BrTextEditor >> onGotFocus [
+
+	self cursors isEmpty
+		ifTrue: [ self navigator moveTo: 0; apply ].
+
 	self enqueueCommand: (self newFocusChangedCommand hasFocus: true)
 ]
 
