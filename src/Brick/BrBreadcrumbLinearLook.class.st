@@ -10,24 +10,24 @@ Class {
 { #category : #'private - update' }
 BrBreadcrumbLinearLook >> addItemsAndSeparators [
 	| currentItemElements currentSeparatorElements |
-
 	currentItemElements := self itemElements.
-	self separators removeKey: currentItemElements last ifAbsent: [  ].
-	currentItemElements allButLastDo: [ :eachItemElement |
-		self separators at: eachItemElement ifAbsentPut: self newSeparator ].
-
-	currentSeparatorElements := self separatorElements.
-
-	self
-		assert: [ (currentItemElements size - 1) = currentSeparatorElements size ]
-		description: [ 'There must be one separator less then amount of items' ].
-
-	currentItemElements do: [ :eachItemElement |
-		self widgetContent addChild: eachItemElement.
-		self separators at: eachItemElement ifPresent: [ :eachSeparatorElement |
-			self widgetContent addChild: eachSeparatorElement ] ].
-	
-	resizerLook requestStates
+	currentItemElements
+		ifNotEmpty: [ self separators removeKey: currentItemElements last ifAbsent: [  ].
+			currentItemElements
+				allButLastDo:
+					[ :eachItemElement | self separators at: eachItemElement ifAbsentPut: self newSeparator ].
+			currentSeparatorElements := self separatorElements.
+			self
+				assert: [ currentItemElements size - 1 = currentSeparatorElements size ]
+				description: [ 'There must be one separator less then amount of items' ].
+			currentItemElements
+				do: [ :eachItemElement | 
+					self widgetContent addChild: eachItemElement.
+					self separators
+						at: eachItemElement
+						ifPresent:
+							[ :eachSeparatorElement | self widgetContent addChild: eachSeparatorElement ] ].
+			resizerLook requestStates ]
 ]
 
 { #category : #initialization }
