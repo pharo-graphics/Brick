@@ -4,30 +4,38 @@ I add support of BrTextEventHandlerAttribute - special kind of attribute that ca
 Class {
 	#name : #BrTextEditorLineSegmentTextListener,
 	#superclass : #BlBasicEventHandler,
-	#instVars : [
-		'editorElement'
+	#classInstVars : [
+		'uniqueInstance'
 	],
 	#category : #'Brick-Editor-Model - Segment-Text-Line'
 }
 
-{ #category : #accessing }
-BrTextEditorLineSegmentTextListener >> editorElement [
-	^ editorElement
+{ #category : #cleanup }
+BrTextEditorLineSegmentTextListener class >> cleanUp [
+	super cleanUp.
+	
+	uniqueInstance := nil
 ]
 
 { #category : #accessing }
-BrTextEditorLineSegmentTextListener >> editorElement: anEditorElement [
-	editorElement := anEditorElement
+BrTextEditorLineSegmentTextListener class >> uniqueInstance [
+	^ uniqueInstance ifNil: [ uniqueInstance := self new ]
 ]
 
 { #category : #events }
 BrTextEditorLineSegmentTextListener >> handleEvent: aBlMouseEvent [
-	| aTextElement aLocalPosition aTextIndex anIterator theAttributes |
+	| aTextElement anEditorElement aLocalPosition aTextIndex anIterator theAttributes |
 
 	aTextElement := aBlMouseEvent currentTarget.
 	"If text element has no paragraph we can not find text index for mouse event"
 	aTextElement paragraph
 		ifNil: [ ^ self ].
+
+	"To not create an instance of me for each tiny text element"
+	anEditorElement := aTextElement
+		allParentsDetect: [ :anElement | anElement isKindOf: BrEditorElement ]
+		ifFound: #yourself
+		ifNone: [ ^ self ].
 	
 	aLocalPosition := aTextElement globalPointToLocal: aBlMouseEvent position.
 
@@ -37,8 +45,8 @@ BrTextEditorLineSegmentTextListener >> handleEvent: aBlMouseEvent [
 	theAttributes := anIterator selectAttributes: [ :anAttribute | anAttribute isKindOf: BrTextEventHandlerAttribute ].
 
 	theAttributes do: [ :anAttribute |
-		(anAttribute wantsEvent: aBlMouseEvent in: self editorElement editor)
-			ifTrue: [ anAttribute handleEvent: aBlMouseEvent in: self editorElement editor ] ]
+		(anAttribute wantsEvent: aBlMouseEvent in: anEditorElement editor)
+			ifTrue: [ anAttribute handleEvent: aBlMouseEvent in: anEditorElement editor ] ]
 ]
 
 { #category : #events }
