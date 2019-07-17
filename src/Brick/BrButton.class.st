@@ -89,7 +89,7 @@ BrButton >> initialize [
 				dimensionModel := BrDimensionModel new.
 				expandableModel := BrExpandableModel new.
 				BrSelectModel new.
-				BrLayoutAlignmentModel new.
+				BrLayoutAlignmentModel center.
 				BrLayoutHorizontalResizerModel fitContent.
 				BrLayoutVerticalResizerModel fitContent
 			}))

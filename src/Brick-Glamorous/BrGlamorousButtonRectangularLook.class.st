@@ -14,16 +14,14 @@ BrGlamorousButtonRectangularLook >> initialize [
 	self
 		addChangeProperty: #(widget padding)
 		with: (BlInsets left: 10 right: 10).
-	self
-		addChangeProperty: #(widgetContent constraints horizontal resizer)
-		with: BlLayoutFitContentResizer uniqueInstance.
-	self
-		addChangeProperty: #(widgetContent layout)
-		with: BlLinearLayout horizontal alignCenter.
 
 	self
 		addChangeProperty: #(widgetContent geometry)
 		with: (BlRectangle cornerRadius: 4).
+
+	self add: BrLayoutResizerLook inherit.
+	self add: BrLayoutAlignmentLook forHorizontalLinearLayout.
+	
 	self
 		style: [ :aStyler | 
 			aStyler

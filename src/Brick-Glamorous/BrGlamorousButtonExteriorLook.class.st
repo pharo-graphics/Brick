@@ -13,8 +13,8 @@ BrGlamorousButtonExteriorLook >> backgroundPaint [
 ]
 
 { #category : #accessing }
-BrGlamorousButtonExteriorLook >> backgroundPaint: anObject [
-	backgroundPaint := anObject
+BrGlamorousButtonExteriorLook >> backgroundPaint: aPaint [
+	backgroundPaint := aPaint
 ]
 
 { #category : #initialization }
