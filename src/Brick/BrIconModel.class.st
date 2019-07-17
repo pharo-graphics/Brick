@@ -20,12 +20,12 @@ BrIconModel >> icon [
 ]
 
 { #category : #accessing }
-BrIconModel >> icon: aBlElement [
+BrIconModel >> icon: aStencil [
 
-	icon = aBlElement
+	icon = aStencil
 		ifTrue: [ ^ self ].
 
-	icon := aBlElement.
+	icon := aStencil.
 	self notifyIconChanged
 ]
 
@@ -33,7 +33,7 @@ BrIconModel >> icon: aBlElement [
 BrIconModel >> initialize [
 	super initialize.
 	
-	icon := (BlEllipse radius: 5) asElement
+	icon := [ (BlEllipse radius: 5) asElement ] asStencil
 ]
 
 { #category : #initialization }

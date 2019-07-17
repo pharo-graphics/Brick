@@ -164,10 +164,8 @@ BrActor >> handleEvent: anEvent [
 	self
 		assert: [ self actors allSatisfy: [ :eachActor | eachActor isNotNil ] ]
 		description: [ 'There must not be nil actors' ].
-	
-	"we must iterate over a copy of actors because they can be theoretically be removed
-	due to event handling"
-	self actors copy do: [ :anActor |
+
+	self actors do: [ :anActor |
 		self
 			assert: [ anActor isNotNil ]
 			description: [ 'Actor must not be nil here' ].
@@ -209,7 +207,7 @@ BrActor >> initialize [
 	super initialize.
 
 	eventDispatcher := BlDirectEventDispatcher on: self.
-	actors := OrderedCollection new.
+	actors := #().
 	
 	self initializeListeners
 ]

@@ -34,7 +34,8 @@ BrWidgetModel >> + anotherModel [
 
 { #category : #'api - composition' }
 BrWidgetModel >> add: aBrWidgetModel [
-	self widgetModels add: aBrWidgetModel.
+
+	actors := actors copyWith: aBrWidgetModel.
 	self widgetDo: [ :anElement | aBrWidgetModel onInstalledIn: anElement ]
 ]
 
@@ -46,6 +47,14 @@ BrWidgetModel >> addAll: aCollectionOfWidgetModels [
 { #category : #'api - composition' }
 BrWidgetModel >> asModel [
 	^ self
+]
+
+{ #category : #'event management' }
+BrWidgetModel >> dispatchViewModelAttachedEvent [
+	"ViewModelAttached event is listened by Looks to request data from view model.
+	If widget has no look attached yet, then there is no need to send this event at all"
+
+	widget lookDo: [ self dispatchEvent: (BrViewModelAttached viewModel: self) ]
 ]
 
 { #category : #accessing }
@@ -77,7 +86,7 @@ BrWidgetModel >> onInstalledIn: anElement [
 
 	widget := anElement.
 	self onAttachedTo: anElement.
-	self dispatchEvent: (BrViewModelAttached viewModel: self).
+	self dispatchViewModelAttachedEvent.
 	
 	self widgetModels do: [ :aWidgetModel | aWidgetModel onInstalledIn: anElement ]
 ]

@@ -26,12 +26,12 @@ BrIconLook >> icon [
 ]
 
 { #category : #accessing }
-BrIconLook >> icon: anElement [
+BrIconLook >> icon: aStencilOrElement [
 	self
-		assert: [ anElement isNotNil ]
+		assert: [ aStencilOrElement isNotNil ]
 		description: [ 'Icon must not be nil' ].
 
-	iconElement := anElement.
+	iconElement := aStencilOrElement asElement.
 	self updateIcon
 ]
 

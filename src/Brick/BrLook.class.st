@@ -47,7 +47,8 @@ BrLook >> add: aBrLook [
 	| aLookInstance |
 
 	aLookInstance := aBrLook asLook.
-	self looks add: aLookInstance.
+	actors := actors copyWith: aLookInstance.
+
 	self widgetDo: [ :anElement | aLookInstance onInstalledIn: anElement ]
 ]
 
@@ -169,8 +170,11 @@ BrLook >> remove: aBrLook [
 	| aLookInstance |
 
 	aLookInstance := aBrLook asLook.
-	self looks remove: aLookInstance ifAbsent: [ ^ self ].
 	
+	(actors includes: aLookInstance)
+		ifFalse: [ ^ self ].
+	
+	actors := actors copyWithout: aLookInstance.
 	aLookInstance widgetDo: [ :anElement | aLookInstance onUninstalledIn: anElement ]
 ]
 
