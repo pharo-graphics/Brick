@@ -10,6 +10,7 @@ BrBasicExamples >> widgetModelAttachedEvent [
 	| aWidgetElement aWidgetModel viewModelAttachedEvent |
 
 	aWidgetElement := BlElement new.
+	aWidgetElement look: BrLook new.
 	aWidgetModel := BrWidgetModel new.
 
 	viewModelAttachedEvent := nil.
