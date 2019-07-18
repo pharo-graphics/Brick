@@ -4,20 +4,22 @@ I handle mouse down events and move or add a cursor at a corresponding position
 Class {
 	#name : #BrTextEditorMouseDownHandler,
 	#superclass : #BlBasicEventHandler,
-	#instVars : [
-		'editorElement'
+	#classInstVars : [
+		'uniqueInstance'
 	],
 	#category : #'Brick-Editor-UI - Handlers'
 }
 
-{ #category : #accessing }
-BrTextEditorMouseDownHandler >> editorElement [
-	^ editorElement
+{ #category : #cleanup }
+BrTextEditorMouseDownHandler class >> cleanUp [
+	super cleanUp.
+	
+	uniqueInstance := nil
 ]
 
-{ #category : #accessing }
-BrTextEditorMouseDownHandler >> editorElement: anEditorElement [
-	editorElement := anEditorElement
+{ #category : #cleanup }
+BrTextEditorMouseDownHandler class >> uniqueInstance [
+	^ uniqueInstance ifNil: [ uniqueInstance := self new ]
 ]
 
 { #category : #accessing }
@@ -27,15 +29,21 @@ BrTextEditorMouseDownHandler >> eventClass [
 
 { #category : #'api - event managing' }
 BrTextEditorMouseDownHandler >> handleEvent: anEvent [
-	| aNavigator aScreenPosition |
+	| aNavigator aScreenPosition anEditorElement |
+	
+	"To not create an instance of me for each tiny text element"
+	anEditorElement := anEvent currentTarget
+		allParentsDetect: [ :anElement | anElement isKindOf: BrEditorElement ]
+		ifFound: #yourself
+		ifNone: [ ^ self ].
 	
 	anEvent consumed: true.
-	aScreenPosition := (self editorElement localBoundsToMine: (BlBounds origin: anEvent localPosition extent: 0@0) fromChild: anEvent currentTarget) center.
+	aScreenPosition := (anEditorElement localBoundsToMine: (BlBounds origin: anEvent localPosition extent: 0@0) fromChild: anEvent currentTarget) center.
 	
-	self editorElement editor deselecter all deselect.
-	self editorElement requestFocus.
+	anEditorElement editor deselecter all deselect.
+	anEditorElement requestFocus.
 	
-	aNavigator := self editorElement editor navigator.
+	aNavigator := anEditorElement editor navigator.
 	anEvent modifiers isPrimaryModifier
 		ifTrue: [ aNavigator addAtScreenPosition: aScreenPosition ]
 		ifFalse: [ aNavigator moveToScreenPosition: aScreenPosition ].

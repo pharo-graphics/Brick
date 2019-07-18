@@ -1,6 +1,6 @@
 Class {
 	#name : #BrTextWordPieceSelectionLostHandler,
-	#superclass : #BrTextWordPieceStatefulHandler,
+	#superclass : #BrTextWordPieceUniqueHandler,
 	#category : #'Brick-Editor-UI - Word'
 }
 
@@ -11,7 +11,14 @@ BrTextWordPieceSelectionLostHandler >> eventClass [
 
 { #category : #'api - event managing' }
 BrTextWordPieceSelectionLostHandler >> handleEvent: anEvent [
-	| aTextEditElement |
+	| aTextEditElement anEditorElement |
+	
+	"To not create an instance of me for each tiny text element"
+	anEditorElement := anEvent currentTarget
+		allParentsDetect: [ :anElement | anElement isKindOf: BrEditorElement ]
+		ifFound: #yourself
+		ifNone: [ ^ self ].
+
 	anEvent consumed: true.
 
 	aTextEditElement := anEvent currentTarget.
@@ -21,5 +28,5 @@ BrTextWordPieceSelectionLostHandler >> handleEvent: anEvent [
 
 		aGlobalFrom := aTextEditElement text start + aMonotoneSelection from - 1.
 		aGlobalTo := aTextEditElement text start + aMonotoneSelection to - 1.
-		self editorElement editor recordDeselection: (BlMonotoneSelection from: aGlobalFrom to: aGlobalTo) ]
+		anEditorElement editor recordDeselection: (BlMonotoneSelection from: aGlobalFrom to: aGlobalTo) ]
 ]

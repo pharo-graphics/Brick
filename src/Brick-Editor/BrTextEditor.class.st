@@ -649,7 +649,7 @@ BrTextEditor >> onAttached: anEditorElement [
 
 	anEditorElement addEventHandler: BrTextEditorSelectionHandler new.
 	anEditorElement addEventHandler: BrTextEditorInsertionHandler new.
-	anEditorElement addEventHandler: (BrTextEditorMouseDownHandler new editorElement: anEditorElement).
+	anEditorElement addEventHandler: BrTextEditorMouseDownHandler uniqueInstance.
 
 	self interactions do: [ :anInteraction | anEditorElement addShortcut: anInteraction ].
 
@@ -697,12 +697,20 @@ BrTextEditor >> onDetached: anEditorElement [
 
 	anEditorElement removeEventHandlersSuchThat: [ :aHandler | aHandler isKindOf: BrTextEditorSelectionHandler ].
 	anEditorElement removeEventHandlersSuchThat: [ :aHandler | aHandler isKindOf: BrTextEditorInsertionHandler ].
+	anEditorElement removeEventHandlersSuchThat: [ :aHandler | aHandler isKindOf: BrTextEditorMouseDownHandler ].
 
 	self interactions do: [ :anInteraction | anEditorElement removeShortcut: anInteraction ].
 
 	anEditorElement
 		removeEventHandlersSuchThat: [ :aHandler | (aHandler isKindOf: BlEventHandler)
-			and: [ { BlMouseDownEvent . BlFocusEvent . BlBlurEvent } includes: aHandler eventClass ] ]
+			and: [ { BlMouseUpEvent . BlClickEvent . BlFocusEvent . BlBlurEvent } includes: aHandler eventClass ] ]
+]
+
+{ #category : #hooks }
+BrTextEditor >> onElementRecycled: anElementHolder [
+	super onElementRecycled: anElementHolder.
+	
+	anElementHolder onRecycled
 ]
 
 { #category : #'private - focus' }

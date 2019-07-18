@@ -6,8 +6,7 @@ Class {
 	#superclass : #BrTextEditorSegmentHolder,
 	#instVars : [
 		'segment',
-		'pieceElements',
-		'mouseDownHandler'
+		'pieceElements'
 	],
 	#classInstVars : [
 		'defaultSegmentLayoutBlock'
@@ -39,8 +38,7 @@ BrTextEditorLineSegmentHolder >> createSegmentElement [
 	^ BrTextEditorSegmentElement new
 		layout: self class defaultSegmentLayout;
 		focusability: BlFocusability after;
-		addEventHandler: (mouseDownHandler := BrTextEditorMouseDownHandler new);
-		clipChildren: false;
+		addEventHandler: BrTextEditorMouseDownHandler uniqueInstance;
 		constraintsDo: [ :c |
 			c horizontal matchParent.
 			c vertical fitContent ];
@@ -117,6 +115,10 @@ BrTextEditorLineSegmentHolder >> onFocusChanged: aBoolean [
 ]
 
 { #category : #updating }
+BrTextEditorLineSegmentHolder >> onRecycled [
+]
+
+{ #category : #updating }
 BrTextEditorLineSegmentHolder >> onSelectionChanged [
 	"Is sent when text editor's selection changes.
 	Segment holder should update text elements accordingly"
@@ -171,7 +173,6 @@ BrTextEditorLineSegmentHolder >> screenToCursor: aTransformation [
 BrTextEditorLineSegmentHolder >> segment: anEditorSegment [
 	segment := anEditorSegment.
 	
-	mouseDownHandler editorElement: self infiniteElement.
 	pieceElements := OrderedIdentityDictionary new.
 	segment pieces do: [ :aPiece | pieceElements at: aPiece put: (aPiece createElement: self infiniteElement) ].
 	

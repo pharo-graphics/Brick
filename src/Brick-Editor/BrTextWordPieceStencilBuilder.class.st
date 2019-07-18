@@ -3,13 +3,8 @@ Class {
 	#superclass : #BrStencilBuilder,
 	#instVars : [
 		'text',
-		'editorElement',
 		'wordPadding',
-		'measurer',
-		'mouseDownHandler',
-		'doubleClickHandler',
-		'selectionAcquiredHandler',
-		'selectionLostHandler'
+		'measurer'
 	],
 	#category : #'Brick-Editor-UI - Stencils'
 }
@@ -21,7 +16,7 @@ BrTextWordPieceStencilBuilder >> buildDefault [
 		clipChildren: false;
 		padding: self wordPadding;
 		editorMeasurement;
-		
+
 		"to support event-handling attributes"
 		addEventHandler: BrTextEditorLineSegmentTextListener uniqueInstance;
 
@@ -47,33 +42,18 @@ BrTextWordPieceStencilBuilder >> buildDefault [
 		addEventHandler: BrTextWordPieceTextChangeHandler uniqueInstance;		
 		
 		"when clicking inside of a text piece we should move cursor there and request editor focus"
-		addEventHandler: mouseDownHandler;
+		addEventHandler: BrTextEditorMouseDownHandler uniqueInstance;
 		
 		"when double-clicking inside of a text piece we should select the whole word"
-		addEventHandler: doubleClickHandler;
+		addEventHandler: BrTextWordPieceDoubleClickHandler uniqueInstance;
 
 		"text piece got inside of selected area"
-		addEventHandler: selectionAcquiredHandler;
+		addEventHandler: BrTextWordPieceSelectionAcquiredHandler uniqueInstance;
 
 		"text piece got outside of then selected area"
-		addEventHandler: selectionLostHandler;
+		addEventHandler: BrTextWordPieceSelectionLostHandler uniqueInstance;
 
 		yourself
-]
-
-{ #category : #accessing }
-BrTextWordPieceStencilBuilder >> editorElement [
-	^ editorElement
-]
-
-{ #category : #accessing }
-BrTextWordPieceStencilBuilder >> editorElement: anEditorElement [
-	editorElement := anEditorElement.
-
-	mouseDownHandler editorElement: anEditorElement.
-	doubleClickHandler editorElement: anEditorElement.
-	selectionAcquiredHandler editorElement: anEditorElement.
-	selectionLostHandler editorElement: anEditorElement.
 ]
 
 { #category : #initialization }
@@ -81,11 +61,7 @@ BrTextWordPieceStencilBuilder >> initialize [
 	super initialize.
 	
 	wordPadding := BlInsets top: 0 bottom: 0.
-	measurer := BlTextElementCanvasMeasurer new.
-	mouseDownHandler := BrTextEditorMouseDownHandler new.
-	doubleClickHandler := BrTextWordPieceDoubleClickHandler new.
-	selectionAcquiredHandler := BrTextWordPieceSelectionAcquiredHandler new.
-	selectionLostHandler := BrTextWordPieceSelectionLostHandler new
+	measurer := BlTextElementCanvasMeasurer new
 ]
 
 { #category : #accessing }
@@ -100,19 +76,19 @@ BrTextWordPieceStencilBuilder >> measurer: aMeasurer [
 
 { #category : #'api - instantiation' }
 BrTextWordPieceStencilBuilder >> paramsOn: aStencilExecutor [
-	aStencilExecutor
-		push: self text;
-		push: self editorElement
+	aStencilExecutor push: self text
 ]
 
 { #category : #accessing }
 BrTextWordPieceStencilBuilder >> text [
+	<return: #BlText>
+
 	^ text
 ]
 
 { #category : #accessing }
-BrTextWordPieceStencilBuilder >> text: anObject [
-	text := anObject
+BrTextWordPieceStencilBuilder >> text: aText [
+	text := aText
 ]
 
 { #category : #accessing }

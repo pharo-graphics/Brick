@@ -33,6 +33,10 @@ BrEditorSegmentHolder >> initialize [
 	itemElement := self createSegmentElement
 ]
 
+{ #category : #'as yet unclassified' }
+BrEditorSegmentHolder >> onRecycled [
+]
+
 { #category : #accessing }
 BrEditorSegmentHolder >> segment: aBrEditorSegment [
 	^ self subclassResponsibility
