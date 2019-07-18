@@ -167,6 +167,14 @@ BrTextElementWithCursors >> removeCursorAt: aTextIndex [
 ]
 
 { #category : #'cursor - management' }
+BrTextElementWithCursors >> removeCursors [
+	"Remove all cursors"
+
+	self cursorElements reverseDo: [ :eachCursorElement | eachCursorElement removeFromParent ].
+	self cursorElements removeAll
+]
+
+{ #category : #'cursor - management' }
 BrTextElementWithCursors >> showCursors [
 	self cursorElements do: [ :aCursorElement | aCursorElement visibility: BlVisibility visible ]
 ]

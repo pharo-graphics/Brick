@@ -27,6 +27,11 @@ BrTextEditorLineSegmentTextPiece >> isText [
 	^ true
 ]
 
+{ #category : #'instance creation' }
+BrTextEditorLineSegmentTextPiece >> onRecycled: aPieceElement in: anEditorElement [
+	anEditorElement editor segmentBuilder wordStencilBuilder recycle: aPieceElement
+]
+
 { #category : #updating }
 BrTextEditorLineSegmentTextPiece >> updateText: aTextElement of: aLineSegment in: anEditorElement [
 	aTextElement dispatchEvent: (BrTextEditorTextChangedRequest new editorElement: anEditorElement)

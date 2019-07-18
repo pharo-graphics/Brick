@@ -132,6 +132,10 @@ BrTextEditorLineSegmentPiece >> onCursorRemoved: aCursor from: aPieceElement in:
 			cursorPosition: aCursor position)
 ]
 
+{ #category : #updating }
+BrTextEditorLineSegmentPiece >> onRecycled: aPieceElement in: anEditorElement [
+]
+
 { #category : #printing }
 BrTextEditorLineSegmentPiece >> printOn: aStream [
 	self text printOn: aStream
@@ -191,9 +195,9 @@ BrTextEditorLineSegmentPiece >> updateCursor: aTextElement of: aLineSegment in: 
 	| theUpdatedCursors theAddedCursors theRemovedCursors |
 
 	"select text editor cursors that are currently within this segment piece and convert them to local ones"
-	theUpdatedCursors := anEditorElement editor cursor allCursors
+	theUpdatedCursors := (anEditorElement editor cursor allCursors
 		select: [ :aCursor | aCursor insideSubText: self of: aLineSegment ]
-		thenCollect: [ :aCursor | self globalCursorToLocal: aCursor ].
+		thenCollect: [ :aCursor | self globalCursorToLocal: aCursor ]) asSet.
 
 	theAddedCursors := self findAddedCursors: theUpdatedCursors to: self currentCursors.
 	theRemovedCursors := self findRemovedCursors: theUpdatedCursors from: self currentCursors.
