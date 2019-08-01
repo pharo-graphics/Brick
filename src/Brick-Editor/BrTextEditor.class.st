@@ -903,29 +903,27 @@ BrTextEditor >> selectionRecorder [
 BrTextEditor >> styleText [
 	"I request styler to re-style my current text"
 	
-	self text isEmpty
-		ifTrue: [ ^ self ].
-	
-	self text size > 200
+	self styleTextAndAfterDo: [ "do nothing" ]
+	"self text size > 200
 		ifTrue: [ self styler styleInBackgroundProcess: self text nextGeneration ]
-		ifFalse: [ self styler style: self text nextGeneration ]
+		ifFalse: [ self styler style: self text nextGeneration ]"
 ]
 
 { #category : #'text - styling' }
 BrTextEditor >> styleTextAndAfterDo: aBlock [
 	"I first style, and then I do aBlock once I am finished"
 	
-	self text isEmpty
-		ifTrue: [ ^ self ].
+	self text isEmpty ifTrue: [ ^ self ].
+	self styler style: self text nextGeneration afterDo: aBlock.
 	
-	self text size > 200
+	"self text size > 200
 		ifTrue: [ 
 			self styler 
 				styleInBackgroundProcess: self text nextGeneration 
 				andAfterDo: aBlock ]
 		ifFalse: [ 
 			self styler style: self text nextGeneration.
-			aBlock value ]
+			aBlock value ]"
 ]
 
 { #category : #accessing }
