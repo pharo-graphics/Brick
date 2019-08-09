@@ -13,7 +13,7 @@ BrGlamorousDropdownGeometry >> buildPathOnSpartaCanvas: aCanvas [
 	"Computes boundaries according to https://stackoverflow.com/questions/289779/calculating-a-boundary-around-several-linked-rectangles.
 	Assumes bounds are overlapping or touching, gaps will lead to only parts included in geometry."
 
-	| bounds vertices xs ys areas corners points directions initialCursor initialDirection cursor direction path |
+	| bounds vertices xs ys areas corners points directions initialCursor cursor direction path |
 	"1. compute areas covered by children bounds"
 	bounds := dropdown children collect: [ :e | e bounds asRectangle ].
 	vertices := bounds
@@ -35,7 +35,7 @@ BrGlamorousDropdownGeometry >> buildPathOnSpartaCanvas: aCanvas [
 								origin: (xs at: j) @ (ys at: i)
 								corner: (xs at: j + 1) @ (ys at: i + 1)) ] ].
 	"2. detect corners around covered area"
-	corners := (Array2D rows: xs size columns: ys size element: false)
+	corners := (Array2D rows: ys size columns: xs size element: false)
 		withIndicesCollect: [ :e :i :j | 
 			| topLeft topRight bottomLeft bottomRight neighbours |
 			topLeft := areas at: i - 1 at: j - 1 ifInvalid: false.
@@ -57,29 +57,24 @@ BrGlamorousDropdownGeometry >> buildPathOnSpartaCanvas: aCanvas [
 	initialCursor := ((corners atRow: 1)
 		detectIndex: #yourself
 		ifNone: [ ^ self ]) @ 1.
-	initialDirection := 0 @ -1.
 	cursor := initialCursor.
-	direction := initialDirection.
+	direction := 0 @ 1.
 	points add: (xs at: cursor x) @ (ys at: cursor y).
-	directions add: direction.
-	[ | backtrackingCursor backtrackingDirection |
+	directions add: 0 @ -1.
+	[ | backtrackingCursor |
 	backtrackingCursor := cursor.
-	backtrackingDirection := direction.
 	direction := direction y negated @ direction x.
 	[ cursor := cursor + direction ]
-		doWhileFalse: [ (cursor transposed <= corners extent and: [ cursor >= (1 @ 1) ])
+		doWhileFalse: [ (cursor <= corners extent and: [ cursor >= (1 @ 1) ])
 				ifTrue: [ corners at: cursor y at: cursor x ]
-				ifFalse:
-					[ "backtrack to original cursor, rotate direction, skip reverse reaching direction"
+				ifFalse: [ "backtrack to original cursor, rotate direction"
 					cursor := backtrackingCursor.
 					direction := direction y negated @ direction x.
-					"skip reverse direction, would find previous point"
-					direction = backtrackingDirection negated
-						ifTrue: [ direction := direction y negated @ direction x ].
 					false ] ].
 	points add: (xs at: cursor x) @ (ys at: cursor y).
-	directions add: direction ]
-		doWhileFalse: [ cursor = initialCursor and: [ direction = initialDirection ] ].
+	directions add: direction.
+	direction := direction negated ]
+		doWhileFalse: [ cursor = initialCursor ].
 	"4. compute path with rounded corners"
 	path := aCanvas path.
 	path

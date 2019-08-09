@@ -237,6 +237,16 @@ BrExamplesShowroom >> glamorousButton [
 ]
 
 { #category : #buttons }
+BrExamplesShowroom >> glamorousButtonWithTooltipLook [
+	<gtExample>
+	^ BrButton new
+		look: BrGlamorousButtonWithIconLook + BrGlamorousWithTooltipLook;
+		label: 'Accept';
+		icon: BrGlamorousIcons accept asElement;
+		action: [ self inform: 'Clicked' ]
+]
+
+{ #category : #buttons }
 BrExamplesShowroom >> glamorousDisabledButton [
 	<gtExample>
 	
