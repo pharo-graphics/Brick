@@ -87,8 +87,6 @@ BrButton >> initialize [
 				BrPressModel new.
 				BrHoverModel new.
 				dimensionModel := BrDimensionModel new.
-				expandableModel := BrExpandableModel new.
-				BrSelectModel new.
 				BrLayoutAlignmentModel center.
 				BrLayoutHorizontalResizerModel fitContent.
 				BrLayoutVerticalResizerModel fitContent
