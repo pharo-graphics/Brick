@@ -10,9 +10,7 @@ BrToggleLook >> initialize [
 	self
 		addChange:
 			(BrLookChange new
-				up: [ :e | 
-					self toggleDeactivated.
-					self toggleEnabled ];
+				up: [ :e | self toggleDeactivated ];
 				down: [ :e |  ];
 				yourself)
 ]
@@ -38,12 +36,4 @@ BrToggleLook >> toggleActivated [
 
 { #category : #'event handling' }
 BrToggleLook >> toggleDeactivated [
-]
-
-{ #category : #'event handling' }
-BrToggleLook >> toggleDisabled [
-]
-
-{ #category : #'event handling' }
-BrToggleLook >> toggleEnabled [
 ]

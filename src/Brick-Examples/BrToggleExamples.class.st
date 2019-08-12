@@ -169,7 +169,6 @@ BrToggleExamples >> predefinedToggle [
 	aToggle look: BrIconLook + BrTextLabelLook + BrLayoutLook linearHorizontal fitContent + BrToggleLook.
 
 	self assert: aToggle isActivated not.
-	self assert: aToggle viewModel isActivated not.
 
 	^ aToggle
 ]

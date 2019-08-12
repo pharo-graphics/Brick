@@ -25,7 +25,7 @@ BrToggle >> deactivate [
 { #category : #initialization }
 BrToggle >> initialize [
 	super initialize.
-	self viewModel: self viewModel + (toggleModel := BrToggleModel new)
+	self viewModel add: (toggleModel := BrToggleModel new)
 ]
 
 { #category : #'api - toggle' }
