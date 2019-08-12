@@ -10,15 +10,19 @@ BrGlamorousToggleBackgroundLook >> initialize [
 	self
 		add:
 			(BrInteractiveCommonLook new
-				style:
-						[ :aStyler | aStyler default: [ :aWidget | self request: BrToggleStateRequest new ] ];
+				style: [ :aStyler | 
+					aStyler
+						default: [ :aWidget | 
+							aWidget isActivated
+								ifTrue: [ self toggleActivated ]
+								ifFalse: [ self toggleDeactivated ] ] ];
 				yourself)
 ]
 
 { #category : #'event handling' }
 BrGlamorousToggleBackgroundLook >> toggleActivated [
 	super toggleActivated.
-	widget background: BrGlamorousColors pressedButtonBorderColor
+	widget background: BrGlamorousColors defaultButtonBorderColor lighter
 ]
 
 { #category : #'event handling' }
