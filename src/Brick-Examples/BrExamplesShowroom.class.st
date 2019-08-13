@@ -240,7 +240,7 @@ BrExamplesShowroom >> glamorousButton [
 BrExamplesShowroom >> glamorousButtonWithTooltipLook [
 	<gtExample>
 	^ BrButton new
-		look: BrGlamorousButtonWithIconLook + BrGlamorousWithTooltipLook;
+		look: BrGlamorousButtonWithIconLook;
 		label: 'Accept';
 		icon: BrGlamorousIcons accept asElement;
 		action: [ self inform: 'Clicked' ]
