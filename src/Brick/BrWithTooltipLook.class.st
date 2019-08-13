@@ -6,10 +6,18 @@ Class {
 		'pointer',
 		'tooltip',
 		'tooltipWrapper',
-		'tooltipStencil'
+		'stencil',
+		'hideLaterTask'
 	],
 	#category : #'Brick-Tooltip - UI'
 }
+
+{ #category : #accessing }
+BrWithTooltipLook >> cancelHideLater [
+	self assert: [ self visible ].
+	hideLaterTask ifNotNil: [ widget dequeueTask: hideLaterTask ].
+	hideLaterTask := nil
+]
 
 { #category : #accessing }
 BrWithTooltipLook >> hide [
@@ -18,16 +26,32 @@ BrWithTooltipLook >> hide [
 	container := nil
 ]
 
+{ #category : #accessing }
+BrWithTooltipLook >> hideLater [
+	self assert: [ self visible ].
+	self cancelHideLater.
+	hideLaterTask := BlDelayedTaskAction new
+		delay: 200 milliSeconds;
+		action: [ self visible
+				ifTrue: [ self hide.
+					hideLaterTask := nil ] ];
+		yourself.
+	widget enqueueTask: hideLaterTask
+]
+
 { #category : #initialization }
 BrWithTooltipLook >> initialize [
 	super initialize.
-	self tooltipStencil: [ BlElement new ].
+	self stencil: [ BlElement new ].
 	self
 		add:
 			(BrInteractiveCommonLook new
 				default: [ self visible
-						ifTrue: [ self hide ] ];
-				hovered: [ self show ]).
+						ifTrue: [ self hideLater ] ];
+				hovered: [ self willHideLater
+						ifTrue: [ self cancelHideLater ].
+					self visible
+						ifFalse: [ self show ] ]).
 	self
 		addChange:
 			(BrLookChange new
@@ -43,10 +67,10 @@ BrWithTooltipLook >> initializeListeners [
 	super initializeListeners.
 	self
 		when: BrTooltipStencilChanged
-		do: [ :e | e inspect. self tooltipStencil: e stencil ].
+		do: [ :e | self stencil: e stencil ].
 	self
 		when: BrTooltipVisibleChanged
-		do: [ :e | e inspect. self visible: e visible ]
+		do: [ :e | self visible: e visible ]
 ]
 
 { #category : #initialization }
@@ -62,7 +86,7 @@ BrWithTooltipLook >> newContainer [
 		size: 10 @ 10;
 		padding: (BlInsets all: 5);
 		yourself.
-	tooltip := self tooltipStencil asElement.
+	tooltip := self stencil asElement.
 	tooltipWrapper := tooltip asScrollableElement.
 	tooltipWrapper == tooltip
 		ifFalse: [ tooltipWrapper
@@ -74,6 +98,8 @@ BrWithTooltipLook >> newContainer [
 		constraintsDo: [ :c | 
 			c horizontal fitContent.
 			c vertical fitContent ];
+		addEventHandlerOn: BlMouseEnterEvent do: [ self cancelHideLater ];
+		addEventHandlerOn: BlMouseLeaveEvent do: [ self hideLater ];
 		in: [ :e | 
 			e
 				when: BlElementExtentChangedEvent
@@ -87,6 +113,7 @@ BrWithTooltipLook >> newContainer [
 { #category : #'as yet unclassified' }
 BrWithTooltipLook >> relocateContainer [
 	| positioner anchorBounds popupMaxBounds scale preferredPosition |
+	self assert: [ container isAttachedToSceneGraph ].
 	positioner := BrAnchoredPopupPositioner
 		anchor: widget
 		target: container parent.
@@ -144,13 +171,13 @@ BrWithTooltipLook >> show [
 ]
 
 { #category : #accessing }
-BrWithTooltipLook >> tooltipStencil [
-	^ tooltipStencil
+BrWithTooltipLook >> stencil [
+	^ stencil
 ]
 
 { #category : #accessing }
-BrWithTooltipLook >> tooltipStencil: aBrStencil [
-	tooltipStencil := aBrStencil asStencil.
+BrWithTooltipLook >> stencil: aBrStencil [
+	stencil := aBrStencil asStencil.
 	self visible
 		ifTrue: [ self
 				hide;
@@ -169,4 +196,9 @@ BrWithTooltipLook >> visible: aBoolean [
 				ifFalse: [ self show ] ]
 		ifFalse: [ self visible
 				ifTrue: [ self hide ] ]
+]
+
+{ #category : #'as yet unclassified' }
+BrWithTooltipLook >> willHideLater [
+	^ hideLaterTask isNotNil
 ]
