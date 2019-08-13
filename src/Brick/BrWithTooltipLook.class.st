@@ -15,7 +15,7 @@ Class {
 { #category : #accessing }
 BrWithTooltipLook >> cancelHideLater [
 	self assert: [ self visible ].
-	hideLaterTask ifNotNil: [ widget dequeueTask: hideLaterTask ].
+	hideLaterTask ifNotNil: [ container dequeueTask: hideLaterTask ].
 	hideLaterTask := nil
 ]
 
@@ -36,7 +36,7 @@ BrWithTooltipLook >> hideLater [
 				ifTrue: [ self hide.
 					hideLaterTask := nil ] ];
 		yourself.
-	widget enqueueTask: hideLaterTask
+	container enqueueTask: hideLaterTask
 ]
 
 { #category : #initialization }
@@ -57,6 +57,8 @@ BrWithTooltipLook >> initialize [
 			(BrLookChange new
 				up: [ :e |  ];
 				down: [ :e | 
+					self willHideLater
+						ifTrue: [ self cancelHideLater ].
 					self visible
 						ifTrue: [ self hide ] ];
 				yourself)
