@@ -22,13 +22,3 @@ BrGlamorousWithTooltipLook >> newContainer [
 		look: BrShadowLook new;
 		yourself
 ]
-
-{ #category : #accessing }
-BrGlamorousWithTooltipLook >> text: aTextOrString [
-	self
-		tooltipStencil: [ BrLabel new
-				look: BrGlamorousLabelLook;
-				text: aTextOrString;
-				padding: (BlInsets all: 5);
-				yourself ]
-]
