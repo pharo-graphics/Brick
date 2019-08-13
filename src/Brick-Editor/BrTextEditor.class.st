@@ -736,11 +736,11 @@ BrTextEditor >> onStringInserted: aBrTextStringInserted [
 		at: aBrTextStringInserted index
 		in: self.
 
-	self styleText.
-
 	self
 		notifyInserted: (aBrTextStringInserted string asRopedText)
-		at: aBrTextStringInserted index
+		at: aBrTextStringInserted index.
+
+	self styleText
 ]
 
 { #category : #'hooks - text modifications' }
@@ -751,12 +751,12 @@ BrTextEditor >> onTextDeleted: aBlTextDeleted [
 		deletedFrom: aBlTextDeleted fromIndex
 		to: aBlTextDeleted toIndex
 		in: self.
-
-	self styleText.
 	
 	self
 		notifyDeletedFrom: aBlTextDeleted fromIndex
-		to: aBlTextDeleted toIndex
+		to: aBlTextDeleted toIndex.
+
+	self styleText
 ]
 
 { #category : #'text - copy/paste' }
