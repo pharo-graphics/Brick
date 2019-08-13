@@ -1,0 +1,172 @@
+Class {
+	#name : #BrWithTooltipLook,
+	#superclass : #BrLook,
+	#instVars : [
+		'container',
+		'pointer',
+		'tooltip',
+		'tooltipWrapper',
+		'tooltipStencil'
+	],
+	#category : #'Brick-Tooltip - UI'
+}
+
+{ #category : #accessing }
+BrWithTooltipLook >> hide [
+	self assert: [ self visible ].
+	container removeFromParent.
+	container := nil
+]
+
+{ #category : #initialization }
+BrWithTooltipLook >> initialize [
+	super initialize.
+	self tooltipStencil: [ BlElement new ].
+	self
+		add:
+			(BrInteractiveCommonLook new
+				default: [ self visible
+						ifTrue: [ self hide ] ];
+				hovered: [ self show ]).
+	self
+		addChange:
+			(BrLookChange new
+				up: [ :e |  ];
+				down: [ :e | 
+					self visible
+						ifTrue: [ self hide ] ];
+				yourself)
+]
+
+{ #category : #initialization }
+BrWithTooltipLook >> initializeListeners [
+	super initializeListeners.
+	self
+		when: BrTooltipStencilChanged
+		do: [ :e | e inspect. self tooltipStencil: e stencil ].
+	self
+		when: BrTooltipVisibleChanged
+		do: [ :e | e inspect. self visible: e visible ]
+]
+
+{ #category : #initialization }
+BrWithTooltipLook >> initializeRequests [
+	super initializeRequests.
+	self request: BrTooltipStencilRequest new.
+	self request: BrTooltipVisibleRequest new
+]
+
+{ #category : #'instance creation' }
+BrWithTooltipLook >> newContainer [
+	pointer := BlElement new
+		size: 10 @ 10;
+		padding: (BlInsets all: 5);
+		yourself.
+	tooltip := self tooltipStencil asElement.
+	tooltipWrapper := tooltip asScrollableElement.
+	tooltipWrapper == tooltip
+		ifFalse: [ tooltipWrapper
+				constraintsDo: [ :c | 
+					c horizontal fitContent.
+					c vertical fitContent ] ].
+	^ BlElement new
+		layout: BlLinearLayout vertical;
+		constraintsDo: [ :c | 
+			c horizontal fitContent.
+			c vertical fitContent ];
+		in: [ :e | 
+			e
+				when: BlElementExtentChangedEvent
+				do: [ e isAttachedToSceneGraph
+						ifTrue: [ self relocateContainer ] ] ];
+		addChild: pointer as: #pointer;
+		addChild: tooltipWrapper as: #tooltip;
+		yourself
+]
+
+{ #category : #'as yet unclassified' }
+BrWithTooltipLook >> relocateContainer [
+	| positioner anchorBounds popupMaxBounds scale preferredPosition |
+	positioner := BrAnchoredPopupPositioner
+		anchor: widget
+		target: container parent.
+	scale := widget globalScale.
+	anchorBounds := positioner anchorBoundsInTarget.
+	popupMaxBounds := positioner
+		popupPreferredMaxBoundsInTarget: (tooltip size + (0 @ pointer height)) * scale.
+	positioner popupPreferredPositionIsTop
+		ifTrue: [ container
+				removeChildren;
+				addChildren:
+					{tooltipWrapper.
+					pointer} ]
+		ifFalse: [ container
+				removeChildren;
+				addChildren:
+					{pointer.
+					tooltipWrapper} ].
+	positioner popupPreferredPositionIsLeft
+		ifTrue: [ pointer constraintsDo: [ :c | c linear horizontal alignRight ] ]
+		ifFalse: [ pointer constraintsDo: [ :c | c linear horizontal alignLeft ] ].
+	tooltipWrapper
+		constraintsDo: [ :c | 
+			c maxWidth: popupMaxBounds width.
+			c maxHeight: popupMaxBounds height ].
+	positioner popupPreferredPosition = (#bottom -> #right)
+		ifTrue: [ preferredPosition := anchorBounds bottomLeft ].
+	positioner popupPreferredPosition = (#bottom -> #left)
+		ifTrue: [ preferredPosition := anchorBounds bottomRight
+				- (tooltipWrapper width @ 0 * scale) ].
+	positioner popupPreferredPosition = (#top -> #right)
+		ifTrue: [ preferredPosition := anchorBounds topLeft
+				- (0 @ (tooltipWrapper height + pointer height) * scale) ].
+	positioner popupPreferredPosition = (#top -> #left)
+		ifTrue: [ preferredPosition := anchorBounds topRight
+				- ((tooltipWrapper size + (0 @ pointer height)) * scale) ].
+	((widget width min: container width) - pointer width) / 2
+		in: [ :e | pointer margin: (BlInsets left: e right: e) ].
+	container
+		transformDo: [ :t | 
+			t
+				origin: BlAffineTransformationTopLeftOrigin new;
+				scaleBy: scale;
+				translateBy: preferredPosition ]
+]
+
+{ #category : #'host space - displaying' }
+BrWithTooltipLook >> show [
+	self assert: [ self visible not ].
+	self
+		widgetDo: [ :aWidget | 
+			aWidget isAttachedToSceneGraph
+				ifTrue: [ aWidget space addChild: (container := self newContainer).
+					self relocateContainer ] ]
+]
+
+{ #category : #accessing }
+BrWithTooltipLook >> tooltipStencil [
+	^ tooltipStencil
+]
+
+{ #category : #accessing }
+BrWithTooltipLook >> tooltipStencil: aBrStencil [
+	tooltipStencil := aBrStencil asStencil.
+	self visible
+		ifTrue: [ self
+				hide;
+				show ]
+]
+
+{ #category : #accessing }
+BrWithTooltipLook >> visible [
+	^ container isNotNil
+]
+
+{ #category : #accessing }
+BrWithTooltipLook >> visible: aBoolean [
+	aBoolean
+		ifTrue: [ self visible
+				ifFalse: [ self show ] ]
+		ifFalse: [ self visible
+				ifTrue: [ self hide ] ]
+]
