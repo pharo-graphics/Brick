@@ -37,7 +37,7 @@ BrGlamorousButtonWithLabelTooltipLook >> text: aTextOrString [
 						look: BrGlamorousButtonWithIconLook;
 						icon: BrGlamorousIcons inspect;
 						label: 'Inspect action';
-						action: [ widget phlow spawnObject: widget action ];
+						action: [ self widgetDo: [ :e | e phlow spawnObject: e action ] ];
 						margin: (BlInsets left: 5);
 						yourself);
 				yourself ]

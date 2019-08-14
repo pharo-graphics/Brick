@@ -45,8 +45,9 @@ BrWithTooltipLook >> initialize [
 	super initialize.
 	checkWidgetTask := BlRepeatedTaskAction new
 		delay: 1000 milliSeconds;
-		action: [ (self visible and: [ widget isAttachedToSceneGraph not ])
-				ifTrue: [ self hide ] ];
+		action: [ self inform: 'check'.(self visible
+				and: [ widget isNil or: [ widget isAttachedToSceneGraph not ] ])
+				ifTrue: [ self inform: 'hide'.self hide ] ];
 		yourself.
 	self stencil: [ BlElement new ].
 	self
