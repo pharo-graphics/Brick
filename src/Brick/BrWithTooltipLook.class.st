@@ -7,8 +7,7 @@ Class {
 		'tooltip',
 		'tooltipWrapper',
 		'stencil',
-		'hideLaterTask',
-		'checkWidgetTask'
+		'hideLaterTask'
 	],
 	#category : #'Brick-Tooltip - UI'
 }
@@ -43,12 +42,6 @@ BrWithTooltipLook >> hideLater [
 { #category : #initialization }
 BrWithTooltipLook >> initialize [
 	super initialize.
-	checkWidgetTask := BlRepeatedTaskAction new
-		delay: 1000 milliSeconds;
-		action: [ self inform: 'check'.(self visible
-				and: [ widget isNil or: [ widget isAttachedToSceneGraph not ] ])
-				ifTrue: [ self inform: 'hide'.self hide ] ];
-		yourself.
 	self stencil: [ BlElement new ].
 	self
 		add:
@@ -62,9 +55,8 @@ BrWithTooltipLook >> initialize [
 	self
 		addChange:
 			(BrLookChange new
-				up: [ :e | widget enqueueTask: checkWidgetTask ];
+				up: [ :e |  ];
 				down: [ :e | 
-					widget dequeueTask: checkWidgetTask.
 					self willHideLater
 						ifTrue: [ self cancelHideLater ].
 					self visible
@@ -122,6 +114,13 @@ BrWithTooltipLook >> newContainer [
 				addEventHandlerOn: BlElementPositionInSpaceChangedEvent
 					do: [ e isAttachedToSceneGraph
 						ifTrue: [ self relocateContainer ] ] ];
+		enqueueTask:
+			(BlRepeatedTaskAction new
+				delay: 500 milliSeconds;
+				action: [ (self visible
+						and: [ widget isNil or: [ widget isAttachedToSceneGraph not ] ])
+						ifTrue: [ self hide ] ];
+				yourself);
 		addChild: pointer as: #pointer;
 		addChild: tooltipWrapper as: #tooltip;
 		yourself

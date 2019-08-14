@@ -23,8 +23,7 @@ BrGlamorousButtonWithLabelTooltipLook >> text: aTextOrString [
 				layout: BlLinearLayout horizontal;
 				constraintsDo: [ :c | 
 					c horizontal fitContent.
-					c vertical fitContent.
-					c linear vertical alignCenter ];
+					c vertical fitContent ];
 				padding: (BlInsets all: 5);
 				addChild:
 					(BrLabel new
