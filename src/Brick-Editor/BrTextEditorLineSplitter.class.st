@@ -13,13 +13,18 @@ BrTextEditorLineSplitter >> newSegment [
 ]
 
 { #category : #'instance creation' }
-BrTextEditorLineSplitter >> newSegment: aBrText from: aStartIndex to: anEndIndex delimited: aDelimiterIndex [
-	| aText anAbsoluteTextStart anAbsoluteTextEnd |
+BrTextEditorLineSplitter >> newSegment: aBlText from: aStartIndex to: anEndIndex delimited: aDelimiterIndex offset: anOffset [
+	| aText anAbsoluteTextStart anAbsoluteTextEnd hasLineBreakAfter isEmptySegment shouldMoveBack |
 
-	aText := aBrText
+	aText := aBlText
 		from: aStartIndex
 		to: anEndIndex.
-
+	
+	hasLineBreakAfter := aDelimiterIndex ~= anEndIndex.
+	isEmptySegment := aStartIndex = anEndIndex.
+	
+	shouldMoveBack := (hasLineBreakAfter and: [ isEmptySegment ]) not or: [ aStartIndex > 1 ].
+	
 	anAbsoluteTextStart := (aText allSatisfy: #isLineBreak)
 		ifTrue: [ aStartIndex ]
 		ifFalse: [ ((aStartIndex - 1) max: 0) ].
@@ -27,24 +32,24 @@ BrTextEditorLineSplitter >> newSegment: aBrText from: aStartIndex to: anEndIndex
 	anAbsoluteTextEnd := anEndIndex.
 
 	^ self newSegment
-		initializeWith: (aBrText from: aStartIndex to: anEndIndex)
-		from: anAbsoluteTextStart + aBrText textOffset
-		to: anAbsoluteTextEnd + aBrText textOffset
+		initializeWith: aText
+		from: anAbsoluteTextStart + anOffset
+		to: anAbsoluteTextEnd + anOffset
 ]
 
 { #category : #'api - splitting' }
-BrTextEditorLineSplitter >> split: aBrText in: aBrEditorSegmentStream [
+BrTextEditorLineSplitter >> split: aBrText in: aBrEditorSegmentStream offset: anOffset [
 	| anIterator |
 
 	aBrText isEmpty
-		ifTrue: [ ^ aBrEditorSegmentStream nextPut: (self newSegment: aBrText from: 0 to: 0 delimited: 0) ].
+		ifTrue: [ ^ aBrEditorSegmentStream nextPut: (self newSegment: aBrText from: 0 to: 0 delimited: 0 offset: anOffset) ].
 
 	anIterator := aBrText iterator.
 
 	[ anIterator hasNext and: [ aBrEditorSegmentStream wantsMore ] ] whileTrue: [
 		anIterator
 			nextLineIndicesDo: [ :aLineStart :aLineEnd :aLineDelimiterEnd |
-				aBrEditorSegmentStream nextPut: (self newSegment: aBrText from: aLineStart to: aLineEnd delimited: aLineDelimiterEnd) ]
+				aBrEditorSegmentStream nextPut: (self newSegment: aBrText from: aLineStart to: aLineEnd delimited: aLineDelimiterEnd offset: anOffset) ]
 			shouldMerge: [ :aLineStart :aLineEnd :aLineDelimiterEnd |
 				(aBrText from: aLineEnd + 1 to: aLineDelimiterEnd) iterator
 					detectAttribute: [ :eachAttribute | self wantsToMergeSegments: eachAttribute ]
@@ -52,7 +57,7 @@ BrTextEditorLineSplitter >> split: aBrText in: aBrEditorSegmentStream [
 					ifNone: [ false ] ] ].
 
 	(aBrEditorSegmentStream wantsMore and: [ aBrText last isLineBreak ])
-		ifTrue: [ aBrEditorSegmentStream nextPut: (self newSegment: aBrText from: aBrText size to: aBrText size delimited: aBrText size) ]
+		ifTrue: [ aBrEditorSegmentStream nextPut: (self newSegment: aBrText from: aBrText size to: aBrText size delimited: aBrText size offset: anOffset) ]
 ]
 
 { #category : #testing }

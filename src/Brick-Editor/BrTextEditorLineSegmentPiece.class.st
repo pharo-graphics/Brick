@@ -1,11 +1,10 @@
 Class {
 	#name : #BrTextEditorLineSegmentPiece,
 	#superclass : #Object,
+	#traits : 'TBrTextEditorTextualPiece',
+	#classTraits : 'TBrTextEditorTextualPiece classTrait',
 	#instVars : [
 		'segment',
-		'text',
-		'textStart',
-		'textEnd',
 		'currentCursors'
 	],
 	#category : #'Brick-Editor-Model - Segment-Text-Line'
@@ -41,6 +40,8 @@ BrTextEditorLineSegmentPiece >> currentCursors [
 { #category : #accessing }
 BrTextEditorLineSegmentPiece >> end [
 	<return: #Number>
+
+	self deprecated: 'Use #textEnd'.
 
 	^ textEnd
 ]
@@ -81,7 +82,7 @@ BrTextEditorLineSegmentPiece >> globalTextIndexToLocal: aTextIndex [
 
 	^ self text isEmpty
 		ifTrue: [ 0 ]
-		ifFalse: [ aTextIndex - self start ]
+		ifFalse: [ aTextIndex - self textStart ]
 ]
 
 { #category : #printing }
@@ -101,9 +102,12 @@ BrTextEditorLineSegmentPiece >> initialize [
 	currentCursors := Set new
 ]
 
-{ #category : #testing }
-BrTextEditorLineSegmentPiece >> isEmpty [
-	^ self text isEmpty
+{ #category : #initialization }
+BrTextEditorLineSegmentPiece >> initializeWith: aBlText from: aTextStart to: aTextEnd [
+	text := aBlText.
+	
+	textStart := aTextStart.
+	textEnd := aTextEnd
 ]
 
 { #category : #testing }
@@ -114,7 +118,7 @@ BrTextEditorLineSegmentPiece >> isText [
 { #category : #'cursor - hooks' }
 BrTextEditorLineSegmentPiece >> onCursorAdded: aCursor to: aPieceElement in: anEditorElement [
 	"Is sent when a cursor is added to a given piece element within provided editor element"
-
+		
 	aPieceElement dispatchEvent:
 		(BrTextEditorShowCursorRequest new
 			editorElement: anEditorElement;
@@ -163,31 +167,10 @@ BrTextEditorLineSegmentPiece >> segment: anObject [
 { #category : #accessing }
 BrTextEditorLineSegmentPiece >> start [
 	<return: #Number>
+	
+	self deprecated: 'Use #textStart'.
 
 	^ textStart
-]
-
-{ #category : #accessing }
-BrTextEditorLineSegmentPiece >> start: aStartIndex end: anEndIndex [
-	textStart := aStartIndex.
-	textEnd := anEndIndex.
-
-	text start: ((aStartIndex + 1) min: anEndIndex) end: anEndIndex
-]
-
-{ #category : #accessing }
-BrTextEditorLineSegmentPiece >> text [
-	<return: #BlSubText>
-
-	^ text
-]
-
-{ #category : #accessing }
-BrTextEditorLineSegmentPiece >> text: aBrSubText [
-	text := aBrSubText.
-	
-	textStart := text textOffset.
-	textEnd := textStart + text size
 ]
 
 { #category : #updating }
@@ -237,12 +220,12 @@ BrTextEditorLineSegmentPiece >> updateSelection: aTextElement of: aLineSegment i
 	(aTextEditor selection + aTextEditor selectionRecorder selection) do: [ :aSelection |
 		| aSelectionInterval textInterval |
 		aSelectionInterval := aSelection interval.
-		textInterval := BlSelection from: self text start to: self text end.
+		textInterval := BlSelection from: (self textStart + 1 min: self textEnd) to: self textEnd.
 		(aSelection overlaps: textInterval)
 			ifTrue: [
 				| localFrom localTo |
-				localFrom := (aSelectionInterval first - self text start + 1) max: 0.
-				localTo := (aSelectionInterval last - self text start + 1) min: self text size + 1.
+				localFrom := (aSelectionInterval first - self textStart) max: 0.
+				localTo := (aSelectionInterval last - self textStart) min: self text size + 1.
 
 				aTextElement dispatchEvent: (BrTextEditorSelectRequest new
 					editorElement: anEditorElement;

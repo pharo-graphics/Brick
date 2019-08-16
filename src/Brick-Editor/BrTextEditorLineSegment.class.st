@@ -23,7 +23,10 @@ BrTextEditorLineSegment >> computedPieces [
 	<return: #SequenceableCollection of: #BrTextEditorLineSegmentPiece>
 	| thePieces |
 
-	thePieces := BrTextEditorLineSegmentSplitter new split: self text.	
+	thePieces := BrTextEditorLineSegmentSplitter new
+		split: self text
+		from: self textStart
+		to: self textEnd.
 	thePieces do: [ :eachPiece | eachPiece segment: self ].
 
 	^ thePieces
@@ -88,7 +91,7 @@ BrTextEditorLineSegment >> moveTextBy: aNumber [
 		ifFalse: [ ^ self ].
 
 	self pieces
-		do: [ :aTextPiece | aTextPiece start: aTextPiece start + aNumber end: aTextPiece end + aNumber ]
+		do: [ :aTextPiece | aTextPiece start: aTextPiece textStart + aNumber end: aTextPiece textEnd + aNumber ]
 ]
 
 { #category : #'attributes - paragraph' }

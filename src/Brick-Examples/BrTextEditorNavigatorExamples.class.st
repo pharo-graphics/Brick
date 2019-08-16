@@ -273,7 +273,7 @@ BrTextEditorNavigatorExamples >> cursor_add_at_68_in_empty [
 	self assert: theMovedEvents isEmpty.
 	self assert: theRemovedEvents isEmpty.
 	self assert: addedCursorElements size equals: 1.
-	self assert: addedCursorElements first textPosition equals: 1.
+	self assert: addedCursorElements first textPosition equals: 0.
 	self assert: removedCursorElements isEmpty.
 	
 	^ anEditor
@@ -1147,7 +1147,7 @@ BrTextEditorNavigatorExamples >> cursor_moveTo_67_in_cursors_at_68 [
 	self assert: addedCursorElements size equals: 1.
 	self assert: addedCursorElements first textPosition equals: 6.
 	self assert: removedCursorElements size equals: 1.
-	self assert: removedCursorElements first textPosition equals: 1.
+	self assert: removedCursorElements first textPosition equals: 0.
 	
 	^ anEditor
 ]

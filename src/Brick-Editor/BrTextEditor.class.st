@@ -650,6 +650,7 @@ BrTextEditor >> onAttached: anEditorElement [
 	anEditorElement addEventHandler: BrTextEditorSelectionHandler new.
 	anEditorElement addEventHandler: BrTextEditorInsertionHandler new.
 	anEditorElement addEventHandler: BrTextEditorMouseDownHandler uniqueInstance.
+	anEditorElement addEventHandler: BrTextEditorCursorIconHandler uniqueInstance.
 
 	self interactions do: [ :anInteraction | anEditorElement addShortcut: anInteraction ].
 
@@ -698,6 +699,7 @@ BrTextEditor >> onDetached: anEditorElement [
 	anEditorElement removeEventHandlersSuchThat: [ :aHandler | aHandler isKindOf: BrTextEditorSelectionHandler ].
 	anEditorElement removeEventHandlersSuchThat: [ :aHandler | aHandler isKindOf: BrTextEditorInsertionHandler ].
 	anEditorElement removeEventHandlersSuchThat: [ :aHandler | aHandler isKindOf: BrTextEditorMouseDownHandler ].
+	anEditorElement removeEventHandler: BrTextEditorCursorIconHandler uniqueInstance.
 
 	self interactions do: [ :anInteraction | anEditorElement removeShortcut: anInteraction ].
 

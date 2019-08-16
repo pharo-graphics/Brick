@@ -214,7 +214,10 @@ BrTextEditorSegmentCollector >> computeForwardAt: anIndex [
 	stream limit: self cacheLimit - skip.
 	builder := self editor segmentBuilder.
 	
-	builder split: forwardText in: stream.
+	builder
+		split: forwardText
+		in: stream
+		offset: ((forwardText start - text textOffset - 1) max: 0).
 	
 	segments addAll: stream collection.
 	segmentsInterval := cachedInterval first to: cachedInterval first + stream size - 1.

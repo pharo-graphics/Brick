@@ -16,7 +16,7 @@ BrTextWordPieceScreenToCursorHandler >> explicitScreenToCursor: aTransformation 
 	aLocalPosition := (anEvent currentTarget globalBoundsToMine: (BlBounds origin: aTransformation screenPosition extent: 0@0) fromParent: anEvent editorElement) center.
 	
 	aLocalTextIndex := anEvent currentTarget paragraph indexAtPosition: aLocalPosition.
-	aGobaltextIndex := (anEvent currentTarget text start + aLocalTextIndex - 1) max: 0.
+	aGobaltextIndex := (anEvent currentTarget text start + aLocalTextIndex - 1 - anEvent editorElement editor text textOffset) max: 0.
 	
 	aTransformation transformed: aGobaltextIndex
 ]
@@ -34,7 +34,7 @@ BrTextWordPieceScreenToCursorHandler >> relativeScreenToCursor: aTransformation 
 
 	aTextElement := anEvent currentTarget.
 	aCursor := aTransformation cursor.
-
+	
 	aLocalTextPositionOfThisCursor := aCursor position - aTextElement text textOffset.
 	aLocalositionOfThisCursor := aTextElement cursorScreenPositionAt: aLocalTextPositionOfThisCursor.
 

@@ -8,7 +8,7 @@ BrTextEditorLineSegment >> gtInspectorPiecesIn: composite [
 		title: 'Pieces' translated;
 		display: [ self pieces ];
 		column: 'Interval'
-			evaluated: [ :each | (each start to: each end) asString ];
+			evaluated: [ :each | (each textStart to: each textEnd) asString ];
 		column: 'Text'
 			evaluated: [ :each | GTObjectPrinter asTruncatedTextFrom: each ]
 ]
