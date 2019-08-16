@@ -56,6 +56,11 @@ BrTab >> parentTabGroup [
 ]
 
 { #category : #'api - accessing' }
+BrTab >> select [
+	self viewModel select
+]
+
+{ #category : #'api - accessing' }
 BrTab >> stencil: aStencilBuilder [
 	self viewModel stencil: aStencilBuilder
 ]
