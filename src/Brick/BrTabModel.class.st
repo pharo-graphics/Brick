@@ -60,6 +60,20 @@ BrTabModel >> isSelected [
 	^ selected
 ]
 
+{ #category : #accessing }
+BrTabModel >> labelModel [
+	^ self children 
+		detect: [ :each | each isKindOf: BrLabelModel ]
+		ifNone: [ nil ]
+]
+
+{ #category : #accessing }
+BrTabModel >> labelText [
+	^ self labelModel 
+		ifNil: [ nil ]
+		ifNotNil: [ :labelModel | labelModel text ]
+]
+
 { #category : #notifying }
 BrTabModel >> notifyTabDeselected [
 	self dispatchEvent: (BrTabDeselectedEvent tab: self)
