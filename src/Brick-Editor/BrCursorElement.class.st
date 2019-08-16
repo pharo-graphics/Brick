@@ -20,6 +20,6 @@ BrCursorElement >> textPosition [
 ]
 
 { #category : #accessing }
-BrCursorElement >> textPosition: anObject [
-	textPosition := anObject
+BrCursorElement >> textPosition: aNumber [
+	textPosition := aNumber
 ]

@@ -39,7 +39,7 @@ BrTextEditorLineSegmentBuilder >> deleteFrom: aFromIndex segment: aFromSegment t
 	aNewStart := aTargetSegment textStart min: aNewEnd.
 
 	aTargetSegment
-		start: aNewStart
+		scopeText: aNewStart
 		end: aNewEnd.
 		
 	((aTargetSegment ~= aFromSegment) or: [ aFromSegment ~= aToSegment ])
@@ -116,13 +116,14 @@ BrTextEditorLineSegmentBuilder >> insertedString: aString at: aTextIndex in: aBr
 
 	self
 		split: (aBrTextEditor text from: aTextIndex + 1 to: aTextIndex + aString size)
-		in: aStream.
+		in: aStream
+		offset: aTextIndex.
 
 	aBrTextEditor segmentCollector
 		cachedSegmentAt: aTextIndex
 		ifFound: [ :aSegment | aCurrentSegment := aSegment ]
 		ifNotFound: [ ^ self ].
-	
+
 	theNewSegments := aCurrentSegment insert: aStream segments.
 	theNewSegments size > 1
 		ifTrue: [ aBrTextEditor segmentCollector addSegments: theNewSegments allButFirst after: aCurrentSegment ].

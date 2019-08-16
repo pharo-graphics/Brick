@@ -67,10 +67,10 @@ BrTextEditorSingleCursor >> initialize [
 BrTextEditorSingleCursor >> insideSubText: aBrTextEditorSegmentPiece of: aSegment [
 	"Return true if I am inside a given subtext, false otherwise"
 	<return: #Boolean>
-
+	
 	^ (self position
-		between: aBrTextEditorSegmentPiece start
-		and: aBrTextEditorSegmentPiece end - (aSegment isLastTextPiece: aBrTextEditorSegmentPiece) not asBit)
+		between: aBrTextEditorSegmentPiece textStart
+		and: aBrTextEditorSegmentPiece textEnd - (aSegment isLastTextPiece: aBrTextEditorSegmentPiece) not asBit)
 			and: [ self position between: aSegment textStart and: aSegment textEnd ]
 ]
 

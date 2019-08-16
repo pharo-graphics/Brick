@@ -49,6 +49,11 @@ BrTextEditorSegmentBuilder >> split: aBrText in: aStream [
 	self splitter split: aBrText in: aStream
 ]
 
+{ #category : #splitting }
+BrTextEditorSegmentBuilder >> split: aBrText in: aBrEditorSegmentStream offset: anOffset [
+	self splitter split: aBrText in: aBrEditorSegmentStream offset: anOffset
+]
+
 { #category : #accessing }
 BrTextEditorSegmentBuilder >> splitter [
 	<return: #BrTextEditorSplitter>
