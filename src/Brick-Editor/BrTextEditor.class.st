@@ -657,6 +657,8 @@ BrTextEditor >> onAttached: anEditorElement [
 	anEditorElement when: BlClickEvent do: [ :anEvent | anEvent consumed: true ].
 	anEditorElement when: BlFocusEvent do: [ self onGotFocus ].
 	anEditorElement when: BlBlurEvent do: [ self onLostFocus ].
+	anEditorElement when: BlMouseEnterEvent  do: [ :anEvent | anEvent currentTarget mouseCursor: BlCursor overEditableText ].
+	anEditorElement when: BlMouseLeaveEvent  do: [ :anEvent | anEvent currentTarget mouseCursor: BlCursor default ].
 
 	self notifyChanged
 ]
@@ -703,7 +705,7 @@ BrTextEditor >> onDetached: anEditorElement [
 
 	anEditorElement
 		removeEventHandlersSuchThat: [ :aHandler | (aHandler isKindOf: BlEventHandler)
-			and: [ { BlMouseUpEvent . BlClickEvent . BlFocusEvent . BlBlurEvent } includes: aHandler eventClass ] ]
+			and: [ { BlMouseUpEvent . BlClickEvent . BlFocusEvent . BlBlurEvent . BlMouseEnterEvent . BlMouseLeaveEvent } includes: aHandler eventClass ] ]
 ]
 
 { #category : #hooks }
