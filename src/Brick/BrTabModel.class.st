@@ -2,11 +2,11 @@ Class {
 	#name : #BrTabModel,
 	#superclass : #BrWidgetModel,
 	#instVars : [
-		'selected',
 		'contentStencilBuilder',
-		'actionStencilBuilder'
+		'actionStencilBuilder',
+		'selected'
 	],
-	#category : 'Brick-Tabs - Model'
+	#category : #'Brick-Tabs - Model'
 }
 
 { #category : #accessing }
@@ -21,9 +21,9 @@ BrTabModel >> actionsStencil: anActionStencilBuilder [
 
 { #category : #'mouse handlers' }
 BrTabModel >> clickEvent: anEvent [
-	"self isEnabled
-		ifFalse: [ ^ self ]."
-
+	(self request: BrActivationRequest oneWay) isActivated
+		ifFalse: [ ^ self ].
+	
 	anEvent consumed: true.
 	self select
 ]
@@ -35,25 +35,33 @@ BrTabModel >> contentStencilBuilder [
 	^ contentStencilBuilder
 ]
 
-{ #category : #'api - tab' }
+{ #category : #'api - selection' }
 BrTabModel >> deselect [
-	self isSelected
-		ifFalse: [ ^ self ].
-
-	selected := false.
-	self notifyTabDeselected
+	self dispatchEvent: (BrSelectedWish selected: false)
 ]
 
-{ #category : #initialization }
+{ #category : #hooks }
 BrTabModel >> initialize [
 	super initialize.
-
-	selected := false.
-	contentStencilBuilder := [ BlElement new size: 50@50; background: Color random ] asStencilBuilder.
-	actionStencilBuilder := [ BlElement new size: 0@0 ] asStencilBuilder
+	
+	selected := false
 ]
 
-{ #category : #'api - testing' }
+{ #category : #hooks }
+BrTabModel >> initializeListeners [
+	super initializeListeners.
+
+	self when: BrSelectedWish do: [ :aWish | selected := aWish selected ]
+
+	"self
+		when: BrTabStateRequest
+		do: [ :anEvent |
+			anEvent source dispatchEvent: (self isSelected
+				ifTrue: [ BrTabSelectedEvent tab: self ]
+				ifFalse: [ BrTabDeselectedEvent tab: self ]) ]"
+]
+
+{ #category : #'api - selection' }
 BrTabModel >> isSelected [
 	<return: #Boolean>
 
@@ -74,48 +82,9 @@ BrTabModel >> labelText [
 		ifNotNil: [ :labelModel | labelModel text ]
 ]
 
-{ #category : #notifying }
-BrTabModel >> notifyTabDeselected [
-	self dispatchEvent: (BrTabDeselectedEvent tab: self)
-]
-
-{ #category : #notifying }
-BrTabModel >> notifyTabSelected [
-	self dispatchEvent: (BrTabSelectedEvent tab: self)
-]
-
-{ #category : #notifying }
-BrTabModel >> notifyTabSelectionChanged [
-	self isSelected
-		ifTrue: [ self notifyTabSelected ]
-		ifFalse: [ self notifyTabDeselected ]
-]
-
-{ #category : #hooks }
-BrTabModel >> onAttachedTo: anElement [
-	super onAttachedTo: anElement.
-
-	anElement when: BrTabStateRequest
-		do: [ :anEvent |
-			anEvent source dispatchEvent: (self isSelected
-				ifTrue: [ BrTabSelectedEvent tab: self ]
-				ifFalse: [ BrTabDeselectedEvent tab: self ]) ]
-]
-
-{ #category : #'api - tab' }
+{ #category : #'api - selection' }
 BrTabModel >> select [
-	self isSelected
-		ifTrue: [ ^ self ].
-
-	selected := true.
-	self notifyTabSelected
-]
-
-{ #category : #'api - tab' }
-BrTabModel >> selected: aBoolean [
-	aBoolean
-		ifTrue: [ self select ]
-		ifFalse: [ self deselect ]
+	self dispatchEvent: (BrSelectedWish selected: true)
 ]
 
 { #category : #'api - tab' }

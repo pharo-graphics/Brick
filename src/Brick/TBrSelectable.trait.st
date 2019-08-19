@@ -14,6 +14,11 @@ TBrSelectable >> deselectAll [
 ]
 
 { #category : #'api - selection' }
+TBrSelectable >> deselectOne: anIndex [
+	selectionModel deselectOne: anIndex
+]
+
+{ #category : #'api - selection' }
 TBrSelectable >> isSelectedAt: anIndex [
 	<return: #Boolean>
 

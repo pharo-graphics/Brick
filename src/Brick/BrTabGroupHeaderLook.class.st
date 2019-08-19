@@ -101,7 +101,9 @@ BrTabGroupHeaderLook >> onTabRemoved: aBrTabModel [
 { #category : #'private - accessing' }
 BrTabGroupHeaderLook >> onTabSelected: aTabModel [
 	self toolbar removeChildren.
-	self toolbar addChild: aTabModel actionStencilBuilder asElement
+	
+	aTabModel actionStencilBuilder
+		ifNotNil: [ self toolbar addChild: aTabModel actionStencilBuilder asElement ]
 ]
 
 { #category : #hooks }

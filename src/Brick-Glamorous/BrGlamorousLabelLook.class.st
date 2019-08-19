@@ -9,7 +9,5 @@ BrGlamorousLabelLook >> initialize [
 	super initialize.
 	
 	self add: BrLayoutResizerLook new inherit.
-	self add: (BrLayoutAlignmentLook forHorizontalLinearLayout).
-
-	labelElement padding: (BlInsets all: 1).
+	self add: (BrLayoutAlignmentLook forHorizontalLinearLayout)
 ]
