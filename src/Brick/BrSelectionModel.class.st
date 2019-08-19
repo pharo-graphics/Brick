@@ -35,6 +35,13 @@ BrSelectionModel >> deselectAll [
 	self selection reverseDo: [ :aMonotoneSelection | self deselect: aMonotoneSelection from to: aMonotoneSelection to ]
 ]
 
+{ #category : #'api - selection' }
+BrSelectionModel >> deselectOne: anIndex [
+	"Deselect items with a given index"
+
+	self deselect: anIndex to: anIndex
+]
+
 { #category : #'gt-inspector-extension' }
 BrSelectionModel >> gtInspectorSelectionGraphIn: aComposite [
 	<gtInspectorPresentationOrder: 1> 
@@ -49,11 +56,25 @@ BrSelectionModel >> gtInspectorSelectionListIn: aComposite [
 	^ self selection gtInspectorSelectionListIn: aComposite
 ]
 
+{ #category : #'api - testing' }
+BrSelectionModel >> hasSelection [
+	<return: #Boolean>
+	
+	^ selection isNotEmpty
+]
+
 { #category : #initialization }
 BrSelectionModel >> initialize [
 	super initialize.
 
 	selection := BlCompositeSelection new
+]
+
+{ #category : #hooks }
+BrSelectionModel >> initializeListeners [
+	super initializeListeners.
+
+	self when: BrSelectionRequest reply: [ BrSelectionChanged new selection: self selection ]
 ]
 
 { #category : #notifying }
@@ -69,13 +90,6 @@ BrSelectionModel >> notifySelected: anInterval [
 { #category : #notifying }
 BrSelectionModel >> notifySelected: anInterval dueTo: aSourceEvent [
 	self dispatchEvent: (BrSelectionChanged new selection: self selection; selectedInterval: anInterval; sourceEvent: aSourceEvent)
-]
-
-{ #category : #hooks }
-BrSelectionModel >> onAttachedTo: anElement [
-	super onAttachedTo: anElement.
-
-	self when: BrSelectionRequest reply: [ BrSelectionChanged new selection: self selection ]
 ]
 
 { #category : #'api - selection' }

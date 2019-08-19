@@ -428,48 +428,6 @@ BrExamplesShowroom >> materialReversedToggle [
 		look: BrMaterialToggleWithLabelLook + BrMaterialToggleWithIconLook
 ]
 
-{ #category : #tabs }
-BrExamplesShowroom >> materialTabs [
-	<gtExample>
-	<description: 'Tabs with material look'>
-	| aTabGroup |
-
-	aTabGroup := BrTabGroup new.
-	aTabGroup look: BrMaterialTabGroupLook new.
-
-	aTabGroup addTab: (BrTab new
-		look: BrMaterialTabLook new;
-		label: 'Tab 1';
-		stencil: [ BlElement new
-			constraintsDo: [ :c |
-				c horizontal exact: 300.
-				c vertical matchParent ];
-			margin: (BlInsets all: 10);
-			background: (Color red alpha: 0.2) ]).
-
-	aTabGroup addTab: (BrTab new
-		look: BrMaterialTabLook new;
-		label: 'Tab 2';
-		stencil: [ BlElement new
-			margin: (BlInsets all: 10);
-			constraintsDo: [ :c |
-				c horizontal matchParent.
-				c vertical matchParent ];
-			background: (Color blue alpha: 0.2) ]).
-
-	aTabGroup addTab: (BrTab new
-		look: BrMaterialTabLook new;
-		label: 'Tab 3';
-		stencil: [ BlElement new
-			constraintsDo: [ :c |
-				c horizontal matchParent.
-				c vertical exact: 300 ];
-			margin: (BlInsets all: 10);
-			background: (Color orange alpha: 0.2) ]).
-
-	^ aTabGroup
-]
-
 { #category : #toggle }
 BrExamplesShowroom >> materialToggle [
 	<gtExample>

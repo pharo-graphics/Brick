@@ -1,11 +1,12 @@
 Class {
 	#name : #BrTabGroupModel,
 	#superclass : #BrWidgetModel,
+	#traits : 'TBrSelectable',
+	#classTraits : 'TBrSelectable classTrait',
 	#instVars : [
-		'tabs',
-		'selectedTab'
+		'tabs'
 	],
-	#category : 'Brick-Tabs - Model'
+	#category : #'Brick-Tabs - Model'
 }
 
 { #category : #'instance creation' }
@@ -42,7 +43,7 @@ BrTabGroupModel >> gtInspectorTabsIn: aComposite [
 BrTabGroupModel >> hasSelectedTab [
 	<return: #Boolean>
 	
-	^ selectedTab isNotNil
+	^ selectionModel hasSelection
 ]
 
 { #category : #'api - testing' }
@@ -52,11 +53,31 @@ BrTabGroupModel >> hasTab: aBrTabModel [
 	^ self tabs identityIncludes: aBrTabModel
 ]
 
+{ #category : #'api - tabs' }
+BrTabGroupModel >> indexOf: aTab [
+	<return: #Boolean>
+
+	^ self tabs indexOf: aTab
+]
+
 { #category : #initialization }
 BrTabGroupModel >> initialize [
 	super initialize.
 	
+	"selection is an essential part of the Tab API"
+	self add: (selectionModel := BrSelectionModel new).
 	tabs := OrderedCollection new
+]
+
+{ #category : #hooks }
+BrTabGroupModel >> initializeListeners [
+	super initializeListeners.
+	
+	"answer if somebody is interested in what tabs I have"
+	self when: BrTabsRequest reply: [ :aResponse | aResponse tabs: self tabs ].
+	self when: BrSelectionChanged do: [ :anEvent | anEvent
+		deselectedDo: [ :anInterval | anInterval do: [ :eachTabIndex | self notifyTabDeselected: (self tabs at: eachTabIndex) ] ] ;
+		selectedDo: [ :anInterval | anInterval do: [ :eachTabIndex | self notifyTabSelected: (self tabs at: eachTabIndex) ] ] ]
 ]
 
 { #category : #'api - testing' }
@@ -72,7 +93,14 @@ BrTabGroupModel >> isNotEmpty [
 	"Return true if there is at least one tab in a group, false otherwise"
 	<return: #Boolean>
 
-	^ self isEmpty not
+	^ self tabs isNotEmpty
+]
+
+{ #category : #'api - selection' }
+BrTabGroupModel >> maxSelectionIndex [
+	<return: #Number>
+	
+	^ self tabs size
 ]
 
 { #category : #notifying }
@@ -81,32 +109,31 @@ BrTabGroupModel >> notifyTabAdded: aBrTabModel at: anIndex [
 ]
 
 { #category : #notifying }
+BrTabGroupModel >> notifyTabDeselected: aBrTabModel [
+	self dispatchEvent: (BrTabDeselectedEvent tab: aBrTabModel)
+]
+
+{ #category : #notifying }
 BrTabGroupModel >> notifyTabRemoved: aBrTabModel [
 	self dispatchEvent: (BrTabRemovedEvent tab: aBrTabModel)
 ]
 
-{ #category : #hooks }
-BrTabGroupModel >> onAttachedTo: anElement [
-	super onAttachedTo: anElement.
-
-	"answer if somebody is interested in what tabs I have"
-	self when: BrTabsRequest reply: [ :aResponse | aResponse tabs: self tabs ].
-
-	anElement when: BrTabSelectedRequest do: [ :aRequest |
-		self hasSelectedTab
-			ifTrue: [ aRequest source dispatchEvent: (BrTabSelectedEvent tab: self selectedTab) ] ]
+{ #category : #notifying }
+BrTabGroupModel >> notifyTabSelected: aBrTabModel [
+	self dispatchEvent: (BrTabSelectedEvent tab: aBrTabModel)
 ]
 
 { #category : #hooks }
 BrTabGroupModel >> onTabAdded: aBrTabModel at: anIndex [
 	aBrTabModel
-		when: BrTabSelectedEvent
-		do: [ :anEvent | self onTabSelected: anEvent currentTarget ].
-	aBrTabModel
-		when: BrTabDeselectedEvent
-		do: [ :anEvent | self onTabDeselected: anEvent currentTarget ].
-	self notifyTabAdded: aBrTabModel at: anIndex.
+		when: BrSelectedWish
+		do: [ :anEvent |
+			anEvent selected
+				ifTrue: [ self onTabSelected: anEvent currentTarget ]
+				ifFalse: [ self onTabDeselected: anEvent currentTarget ] ].
 
+	self notifyTabAdded: aBrTabModel at: anIndex.
+		
 	"if user adds a tab marked as selected we should force select it"
 	aBrTabModel isSelected
 		ifTrue: [ ^ self onTabSelected: aBrTabModel ].
@@ -118,10 +145,7 @@ BrTabGroupModel >> onTabAdded: aBrTabModel at: anIndex [
 
 { #category : #hooks }
 BrTabGroupModel >> onTabDeselected: aBrTabModel [
-	selectedTab == aBrTabModel
-		ifTrue: [
-			selectedTab := nil.
-			self dispatchEvent: (BrTabDeselectedEvent tab: aBrTabModel) ]
+	self deselectOne: (self indexOf: aBrTabModel)
 ]
 
 { #category : #hooks }
@@ -135,8 +159,7 @@ BrTabGroupModel >> onTabSelected: aBrTabModel [
 		select: [ :eachTabModel | eachTabModel ~~ aBrTabModel ]
 		thenDo: #deselect.
 
-	selectedTab := aBrTabModel.
-	self dispatchEvent: (BrTabSelectedEvent tab: aBrTabModel)
+	self selectOne: (self indexOf: aBrTabModel)
 ]
 
 { #category : #'api - tabs' }
@@ -165,7 +188,7 @@ BrTabGroupModel >> selectedTab [
 		assert: [ self hasSelectedTab ]
 		description: [ 'Can not access a selected tab if there is no one' ].
 		
-	^ selectedTab
+	^ self tabs at: self selection from
 ]
 
 { #category : #accessing }

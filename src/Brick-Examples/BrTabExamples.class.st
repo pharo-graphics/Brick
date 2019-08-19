@@ -7,16 +7,19 @@ Class {
 { #category : #'examples - tab model' }
 BrTabExamples >> deselectTabModel [
 	<gtExample>
-	| aTabModel selected deselected deselectedTab selectedHander deselectedHandler |
+	| aTabModel selected deselected deselectedTab deselectedHandler |
 	
 	selected := deselected := 0.
 	deselectedTab := nil.
 	
 	aTabModel := self selectTabModel.
-	aTabModel addEventHandler: (selectedHander := BlEventHandler on: BrTabSelectedEvent do: [ selected := selected + 1 ]).
-	aTabModel addEventHandler: (deselectedHandler := BlEventHandler on: BrTabDeselectedEvent do: [ :anEvent |
-		deselected := deselected + 1.
-		deselectedTab := anEvent tab ]).
+	
+	aTabModel addEventHandler: (deselectedHandler := BlEventHandler on: BrSelectedWish do: [ :anEvent |
+		anEvent selected
+			ifTrue: [ selected := selected + 1 ]
+			ifFalse: [
+				deselected := deselected + 1.
+				deselectedTab := anEvent currentTarget ] ]).
 	
 	aTabModel deselect.
 
@@ -25,7 +28,6 @@ BrTabExamples >> deselectTabModel [
 	self assert: deselected equals: 1.
 	self assert: deselectedTab equals: aTabModel.
 	
-	aTabModel removeEventHandler: selectedHander.
 	aTabModel removeEventHandler: deselectedHandler.
 
 	^ aTabModel
@@ -143,137 +145,21 @@ BrTabExamples >> groupTabLook [
 	^ BrTextLabelLook asLook
 ]
 
-{ #category : #'examples - ui' }
-BrTabExamples >> materialActionGroup [
-	<gtExample>
-	| tab1 tab2 tab3 tabGroup tabGroupElement |
-
-	tab1 := BrTabModel new
-		add: (BrLabelModel text: 'Tab 1');
-		stencil: [
-			BlElement new
-				size: 200@200;
-				background: (Color blue alpha: 0.5) ];
-		actionsStencil: [ 
-			| aToolbar |
-			aToolbar := BrToolbar new.
-			aToolbar look: BrToolbarLook new.
-			aToolbar addItem: (BrButton new 
-				look: BrMaterialToggleLabelledLook;
-				label: 'Hello'; 
-				action: [ self inform: 'Click on Hello' ]).
-			aToolbar addItem: (BrButton new 
-					look: BrMaterialToggleLabelledLook;
-					label: 'World'; 
-					action: [ self inform: 'Click on World' ]) ].
-
-	tab2 := BrTabModel new
-		add: (BrLabelModel text: 'Tab 2');
-		add: BrActivationModel disabled.
-
-	tab3 := BrTabModel new
-		add: (BrLabelModel text: 'Tab 3');
-		stencil: [ BlElement new
-			size: 200@200;
-			background: (Color red alpha: 0.5) ].
-
-	tabGroup := BrTabGroupModel with: { tab1 . tab2. tab3 }.
-
-	tabGroup tabs do: [ :aTab |
-		BlElement new
-			look: BrMaterialTabLabelledLook;
-			viewModel: aTab ].
-
-	tabGroupElement := BlElement new
-		look: BrMaterialTabGroupLook;
-		viewModel: tabGroup.
-	
-	self assert: tabGroupElement children size equals: 3. "header + splitter + content"
-	self assert: tabGroupElement children first children size equals: 2. "tab bar + tool bar"
-	^ tabGroupElement
-]
-
-{ #category : #'examples - ui' }
-BrTabExamples >> materialGroup [
-	<gtExample>
-	| tab1 tab2 tab3 tabGroup |
-
-	tab1 := BrTabModel new
-		add: (BrLabelModel text: 'Tab 1');
-		stencil: [ BlElement new
-			size: 200@200;
-			background: (Color red alpha: 0.5) ].
-
-	tab2 := BrTabModel new
-		add: (BrLabelModel text: 'Tab 2');
-		add: BrActivationModel disabled.
-
-	tab3 := BrTabModel new
-		add: (BrLabelModel text: 'Tab 3');
-		stencil: [ BlElement new
-			size: 200@200;
-			background: (Color blue alpha: 0.5) ].
-
-	tabGroup := BrTabGroupModel with: { tab1 . tab2. tab3 }.
-
-	tabGroup tabs do: [ :aTab |
-		BlElement new
-			look: BrMaterialTabLabelledLook;
-			viewModel: aTab ].
-
-	^ BlElement new
-		look: BrMaterialTabGroupLook;
-		viewModel: tabGroup
-]
-
-{ #category : #'examples - ui' }
-BrTabExamples >> materialGroupNestedInAnotherGroup [
-	<gtExample>
-	| tab1 tabGroup |
-	tab1 := BrTabModel new
-		add: (BrLabelModel text: 'Parent Tab 1');
-		stencil: [ self materialGroup ].
-	tabGroup := BrTabGroupModel with: { tab1 }.
-	tabGroup tabs do: [ :aTab |
-		BlElement new
-			look: BrMaterialTabLabelledLook;
-			viewModel: aTab ].
-	^ BlElement new
-		look: BrMaterialTabGroupLook;
-		viewModel: tabGroup
-]
-
-{ #category : #'examples - ui' }
-BrTabExamples >> materialLabelledTab [
-	<gtExample>
-	| tabModel tabLook tabElement labelModel |
-	
-	tabModel := BrTabModel new add: (labelModel := BrLabelModel text: 'Tab 1').
-	tabLook := BrMaterialTabLabelledLook asLook.
-
-	tabElement := BlElement new.
-	tabElement viewModel: tabModel.
-	tabElement look: tabLook.
-
-	self assert: tabElement children asArray equals: { tabLook labelLook label }.
-	self assert: tabElement children first text asString equals: labelModel text asString.
-
-	^ tabElement
-]
-
 { #category : #'examples - tab model' }
 BrTabExamples >> selectTabModel [
 	<gtExample>
-	| aTabModel selected selectedTab deselected selectedHander deselectedHandler |
+	| aTabModel selected selectedTab deselected selectedHander |
 	
 	selected := deselected := 0.
 	selectedTab := nil.
 	
 	aTabModel := self tabModel.
-	aTabModel addEventHandler: (selectedHander := BlEventHandler on: BrTabSelectedEvent do: [ :anEvent |
-		selected := selected + 1.
-		selectedTab := anEvent tab ]).
-	aTabModel addEventHandler: (deselectedHandler := BlEventHandler on: BrTabDeselectedEvent do: [	deselected := deselected + 1 ]).
+	aTabModel addEventHandler: (selectedHander := BlEventHandler on: BrSelectedWish do: [ :anEvent |
+		anEvent selected
+			ifTrue: [
+				selected := selected + 1.
+				selectedTab := anEvent currentTarget ]
+			ifFalse: [ deselected := deselected + 1 ] ]).
 	
 	aTabModel select.
 	
@@ -283,7 +169,6 @@ BrTabExamples >> selectTabModel [
 	self assert: selectedTab equals: aTabModel.
 
 	aTabModel removeEventHandler: selectedHander.
-	aTabModel removeEventHandler: deselectedHandler.
 
 	^ aTabModel
 ]
@@ -303,18 +188,27 @@ BrTabExamples >> tabGroupModel [
 { #category : #'examples - tab group model' }
 BrTabExamples >> tabGroupWithOneTab [
 	<gtExample>
-	| aTabGroupModel aTab |
+	| aTabGroupModel aTab theWishes |
 	
 	aTabGroupModel := self tabGroupModel.
 	self assert: aTabGroupModel isEmpty.
 	self assert: aTabGroupModel hasSelectedTab not.
 	
 	aTab := self tabModel.
+	
+	theWishes := OrderedCollection new.
+	aTab when: BrSelectedWish do: [ :aWish | theWishes add: aWish ].
+
 	self assert: aTab isSelected not.
 
 	aTabGroupModel addTab: aTab.
-	
+
 	self assert: aTab isSelected.
+	"make sure that a tab received a selection wish"
+	self assert: theWishes size equals: 1.
+	self assert: (theWishes first isKindOf: BrSelectedWish).
+	self assert: theWishes first selected.
+
 	self assert: aTabGroupModel isNotEmpty.
 	self assert: aTabGroupModel hasSelectedTab.
 	self assert: aTabGroupModel selectedTab equals: aTab.

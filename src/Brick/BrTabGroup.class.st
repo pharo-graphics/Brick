@@ -33,7 +33,7 @@ BrTabGroup >> hasTab: anElement [
 BrTabGroup >> initialize [
 	super initialize.
 
-	self viewModel: BrTabGroupModel new
+	self viewModel: (BrTabGroupModel new)
 ]
 
 { #category : #'api - adding / removing' }
