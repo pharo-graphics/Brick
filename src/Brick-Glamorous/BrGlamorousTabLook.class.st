@@ -32,8 +32,3 @@ BrGlamorousTabLook >> initialize [
 	
 	self addChangeAddChildAs: #(content bar) with: [ bar ]
 ]
-
-{ #category : #'event handling' }
-BrGlamorousTabLook >> invisibleBar [
-	bar background: Color transparent
-]

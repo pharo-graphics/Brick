@@ -145,6 +145,42 @@ BrTabExamples >> groupTabLook [
 	^ BrTextLabelLook asLook
 ]
 
+{ #category : #'examples - tab group model' }
+BrTabExamples >> removeNotSelectedTabFromGroupWithTwoTabs [
+	<gtExample>
+	| aTabGroup |
+
+	aTabGroup := self tabGroupWithTwoTabsSelectedAfterAdding.
+
+	self assert: aTabGroup selectedTab equals: aTabGroup tabs second.
+	aTabGroup removeTab: aTabGroup tabs first.
+
+	self assert: aTabGroup isNotEmpty.
+	self assert: aTabGroup hasSelectedTab.
+	self assert: aTabGroup selectedTab equals: aTabGroup tabs first.
+	self assert: aTabGroup tabs first isSelected.
+
+	^ aTabGroup
+]
+
+{ #category : #'examples - tab group model' }
+BrTabExamples >> removeSelectedTabFromGroupWithTwoTabs [
+	<gtExample>
+	| aTabGroup |
+
+	aTabGroup := self tabGroupWithTwoTabsSelectedAfterAdding.
+
+	self assert: aTabGroup selectedTab equals: aTabGroup tabs second.	
+	aTabGroup removeTab: aTabGroup selectedTab.
+
+	self assert: aTabGroup isNotEmpty.
+	self assert: aTabGroup hasSelectedTab.
+	self assert: aTabGroup selectedTab equals: aTabGroup tabs first.
+	self assert: aTabGroup tabs first isSelected.
+
+	^ aTabGroup
+]
+
 { #category : #'examples - tab model' }
 BrTabExamples >> selectTabModel [
 	<gtExample>

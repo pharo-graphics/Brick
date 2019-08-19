@@ -37,7 +37,8 @@ BrTabModel >> contentStencilBuilder [
 
 { #category : #'api - selection' }
 BrTabModel >> deselect [
-	self dispatchEvent: (BrSelectedWish selected: false)
+	self isSelected
+		ifTrue: [ self dispatchEvent: (BrSelectedWish selected: false) ]
 ]
 
 { #category : #hooks }
@@ -52,13 +53,6 @@ BrTabModel >> initializeListeners [
 	super initializeListeners.
 
 	self when: BrSelectedWish do: [ :aWish | selected := aWish selected ]
-
-	"self
-		when: BrTabStateRequest
-		do: [ :anEvent |
-			anEvent source dispatchEvent: (self isSelected
-				ifTrue: [ BrTabSelectedEvent tab: self ]
-				ifFalse: [ BrTabDeselectedEvent tab: self ]) ]"
 ]
 
 { #category : #'api - selection' }
@@ -84,7 +78,8 @@ BrTabModel >> labelText [
 
 { #category : #'api - selection' }
 BrTabModel >> select [
-	self dispatchEvent: (BrSelectedWish selected: true)
+	self isSelected
+		ifFalse: [ self dispatchEvent: (BrSelectedWish selected: true) ]
 ]
 
 { #category : #'api - tab' }

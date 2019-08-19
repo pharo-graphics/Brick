@@ -145,6 +145,10 @@ BrTabGroupModel >> onTabAdded: aBrTabModel at: anIndex [
 
 { #category : #hooks }
 BrTabGroupModel >> onTabDeselected: aBrTabModel [
+	self
+		assert: [ self hasTab: aBrTabModel ]
+		description: [ 'A tab must exist' ].
+
 	self deselectOne: (self indexOf: aBrTabModel)
 ]
 
@@ -164,16 +168,22 @@ BrTabGroupModel >> onTabSelected: aBrTabModel [
 
 { #category : #'api - tabs' }
 BrTabGroupModel >> removeTab: aBrTabModel [
-	| aTabIndex wasSelected |
-	
-	aTabIndex := self tabs indexOf: aBrTabModel.
-	self tabs remove: aBrTabModel.
-	
+	| aTabIndex wasSelected aSelectedTab |
+
 	"we have to deselect removed tab and select a new one before sending tab removed event
 	otherwise deselection event will not bubble"
 	wasSelected := aBrTabModel isSelected.
 	aBrTabModel deselect.
+
+	aSelectedTab := (self hasSelectedTab and: [ wasSelected not ])
+		ifTrue: [ self selectedTab ].
+
+	aTabIndex := self tabs indexOf: aBrTabModel.
+	self tabs remove: aBrTabModel.
 	
+	aSelectedTab
+		ifNotNil: [ self selectOne: (self indexOf: aSelectedTab) ].
+
 	(self isNotEmpty and: [ wasSelected ])
 		ifTrue: [ (self tabs at: (aTabIndex min: self tabs size)) select ].
 

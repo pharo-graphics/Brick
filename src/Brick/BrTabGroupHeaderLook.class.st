@@ -29,12 +29,12 @@ BrTabGroupHeaderLook >> headerDo: aBlock [
 BrTabGroupHeaderLook >> initialize [
 	super initialize.
 	tabs := OrderedCollection new.
-	header := BlElement new.
-	scrollTabbar := BlScrollableElement new.
+	header := BlElement new labeled: 'Header'.
+	scrollTabbar := BlScrollableElement new  labeled: 'Scrollable'.
 	header addChild: scrollTabbar as: #scrolltabbar.
-	tabbar := BlElement new.
+	tabbar := BlElement new labeled: 'Tabbar'.
 	scrollTabbar addChild: tabbar as: #tabbar.
-	toolbar := BlElement new.
+	toolbar := BlElement new labeled: 'Toolbar'.
 	header addChild: toolbar as: #toolbar.
 	self addChangeAddChildAs: #(header) with: [ header ]
 ]

@@ -29,7 +29,7 @@ BrGlamorousTabGroupHeaderLook >> initialize [
 	"toolbar here is not a toolbar itself, it is a container for it, the actual toolbar is built using a stencil from BrTabModel"
 	self toolbarDo: [ :anElement | anElement look: BrLayoutLook linearHorizontal fitContent alignCenter ].
 
-	splitter := BlElement new.
+	splitter := BlElement new labeled: 'Splitter'.
 	splitter background: Color veryVeryLightGray.
 	splitter constraintsDo: [ :c |
 		c horizontal matchParent.
