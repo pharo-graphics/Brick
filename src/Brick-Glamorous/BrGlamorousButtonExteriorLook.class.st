@@ -2,7 +2,8 @@ Class {
 	#name : #BrGlamorousButtonExteriorLook,
 	#superclass : #BrInteractiveCommonLook,
 	#instVars : [
-		'backgroundPaint'
+		'backgroundPaint',
+		'borderWidth'
 	],
 	#category : #'Brick-Glamorous-Buttons - Support'
 }
@@ -17,11 +18,22 @@ BrGlamorousButtonExteriorLook >> backgroundPaint: aPaint [
 	backgroundPaint := aPaint
 ]
 
+{ #category : #accessing }
+BrGlamorousButtonExteriorLook >> borderWidth [
+	^ borderWidth
+]
+
+{ #category : #accessing }
+BrGlamorousButtonExteriorLook >> borderWidth: anInteger [
+	borderWidth := anInteger
+]
+
 { #category : #initialization }
 BrGlamorousButtonExteriorLook >> initialize [
 	super initialize.
 	
 	backgroundPaint := Color white.
+	borderWidth := 1.
 
 	self
 		addChangeProperty: #(widgetContent background)
@@ -29,7 +41,7 @@ BrGlamorousButtonExteriorLook >> initialize [
 
 	self
 		addChangeProperty: #(widget border)
-		with: (BlBorder paint: BrGlamorousColors defaultButtonBorderColor width: 1).
+		with: (BlBorder paint: BrGlamorousColors defaultButtonBorderColor width: self borderWidth).
 	
 	self
 		style: [ :aStyler | 
@@ -37,18 +49,18 @@ BrGlamorousButtonExteriorLook >> initialize [
 				default: [ :aWidget | 
 					aWidget
 						background: BrGlamorousColors defaultButtonBackgroundColor;
-						border: (BlBorder paint: BrGlamorousColors defaultButtonBorderColor width: 1) ].
+						border: (BlBorder paint: BrGlamorousColors defaultButtonBorderColor width: self borderWidth) ].
 			aStyler
 				hovered: [ :aWidget | 
 					aWidget
-						border: (BlBorder paint: BrGlamorousColors hoveredButtonBorderColor width: 1) ].
+						border: (BlBorder paint: BrGlamorousColors hoveredButtonBorderColor width: self borderWidth) ].
 			aStyler
 				pressed: [ :aWidget | 
 					aWidget
-						border: (BlBorder paint: BrGlamorousColors pressedButtonBorderColor width: 1) ].
+						border: (BlBorder paint: BrGlamorousColors pressedButtonBorderColor width: self borderWidth) ].
 			aStyler
 				disabled: [ :aWidget | 
 					aWidget
 						background: BrGlamorousColors disabledButtonBackgroundColor;
-						border: (BlBorder paint: BrGlamorousColors disabledButtonBorderColor width: 1) ] ]
+						border: (BlBorder paint: BrGlamorousColors disabledButtonBorderColor width: self borderWidth) ] ]
 ]
