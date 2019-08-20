@@ -49,7 +49,7 @@ BrTabGroupHeaderLook >> initializeListeners [
 		when: BrTabRemovedEvent
 		do: [ :anEvent | self onTabRemoved: anEvent tab ].
 	self
-		when: BrTabsChangedEvent
+		when: BrTabGroupTabsChangedEvent
 		do: [ :anEvent | self onTabsChanged: anEvent tabs ].
 	self
 		when: BrTabSelectedEvent
@@ -63,7 +63,7 @@ BrTabGroupHeaderLook >> initializeListeners [
 BrTabGroupHeaderLook >> initializeRequests [
 	super initializeRequests.
 	
-	self request: BrTabsRequest new
+	self request: BrTabGroupTabsRequest new
 ]
 
 { #category : #hooks }
@@ -101,9 +101,9 @@ BrTabGroupHeaderLook >> onTabRemoved: aBrTabModel [
 { #category : #'private - accessing' }
 BrTabGroupHeaderLook >> onTabSelected: aTabModel [
 	self toolbar removeChildren.
-	
-	aTabModel actionStencilBuilder
-		ifNotNil: [ self toolbar addChild: aTabModel actionStencilBuilder asElement ]
+
+	aTabModel toolbarStencilBuilder
+		ifNotNil: [ self toolbar addChild: aTabModel toolbarStencilBuilder asElement ]
 ]
 
 { #category : #hooks }

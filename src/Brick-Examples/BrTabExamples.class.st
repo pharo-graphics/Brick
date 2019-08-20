@@ -114,10 +114,10 @@ BrTabExamples >> groupHeaderWithoutBoundTabs [
 	tab3 := BrTabModel new add: (BrLabelModel text: 'Tab 3').
 	
 	tabGroup := BrTabGroupModel with: { tab1 . tab2 . tab3 }.
-	tabGroup when: BrTabsRequest do: [ :aTabsRequest | tabsRequest := aTabsRequest copy ].
+	tabGroup when: BrTabGroupTabsRequest do: [ :aTabsRequest | tabsRequest := aTabsRequest copy ].
 	
 	headerLook := self groupHeaderLook.
-	headerLook when: BrTabsChangedEvent do: [ :aTabsChanged | tabsChanged := aTabsChanged copy ].
+	headerLook when: BrTabGroupTabsChangedEvent do: [ :aTabsChanged | tabsChanged := aTabsChanged copy ].
 	
 	headerElement := BlElement new
 		look: headerLook;

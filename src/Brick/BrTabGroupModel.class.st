@@ -74,10 +74,14 @@ BrTabGroupModel >> initializeListeners [
 	super initializeListeners.
 	
 	"answer if somebody is interested in what tabs I have"
-	self when: BrTabsRequest reply: [ :aResponse | aResponse tabs: self tabs ].
+	self when: BrTabGroupTabsRequest reply: [ :aResponse | aResponse tabs: self tabs ].
 	self when: BrSelectionChanged do: [ :anEvent | anEvent
-		deselectedDo: [ :anInterval | anInterval do: [ :eachTabIndex | self notifyTabDeselected: (self tabs at: eachTabIndex) ] ] ;
-		selectedDo: [ :anInterval | anInterval do: [ :eachTabIndex | self notifyTabSelected: (self tabs at: eachTabIndex) ] ] ]
+		deselectedDo: [ :anInterval | anInterval do: [ :eachTabIndex |
+			(eachTabIndex between: 1 and: tabs size)
+				ifTrue: [ self notifyTabDeselected: (self tabs at: eachTabIndex) ] ] ] ;
+		selectedDo: [ :anInterval | anInterval do: [ :eachTabIndex |
+			(eachTabIndex between: 1 and: tabs size)	
+				ifTrue: [ self notifyTabSelected: (self tabs at: eachTabIndex) ] ] ] ]
 ]
 
 { #category : #'api - testing' }
@@ -178,11 +182,11 @@ BrTabGroupModel >> removeTab: aBrTabModel [
 	aSelectedTab := (self hasSelectedTab and: [ wasSelected not ])
 		ifTrue: [ self selectedTab ].
 
-	aTabIndex := self tabs indexOf: aBrTabModel.
-	self tabs remove: aBrTabModel.
-
 	aSelectedTab
 		ifNotNil: [ self selectOne: (self indexOf: aSelectedTab) ].
+
+	aTabIndex := self tabs indexOf: aBrTabModel.
+	self tabs remove: aBrTabModel.
 
 	(self isNotEmpty and: [ wasSelected ])
 		ifTrue: [ (self tabs at: (aTabIndex min: self tabs size)) select ].

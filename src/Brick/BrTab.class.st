@@ -11,6 +11,13 @@ Class {
 }
 
 { #category : #'api - accessing' }
+BrTab >> actionbarStencil: anActionbarStencilBuilder [
+	"See ${method:BrTabModel>>#actionbarStencil:}"
+
+	self viewModel actionbarStencil: anActionbarStencilBuilder
+]
+
+{ #category : #'api - accessing' }
 BrTab >> actionsStencil: anActionStencilBuilder [
 	self
 		deprecated: 'Please use #toolbarStencil: instead'
@@ -27,6 +34,8 @@ BrTab >> deselect [
 
 { #category : #'api - accessing' }
 BrTab >> icon [
+	<return: #BlElement>
+
 	^ iconModel icon
 ]
 
@@ -56,6 +65,8 @@ BrTab >> initialize [
 
 { #category : #'api - accessing' }
 BrTab >> label [
+	<return: #BlText>
+
 	^ labelModel text
 ]
 

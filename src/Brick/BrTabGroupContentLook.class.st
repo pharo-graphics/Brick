@@ -44,7 +44,7 @@ BrTabGroupContentLook >> initializeListeners [
 BrTabGroupContentLook >> initializeRequests [
 	super initializeRequests.
 	
-	self request: BrTabSelectedRequest new
+	self request: BrSelectionRequest new
 ]
 
 { #category : #hooks }
