@@ -8,7 +8,7 @@ Class {
 BrGlamorousSpaceTabGroupLook >> initialize [
 	super initialize.
 
-	self add: BrGlamorousTabGroupHeaderLook new.
+	self add: (BrGlamorousTabGroupHeaderLook new headerDo: [:e | e padding: (BlInsets left: 10) ]).
 	self add: BrTabGroupContentLook new.
 	self add: BrLayoutResizerLook inherit.	
 
