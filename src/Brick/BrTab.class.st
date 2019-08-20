@@ -11,8 +11,18 @@ Class {
 }
 
 { #category : #'api - accessing' }
-BrTab >> actionsStencil: aStencilBuilder [
-	self viewModel actionsStencil: aStencilBuilder
+BrTab >> actionsStencil: anActionStencilBuilder [
+	self
+		deprecated: 'Please use #toolbarStencil: instead'
+		transformWith: '`@receiver actionsStencil:: `@statements1' 
+						-> '`@receiver toolbarStencil: `@statements1'.
+	
+	self toolbarStencil: anActionStencilBuilder
+]
+
+{ #category : #'api - selection' }
+BrTab >> deselect [
+	self dispatchEvent: (BrSelectedWish selected: false)
 ]
 
 { #category : #'api - accessing' }
@@ -33,7 +43,14 @@ BrTab >> initialize [
 		(labelModel := BrLabelModel new) +
 		(iconModel := BrIconModel new) +
 		(BrInteractiveModel withAll: {
-			BrLayoutAlignmentModel new centerLeft
+			BrLayoutAlignmentModel new center.
+			BrActivationModel new.
+			BrPressModel new.
+			BrHoverModel new.
+			BrSelectModel new.
+			BrDimensionModel new.
+			BrLayoutHorizontalResizerModel fitContent.
+			BrLayoutVerticalResizerModel fitContent
 	}))
 ]
 
@@ -55,12 +72,19 @@ BrTab >> parentTabGroup [
 		ifNone: [ nil ]
 ]
 
-{ #category : #'api - accessing' }
+{ #category : #'api - selection' }
 BrTab >> select [
-	self viewModel select
+	self dispatchEvent: (BrSelectedWish selected: true)
 ]
 
 { #category : #'api - accessing' }
 BrTab >> stencil: aStencilBuilder [
 	self viewModel stencil: aStencilBuilder
+]
+
+{ #category : #'api - accessing' }
+BrTab >> toolbarStencil: aToolbarStencilBuilder [
+	"See ${method:BrTabModel>>#toolbarStencil:}"
+
+	self viewModel toolbarStencil: aToolbarStencilBuilder
 ]

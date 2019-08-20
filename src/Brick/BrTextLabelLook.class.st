@@ -42,6 +42,7 @@ BrTextLabelLook >> initialize [
 	labelElement clipChildren: false.
 	labelElement text: text.
 	labelElement labelMeasurement.
+	labelElement padding: (BlInsets all: 1).
 	
 	attributesBuilder := BlTextDelegatedAttributesBuilder new.
 	attributesBuilder attributesTarget: text.
