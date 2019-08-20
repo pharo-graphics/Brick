@@ -44,9 +44,14 @@ BrLook >> = anObject [
 
 { #category : #'api - composition' }
 BrLook >> add: aBrLook [
+	"Add a given look instance if it does not exist already"
 	| aLookInstance |
 
 	aLookInstance := aBrLook asLook.
+	
+	(actors includes: aLookInstance)
+		ifTrue: [ ^ self ].
+
 	actors := actors copyWith: aLookInstance.
 
 	self widgetDo: [ :anElement | aLookInstance onInstalledIn: anElement ]
@@ -167,6 +172,7 @@ BrLook >> onUninstalledIn: anElement [
 
 { #category : #'api - composition' }
 BrLook >> remove: aBrLook [
+	"Remove a given look if it exists"
 	| aLookInstance |
 
 	aLookInstance := aBrLook asLook.
