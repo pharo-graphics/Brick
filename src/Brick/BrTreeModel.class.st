@@ -8,6 +8,11 @@ Class {
 }
 
 { #category : #'expanding-collapsing' }
+BrTreeModel >> collapseAll [
+	self root withAllChildrenNodesBreadthFirstDo: [ :eachNode | eachNode collapse ]
+]
+
+{ #category : #'expanding-collapsing' }
 BrTreeModel >> expandAll [
 	self root withAllChildrenNodesBreadthFirstDo: [ :eachNode | eachNode expand ]
 ]

@@ -19,6 +19,14 @@ BrTreeNode class >> on: anObject computed: aComputationBlock [
 ]
 
 { #category : #enumeration }
+BrTreeNode >> allChildrenNodesBreadthFirst [
+	| nodes |
+	nodes := OrderedCollection new.
+	self allChildrenNodesBreadthFirstDo: [ :e | nodes add: e ].
+	^ nodes
+]
+
+{ #category : #enumeration }
 BrTreeNode >> allChildrenNodesBreadthFirstDo: aBlock [ 
 	self childrenNodesDo: aBlock.
 	self childrenNodesDo: [ :eachNode | eachNode allChildrenNodesBreadthFirstDo: aBlock ]
@@ -267,7 +275,30 @@ BrTreeNode >> value: anObject computation: aComputationBlock [
 ]
 
 { #category : #enumeration }
+BrTreeNode >> withAllChildrenNodesBreadthFirst [
+	| nodes |
+	nodes := OrderedCollection new.
+	self withAllChildrenNodesBreadthFirstDo: [ :e | nodes add: e ].
+	^ nodes
+]
+
+{ #category : #enumeration }
 BrTreeNode >> withAllChildrenNodesBreadthFirstDo: aBlock [ 
 	aBlock value: self.
 	self allChildrenNodesBreadthFirstDo: aBlock
+]
+
+{ #category : #enumeration }
+BrTreeNode >> withAllParentNodes [
+	| nodes |
+	nodes := OrderedCollection new.
+	self withAllParentNodesDo: [ :e | nodes add: e ].
+	^ nodes
+]
+
+{ #category : #enumeration }
+BrTreeNode >> withAllParentNodesDo: aBlock [
+	self hasParent
+		ifTrue: [ self parent withAllParentNodesDo: aBlock ].
+	aBlock value: self
 ]
