@@ -139,7 +139,7 @@ BrTreeNode >> expand [
 
 { #category : #accessing }
 BrTreeNode >> globalIndexInTree [
-   ^ self localIndexToGlobal: 1
+   ^ self localIndexToGlobal: 0
 ]
 
 { #category : #testing }
@@ -192,7 +192,7 @@ BrTreeNode >> localIndexToGlobal: anIndex [
 	self parent childrenNodesDo: [ :eachNode |
 		eachNode == self
 			ifFalse: [ anOffset := anOffset + eachNode size ]
-			ifTrue: [ ^ self parent localIndexToGlobal: anIndex + anOffset ] ].
+			ifTrue: [ ^ self parent localIndexToGlobal: anIndex + anOffset + 1 ] ].
 
 	^ self parent localIndexToGlobal: anIndex + anOffset
 ]
