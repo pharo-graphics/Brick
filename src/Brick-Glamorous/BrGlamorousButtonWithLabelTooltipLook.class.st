@@ -30,14 +30,7 @@ BrGlamorousButtonWithLabelTooltipLook >> text: aTextOrString [
 						look: BrGlamorousLabelLook;
 						text: aTextOrString;
 						yourself);
-				addChild:
-					(BrButton new
-						beSmall;
-						look: BrGlamorousButtonWithIconLook;
-						icon: BrGlamorousIcons inspect;
-						label: 'Inspect action';
-						action: [ self widgetDo: [ :e | e phlow spawnObject: e action ] ];
-						margin: (BlInsets left: 5);
-						yourself);
+				when: BlClickEvent
+					do: [ self widgetDo: [ :e | e phlow spawnObject: e action ] ];
 				yourself ]
 ]
