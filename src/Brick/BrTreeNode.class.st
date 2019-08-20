@@ -116,20 +116,30 @@ BrTreeNode >> depth [
 		ifFalse: [ 0 - isHidden asBit ]
 ]
 
+{ #category : #accessing }
+BrTreeNode >> ensureChildNodesComputed [
+	"Make sure child nodes are computed."
+	children keysAndValuesDo: [ :eachValue :eachNode |
+		eachNode ifNil: [ children at: eachValue put: (self newSubNode: eachValue) ] ].
+
+]
+
 { #category : #controlling }
 BrTreeNode >> expand [
 	self isExpanded
 		ifTrue: [ ^ self ].
-		
 	self isEmpty
 		ifTrue: [ ^ self ].
-
-	children keysAndValuesDo: [ :eachValue :eachNode |
-		eachNode ifNil: [ children at: eachValue put: (self newSubNode: eachValue) ] ].
+	self ensureChildNodesComputed.
 
 	isExpanded := true.
 	
 	self notifyExpanded
+]
+
+{ #category : #accessing }
+BrTreeNode >> globalIndexInTree [
+   ^ self localIndexToGlobal: 1
 ]
 
 { #category : #testing }
