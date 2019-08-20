@@ -11,8 +11,13 @@ Class {
 }
 
 { #category : #'api - accessing' }
-BrTab >> actionsStencil: aStencilBuilder [
-	self viewModel actionsStencil: aStencilBuilder
+BrTab >> actionsStencil: anActionStencilBuilder [
+	self
+		deprecated: 'Please use #toolbarStencil: instead'
+		transformWith: '`@receiver actionsStencil:: `@statements1' 
+						-> '`@receiver toolbarStencil: `@statements1'.
+	
+	self toolbarStencil: anActionStencilBuilder
 ]
 
 { #category : #'api - selection' }
@@ -75,4 +80,11 @@ BrTab >> select [
 { #category : #'api - accessing' }
 BrTab >> stencil: aStencilBuilder [
 	self viewModel stencil: aStencilBuilder
+]
+
+{ #category : #'api - accessing' }
+BrTab >> toolbarStencil: aToolbarStencilBuilder [
+	"See ${method:BrTabModel>>#toolbarStencil:}"
+
+	self viewModel toolbarStencil: aToolbarStencilBuilder
 ]

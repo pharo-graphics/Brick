@@ -16,7 +16,12 @@ BrTabModel >> actionStencilBuilder [
 
 { #category : #'api - tab' }
 BrTabModel >> actionsStencil: anActionStencilBuilder [
-	actionStencilBuilder := anActionStencilBuilder asStencilBuilder
+	self
+		deprecated: 'Please use #toolbarStencil: instead'
+		transformWith: '`@receiver actionsStencil:: `@statements1' 
+						-> '`@receiver toolbarStencil: `@statements1'.
+	
+	self toolbarStencil: anActionStencilBuilder
 ]
 
 { #category : #'mouse handlers' }
@@ -84,5 +89,16 @@ BrTabModel >> select [
 
 { #category : #'api - tab' }
 BrTabModel >> stencil: aStencilBuilder [
+	"Set a stencil to be used to create a content of a tab.
+	It should be computed lazily by the Tab widget on demand"
+
 	contentStencilBuilder := aStencilBuilder asStencilBuilder
+]
+
+{ #category : #'api - tab' }
+BrTabModel >> toolbarStencil: aToolbarStencilBuilder [
+	"Set a stencil to be used to create a toolbar for this tab.
+	A toolbar is usually located on the right side of a tab group header"
+
+	actionStencilBuilder := aToolbarStencilBuilder asStencilBuilder
 ]

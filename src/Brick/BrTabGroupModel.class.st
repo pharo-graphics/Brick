@@ -180,7 +180,7 @@ BrTabGroupModel >> removeTab: aBrTabModel [
 
 	aTabIndex := self tabs indexOf: aBrTabModel.
 	self tabs remove: aBrTabModel.
-	
+
 	aSelectedTab
 		ifNotNil: [ self selectOne: (self indexOf: aSelectedTab) ].
 
