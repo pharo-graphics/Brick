@@ -7,7 +7,8 @@ Class {
 		'tooltip',
 		'tooltipWrapper',
 		'stencil',
-		'hideLaterTask'
+		'hideLaterTask',
+		'showLaterTask'
 	],
 	#category : #'Brick-Tooltip - UI'
 }
@@ -17,6 +18,14 @@ BrWithTooltipLook >> cancelHideLater [
 	self assert: [ self visible ].
 	hideLaterTask ifNotNil: [ container dequeueTask: hideLaterTask ].
 	hideLaterTask := nil
+]
+
+{ #category : #accessing }
+BrWithTooltipLook >> cancelShowLater [
+	self assert: [ self visible not ].
+	showLaterTask
+		ifNotNil: [ self widgetDo: [ :e | e dequeueTask: showLaterTask ] ].
+	showLaterTask := nil
 ]
 
 { #category : #accessing }
@@ -33,8 +42,8 @@ BrWithTooltipLook >> hideLater [
 	hideLaterTask := BlDelayedTaskAction new
 		delay: 300 milliSeconds;
 		action: [ self visible
-				ifTrue: [ self hide.
-					hideLaterTask := nil ] ];
+				ifTrue: [ self hide ].
+			hideLaterTask := nil ];
 		yourself.
 	container enqueueTask: hideLaterTask
 ]
@@ -46,17 +55,21 @@ BrWithTooltipLook >> initialize [
 	self
 		add:
 			(BrInteractiveCommonLook new
-				default: [ self visible
+				default: [ self willShowLater
+						ifTrue: [ self cancelShowLater ].
+					self visible
 						ifTrue: [ self hideLater ] ];
 				hovered: [ self willHideLater
 						ifTrue: [ self cancelHideLater ].
 					self visible
-						ifFalse: [ self show ] ]).
+						ifFalse: [ self showLater ] ]).
 	self
 		addChange:
 			(BrLookChange new
 				up: [ :e |  ];
 				down: [ :e | 
+					self willShowLater
+						ifTrue: [ self cancelShowLater ].
 					self willHideLater
 						ifTrue: [ self cancelHideLater ].
 					self visible
@@ -187,6 +200,19 @@ BrWithTooltipLook >> show [
 ]
 
 { #category : #accessing }
+BrWithTooltipLook >> showLater [
+	self assert: [ self visible not ].
+	self cancelShowLater.
+	showLaterTask := BlDelayedTaskAction new
+		delay: 1000 milliSeconds;
+		action: [ (self visible not and: [ widget visibility shouldDraw ])
+				ifTrue: [ self show ].
+			showLaterTask := nil ];
+		yourself.
+	widget enqueueTask: showLaterTask
+]
+
+{ #category : #accessing }
 BrWithTooltipLook >> stencil [
 	^ stencil
 ]
@@ -217,4 +243,9 @@ BrWithTooltipLook >> visible: aBoolean [
 { #category : #'as yet unclassified' }
 BrWithTooltipLook >> willHideLater [
 	^ hideLaterTask isNotNil
+]
+
+{ #category : #'as yet unclassified' }
+BrWithTooltipLook >> willShowLater [
+	^ showLaterTask isNotNil
 ]
