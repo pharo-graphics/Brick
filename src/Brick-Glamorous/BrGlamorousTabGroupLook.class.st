@@ -18,6 +18,7 @@ BrGlamorousTabGroupLook >> initialize [
 
 	self addAll: {
 		headerLook := BrGlamorousTabGroupHeaderLook new.
+		BrTabGroupSplitterLook new.
 		BrTabGroupContentLook new.
 		BrLayoutResizerLook inherit }.
 

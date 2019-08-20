@@ -1,9 +1,6 @@
 Class {
 	#name : #BrGlamorousTabGroupHeaderLook,
 	#superclass : #BrTabGroupHeaderLook,
-	#instVars : [
-		'splitter'
-	],
 	#category : #'Brick-Glamorous-Tabs - Support'
 }
 
@@ -30,7 +27,6 @@ BrGlamorousTabGroupHeaderLook >> initialize [
 		- scrollable
 			- tabbar
 		- toolbar
-		- splitter
 	"
 
 	self header layout: BlLinearLayout horizontal alignCenterLeft.
@@ -43,15 +39,5 @@ BrGlamorousTabGroupHeaderLook >> initialize [
 		vAnyToFitContent: self scrollTabbar;
 		hInherit: self scrollTabbar;
 		anyToFitContent: self tabbar;
-		anyToFitContent: self toolbar).
-
-	splitter := BlElement new labeled: 'Splitter'.
-	splitter background: Color veryVeryLightGray.
-	splitter constraintsDo: [ :c |
-		c horizontal matchParent.
-		c vertical exact: 1.
-		c ignoreByLayout.
-		c ignored vertical alignBottom ].
-
-	self headerDo: [ :anElement | anElement addChild: splitter ]
+		anyToFitContent: self toolbar)
 ]

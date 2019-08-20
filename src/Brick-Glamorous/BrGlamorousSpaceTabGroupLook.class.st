@@ -8,10 +8,9 @@ Class {
 BrGlamorousSpaceTabGroupLook >> initialize [
 	super initialize.
 
-	self add: BrGlamorousSpaceTabGroupHeaderLook new.
+	self add: BrGlamorousTabGroupHeaderLook new.
 	self add: BrTabGroupContentLook new.
-
-	self add: BrLayoutResizerLook new.	
+	self add: BrLayoutResizerLook inherit.	
 
 	self addChangeProperty: #(widget layout) with: [ BlLinearLayout vertical ].
 	
