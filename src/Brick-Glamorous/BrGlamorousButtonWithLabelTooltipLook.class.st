@@ -1,8 +1,28 @@
 Class {
 	#name : #BrGlamorousButtonWithLabelTooltipLook,
 	#superclass : #BrGlamorousWithTooltipLook,
+	#instVars : [
+		'clickEventHandler'
+	],
 	#category : #'Brick-Glamorous-Buttons'
 }
+
+{ #category : #initialization }
+BrGlamorousButtonWithLabelTooltipLook >> initialize [
+	super initialize.
+	clickEventHandler := BlEventHandler
+		on: BlClickEvent
+		do: [ self willHideLater
+				ifTrue: [ self cancelHideLater ].
+			self visible
+				ifTrue: [ self hide ] ].
+	self
+		addChange:
+			(BrLookChange new
+				up: [ :e | widget addEventHandler: clickEventHandler ];
+				down: [ :e | widget removeEventHandler: clickEventHandler ];
+				yourself)
+]
 
 { #category : #initialization }
 BrGlamorousButtonWithLabelTooltipLook >> initializeListeners [
@@ -30,14 +50,7 @@ BrGlamorousButtonWithLabelTooltipLook >> text: aTextOrString [
 						look: BrGlamorousLabelLook;
 						text: aTextOrString;
 						yourself);
-				addChild:
-					(BrButton new
-						beSmall;
-						look: BrGlamorousButtonWithIconLook;
-						icon: BrGlamorousIcons inspect;
-						label: 'Inspect action';
-						action: [ self widgetDo: [ :e | e phlow spawnObject: e action ] ];
-						margin: (BlInsets left: 5);
-						yourself);
+				when: BlClickEvent
+					do: [ self widgetDo: [ :e | e phlow spawnObject: e action ] ];
 				yourself ]
 ]

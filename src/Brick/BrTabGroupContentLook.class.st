@@ -23,11 +23,11 @@ BrTabGroupContentLook >> contentDo: aBlock [
 { #category : #initialization }
 BrTabGroupContentLook >> initialize [
 	super initialize.
-	content := BlElement new
-		layout: BlLinearLayout horizontal;
-		constraintsDo: [ :c | 
-			c horizontal matchParent.
-			c vertical fitContent ].
+
+	content := BlElement new layout: BlLinearLayout horizontal.
+	
+	self add: (BrLayoutResizerLook new inherit: content).
+
 	contentElementsCache := IdentityDictionary new.
 	self addChangeAddChildAs: #(content) with: [ content ]
 ]

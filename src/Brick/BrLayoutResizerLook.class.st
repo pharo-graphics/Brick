@@ -9,13 +9,22 @@ BrLayoutResizerLook class >> inherit [
 	^ self new inherit
 ]
 
-{ #category : #'api - style' }
+{ #category : #'api - to fit content' }
 BrLayoutResizerLook >> anyToFitContent [
 	"Always fit content irrelevant from what model says"
 
 	self
 		hAnyToFitContent;
 		vAnyToFitContent
+]
+
+{ #category : #'api - to fit content element' }
+BrLayoutResizerLook >> anyToFitContent: anElement [
+	"Always fit content vertically and horizontally irrelevant from what model says"
+
+	self
+		hAnyToFitContent: anElement;
+		vAnyToFitContent: anElement
 ]
 
 { #category : #'private - testing' }
@@ -35,7 +44,7 @@ BrLayoutResizerLook >> exact: aBlock [
 	self vExact: aBlock
 ]
 
-{ #category : #'api - style' }
+{ #category : #'api - to fit content' }
 BrLayoutResizerLook >> exactToFitContent [
 	self hExactToFitContent.
 	self vExactToFitContent
@@ -76,7 +85,7 @@ BrLayoutResizerLook >> fitContentToFitContentIn: aBlock [
 	self vFitContentToFitContentIn: aBlock
 ]
 
-{ #category : #'api - style' }
+{ #category : #'api - to fit content' }
 BrLayoutResizerLook >> hAnyToFitContent [
 	"Always fit content horizontally irrelevant from what model says"
 
@@ -84,6 +93,16 @@ BrLayoutResizerLook >> hAnyToFitContent [
 		hExactToFitContent;
 		hFitContent;
 		hMatchParentToFitContent
+]
+
+{ #category : #'api - to fit content element' }
+BrLayoutResizerLook >> hAnyToFitContent: anElement [
+	"Always fit content horizontally irrelevant from what model says"
+
+	self
+		hExactToFitContent: anElement;
+		hFitContentToFitContent: anElement;
+		hMatchParentToFitContent: anElement
 ]
 
 { #category : #'api - style' }
@@ -103,11 +122,25 @@ BrLayoutResizerLook >> hExact: aBlock [
 		style: aBlock
 ]
 
-{ #category : #'api - style' }
+{ #category : #'api - to fit content' }
 BrLayoutResizerLook >> hExactToFitContent [
 	"Fit content if model specifies exact size horizontally"
 
 	self vExact: [ :aWidget | self makeFitContentHorizontally: aWidget ]
+]
+
+{ #category : #'api - to fit content element' }
+BrLayoutResizerLook >> hExactToFitContent: anElement [
+	"Fit content horizontally if model says to be exact size"	
+
+	self hExactToFitContentIn: [ :aBlock | aBlock value: anElement ]
+]
+
+{ #category : #'api - to fit content block' }
+BrLayoutResizerLook >> hExactToFitContentIn: aBlock [
+	"Fit content horizontally if model says to be exact size"
+
+	self hExact: [ aBlock value: [ :anElement | self makeFitContentHorizontally: anElement ] ]
 ]
 
 { #category : #'api - style' }
@@ -131,7 +164,7 @@ BrLayoutResizerLook >> hExactToMatchParentIn: aBlock [
 	self hExact: [ aBlock value: [ :anElement | self makeMatchParentHorizontally: anElement ] ]
 ]
 
-{ #category : #'api - style' }
+{ #category : #'api - to fit content' }
 BrLayoutResizerLook >> hFitContent [
 	"Inherit fit content horizontally if model says so"
 
@@ -166,6 +199,14 @@ BrLayoutResizerLook >> hFitContentToMatchParent [
 	self hFitContent: [ :aWidget | self makeMatchParentHorizontally: aWidget ]
 ]
 
+{ #category : #'api - inherit' }
+BrLayoutResizerLook >> hInherit: anElement [
+	self
+		hExactToMatchParent: anElement;
+		hMatchParentToMatchParent: anElement;
+		hFitContentToFitContent: anElement
+]
+
 { #category : #'api - style' }
 BrLayoutResizerLook >> hMatchParent [
 	"Inherit match parent horizontally if model says so"
@@ -180,11 +221,25 @@ BrLayoutResizerLook >> hMatchParent: aBlock [
 		style: aBlock
 ]
 
-{ #category : #'api - style' }
+{ #category : #'api - to fit content' }
 BrLayoutResizerLook >> hMatchParentToFitContent [
 	"Fit content if model specifies match parent parent horizontally"
 
 	self hMatchParent: [ :aWidget | self makeFitContentHorizontally: aWidget ]
+]
+
+{ #category : #'api - to fit content element' }
+BrLayoutResizerLook >> hMatchParentToFitContent: anElement [
+	"Fit content horizontally if model says match parent"
+
+	self hMatchParentToFitContentIn: [ :aBlock | aBlock value: anElement ]
+]
+
+{ #category : #'api - to fit content block' }
+BrLayoutResizerLook >> hMatchParentToFitContentIn: aBlock [
+	"Fit content horizontally if model says match parent"
+		
+	self hMatchParent: [ aBlock value: [ :anElement | self makeFitContentHorizontally: anElement ] ]
 ]
 
 { #category : #'api - to match parent element' }
@@ -292,7 +347,7 @@ BrLayoutResizerLook >> state [
 	^ BrLayoutResizerState
 ]
 
-{ #category : #'api - style' }
+{ #category : #'api - to fit content' }
 BrLayoutResizerLook >> vAnyToFitContent [
 	"Always fit content vertically irrelevant from what model says"
 
@@ -302,6 +357,16 @@ BrLayoutResizerLook >> vAnyToFitContent [
 		vMatchParentToFitContent
 ]
 
+{ #category : #'api - to fit content element' }
+BrLayoutResizerLook >> vAnyToFitContent: anElement [
+	"Always fit content vertically irrelevant from what model says"
+
+	self
+		vExactToFitContent: anElement;
+		vFitContentToFitContent: anElement;
+		vMatchParentToFitContent: anElement
+]
+
 { #category : #'api - style' }
 BrLayoutResizerLook >> vExact: aBlock [
 	self
@@ -309,11 +374,25 @@ BrLayoutResizerLook >> vExact: aBlock [
 		style: aBlock
 ]
 
-{ #category : #'api - style' }
+{ #category : #'api - to fit content' }
 BrLayoutResizerLook >> vExactToFitContent [
 	"Fit content if model specifies exact size vertically"
 
 	self vExact: [ :aWidget | self makeFitContentVertically: aWidget ]
+]
+
+{ #category : #'api - to fit content element' }
+BrLayoutResizerLook >> vExactToFitContent: anElement [
+	"Fit content vertically if model says to be exact size"	
+
+	self vExactToFitContentIn: [ :aBlock | aBlock value: anElement ]
+]
+
+{ #category : #'api - to fit content block' }
+BrLayoutResizerLook >> vExactToFitContentIn: aBlock [
+	"Fit content vertically if model says to be exact size"
+
+	self vExact: [ aBlock value: [ :anElement | self makeFitContentVertically: anElement ] ]
 ]
 
 { #category : #'api - style' }
@@ -372,6 +451,14 @@ BrLayoutResizerLook >> vFitContentToMatchParent [
 	self vFitContent: [ :aWidget | self makeMatchParentVertically: aWidget ]
 ]
 
+{ #category : #'api - inherit' }
+BrLayoutResizerLook >> vInherit: anElement [
+	self
+		vExactToMatchParent: anElement;
+		vMatchParentToMatchParent: anElement;
+		vFitContentToFitContent: anElement
+]
+
 { #category : #'api - style' }
 BrLayoutResizerLook >> vMatchParent [
 	"Inherit match parent vertically if model says so"
@@ -386,11 +473,25 @@ BrLayoutResizerLook >> vMatchParent: aBlock [
 		style: aBlock
 ]
 
-{ #category : #'api - style' }
+{ #category : #'api - to fit content' }
 BrLayoutResizerLook >> vMatchParentToFitContent [
 	"Fit content if model specifies match parent parent vertically"
 
 	self vMatchParent: [ :aWidget | self makeFitContentVertically: aWidget ]
+]
+
+{ #category : #'api - to fit content element' }
+BrLayoutResizerLook >> vMatchParentToFitContent: anElement [
+	"Fit content vertically if model says match parent"
+
+	self vMatchParentToFitContentIn: [ :aBlock | aBlock value: anElement ]
+]
+
+{ #category : #'api - to fit content block' }
+BrLayoutResizerLook >> vMatchParentToFitContentIn: aBlock [
+	"Fit content vertically if model says match parent"
+		
+	self vMatchParent: [ aBlock value: [ :anElement | self makeFitContentVertically: anElement ] ]
 ]
 
 { #category : #'api - to match parent element' }
