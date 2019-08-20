@@ -7,22 +7,25 @@ Class {
 { #category : #initialization }
 BrGlamorousSpaceTabGroupHeaderLook >> initialize [
 	super initialize.
-	
-	"
-	- scrollbar
-		- 
-	
-	
-	"
-	
-	self add: (BrLayoutResizerLook inherit
 		
-	).
+	"Header should always fit content vertically, while horizontal resizing depends on a resizing strategy of the tab group
+	We have the following structure:
 	
-	
-	self scrollTabbarDo: [ :anElement | anElement look: BrLayoutLook frame hMatchParent vFitContent alignCenter ].
-	self headerDo: [ :anElement | anElement look: BrLayoutLook linearHorizontal hMatchParent vFitContent ].
-	self tabbarDo: [ :anElement | anElement look: BrLayoutLook linearHorizontal hFitContent vFitContent ].
-	"toolbar here is not a toolbar itself, it is a container for it, the actual toolbar is built using a stencil from BrTabModel"
-	self toolbarDo: [ :anElement | anElement look: BrLayoutLook linearHorizontal fitContent alignCenter ]
+	- header
+		- scrollable
+			- tabbar
+		- toolbar
+	"
+
+	self header layout: BlLinearLayout horizontal alignCenterLeft.
+	self tabbar layout: BlLinearLayout horizontal.
+	self toolbar layout: BlLinearLayout horizontal.
+
+	self add: (BrLayoutResizerLook new
+		vAnyToFitContent: self header;
+		hInherit: self header;
+		vAnyToFitContent: self scrollTabbar;
+		hInherit: self scrollTabbar;
+		anyToFitContent: self tabbar;
+		anyToFitContent: self toolbar)
 ]

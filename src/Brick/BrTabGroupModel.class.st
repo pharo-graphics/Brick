@@ -182,11 +182,11 @@ BrTabGroupModel >> removeTab: aBrTabModel [
 	aSelectedTab := (self hasSelectedTab and: [ wasSelected not ])
 		ifTrue: [ self selectedTab ].
 
-	aSelectedTab
-		ifNotNil: [ self selectOne: (self indexOf: aSelectedTab) ].
-
 	aTabIndex := self tabs indexOf: aBrTabModel.
 	self tabs remove: aBrTabModel.
+
+	aSelectedTab
+		ifNotNil: [ self selectOne: (self indexOf: aSelectedTab) ].
 
 	(self isNotEmpty and: [ wasSelected ])
 		ifTrue: [ (self tabs at: (aTabIndex min: self tabs size)) select ].

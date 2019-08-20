@@ -1,7 +1,9 @@
 Class {
 	#name : #BrTabGroup,
 	#superclass : #BlElement,
-	#category : 'Brick-Tabs - UI'
+	#traits : 'TBrLayoutResizable',
+	#classTraits : 'TBrLayoutResizable classTrait',
+	#category : #'Brick-Tabs - UI'
 }
 
 { #category : #'api - adding / removing' }
@@ -33,7 +35,10 @@ BrTabGroup >> hasTab: anElement [
 BrTabGroup >> initialize [
 	super initialize.
 
-	self viewModel: (BrTabGroupModel new)
+	self viewModel: (BrTabGroupModel new +
+		(BrInteractiveModel withAll: {
+			BrLayoutHorizontalResizerModel matchParent.
+			BrLayoutVerticalResizerModel matchParent }))
 ]
 
 { #category : #'api - adding / removing' }

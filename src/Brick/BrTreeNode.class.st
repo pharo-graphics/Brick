@@ -175,6 +175,7 @@ BrTreeNode >> isHidden [
 { #category : #private }
 BrTreeNode >> localIndexToGlobal: anIndex [
 	| anOffset |
+
 	self hasParent
 		ifFalse: [ ^ anIndex ].
 

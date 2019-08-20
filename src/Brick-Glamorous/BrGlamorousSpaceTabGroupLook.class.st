@@ -8,13 +8,12 @@ Class {
 BrGlamorousSpaceTabGroupLook >> initialize [
 	super initialize.
 
-	self addAll: {
-		BrGlamorousSpaceTabGroupHeaderLook new.
-		BrTabGroupContentLook new contentDo: [ :anElement | anElement look: BrLayoutLook matchParent ].
+	self add: BrGlamorousSpaceTabGroupHeaderLook new.
+	self add: BrTabGroupContentLook new.
 
-		"layout of the tab whole group is linear vertical"
-		BrLayoutLook linearVertical matchParent.
-	}.
+	self add: BrLayoutResizerLook new.	
+
+	self addChangeProperty: #(widget layout) with: [ BlLinearLayout vertical ].
 	
 	self addChange: (BrLookChange new
 		up: [ :e | self widgetDo: [ :aWidget | aWidget background: (Color veryVeryLightGray) ] ];

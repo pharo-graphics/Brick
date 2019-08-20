@@ -1,8 +1,8 @@
 Class {
 	#name : #BrTab,
 	#superclass : #BlElement,
-	#traits : 'TBrLayoutAlignable',
-	#classTraits : 'TBrLayoutAlignable classTrait',
+	#traits : 'TBrLayoutAlignable + TBrLayoutResizable',
+	#classTraits : 'TBrLayoutAlignable classTrait + TBrLayoutResizable classTrait',
 	#instVars : [
 		'labelModel',
 		'iconModel'

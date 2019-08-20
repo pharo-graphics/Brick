@@ -10,12 +10,15 @@ Class {
 { #category : #initialization }
 BrTabGroupSplitterLook >> initialize [
 	super initialize.
+
 	splitter := BlElement new.
 	splitter background: Color veryVeryLightGray.
-	splitter
-		constraintsDo: [ :c | 
-			c horizontal matchParent.
-			c vertical exact: 1 ].
+	splitter constraintsDo: [ :c | 
+		c horizontal matchParent.
+		c vertical exact: 1.
+		c ignoreByLayout.
+		c ignored vertical alignBottom ].
+
 	self addChangeAddChildAs: #(splitter) with: [ splitter ]
 ]
 
