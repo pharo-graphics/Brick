@@ -6,6 +6,13 @@ Class {
 	#category : #'Brick-Tabs - UI'
 }
 
+{ #category : #accessing }
+BrTabGroup >> actionbarStencil: anActionbarStencilBuilder [
+	"See ${method:BrTabGroupModel>>#actionbarStencil:}"
+
+	self viewModel actionbarStencil: anActionbarStencilBuilder
+]
+
 { #category : #'api - adding / removing' }
 BrTabGroup >> addTab: anElement [
 	self viewModel addTab: anElement viewModel

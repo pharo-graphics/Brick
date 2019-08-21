@@ -4,7 +4,8 @@ Class {
 	#traits : 'TBrSelectable',
 	#classTraits : 'TBrSelectable classTrait',
 	#instVars : [
-		'tabs'
+		'tabs',
+		'actionbarStencilBuilder'
 	],
 	#category : #'Brick-Tabs - Model'
 }
@@ -12,6 +13,15 @@ Class {
 { #category : #'instance creation' }
 BrTabGroupModel class >> with: aCollectionOfTabs [
 	^ self new addTabs: aCollectionOfTabs
+]
+
+{ #category : #accessing }
+BrTabGroupModel >> actionbarStencil: anActionbarStencilBuilder [
+	"Set a stencil to be used to create an action bar in the header of the tabgroup.
+	An action bar is usually located on the right side of the header"
+
+	actionbarStencilBuilder := anActionbarStencilBuilder asStencilBuilder.
+	self notifyActionbarChanged: actionbarStencilBuilder
 ]
 
 { #category : #'api - tabs' }
@@ -75,6 +85,8 @@ BrTabGroupModel >> initializeListeners [
 	
 	"answer if somebody is interested in what tabs I have"
 	self when: BrTabGroupTabsRequest reply: [ :aResponse | aResponse tabs: self tabs ].
+	self when: BrTabGroupActionbarRequest reply: [ :aResponse | aResponse stencil: actionbarStencilBuilder ].
+
 	self when: BrSelectionChanged do: [ :anEvent | anEvent
 		deselectedDo: [ :anInterval | anInterval do: [ :eachTabIndex |
 			(eachTabIndex between: 1 and: tabs size)
@@ -105,6 +117,11 @@ BrTabGroupModel >> maxSelectionIndex [
 	<return: #Number>
 	
 	^ self tabs size
+]
+
+{ #category : #notifying }
+BrTabGroupModel >> notifyActionbarChanged: aStencil [
+	self dispatchEvent: (BrTabGroupActionbarChangedEvent new stencil: aStencil)
 ]
 
 { #category : #notifying }

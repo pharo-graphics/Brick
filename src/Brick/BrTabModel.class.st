@@ -111,10 +111,11 @@ BrTabModel >> stencil: aStencilBuilder [
 { #category : #'api - tab' }
 BrTabModel >> toolbarStencil: aToolbarStencilBuilder [
 	"Set a stencil to be used to create a toolbar for this tab.
-	A toolbar is usually located on the right side of a tab group header"
+	A toolbar is usually located on the right side of a tab group header and changes depending
+	on the currently selected tab"
 
 	toolbarStencilBuilder := aToolbarStencilBuilder asStencilBuilder.
-	self notifyActionbarChanged: toolbarStencilBuilder
+	self notifyToolbarChanged: toolbarStencilBuilder
 ]
 
 { #category : #accessing }

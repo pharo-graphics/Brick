@@ -12,6 +12,7 @@ BrGlamorousTabLook >> initialize [
 	super initialize.
 
 	self add: (BrGlamorousTextLabelLook new foreground: Color black).
+	self add: BrGlamorousTabActionbarLook new.
 	self add: BrLayoutResizerLook new inherit.
 	self add: (BrLayoutAlignmentLook forHorizontalLinearLayout).
 

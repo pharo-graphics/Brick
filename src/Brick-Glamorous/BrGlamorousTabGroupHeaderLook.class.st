@@ -27,11 +27,13 @@ BrGlamorousTabGroupHeaderLook >> initialize [
 		- scrollable
 			- tabbar
 		- toolbar
+		- actionbar
 	"
 
 	self header layout: BlLinearLayout horizontal alignCenterLeft.
 	self tabbar layout: BlLinearLayout horizontal.
 	self toolbar layout: BlLinearLayout horizontal.
+	self actionbar layout: BlLinearLayout horizontal.
 
 	self add: (BrLayoutResizerLook new
 		vAnyToFitContent: self header;
@@ -39,5 +41,6 @@ BrGlamorousTabGroupHeaderLook >> initialize [
 		vAnyToFitContent: self scrollTabbar;
 		hInherit: self scrollTabbar;
 		anyToFitContent: self tabbar;
-		anyToFitContent: self toolbar)
+		anyToFitContent: self toolbar;
+		anyToFitContent: self actionbar)
 ]
