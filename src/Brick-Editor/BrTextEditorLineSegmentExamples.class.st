@@ -1503,6 +1503,60 @@ BrTextEditorLineSegmentExamples >> pieces_Hello_1_WithAppending [
 ]
 
 { #category : #'examples - pieces' }
+BrTextEditorLineSegmentExamples >> pieces_Hello_Smart_World_WithAppending [
+	<gtExample>
+	| aTextEditor thePieces |
+	
+	aTextEditor := self emptyEditor.
+	aTextEditor text: self text_Hello_Smart_World_WithAppending.
+	
+	self assert: aTextEditor segmentCollector computedSegmentsCount equals: 1.
+	
+	thePieces := aTextEditor segmentCollector segments first pieces.
+	self assert: thePieces size equals: 8.
+	
+	self assert: (thePieces first isKindOf: BrTextEditorLineSegmentTextPiece).
+	self assert: thePieces first textStart equals: 0.
+	self assert: thePieces first textEnd equals: 5.
+	
+	self assert: (thePieces second isKindOf: BrTextEditorLineSegmentAdornmentPiece).
+	self assert: thePieces second textStart equals: 0.
+	self assert: thePieces second textEnd equals: 5.
+	
+	self assert: thePieces first text ~~ thePieces second text.
+	
+	self assert: (thePieces third isKindOf: BrTextEditorLineSegmentTextPiece).
+	self assert: thePieces third textStart equals: 5.
+	self assert: thePieces third textEnd equals: 6.
+	
+	self assert: (thePieces fourth isKindOf: BrTextEditorLineSegmentTextPiece).
+	self assert: thePieces fourth textStart equals: 6.
+	self assert: thePieces fourth textEnd equals: 11.
+	
+	self assert: (thePieces fifth isKindOf: BrTextEditorLineSegmentAdornmentPiece).
+	self assert: thePieces fifth textStart equals: 6.
+	self assert: thePieces fifth textEnd equals: 11.
+	
+	self assert: thePieces fourth text ~~ thePieces fifth text.
+	
+	self assert: (thePieces sixth isKindOf: BrTextEditorLineSegmentTextPiece).
+	self assert: thePieces sixth textStart equals: 11.
+	self assert: thePieces sixth textEnd equals: 12.
+	
+	self assert: (thePieces seventh isKindOf: BrTextEditorLineSegmentTextPiece).
+	self assert: thePieces seventh textStart equals: 12.
+	self assert: thePieces seventh textEnd equals: 17.
+	
+	self assert: (thePieces eighth isKindOf: BrTextEditorLineSegmentAdornmentPiece).
+	self assert: thePieces eighth textStart equals: 12.
+	self assert: thePieces eighth textEnd equals: 17.
+	
+	self assert: thePieces seventh text ~~ thePieces eighth text.
+	
+	^ aTextEditor
+]
+
+{ #category : #'examples - pieces' }
 BrTextEditorLineSegmentExamples >> pieces_Hello_World [
 	<gtExample>
 	| aTextEditor thePieces |
@@ -2169,6 +2223,47 @@ BrTextEditorLineSegmentExamples >> text_Hello_1_WithAppending [
 			size: 20@20;
 			background: (Color gray alpha: 0.5);
 			geometry: BlEllipse new ].
+
+	^ aText
+]
+
+{ #category : #'instance creation - text' }
+BrTextEditorLineSegmentExamples >> text_Hello_Smart_World_WithAppending [
+	<gtExample>
+	| aText |
+
+	aText := 'Hello Smart World' asRopedText.
+	aText
+		monospace;
+		fontSize: 14;
+		foreground: Color black.
+
+	(aText from: 1 to: 5)
+		foreground: Color black;
+		bold;
+		appendingAdornment: [
+			BlElement new
+				size: 16@16;
+				background: (Color black alpha: 0.5);
+				geometry: BlEllipse new ].
+	
+	(aText from: 7 to: 11)
+		foreground: Color gray;
+		bold;
+		appendingAdornment: [
+			BlElement new
+				size: 16@16;
+				background: (Color gray alpha: 0.5);
+				geometry: BlEllipse new ].
+
+	(aText from: 13 to: 17)
+		foreground: Color lightGray;
+		bold;
+		appendingAdornment: [
+			BlElement new
+				size: 16@16;
+				background: (Color lightGray alpha: 0.5);
+				geometry: BlEllipse new ].
 
 	^ aText
 ]

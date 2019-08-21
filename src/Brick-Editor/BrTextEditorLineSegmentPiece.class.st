@@ -37,15 +37,6 @@ BrTextEditorLineSegmentPiece >> currentCursors [
 	^ currentCursors
 ]
 
-{ #category : #accessing }
-BrTextEditorLineSegmentPiece >> end [
-	<return: #Number>
-
-	self deprecated: 'Use #textEnd'.
-
-	^ textEnd
-]
-
 { #category : #'api - cursor' }
 BrTextEditorLineSegmentPiece >> findAddedCursors: theUpdatedCursors to: theCurrentCursors [
 	"Find which cursors are new relative to the set of current cursors"
@@ -162,15 +153,6 @@ BrTextEditorLineSegmentPiece >> segment [
 { #category : #accessing }
 BrTextEditorLineSegmentPiece >> segment: anObject [
 	segment := anObject
-]
-
-{ #category : #accessing }
-BrTextEditorLineSegmentPiece >> start [
-	<return: #Number>
-	
-	self deprecated: 'Use #textStart'.
-
-	^ textStart
 ]
 
 { #category : #updating }

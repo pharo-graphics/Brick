@@ -33,12 +33,3 @@ BrTextEditorLineSegmentAdornmentPiece >> adornmentAttribute: aBrTextAdornmentAtt
 BrTextEditorLineSegmentAdornmentPiece >> createElement: anEditorElement [
 	^ self adornmentAttribute affect: self text in: anEditorElement
 ]
-
-{ #category : #accessing }
-BrTextEditorLineSegmentAdornmentPiece >> start: aStartIndex end: anEndIndex [
-	"Appended pieces must not modify original text"
-	self adornmentAttribute shouldAppend
-		ifTrue: [ ^ self ].
-
-	super start: aStartIndex end: anEndIndex
-]

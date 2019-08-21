@@ -39,7 +39,7 @@ BrTextEditorLineSegmentSplitter >> processAdornmentAttribute: anAdornmentAttribu
 ]
 
 { #category : #'private - pieces computation' }
-BrTextEditorLineSegmentSplitter >> processPureWords: aTextIterator in: aStream from: aStartIndex to: anEndIndex [
+BrTextEditorLineSegmentSplitter >> processPureWords: aTextIterator in: aStream offset: anOffset [
 	"Process a text within a scope of the given iterator as if it does not contain any adornment attributes
 	nor event handling attributes. At this point we should just split it in words based on the text separator
 	such as space or some other characters abnd create a text piece for each `word`"
@@ -50,8 +50,8 @@ BrTextEditorLineSegmentSplitter >> processPureWords: aTextIterator in: aStream f
 			| aWord aTextStart aTextEnd |
 			aWord := aTextIterator text from: ((aStart + 1) min: anEnd) to: anEnd.
 			
-			aTextStart := aStart + aStartIndex.
-			aTextEnd := anEnd + aStartIndex.
+			aTextStart := aStart + anOffset.
+			aTextEnd := anEnd + anOffset.
 			(aWord allSatisfy: #isLineBreak)
 				ifTrue: [ aTextEnd := aTextStart ].
 			
@@ -59,25 +59,24 @@ BrTextEditorLineSegmentSplitter >> processPureWords: aTextIterator in: aStream f
 ]
 
 { #category : #'private - pieces computation' }
-BrTextEditorLineSegmentSplitter >> processSegment: aTextIterator in: aStream from: aStartIndex to: anEndIndex [
+BrTextEditorLineSegmentSplitter >> processSegment: aTextIterator in: aStream offset: anOffset [
 	
 	aTextIterator
 		nextSpanAny: [ :eachAttribute | eachAttribute isAdornment and: [ eachAttribute shouldReplace ] ]
 		indicesDo: [ :aStart :anEnd :hasReplacements | 
 			| aSpanIterator aDelta |
-			aSpanIterator := (aTextIterator text
-				from: aStart
-				to: anEnd) iterator.
+			
+			aSpanIterator := (aTextIterator text from: aStart to: anEnd) iterator.
 			aDelta := (aStart - 1) max: 0.	
 			[ aSpanIterator hasNext ]
 				whileTrue: [
 					hasReplacements
-						ifTrue: [ self processWithReplacements: aSpanIterator in: aStream from: aStartIndex + aDelta to: anEndIndex + aDelta ]
-						ifFalse: [ self processWithoutReplacements: aSpanIterator in: aStream from: aStartIndex + aDelta to: anEndIndex + aDelta ] ] ]
+						ifTrue: [ self processWithReplacements: aSpanIterator in: aStream offset: anOffset + aDelta ]
+						ifFalse: [ self processWithoutReplacements: aSpanIterator in: aStream offset: anOffset + aDelta ] ] ]
 ]
 
 { #category : #'private - pieces computation' }
-BrTextEditorLineSegmentSplitter >> processWithReplacements: aTextIterator in: aStream from: aStartIndex to: anEndIndex [
+BrTextEditorLineSegmentSplitter >> processWithReplacements: aTextIterator in: aStream offset: anOffset [
 	"There is at least one replacement attribute applied on every character within the scope of the given text iterator"
 	
 	aTextIterator
@@ -93,8 +92,8 @@ BrTextEditorLineSegmentSplitter >> processWithReplacements: aTextIterator in: aS
 			theAttributes do: [ :eachAttribute |
 				| aTextStart aTextEnd |
 				
-				aTextStart := ((aStart - 1) max: 0) + aStartIndex.
-				aTextEnd := anEnd + aStartIndex.
+				aTextStart := ((aStart - 1) max: 0) + anOffset.
+				aTextEnd := anEnd + anOffset.
 				
 				(anAdornmentSpan allSatisfy: #isLineBreak)
 					ifTrue: [ aTextEnd := aTextStart ].
@@ -108,7 +107,7 @@ BrTextEditorLineSegmentSplitter >> processWithReplacements: aTextIterator in: aS
 ]
 
 { #category : #'private - pieces computation' }
-BrTextEditorLineSegmentSplitter >> processWithoutAdornments: aTextIterator in: aStream from: aStartIndex to: anEndIndex [
+BrTextEditorLineSegmentSplitter >> processWithoutAdornments: aTextIterator in: aStream offset: anOffset [
 	"Process a text within the scope of the given iterator as there are no adornment attributes.
 	Now that adornment attributes are filtered we can split text into pieces based on the presence of
 	event handling attributes. Every combination of event handling elements should be a separate text piece
@@ -118,43 +117,57 @@ BrTextEditorLineSegmentSplitter >> processWithoutAdornments: aTextIterator in: a
 		nextSpan: [ :eachAttribute | eachAttribute isEventHandler ]
 		indicesDo: [ :aStart :anEnd :theEventHandlerAttributes | 
 			| aSpan aSpanIterator aDelta |
-			aSpan := aTextIterator text
-				from: aStart
-				to: anEnd.
+			aSpan := aTextIterator text from: aStart to: anEnd.
 			aSpanIterator := aSpan iterator.
 			aDelta := (aStart - 1) max: 0.
 			[ aSpanIterator hasNext ] whileTrue: [
-				self processPureWords: aSpanIterator in: aStream from: aStartIndex + aDelta to: anEndIndex + aDelta ] ]
+				self processPureWords: aSpanIterator in: aStream offset: anOffset + aDelta ] ]
 ]
 
 { #category : #'private - pieces computation' }
-BrTextEditorLineSegmentSplitter >> processWithoutReplacements: aTextIterator in: aStream from: aStartIndex to: anEndIndex [
+BrTextEditorLineSegmentSplitter >> processWithoutReplacements: aTextIterator in: aStream offset: anOffset [
 	"There are no replacement attributes within the scope of the given iterator"
 
 	aTextIterator
 		nextAttributedEnd: [ :eachAttribute | eachAttribute isAdornment and: [ eachAttribute shouldAppend ] ]
 		indicesDo: [ :aStart :anEnd :theEndedAttributes |
-			| aSpan aSpanIterator |
+			| aSpan aSpanIterator aNewOffset |
+
 			aSpan := aTextIterator text from: aStart to: anEnd.
-			aSpanIterator := aSpan iterator.
+			aSpanIterator := aSpan iterator.			
+			aNewOffset := anOffset + ((aStart - 1) max: 0).
+
 			[ aSpanIterator hasNext ] whileTrue: [
-				self processWithoutAdornments: aSpanIterator in: aStream from: aStartIndex to: anEndIndex ].
-			
-			theEndedAttributes do: [ :eachAttribute |
+				self processWithoutAdornments: aSpanIterator in: aStream offset: aNewOffset ].
+
+			"aStart is not necessarily where attributes start, so we have to search for them explicitly"
+
+			theEndedAttributes do: [ :eachEndedAttribute |
 				| aTextStart aTextEnd |
 				
-				aTextStart := ((aStart - 1) max: 0) + aStartIndex.
-				aTextEnd := anEnd + aStartIndex.
-				
-				(aSpan allSatisfy: #isLineBreak)
-					ifTrue: [ aTextEnd := aTextStart ].
-	
-				self
-					processAdornmentAttribute: eachAttribute
-					of: aSpan
-					in: aStream
-					from: aTextStart
-					to: aTextEnd ] ]
+				aSpanIterator := aSpan iterator.
+			
+				[ aSpanIterator hasNext ] whileTrue: [
+					aSpanIterator
+						nextSpan: [ :eachAttribute | eachAttribute == eachEndedAttribute ]
+						indicesDo: [ :anAttributeStart :anAttributeEnd :theAttributes |
+							theAttributes
+								ifNotEmpty: [
+									| anAttributeSpan |
+									anAttributeSpan := aSpan from: anAttributeStart to: anAttributeEnd.
+									
+									aTextStart := ((anAttributeStart - 1) max: 0) + aNewOffset.
+									aTextEnd := anAttributeEnd + aNewOffset.
+
+									(anAttributeSpan allSatisfy: #isLineBreak)
+										ifTrue: [ aTextEnd := aTextStart ].
+
+									self
+										processAdornmentAttribute: eachEndedAttribute
+										of: anAttributeSpan
+										in: aStream
+										from: aTextStart
+										to: aTextEnd ]	] ] ] ]
 ]
 
 { #category : #splitting }
@@ -166,7 +179,7 @@ BrTextEditorLineSegmentSplitter >> split: aText from: aStartIndex to: anEndIndex
 		
 		lineIterator := aText iterator.
 		[ lineIterator hasNext ] whileTrue: [
-			self processSegment: lineIterator in: aStream from: aStartIndex to: anEndIndex ] ].
+			self processSegment: lineIterator in: aStream offset: aStartIndex ] ].
 
 	thePieces := thePieces
 		ifEmpty:[ { self textPiece: aText from: 0 to: 0 } ]
