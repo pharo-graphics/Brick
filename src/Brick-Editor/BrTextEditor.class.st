@@ -17,7 +17,6 @@ Class {
 		'segmentBuilder',
 		'segmentCollector',
 		'styler',
-		'commandMutex',
 		'stylerEventHandler',
 		'interactions',
 		'cursors'
@@ -219,7 +218,7 @@ BrTextEditor >> deselecter [
 
 { #category : #'commands - processing' }
 BrTextEditor >> enqueueCommand: aBrTextEditorInsertCommand [
-	commandMutex critical: [ aBrTextEditorInsertCommand executeOn: self ]
+	aBrTextEditorInsertCommand executeOn: self
 ]
 
 { #category : #accessing }
@@ -255,7 +254,6 @@ BrTextEditor >> initialize [
 	segmentBuilder := self defaultSegmentBuilder.
 	styler := self defaultStyler.
 	stylerEventHandler := self defaultStylerEventHandler.
-	commandMutex := Mutex new.
 	interactions := OrderedCollection new.
 	self initializeInteractions
 ]

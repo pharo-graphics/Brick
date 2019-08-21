@@ -244,3 +244,19 @@ BrTextEditorDeleterExamples >> delete_0_to_28_cursorAt_38_selection_0_to_10 [
 
 	^ anEditor
 ]
+
+{ #category : #'examples - deletion special' }
+BrTextEditorDeleterExamples >> delete_0_to_5_from_HelloCr [
+	<gtExample>
+	| anEditor |
+	
+	anEditor := self editorFor: 'hello', String cr.
+
+	anEditor deleter
+		from: 0 to: 5;
+		delete.
+
+	self assert: anEditor text asString equals: String cr.
+
+	^ anEditor
+]

@@ -1,5 +1,5 @@
 "
-I split a piece of text behind a ${class:BrTextEditorLineSegment}$ into pieces
+I split a piece of text behind a ${class:BrTextEditorLineSegment}$ into pieces ${class:BrTextEditorLineSegmentPiece}
 "
 Class {
 	#name : #BrTextEditorLineSegmentSplitter,
@@ -47,9 +47,15 @@ BrTextEditorLineSegmentSplitter >> processPureWords: aTextIterator in: aStream f
 	aTextIterator
 		nextSegment: [ :aCharacter | self itemValueType: aCharacter ]
 		indicesDo: [ :aStart :anEnd |
-			| aWord |			
+			| aWord aTextStart aTextEnd |
 			aWord := aTextIterator text from: ((aStart + 1) min: anEnd) to: anEnd.
-			aStream nextPut: (self textPiece: aWord from: aStart + aStartIndex to: anEnd + aStartIndex) ]
+			
+			aTextStart := aStart + aStartIndex.
+			aTextEnd := anEnd + aStartIndex.
+			(aWord allSatisfy: #isLineBreak)
+				ifTrue: [ aTextEnd := aTextStart ].
+			
+			aStream nextPut: (self textPiece: aWord from: aTextStart to: aTextEnd) ]
 ]
 
 { #category : #'private - pieces computation' }
@@ -85,12 +91,20 @@ BrTextEditorLineSegmentSplitter >> processWithReplacements: aTextIterator in: aS
 			
 			anAdornmentSpan := aTextIterator text from: aStart to: anEnd.
 			theAttributes do: [ :eachAttribute |
+				| aTextStart aTextEnd |
+				
+				aTextStart := ((aStart - 1) max: 0) + aStartIndex.
+				aTextEnd := anEnd + aStartIndex.
+				
+				(anAdornmentSpan allSatisfy: #isLineBreak)
+					ifTrue: [ aTextEnd := aTextStart ].
+				
 				self
 					processAdornmentAttribute: eachAttribute
 					of: anAdornmentSpan
 					in: aStream
-					from: ((aStart - 1) max: 0) + aStartIndex
-					to: anEnd + aStartIndex ] ]
+					from: aTextStart
+					to: aTextEnd ] ]
 ]
 
 { #category : #'private - pieces computation' }
@@ -127,17 +141,26 @@ BrTextEditorLineSegmentSplitter >> processWithoutReplacements: aTextIterator in:
 				self processWithoutAdornments: aSpanIterator in: aStream from: aStartIndex to: anEndIndex ].
 			
 			theEndedAttributes do: [ :eachAttribute |
+				| aTextStart aTextEnd |
+				
+				aTextStart := ((aStart - 1) max: 0) + aStartIndex.
+				aTextEnd := anEnd + aStartIndex.
+				
+				(aSpan allSatisfy: #isLineBreak)
+					ifTrue: [ aTextEnd := aTextStart ].
+	
 				self
 					processAdornmentAttribute: eachAttribute
 					of: aSpan
 					in: aStream
-					from: ((aStart - 1) max: 0) + aStartIndex
-					to: anEnd + aStartIndex ] ]
+					from: aTextStart
+					to: aTextEnd ] ]
 ]
 
 { #category : #splitting }
 BrTextEditorLineSegmentSplitter >> split: aText from: aStartIndex to: anEndIndex [
 	| thePieces |
+		
 	thePieces := Array streamContents: [ :aStream |
 		| lineIterator |
 		

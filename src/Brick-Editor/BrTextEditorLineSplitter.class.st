@@ -14,16 +14,11 @@ BrTextEditorLineSplitter >> newSegment [
 
 { #category : #'instance creation' }
 BrTextEditorLineSplitter >> newSegment: aBlText from: aStartIndex to: anEndIndex delimited: aDelimiterIndex offset: anOffset [
-	| aText anAbsoluteTextStart anAbsoluteTextEnd hasLineBreakAfter isEmptySegment shouldMoveBack |
+	| aText anAbsoluteTextStart anAbsoluteTextEnd |
 
 	aText := aBlText
 		from: aStartIndex
 		to: anEndIndex.
-	
-	hasLineBreakAfter := aDelimiterIndex ~= anEndIndex.
-	isEmptySegment := aStartIndex = anEndIndex.
-	
-	shouldMoveBack := (hasLineBreakAfter and: [ isEmptySegment ]) not or: [ aStartIndex > 1 ].
 	
 	anAbsoluteTextStart := (aText allSatisfy: #isLineBreak)
 		ifTrue: [ aStartIndex ]
