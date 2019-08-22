@@ -27,6 +27,9 @@ BrDropdownPopupEmbellisher >> anchor: anObject [
 BrDropdownPopupEmbellisher >> buildDefault [
 	<return: #BlElement>
 	container := BlElement new.
+	container viewModel: (BrInteractiveModel new addStates: {
+		BrExpandableModel new expand
+	}).
 	container
 		when: BlElementExtentChangedEvent
 		do: [ self relocatePopup ].

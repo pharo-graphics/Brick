@@ -1,6 +1,8 @@
 Class {
 	#name : #BrDropdown,
 	#superclass : #BlElement,
+	#traits : 'TBrLayoutResizable',
+	#classTraits : 'TBrLayoutResizable classTrait',
 	#instVars : [
 		'expandedModel'
 	],
@@ -22,7 +24,10 @@ BrDropdown >> initialize [
 	super initialize.
 	
 	self viewModel: (BrDropdownModel new
-		addAll: { BrInteractiveModel new addState: (expandedModel := BrExpandableModel new) })
+		addAll: { BrInteractiveModel new addStates: {
+			expandedModel := BrExpandableModel new.
+			BrLayoutHorizontalResizerModel fitContent.
+			BrLayoutVerticalResizerModel fitContent } })
 ]
 
 { #category : #testing }

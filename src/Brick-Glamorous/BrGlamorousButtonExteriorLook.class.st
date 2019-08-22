@@ -3,7 +3,8 @@ Class {
 	#superclass : #BrInteractiveCommonLook,
 	#instVars : [
 		'backgroundPaint',
-		'borderWidth'
+		'borderWidth',
+		'borderPaint'
 	],
 	#category : #'Brick-Glamorous-Buttons - Support'
 }
@@ -32,7 +33,8 @@ BrGlamorousButtonExteriorLook >> borderWidth: anInteger [
 BrGlamorousButtonExteriorLook >> initialize [
 	super initialize.
 	
-	backgroundPaint := Color white.
+	backgroundPaint := BrGlamorousColors defaultButtonBackgroundColor.
+	borderPaint := BrGlamorousColors defaultButtonBorderColor.
 	borderWidth := 1.
 
 	self
@@ -41,15 +43,15 @@ BrGlamorousButtonExteriorLook >> initialize [
 
 	self
 		addChangeProperty: #(widget border)
-		with: (BlBorder paint: BrGlamorousColors defaultButtonBorderColor width: self borderWidth).
+		with: (BlBorder paint: borderPaint width: self borderWidth).
 	
 	self
 		style: [ :aStyler | 
 			aStyler
 				default: [ :aWidget | 
 					aWidget
-						background: BrGlamorousColors defaultButtonBackgroundColor;
-						border: (BlBorder paint: BrGlamorousColors defaultButtonBorderColor width: self borderWidth) ].
+						background: backgroundPaint;
+						border: (BlBorder paint: borderPaint width: self borderWidth) ].
 			aStyler
 				hovered: [ :aWidget | 
 					aWidget
@@ -62,5 +64,5 @@ BrGlamorousButtonExteriorLook >> initialize [
 				disabled: [ :aWidget | 
 					aWidget
 						background: BrGlamorousColors disabledButtonBackgroundColor;
-						border: (BlBorder paint: BrGlamorousColors disabledButtonBorderColor width: self borderWidth) ] ]
+						border: (BlBorder paint: BrGlamorousColors disabledButtonBorderColor width: self borderWidth) ] ].
 ]

@@ -98,6 +98,15 @@ BlElement >> lookDo: aBlock [
 ]
 
 { #category : #'*Brick' }
+BlElement >> removeLook: aLook [
+	self look
+		ifNotNil: [
+			self look = aLook
+				ifTrue: [  ]
+				ifFalse: [ self look remove: aLook ] ].
+]
+
+{ #category : #'*Brick' }
 BlElement >> viewModel [
 	^ self userData at: #brickViewModel ifAbsent: nil
 ]

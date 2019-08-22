@@ -1,17 +1,13 @@
 Class {
-	#name : #BrGlamorousSpaceTabLook,
+	#name : #BrGlamorousSpaceTabBasicLook,
 	#superclass : #BrTabLook,
-	#instVars : [
-		'labelLook'
-	],
-	#category : #'Brick-Glamorous-Tabs - Space'
+	#category : #'Brick-Glamorous-Tabs - Support'
 }
 
 { #category : #initialization }
-BrGlamorousSpaceTabLook >> initialize [
+BrGlamorousSpaceTabBasicLook >> initialize [
 	super initialize.
 
-	self add: (BrGlamorousTextLabelLook new foreground: Color black).
 	self add: BrGlamorousTabActionbarLook new.
 	self add: BrLayoutResizerLook new inherit.
 	self add: (BrLayoutAlignmentLook forHorizontalLinearLayout).

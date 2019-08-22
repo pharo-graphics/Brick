@@ -80,11 +80,7 @@ BrDropdownExamples >> badgeButton [
 	^ BrButton new
 		background: Color orange;
 		label: ('3' asRopedText fontSize: 15; foreground: Color white; bold);
-		layout: BlLinearLayout horizontal;
-		constraintsDo: [ :c | 
-			c horizontal fitContent.
-			c vertical fitContent ];
-		look: BrTextLabelLook;
+		look: BrTextLabelLook + BrGlamorousDropdownLook;
 		padding: (BlInsets all: 7)
 ]
 
@@ -106,11 +102,7 @@ BrDropdownExamples >> coloredDropdown [
 						ifNotNil: [ (e look hasActor: BrShadowLook) ifFalse: [ e look add: BrShadowLook ] ] ].
 			e ].
 	dropdown
-		layout: BlLinearLayout horizontal;
 		look: look;
-		constraintsDo: [ :c | 
-			c horizontal fitContent.
-			c vertical fitContent ];
 		clipChildren: false;
 		toggle: [ BrButton new
 				size: 20 @ 20;
@@ -209,17 +201,11 @@ BrDropdownExamples >> scaledAndAlignedDropdowns [
 { #category : #examples }
 BrDropdownExamples >> suggesterBadgeDropdownList [
 	<gtExample>
-	| aDropdown |
-	aDropdown := BrDropdown new
-		layout: BlLinearLayout horizontal;
+	^ BrDropdown new
 		relocate: 200 @ 100;
-		constraintsDo: [ :c | 
-			c horizontal fitContent.
-			c vertical fitContent ].
-	aDropdown toggle: [ self badgeButton ].
-	aDropdown popup: [ self popupList ].
-	aDropdown look: BrGlamorousDropdownLook new.
-	^ aDropdown
+		look: BrGlamorousDropdownLook new;
+		toggle: [ self badgeButton ];
+		popup: [ self popupList ]
 ]
 
 { #category : #'instance creation' }

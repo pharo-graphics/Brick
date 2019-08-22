@@ -1,8 +1,22 @@
 Class {
 	#name : #BrGlamorousDropdownPopupEmbellisher,
 	#superclass : #BrDropdownPopupEmbellisher,
+	#instVars : [
+		'backgroundPaint'
+	],
 	#category : #'Brick-Glamorous-Dropdown'
 }
+
+{ #category : #accessing }
+BrGlamorousDropdownPopupEmbellisher >> backgroundPaint [
+	^ backgroundPaint
+]
+
+{ #category : #accessing }
+BrGlamorousDropdownPopupEmbellisher >> backgroundPaint: aColorOrPaint [
+	backgroundPaint := aColorOrPaint.
+	container ifNotNil: [ container background: aColorOrPaint ]
+]
 
 { #category : #'api - instantiation' }
 BrGlamorousDropdownPopupEmbellisher >> buildDefault [
@@ -30,8 +44,14 @@ BrGlamorousDropdownPopupEmbellisher >> buildDefault [
 				ifFalse: [ toggle
 						border: (toggle border copyWithPaint: BlTransparentPaint uniqueInstance) ] ].
 	container geometry: geometry.
-	container background: toggle background.
-	container border: toggle border.
+	container background: self backgroundPaint.
 	container look: BrShadowLook new.
 	^ container
+]
+
+{ #category : #initialization }
+BrGlamorousDropdownPopupEmbellisher >> initialize [
+	super initialize.
+	
+	backgroundPaint := Color white
 ]
