@@ -34,5 +34,5 @@ BrGlamorousSpaceTabLook >> initialize [
 
 	self
 		addChangeProperty: #(widget margin)
-		with: [ BlInsets top: 22 right: 1 ]
+		with: [ BlInsets top: 0 right: 1 ]
 ]

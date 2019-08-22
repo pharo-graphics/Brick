@@ -30,6 +30,7 @@ Class {
 		'PressedButtonBorderColor',
 		'PressedButtonTextColor',
 		'PrimaryBorderColor',
+		'SecondaryHeaderBackgroundColor',
 		'SuccessBackgroundColor',
 		'SuccessBorderColor',
 		'TextHighlightColor'
@@ -287,7 +288,8 @@ BrGlamorousColors class >> initialize [
 	DisabledButtonTextColor := Color black alpha: 0.25.
 
 	"header - background"
-	HeaderBackgroundColor := Color fromHexString: #fafafa.
+	HeaderBackgroundColor := Color fromHexString: #'d9d9d9'. "grey-4"
+	SecondaryHeaderBackgroundColor := Color fromHexString: #'e8e8e8'. "grey-5"
 
 	"header - text"
 	HeaderTextColor := Color black alpha: 0.85.
@@ -353,6 +355,11 @@ BrGlamorousColors class >> primaryBorderColor [
 { #category : #accessing }
 BrGlamorousColors class >> primaryBorderColor: anObject [
 	PrimaryBorderColor := anObject
+]
+
+{ #category : #'header - background' }
+BrGlamorousColors class >> secondaryHeaderBackgroundColor [
+	^ SecondaryHeaderBackgroundColor
 ]
 
 { #category : #'button - background' }
