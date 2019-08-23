@@ -70,7 +70,8 @@ BrTabExamples >> groupHeaderWithAddedTabAtFirstPosition [
 
 { #category : #'examples - ui header' }
 BrTabExamples >> groupHeaderWithBoundTabs [
-	<gtExample>	
+	<gtExample>
+	<noTest>
 	| aHeaderElement tabElement1 tabElement2 tabElement3 |
 
 	aHeaderElement := self groupHeaderWithoutBoundTabs.
