@@ -32,6 +32,14 @@ BrDescriptionLook >> descriptionDo: aBlock [
 ]
 
 { #category : #initialization }
+BrDescriptionLook >> fitContent [
+	descriptionElement
+		constraintsDo: [ :c | 
+			c vertical fitContent.
+			c horizontal fitContent ]
+]
+
+{ #category : #initialization }
 BrDescriptionLook >> initialize [
 	super initialize.
 	text := 'Description' asRopedText.
@@ -44,7 +52,7 @@ BrDescriptionLook >> initialize [
 			c horizontal matchParent ].
 	attributesBuilder := BlTextDelegatedAttributesBuilder new.
 	attributesBuilder attributesTarget: text.
-	attributesBuilder whenAdded: [ descriptionElement text: text ].
+	attributesBuilder whenAdded: [ editor text: text ].
 	self
 		addChangeAddChildAs: #(content description)
 		with: [ descriptionElement ]
@@ -62,6 +70,17 @@ BrDescriptionLook >> initializeRequests [
 	super initializeRequests.
 	
 	self request: BrDescriptionRequest new
+]
+
+{ #category : #initialization }
+BrDescriptionLook >> readonly [
+	editor segmentBuilder
+		wordStencil: [ :aWordText |
+			| aTextElement |
+			aTextElement := BrTextElementWithCursors new
+				editorMeasurement
+				text: aWordText.
+			aTextElement ]
 ]
 
 { #category : #accessing }
