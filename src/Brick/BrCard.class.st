@@ -36,7 +36,7 @@ BrCard >> description: aStringOrBrText [
 BrCard >> initialize [
 	super initialize.
 	
-	self viewModel: (BrButtonModel new +
+	self viewModel: (buttonModel := BrButtonModel new +
 		(titleModel := BrLabelModel new) +
 		(pictureModel := BrIconModel new) + 
 		(descriptionModel := BrDescriptionModel new) +
