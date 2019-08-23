@@ -17,7 +17,7 @@ BrGlamorousButtonRectangularLook >> initialize [
 
 	self
 		addChangeProperty: #(widgetContent geometry)
-		with: (BlRectangle cornerRadius: 8).
+		with: (BlRectangle cornerRadius: 4).
 
 	self add: BrLayoutResizerLook inherit.
 	self add: BrLayoutAlignmentLook forHorizontalLinearLayout.
