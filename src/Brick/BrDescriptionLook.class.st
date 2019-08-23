@@ -80,7 +80,8 @@ BrDescriptionLook >> readonly [
 			aTextElement := BrTextElementWithCursors new
 				editorMeasurement
 				text: aWordText.
-			aTextElement ]
+			aTextElement ].
+	descriptionElement preventMeAndChildrenMouseEvents
 ]
 
 { #category : #accessing }

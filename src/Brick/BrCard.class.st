@@ -1,6 +1,8 @@
 Class {
 	#name : #BrCard,
 	#superclass : #BlElement,
+	#traits : 'TBrLayoutResizable + TBrLayoutAlignable',
+	#classTraits : 'TBrLayoutResizable classTrait + TBrLayoutAlignable classTrait',
 	#instVars : [
 		'descriptionModel',
 		'pictureModel',
@@ -33,10 +35,19 @@ BrCard >> description: aStringOrBrText [
 { #category : #initialization }
 BrCard >> initialize [
 	super initialize.
-	self viewModel: (buttonModel := BrButtonModel new 
-		+ (titleModel := BrLabelModel new)
-		+ (descriptionModel := BrDescriptionModel new)
-		+ (pictureModel := BrIconModel new))
+	
+	self viewModel: (BrButtonModel new +
+		(titleModel := BrLabelModel new) +
+		(pictureModel := BrIconModel new) + 
+		(descriptionModel := BrDescriptionModel new) +
+		(BrInteractiveModel new
+			addStates: {
+				BrPressModel new.
+				BrHoverModel new.
+				BrLayoutAlignmentModel center.
+				BrLayoutHorizontalResizerModel fitContent.
+				BrLayoutVerticalResizerModel fitContent
+			}))
 ]
 
 { #category : #accessing }
