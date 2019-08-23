@@ -38,3 +38,8 @@ BrShadowLook >> shadow: aBlDropShadowEffect [
 				downOn: self;
 				upOn: self ]
 ]
+
+{ #category : #accessing }
+BrShadowLook >> width: aNumber [
+	self shadow: (self shadow copyWithWidth: aNumber)
+]
