@@ -23,7 +23,7 @@ BrDropdownLook >> collapsed [
 	self
 		widgetDo: [ :e | 
 			e isAttachedToSceneGraph
-				ifTrue: [ e space root
+				ifTrue: [ e topMostParent
 						removeEventFilter: clickOutsideEventHandler;
 						removeEventHandler: clickOutsideEventHandler ] ].
 	toggleElement visibility: BlVisibility visible.
@@ -67,13 +67,13 @@ BrDropdownLook >> expanded [
 	self
 		widgetDo: [ :aWidget | 
 			aWidget isAttachedToSceneGraph
-				ifTrue: [ aWidget space
+				ifTrue: [ aWidget topMostParent
 						addChild:
 							((popupElement isNil or: [ reusePopup not ])
 								ifTrue: [ popupElement := self createPopupElement ]
 								ifFalse: [ popupElement removeFromParent ]).
 					self relocatePopup ].
-			aWidget space root
+			aWidget topMostParent
 				addEventFilter: clickOutsideEventHandler;
 				addEventHandler: pressEscEventHandler ]
 ]
