@@ -195,7 +195,7 @@ BrWithTooltipLook >> show [
 	self
 		widgetDo: [ :aWidget | 
 			aWidget isAttachedToSceneGraph
-				ifTrue: [ aWidget space addChild: (container := self newContainer).
+				ifTrue: [ aWidget topMostParent addChild: (container := self newContainer).
 					self relocateContainer ] ]
 ]
 
