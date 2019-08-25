@@ -12,5 +12,5 @@ BrGlamorousCodeEditorLook >> initialize [
 	super initialize.
 	self 
 		fontName: 'Source Code Pro';
-		fontSize: 12
+		fontSize: 14
 ]

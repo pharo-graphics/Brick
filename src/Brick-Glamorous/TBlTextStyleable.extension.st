@@ -29,13 +29,13 @@ TBlTextStyleable >> glamorousCodeFontDo: aBlock [
 
 { #category : #'*Brick-Glamorous' }
 TBlTextStyleable >> glamorousCodeSize [
-	self fontSize: 12
+	self fontSize: 14
 ]
 
 { #category : #'*Brick-Glamorous' }
 TBlTextStyleable >> glamorousCodeSizeDo: aBlock [
 	| attribute |
-	attribute := BlFontSizeAttribute size: 12.
+	attribute := BlFontSizeAttribute size: 14.
 	self attributesBuilder attribute: attribute.
 	aBlock value: attribute.
 	^ attribute
