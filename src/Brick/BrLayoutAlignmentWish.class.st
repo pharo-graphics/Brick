@@ -46,6 +46,11 @@ BrLayoutAlignmentWish class >> centerRight [
 ]
 
 { #category : #'instance creation' }
+BrLayoutAlignmentWish class >> none [
+	^ self alignment: None
+]
+
+{ #category : #'instance creation' }
 BrLayoutAlignmentWish class >> topCenter [
 	^ self alignment: TopCenter
 ]

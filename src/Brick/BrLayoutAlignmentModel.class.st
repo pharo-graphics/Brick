@@ -110,7 +110,7 @@ BrLayoutAlignmentModel >> centerRight [
 BrLayoutAlignmentModel >> initialize [
 	super initialize.
 
-	alignment := #topLeft
+	alignment := None
 ]
 
 { #category : #initialization }
@@ -119,6 +119,11 @@ BrLayoutAlignmentModel >> initializeListeners [
 	
 	self when: BrLayoutAlignmentRequest reply: [ :aResponse | aResponse alignment: self alignment ].
 	self when: BrLayoutAlignmentWish do: [ :aWish | self alignment: aWish alignment ]
+]
+
+{ #category : #accessing }
+BrLayoutAlignmentModel >> none [
+	self alignment: None
 ]
 
 { #category : #'state - accessing' }

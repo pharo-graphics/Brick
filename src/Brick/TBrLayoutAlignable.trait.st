@@ -46,6 +46,13 @@ TBrLayoutAlignable >> alignCenterRight [
 ]
 
 { #category : #'api - alignment' }
+TBrLayoutAlignable >> alignNone [
+	"Do not align children in any way"
+
+	self dispatchEvent: BrLayoutAlignmentWish none
+]
+
+{ #category : #'api - alignment' }
 TBrLayoutAlignable >> alignTopCenter [
 	"Align all my children to the center of the top edge"
 

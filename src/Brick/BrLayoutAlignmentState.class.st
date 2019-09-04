@@ -16,6 +16,14 @@ BrLayoutAlignmentState class >> alignment: anObject [
 ]
 
 { #category : #'instance creation' }
+BrLayoutAlignmentState class >> any [
+	^ (((self bottomCenter or: (self bottomLeft or: self bottomRight))
+		or: (self topCenter or: (self topLeft or: self topRight)))
+		or: (self center or: (self centerLeft or: self centerRight)))
+			or: self none
+]
+
+{ #category : #'instance creation' }
 BrLayoutAlignmentState class >> bottomCenter [
 	^ self alignment: BottomCenter
 ]
@@ -43,6 +51,11 @@ BrLayoutAlignmentState class >> centerLeft [
 { #category : #'instance creation' }
 BrLayoutAlignmentState class >> centerRight [
 	^ self alignment: CenterRight
+]
+
+{ #category : #'instance creation' }
+BrLayoutAlignmentState class >> none [
+	^ self alignment: None
 ]
 
 { #category : #'instance creation' }

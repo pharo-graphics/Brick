@@ -7,8 +7,7 @@ Class {
 { #category : #initialization }
 BrLabelLook >> initialize [
 	super initialize.
-	self add: BrLayoutResizerLook new anyToFitContent.
-	self
-		addChangeProperty: #(widget layout)
-		with: [ BlLinearLayout vertical alignCenter ]
+
+	self add: BrLayoutResizerLook new inherit.
+	self add: (BrLayoutAlignmentLook forHorizontalLinearLayout).
 ]

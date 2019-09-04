@@ -8,6 +8,7 @@ Class {
 		'Center',
 		'CenterLeft',
 		'CenterRight',
+		'None',
 		'TopCenter',
 		'TopLeft',
 		'TopRight'
@@ -25,5 +26,6 @@ BrLayoutAlignmentTypes class >> initialize [
 	BottomCenter := #bottomCenter.
 	CenterLeft := #centerLeft.
 	Center := #center.
-	CenterRight := #centerRight
+	CenterRight := #centerRight.
+	None := #none
 ]
