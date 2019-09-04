@@ -19,7 +19,7 @@ The following script install the latest version of Brick + Bloc
     EpMonitor current disable.
     Metacello new
         baseline: 'Brick';
-        repository: 'github://pharo-graphics/Brick/src';
+        repository: 'github://feenkcom/Brick/src';
         load
 ] ensure: [ EpMonitor current enable ]
 ```
