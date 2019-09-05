@@ -1,10 +1,10 @@
 "
-I add a gaussian shadow around an element.
+I add a simple flat shadow around an element.
 
 To work properly and element should have some margin in order for the shadow to not be clipped by the parent bounds
 "
 Class {
-	#name : #BrShadowLook,
+	#name : #BrFlatShadowLook,
 	#superclass : #BrLook,
 	#instVars : [
 		'shadow'
@@ -13,42 +13,38 @@ Class {
 }
 
 { #category : #accessing }
-BrShadowLook >> color: aColor [
+BrFlatShadowLook >> color: aColor [
 	self shadow: (self shadow copyWithColor: aColor)
 ]
 
 { #category : #initialization }
-BrShadowLook >> initialize [
+BrFlatShadowLook >> initialize [
 	super initialize.
-	self addChangeProperty: #(widget effect) withCopy: [ self shadow ].
-	shadow := BlGaussianShadowEffect
+
+	shadow := BlSimpleShadowEffect
 		color: (Color black alpha: 0.3)
-		width: 2
-		offset: 0 @ 1
+		offset: 5 @ 5.
+
+	self addChangeProperty: #(widget effect) withCopy: [ self shadow ]
 ]
 
 { #category : #accessing }
-BrShadowLook >> offset: aColor [
+BrFlatShadowLook >> offset: aColor [
 	self shadow: (self shadow copyWithOffset: aColor)
 ]
 
 { #category : #private }
-BrShadowLook >> shadow [
-	<return: #BlGaussianShadowEffect>
+BrFlatShadowLook >> shadow [
+	<return: #BlSimpleShadowEffect>
 
 	^ shadow
 ]
 
 { #category : #private }
-BrShadowLook >> shadow: aBlDropShadowEffect [
+BrFlatShadowLook >> shadow: aBlDropShadowEffect [
 	shadow := aBlDropShadowEffect.
 	self
 		widgetDo: [ changes
 				downOn: self;
 				upOn: self ]
-]
-
-{ #category : #accessing }
-BrShadowLook >> width: aNumber [
-	self shadow: (self shadow copyWithWidth: aNumber)
 ]
