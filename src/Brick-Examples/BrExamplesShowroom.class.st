@@ -463,12 +463,20 @@ BrExamplesShowroom >> materialToolbar [
 { #category : #list }
 BrExamplesShowroom >> simpleList [
 	<gtExample>
-	
 	^ BrSimpleList new
-		display: (Color indexedColors);
-		stencil: [ :aColor |
+		display: Color indexedColors;
+		stencil: [ :aColor | 
 			BrLabel new
-				look: (BrGlamorousLabelLook new foreground: aColor contrastingForegroundColor);
+				look:
+					(BrGlamorousLabelLook new
+						foreground: aColor contrastingForegroundColor)
+						+
+							(BrGlamorousWithContextMenuLook new
+								stencil: [ BrLabel new
+										look: BrGlamorousLabelLook;
+										padding: (BlInsets all: 5);
+										text: 'Just checking';
+										yourself ]);
 				text: aColor asString;
 				background: aColor;
 				padding: (BlInsets all: 12);
