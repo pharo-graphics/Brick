@@ -8,7 +8,7 @@ Class {
 		'layout',
 		'horizontalResizer',
 		'verticalResizer',
-		'consraintsBlock',
+		'constraintsBlock',
 		'verticalAlignment',
 		'horizontalAlignment'
 	],
@@ -74,8 +74,8 @@ BrLayoutLook >> constraintsDo: aBlock [
 		assert: [ aBlock isNotNil ]
 		description: [ 'Constraints block' ].
 
-	consraintsBlock := aBlock.
-	self widgetDo: [ :anElement | self targetElement constraintsDo: consraintsBlock ]
+	constraintsBlock := aBlock.
+	self widgetDo: [ :anElement | self targetElement constraintsDo: constraintsBlock ]
 ]
 
 { #category : #'api - resizers' }
@@ -163,7 +163,7 @@ BrLayoutLook >> initialize [
 	verticalResizer := BlLayoutResizer fitContent.
 	horizontalAlignment := BlNullAlignment horizontal.
 	verticalAlignment := BlNullAlignment vertical.
-	consraintsBlock := [ :c |  ].
+	constraintsBlock := [ :c |  ].
 	self
 		addChange:
 			(BrLookChange new
@@ -183,7 +183,7 @@ BrLayoutLook >> initialize [
 		addChange:
 			(BrLookChange new
 				up: [ :e | 
-					self targetElement constraintsDo: [ :c | consraintsBlock value: c ].
+					self targetElement constraintsDo: [ :c | constraintsBlock value: c ].
 					self layout ifNotNil: [ self targetElement layout: self layout ].
 					self updateAlignment ];
 				down: [ :e |  ];
