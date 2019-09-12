@@ -1,3 +1,14 @@
+"
+I am an abstract text styler strategy used by ${class:BrTextEditor}$.
+My concrete subclass strategies should style text in a background process.
+The common styling logic, that should be executed in the background process is implemented in ${method:BrTextStylerCommonAsyncStrategy>>#doStyle:afterDo:}$ and should be called from concete 
+The subclasses should implement ${method:BrTextStylerStrategy>>#style:afterDo:}$ implementations.
+
+See ${class:BrTextStylerStrategy}$ for futher explanation.
+
+See my subclasses for concrete async strategies: ${class:BrTextStylerCommonAsyncStrategy|expanded=true|show=gtSubclassesFor:}$
+
+"
 Class {
 	#name : #BrTextStylerCommonAsyncStrategy,
 	#superclass : #BrTextStylerStrategy,

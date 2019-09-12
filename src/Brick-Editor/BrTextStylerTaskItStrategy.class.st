@@ -1,3 +1,13 @@
+"
+I am a text styler strategy used by ${class:BrTextEditor}$.
+I style a text in a TaskIt background process using ${class:BlTktWorkerProvider}$.
+
+See ${class:BrTextStylerStrategy}$ for futher explanation.
+
+Example: ${example:BrTextStylerExamples>>#editorWithTaskItStylerStrategy}$
+
+
+"
 Class {
 	#name : #BrTextStylerTaskItStrategy,
 	#superclass : #BrTextStylerCommonAsyncStrategy,

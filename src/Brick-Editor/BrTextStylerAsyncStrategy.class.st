@@ -1,3 +1,13 @@
+"
+I am a text styler strategy used by ${class:BrTextEditor}$.
+I style a text in a bacground process using ${method:BlockClosure>>#forkAt:named:}$.
+
+See ${class:BrTextStylerStrategy}$ for futher explanation.
+
+Example: ${example:BrTextStylerExamples>>#editorWithAsyncStylerStrategy}$
+
+
+"
 Class {
 	#name : #BrTextStylerAsyncStrategy,
 	#superclass : #BrTextStylerCommonAsyncStrategy,
@@ -24,7 +34,7 @@ BrTextStylerAsyncStrategy >> delay: aDuration [
 
 { #category : #private }
 BrTextStylerAsyncStrategy >> doStyle: aBlText afterDo: aBlock [
-	self delay wait.
+	self delay isZero ifFalse: [ self delay wait ].
 	super doStyle: aBlText afterDo: aBlock
 ]
 
