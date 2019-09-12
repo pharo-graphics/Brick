@@ -28,6 +28,11 @@ BrTextAdornmentAttribute >> beAppend [
 ]
 
 { #category : #accessing }
+BrTextAdornmentAttribute >> beLazy [
+	self renderingStrategy: BrTextAdornmentAttributeTaskItRenderingStrategy new.
+]
+
+{ #category : #accessing }
 BrTextAdornmentAttribute >> beReplace [
 	shouldAppend := false
 ]
@@ -35,11 +40,6 @@ BrTextAdornmentAttribute >> beReplace [
 { #category : #accessing }
 BrTextAdornmentAttribute >> beSync [
 	self renderingStrategy: BrTextAdornmentAttributeSyncRenderingStrategy new.
-]
-
-{ #category : #accessing }
-BrTextAdornmentAttribute >> beTaskIt [
-	self renderingStrategy: BrTextAdornmentAttributeTaskItRenderingStrategy new.
 ]
 
 { #category : #accessing }
