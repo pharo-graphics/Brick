@@ -1027,17 +1027,17 @@ BrTextEditor >> updateSelection: aFromTextIndex to: aToTextIndex [
 ]
 
 { #category : #initialization }
-BrTextEditor >> useAsyncStyler [
+BrTextEditor >> useAsyncStylerStrategy [
 	self stylerStrategy: BrTextStylerAsyncStrategy new.
 ]
 
 { #category : #initialization }
-BrTextEditor >> useSyncStyler [
+BrTextEditor >> useSyncStylerStrategy [
 	self stylerStrategy: BrTextStylerSyncStrategy new.
 ]
 
 { #category : #initialization }
-BrTextEditor >> useTaskItStyler [
+BrTextEditor >> useTaskItStylerStrategy [
 	self stylerStrategy: BrTextStylerTaskItStrategy new.
 ]
 
