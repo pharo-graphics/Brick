@@ -9,17 +9,17 @@ Class {
 	#name : #BrTextAdornmentAttribute,
 	#superclass : #BlTextAttribute,
 	#instVars : [
-		'shouldAppend'
+		'shouldAppend',
+		'renderingStrategy'
 	],
 	#category : #'Brick-Editor-Text-Attributes'
 }
 
 { #category : #accessing }
 BrTextAdornmentAttribute >> affect: aBrText in: anEditorElement [
-	"Return a collection of objects (may be empty) that should affect (either append or replace) a provided text piece"
-	<return: #SequenceableCollection of: #BlElement>
-
-	^ self subclassResponsibility
+	"Return an element that should affect (either append or replace) a provided text piece"
+	<return: #BlElement>
+	^ self renderingStrategy affect: aBrText in: anEditorElement
 ]
 
 { #category : #accessing }
@@ -28,15 +28,39 @@ BrTextAdornmentAttribute >> beAppend [
 ]
 
 { #category : #accessing }
+BrTextAdornmentAttribute >> beLazy [
+	self renderingStrategy: BrTextAdornmentAttributeTaskItRenderingStrategy new.
+]
+
+{ #category : #accessing }
 BrTextAdornmentAttribute >> beReplace [
 	shouldAppend := false
+]
+
+{ #category : #accessing }
+BrTextAdornmentAttribute >> beSync [
+	self renderingStrategy: BrTextAdornmentAttributeSyncRenderingStrategy new.
+]
+
+{ #category : #accessing }
+BrTextAdornmentAttribute >> doAffect: aBrText in: anEditorElement [
+	"Return an element that should affect (either append or replace) a provided text piece"
+	<return: #BlElement>
+
+	^ self subclassResponsibility
 ]
 
 { #category : #initialization }
 BrTextAdornmentAttribute >> initialize [
 	super initialize.
 	
-	shouldAppend := false
+	shouldAppend := false.
+	self renderingStrategy: BrTextAdornmentAttributeSyncRenderingStrategy new.
+]
+
+{ #category : #initialization }
+BrTextAdornmentAttribute >> initializeLazyElement: aBlLazyElement [
+	"Subclasses can initialize the element"
 ]
 
 { #category : #testing }
@@ -51,6 +75,21 @@ BrTextAdornmentAttribute >> isAdornment [
 { #category : #testing }
 BrTextAdornmentAttribute >> isStyle [
 	^ false
+]
+
+{ #category : #accessing }
+BrTextAdornmentAttribute >> renderingStrategy [
+	<return: #BrTextAdornmentAttributeRenderingStrategy>
+	^ renderingStrategy
+]
+
+{ #category : #accessing }
+BrTextAdornmentAttribute >> renderingStrategy: aBrTextAdornmentAttributeRenderingStrategy [
+	self 
+		assert: [ aBrTextAdornmentAttributeRenderingStrategy isNotNil ] 
+		description: [ 'Text attribute rendering strategy must be non-nil' ].
+	aBrTextAdornmentAttributeRenderingStrategy attribute: self.
+	renderingStrategy := aBrTextAdornmentAttributeRenderingStrategy
 ]
 
 { #category : #testing }

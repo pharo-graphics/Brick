@@ -71,7 +71,7 @@ BrEditor >> styler [
 
 { #category : #'editor - accessing' }
 BrEditor >> styler: aStyler [
-	editorModel styler: aStyler
+	editorModel styler: aStyler.
 ]
 
 { #category : #'editor - accessing' }

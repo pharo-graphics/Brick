@@ -17,6 +17,7 @@ Class {
 		'segmentBuilder',
 		'segmentCollector',
 		'styler',
+		'stylerStrategy',
 		'stylerEventHandler',
 		'interactions',
 		'cursors'
@@ -168,12 +169,18 @@ BrTextEditor >> defaultStylerEventHandler [
 		(anEvent text previousGeneration == self text generation)
 			ifTrue: [
 				self text rope: anEvent text text rope.
+				anEvent afterAction cull: self text cull: self.
 				self invalidateAll.
 				self updateAll ]
 			ifFalse: [
 				Bloc debugModeEnabled
 					ifTrue: [ Error signal: 'Wrong generation!' ].
-				self styleText ] ]
+				self styleTextAndAfterDo: anEvent afterAction ] ]
+]
+
+{ #category : #initialization }
+BrTextEditor >> defaultStylerStrategy [
+	^ BrTextStylerTaskItStrategy new
 ]
 
 { #category : #initialization }
@@ -252,8 +259,11 @@ BrTextEditor >> initialize [
 	segmentCollector editor: self.
 	segmentCollector text: text.
 	segmentBuilder := self defaultSegmentBuilder.
+	
 	styler := self defaultStyler.
-	stylerEventHandler := self defaultStylerEventHandler.
+	stylerEventHandler := self defaultStylerEventHandler.	
+	self useDefaultStylerStrategy.
+	
 	interactions := OrderedCollection new.
 	self initializeInteractions
 ]
@@ -911,7 +921,7 @@ BrTextEditor >> styleTextAndAfterDo: aBlock [
 	"I first style, and then I do aBlock once I am finished"
 	
 	self text isEmpty ifTrue: [ ^ self ].
-	self styler style: self text nextGeneration afterDo: aBlock.
+	self stylerStrategy style: self text nextGeneration afterDo: aBlock.
 ]
 
 { #category : #accessing }
@@ -926,9 +936,30 @@ BrTextEditor >> styler: aStyler [
 
 	styler := aStyler.
 	styler addEventHandler: stylerEventHandler.
+	self stylerStrategy ifNotNil: [ 
+		self stylerStrategy styler: aStyler ].
 	
 	"styler changed, let's restyle the text"
 	self styleText
+]
+
+{ #category : #accessing }
+BrTextEditor >> stylerStrategy [
+	<return: #BrTextStylerStrategy>
+	^ stylerStrategy
+]
+
+{ #category : #accessing }
+BrTextEditor >> stylerStrategy: aBrTextStylerStrategy [
+	self 
+		assert: [ aBrTextStylerStrategy isNotNil ] 
+		description: [ 'Text styler strategy must be non-nil' ].
+	self styler ifNotNil: [ 
+		aBrTextStylerStrategy styler: self styler ].
+	stylerStrategy ifNotNil: [ 
+		stylerStrategy view ifNotNil: [ :aView | 
+			aBrTextStylerStrategy view: aView ] ].
+	stylerStrategy := aBrTextStylerStrategy
 ]
 
 { #category : #accessing }
@@ -993,4 +1024,31 @@ BrTextEditor >> updateSelection: aFromTextIndex to: aToTextIndex [
 		fromIndex: aFromTextIndex;
 		toIndex: aToTextIndex.
 	self enqueueCommand: aCommand
+]
+
+{ #category : #initialization }
+BrTextEditor >> useAsyncStylerStrategy [
+	self stylerStrategy: BrTextStylerAsyncStrategy new.
+]
+
+{ #category : #initialization }
+BrTextEditor >> useDefaultStylerStrategy [
+	self stylerStrategy: self defaultStylerStrategy
+]
+
+{ #category : #initialization }
+BrTextEditor >> useSyncStylerStrategy [
+	self stylerStrategy: BrTextStylerSyncStrategy new.
+]
+
+{ #category : #initialization }
+BrTextEditor >> useTaskItStylerStrategy [
+	self stylerStrategy: BrTextStylerTaskItStrategy new.
+]
+
+{ #category : #accessing }
+BrTextEditor >> view: aBlElement [
+	"Some objects may need a Bloc widget to enqueue some UI-level changes, e.g., 
+		styling test in a background process."
+	self stylerStrategy view: aBlElement.
 ]
