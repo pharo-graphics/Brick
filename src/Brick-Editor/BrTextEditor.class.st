@@ -1026,6 +1026,21 @@ BrTextEditor >> updateSelection: aFromTextIndex to: aToTextIndex [
 	self enqueueCommand: aCommand
 ]
 
+{ #category : #initialization }
+BrTextEditor >> useAsyncStyler [
+	self stylerStrategy: BrTextStylerAsyncStrategy new.
+]
+
+{ #category : #initialization }
+BrTextEditor >> useSyncStyler [
+	self stylerStrategy: BrTextStylerSyncStrategy new.
+]
+
+{ #category : #initialization }
+BrTextEditor >> useTaskItStyler [
+	self stylerStrategy: BrTextStylerTaskItStrategy new.
+]
+
 { #category : #accessing }
 BrTextEditor >> view: aBlElement [
 	"Some objects may need a Bloc widget to enqueue some UI-level changes, e.g., 
