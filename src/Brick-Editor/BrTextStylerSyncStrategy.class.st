@@ -17,8 +17,8 @@ Class {
 { #category : #styling }
 BrTextStylerSyncStrategy >> style: aBlText afterDo: aBlock [
 	| aStyledBlText |
-	aStyledBlText := self styler onlyStyle: aBlText.
+	aStyledBlText := self styler style: aBlText.
 	self styler
-		onlyFireStyledEventForText: aStyledBlText
+		fireStyledEventForText: aStyledBlText
 		andAfterAction: aBlock.
 ]

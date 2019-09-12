@@ -31,9 +31,9 @@ BrTextStylerCommonAsyncStrategy >> doStyle: aBrText afterDo: aBlock [
 	anElement ifNil: [ 
 		"The graphical widget is no more available, we therefore do not need to style text".
 		^ self ].
-	aStyledBrText := self styler onlyStyle: aBrText.
+	aStyledBrText := self styler style: aBrText.
 	aTaskAction := BlTaskAction new action: [ 
-		self styler onlyFireStyledEventForText: aStyledBrText andAfterAction: aBlock.
+		self styler fireStyledEventForText: aStyledBrText andAfterAction: aBlock.
 		 ].
 	anElement enqueueTask: aTaskAction.
 ]

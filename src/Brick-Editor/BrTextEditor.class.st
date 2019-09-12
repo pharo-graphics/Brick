@@ -259,10 +259,10 @@ BrTextEditor >> initialize [
 	segmentCollector editor: self.
 	segmentCollector text: text.
 	segmentBuilder := self defaultSegmentBuilder.
-	styler := self defaultStyler.
-	stylerEventHandler := self defaultStylerEventHandler.
 	
-	self stylerStrategy: self defaultStylerStrategy.
+	styler := self defaultStyler.
+	stylerEventHandler := self defaultStylerEventHandler.	
+	self useDefaultStylerStrategy.
 	
 	interactions := OrderedCollection new.
 	self initializeInteractions
@@ -1029,6 +1029,11 @@ BrTextEditor >> updateSelection: aFromTextIndex to: aToTextIndex [
 { #category : #initialization }
 BrTextEditor >> useAsyncStylerStrategy [
 	self stylerStrategy: BrTextStylerAsyncStrategy new.
+]
+
+{ #category : #initialization }
+BrTextEditor >> useDefaultStylerStrategy [
+	self stylerStrategy: self defaultStylerStrategy
 ]
 
 { #category : #initialization }
