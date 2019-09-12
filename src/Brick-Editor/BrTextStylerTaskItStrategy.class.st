@@ -4,7 +4,7 @@ I style a text in a TaskIt background process using ${class:BlTktWorkerProvider}
 
 See ${class:BrTextStylerStrategy}$ for futher explanation.
 
-Example: ${example:BrTextStylerExamples>>#editorWithTaskItStylerStrategy}$
+Example: ${example:BrTextStylerExamples>>#editorWithTaskItStylerStrategy|codeExpanded=false|previewExpanded=true}$
 
 
 "

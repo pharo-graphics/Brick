@@ -4,7 +4,7 @@ I style a text in a bacground process using ${method:BlockClosure>>#forkAt:named
 
 See ${class:BrTextStylerStrategy}$ for futher explanation.
 
-Example: ${example:BrTextStylerExamples>>#editorWithAsyncStylerStrategy}$
+Example: ${example:BrTextStylerExamples>>#editorWithAsyncStylerStrategy|codeExpanded=false|previewExpanded=true}$
 
 
 "

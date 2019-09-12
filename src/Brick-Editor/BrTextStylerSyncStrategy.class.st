@@ -4,7 +4,7 @@ I style a text in the same active process, which should be a Bloc UI process to 
 
 See ${class:BrTextStylerStrategy}$ for futher explanation.
 
-Example: ${example:BrTextStylerExamples>>#editorWithSyncStylerStrategy}$
+Example: ${example:BrTextStylerExamples>>#editorWithSyncStylerStrategy|codeExpanded=false|previewExpanded=true}$
 
 
 "

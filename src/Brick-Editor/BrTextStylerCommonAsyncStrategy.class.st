@@ -19,6 +19,11 @@ Class {
 	#category : #'Brick-Editor-Styler'
 }
 
+{ #category : #testing }
+BrTextStylerCommonAsyncStrategy class >> isAbstract [
+	^ self name = #BrTextStylerCommonAsyncStrategy 
+]
+
 { #category : #private }
 BrTextStylerCommonAsyncStrategy >> doStyle: aBrText afterDo: aBlock [
 	| anElement aStyledBrText aTaskAction |

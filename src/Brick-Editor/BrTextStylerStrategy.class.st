@@ -20,6 +20,11 @@ Class {
 	#category : #'Brick-Editor-Styler'
 }
 
+{ #category : #testing }
+BrTextStylerStrategy class >> isAbstract [
+	^ self name = #BrTextStylerStrategy 
+]
+
 { #category : #styling }
 BrTextStylerStrategy >> style: aBrText [
 	self style: aBrText afterDo: [ "do nothing" ]
