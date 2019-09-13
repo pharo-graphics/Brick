@@ -181,12 +181,14 @@ BrWithTooltipLook >> relocateContainer [
 				- ((tooltipWrapper size + (0 @ pointer height)) * scale) ].
 	((widget width min: container width) - pointer width) / 2
 		in: [ :e | pointer margin: (BlInsets left: e right: e) ].
+	self flag: 'TODO is there a better way to force the redraw of a geometry if bounds did not change?'.
 	container
 		transformDo: [ :t | 
 			t
 				origin: BlAffineTransformationTopLeftOrigin new;
 				scaleBy: scale;
-				translateBy: preferredPosition ]
+				translateBy: preferredPosition ];
+		geometry: container geometry "force gemoetry redraw"
 ]
 
 { #category : #'host space - displaying' }
