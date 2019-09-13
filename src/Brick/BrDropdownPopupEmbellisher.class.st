@@ -110,12 +110,14 @@ BrDropdownPopupEmbellisher >> relocatePopup [
 	positioner popupPreferredPosition = (#top -> #left)
 		ifTrue: [ preferredPosition := anchorBounds topRight
 				- (popupWrapper size * scale) ].
+	self flag: 'TODO is there a better way to force the redraw of a geometry if bounds did not change?'.
 	container
 		transformDo: [ :t | 
 			t
 				origin: BlAffineTransformationTopLeftOrigin new;
 				scaleBy: scale;
-				translateBy: preferredPosition ]
+				translateBy: preferredPosition ];
+		geometry: container geometry "force gemoetry redraw"
 ]
 
 { #category : #accessing }
