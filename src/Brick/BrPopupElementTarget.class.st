@@ -12,7 +12,7 @@ Class {
 
 { #category : #'api - popup' }
 BrPopupElementTarget >> closePopup: aPopupElement [
-	self element removeChild: aPopupElement
+	aPopupElement removeFromParent
 ]
 
 { #category : #accessing }
