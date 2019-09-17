@@ -31,7 +31,7 @@ BrLogicalZoomModel >> popZoom [
 			downOn: aWidget
 			whenFinished: [
 				aCurrentLevel
-					upOn: aWidget
+					restoredOn: aWidget
 					whenFinished: [  ] ] ]
 ]
 
@@ -44,7 +44,7 @@ BrLogicalZoomModel >> pushZoom: aZoomLevel [
 		aPreviousLevel := levels top.
 		levels push: aZoomLevel.
 		aPreviousLevel
-			downOn: aWidget
+			overridenOn: aWidget
 			whenFinished: [
 				aZoomLevel
 					upOn: aWidget
@@ -60,7 +60,7 @@ BrLogicalZoomModel >> setZoom: aZoom [
 		
 		aPreviousLevel := levels pop.
 		levels push: aZoom.
-				
+
 		aPreviousLevel
 			downOn: aWidget
 			whenFinished: [
