@@ -41,6 +41,41 @@ BrLayoutAlignmentLook class >> forHorizontalLinearLayout [
 ]
 
 { #category : #'instance creation' }
+BrLayoutAlignmentLook class >> forIgnoredByLayout [
+	^ self new
+		none: [ :aWidget | aWidget constraintsDo: [ :c |
+			c ignored horizontal alignNone.
+			c ignored vertical alignNone ] ];
+		topLeft: [ :aWidget | aWidget constraintsDo: [ :c |
+			c ignored horizontal alignLeft.
+			c ignored vertical alignTop ] ];
+		topCenter: [ :aWidget | aWidget constraintsDo: [ :c |
+			c ignored horizontal alignCenter.
+			c ignored vertical alignTop ] ];
+		topRight: [ :aWidget | aWidget constraintsDo: [ :c |
+			c ignored horizontal alignRight.
+			c ignored vertical alignTop ] ];
+		centerLeft: [ :aWidget | aWidget constraintsDo: [ :c |
+			c ignored horizontal alignLeft.
+			c ignored vertical alignCenter ] ];
+		center: [ :aWidget | aWidget constraintsDo: [ :c |
+			c ignored horizontal alignCenter.
+			c ignored vertical alignCenter ] ];
+		centerRight: [ :aWidget | aWidget constraintsDo: [ :c |
+			c ignored horizontal alignRight.
+			c ignored vertical alignCenter ] ];
+		bottomLeft: [ :aWidget | aWidget constraintsDo: [ :c |
+			c ignored horizontal alignLeft.
+			c ignored vertical alignBottom ] ];
+		bottomCenter: [ :aWidget | aWidget constraintsDo: [ :c |
+			c ignored horizontal alignCenter.
+			c ignored vertical alignBottom ] ];
+		bottomRight: [ :aWidget | aWidget constraintsDo: [ :c |
+			c ignored horizontal alignRight.
+			c ignored vertical alignBottom ] ]
+]
+
+{ #category : #'instance creation' }
 BrLayoutAlignmentLook class >> forVerticalFlowLayout [
 	^ self new
 		none: [ :aWidget | aWidget layout: BlFlowLayout vertical ];

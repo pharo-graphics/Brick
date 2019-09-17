@@ -12,8 +12,8 @@ popup show.
 Class {
 	#name : #BrPopup,
 	#superclass : #BlElement,
-	#traits : 'TBrLayoutResizable',
-	#classTraits : 'TBrLayoutResizable classTrait',
+	#traits : 'TBrLayoutResizable + TBrLayoutAlignable',
+	#classTraits : 'TBrLayoutResizable classTrait + TBrLayoutAlignable classTrait',
 	#instVars : [
 		'expandedModel'
 	],
@@ -33,7 +33,8 @@ BrPopup >> initialize [
 		BrInteractiveModel withAll: {
 			expandedModel := BrExpandableModel new.
 			BrLayoutHorizontalResizerModel matchParent.
-			BrLayoutVerticalResizerModel matchParent } })
+			BrLayoutVerticalResizerModel matchParent.
+			BrLayoutAlignmentModel new } })
 ]
 
 { #category : #'api - popup' }

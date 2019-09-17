@@ -37,7 +37,7 @@ BrWithContextMenuLook >> initialize [
 	clickEventHandler := BlEventHandler
 		on: BlMouseUpEvent
 		do: [ :e | 
-			position := e position.
+			position := e localPosition.
 			e button = BlMouseButton secondary
 				ifTrue: [ self visible
 						ifTrue: [ self hide ].
@@ -135,7 +135,9 @@ BrWithContextMenuLook >> relocateContainer [
 	| positioner anchorBounds popupMaxBounds scale preferredPosition |
 	self assert: [ container isAttachedToSceneGraph ].
 	positioner := BrAnchoredPopupPositioner
-		anchorBoundsInTarget: (position - (pointer size / 2) extent: pointer size)
+		anchorBoundsInTarget:
+			((widget localPointToGlobal: position) - (pointer size / 2)
+				extent: pointer size)
 		target: container parent.
 	scale := widget globalScale.
 	anchorBounds := positioner anchorBoundsInTarget.
@@ -170,12 +172,14 @@ BrWithContextMenuLook >> relocateContainer [
 	positioner popupPreferredPosition = (#top -> #left)
 		ifTrue: [ preferredPosition := anchorBounds topRight
 				- (tooltipWrapper size * scale) ].
+	self flag: 'TODO is there a better way to force the redraw of a geometry if bounds did not change?'.
 	container
 		transformDo: [ :t | 
 			t
 				origin: BlAffineTransformationTopLeftOrigin new;
 				scaleBy: scale;
-				translateBy: preferredPosition ]
+				translateBy: preferredPosition ];
+		geometry: container geometry "force gemoetry redraw"
 ]
 
 { #category : #'host space - displaying' }
