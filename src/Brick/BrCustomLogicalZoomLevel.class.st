@@ -24,8 +24,8 @@ BrCustomLogicalZoomLevel >> downOn: aWidget whenFinished: aFinishedBlock [
 BrCustomLogicalZoomLevel >> initialize [
 	super initialize.
 	
-	upLogic := [ :aWidget :aFinishedBlock |  ].
-	downLogic := [ :aWidget :aFinishedBlock |  ]
+	upLogic := [ :aWidget :aFinishedBlock | aFinishedBlock value ].
+	downLogic := [ :aWidget :aFinishedBlock | aFinishedBlock value ]
 ]
 
 { #category : #navigating }
