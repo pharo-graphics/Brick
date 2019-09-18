@@ -65,7 +65,8 @@ BrActivationModel >> initialize [
 BrActivationModel >> initializeListeners [
 	super initializeListeners.
 
-	self when: BrActivationRequest reply: [ :aResponse | aResponse enabled: self isEnabled ]
+	self when: BrActivationRequest reply: [ :aResponse | aResponse enabled: self isEnabled ].
+	self when: BrActivationWish do: [ :aWish | self enabled: aWish isActivated ]
 ]
 
 { #category : #'api - testing' }
