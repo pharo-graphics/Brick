@@ -3,7 +3,9 @@ Class {
 	#superclass : #BrLogicalZoomLevel,
 	#instVars : [
 		'upLogic',
-		'downLogic'
+		'downLogic',
+		'overridenLogic',
+		'restoredLogic'
 	],
 	#category : #'Brick-Logical Zooming - Model'
 }
@@ -25,7 +27,33 @@ BrCustomLogicalZoomLevel >> initialize [
 	super initialize.
 	
 	upLogic := [ :aWidget :aFinishedBlock | aFinishedBlock value ].
-	downLogic := [ :aWidget :aFinishedBlock | aFinishedBlock value ]
+	downLogic := [ :aWidget :aFinishedBlock | aFinishedBlock value ].
+	overridenLogic := [ :aWidget :aFinishedBlock | aFinishedBlock value ].
+	restoredLogic := [ :aWidget :aFinishedBlock | aFinishedBlock value ].
+]
+
+{ #category : #navigating }
+BrCustomLogicalZoomLevel >> overriden: aBlock [
+	overridenLogic := aBlock
+]
+
+{ #category : #initialization }
+BrCustomLogicalZoomLevel >> overridenOn: aWidget whenFinished: aFinishedBlock [
+	"Is sent when another zoom level is pushed on top of this one"
+
+	overridenLogic value: aWidget value: aFinishedBlock
+]
+
+{ #category : #navigating }
+BrCustomLogicalZoomLevel >> restored: aBlock [
+	restoredLogic := aBlock
+]
+
+{ #category : #initialization }
+BrCustomLogicalZoomLevel >> restoredOn: aWidget whenFinished: aFinishedBlock [
+	"Is sent when another zoom level is popped and I am again the top one"
+
+	restoredLogic value: aWidget value: aFinishedBlock
 ]
 
 { #category : #navigating }

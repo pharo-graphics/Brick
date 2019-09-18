@@ -2,71 +2,69 @@ Class {
 	#name : #BrLogicalZoomModel,
 	#superclass : #BrWidgetModel,
 	#instVars : [
-		'levels',
-		'currentLevel'
+		'levels'
 	],
 	#category : #'Brick-Logical Zooming - Model'
 }
-
-{ #category : #'api - adding' }
-BrLogicalZoomModel >> addLevel: aZoomLevel [
-	levels add: aZoomLevel.
-
-	"the first level is always a default"
-	levels size = 2
-		ifTrue: [ self currentLevel: aZoomLevel ]
-]
-
-{ #category : #private }
-BrLogicalZoomModel >> currentLevel: aZoomLevel [
-	"Change a current zoom level to the given one"
-	
-	self widgetDo: [ :aWidget |
-		currentLevel
-			downOn: aWidget
-			whenFinished: [
-				aZoomLevel
-					upOn: aWidget
-					whenFinished: [ currentLevel := aZoomLevel ] ] ]
-]
-
-{ #category : #private }
-BrLogicalZoomModel >> indexOf: aZoomLevel ifAbsent: anAbsentBlock [
-	^ levels indexOf: aZoomLevel ifAbsent: anAbsentBlock
-]
 
 { #category : #initialization }
 BrLogicalZoomModel >> initialize [
 	super initialize.
 
-	currentLevel := BrDefaultLogicalZoomLevel new.
-	levels := OrderedCollection with: currentLevel
+	levels := Stack with: BrDefaultLogicalZoomLevel new
 ]
 
 { #category : #'api - zooming' }
-BrLogicalZoomModel >> zoomIn [
-	| aCurrentZoomIndex |
-
-	aCurrentZoomIndex := self
-		indexOf: currentLevel
-		ifAbsent: [ ^ self ].
-
-	aCurrentZoomIndex >= levels size
+BrLogicalZoomModel >> popZoom [
+	"Go to the previous zoom level"
+	
+	levels firstLink = levels lastLink
 		ifTrue: [ ^ self ].
 	
-	self currentLevel: (levels at: aCurrentZoomIndex + 1)
+	self widgetDo: [ :aWidget |
+		| aPreviousLevel aCurrentLevel |
+		
+		aPreviousLevel := levels pop.
+		aCurrentLevel := levels top.
+		
+		aPreviousLevel
+			downOn: aWidget
+			whenFinished: [
+				aCurrentLevel
+					restoredOn: aWidget
+					whenFinished: [  ] ] ]
 ]
 
 { #category : #'api - zooming' }
-BrLogicalZoomModel >> zoomOut [
-	| aCurrentZoomIndex |
-
-	aCurrentZoomIndex := self
-		indexOf: currentLevel
-		ifAbsent: [ ^ self ].
-
-	aCurrentZoomIndex <= 1
-		ifTrue: [ ^ self ].
+BrLogicalZoomModel >> pushZoom: aZoomLevel [
+	"Change a current zoom level to the given one"
 	
-	self currentLevel: (levels at: aCurrentZoomIndex - 1)
+	self widgetDo: [ :aWidget |
+		| aPreviousLevel |
+		aPreviousLevel := levels top.
+		levels push: aZoomLevel.
+		aPreviousLevel
+			overridenOn: aWidget
+			whenFinished: [
+				aZoomLevel
+					upOn: aWidget
+					whenFinished: [  ] ] ]
+]
+
+{ #category : #'api - zooming' }
+BrLogicalZoomModel >> setZoom: aZoom [
+	"Replace the top zoom level with a given one"
+	
+	self widgetDo: [ :aWidget |
+		| aPreviousLevel |
+		
+		aPreviousLevel := levels pop.
+		levels push: aZoom.
+
+		aPreviousLevel
+			downOn: aWidget
+			whenFinished: [
+				aZoom
+					upOn: aWidget
+					whenFinished: [  ] ] ]
 ]
