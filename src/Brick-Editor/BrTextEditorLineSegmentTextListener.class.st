@@ -51,8 +51,12 @@ BrTextEditorLineSegmentTextListener >> handleEvent: aBlMouseEvent [
 
 { #category : #events }
 BrTextEditorLineSegmentTextListener >> wantsEvent: anEvent [
+	
+	self flag: 'Dirty fix of assertion error.
+	The UI state is upodated after text modification. If a mouse event happens in between
+	then we get an assertion in text isNotEmpty'.
 
 	^ (anEvent isKindOf: BlMouseEvent)
 		and: [anEvent currentTarget isAttachedToSceneGraph
-			and: [ anEvent currentTarget text isNotEmpty ] ]
+			and: [ [ anEvent currentTarget text isNotEmpty ] on: Error do: [ false ] ] ]
 ]
