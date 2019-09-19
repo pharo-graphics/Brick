@@ -14,6 +14,16 @@ BrLogicalZoomModel >> initialize [
 	levels := Stack with: BrDefaultLogicalZoomLevel new
 ]
 
+{ #category : #notifying }
+BrLogicalZoomModel >> notifyZoomPopped: aZoomLevel [
+	self dispatchEvent: (BrLogicalZoomPopEvent new)
+]
+
+{ #category : #notifying }
+BrLogicalZoomModel >> notifyZoomPushed: aZoomLevel [
+	self dispatchEvent: (BrLogicalZoomPushEvent new)
+]
+
 { #category : #'api - zooming' }
 BrLogicalZoomModel >> popZoom [
 	"Go to the previous zoom level"
@@ -25,6 +35,7 @@ BrLogicalZoomModel >> popZoom [
 		| aPreviousLevel aCurrentLevel |
 		
 		aPreviousLevel := levels pop.
+		self notifyZoomPopped: aPreviousLevel.
 		aCurrentLevel := levels top.
 		
 		aPreviousLevel
@@ -42,7 +53,10 @@ BrLogicalZoomModel >> pushZoom: aZoomLevel [
 	self widgetDo: [ :aWidget |
 		| aPreviousLevel |
 		aPreviousLevel := levels top.
+
 		levels push: aZoomLevel.
+		self notifyZoomPushed: aZoomLevel.
+
 		aPreviousLevel
 			overridenOn: aWidget
 			whenFinished: [
@@ -67,4 +81,11 @@ BrLogicalZoomModel >> setZoom: aZoom [
 				aZoom
 					upOn: aWidget
 					whenFinished: [  ] ] ]
+]
+
+{ #category : #'api - zooming' }
+BrLogicalZoomModel >> topZoom [
+	<return: #BrLogicalZoomLevel>
+
+	^ levels top
 ]
