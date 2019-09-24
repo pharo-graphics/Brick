@@ -21,7 +21,7 @@ BrTextWordPieceDoubleClickHandler >> handleEvent: anEvent [
 		
 	aScreenPosition := (anEditorElement localBoundsToMine: (BlBounds origin: anEvent localPosition extent: 0@0) fromChild: anEvent currentTarget) center.
 
-	aGlobalTextIndex := anEditorElement navigator
+	aGlobalTextIndex := anEditorElement editor navigator
 		findTextIndexAtScreenPosition: aScreenPosition
 		ifAbsent: [ ^ self ].
 	
