@@ -26,8 +26,8 @@ BrTextWordPieceSelectionAcquiredHandler >> handleEvent: anEvent [
 	"selection bounds equal to our bounds => fast select the whole text piece"
 	(anEvent bounds = aTextElement boundsInLocal)
 		ifTrue: [
-			aGlobalFrom := (aTextElement text start - 1) max: 0.
-			aGlobalTo := (aTextElement text start + aTextElement text size - 1) max: 0 ]
+			aGlobalFrom :=  aTextElement textStart.
+			aGlobalTo := aTextElement textEnd ]
 		ifFalse: [ 
 			| aFromIndex aToIndex |
 			aFromIndex := aTextElement paragraph indexAtPosition: anEvent bounds origin.
@@ -35,13 +35,12 @@ BrTextWordPieceSelectionAcquiredHandler >> handleEvent: anEvent [
 
 			"remove previous selection"	
 			aTextElement selection do: [ :aMonotoneSelection |
-				aGlobalFrom := aTextElement text start + aMonotoneSelection from - 1.
-				aGlobalTo := aTextElement text start + aMonotoneSelection to - 1.
-				
+				aGlobalFrom := self localTextIndexToGlobal: aMonotoneSelection from in: aTextElement.
+				aGlobalTo := self localTextIndexToGlobal: aMonotoneSelection to in: aTextElement.
 				anEditorElement editor recordDeselection: (BlMonotoneSelection from: aGlobalFrom to: aGlobalTo) ].
 			
-			aGlobalFrom := (aTextElement text start + aFromIndex - 1) max: 0.
-			aGlobalTo := (aTextElement text start + aToIndex - 1) max: 0 ].
+			aGlobalFrom := self localTextIndexToGlobal: aFromIndex from in: aTextElement.
+			aGlobalTo := self localTextIndexToGlobal: aToIndex to in: aTextElement ].
 		
 	anEditorElement editor recordSelection: (BlMonotoneSelection from: aGlobalFrom to: aGlobalTo)
 ]

@@ -4,6 +4,8 @@ I am extended version of the ${class:BlTextElement}$ with support of multiple cu
 Class {
 	#name : #BrTextElementWithCursors,
 	#superclass : #BlTextElement,
+	#traits : 'TBrTextEditorTextualPiece',
+	#classTraits : 'TBrTextEditorTextualPiece classTrait',
 	#instVars : [
 		'cursorElements',
 		'cursorStencil'
@@ -177,4 +179,12 @@ BrTextElementWithCursors >> removeCursors [
 { #category : #'cursor - management' }
 BrTextElementWithCursors >> showCursors [
 	self cursorElements do: [ :aCursorElement | aCursorElement visibility: BlVisibility visible ]
+]
+
+{ #category : #initialization }
+BrTextElementWithCursors >> text: aBlText start: aTextStart end: aTextEnd [
+	self text: aBlText.
+
+	textStart := aTextStart.
+	textEnd := aTextEnd
 ]

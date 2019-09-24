@@ -1,8 +1,9 @@
 Class {
 	#name : #BrTextWordPieceStencilBuilder,
 	#superclass : #BrStencilBuilder,
+	#traits : 'TBrTextEditorTextualPiece',
+	#classTraits : 'TBrTextEditorTextualPiece classTrait',
 	#instVars : [
-		'text',
 		'wordPadding',
 		'measurer'
 	],
@@ -72,7 +73,7 @@ BrTextWordPieceStencilBuilder >> acquire [
 { #category : #'api - instantiation' }
 BrTextWordPieceStencilBuilder >> buildDefault [
 	^ self acquire
-		text: self text;
+		text: self text start: self textStart end: self textEnd;
 		padding: self wordPadding
 ]
 
@@ -96,7 +97,9 @@ BrTextWordPieceStencilBuilder >> measurer: aMeasurer [
 
 { #category : #'api - instantiation' }
 BrTextWordPieceStencilBuilder >> paramsOn: aStencilExecutor [
-	aStencilExecutor push: self text
+	aStencilExecutor push: self text.
+	aStencilExecutor push: self textStart.
+	aStencilExecutor push: self textEnd
 ]
 
 { #category : #'api - instantiation' }
@@ -115,8 +118,10 @@ BrTextWordPieceStencilBuilder >> text [
 ]
 
 { #category : #accessing }
-BrTextWordPieceStencilBuilder >> text: aText [
-	text := aText
+BrTextWordPieceStencilBuilder >> text: aText start: aTextStart end: aTextEnd [
+	text := aText.
+	textStart := aTextStart.
+	textEnd := aTextEnd
 ]
 
 { #category : #accessing }

@@ -11,16 +11,19 @@ BrTextWordPieceDoubleClickHandler >> eventClass [
 
 { #category : #'api - event managing' }
 BrTextWordPieceDoubleClickHandler >> handleEvent: anEvent [
-	| aLocalTextIndex aGobaltextIndex aSelecter anEditorElement |
+	| aScreenPosition aGlobalTextIndex aSelecter anEditorElement |
 	
 	"To not create an instance of me for each tiny text element"
 	anEditorElement := anEvent currentTarget
 		allParentsDetect: [ :anElement | anElement isKindOf: BrEditorElement ]
 		ifFound: #yourself
 		ifNone: [ ^ self ].
-	
-	aLocalTextIndex := anEvent currentTarget paragraph indexAtPosition: anEvent localPosition.
-	aGobaltextIndex := (anEvent currentTarget text start + aLocalTextIndex - 1) max: 0.
+		
+	aScreenPosition := (anEditorElement localBoundsToMine: (BlBounds origin: anEvent localPosition extent: 0@0) fromChild: anEvent currentTarget) center.
+
+	aGlobalTextIndex := anEditorElement navigator
+		findTextIndexAtScreenPosition: aScreenPosition
+		ifAbsent: [ ^ self ].
 	
 	aSelecter := anEditorElement editor selecter.
 
@@ -28,6 +31,6 @@ BrTextWordPieceDoubleClickHandler >> handleEvent: anEvent [
 		ifTrue: [ aSelecter withoutCursorUpdate ].
 
 	aSelecter
-		wordAt: aGobaltextIndex;
+		wordAt: aGlobalTextIndex;
 		select
 ]

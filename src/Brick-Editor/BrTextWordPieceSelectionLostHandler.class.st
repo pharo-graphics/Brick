@@ -26,7 +26,7 @@ BrTextWordPieceSelectionLostHandler >> handleEvent: anEvent [
 	aTextEditElement selection do: [ :aMonotoneSelection |
 		| aGlobalFrom aGlobalTo |
 
-		aGlobalFrom := aTextEditElement text start + aMonotoneSelection from - 1.
-		aGlobalTo := aTextEditElement text start + aMonotoneSelection to - 1.
+		aGlobalFrom := self localTextIndexToGlobal: aMonotoneSelection from in: aTextEditElement textStart.
+		aGlobalTo := self localTextIndexToGlobal: aMonotoneSelection to in: aTextEditElement textStart.
 		anEditorElement editor recordDeselection: (BlMonotoneSelection from: aGlobalFrom to: aGlobalTo) ]
 ]
