@@ -35,7 +35,7 @@ TBrTextEditorFixedMeasurerExamples >> editorFor: aText [
 		wordStencil: [ :aWordText :aTextStart :aTextEnd |
 			| aTextElement |
 			aTextElement := BrTextWordPieceStencilBuilder new
-				text: aText start: aTextStart end: aTextEnd;
+				text: aWordText start: aTextStart end: aTextEnd;
 				asElement.
 			aTextElement measurer: (self fixedMeasurer textOffset: aTextStart).
 			aTextElement ].

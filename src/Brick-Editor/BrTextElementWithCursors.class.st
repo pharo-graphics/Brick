@@ -4,7 +4,7 @@ I am extended version of the ${class:BlTextElement}$ with support of multiple cu
 Class {
 	#name : #BrTextElementWithCursors,
 	#superclass : #BlTextElement,
-	#traits : 'TBrTextEditorTextualPiece',
+	#traits : 'TBrTextEditorTextualPiece - {#start:end:. #scopeText:end:}',
 	#classTraits : 'TBrTextEditorTextualPiece classTrait',
 	#instVars : [
 		'cursorElements',
