@@ -42,17 +42,84 @@ ${example:BrButtonExamples>>#buttonWithLabelLookReactingToHover|previewShow=#gtL
 In a similar fashing we can also change the text style on a button press which is managed by ${class:BrPressModel}$:
 ${example:BrButtonExamples>>#buttonWithLabelLookReactingToHoverAndPress|previewShow=#gtLiveFor:|previewHeight=70|previewExpanded=true}$
 
-One more common usecase is to provide a text style for a disabled button which is modelled by ${class:BrActivationModel}$. Please note that disabled button does not react to click and hover events:
+One more common use-case is to provide a text style for a disabled button which is modelled by ${class:BrActivationModel}$. Please note that disabled button does not react to click and hover events:
 ${example:BrButtonExamples>>#buttonWithLabelLookReactingToHoverAndPressAndDisabled|previewShow=#gtLiveFor:|previewHeight=70|previewExpanded=true}$
 
 Sometimes users may want to create a look that depends on a logical button size modelled by ${class:BrSizeModel}$. For example a button can be made huge ==beHuge== or tiny ==beTiny==. To style a label based on the logical widget size we can use ${class:BrInteractiveSizeLook}$ which provides a fluent api for variuos sizes. Click on the label to randomly change its logial size:
 ${example:BrButtonExamples>>#buttonWithLabelLookOfDifferentSizes|previewShow=#gtLiveFor:|previewHeight=70|previewExpanded=true}$
+
+Now lets put together the final label look that we will use later to build our custom button:
+${example:BrButtonExamples>>#labelLookWithCommonAndSizeInteractions}$
+
+!!! Adding and styling the button's exterior
+
+
 "
 Class {
 	#name : #BrButtonExamples,
 	#superclass : #Object,
 	#category : #'Brick-Examples-Button'
 }
+
+{ #category : #'instance creation' }
+BrButtonExamples >> buttonAndLookWithLabelAndExterior [
+	<gtExample>
+	| aButtonLook aLabelLook anExteriorLook |
+	
+	aLabelLook := BrTextLabelLook new.
+	aLabelLook
+		bold;
+		fontName: 'Source Sans Pro'.
+
+	aLabelLook add: (BrInteractiveCommonLook new
+		default: [ aLabelLook foreground: Color gray ];
+		hovered: [ aLabelLook foreground: Color white ];
+		pressed: [ aLabelLook foreground: Color paleBlue ];
+		disabled: [ aLabelLook foreground: Color veryLightGray ]).
+
+	aLabelLook add: (BrInteractiveSizeLook new
+		default: [ aLabelLook fontSize: 20 ];
+		tiny: [ aLabelLook fontSize: 10 ];
+		small: [ aLabelLook fontSize: 16 ];
+		large: [ aLabelLook fontSize: 26 ];
+		huge: [ aLabelLook fontSize: 36 ]).
+		
+	anExteriorLook := BrInteractiveCommonLook new.
+	anExteriorLook
+		default: [ :aWidget |
+			aWidget padding: (BlInsets top: 5 left: 10 bottom: 5 right: 10).
+			aWidget background: Color veryVeryLightGray ];
+		hovered: [ :aWidget | aWidget background: (Color r: 0.27 g: 0.67 b: 0.99) ];
+		pressed: [ :aWidget | aWidget background: (Color r: 0.04 g: 0.43 b: 0.85) ];
+		disabled: [ :aWidget | aWidget background: Color veryVeryLightGray ].
+		
+	anExteriorLook add: (BrLayoutResizerLook inherit).
+	anExteriorLook add: (BrLayoutAlignmentLook forHorizontalLinearLayout).
+	anExteriorLook add: (BrFlatShadowLook new offset: 3@3).
+		
+	aButtonLook := BrLook new.
+	aButtonLook addAll: { aLabelLook . anExteriorLook }.
+
+	^ self newButton
+		label: 'Button';
+		look: aButtonLook
+]
+
+{ #category : #'instance creation' }
+BrButtonExamples >> buttonWithExteriorLook [
+	<gtExample>
+	| anExteriorLook |
+	
+	anExteriorLook := BrInteractiveCommonLook new.
+	anExteriorLook
+		default: [ :aWidget | aWidget background: Color veryVeryLightGray ];
+		hovered: [ :aWidget | aWidget background: (Color r: 0.27 g: 0.67 b: 0.99) ];
+		pressed: [ :aWidget | aWidget background: (Color r: 0.04 g: 0.43 b: 0.85) ];
+		disabled: [ :aWidget | aWidget background: Color veryVeryLightGray ].
+
+	^ self newButton
+		look: anExteriorLook
+]
 
 { #category : #'instance creation' }
 BrButtonExamples >> buttonWithLabelLook [
@@ -163,6 +230,32 @@ BrButtonExamples >> buttonWithLabelLookReactingToHoverAndPressAndDisabled [
 	^ self newButton
 		disable;
 		look: aLabelLook
+]
+
+{ #category : #'instance creation' }
+BrButtonExamples >> labelLookWithCommonAndSizeInteractions [
+	<gtExample>
+	| aLabelLook |
+	
+	aLabelLook := BrTextLabelLook new.
+	aLabelLook
+		bold;
+		fontName: 'Source Sans Pro'.
+
+	aLabelLook add: (BrInteractiveCommonLook new
+		default: [ aLabelLook foreground: Color gray ];
+		hovered: [ aLabelLook foreground: Color darkGray ];
+		pressed: [ aLabelLook foreground: Color black ];
+		disabled: [ aLabelLook foreground: Color veryLightGray ]).
+
+	aLabelLook add: (BrInteractiveSizeLook new
+		default: [ aLabelLook fontSize: 20 ];
+		tiny: [ aLabelLook fontSize: 10 ];
+		small: [ aLabelLook fontSize: 16 ];
+		large: [ aLabelLook fontSize: 26 ];
+		huge: [ aLabelLook fontSize: 36 ]).
+
+	^ aLabelLook
 ]
 
 { #category : #'instance creation' }

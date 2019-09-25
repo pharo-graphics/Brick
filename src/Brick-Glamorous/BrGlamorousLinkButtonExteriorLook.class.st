@@ -24,19 +24,13 @@ BrGlamorousLinkButtonExteriorLook >> backgroundPaint: anObject [
 BrGlamorousLinkButtonExteriorLook >> initialize [
 	super initialize.
 	backgroundPaint := BrGlamorousColors disabledButtonBackgroundColor.
+
 	self
-		style: [ :aStyler | 
-			aStyler
-				default: [ :aWidget | aWidget background: self backgroundPaint ].
-			aStyler
-				hovered:
-					[ :aWidget | aWidget background: BrGlamorousColors hoveredButtonTextColor ].
-			aStyler
-				pressed:
-					[ :aWidget | aWidget background: BrGlamorousColors pressedButtonTextColor ].
-			aStyler
-				disabled:
-					[ :aWidget | aWidget background: BrGlamorousColors disabledButtonTextColor ] ].
+		default: [ :aWidget | aWidget background: self backgroundPaint ];
+		hovered: [ :aWidget | aWidget background: BrGlamorousColors hoveredButtonTextColor ];
+		pressed: [ :aWidget | aWidget background: BrGlamorousColors pressedButtonTextColor ];
+		disabled: [ :aWidget | aWidget background: BrGlamorousColors disabledButtonTextColor ].
+
 	self
 		addChangeProperty: #(widgetContent layout)
 		with: [ BlLinearLayout horizontal alignCenter ].
