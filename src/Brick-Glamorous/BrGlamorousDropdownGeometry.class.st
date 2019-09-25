@@ -56,7 +56,7 @@ BrGlamorousDropdownGeometry >> buildPathOnSpartaCanvas: aCanvas [
 	directions := OrderedCollection new.
 	initialCursor := ((corners atRow: 1)
 		detectIndex: #yourself
-		ifNone: [ ^ self ]) @ 1.
+		ifNone: [ ^ aCanvas path build ]) @ 1.
 	cursor := initialCursor.
 	direction := 0 @ 1.
 	points add: (xs at: cursor x) @ (ys at: cursor y).
@@ -92,7 +92,7 @@ BrGlamorousDropdownGeometry >> buildPathOnSpartaCanvas: aCanvas [
 			(directionIncoming crossProduct: directionOutgoing) < 0
 				ifTrue: [ path ccwArcTo: next ]
 				ifFalse: [ path cwArcTo: next ] ].
-	^ path build
+	^ path close build
 ]
 
 { #category : #accessing }

@@ -2,7 +2,8 @@ Class {
 	#name : #BrGlamorousDropdownPopupEmbellisher,
 	#superclass : #BrDropdownPopupEmbellisher,
 	#instVars : [
-		'backgroundPaint'
+		'backgroundPaint',
+		'border'
 	],
 	#category : #'Brick-Glamorous-Dropdown'
 }
@@ -16,6 +17,17 @@ BrGlamorousDropdownPopupEmbellisher >> backgroundPaint [
 BrGlamorousDropdownPopupEmbellisher >> backgroundPaint: aColorOrPaint [
 	backgroundPaint := aColorOrPaint.
 	container ifNotNil: [ container background: aColorOrPaint ]
+]
+
+{ #category : #accessing }
+BrGlamorousDropdownPopupEmbellisher >> border [
+	^ border
+]
+
+{ #category : #accessing }
+BrGlamorousDropdownPopupEmbellisher >> border: aBorder [
+	border := aBorder.
+	container ifNotNil: [ container border: aBorder ]
 ]
 
 { #category : #'api - instantiation' }
@@ -34,6 +46,7 @@ BrGlamorousDropdownPopupEmbellisher >> buildDefault [
 						ifTrue: [ toggle geometry radius ]
 						ifFalse: [ 0 ] ]);
 		yourself.
+
 	toggle
 		addEventHandlerOn: BlElementExtentChangedEvent
 		do: [ :anEvent | container invalidate ].
@@ -45,7 +58,9 @@ BrGlamorousDropdownPopupEmbellisher >> buildDefault [
 						border: (toggle border copyWithPaint: BlTransparentPaint uniqueInstance) ] ].
 	container geometry: geometry.
 	container background: self backgroundPaint.
+	container border: self border.
 	container look: BrShadowLook new.
+	container outskirts: BlOutskirts outside.
 	^ container
 ]
 
@@ -53,5 +68,6 @@ BrGlamorousDropdownPopupEmbellisher >> buildDefault [
 BrGlamorousDropdownPopupEmbellisher >> initialize [
 	super initialize.
 	
-	backgroundPaint := Color white
+	backgroundPaint := Color white.
+	border := BlBorder empty
 ]

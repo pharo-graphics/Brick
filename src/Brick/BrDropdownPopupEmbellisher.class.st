@@ -39,6 +39,7 @@ BrDropdownPopupEmbellisher >> buildDefault [
 			c horizontal fitContent.
 			c vertical fitContent ].
 	toggle := self toggleStencil asElement.
+	toggle margin: BlInsets empty.
 	popup := self popupStencil asElement.
 	self
 		flag: 'DOCUMENT popup size is computed, unless scrollable is provided'.

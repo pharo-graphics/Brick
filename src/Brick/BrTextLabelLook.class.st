@@ -39,7 +39,6 @@ BrTextLabelLook >> initialize [
 	self addChangeAddChildAs: #(content label) with: [ self label ].
 	text := 'Label' asRopedText.
 	labelElement := BlTextElement new.
-	labelElement clipChildren: false.
 	labelElement text: text.
 	labelElement labelMeasurement.
 	labelElement padding: (BlInsets all: 1).
