@@ -20,18 +20,18 @@ BrGlamorousButtonLabelLook >> initialize [
 		weight: 400;
 		fontName: 'Source Sans Pro'.
 
-	self add: (BrInteractiveLook new style: [ :aStyler |
-		aStyler default: [ self
+	self add: (BrInteractiveCommonLook new
+		default: [ self
 			foreground: BrGlamorousColors defaultButtonTextColor;
-			fontSize: 14 ].
-		aStyler huge: [ self fontSize: 20 ].
-		aStyler large: [ self fontSize: 16 ].
-		aStyler small: [ self fontSize: 12 ].
-		aStyler tiny: [ self fontSize: 10 ].
-		aStyler hovered: [ self foreground: BrGlamorousColors hoveredButtonTextColor ].
-		aStyler pressed: [ self foreground: BrGlamorousColors pressedButtonTextColor ].
-		aStyler disabled: [ self foreground: BrGlamorousColors disabledButtonTextColor ].
-		aStyler selected: [ self foreground: selectedColor ] ])
+			fontSize: 14 ];
+		huge: [ self fontSize: 20 ];
+		large: [ self fontSize: 16 ];
+		small: [ self fontSize: 12 ];
+		tiny: [ self fontSize: 10 ];
+		hovered: [ self foreground: BrGlamorousColors hoveredButtonTextColor ];
+		pressed: [ self foreground: BrGlamorousColors pressedButtonTextColor ];
+		disabled: [ self foreground: BrGlamorousColors disabledButtonTextColor ];
+		selected: [ self foreground: selectedColor ])
 ]
 
 { #category : #accessing }
