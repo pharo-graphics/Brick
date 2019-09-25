@@ -99,6 +99,7 @@ BrButtonExamples >> buttonWithLabelLookOfDifferentSizes [
 		huge: [ aLabelLook fontSize: 36 ]).
 
 	^ self newButton
+		action: [ :aButton | aButton perform: #(beDefault beTiny beSmall beLarge beHuge) atRandom ];
 		look: aLabelLook
 ]
 

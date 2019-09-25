@@ -8,9 +8,7 @@ Class {
 BrGlamorousButtonIconLook >> initialize [
 	super initialize.
 	
-	self add: (BrInteractiveLook new style: [ :aStyler |
-		aStyler default: [ self icon
-			transformDo: [ :t | t scaleBy: 1 ]].
-		aStyler small: [ self icon 
-			transformDo: [ :t | t scaleBy: 0.75] ]])
+	self add: (BrInteractiveSizeLook new
+		default: [ self icon transformDo: [ :t | t scaleBy: 1 ] ];
+		small: [ self icon transformDo: [ :t | t scaleBy: 0.75] ])
 ]

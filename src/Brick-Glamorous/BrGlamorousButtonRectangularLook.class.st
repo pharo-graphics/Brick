@@ -22,23 +22,19 @@ BrGlamorousButtonRectangularLook >> initialize [
 	self add: BrLayoutResizerLook inherit.
 	self add: BrLayoutAlignmentLook forHorizontalLinearLayout.
 	
-	self
-		style: [ :aStyler | 
-			aStyler
-				default: [ :aWidget | 
-					aWidget
-						height: 24;
-						padding: (BlInsets left: 10 right: 10) ].
-			aStyler huge: [ :aWidget | aWidget height: 48 ].
-			aStyler large: [ :aWidget | aWidget height: 30 ].
-			aStyler
-				small: [ :aWidget | 
-					aWidget
-						height: 20;
-						padding: (BlInsets left: 8 right: 8) ].
-			aStyler
-				tiny: [ :aWidget | 
-					aWidget
-						height: 16;
-						padding: (BlInsets left: 6 right: 6) ] ]
+	self add: (BrInteractiveSizeLook new
+		default: [ :aWidget | 
+			aWidget
+				height: 24;
+				padding: (BlInsets left: 10 right: 10) ];
+		tiny: [ :aWidget | 
+			aWidget
+				height: 16;
+				padding: (BlInsets left: 6 right: 6) ];
+		small: [ :aWidget | 
+			aWidget
+				height: 20;
+				padding: (BlInsets left: 8 right: 8) ];
+		huge: [ :aWidget | aWidget height: 48 ];
+		large: [ :aWidget | aWidget height: 30 ])
 ]
