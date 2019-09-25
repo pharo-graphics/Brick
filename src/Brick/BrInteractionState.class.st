@@ -45,16 +45,6 @@ BrInteractionState class >> hovered [
 ]
 
 { #category : #'instance creation' }
-BrInteractionState class >> huge [
-	^ BrSizeState huge
-]
-
-{ #category : #'instance creation' }
-BrInteractionState class >> large [
-	^ BrSizeState large
-]
-
-{ #category : #'instance creation' }
 BrInteractionState class >> pressed [
 	^ BrPressedState new
 ]
@@ -62,21 +52,6 @@ BrInteractionState class >> pressed [
 { #category : #'instance creation' }
 BrInteractionState class >> selected [
 	^ BrSelectedState new
-]
-
-{ #category : #'instance creation' }
-BrInteractionState class >> sized: aNamedSize [
-	^ BrSizeState new dimension: aNamedSize
-]
-
-{ #category : #'instance creation' }
-BrInteractionState class >> small [
-	^ BrSizeState small
-]
-
-{ #category : #'instance creation' }
-BrInteractionState class >> tiny [
-	^ BrSizeState tiny
 ]
 
 { #category : #'instance creation' }

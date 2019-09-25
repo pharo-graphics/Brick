@@ -1,7 +1,7 @@
 Class {
 	#name : #BrInteractiveCommonLook,
 	#superclass : #BrInteractiveLook,
-	#category : #'Brick-! Core'
+	#category : #'Brick-! Core - Looks'
 }
 
 { #category : #'api - style' }

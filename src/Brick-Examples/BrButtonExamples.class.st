@@ -19,7 +19,7 @@ A button widget is composed of multiple view models that add important functiona
 - ${class:BrActivationModel}$ lets users to enable or disable a button (make it non-interactable)
 - ${class:BrPressModel}$ provides support of handling press state
 - ${class:BrHoverModel}$ adds support of mouse hover events
-- ${class:BrDimensionModel}$ is responsible for managing the logical size of a button (tiny, small, large etc)
+- ${class:BrSizeModel}$ is responsible for managing the logical size of a button (tiny, small, large etc)
 - ${class:BrLayoutAlignmentModel}$ lets users to align a button's content within the button itself (center, top-right, etc)
 - ${class:BrLayoutHorizontalResizerModel}$ provides support for horizontal resizing strategies (fit content, match parent, exact size)
 - ${class:BrLayoutVerticalResizerModel}$ is similar to horizontal resizer but controls a vertical resizing strategy
@@ -45,8 +45,7 @@ ${example:BrButtonExamples>>#buttonWithLabelLookReactingToHoverAndPress|previewS
 One more common usecase is to provide a text style for a disabled button which is modelled by ${class:BrActivationModel}$. Please note that disabled button does not react to click and hover events:
 ${example:BrButtonExamples>>#buttonWithLabelLookReactingToHoverAndPressAndDisabled|previewShow=#gtLiveFor:|previewHeight=70|previewExpanded=true}$
 
-Sometimes users may want to define
-
+Sometimes users may want to create a look that depends on a logical button size modelled by ${class:BrSizeModel}$. For example a button can be made huge ==beHuge== or tiny ==beTiny==. 
 
 "
 Class {
@@ -77,6 +76,27 @@ BrButtonExamples >> buttonWithLabelLookAndCustomFont [
 		fontName: 'Source Sans Pro';
 		fontSize: 20;
 		foreground: Color gray.
+
+	^ self newButton
+		look: aLabelLook
+]
+
+{ #category : #'instance creation' }
+BrButtonExamples >> buttonWithLabelLookOfDifferentSizes [
+	<gtExample>
+	| aLabelLook |
+	
+	aLabelLook := BrTextLabelLook new.
+	aLabelLook
+		bold;
+		fontName: 'Source Sans Pro'.
+
+	aLabelLook add: (BrInteractiveSizeLook new
+		default: [ aLabelLook fontSize: 20 ];
+		tiny: [ aLabelLook fontSize: 10 ];
+		small: [ aLabelLook fontSize: 16 ];
+		large: [ aLabelLook fontSize: 26 ];
+		huge: [ aLabelLook fontSize: 36 ]).
 
 	^ self newButton
 		look: aLabelLook

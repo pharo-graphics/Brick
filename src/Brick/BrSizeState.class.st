@@ -38,6 +38,11 @@ BrSizeState class >> largeName [
 ]
 
 { #category : #'instance creation' }
+BrSizeState class >> sized: aNamedSize [
+	^ BrSizeState new dimension: aNamedSize
+]
+
+{ #category : #'instance creation' }
 BrSizeState class >> small [
 	^ self new dimension: self smallName
 ]

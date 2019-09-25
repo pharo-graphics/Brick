@@ -23,7 +23,7 @@ Class {
 		'attributesBuilder',
 		'text'
 	],
-	#category : #'Brick-! Core'
+	#category : #'Brick-! Core - Looks'
 }
 
 { #category : #accessing }

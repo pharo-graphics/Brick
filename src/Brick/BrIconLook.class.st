@@ -15,7 +15,7 @@ Class {
 	#instVars : [
 		'iconElement'
 	],
-	#category : 'Brick-! Core'
+	#category : #'Brick-! Core - Looks'
 }
 
 { #category : #accessing }

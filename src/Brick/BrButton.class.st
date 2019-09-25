@@ -23,27 +23,27 @@ BrButton >> action: aValuable [
 	self viewModel action: aValuable
 ]
 
-{ #category : #'api - dimension' }
+{ #category : #'api - size' }
 BrButton >> beDefault [
 	dimensionModel beDefault
 ]
 
-{ #category : #'api - dimension' }
+{ #category : #'api - size' }
 BrButton >> beHuge [
 	dimensionModel beHuge
 ]
 
-{ #category : #'api - dimension' }
+{ #category : #'api - size' }
 BrButton >> beLarge [
 	dimensionModel beLarge
 ]
 
-{ #category : #'api - dimension' }
+{ #category : #'api - size' }
 BrButton >> beSmall [
 	dimensionModel beSmall
 ]
 
-{ #category : #'api - dimension' }
+{ #category : #'api - size' }
 BrButton >> beTiny [
 	dimensionModel beTiny
 ]

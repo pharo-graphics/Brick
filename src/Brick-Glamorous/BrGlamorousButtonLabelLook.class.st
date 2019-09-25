@@ -20,14 +20,17 @@ BrGlamorousButtonLabelLook >> initialize [
 		weight: 400;
 		fontName: 'Source Sans Pro'.
 
-	self add: (BrInteractiveCommonLook new
+	self add: (BrInteractiveSizeLook new
 		default: [ self
 			foreground: BrGlamorousColors defaultButtonTextColor;
 			fontSize: 14 ];
 		huge: [ self fontSize: 20 ];
 		large: [ self fontSize: 16 ];
 		small: [ self fontSize: 12 ];
-		tiny: [ self fontSize: 10 ];
+		tiny: [ self fontSize: 10 ]).
+
+	self add: (BrInteractiveCommonLook new
+		default: [ self foreground: BrGlamorousColors defaultButtonTextColor ];
 		hovered: [ self foreground: BrGlamorousColors hoveredButtonTextColor ];
 		pressed: [ self foreground: BrGlamorousColors pressedButtonTextColor ];
 		disabled: [ self foreground: BrGlamorousColors disabledButtonTextColor ];

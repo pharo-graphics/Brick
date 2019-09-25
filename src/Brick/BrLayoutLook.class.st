@@ -12,7 +12,7 @@ Class {
 		'verticalAlignment',
 		'horizontalAlignment'
 	],
-	#category : 'Brick-! Core'
+	#category : #'Brick-! Core - Looks'
 }
 
 { #category : #'api - instance creation' }

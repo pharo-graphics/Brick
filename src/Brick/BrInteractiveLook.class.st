@@ -15,7 +15,7 @@ Class {
 	#instVars : [
 		'styles'
 	],
-	#category : #'Brick-! Core'
+	#category : #'Brick-! Core - Looks'
 }
 
 { #category : #'element handlers' }
