@@ -45,6 +45,8 @@ ${example:BrButtonExamples>>#buttonWithLabelLookReactingToHoverAndPress|previewS
 One more common usecase is to provide a text style for a disabled button which is modelled by ${class:BrActivationModel}$. Please note that disabled button does not react to click and hover events:
 ${example:BrButtonExamples>>#buttonWithLabelLookReactingToHoverAndPressAndDisabled|previewShow=#gtLiveFor:|previewHeight=70|previewExpanded=true}$
 
+Sometimes users may want to define
+
 
 "
 Class {

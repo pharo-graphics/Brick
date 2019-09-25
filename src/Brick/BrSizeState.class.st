@@ -1,5 +1,5 @@
 Class {
-	#name : #BrDimensionState,
+	#name : #BrSizeState,
 	#superclass : #BrInteractionState,
 	#instVars : [
 		'dimension'
@@ -8,78 +8,78 @@ Class {
 }
 
 { #category : #'instance creation' }
-BrDimensionState class >> default [
+BrSizeState class >> default [
 	^ self new dimension: self defaultName
 ]
 
 { #category : #accessing }
-BrDimensionState class >> defaultName [
+BrSizeState class >> defaultName [
 	^ #default
 ]
 
 { #category : #'instance creation' }
-BrDimensionState class >> huge [
+BrSizeState class >> huge [
 	^ self new dimension: self hugeName
 ]
 
 { #category : #accessing }
-BrDimensionState class >> hugeName [
+BrSizeState class >> hugeName [
 	^ #huge
 ]
 
 { #category : #'instance creation' }
-BrDimensionState class >> large [
+BrSizeState class >> large [
 	^ self new dimension: self largeName
 ]
 
 { #category : #accessing }
-BrDimensionState class >> largeName [
+BrSizeState class >> largeName [
 	^ #large
 ]
 
 { #category : #'instance creation' }
-BrDimensionState class >> small [
+BrSizeState class >> small [
 	^ self new dimension: self smallName
 ]
 
 { #category : #accessing }
-BrDimensionState class >> smallName [
+BrSizeState class >> smallName [
 	^ #small
 ]
 
 { #category : #'instance creation' }
-BrDimensionState class >> tiny [
+BrSizeState class >> tiny [
 	^ self new dimension: self tinyName
 ]
 
 { #category : #accessing }
-BrDimensionState class >> tinyName [
+BrSizeState class >> tinyName [
 	^ #tiny
 ]
 
 { #category : #comparing }
-BrDimensionState >> = anotherState [
+BrSizeState >> = anotherState [
 	^ anotherState class = self class
 		and: [ anotherState dimension = self dimension ]
 ]
 
 { #category : #accessing }
-BrDimensionState >> dimension [
+BrSizeState >> dimension [
 	^ dimension
 ]
 
 { #category : #accessing }
-BrDimensionState >> dimension: anObject [
+BrSizeState >> dimension: anObject [
 	dimension := anObject
 ]
 
 { #category : #comparing }
-BrDimensionState >> hash [
+BrSizeState >> hash [
 	^ self class hash bitXor: self dimension hash
 ]
 
 { #category : #initialization }
-BrDimensionState >> initialize [
+BrSizeState >> initialize [
 	super initialize.
 
 	dimension := self class defaultName

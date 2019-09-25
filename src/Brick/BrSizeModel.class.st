@@ -1,5 +1,5 @@
 Class {
-	#name : #BrDimensionModel,
+	#name : #BrSizeModel,
 	#superclass : #BrStateModel,
 	#instVars : [
 		'dimension'
@@ -8,42 +8,42 @@ Class {
 }
 
 { #category : #printing }
-BrDimensionModel class >> modelName [
+BrSizeModel class >> modelName [
 	^ 'Size'
 ]
 
 { #category : #'api - configuration' }
-BrDimensionModel >> beDefault [
-	self dimension: BrDimensionState defaultName
+BrSizeModel >> beDefault [
+	self dimension: BrSizeState defaultName
 ]
 
 { #category : #'api - configuration' }
-BrDimensionModel >> beHuge [
-	self dimension: BrDimensionState hugeName
+BrSizeModel >> beHuge [
+	self dimension: BrSizeState hugeName
 ]
 
 { #category : #'api - configuration' }
-BrDimensionModel >> beLarge [
-	self dimension: BrDimensionState largeName
+BrSizeModel >> beLarge [
+	self dimension: BrSizeState largeName
 ]
 
 { #category : #'api - configuration' }
-BrDimensionModel >> beSmall [
-	self dimension: BrDimensionState smallName
+BrSizeModel >> beSmall [
+	self dimension: BrSizeState smallName
 ]
 
 { #category : #'api - configuration' }
-BrDimensionModel >> beTiny [
-	self dimension: BrDimensionState tinyName
+BrSizeModel >> beTiny [
+	self dimension: BrSizeState tinyName
 ]
 
 { #category : #accessing }
-BrDimensionModel >> dimension [
+BrSizeModel >> dimension [
 	^ dimension
 ]
 
 { #category : #accessing }
-BrDimensionModel >> dimension: aSymbol [
+BrSizeModel >> dimension: aSymbol [
 
 	self dimension = aSymbol
 		ifTrue: [ ^ self ].
@@ -53,22 +53,22 @@ BrDimensionModel >> dimension: aSymbol [
 ]
 
 { #category : #initialization }
-BrDimensionModel >> initialize [
+BrSizeModel >> initialize [
 	super initialize.
 
 	"we use symbols instead of state object to let users easier define their own custom dimension for customs widgets"
-	dimension := BrDimensionState defaultName
+	dimension := BrSizeState defaultName
 ]
 
 { #category : #initialization }
-BrDimensionModel >> initializeListeners [
+BrSizeModel >> initializeListeners [
 	super initializeListeners.
 	
 	self when: BrDimensionRequest reply: [ :aResponse | aResponse dimension: self dimension ]
 ]
 
 { #category : #printing }
-BrDimensionModel >> printOn: aStream [
+BrSizeModel >> printOn: aStream [
 	aStream
 		nextPutAll: self modelName, '(';
 		nextPutAll: self dimension asString;
@@ -76,11 +76,11 @@ BrDimensionModel >> printOn: aStream [
 ]
 
 { #category : #'state - accessing' }
-BrDimensionModel >> stateChangedEventClass [
+BrSizeModel >> stateChangedEventClass [
 	^ BrDimensionChanged
 ]
 
 { #category : #'state - streaming' }
-BrDimensionModel >> streamStateOn: aStream [
-	aStream nextPut: (BrDimensionState new dimension: self dimension)
+BrSizeModel >> streamStateOn: aStream [
+	aStream nextPut: (BrSizeState new dimension: self dimension)
 ]

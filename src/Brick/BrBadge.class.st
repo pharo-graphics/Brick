@@ -26,7 +26,7 @@ BrBadge >> initialize [
 		(iconModel := BrIconModel new) + 
 		(BrInteractiveModel withAll: {
 				activationModel := BrActivationModel new.
-				dimensionModel := BrDimensionModel new.
+				dimensionModel := BrSizeModel new.
 				BrPressModel new.
 				BrHoverModel new.
 				BrLayoutHorizontalResizerModel new.
