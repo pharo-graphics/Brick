@@ -100,6 +100,13 @@ BrTabModel >> select [
 		ifFalse: [ self dispatchEvent: (BrSelectedWish selected: true) ]
 ]
 
+{ #category : #'api - selection' }
+BrTabModel >> selected: aBoolean [
+	aBoolean
+		ifTrue: [ self select ]
+		ifFalse: [ self deselect ]
+]
+
 { #category : #'api - tab' }
 BrTabModel >> stencil: aStencilBuilder [
 	"Set a stencil to be used to create a content of a tab.

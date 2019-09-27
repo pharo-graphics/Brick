@@ -88,6 +88,11 @@ BrTab >> select [
 	self dispatchEvent: (BrSelectedWish selected: true)
 ]
 
+{ #category : #'api - selection' }
+BrTab >> selected: aBoolean [
+	self viewModel selected: aBoolean
+]
+
 { #category : #'api - accessing' }
 BrTab >> stencil: aStencilBuilder [
 	self viewModel stencil: aStencilBuilder
