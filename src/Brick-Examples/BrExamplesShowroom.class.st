@@ -469,14 +469,7 @@ BrExamplesShowroom >> simpleList [
 			BrLabel new
 				look:
 					(BrGlamorousLabelLook new
-						foreground: aColor contrastingForegroundColor)
-						+
-							(BrGlamorousWithContextMenuLook new
-								stencil: [ BrLabel new
-										look: BrGlamorousLabelLook;
-										padding: (BlInsets all: 5);
-										text: 'Just checking';
-										yourself ]);
+						foreground: aColor contrastingForegroundColor);
 				text: aColor asString;
 				background: aColor;
 				padding: (BlInsets all: 12);

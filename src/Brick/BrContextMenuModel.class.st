@@ -2,63 +2,82 @@ Class {
 	#name : #BrContextMenuModel,
 	#superclass : #BrWidgetModel,
 	#instVars : [
-		'visible',
-		'stencil'
+		'content',
+		'handle'
 	],
 	#category : #'Brick-Context Menu - Model'
 }
 
+{ #category : #printing }
+BrContextMenuModel class >> modelName [
+	^ 'Label'
+]
+
+{ #category : #'instance creation' }
+BrContextMenuModel class >> text: aStringOrText [
+	^ self new text: aStringOrText
+]
+
+{ #category : #accessing }
+BrContextMenuModel >> content [
+	^ content
+]
+
+{ #category : #accessing }
+BrContextMenuModel >> content: anObject [
+	content = anObject
+		ifTrue: [ ^ self ].
+	content := anObject.
+	self notifyContentChanged
+]
+
+{ #category : #accessing }
+BrContextMenuModel >> handle [
+	^ handle
+]
+
+{ #category : #accessing }
+BrContextMenuModel >> handle: anObject [
+	handle = anObject
+		ifTrue: [ ^ self ].
+	handle := anObject.
+	self notifyHandleChanged
+]
+
 { #category : #initialization }
 BrContextMenuModel >> initialize [
 	super initialize.
-	visible := false.
-	stencil := [ BlElement new ] asStencil
+	handle := BlElement new
+		size: 10 @ 10;
+		padding: (BlInsets all: 5);
+		yourself.
+	content := BlElement new
+]
+
+{ #category : #initialization }
+BrContextMenuModel >> initializeListeners [
+	super initializeListeners.
+	self
+		when: BrContextMenuContentRequest
+			reply: [ :e | e content: self content ];
+		when: BrContextMenuHandleRequest
+			reply: [ :e | e handle: self handle ]
 ]
 
 { #category : #notifying }
-BrContextMenuModel >> notifyStencilChanged [
+BrContextMenuModel >> notifyContentChanged [
 	self
-		dispatchEvent: (BrContextMenuStencilChanged new stencil: self stencil)
+		dispatchEvent:
+			(BrContextMenuContentChanged new
+				content: self content;
+				yourself)
 ]
 
 { #category : #notifying }
-BrContextMenuModel >> notifyVisibleChanged [
+BrContextMenuModel >> notifyHandleChanged [
 	self
-		dispatchEvent: (BrContextMenuVisibleChanged new visible: self visible)
-]
-
-{ #category : #hooks }
-BrContextMenuModel >> onAttachedTo: anElement [
-	super onAttachedTo: anElement.
-	self
-		when: BrContextMenuVisibleRequest
-			reply: [ BrContextMenuVisibleChanged new
-				visible: visible;
-				yourself ];
-		when: BrContextMenuStencilRequest
-			reply: [ BrContextMenuStencilChanged new
-				stencil: stencil;
-				yourself ]
-]
-
-{ #category : #accessing }
-BrContextMenuModel >> stencil [
-	^ stencil
-]
-
-{ #category : #accessing }
-BrContextMenuModel >> stencil: aStencil [
-	stencil := aStencil asStencil.
-	self notifyStencilChanged
-]
-
-{ #category : #accessing }
-BrContextMenuModel >> visible [
-	^ visible
-]
-
-{ #category : #accessing }
-BrContextMenuModel >> visible: anObject [
-	visible := anObject.
-	self notifyVisibleChanged
+		dispatchEvent:
+			(BrContextMenuHandleChanged new
+				handle: self handle;
+				yourself)
 ]
