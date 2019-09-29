@@ -5,6 +5,31 @@ Class {
 }
 
 { #category : #accessing }
+BrContextMenuExamples >> compact [
+	<gtExample>
+	| element |
+	element := self element.
+	element
+		look:
+			(BrWithContextMenuLook new
+				stencil: [ BlElement new
+						look:
+							(BrGlamorousContextMenuLook new
+								content:
+									(BrGlamorousSimpleContextMenuContent new
+										anchor: element;
+										display:
+											{('Change to blue' -> [ :e | e background: Color blue ]).
+											('Change to red' -> [ :e | e background: Color red ]).
+											('Change to green' -> [ :e | e background: Color green ])};
+										yourself);
+								yourself);
+						yourself ];
+				yourself).
+	^ element
+]
+
+{ #category : #accessing }
 BrContextMenuExamples >> element [
 	<gtExample>
 	^ BlElement new
@@ -78,22 +103,22 @@ BrContextMenuExamples >> model [
 
 { #category : #'as yet unclassified' }
 BrContextMenuExamples >> modelForElement: anElement [
-	| model content |
-	content := BrGlamorousSimpleContextMenuContent new
-		display:
-			{('Change to blue' -> [ anElement background: Color blue ]).
-			('Change to red' -> [ anElement background: Color red ]).
-			('Change to green' -> [ anElement background: Color green ])};
-		yourself.
+	| model |
 	model := BrWithContextMenuModel new
 		stencil: [ BlElement new
 				look:
 					(BrGlamorousContextMenuLook new
-						content: content;
+						content:
+							(BrGlamorousSimpleContextMenuContent new
+								anchor: anElement;
+								display:
+									{('Change to blue' -> [ :e | e background: Color blue ]).
+									('Change to red' -> [ :e | e background: Color red ]).
+									('Change to green' -> [ :e | e background: Color green ])};
+								yourself);
 						yourself);
 				yourself ];
 		yourself.
 	self assert: model visible equals: false.
-	self assert: model stencil asElement look content equals: content.
 	^ model
 ]

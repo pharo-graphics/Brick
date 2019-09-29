@@ -2,14 +2,20 @@ Class {
 	#name : #BrGlamorousSimpleContextMenuContent,
 	#superclass : #BrSimpleList,
 	#instVars : [
-		'element'
+		'anchor'
 	],
 	#category : #'Brick-Glamorous-Context Menu'
 }
 
 { #category : #accessing }
-BrGlamorousSimpleContextMenuContent >> element: anObject [
-	element := anObject
+BrGlamorousSimpleContextMenuContent >> anchor [
+	^ anchor
+]
+
+{ #category : #accessing }
+BrGlamorousSimpleContextMenuContent >> anchor: anObject [
+	self flag: 'FIXME find other way to propagate anchor?'.
+	anchor := anObject
 ]
 
 { #category : #initialization }
@@ -32,7 +38,13 @@ BrGlamorousSimpleContextMenuContent >> initialize [
 					c horizontal matchParent.
 					c vertical fitContent ];
 				padding: (BlInsets all: 5);
-				addEventHandlerOn: BlClickEvent do: [ e value cull: element ];
+				addEventHandlerOn: BlClickEvent
+					do: [ e value cull: anchor.
+					anchor
+						dispatchEvent:
+							(BrContextMenuHideWish new
+								anchor: anchor;
+								yourself) ];
 				addChild:
 					(BrLabel new
 						look: BrGlamorousLabelLook;

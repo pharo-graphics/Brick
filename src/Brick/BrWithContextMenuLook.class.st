@@ -10,7 +10,8 @@ Class {
 		'clickOutsideEventHandler',
 		'pressEscEventHandler',
 		'extentChangedEventHandler',
-		'positionInSpaceChangedEventHandler'
+		'positionInSpaceChangedEventHandler',
+		'hideEventHandler'
 	],
 	#category : #'Brick-Context Menu - Look'
 }
@@ -69,15 +70,26 @@ BrWithContextMenuLook >> initialize [
 		on: BlElementPositionInSpaceChangedEvent
 		do: [ self visible
 				ifTrue: [ self relocate ] ].
+	hideEventHandler := BlEventHandler
+		on: BrContextMenuHideWish
+		do: [ :e | 
+			self
+				widgetDo: [ (e anchor = widget and: [ self visible ])
+						ifTrue: [ self hide ] ] ].
 	self stencil: [ BlElement new ].
 	self
 		addChange:
 			(BrLookChange new
-				up: [ :e | widget addEventHandler: clickEventHandler ];
+				up: [ :e | 
+					widget
+						addEventHandler: clickEventHandler;
+						addEventHandler: hideEventHandler ];
 				down: [ :e | 
 					self visible
 						ifTrue: [ self hide ].
-					widget removeEventHandler: clickEventHandler ];
+					widget
+						removeEventHandler: clickEventHandler;
+						removeEventHandler: hideEventHandler ];
 				yourself)
 ]
 
