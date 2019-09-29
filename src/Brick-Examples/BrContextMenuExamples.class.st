@@ -51,50 +51,49 @@ BrContextMenuExamples >> look [
 { #category : #'as yet unclassified' }
 BrContextMenuExamples >> model [
 	<gtExample>
-	| model tooltip |
-	tooltip := BlElement new
+	| model content |
+	content := BlElement new
+		look:
+			(BrContextMenuLook new
+				handle:
+					(BlElement new
+						size: 10 @ 10;
+						padding: (BlInsets all: 5);
+						background: Color yellow;
+						yourself);
+				content:
+					(BlElement new
+						background: Color green;
+						yourself);
+				yourself);
 		background: Color blue;
 		yourself.
 	model := BrWithContextMenuModel new
-		stencil: [ tooltip ];
+		stencil: [ content ];
 		yourself.
 	self assert: model visible equals: false.
-	self assert: model stencil asElement equals: tooltip.
+	self assert: model stencil asElement equals: content.
 	^ model
 ]
 
 { #category : #'as yet unclassified' }
 BrContextMenuExamples >> modelForElement: anElement [
-	| model tooltip |
-	tooltip := BrSimpleList new
-		stencil: [ :e | 
-			BrLabel new
-				look: BrGlamorousLabelLook;
-				text: e key;
-				addEventHandlerOn: BlMouseEnterEvent
-					do: [ :f | f target background: BrGlamorousColors defaultButtonBorderColor ];
-				addEventHandlerOn: BlMouseLeaveEvent
-					do: [ :f | f target background: Color transparent ];
-				addEventHandlerOn: BlClickEvent do: e value;
-				padding: (BlInsets all: 5);
-				hMatchParent;
-				vFitContent;
-				yourself ];
+	| model content |
+	content := BrGlamorousSimpleContextMenuContent new
 		display:
 			{('Change to blue' -> [ anElement background: Color blue ]).
 			('Change to red' -> [ anElement background: Color red ]).
 			('Change to green' -> [ anElement background: Color green ])};
-		hFitContent;
-		vFitContent;
 		yourself.
 	model := BrWithContextMenuModel new
 		stencil: [ BlElement new
 				look:
 					(BrGlamorousContextMenuLook new
-						content: tooltip;
-						yourself) ];
+						content: content;
+						yourself);
+				yourself ];
 		yourself.
 	self assert: model visible equals: false.
-	self assert: model stencil asElement look content equals: tooltip.
+	self assert: model stencil asElement look content equals: content.
 	^ model
 ]
