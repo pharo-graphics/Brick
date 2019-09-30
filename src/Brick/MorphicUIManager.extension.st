@@ -41,7 +41,7 @@ MorphicUIManager >> spawnNewProcess [
 				uiProcessDo: [ :eachUIProcess | isUIProcess := eachUIProcess == activeProcess ].
 			isUIProcess ]
 		ifFound: [ :aUniverse | 
-			aUniverse stopPulsation ]
+			aUniverse requestStopPulsation ]
 		ifNone: [  ].
 	
 	UIProcess := [
