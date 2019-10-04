@@ -38,6 +38,7 @@ BrWithAnchoredLook >> hideWishClass [
 { #category : #initialization }
 BrWithAnchoredLook >> initialize [
 	super initialize.
+	self stencil: [ BlElement new ].
 	watchDog := BlRepeatedTaskAction new
 		delay: 500 milliSeconds;
 		action: [ "hide when widget removed from scene by checking repeatedly"
@@ -73,18 +74,20 @@ BrWithAnchoredLook >> initialize [
 		on: self hideWishClass
 		do: [ :e | 
 			"hide on wish"
-			self
-				widgetDo: [ (e anchor = widget and: [ self visible ])
-						ifTrue: [ self hide ] ] ].
-	self stencil: [ BlElement new ].
+			(self visible and: [ e anchor = widget ])
+				ifTrue: [ self hide ] ].
 	self
 		addChange:
 			(BrLookChange new
-				up: [ :e | widget addEventHandler: hideEventHandler ];
+				up: [ :e |  ];
 				down: [ :e | 
 					self visible
-						ifTrue: [ self hide ].
-					widget removeEventHandler: hideEventHandler ];
+						ifTrue: [ self hide ] ];
+				yourself);
+		addChange:
+			(BrLookChange new
+				up: [ :e | widget addEventHandler: hideEventHandler ];
+				down: [ :e | widget removeEventHandler: hideEventHandler ];
 				yourself)
 ]
 
@@ -109,7 +112,12 @@ BrWithAnchoredLook >> initializeRequests [
 { #category : #'host space - displaying' }
 BrWithAnchoredLook >> relocate [
 	self assert: [ self visible ].
-	container dispatchEvent: self relocateWish
+	container
+		dispatchEvent:
+			(self relocateWish
+				anchor: widget;
+				anchored: container;
+				yourself)
 ]
 
 { #category : #'as yet unclassified' }

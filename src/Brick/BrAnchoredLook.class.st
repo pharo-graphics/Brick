@@ -37,9 +37,10 @@ BrAnchoredLook >> anchorRequest [
 
 { #category : #'as yet unclassified' }
 BrAnchoredLook >> canRelocate [
-	^ widget isNotNil
-		and:
-			[ widget isAttachedToSceneGraph and: [ anchor isAttachedToSceneGraph ] ]
+	^ relocation isNotNil
+		and: [ widget isNotNil
+				and: [ widget isAttachedToSceneGraph
+						and: [ anchor isNotNil and: [ anchor isAttachedToSceneGraph ] ] ] ]
 ]
 
 { #category : #accessing }
@@ -58,11 +59,6 @@ BrAnchoredLook >> content: anElement [
 
 { #category : #'as yet unclassified' }
 BrAnchoredLook >> contentChangedClass [
-	self subclassResponsibility
-]
-
-{ #category : #'as yet unclassified' }
-BrAnchoredLook >> contentMaxBounds [
 	self subclassResponsibility
 ]
 
@@ -117,8 +113,7 @@ BrAnchoredLook >> initialize [
 		addChangeProperty: #(widget constraints horizontal resizer)
 			with: [ BlLayoutResizer fitContent ];
 		addChangeAddChildAs: #(handle) with: [ self handle ];
-		addChangeAddChildAs: #(scrollableContent)
-			with: [ self scrollableContent ];
+		addChangeAddChildAs: #(content) with: [ self content ];
 		addChange:
 			(BrLookChange new
 				up: [ :e | widget addEventHandler: relocateEventHandler ];
@@ -145,74 +140,28 @@ BrAnchoredLook >> initializeRequests [
 ]
 
 { #category : #'as yet unclassified' }
-BrAnchoredLook >> position [
-	self subclassResponsibility
-]
-
-{ #category : #'as yet unclassified' }
-BrAnchoredLook >> positioner [
-	self subclassResponsibility
-]
-
-{ #category : #'as yet unclassified' }
 BrAnchoredLook >> relocate [
-	| scrollableContent positioner contentMaxBounds |
-	self assert: [ self canRelocate ].
-	scrollableContent := self scrollableContent.
-	positioner := self positioner.
-	contentMaxBounds := self contentMaxBounds.
-	self
-		flag: 'FIXME for some reason removing children by name does not work'.
-	positioner popupPreferredPositionIsTop
-		ifTrue: [ widget
-				removeChildren;
-				addChild: scrollableContent as: #scrollableContent;
-				addChild: handle as: #handle ]
-		ifFalse: [ widget
-				removeChildren;
-				addChild: handle as: #handle;
-				addChild: scrollableContent as: #scrollableContent ].
-	positioner popupPreferredPositionIsLeft
-		ifTrue: [ handle constraintsDo: [ :c | c linear horizontal alignRight ] ]
-		ifFalse: [ handle constraintsDo: [ :c | c linear horizontal alignLeft ] ].
-	scrollableContent
-		constraintsDo: [ :c | 
-			c maxWidth: contentMaxBounds width.
-			c maxHeight: contentMaxBounds height ].
-	self
-		flag:
-			'TODO is there a better way to force the redraw of a geometry if bounds did not change?'.
-	widget
-		transformDo: [ :t | 
-			t
-				origin: BlAffineTransformationTopLeftOrigin new;
-				translateBy: self position;
-				scaleBy: anchor globalScale ];
-		geometry: widget geometry
+	"Call #relocateTo:content:handleAtTop:atLeft: and use relocation instance variable"
+
+	self subclassResponsibility
 ]
 
 { #category : #'as yet unclassified' }
-BrAnchoredLook >> relocateTo: aPoint maxBounds: aBounds handleAtTop: aBoolean atLeft: anotherBoolean [
-	| scrollableContent |
-	scrollableContent := self scrollableContent.
+BrAnchoredLook >> relocateTo: aPoint content: anElement handleAtTop: aBoolean atLeft: anotherBoolean [
 	self
 		flag: 'FIXME for some reason removing children by name does not work'.
 	aBoolean
 		ifTrue: [ widget
 				removeChildren;
-				addChild: scrollableContent as: #scrollableContent;
+				addChild: anElement as: #content;
 				addChild: handle as: #handle ]
 		ifFalse: [ widget
 				removeChildren;
 				addChild: handle as: #handle;
-				addChild: scrollableContent as: #scrollableContent ].
+				addChild: anElement as: #content ].
 	anotherBoolean
 		ifTrue: [ handle constraintsDo: [ :c | c linear horizontal alignRight ] ]
 		ifFalse: [ handle constraintsDo: [ :c | c linear horizontal alignLeft ] ].
-	scrollableContent
-		constraintsDo: [ :c | 
-			c maxWidth: aBounds width.
-			c maxHeight: aBounds height ].
 	self
 		flag:
 			'TODO is there a better way to force the redraw of a geometry if bounds did not change?'.

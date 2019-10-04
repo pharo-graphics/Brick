@@ -35,3 +35,8 @@ BrAnchoredRelocateWish >> anchored [
 BrAnchoredRelocateWish >> anchored: anObject [
 	anchored := anObject
 ]
+
+{ #category : #converting }
+BrAnchoredRelocateWish >> asRelocation [
+	self subclassResponsibility
+]
