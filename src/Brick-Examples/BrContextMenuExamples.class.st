@@ -15,7 +15,6 @@ BrContextMenuExamples >> compact [
 				stencil: [ BlElement new
 						look:
 							(BrGlamorousContextMenuLook new
-								anchor: element;
 								content:
 									(BrGlamorousSimpleContextMenuContent new
 										anchor: element;

@@ -1,64 +1,42 @@
 Class {
 	#name : #BrTooltipModel,
-	#superclass : #BrWidgetModel,
-	#instVars : [
-		'visible',
-		'stencil'
-	],
+	#superclass : #BrAnchoredModel,
 	#category : #'Brick-Tooltip - Model'
 }
 
-{ #category : #initialization }
-BrTooltipModel >> initialize [
-	super initialize.
-	visible := false.
-	stencil := [ BlElement new ] asStencil
+{ #category : #'instance creation' }
+BrTooltipModel class >> anchor: anElement [
+	^ self new
+		anchor: anElement;
+		yourself
 ]
 
 { #category : #notifying }
-BrTooltipModel >> notifyStencilChanged [
-	self
-		dispatchEvent: (BrTooltipStencilChanged new stencil: self stencil)
+BrTooltipModel >> anchorChangedEvent [
+	^ BrTooltipAnchorChanged new
+]
+
+{ #category : #'as yet unclassified' }
+BrTooltipModel >> anchorRequestClass [
+	^ BrTooltipAnchorRequest
 ]
 
 { #category : #notifying }
-BrTooltipModel >> notifyVisibleChanged [
-	self
-		dispatchEvent: (BrTooltipVisibleChanged new visible: self visible)
+BrTooltipModel >> contentChangedEvent [
+	^ BrTooltipContentChanged new
 ]
 
-{ #category : #hooks }
-BrTooltipModel >> onAttachedTo: anElement [
-	super onAttachedTo: anElement.
-	self
-		when: BrTooltipVisibleRequest
-			reply: [ BrTooltipVisibleChanged new
-				visible: visible;
-				yourself ];
-		when: BrTooltipStencilRequest
-			reply: [ BrTooltipStencilChanged new
-				stencil: stencil;
-				yourself ]
+{ #category : #'as yet unclassified' }
+BrTooltipModel >> contentRequestClass [
+	^ BrTooltipContentRequest
 ]
 
-{ #category : #accessing }
-BrTooltipModel >> stencil [
-	^ stencil
+{ #category : #notifying }
+BrTooltipModel >> handleChangedEvent [
+	^ BrTooltipHandleChanged new
 ]
 
-{ #category : #accessing }
-BrTooltipModel >> stencil: aStencil [
-	stencil := aStencil asStencil.
-	self notifyStencilChanged
-]
-
-{ #category : #accessing }
-BrTooltipModel >> visible [
-	^ visible
-]
-
-{ #category : #accessing }
-BrTooltipModel >> visible: anObject [
-	visible := anObject.
-	self notifyVisibleChanged
+{ #category : #'as yet unclassified' }
+BrTooltipModel >> handleRequestClass [
+	^ BrTooltipHandleRequest
 ]

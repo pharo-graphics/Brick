@@ -37,7 +37,7 @@ BrTooltipExamples >> look [
 	| look |
 	look := BrWithTooltipLook new.
 	self assert: look visible equals: false.
-	self assert: (look stencil asElement isKindOf: BlElement).
+	self assert: (look stencil asStencil asElement isKindOf: BlElement).
 	^ look
 ]
 

@@ -1,18 +1,5 @@
 Class {
 	#name : #BrTooltipVisibleChanged,
-	#superclass : #BrChangeEvent,
-	#instVars : [
-		'visible'
-	],
+	#superclass : #BrAnchoredVisibleChanged,
 	#category : #'Brick-Tooltip - Events'
 }
-
-{ #category : #accessing }
-BrTooltipVisibleChanged >> visible [
-	^ visible
-]
-
-{ #category : #accessing }
-BrTooltipVisibleChanged >> visible: anObject [
-	visible := anObject
-]
