@@ -88,7 +88,7 @@ BrDropdownExamples >> badgeButton [
 BrDropdownExamples >> coloredDropdown [
 	<gtExample>
 	| dropdown look |
-	dropdown := BrDropdown new.
+	dropdown := OLDBrDropdown new.
 	look := BrGlamorousDropdownLook new.
 	look
 		reusePopup: true;
@@ -172,7 +172,7 @@ BrDropdownExamples >> roundLook [
 { #category : #examples }
 BrDropdownExamples >> roundedDropdownList [
 	<gtExample>
-	^ BrDropdown new
+	^ OLDBrDropdown new
 		layout: BlLinearLayout horizontal;
 		relocate: 200 @ 100;
 		constraintsDo: [ :c | 
@@ -201,7 +201,7 @@ BrDropdownExamples >> scaledAndAlignedDropdowns [
 { #category : #examples }
 BrDropdownExamples >> suggesterBadgeDropdownList [
 	<gtExample>
-	^ BrDropdown new
+	^ OLDBrDropdown new
 		relocate: 200 @ 100;
 		look: BrGlamorousDropdownLook new;
 		toggle: [ self badgeButton ];

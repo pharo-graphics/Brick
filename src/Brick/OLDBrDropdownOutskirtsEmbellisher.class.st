@@ -1,5 +1,5 @@
 Class {
-	#name : #BrDropdownOutskirtsEmbellisher,
+	#name : #OLDBrDropdownOutskirtsEmbellisher,
 	#superclass : #BrStencilBuilder,
 	#instVars : [
 		'element'
@@ -8,21 +8,21 @@ Class {
 }
 
 { #category : #'api - instantiation' }
-BrDropdownOutskirtsEmbellisher >> buildDefault [
+OLDBrDropdownOutskirtsEmbellisher >> buildDefault [
 	^ self element
 ]
 
 { #category : #accessing }
-BrDropdownOutskirtsEmbellisher >> element [
+OLDBrDropdownOutskirtsEmbellisher >> element [
 	^ element
 ]
 
 { #category : #accessing }
-BrDropdownOutskirtsEmbellisher >> element: anObject [
+OLDBrDropdownOutskirtsEmbellisher >> element: anObject [
 	element := anObject
 ]
 
 { #category : #'api - instantiation' }
-BrDropdownOutskirtsEmbellisher >> paramsOn: aStencilExecutor [
+OLDBrDropdownOutskirtsEmbellisher >> paramsOn: aStencilExecutor [
 	aStencilExecutor push: self element
 ]

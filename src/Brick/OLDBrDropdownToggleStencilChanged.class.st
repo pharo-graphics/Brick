@@ -1,5 +1,5 @@
 Class {
-	#name : #BrDropdownToggleStencilChanged,
+	#name : #OLDBrDropdownToggleStencilChanged,
 	#superclass : #BrChangeEvent,
 	#instVars : [
 		'stencil'
@@ -8,18 +8,18 @@ Class {
 }
 
 { #category : #'instance creation' }
-BrDropdownToggleStencilChanged class >> stencil: aBrStencil [
+OLDBrDropdownToggleStencilChanged class >> stencil: aBrStencil [
 	^ self new stencil: aBrStencil
 ]
 
 { #category : #accessing }
-BrDropdownToggleStencilChanged >> stencil [
+OLDBrDropdownToggleStencilChanged >> stencil [
 	<return: #BrStencil>
 
 	^ stencil
 ]
 
 { #category : #accessing }
-BrDropdownToggleStencilChanged >> stencil: aBrStencil [
+OLDBrDropdownToggleStencilChanged >> stencil: aBrStencil [
 	stencil := aBrStencil
 ]

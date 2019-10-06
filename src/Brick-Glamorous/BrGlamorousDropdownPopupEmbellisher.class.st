@@ -1,6 +1,6 @@
 Class {
 	#name : #BrGlamorousDropdownPopupEmbellisher,
-	#superclass : #BrDropdownPopupEmbellisher,
+	#superclass : #OLDBrDropdownPopupEmbellisher,
 	#instVars : [
 		'backgroundPaint',
 		'border'

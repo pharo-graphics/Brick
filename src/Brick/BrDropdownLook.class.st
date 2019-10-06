@@ -1,219 +1,75 @@
 Class {
 	#name : #BrDropdownLook,
-	#superclass : #BrLook,
-	#instVars : [
-		'toggleStencil',
-		'popupStencil',
-		'popupEmbellisher',
-		'outskirtsEmbellisher',
-		'popupElement',
-		'toggleElement',
-		'reusePopup',
-		'clickOutsideEventHandler',
-		'clickToggleEventHandler',
-		'pressEscEventHandler'
-	],
+	#superclass : #BrAnchoredLook,
 	#category : #'Brick-Dropdown - Look'
 }
 
-{ #category : #hooks }
-BrDropdownLook >> collapsed [
-	self isExpanded
-		ifFalse: [ ^ self ].
+{ #category : #'as yet unclassified' }
+BrDropdownLook >> anchorChangedClass [
+	^ BrDropdownAnchorChanged
+]
+
+{ #category : #'as yet unclassified' }
+BrDropdownLook >> anchorRequest [
+	^ BrDropdownAnchorRequest new
+]
+
+{ #category : #'as yet unclassified' }
+BrDropdownLook >> contentChangedClass [
+	^ BrDropdownContentChanged
+]
+
+{ #category : #'as yet unclassified' }
+BrDropdownLook >> contentRequest [
+	^ BrDropdownContentRequest new
+]
+
+{ #category : #'as yet unclassified' }
+BrDropdownLook >> handleChangedClass [
+	^ BrDropdownHandleChanged
+]
+
+{ #category : #'as yet unclassified' }
+BrDropdownLook >> handleRequest [
+	^ BrDropdownHandleRequest new
+]
+
+{ #category : #'as yet unclassified' }
+BrDropdownLook >> relocate [
+	| positioner contentMaxBounds anchorBounds scale position scrollableContent |
+	self assert: [ self canRelocate ].
+	positioner := BrAnchoredPopupPositioner
+		anchor: anchor
+		target: widget parent.
+	scale := widget globalScale.
+	anchorBounds := positioner anchorBoundsInTarget.
+	contentMaxBounds := positioner
+		popupPreferredMaxBoundsInTarget: self unwrappedContent size * scale.
+	scrollableContent := self scrollableContent.
+	scrollableContent
+		constraintsDo: [ :c | 
+			c maxWidth: contentMaxBounds width.
+			c maxHeight: contentMaxBounds height ].
+	position := 0 @ 0.
+	positioner popupPreferredPosition = (#bottom -> #right)
+		ifTrue: [ position := anchorBounds topLeft ].
+	positioner popupPreferredPosition = (#bottom -> #left)
+		ifTrue: [ position := anchorBounds topRight
+				- (scrollableContent width @ 0 * scale) ].
+	positioner popupPreferredPosition = (#top -> #right)
+		ifTrue: [ position := anchorBounds topLeft
+				- (0 @ scrollableContent height * scale) ].
+	positioner popupPreferredPosition = (#top -> #left)
+		ifTrue:
+			[ position := anchorBounds topRight - (scrollableContent size * scale) ].
 	self
-		widgetDo: [ :e | 
-			e isAttachedToSceneGraph
-				ifTrue: [ e topMostParent
-						removeEventFilter: clickOutsideEventHandler;
-						removeEventHandler: clickOutsideEventHandler ] ].
-	toggleElement visibility: BlVisibility visible.
-	popupElement removeFromParent
+		relocateTo: position
+		content: scrollableContent
+		handleAtTop: positioner popupPreferredPositionIsTop
+		atLeft: positioner popupPreferredPositionIsLeft
 ]
 
-{ #category : #'instance creation' }
-BrDropdownLook >> createPopupElement [
-	"Create a popup element from a stencil"
-
-	<return: #BlElement>
-	| aPopupElement |
-	aPopupElement := (self popupEmbellisher
-		toggleStencil: self toggleStencil;
-		popupStencil: self popupStencil;
-		anchor: toggleElement) asElement
-		constraintsDo: [ :c | c ignoreByLayout ];
-		yourself.
-	^ (self outskirtsEmbellisher element: aPopupElement) asElement
-]
-
-{ #category : #'instance creation' }
-BrDropdownLook >> createToggleElement [
-	"Create a toggle element from a stencil"
-
-	<return: #BlElement>
-	^ (self outskirtsEmbellisher element: self toggleStencil asElement)
-		asElement
-]
-
-{ #category : #'element handlers' }
-BrDropdownLook >> elementPositionInSpaceChanged: anEvent [
-	self relocatePopup
-]
-
-{ #category : #hooks }
-BrDropdownLook >> expanded [
-	self isExpanded
-		ifTrue: [ ^ self ].
-	toggleElement visibility: BlVisibility hidden.
-	self
-		widgetDo: [ :aWidget | 
-			aWidget isAttachedToSceneGraph
-				ifTrue: [ aWidget topMostParent
-						addChild:
-							((popupElement isNil or: [ reusePopup not ])
-								ifTrue: [ popupElement := self createPopupElement ]
-								ifFalse: [ popupElement removeFromParent ]).
-					self relocatePopup ].
-			aWidget topMostParent
-				addEventFilter: clickOutsideEventHandler;
-				addEventHandler: pressEscEventHandler ]
-]
-
-{ #category : #initialization }
-BrDropdownLook >> initialize [
-	super initialize.
-	reusePopup := false.
-	clickOutsideEventHandler := BlEventHandler
-		on: BlClickEvent
-		do: [ :e | 
-			(e target ~~ toggleElement
-				and: [ (e target hasParent: toggleElement) not
-						and: [ e target ~~ popupElement
-								and: [ (e target hasParent: popupElement) not ] ] ])
-				ifTrue: [ self widget collapse ] ].
-	clickToggleEventHandler := BlEventHandler
-		on: BlClickEvent
-		do: [ :e | self widget toggle ].
-	pressEscEventHandler := BlEventHandler
-		on: BlKeyUpEvent
-		do: [ :e | 
-			e key = BlKeyboardKey escape
-				ifTrue: [ self widget collapse ] ].
-	toggleStencil := BrDropdownModel defaultToggleStencil.
-	popupStencil := BrDropdownModel defaultPopupStencil.
-	popupEmbellisher := BrDropdownPopupEmbellisher new.
-	outskirtsEmbellisher := BrDropdownOutskirtsEmbellisher new.
-	self
-		add:
-			(BrInteractiveCommonLook new
-				collapsed: [ self collapsed ];
-				expanded: [ self expanded ]).
-	self
-		addChange:
-			(BrLookChange new
-				up: [ :e | 
-					self collapsed.
-					toggleElement := self createToggleElement.
-					self widget addChild: toggleElement ];
-				down: [ :e | 
-					self collapsed.
-					toggleElement ifNotNil: #removeFromParent.
-					toggleElement := nil ];
-				yourself)
-]
-
-{ #category : #initialization }
-BrDropdownLook >> initializeListeners [
-	super initializeListeners.
-
-	self when: BrDropdownPopupStencilChanged do: [ :anEvent | self popupStencil: anEvent stencil ].
-	self when: BrDropdownToggleStencilChanged do: [ :anEvent | self toggleStencil: anEvent stencil ]
-]
-
-{ #category : #initialization }
-BrDropdownLook >> initializeRequests [
-	super initializeRequests.
-
-	self request: BrDropdownPopupStencilRequest new.
-	self request: BrDropdownToggleStencilRequest new.
-]
-
-{ #category : #testing }
-BrDropdownLook >> isExpanded [
-	<return: #Boolean>
-
-	^ popupElement isNotNil and: [ popupElement isAttachedToSceneGraph ]
-]
-
-{ #category : #accessing }
-BrDropdownLook >> outskirtsEmbellisher [
-	^ outskirtsEmbellisher
-]
-
-{ #category : #accessing }
-BrDropdownLook >> outskirtsEmbellisher: anObject [
-	outskirtsEmbellisher := anObject
-		asStencilBuilder: BrDropdownOutskirtsEmbellisher
-]
-
-{ #category : #accessing }
-BrDropdownLook >> popupElement [
-	^ popupElement
-]
-
-{ #category : #accessing }
-BrDropdownLook >> popupEmbellisher [
-	^ popupEmbellisher
-]
-
-{ #category : #accessing }
-BrDropdownLook >> popupEmbellisher: anObject [
-	popupEmbellisher := anObject  asStencilBuilder: BrDropdownPopupEmbellisher
-]
-
-{ #category : #accessing }
-BrDropdownLook >> popupStencil [
-	<return: #BrStencil>
-
-	^ popupStencil
-]
-
-{ #category : #accessing }
-BrDropdownLook >> popupStencil: aBrStencil [
-	popupStencil := aBrStencil asStencil
-]
-
-{ #category : #geometry }
-BrDropdownLook >> relocatePopup [
-	self isExpanded
-		ifFalse: [ ^ self ].
-	popupEmbellisher relocatePopup
-]
-
-{ #category : #accessing }
-BrDropdownLook >> reusePopup [
-	^ reusePopup
-]
-
-{ #category : #accessing }
-BrDropdownLook >> reusePopup: anObject [
-	reusePopup := anObject
-]
-
-{ #category : #accessing }
-BrDropdownLook >> toggleStencil [
-	<return: #BrStencil>
-
-	^ toggleStencil
-]
-
-{ #category : #accessing }
-BrDropdownLook >> toggleStencil: aBrStencil [
-	toggleStencil := [ aBrStencil asStencil asElement
-		addEventHandler: clickToggleEventHandler;
-		yourself ] asStencil.
-	self
-		widgetDo: [ :e | 
-			toggleElement ifNotNil: #removeFromParent.
-			toggleElement := self createToggleElement.
-			e addChild: toggleElement ]
+{ #category : #'as yet unclassified' }
+BrDropdownLook >> relocateWishClass [
+	^ BrDropdownRelocateWish
 ]
