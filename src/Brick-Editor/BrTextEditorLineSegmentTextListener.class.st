@@ -28,7 +28,7 @@ BrTextEditorLineSegmentTextListener >> handleEvent: aBlMouseEvent [
 
 	aTextElement := aBlMouseEvent currentTarget.
 	"If text element has no paragraph we can not find text index for mouse event"
-	aTextElement paragraph
+	aTextElement rawParagraph
 		ifNil: [ ^ self ].
 
 	"To not create an instance of me for each tiny text element"

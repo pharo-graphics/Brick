@@ -22,6 +22,11 @@ BrTextWordPieceScreenToCursorHandler >> explicitScreenToCursor: aTransformation 
 
 { #category : #'api - event managing' }
 BrTextWordPieceScreenToCursorHandler >> handleEvent: anEvent [
+	| aTextElement |
+	aTextElement := anEvent currentTarget.
+	"If text element has no paragraph we can not find text index for mouse event"
+	aTextElement rawParagraph
+		ifNil: [ ^ self ].
 	anEvent transformation evaluateOn: self for: anEvent
 ]
 
