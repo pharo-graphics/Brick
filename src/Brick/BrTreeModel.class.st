@@ -26,7 +26,6 @@ BrTreeModel >> expandAll [
 
 { #category : #'expanding-collapsing' }
 BrTreeModel >> expandUpTo: aLevelIndex [
-	self inspectOnce.
 	self upToDepth: aLevelIndex do: [ :eachNode | eachNode expand ].
 ]
 
