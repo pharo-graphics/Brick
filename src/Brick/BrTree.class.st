@@ -7,8 +7,18 @@ Class {
 }
 
 { #category : #'api - tree' }
+BrTree >> collapseAll [
+	self viewModel collapseAll
+]
+
+{ #category : #'api - tree' }
 BrTree >> expandAll [
 	self viewModel expandAll
+]
+
+{ #category : #'api - tree' }
+BrTree >> expandUpTo: aLevelIndex [
+	self viewModel expandUpTo: aLevelIndex
 ]
 
 { #category : #initialization }

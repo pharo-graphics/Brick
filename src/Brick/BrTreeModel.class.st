@@ -17,6 +17,11 @@ BrTreeModel >> expandAll [
 	self root withAllChildrenNodesBreadthFirstDo: [ :eachNode | eachNode expand ]
 ]
 
+{ #category : #'expanding-collapsing' }
+BrTreeModel >> expandUpTo: aLevelIndex [
+	self upToLevel: aLevelIndex do: [ :eachNode | eachNode expand ].
+]
+
 { #category : #initialization }
 BrTreeModel >> initialize [
 	super initialize.
@@ -66,4 +71,17 @@ BrTreeModel >> root [
 	<return: #BrTreeNode>
 
 	^ rootNode
+]
+
+{ #category : #'expanding-collapsing' }
+BrTreeModel >> upToLevel: aLevelIndex do: anOneArgBlock [
+	| aCurrentLevel | 
+	self 
+		assert: [ aLevelIndex isInteger and: [ aLevelIndex > 0 ] ] 
+		description: [ 'Level index must be a natural number' ].
+	aCurrentLevel := 0.
+	self root withAllChildrenNodesBreadthFirstDo: [ :eachNode | 
+		anOneArgBlock cull: eachNode.
+		aCurrentLevel := aCurrentLevel + 1.
+		aCurrentLevel > aLevelIndex ifTrue: [ ^ self ] ].
 ]
