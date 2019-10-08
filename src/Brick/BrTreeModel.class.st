@@ -9,7 +9,14 @@ Class {
 
 { #category : #'expanding-collapsing' }
 BrTreeModel >> collapseAll [
-	self root withAllChildrenNodesBreadthFirstDo: [ :eachNode | eachNode collapse ]
+	self root allChildrenNodesBreadthFirstDo: [ :eachNode | eachNode collapse ].
+	self root expand.
+]
+
+{ #category : #'expanding-collapsing' }
+BrTreeModel >> collapseAt: aLevelIndex [
+	self upToDepth: aLevelIndex do: [ :eachNode |
+		eachNode depth + 1 = aLevelIndex ifTrue: [ eachNode collapse ] ].
 ]
 
 { #category : #'expanding-collapsing' }
@@ -19,7 +26,8 @@ BrTreeModel >> expandAll [
 
 { #category : #'expanding-collapsing' }
 BrTreeModel >> expandUpTo: aLevelIndex [
-	self upToLevel: aLevelIndex do: [ :eachNode | eachNode expand ].
+	self inspectOnce.
+	self upToDepth: aLevelIndex do: [ :eachNode | eachNode expand ].
 ]
 
 { #category : #initialization }
@@ -74,14 +82,11 @@ BrTreeModel >> root [
 ]
 
 { #category : #'expanding-collapsing' }
-BrTreeModel >> upToLevel: aLevelIndex do: anOneArgBlock [
-	| aCurrentLevel | 
+BrTreeModel >> upToDepth: aMaxDepthLevel do: anOneArgBlock [
 	self 
-		assert: [ aLevelIndex isInteger and: [ aLevelIndex > 0 ] ] 
+		assert: [ aMaxDepthLevel isInteger and: [ aMaxDepthLevel > 0 ] ] 
 		description: [ 'Level index must be a natural number' ].
-	aCurrentLevel := 0.
 	self root withAllChildrenNodesBreadthFirstDo: [ :eachNode | 
-		anOneArgBlock cull: eachNode.
-		aCurrentLevel := aCurrentLevel + 1.
-		aCurrentLevel > aLevelIndex ifTrue: [ ^ self ] ].
+		eachNode depth >= aMaxDepthLevel ifTrue: [ ^ self ].
+		anOneArgBlock cull: eachNode ].
 ]

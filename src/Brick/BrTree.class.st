@@ -12,6 +12,11 @@ BrTree >> collapseAll [
 ]
 
 { #category : #'api - tree' }
+BrTree >> collapseAt: aLevelIndex [
+	self viewModel collapseAt: aLevelIndex
+]
+
+{ #category : #'api - tree' }
 BrTree >> expandAll [
 	self viewModel expandAll
 ]
