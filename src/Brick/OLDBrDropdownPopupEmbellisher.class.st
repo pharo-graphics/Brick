@@ -1,5 +1,5 @@
 Class {
-	#name : #BrDropdownPopupEmbellisher,
+	#name : #OLDBrDropdownPopupEmbellisher,
 	#superclass : #BrStencilBuilder,
 	#instVars : [
 		'anchor',
@@ -14,17 +14,17 @@ Class {
 }
 
 { #category : #accessing }
-BrDropdownPopupEmbellisher >> anchor [
+OLDBrDropdownPopupEmbellisher >> anchor [
 	^ anchor
 ]
 
 { #category : #accessing }
-BrDropdownPopupEmbellisher >> anchor: anObject [
+OLDBrDropdownPopupEmbellisher >> anchor: anObject [
 	anchor := anObject
 ]
 
 { #category : #'api - instantiation' }
-BrDropdownPopupEmbellisher >> buildDefault [
+OLDBrDropdownPopupEmbellisher >> buildDefault [
 	<return: #BlElement>
 	container := BlElement new.
 	container viewModel: (BrInteractiveModel new addStates: {
@@ -55,24 +55,24 @@ BrDropdownPopupEmbellisher >> buildDefault [
 ]
 
 { #category : #'api - instantiation' }
-BrDropdownPopupEmbellisher >> paramsOn: aStencilExecutor [
+OLDBrDropdownPopupEmbellisher >> paramsOn: aStencilExecutor [
 	aStencilExecutor
 		push: self popupStencil;
 		push: self toggleStencil
 ]
 
 { #category : #accessing }
-BrDropdownPopupEmbellisher >> popupStencil [
+OLDBrDropdownPopupEmbellisher >> popupStencil [
 	^ popupStencil
 ]
 
 { #category : #accessing }
-BrDropdownPopupEmbellisher >> popupStencil: anObject [
+OLDBrDropdownPopupEmbellisher >> popupStencil: anObject [
 	popupStencil := anObject
 ]
 
 { #category : #geometry }
-BrDropdownPopupEmbellisher >> relocatePopup [
+OLDBrDropdownPopupEmbellisher >> relocatePopup [
 	| positioner anchorBounds popupMaxBounds scale preferredPosition |
 	container parent ifNil: [ ^ self ].
 	positioner := BrAnchoredPopupPositioner
@@ -122,11 +122,11 @@ BrDropdownPopupEmbellisher >> relocatePopup [
 ]
 
 { #category : #accessing }
-BrDropdownPopupEmbellisher >> toggleStencil [
+OLDBrDropdownPopupEmbellisher >> toggleStencil [
 	^ toggleStencil
 ]
 
 { #category : #accessing }
-BrDropdownPopupEmbellisher >> toggleStencil: anObject [
+OLDBrDropdownPopupEmbellisher >> toggleStencil: anObject [
 	toggleStencil := anObject
 ]

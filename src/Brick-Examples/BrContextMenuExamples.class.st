@@ -17,7 +17,6 @@ BrContextMenuExamples >> compact [
 							(BrGlamorousContextMenuLook new
 								content:
 									(BrGlamorousSimpleContextMenuContent new
-										anchor: element;
 										display:
 											{('Change to blue' -> [ :e | e background: Color blue ]).
 											('Change to red' -> [ :e | e background: Color red ]).
@@ -69,35 +68,34 @@ BrContextMenuExamples >> look [
 	| look |
 	look := BrWithContextMenuLook new.
 	self assert: look visible equals: false.
-	self assert: (look stencil asElement isKindOf: BlElement).
+	self assert: (look stencil asStencil asElement isKindOf: BlElement).
 	^ look
 ]
 
 { #category : #'as yet unclassified' }
 BrContextMenuExamples >> model [
 	<gtExample>
-	| model content |
-	content := BlElement new
-		look:
-			(BrContextMenuLook new
-				handle:
-					(BlElement new
-						size: 10 @ 10;
-						padding: (BlInsets all: 5);
-						background: Color yellow;
-						yourself);
-				content:
-					(BlElement new
-						background: Color green;
-						yourself);
-				yourself);
-		background: Color blue;
-		yourself.
+	| model |
 	model := BrWithContextMenuModel new
-		stencil: [ content ];
+		stencil: [ BlElement new
+				look:
+					(BrContextMenuLook new
+						handle:
+							(BlElement new
+								size: 10 @ 10;
+								padding: (BlInsets all: 5);
+								background: Color yellow;
+								yourself);
+						content:
+							(BlElement new
+								background: Color green;
+								yourself);
+						yourself);
+				background: Color blue;
+				yourself ];
 		yourself.
 	self assert: model visible equals: false.
-	self assert: model stencil asElement equals: content.
+	self assert: (model stencil asStencil asElement isKindOf: BlElement).
 	^ model
 ]
 
@@ -110,7 +108,6 @@ BrContextMenuExamples >> modelForElement: anElement [
 					(BrGlamorousContextMenuLook new
 						content:
 							(BrGlamorousSimpleContextMenuContent new
-								anchor: anElement;
 								display:
 									{('Change to blue' -> [ :e | e background: Color blue ]).
 									('Change to red' -> [ :e | e background: Color red ]).

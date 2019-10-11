@@ -1,28 +1,8 @@
 Class {
 	#name : #BrGlamorousButtonWithLabelTooltipLook,
-	#superclass : #BrGlamorousWithTooltipLook,
-	#instVars : [
-		'clickEventHandler'
-	],
+	#superclass : #BrWithTooltipLook,
 	#category : #'Brick-Glamorous-Buttons'
 }
-
-{ #category : #initialization }
-BrGlamorousButtonWithLabelTooltipLook >> initialize [
-	super initialize.
-	clickEventHandler := BlEventHandler
-		on: BlClickEvent
-		do: [ self willHideLater
-				ifTrue: [ self cancelHideLater ].
-			self visible
-				ifTrue: [ self hide ] ].
-	self
-		addChange:
-			(BrLookChange new
-				up: [ :e | widget addEventHandler: clickEventHandler ];
-				down: [ :e | widget removeEventHandler: clickEventHandler ];
-				yourself)
-]
 
 { #category : #initialization }
 BrGlamorousButtonWithLabelTooltipLook >> initializeListeners [
@@ -40,17 +20,16 @@ BrGlamorousButtonWithLabelTooltipLook >> initializeRequests [
 BrGlamorousButtonWithLabelTooltipLook >> text: aTextOrString [
 	self
 		stencil: [ BlElement new
-				layout: BlLinearLayout horizontal;
-				constraintsDo: [ :c | 
-					c horizontal fitContent.
-					c vertical fitContent ];
-				padding: (BlInsets all: 5);
-				addChild:
-					(BrLabel new
-						look: BrGlamorousLabelLook;
-						text: aTextOrString;
+				look:
+					(BrGlamorousTooltipLook new
+						content:
+							(BrLabel new
+								look: BrGlamorousLabelLook;
+								text: aTextOrString;
+								padding: (BlInsets all: 5);
+								when: BlClickEvent
+									do: [ self widgetDo: [ :e | e phlow spawnObject: e action ] ];
+								yourself);
 						yourself);
-				when: BlClickEvent
-					do: [ self widgetDo: [ :e | e phlow spawnObject: e action ] ];
 				yourself ]
 ]

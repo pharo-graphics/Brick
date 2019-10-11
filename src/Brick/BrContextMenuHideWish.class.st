@@ -1,18 +1,5 @@
 Class {
 	#name : #BrContextMenuHideWish,
-	#superclass : #BrWish,
-	#instVars : [
-		'anchor'
-	],
+	#superclass : #BrAnchoredHideWish,
 	#category : #'Brick-Context Menu - Events'
 }
-
-{ #category : #accessing }
-BrContextMenuHideWish >> anchor [
-	^ anchor
-]
-
-{ #category : #accessing }
-BrContextMenuHideWish >> anchor: anObject [
-	anchor := anObject
-]

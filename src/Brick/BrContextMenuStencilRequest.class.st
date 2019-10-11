@@ -1,6 +1,6 @@
 Class {
 	#name : #BrContextMenuStencilRequest,
-	#superclass : #BrRequest,
+	#superclass : #BrAnchoredStencilRequest,
 	#category : #'Brick-Context Menu - Events'
 }
 

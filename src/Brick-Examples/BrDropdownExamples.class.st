@@ -80,7 +80,7 @@ BrDropdownExamples >> badgeButton [
 	^ BrButton new
 		background: Color orange;
 		label: ('3' asRopedText fontSize: 15; foreground: Color white; bold);
-		look: BrTextLabelLook + BrGlamorousDropdownLook;
+		look: BrTextLabelLook + OLDBrGlamorousDropdownLook;
 		padding: (BlInsets all: 7)
 ]
 
@@ -88,8 +88,8 @@ BrDropdownExamples >> badgeButton [
 BrDropdownExamples >> coloredDropdown [
 	<gtExample>
 	| dropdown look |
-	dropdown := BrDropdown new.
-	look := BrGlamorousDropdownLook new.
+	dropdown := OLDBrDropdown new.
+	look := OLDBrGlamorousDropdownLook new.
 	look
 		reusePopup: true;
 		outskirtsEmbellisher: [ :e | 
@@ -150,6 +150,36 @@ BrDropdownExamples >> coloredDropdown [
 	^ dropdown
 ]
 
+{ #category : #private }
+BrDropdownExamples >> compact [
+	<gtExample>
+	| element |
+	element := BrButton new
+		look:
+			BrGlamorousButtonWithLabelLook
+				+
+					(BrWithDropdownLook new
+						stencil: [ BlElement new
+								look:
+									(BrGlamorousDropdownLook new
+										handle:
+											(BrButton new
+												look: BrGlamorousButtonRectangularLook + BrGlamorousButtonLabelLook;
+												label: 'click me';
+												yourself);
+										content:
+											(BlElement new
+												background: Color white;
+												size: 100 @ 200;
+												yourself);
+										yourself);
+								yourself ];
+						yourself);
+		label: 'click me';
+		yourself.
+	^ element
+]
+
 { #category : #'instance creation' }
 BrDropdownExamples >> popupList [
 	<gtExample>
@@ -166,13 +196,13 @@ BrDropdownExamples >> popupList [
 BrDropdownExamples >> roundLook [
 	<gtExample>
 
-	^ BrGlamorousDropdownLook new
+	^ OLDBrGlamorousDropdownLook new
 ]
 
 { #category : #examples }
 BrDropdownExamples >> roundedDropdownList [
 	<gtExample>
-	^ BrDropdown new
+	^ OLDBrDropdown new
 		layout: BlLinearLayout horizontal;
 		relocate: 200 @ 100;
 		constraintsDo: [ :c | 
@@ -201,9 +231,9 @@ BrDropdownExamples >> scaledAndAlignedDropdowns [
 { #category : #examples }
 BrDropdownExamples >> suggesterBadgeDropdownList [
 	<gtExample>
-	^ BrDropdown new
+	^ OLDBrDropdown new
 		relocate: 200 @ 100;
-		look: BrGlamorousDropdownLook new;
+		look: OLDBrGlamorousDropdownLook new;
 		toggle: [ self badgeButton ];
 		popup: [ self popupList ]
 ]

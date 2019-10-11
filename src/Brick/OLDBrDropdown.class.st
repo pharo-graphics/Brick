@@ -1,5 +1,5 @@
 Class {
-	#name : #BrDropdown,
+	#name : #OLDBrDropdown,
 	#superclass : #BlElement,
 	#traits : 'TBrLayoutResizable',
 	#classTraits : 'TBrLayoutResizable classTrait',
@@ -10,20 +10,20 @@ Class {
 }
 
 { #category : #'api - expansion' }
-BrDropdown >> collapse [
+OLDBrDropdown >> collapse [
 	expandedModel collapse
 ]
 
 { #category : #'api - expansion' }
-BrDropdown >> expand [
+OLDBrDropdown >> expand [
 	expandedModel expand
 ]
 
 { #category : #initialization }
-BrDropdown >> initialize [
+OLDBrDropdown >> initialize [
 	super initialize.
 	
-	self viewModel: (BrDropdownModel new
+	self viewModel: (OLDBrDropdownModel new
 		addAll: { BrInteractiveModel new addStates: {
 			expandedModel := BrExpandableModel new.
 			BrLayoutHorizontalResizerModel fitContent.
@@ -31,12 +31,12 @@ BrDropdown >> initialize [
 ]
 
 { #category : #testing }
-BrDropdown >> isExpanded [
+OLDBrDropdown >> isExpanded [
 	^ expandedModel isExpanded
 ]
 
 { #category : #'hooks - children' }
-BrDropdown >> onRemovedFromSceneGraph [
+OLDBrDropdown >> onRemovedFromSceneGraph [
 	"Ensures that the dropdown state is reset to collapsed, which will remove dropdown decorators in space."
 
 	super onRemovedFromSceneGraph.
@@ -44,16 +44,16 @@ BrDropdown >> onRemovedFromSceneGraph [
 ]
 
 { #category : #'api - widget' }
-BrDropdown >> popup: aBrStencil [
+OLDBrDropdown >> popup: aBrStencil [
 	self viewModel popupStencil: aBrStencil
 ]
 
 { #category : #'api - expansion' }
-BrDropdown >> toggle [
+OLDBrDropdown >> toggle [
 	expandedModel toggle
 ]
 
 { #category : #'api - widget' }
-BrDropdown >> toggle: aBrStencil [
+OLDBrDropdown >> toggle: aBrStencil [
 	self viewModel toggleStencil: aBrStencil
 ]

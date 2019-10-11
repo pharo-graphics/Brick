@@ -1,6 +1,6 @@
 Class {
 	#name : #BrTooltipVisibleRequest,
-	#superclass : #BrRequest,
+	#superclass : #BrAnchoredVisibleRequest,
 	#category : #'Brick-Tooltip - Events'
 }
 

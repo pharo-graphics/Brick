@@ -133,6 +133,7 @@ BrLook >> initialize [
 BrLook >> initializeListeners [
 	"Override me to initialize event listeners such as property updates from the view model"
 	
+	self flag: 'FIXME listeners should be removed when look is removed. how to do that in the general case?'.
 	self when: BrViewModelAttached do: [ self initializeRequests ]
 ]
 
