@@ -17,15 +17,18 @@ BrWithDropdownLook >> initialize [
 	super initialize.
 	clickEventHandler := BlEventHandler
 		on: BlClickEvent
-		do: [ :e | 
-			self visible
-				ifTrue: [ self hide ].
-			self show ].
+		do: [ :e | self show ].
 	self
+		addChangeProperty: #(widget layout)
+			with: [ BlLinearLayout vertical ];
+		addChangeProperty: #(widget constraints vertical resizer)
+			with: [ BlLayoutResizer fitContent ];
+		addChangeProperty: #(widget constraints horizontal resizer)
+			with: [ BlLayoutResizer fitContent ];
 		addChange:
 			(BrLookChange new
-				up: [ :e | widget addEventHandler: clickEventHandler ];
-				down: [ :e | widget removeEventHandler: clickEventHandler ];
+				up: [ :e | widget addEventFilter: clickEventHandler ];
+				down: [ :e | widget removeEventFilter: clickEventHandler ];
 				yourself)
 ]
 

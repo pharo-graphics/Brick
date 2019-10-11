@@ -151,7 +151,7 @@ BrWithAnchoredLook >> stencil [
 BrWithAnchoredLook >> stencil: anObject [
 	stencil = anObject
 		ifTrue: [ ^ self ].
-	stencil := anObject.
+	stencil := anObject asStencil.
 	self visible
 		ifTrue: [ self
 				hide;

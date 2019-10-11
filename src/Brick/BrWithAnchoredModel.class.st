@@ -58,7 +58,7 @@ BrWithAnchoredModel >> stencil [
 BrWithAnchoredModel >> stencil: anObject [
 	stencil = anObject
 		ifTrue: [ ^ self ].
-	stencil := anObject.
+	stencil := anObject asStencil.
 	self notifyStencilChanged
 ]
 

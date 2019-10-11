@@ -80,7 +80,7 @@ BrDropdownExamples >> badgeButton [
 	^ BrButton new
 		background: Color orange;
 		label: ('3' asRopedText fontSize: 15; foreground: Color white; bold);
-		look: BrTextLabelLook + BrGlamorousDropdownLook;
+		look: BrTextLabelLook + OLDBrGlamorousDropdownLook;
 		padding: (BlInsets all: 7)
 ]
 
@@ -89,7 +89,7 @@ BrDropdownExamples >> coloredDropdown [
 	<gtExample>
 	| dropdown look |
 	dropdown := OLDBrDropdown new.
-	look := BrGlamorousDropdownLook new.
+	look := OLDBrGlamorousDropdownLook new.
 	look
 		reusePopup: true;
 		outskirtsEmbellisher: [ :e | 
@@ -166,7 +166,7 @@ BrDropdownExamples >> popupList [
 BrDropdownExamples >> roundLook [
 	<gtExample>
 
-	^ BrGlamorousDropdownLook new
+	^ OLDBrGlamorousDropdownLook new
 ]
 
 { #category : #examples }
@@ -203,7 +203,7 @@ BrDropdownExamples >> suggesterBadgeDropdownList [
 	<gtExample>
 	^ OLDBrDropdown new
 		relocate: 200 @ 100;
-		look: BrGlamorousDropdownLook new;
+		look: OLDBrGlamorousDropdownLook new;
 		toggle: [ self badgeButton ];
 		popup: [ self popupList ]
 ]

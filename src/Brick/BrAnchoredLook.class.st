@@ -91,6 +91,20 @@ BrAnchoredLook >> handleRequest [
 	self subclassResponsibility
 ]
 
+{ #category : #accessing }
+BrAnchoredLook >> hide [
+	anchor
+		dispatchEvent:
+			(self hideWish
+				anchor: anchor;
+				yourself)
+]
+
+{ #category : #'as yet unclassified' }
+BrAnchoredLook >> hideWish [
+	self subclassResponsibility
+]
+
 { #category : #initialization }
 BrAnchoredLook >> initialize [
 	super initialize.

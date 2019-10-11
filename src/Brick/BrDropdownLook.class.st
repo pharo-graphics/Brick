@@ -1,6 +1,9 @@
 Class {
 	#name : #BrDropdownLook,
 	#superclass : #BrAnchoredLook,
+	#instVars : [
+		'clickEventHandler'
+	],
 	#category : #'Brick-Dropdown - Look'
 }
 
@@ -24,6 +27,13 @@ BrDropdownLook >> contentRequest [
 	^ BrDropdownContentRequest new
 ]
 
+{ #category : #accessing }
+BrDropdownLook >> handle: anElement [
+	handle removeEventFilter: clickEventHandler.
+	super handle: anElement.
+	handle addEventFilter: clickEventHandler
+]
+
 { #category : #'as yet unclassified' }
 BrDropdownLook >> handleChangedClass [
 	^ BrDropdownHandleChanged
@@ -32,6 +42,25 @@ BrDropdownLook >> handleChangedClass [
 { #category : #'as yet unclassified' }
 BrDropdownLook >> handleRequest [
 	^ BrDropdownHandleRequest new
+]
+
+{ #category : #'as yet unclassified' }
+BrDropdownLook >> hideWish [
+	^ BrDropdownHideWish new
+]
+
+{ #category : #initialization }
+BrDropdownLook >> initialize [
+	super initialize.
+	clickEventHandler := BlEventHandler
+		on: BlClickEvent
+		do: [ :e | self hide ].
+	self
+		addChange:
+			(BrLookChange new
+				up: [ :e | handle addEventFilter: clickEventHandler ];
+				down: [ :e | handle removeEventFilter: clickEventHandler ];
+				yourself)
 ]
 
 { #category : #'as yet unclassified' }

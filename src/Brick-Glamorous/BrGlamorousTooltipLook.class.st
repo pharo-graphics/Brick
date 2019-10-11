@@ -10,9 +10,8 @@ BrGlamorousTooltipLook >> initialize [
 	self
 		add: BrShadowLook new;
 		addChangeProperty: #(widget geometry)
-			with: [ BrGlamorousDropdownGeometry new
-				dropdown: widget;
-				cornerRadius: 5;
+			with: [ BrGlamorousAnchoredGeometry new
+				element: widget;
 				yourself ];
 		addChangeProperty: #(widget background) with: [ Color white ];
 		addChangeProperty: #(widget border)
@@ -27,9 +26,8 @@ BrGlamorousTooltipLook >> newContainer [
 		in: [ :e | 
 			e
 				geometry:
-					(BrGlamorousDropdownGeometry new
-						dropdown: e;
-						cornerRadius: 5;
+					(BrGlamorousAnchoredGeometry new
+						element: e;
 						yourself) ];
 		background: Color white;
 		border:

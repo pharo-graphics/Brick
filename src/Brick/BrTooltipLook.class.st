@@ -35,6 +35,11 @@ BrTooltipLook >> handleRequest [
 ]
 
 { #category : #'as yet unclassified' }
+BrTooltipLook >> hideWish [
+	^ BrTooltipHideWish new
+]
+
+{ #category : #'as yet unclassified' }
 BrTooltipLook >> relocate [
 	| positioner contentMaxBounds anchorBounds scale position scrollableContent |
 	self assert: [ self canRelocate ].

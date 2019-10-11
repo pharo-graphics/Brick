@@ -1,5 +1,5 @@
 Class {
-	#name : #BrGlamorousDropdownPopupEmbellisher,
+	#name : #OLDBrGlamorousDropdownPopupEmbellisher,
 	#superclass : #OLDBrDropdownPopupEmbellisher,
 	#instVars : [
 		'backgroundPaint',
@@ -9,36 +9,36 @@ Class {
 }
 
 { #category : #accessing }
-BrGlamorousDropdownPopupEmbellisher >> backgroundPaint [
+OLDBrGlamorousDropdownPopupEmbellisher >> backgroundPaint [
 	^ backgroundPaint
 ]
 
 { #category : #accessing }
-BrGlamorousDropdownPopupEmbellisher >> backgroundPaint: aColorOrPaint [
+OLDBrGlamorousDropdownPopupEmbellisher >> backgroundPaint: aColorOrPaint [
 	backgroundPaint := aColorOrPaint.
 	container ifNotNil: [ container background: aColorOrPaint ]
 ]
 
 { #category : #accessing }
-BrGlamorousDropdownPopupEmbellisher >> border [
+OLDBrGlamorousDropdownPopupEmbellisher >> border [
 	^ border
 ]
 
 { #category : #accessing }
-BrGlamorousDropdownPopupEmbellisher >> border: aBorder [
+OLDBrGlamorousDropdownPopupEmbellisher >> border: aBorder [
 	border := aBorder.
 	container ifNotNil: [ container border: aBorder ]
 ]
 
 { #category : #'api - instantiation' }
-BrGlamorousDropdownPopupEmbellisher >> buildDefault [
+OLDBrGlamorousDropdownPopupEmbellisher >> buildDefault [
 	<return: #Object>
 	| geometry |
 	super buildDefault.
 	self
 		flag: 'TODO find alternative to work around reflection to check for radius'.
-	geometry := BrGlamorousDropdownGeometry new
-		dropdown: container;
+	geometry := BrGlamorousAnchoredGeometry new
+		element: container;
 		cornerRadius:
 			((toggle geometry respondsTo: #cornerRadii)
 				ifTrue: [ toggle geometry cornerRadii max ]
@@ -65,7 +65,7 @@ BrGlamorousDropdownPopupEmbellisher >> buildDefault [
 ]
 
 { #category : #initialization }
-BrGlamorousDropdownPopupEmbellisher >> initialize [
+OLDBrGlamorousDropdownPopupEmbellisher >> initialize [
 	super initialize.
 	
 	backgroundPaint := Color white.

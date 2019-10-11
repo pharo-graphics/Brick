@@ -35,6 +35,11 @@ BrContextMenuLook >> handleRequest [
 ]
 
 { #category : #'as yet unclassified' }
+BrContextMenuLook >> hideWish [
+	^ BrContextMenuHideWish new
+]
+
+{ #category : #'as yet unclassified' }
 BrContextMenuLook >> relocate [
 	| positioner contentMaxBounds anchorBounds scale position scrollableContent |
 	self assert: [ self canRelocate ].
