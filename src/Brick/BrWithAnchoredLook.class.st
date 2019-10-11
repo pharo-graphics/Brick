@@ -26,7 +26,8 @@ BrWithAnchoredLook >> hide [
 	container
 		dequeueTask: watchDog;
 		removeEventHandler: extentChangedEventHandler;
-		removeFromParent.
+		removeFromParent;
+		anchor: nil.
 	container := nil
 ]
 
@@ -129,6 +130,7 @@ BrWithAnchoredLook >> relocateWish [
 BrWithAnchoredLook >> show [
 	self assert: [ self visible not ].
 	container := stencil asElement.
+	container anchor: widget.
 	widget topMostParent addChild: container.
 	widget
 		addEventHandler: extentChangedEventHandler;
@@ -139,9 +141,7 @@ BrWithAnchoredLook >> show [
 	container
 		enqueueTask: watchDog;
 		addEventHandler: extentChangedEventHandler.
-	self relocate.
-	[ 1 second wait.
-	container ifNotNil: #invalidate ] fork
+	self relocate
 ]
 
 { #category : #accessing }

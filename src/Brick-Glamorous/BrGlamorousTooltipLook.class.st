@@ -19,21 +19,3 @@ BrGlamorousTooltipLook >> initialize [
 				paint: BrGlamorousColors defaultButtonBorderColor asBlPaint
 				width: 1 ]
 ]
-
-{ #category : #'instance creation' }
-BrGlamorousTooltipLook >> newContainer [
-	^ super newContainer
-		in: [ :e | 
-			e
-				geometry:
-					(BrGlamorousAnchoredGeometry new
-						element: e;
-						yourself) ];
-		background: Color white;
-		border:
-			(BlBorder
-				paint: BrGlamorousColors defaultButtonBorderColor asBlPaint
-				width: 1);
-		look: BrShadowLook new;
-		yourself
-]

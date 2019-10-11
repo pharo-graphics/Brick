@@ -23,17 +23,10 @@ BrGlamorousButtonWithLabelTooltipLook >> text: aTextOrString [
 				look:
 					(BrGlamorousTooltipLook new
 						content:
-							(BlElement new
-								layout: BlLinearLayout horizontal;
-								constraintsDo: [ :c | 
-									c horizontal fitContent.
-									c vertical fitContent ];
+							(BrLabel new
+								look: BrGlamorousLabelLook;
+								text: aTextOrString;
 								padding: (BlInsets all: 5);
-								addChild:
-									(BrLabel new
-										look: BrGlamorousLabelLook;
-										text: aTextOrString;
-										yourself);
 								when: BlClickEvent
 									do: [ self widgetDo: [ :e | e phlow spawnObject: e action ] ];
 								yourself);

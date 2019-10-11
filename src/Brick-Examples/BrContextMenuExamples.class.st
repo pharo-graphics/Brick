@@ -17,7 +17,6 @@ BrContextMenuExamples >> compact [
 							(BrGlamorousContextMenuLook new
 								content:
 									(BrGlamorousSimpleContextMenuContent new
-										anchor: element;
 										display:
 											{('Change to blue' -> [ :e | e background: Color blue ]).
 											('Change to red' -> [ :e | e background: Color red ]).
@@ -109,7 +108,6 @@ BrContextMenuExamples >> modelForElement: anElement [
 					(BrGlamorousContextMenuLook new
 						content:
 							(BrGlamorousSimpleContextMenuContent new
-								anchor: anElement;
 								display:
 									{('Change to blue' -> [ :e | e background: Color blue ]).
 									('Change to red' -> [ :e | e background: Color red ]).

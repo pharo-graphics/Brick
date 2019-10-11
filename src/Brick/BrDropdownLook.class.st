@@ -8,16 +8,6 @@ Class {
 }
 
 { #category : #'as yet unclassified' }
-BrDropdownLook >> anchorChangedClass [
-	^ BrDropdownAnchorChanged
-]
-
-{ #category : #'as yet unclassified' }
-BrDropdownLook >> anchorRequest [
-	^ BrDropdownAnchorRequest new
-]
-
-{ #category : #'as yet unclassified' }
 BrDropdownLook >> contentChangedClass [
 	^ BrDropdownContentChanged
 ]
@@ -68,7 +58,7 @@ BrDropdownLook >> relocate [
 	| positioner contentMaxBounds anchorBounds scale position scrollableContent |
 	self assert: [ self canRelocate ].
 	positioner := BrAnchoredPopupPositioner
-		anchor: anchor
+		anchor: widget anchor
 		target: widget parent.
 	scale := widget globalScale.
 	anchorBounds := positioner anchorBoundsInTarget.

@@ -2,7 +2,6 @@ Class {
 	#name : #BrAnchoredLook,
 	#superclass : #BrLook,
 	#instVars : [
-		'anchor',
 		'handle',
 		'content',
 		'relocation',
@@ -11,36 +10,12 @@ Class {
 	#category : #'Brick-Anchored - Look'
 }
 
-{ #category : #accessing }
-BrAnchoredLook >> anchor [
-	^ anchor
-]
-
-{ #category : #accessing }
-BrAnchoredLook >> anchor: anObject [
-	anchor = anObject
-		ifTrue: [ ^ self ].
-	anchor := anObject.
-	self canRelocate
-		ifTrue: [ self relocate ]
-]
-
-{ #category : #'as yet unclassified' }
-BrAnchoredLook >> anchorChangedClass [
-	self subclassResponsibility
-]
-
-{ #category : #'as yet unclassified' }
-BrAnchoredLook >> anchorRequest [
-	self subclassResponsibility
-]
-
 { #category : #'as yet unclassified' }
 BrAnchoredLook >> canRelocate [
 	^ relocation isNotNil
 		and: [ widget isNotNil
 				and: [ widget isAttachedToSceneGraph
-						and: [ anchor isNotNil and: [ anchor isAttachedToSceneGraph ] ] ] ]
+						and: [ widget anchor isNotNil and: [ widget anchor isAttachedToSceneGraph ] ] ] ]
 ]
 
 { #category : #accessing }
@@ -50,9 +25,11 @@ BrAnchoredLook >> content [
 
 { #category : #accessing }
 BrAnchoredLook >> content: anElement [
-	content = anElement
+	| element |
+	element := anElement asElement.
+	content = element
 		ifTrue: [ ^ self ].
-	content := anElement.
+	content := element.
 	self canRelocate
 		ifTrue: [ self relocate ]
 ]
@@ -74,9 +51,11 @@ BrAnchoredLook >> handle [
 
 { #category : #accessing }
 BrAnchoredLook >> handle: anElement [
-	handle = anElement
+	| element |
+	element := anElement asElement.
+	handle = element
 		ifTrue: [ ^ self ].
-	handle := anElement.
+	handle := element.
 	self canRelocate
 		ifTrue: [ self relocate ]
 ]
@@ -93,11 +72,13 @@ BrAnchoredLook >> handleRequest [
 
 { #category : #accessing }
 BrAnchoredLook >> hide [
-	anchor
-		dispatchEvent:
-			(self hideWish
-				anchor: anchor;
-				yourself)
+	widget anchor
+		ifNotNil: [ :e | 
+			e
+				dispatchEvent:
+					(self hideWish
+						anchor: e;
+						yourself) ]
 ]
 
 { #category : #'as yet unclassified' }
@@ -117,9 +98,7 @@ BrAnchoredLook >> initialize [
 		on: self relocateWishClass
 		do: [ :e | 
 			relocation := e asRelocation.
-			(anchor isNil and: [ e anchored = widget ])
-				ifTrue: [ anchor := e anchor ].
-			(e anchor = anchor
+			(e anchor = widget anchor
 				and: [ e anchored = widget and: [ self canRelocate ] ])
 				ifTrue: [ self relocate ] ].
 	self
@@ -145,8 +124,7 @@ BrAnchoredLook >> initializeListeners [
 	super initializeListeners.
 	self
 		when: self handleChangedClass do: [ :e | self handle: e handle ];
-		when: self contentChangedClass do: [ :e | self content: e content ];
-		when: self anchorChangedClass do: [ :e | self anchor: e anchor ]
+		when: self contentChangedClass do: [ :e | self content: e content ]
 ]
 
 { #category : #initialization }
@@ -154,8 +132,7 @@ BrAnchoredLook >> initializeRequests [
 	super initializeRequests.
 	self
 		request: self handleRequest;
-		request: self contentRequest;
-		request: self anchorRequest
+		request: self contentRequest
 ]
 
 { #category : #'as yet unclassified' }
@@ -189,7 +166,7 @@ BrAnchoredLook >> relocateTo: aPoint content: anElement handleAtTop: aBoolean at
 			t
 				origin: BlAffineTransformationTopLeftOrigin new;
 				translateBy: aPoint;
-				scaleBy: anchor globalScale ];
+				scaleBy: widget anchor globalScale ];
 		geometry: widget geometry
 ]
 

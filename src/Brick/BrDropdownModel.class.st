@@ -4,23 +4,6 @@ Class {
 	#category : #'Brick-Dropdown - Model'
 }
 
-{ #category : #'instance creation' }
-BrDropdownModel class >> anchor: anElement [
-	^ self new
-		anchor: anElement;
-		yourself
-]
-
-{ #category : #notifying }
-BrDropdownModel >> anchorChangedEvent [
-	^ BrDropdownAnchorChanged new
-]
-
-{ #category : #'as yet unclassified' }
-BrDropdownModel >> anchorRequestClass [
-	^ BrDropdownAnchorRequest
-]
-
 { #category : #notifying }
 BrDropdownModel >> contentChangedEvent [
 	^ BrDropdownContentChanged new

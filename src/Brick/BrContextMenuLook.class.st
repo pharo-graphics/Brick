@@ -5,16 +5,6 @@ Class {
 }
 
 { #category : #'as yet unclassified' }
-BrContextMenuLook >> anchorChangedClass [
-	^ BrContextMenuAnchorChanged
-]
-
-{ #category : #'as yet unclassified' }
-BrContextMenuLook >> anchorRequest [
-	^ BrContextMenuAnchorRequest new
-]
-
-{ #category : #'as yet unclassified' }
 BrContextMenuLook >> contentChangedClass [
 	^ BrContextMenuContentChanged
 ]
@@ -45,7 +35,7 @@ BrContextMenuLook >> relocate [
 	self assert: [ self canRelocate ].
 	positioner := BrAnchoredPopupPositioner
 		anchorBoundsInTarget:
-			((anchor localPointToGlobal: relocation) - (handle size / 2)
+			((widget anchor localPointToGlobal: relocation) - (handle size / 2)
 				extent: handle size)
 		target: widget parent.
 	scale := widget globalScale.

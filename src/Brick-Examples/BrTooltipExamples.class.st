@@ -49,9 +49,9 @@ BrTooltipExamples >> model [
 		background: Color blue;
 		yourself.
 	model := BrTooltipModel new
-		stencil: [ tooltip ];
+		content: [ tooltip ];
 		yourself.
-	self assert: model visible equals: false.
-	self assert: model stencil asElement equals: tooltip.
+	"self assert: model visible equals: false.
+	self assert: model stencil asElement equals: tooltip."
 	^ model
 ]

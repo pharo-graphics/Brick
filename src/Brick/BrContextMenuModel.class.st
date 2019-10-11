@@ -4,23 +4,6 @@ Class {
 	#category : #'Brick-Context Menu - Model'
 }
 
-{ #category : #'instance creation' }
-BrContextMenuModel class >> anchor: anElement [
-	^ self new
-		anchor: anElement;
-		yourself
-]
-
-{ #category : #notifying }
-BrContextMenuModel >> anchorChangedEvent [
-	^ BrContextMenuAnchorChanged new
-]
-
-{ #category : #'as yet unclassified' }
-BrContextMenuModel >> anchorRequestClass [
-	^ BrContextMenuAnchorRequest
-]
-
 { #category : #notifying }
 BrContextMenuModel >> contentChangedEvent [
 	^ BrContextMenuContentChanged new

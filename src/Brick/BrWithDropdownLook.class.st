@@ -7,6 +7,12 @@ Class {
 	#category : #'Brick-Dropdown - Look'
 }
 
+{ #category : #'host space - displaying' }
+BrWithDropdownLook >> hide [
+	super hide.
+	widget visibility: BlVisibility visible
+]
+
 { #category : #'as yet unclassified' }
 BrWithDropdownLook >> hideWishClass [
 	^ BrDropdownHideWish
@@ -35,6 +41,12 @@ BrWithDropdownLook >> initialize [
 { #category : #'as yet unclassified' }
 BrWithDropdownLook >> relocateWish [
 	^ BrDropdownRelocateWish new
+]
+
+{ #category : #'host space - displaying' }
+BrWithDropdownLook >> show [
+	super show.
+	widget visibility: BlVisibility hidden
 ]
 
 { #category : #'as yet unclassified' }

@@ -3,41 +3,10 @@ Class {
 	#superclass : #BrWidgetModel,
 	#instVars : [
 		'content',
-		'handle',
-		'anchor'
+		'handle'
 	],
 	#category : #'Brick-Anchored - Model'
 }
-
-{ #category : #'instance creation' }
-BrAnchoredModel class >> anchor: anElement [
-	^ self new
-		anchor: anElement;
-		yourself
-]
-
-{ #category : #accessing }
-BrAnchoredModel >> anchor [
-	^ anchor
-]
-
-{ #category : #accessing }
-BrAnchoredModel >> anchor: anObject [
-	anchor = anObject
-		ifTrue: [ ^ self ].
-	anchor := anObject.
-	self notifyAnchorChanged
-]
-
-{ #category : #notifying }
-BrAnchoredModel >> anchorChangedEvent [
-	self subclassResponsibility
-]
-
-{ #category : #'as yet unclassified' }
-BrAnchoredModel >> anchorRequestClass [
-	self subclassResponsibility
-]
 
 { #category : #accessing }
 BrAnchoredModel >> content [
@@ -108,21 +77,7 @@ BrAnchoredModel >> initializeListeners [
 			reply: [ :e | 
 			e
 				handle: self handle;
-				yourself ];
-		when: self anchorRequestClass
-			reply: [ :e | 
-			e
-				anchor: self anchor;
 				yourself ]
-]
-
-{ #category : #notifying }
-BrAnchoredModel >> notifyAnchorChanged [
-	self
-		dispatchEvent:
-			(self anchorChangedEvent
-				anchor: self anchor;
-				yourself)
 ]
 
 { #category : #notifying }

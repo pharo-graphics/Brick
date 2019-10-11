@@ -5,16 +5,6 @@ Class {
 }
 
 { #category : #'as yet unclassified' }
-BrTooltipLook >> anchorChangedClass [
-	^ BrTooltipAnchorChanged
-]
-
-{ #category : #'as yet unclassified' }
-BrTooltipLook >> anchorRequest [
-	^ BrTooltipAnchorRequest new
-]
-
-{ #category : #'as yet unclassified' }
 BrTooltipLook >> contentChangedClass [
 	^ BrTooltipContentChanged
 ]
@@ -44,7 +34,7 @@ BrTooltipLook >> relocate [
 	| positioner contentMaxBounds anchorBounds scale position scrollableContent |
 	self assert: [ self canRelocate ].
 	positioner := BrAnchoredPopupPositioner
-		anchor: anchor
+		anchor: widget anchor
 		target: widget parent.
 	scale := widget globalScale.
 	anchorBounds := positioner anchorBoundsInTarget.
@@ -67,7 +57,7 @@ BrTooltipLook >> relocate [
 	positioner popupPreferredPosition = (#top -> #left)
 		ifTrue: [ position := anchorBounds topRight
 				- ((scrollableContent size + (0 @ handle height)) * scale) ].
-	((anchor width min: widget width) - handle width) / 2
+	((widget anchor width min: widget width) - handle width) / 2
 		in: [ :e | handle margin: (BlInsets left: e right: e) ].
 	self
 		relocateTo: position
