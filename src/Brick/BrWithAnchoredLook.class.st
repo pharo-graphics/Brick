@@ -128,7 +128,7 @@ BrWithAnchoredLook >> relocateWish [
 { #category : #'host space - displaying' }
 BrWithAnchoredLook >> show [
 	self assert: [ self visible not ].
-	container := stencil asStencil asElement.
+	container := stencil asElement.
 	widget topMostParent addChild: container.
 	widget
 		addEventHandler: extentChangedEventHandler;
@@ -139,7 +139,9 @@ BrWithAnchoredLook >> show [
 	container
 		enqueueTask: watchDog;
 		addEventHandler: extentChangedEventHandler.
-	self relocate
+	self relocate.
+	[ 1 second wait.
+	container ifNotNil: #invalidate ] fork
 ]
 
 { #category : #accessing }

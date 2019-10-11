@@ -129,6 +129,8 @@ BrAnchoredLook >> initialize [
 			with: [ BlLayoutResizer fitContent ];
 		addChangeProperty: #(widget constraints horizontal resizer)
 			with: [ BlLayoutResizer fitContent ];
+		addChangeProperty: #(widget outskirts)
+			with: [ BlOutskirts outside ];
 		addChangeAddChildAs: #(handle) with: [ self handle ];
 		addChangeAddChildAs: #(content) with: [ self content ];
 		addChange:

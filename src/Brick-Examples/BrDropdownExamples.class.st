@@ -150,6 +150,36 @@ BrDropdownExamples >> coloredDropdown [
 	^ dropdown
 ]
 
+{ #category : #private }
+BrDropdownExamples >> compact [
+	<gtExample>
+	| element |
+	element := BrButton new
+		look:
+			BrGlamorousButtonWithLabelLook
+				+
+					(BrWithDropdownLook new
+						stencil: [ BlElement new
+								look:
+									(BrGlamorousDropdownLook new
+										handle:
+											(BrButton new
+												look: BrGlamorousButtonRectangularLook + BrGlamorousButtonLabelLook;
+												label: 'click me';
+												yourself);
+										content:
+											(BlElement new
+												background: Color white;
+												size: 100 @ 200;
+												yourself);
+										yourself);
+								yourself ];
+						yourself);
+		label: 'click me';
+		yourself.
+	^ element
+]
+
 { #category : #'instance creation' }
 BrDropdownExamples >> popupList [
 	<gtExample>
