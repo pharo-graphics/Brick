@@ -75,14 +75,14 @@ OLDBrDropdownPopupEmbellisher >> popupStencil: anObject [
 OLDBrDropdownPopupEmbellisher >> relocatePopup [
 	| positioner anchorBounds popupMaxBounds scale preferredPosition |
 	container parent ifNil: [ ^ self ].
-	positioner := BrAnchoredPopupPositioner
+	positioner := BrAnchoredPositioner
 		anchor: anchor
 		target: container parent.
 	scale := anchor globalScale.
 	anchorBounds := positioner anchorBoundsInTarget.
 	popupMaxBounds := positioner
-		popupPreferredMaxBoundsInTarget: popup size * scale.
-	positioner popupPreferredPositionIsTop
+		maxBoundsPreferredInTarget: popup size * scale.
+	positioner positionPreferredIsTop
 		ifTrue: [ container
 				removeChildren;
 				addChildren:
@@ -93,22 +93,22 @@ OLDBrDropdownPopupEmbellisher >> relocatePopup [
 				addChildren:
 					{toggle.
 					popupWrapper} ].
-	positioner popupPreferredPositionIsLeft
+	positioner positionPreferredIsLeft
 		ifTrue: [ toggle constraintsDo: [ :c | c linear horizontal alignRight ] ]
 		ifFalse: [ toggle constraintsDo: [ :c | c linear horizontal alignLeft ] ].
 	popupWrapper
 		constraintsDo: [ :c | 
 			c maxWidth: popupMaxBounds width.
 			c maxHeight: popupMaxBounds height ].
-	positioner popupPreferredPosition = (#bottom -> #right)
+	positioner positionPreferred = (#bottom -> #right)
 		ifTrue: [ preferredPosition := anchorBounds topLeft ].
-	positioner popupPreferredPosition = (#bottom -> #left)
+	positioner positionPreferred = (#bottom -> #left)
 		ifTrue: [ preferredPosition := anchorBounds topRight
 				- (popupWrapper width @ 0 * scale) ].
-	positioner popupPreferredPosition = (#top -> #right)
+	positioner positionPreferred = (#top -> #right)
 		ifTrue: [ preferredPosition := anchorBounds topLeft
 				- (0 @ popupWrapper height * scale) ].
-	positioner popupPreferredPosition = (#top -> #left)
+	positioner positionPreferred = (#top -> #left)
 		ifTrue: [ preferredPosition := anchorBounds topRight
 				- (popupWrapper size * scale) ].
 	self flag: 'TODO is there a better way to force the redraw of a geometry if bounds did not change?'.

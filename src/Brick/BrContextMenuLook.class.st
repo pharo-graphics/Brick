@@ -34,34 +34,34 @@ BrContextMenuLook >> relocate [
 	| positioner contentMaxBounds anchorBounds scale position |
 	self assert: [ self canRelocate ].
 	scale := widget anchor globalScale.
-	positioner := BrAnchoredPopupPositioner
+	positioner := BrAnchoredPositioner
 		anchorBoundsInTarget:
 			((widget anchor localPointToGlobal: relocation) - (handle size / 2 * scale)
 				extent: handle size * scale)
 		target: widget parent.
 	anchorBounds := positioner anchorBoundsInTarget.
 	contentMaxBounds := positioner
-		popupPreferredMaxBoundsInTarget: content size * scale.
+		maxBoundsPreferredInTarget: content size * scale.
 	scrollableContent
 		constraintsDo: [ :c | 
 			c maxWidth: contentMaxBounds width / scale.
 			c maxHeight: contentMaxBounds height /scale ].
 	position := 0 @ 0.
-	positioner popupPreferredPosition = (#bottom -> #right)
+	positioner positionPreferred = (#bottom -> #right)
 		ifTrue: [ position := anchorBounds topLeft ].
-	positioner popupPreferredPosition = (#bottom -> #left)
+	positioner positionPreferred = (#bottom -> #left)
 		ifTrue: [ position := anchorBounds topRight
 				- (scrollableContent width @ 0 * scale) ].
-	positioner popupPreferredPosition = (#top -> #right)
+	positioner positionPreferred = (#top -> #right)
 		ifTrue: [ position := anchorBounds topLeft
 				- (0 @ scrollableContent height * scale) ].
-	positioner popupPreferredPosition = (#top -> #left)
+	positioner positionPreferred = (#top -> #left)
 		ifTrue:
 			[ position := anchorBounds topRight - (scrollableContent size * scale) ].
 	self
 		relocateTo: position
-		handleAtTop: positioner popupPreferredPositionIsTop
-		atLeft: positioner popupPreferredPositionIsLeft
+		handleAtTop: positioner positionPreferredIsTop
+		atLeft: positioner positionPreferredIsLeft
 ]
 
 { #category : #'as yet unclassified' }

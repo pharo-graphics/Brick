@@ -4,7 +4,7 @@ Class {
 	#instVars : [
 		'element'
 	],
-	#category : #'Brick-Anchored-UI'
+	#category : #'Brick-Anchored - Support'
 }
 
 { #category : #'as yet unclassified' }

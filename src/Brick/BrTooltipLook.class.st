@@ -33,35 +33,35 @@ BrTooltipLook >> hideWish [
 BrTooltipLook >> relocate [
 	| positioner contentMaxBounds anchorBounds scale position |
 	self assert: [ self canRelocate ].
-	positioner := BrAnchoredPopupPositioner
+	positioner := BrAnchoredPositioner
 		anchor: widget anchor
 		target: widget parent.
 	scale := widget anchor globalScale.
 	anchorBounds := positioner anchorBoundsInTarget.
 	contentMaxBounds := positioner
-		popupPreferredMaxBoundsInTarget: (content size + (0 @ handle height)) * scale.
+		maxBoundsPreferredInTarget: (content size + (0 @ handle height)) * scale.
 	scrollableContent
 		constraintsDo: [ :c | 
 			c maxWidth: contentMaxBounds width / scale.
 			c maxHeight: contentMaxBounds height /scale ].
 	position := 0 @ 0.
-	positioner popupPreferredPosition = (#bottom -> #right)
+	positioner positionPreferred = (#bottom -> #right)
 		ifTrue: [ position := anchorBounds bottomLeft ].
-	positioner popupPreferredPosition = (#bottom -> #left)
+	positioner positionPreferred = (#bottom -> #left)
 		ifTrue: [ position := anchorBounds bottomRight
 				- (scrollableContent width @ 0 * scale) ].
-	positioner popupPreferredPosition = (#top -> #right)
+	positioner positionPreferred = (#top -> #right)
 		ifTrue: [ position := anchorBounds topLeft
 				- (0 @ (scrollableContent height + handle height) * scale) ].
-	positioner popupPreferredPosition = (#top -> #left)
+	positioner positionPreferred = (#top -> #left)
 		ifTrue: [ position := anchorBounds topRight
 				- ((scrollableContent size + (0 @ handle height)) * scale) ].
 	((widget anchor width min: widget width) - handle width) / 2
 		in: [ :e | handle margin: (BlInsets left: e right: e) ].
 	self
 		relocateTo: position
-		handleAtTop: positioner popupPreferredPositionIsTop
-		atLeft: positioner popupPreferredPositionIsLeft
+		handleAtTop: positioner positionPreferredIsTop
+		atLeft: positioner positionPreferredIsLeft
 ]
 
 { #category : #'as yet unclassified' }
