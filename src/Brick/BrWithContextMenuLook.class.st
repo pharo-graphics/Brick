@@ -9,6 +9,11 @@ Class {
 }
 
 { #category : #'as yet unclassified' }
+BrWithContextMenuLook class >> anchoredLookClass [
+	^ BrContextMenuLook
+]
+
+{ #category : #'as yet unclassified' }
 BrWithContextMenuLook >> hideWishClass [
 	^ BrContextMenuHideWish
 ]

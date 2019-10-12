@@ -76,12 +76,19 @@ BrDropdownExamples >> alignedDropdowns [
 { #category : #'instance creation' }
 BrDropdownExamples >> badgeButton [
 	<gtExample>
-	
-	^ BrButton new
+	^ BrLabel new
+		layout: BlLinearLayout horizontal;
+		constraintsDo: [ :c | 
+			c horizontal fitContent.
+			c vertical fitContent ];
+		padding: (BlInsets all: 7);
 		background: Color orange;
-		label: ('3' asRopedText fontSize: 15; foreground: Color white; bold);
-		look: BrTextLabelLook + OLDBrGlamorousDropdownLook;
-		padding: (BlInsets all: 7)
+		text:
+			('3' asRopedText
+				fontSize: 15;
+				foreground: Color white;
+				bold);
+		yourself
 ]
 
 { #category : #'as yet unclassified' }
@@ -158,23 +165,15 @@ BrDropdownExamples >> compact [
 		look:
 			BrGlamorousButtonWithLabelLook
 				+
-					(BrWithDropdownLook new
-						stencil: [ BlElement new
-								look:
-									(BrGlamorousDropdownLook new
-										handle:
-											(BrButton new
-												look: BrGlamorousButtonRectangularLook + BrGlamorousButtonLabelLook;
-												label: 'click me';
-												yourself);
-										content:
-											(BlElement new
-												background: Color white;
-												size: 100 @ 200;
-												yourself);
-										yourself);
-								yourself ];
-						yourself);
+					(BrGlamorousWithDropdownLook
+						handle: [ BrButton new
+								look: BrGlamorousButtonRectangularLook + BrGlamorousButtonLabelLook;
+								label: 'click me';
+								yourself ]
+						content: [ BlElement new
+								background: Color white;
+								size: 100 @ 200;
+								yourself ]);
 		label: 'click me';
 		yourself.
 	^ element
@@ -192,25 +191,21 @@ BrDropdownExamples >> popupList [
 		hExact: 200
 ]
 
-{ #category : #'instance creation' }
-BrDropdownExamples >> roundLook [
-	<gtExample>
-
-	^ OLDBrGlamorousDropdownLook new
-]
-
 { #category : #examples }
 BrDropdownExamples >> roundedDropdownList [
 	<gtExample>
-	^ OLDBrDropdown new
-		layout: BlLinearLayout horizontal;
+	^ self toggleButton
+		look:
+			BrGlamorousButtonWithLabelAndIconLook
+				+
+					(BrGlamorousWithDropdownLook
+						handle: [ self toggleButton
+								look:
+									BrGlamorousButtonWithLabelAndIconLook - BrGlamorousButtonExteriorLook;
+								yourself ]
+						content: [ self popupList ]);
 		relocate: 200 @ 100;
-		constraintsDo: [ :c | 
-			c horizontal fitContent.
-			c vertical fitContent ];
-		in: [ :aDropdown | aDropdown toggle: [ self toggleButton ] ];
-		popup: [ self popupList ];
-		look: BrDropdownExamples new roundLook
+		yourself
 ]
 
 { #category : #'as yet unclassified' }
@@ -231,25 +226,43 @@ BrDropdownExamples >> scaledAndAlignedDropdowns [
 { #category : #examples }
 BrDropdownExamples >> suggesterBadgeDropdownList [
 	<gtExample>
-	^ OLDBrDropdown new
+	^ self badgeButton
+		look:
+			BrTextLabelLook
+				+
+					(BrWithDropdownLook new
+						stencil: [ BlElement new
+								look:
+									(BrDropdownLook new
+										handle:
+											(self badgeButton
+												look: BrTextLabelLook;
+												yourself);
+										content: self popupList;
+										yourself);
+								border: (BlBorder paint: Color orange width: 1);
+								yourself ];
+						yourself);
 		relocate: 200 @ 100;
-		look: OLDBrGlamorousDropdownLook new;
-		toggle: [ self badgeButton ];
-		popup: [ self popupList ]
+		yourself
 ]
 
 { #category : #'instance creation' }
 BrDropdownExamples >> toggleButton [
 	<gtExample>
-
 	^ BrButton new
-		look: BrGlamorousButtonWithLabelAndIconLook;
-		padding: (BlInsets top: 6 right: 8 bottom: 6 left: 15);
 		label: 'instance';
-		icon: (BlElement new
-			size: 8@8;
-			geometry: (BlPolygon vertices: {(0 @ 0). (8 @ 0). ((8 / 2) rounded @ 8)});
-			background: Color lightGray;
-			margin: (BlInsets left: 12 right: 10);
-			constraintsDo: [ :c | c linear vertical alignCenter ])
+		icon:
+			(BlElement new
+				size: 8 @ 8;
+				geometry:
+					(BlPolygon
+						vertices:
+							{(0 @ 0).
+							(8 @ 0).
+							((8 / 2) rounded @ 8)});
+				background: Color lightGray;
+				margin: (BlInsets left: 6);
+				constraintsDo: [ :c | c linear vertical alignCenter ]);
+		yourself
 ]

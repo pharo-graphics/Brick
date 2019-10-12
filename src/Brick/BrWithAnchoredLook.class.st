@@ -14,6 +14,41 @@ Class {
 	#category : #'Brick-Anchored - Look'
 }
 
+{ #category : #'as yet unclassified' }
+BrWithAnchoredLook class >> anchoredLookClass [
+	^ BrAnchoredLook
+]
+
+{ #category : #'as yet unclassified' }
+BrWithAnchoredLook class >> content: anObject [
+	^ self
+		stencil: [ BlElement new
+				look:
+					(self anchoredLookClass new
+						content: anObject asStencil asElement;
+						yourself);
+				yourself ]
+]
+
+{ #category : #'as yet unclassified' }
+BrWithAnchoredLook class >> handle: anObject content: anotherObject [
+	^ self
+		stencil: [ BlElement new
+				look:
+					(self anchoredLookClass new
+						handle: anObject asStencil asElement;
+						content: anotherObject asStencil asElement;
+						yourself);
+				yourself ]
+]
+
+{ #category : #accessing }
+BrWithAnchoredLook class >> stencil: anObject [
+	^ self new
+		stencil: anObject;
+		yourself
+]
+
 { #category : #accessing }
 BrWithAnchoredLook >> hide [
 	self assert: [ self visible ].

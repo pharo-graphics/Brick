@@ -7,6 +7,11 @@ Class {
 	#category : #'Brick-Dropdown - Look'
 }
 
+{ #category : #'as yet unclassified' }
+BrWithDropdownLook class >> anchoredLookClass [
+	^ BrDropdownLook
+]
+
 { #category : #'host space - displaying' }
 BrWithDropdownLook >> hide [
 	super hide.
@@ -25,12 +30,6 @@ BrWithDropdownLook >> initialize [
 		on: BlClickEvent
 		do: [ :e | self show ].
 	self
-		addChangeProperty: #(widget layout)
-			with: [ BlLinearLayout vertical ];
-		addChangeProperty: #(widget constraints vertical resizer)
-			with: [ BlLayoutResizer fitContent ];
-		addChangeProperty: #(widget constraints horizontal resizer)
-			with: [ BlLayoutResizer fitContent ];
 		addChange:
 			(BrLookChange new
 				up: [ :e | widget addEventFilter: clickEventHandler ];

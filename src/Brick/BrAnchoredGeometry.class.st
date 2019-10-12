@@ -1,22 +1,28 @@
 Class {
-	#name : #BrGlamorousAnchoredGeometry,
+	#name : #BrAnchoredGeometry,
 	#superclass : #BlRectangle,
 	#instVars : [
 		'element'
 	],
-	#category : #'Brick-Glamorous-Anchored'
+	#category : #'Brick-Anchored-UI'
 }
 
-{ #category : #factory }
-BrGlamorousAnchoredGeometry class >> new [
-	^ self basicNew
-		initialize;
-		initializeWith: (BlCornerRadii radius: 4);
+{ #category : #'as yet unclassified' }
+BrAnchoredGeometry class >> cornerRadius: aNumber element: anElement [
+	^ (self cornerRadius: aNumber)
+		element: anElement;
 		yourself
 ]
 
 { #category : #'as yet unclassified' }
-BrGlamorousAnchoredGeometry >> buildPathOnSpartaCanvas: aCanvas [
+BrAnchoredGeometry class >> element: anElement [
+	^ self new
+		element: anElement;
+		yourself
+]
+
+{ #category : #'as yet unclassified' }
+BrAnchoredGeometry >> buildPathOnSpartaCanvas: aCanvas [
 	"Computes boundaries according to https://stackoverflow.com/questions/289779/calculating-a-boundary-around-several-linked-rectangles.
 	Assumes bounds are overlapping or touching, gaps will lead to only parts included in geometry."
 
@@ -103,17 +109,18 @@ BrGlamorousAnchoredGeometry >> buildPathOnSpartaCanvas: aCanvas [
 	^ path close build
 ]
 
-{ #category : #accessing }
-BrGlamorousAnchoredGeometry >> cornerRadius: aNumber [
-	self flag: 'FIXME delete when migrated'
+{ #category : #'geometry testing' }
+BrAnchoredGeometry >> containsPoint: aPoint in: aBlElement [
+	^ aBlElement children
+		anySatisfy: [ :e | e containsPoint: aPoint - e position ]
 ]
 
 { #category : #accessing }
-BrGlamorousAnchoredGeometry >> element [
+BrAnchoredGeometry >> element [
 	^ element
 ]
 
 { #category : #accessing }
-BrGlamorousAnchoredGeometry >> element: anObject [
+BrAnchoredGeometry >> element: anObject [
 	element := anObject
 ]

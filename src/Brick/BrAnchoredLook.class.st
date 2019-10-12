@@ -108,6 +108,8 @@ BrAnchoredLook >> initialize [
 			with: [ BlLayoutResizer fitContent ];
 		addChangeProperty: #(widget constraints horizontal resizer)
 			with: [ BlLayoutResizer fitContent ];
+		addChangeProperty: #(widget geometry)
+			with: [ BrAnchoredGeometry element: widget ];
 		addChangeProperty: #(widget outskirts)
 			with: [ BlOutskirts outside ];
 		addChangeAddChildAs: #(handle) with: [ self handle ];

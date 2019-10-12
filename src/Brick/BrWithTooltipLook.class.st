@@ -11,6 +11,11 @@ Class {
 	#category : #'Brick-Tooltip - Look'
 }
 
+{ #category : #'as yet unclassified' }
+BrWithTooltipLook class >> anchoredLookClass [
+	^ BrTooltipLook
+]
+
 { #category : #accessing }
 BrWithTooltipLook >> cancelHideLater [
 	hideLaterTask ifNotNil: #dequeue.

@@ -1,23 +1,23 @@
 Class {
-	#name : #BrGlamorousButtonWithLabelTooltipLook,
+	#name : #BrGlamorousWithLabelTooltipLook,
 	#superclass : #BrWithTooltipLook,
 	#category : #'Brick-Glamorous-Buttons'
 }
 
 { #category : #initialization }
-BrGlamorousButtonWithLabelTooltipLook >> initializeListeners [
+BrGlamorousWithLabelTooltipLook >> initializeListeners [
 	super initializeListeners.
 	self when: BrLabelChanged do: [ :anEvent | self text: anEvent text ]
 ]
 
 { #category : #initialization }
-BrGlamorousButtonWithLabelTooltipLook >> initializeRequests [
+BrGlamorousWithLabelTooltipLook >> initializeRequests [
 	super initializeRequests.
 	self request: BrLabelRequest new
 ]
 
 { #category : #accessing }
-BrGlamorousButtonWithLabelTooltipLook >> text: aTextOrString [
+BrGlamorousWithLabelTooltipLook >> text: aTextOrString [
 	self
 		stencil: [ BlElement new
 				look:

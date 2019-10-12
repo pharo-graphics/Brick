@@ -37,16 +37,14 @@ OLDBrGlamorousDropdownPopupEmbellisher >> buildDefault [
 	super buildDefault.
 	self
 		flag: 'TODO find alternative to work around reflection to check for radius'.
-	geometry := BrGlamorousAnchoredGeometry new
-		element: container;
+	geometry := BrAnchoredGeometry
 		cornerRadius:
 			((toggle geometry respondsTo: #cornerRadii)
 				ifTrue: [ toggle geometry cornerRadii max ]
 				ifFalse: [ (toggle geometry respondsTo: #radius)
 						ifTrue: [ toggle geometry radius ]
-						ifFalse: [ 0 ] ]);
-		yourself.
-
+						ifFalse: [ 0 ] ])
+		element: container.
 	toggle
 		addEventHandlerOn: BlElementExtentChangedEvent
 		do: [ :anEvent | container invalidate ].

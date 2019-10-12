@@ -11,20 +11,14 @@ BrContextMenuExamples >> compact [
 	element := self element.
 	element
 		look:
-			(BrWithContextMenuLook new
-				stencil: [ BlElement new
-						look:
-							(BrGlamorousContextMenuLook new
-								content:
-									(BrGlamorousSimpleContextMenuContent new
-										display:
-											{('Change to blue' -> [ :e | e background: Color blue ]).
-											('Change to red' -> [ :e | e background: Color red ]).
-											('Change to green' -> [ :e | e background: Color green ])};
-										yourself);
-								yourself);
-						yourself ];
-				yourself).
+			(BrGlamorousWithContextMenuLook
+				content: [ BrGlamorousSimpleContextMenuContent new
+						display:
+							{('Change to blue' -> [ :e | e background: Color blue ]).
+							('Change to red' -> [ :e | e background: Color red ]).
+							('Change to green' -> [ :e | e background: Color green ])};
+						yourself ]);
+		yourself.
 	^ element
 ]
 
