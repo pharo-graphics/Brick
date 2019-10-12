@@ -31,22 +31,21 @@ BrContextMenuLook >> hideWish [
 
 { #category : #'as yet unclassified' }
 BrContextMenuLook >> relocate [
-	| positioner contentMaxBounds anchorBounds scale position scrollableContent |
+	| positioner contentMaxBounds anchorBounds scale position |
 	self assert: [ self canRelocate ].
+	scale := widget anchor globalScale.
 	positioner := BrAnchoredPopupPositioner
 		anchorBoundsInTarget:
-			((widget anchor localPointToGlobal: relocation) - (handle size / 2)
-				extent: handle size)
+			((widget anchor localPointToGlobal: relocation) - (handle size / 2 * scale)
+				extent: handle size * scale)
 		target: widget parent.
-	scale := widget globalScale.
 	anchorBounds := positioner anchorBoundsInTarget.
 	contentMaxBounds := positioner
-		popupPreferredMaxBoundsInTarget: self unwrappedContent size * scale.
-	scrollableContent := self scrollableContent.
+		popupPreferredMaxBoundsInTarget: content size * scale.
 	scrollableContent
 		constraintsDo: [ :c | 
-			c maxWidth: contentMaxBounds width.
-			c maxHeight: contentMaxBounds height ].
+			c maxWidth: contentMaxBounds width / scale.
+			c maxHeight: contentMaxBounds height /scale ].
 	position := 0 @ 0.
 	positioner popupPreferredPosition = (#bottom -> #right)
 		ifTrue: [ position := anchorBounds topLeft ].
@@ -61,7 +60,6 @@ BrContextMenuLook >> relocate [
 			[ position := anchorBounds topRight - (scrollableContent size * scale) ].
 	self
 		relocateTo: position
-		content: scrollableContent
 		handleAtTop: positioner popupPreferredPositionIsTop
 		atLeft: positioner popupPreferredPositionIsLeft
 ]

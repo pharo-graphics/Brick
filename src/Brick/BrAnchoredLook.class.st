@@ -4,6 +4,7 @@ Class {
 	#instVars : [
 		'handle',
 		'content',
+		'scrollableContent',
 		'relocation',
 		'relocateEventHandler'
 	],
@@ -30,6 +31,18 @@ BrAnchoredLook >> content: anElement [
 	content = element
 		ifTrue: [ ^ self ].
 	content := element.
+	scrollableContent := content asScrollableElement.
+	scrollableContent == content
+		ifFalse: [ scrollableContent
+				constraintsDo: [ :c | 
+					c horizontal fitContent.
+					c vertical fitContent ] ].
+	self
+		widgetDo: [ | i content_ |
+			content_ := widget childNamed: #content.
+			i := widget childIndexOf: content_.
+			widget removeChild: content_.
+			widget addChild: scrollableContent at: i as: #content ].
 	self canRelocate
 		ifTrue: [ self relocate ]
 ]
@@ -56,6 +69,12 @@ BrAnchoredLook >> handle: anElement [
 	handle = element
 		ifTrue: [ ^ self ].
 	handle := element.
+	self
+		widgetDo: [ | i handle_ |
+			handle_ := widget childNamed: #handle.
+			i := widget childIndexOf: handle_.
+			widget removeChild: handle_.
+			widget addChild: handle at: i as: #handle ].
 	self canRelocate
 		ifTrue: [ self relocate ]
 ]
@@ -94,6 +113,7 @@ BrAnchoredLook >> initialize [
 		padding: (BlInsets all: 5);
 		yourself.
 	content := BlElement new.
+	scrollableContent := content asScrollableElement.
 	relocateEventHandler := BlEventHandler
 		on: self relocateWishClass
 		do: [ :e | 
@@ -112,8 +132,8 @@ BrAnchoredLook >> initialize [
 			with: [ BrAnchoredGeometry element: widget ];
 		addChangeProperty: #(widget outskirts)
 			with: [ BlOutskirts outside ];
-		addChangeAddChildAs: #(handle) with: [ self handle ];
-		addChangeAddChildAs: #(content) with: [ self content ];
+		addChangeAddChildAs: #(handle) with: [ handle ];
+		addChangeAddChildAs: #(content) with: [ scrollableContent ];
 		addChange:
 			(BrLookChange new
 				up: [ :e | widget addEventHandler: relocateEventHandler ];
@@ -139,24 +159,23 @@ BrAnchoredLook >> initializeRequests [
 
 { #category : #'as yet unclassified' }
 BrAnchoredLook >> relocate [
-	"Call #relocateTo:content:handleAtTop:atLeft: and use relocation instance variable"
+	"Call #relocateTo:handleAtTop:atLeft: and use relocation instance variable"
 
 	self subclassResponsibility
 ]
 
 { #category : #'as yet unclassified' }
-BrAnchoredLook >> relocateTo: aPoint content: anElement handleAtTop: aBoolean atLeft: anotherBoolean [
-	self
-		flag: 'FIXME for some reason removing children by name does not work'.
+BrAnchoredLook >> relocateTo: aPoint handleAtTop: aBoolean atLeft: anotherBoolean [
+	widget
+		removeChildNamed: #content;
+		removeChildNamed: #handle.
 	aBoolean
 		ifTrue: [ widget
-				removeChildren;
-				addChild: anElement as: #content;
+				addChild: scrollableContent as: #content;
 				addChild: handle as: #handle ]
 		ifFalse: [ widget
-				removeChildren;
 				addChild: handle as: #handle;
-				addChild: anElement as: #content ].
+				addChild: scrollableContent as: #content ].
 	anotherBoolean
 		ifTrue: [ handle constraintsDo: [ :c | c linear horizontal alignRight ] ]
 		ifFalse: [ handle constraintsDo: [ :c | c linear horizontal alignLeft ] ].
@@ -167,31 +186,12 @@ BrAnchoredLook >> relocateTo: aPoint content: anElement handleAtTop: aBoolean at
 		transformDo: [ :t | 
 			t
 				origin: BlAffineTransformationTopLeftOrigin new;
-				translateBy: aPoint;
-				scaleBy: widget anchor globalScale ];
+				scaleBy: widget anchor globalScale;
+				translateBy: aPoint ];
 		geometry: widget geometry
 ]
 
 { #category : #'as yet unclassified' }
 BrAnchoredLook >> relocateWishClass [
 	self subclassResponsibility
-]
-
-{ #category : #'examples - setup' }
-BrAnchoredLook >> scrollableContent [
-	| scrollableContent |
-	scrollableContent := content asScrollableElement.
-	scrollableContent == content
-		ifFalse: [ scrollableContent
-				constraintsDo: [ :c | 
-					c horizontal fitContent.
-					c vertical fitContent ] ].
-	^ scrollableContent
-]
-
-{ #category : #accessing }
-BrAnchoredLook >> unwrappedContent [
-	^ content asScrollableElement == content
-		ifTrue: [ content contentElement ]
-		ifFalse: [ content ]
 ]

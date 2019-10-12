@@ -98,7 +98,7 @@ BrWithAnchoredLook >> initialize [
 						ifTrue: [ self hide ] ] ].
 	extentChangedEventHandler := BlEventHandler
 		on: BlElementExtentChangedEvent
-		do: [ "relocate when extent changes"
+		do: [ :e | "relocate when extent changes"
 			self visible
 				ifTrue: [ self relocate ] ].
 	positionInSpaceChangedEventHandler := BlEventHandler

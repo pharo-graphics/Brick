@@ -94,53 +94,71 @@ BrDropdownExamples >> badgeButton [
 { #category : #'as yet unclassified' }
 BrDropdownExamples >> coloredDropdown [
 	<gtExample>
-	| dropdown look |
-	dropdown := OLDBrDropdown new.
-	look := OLDBrGlamorousDropdownLook new.
-	look
-		reusePopup: true;
-		outskirtsEmbellisher: [ :e | 
-			dropdown viewModel children first stateModels first isExpanded
-				ifTrue: [ e
-						background: Color white;
-						border: (BlBorder paint: Color white asBlPaint width: 3) ]
-				ifFalse: [ e look
-						ifNil: [ e look: BrShadowLook ]
-						ifNotNil: [ (e look hasActor: BrShadowLook) ifFalse: [ e look add: BrShadowLook ] ] ].
-			e ].
-	dropdown
-		look: look;
-		clipChildren: false;
-		toggle: [ BrButton new
-				size: 20 @ 20;
-				geometry: (BlRectangle cornerRadius: 10);
-				look:
-					(BrInteractiveCommonLook new
-						default: [ :e | 
-							e
-								background: BrGlamorousColors defaultButtonBorderColor;
-								border:
-									(BlBorder
-										paint: BrGlamorousColors defaultButtonBackgroundColor
-										width: 3) ];
-						hovered: [ :e | 
-							e
-								background: BrGlamorousColors hoveredButtonBorderColor;
-								border:
-									(BlBorder
-										paint: BrGlamorousColors defaultButtonBackgroundColor
-										width: 3) ]);
-				yourself ];
-		popup: [ BlElement new
-				layout: BlLinearLayout vertical;
-				constraintsDo: [ :c | 
-					c horizontal fitContent.
-					c vertical fitContent ];
-				addChild:
-					(BrEditor new
-						look: BrGlamorousCodeEditorLook;
-						text:
-							'<content>
+	^ BrButton new
+		size: 20 @ 20;
+		geometry: (BlRectangle cornerRadius: 10);
+		label: 'howdy';
+		look:
+			(BrInteractiveCommonLook new
+				default: [ :e | 
+					e
+						background: BrGlamorousColors defaultButtonBorderColor;
+						border:
+							(BlBorder
+								paint: BrGlamorousColors defaultButtonBackgroundColor
+								width: 3) ];
+				hovered: [ :e | 
+					e
+						background: BrGlamorousColors hoveredButtonBorderColor;
+						border:
+							(BlBorder
+								paint: BrGlamorousColors defaultButtonBackgroundColor
+								width: 3) ]) + BrGlamorousWithLabelTooltipLook
+				+
+					(BrGlamorousWithContextMenuLook
+						content: [ BrGlamorousSimpleContextMenuContent new
+								display:
+									{('Change to blue' -> [ :e | e background: Color blue ]).
+									('Change to red' -> [ :e | e background: Color red ]).
+									('Change to green' -> [ :e | e background: Color green ])};
+								yourself ])
+				+
+					(BrGlamorousWithDropdownLook
+						stencil: [ BlElement new
+								look:
+									(BrGlamorousDropdownLook new
+										handle:
+											(BrButton new
+												size: 20 @ 20;
+												geometry: (BlRectangle cornerRadius: 10);
+												look:
+													(BrInteractiveCommonLook new
+														default: [ :e | 
+															e
+																background: BrGlamorousColors defaultButtonBorderColor;
+																border:
+																	(BlBorder
+																		paint: BrGlamorousColors defaultButtonBackgroundColor
+																		width: 3) ];
+														hovered: [ :e | 
+															e
+																background: BrGlamorousColors hoveredButtonBorderColor;
+																border:
+																	(BlBorder
+																		paint: BrGlamorousColors defaultButtonBackgroundColor
+																		width: 3) ]);
+												yourself);
+										content:
+											(BlElement new
+												layout: BlLinearLayout vertical;
+												constraintsDo: [ :c | 
+													c horizontal fitContent.
+													c vertical fitContent ];
+												addChild:
+													(BrEditor new
+														look: BrGlamorousCodeEditorLook;
+														text:
+															'<content>
 
 
 
@@ -148,13 +166,16 @@ BrDropdownExamples >> coloredDropdown [
 
 
 </content>';
-						padding: (BlInsets all: 10);
-						constraintsDo: [ :c | 
-							c horizontal matchParent.
-							c vertical matchParent ];
-						yourself);
-				yourself ].
-	^ dropdown
+														padding: (BlInsets all: 10);
+														constraintsDo: [ :c | 
+															c horizontal matchParent.
+															c vertical matchParent ];
+														yourself);
+												yourself);
+										yourself);
+								in: [ :e | e geometry: (BrAnchoredGeometry cornerRadius: 10 element: e) ];
+								yourself ]);
+		yourself
 ]
 
 { #category : #private }

@@ -31,20 +31,19 @@ BrTooltipLook >> hideWish [
 
 { #category : #'as yet unclassified' }
 BrTooltipLook >> relocate [
-	| positioner contentMaxBounds anchorBounds scale position scrollableContent |
+	| positioner contentMaxBounds anchorBounds scale position |
 	self assert: [ self canRelocate ].
 	positioner := BrAnchoredPopupPositioner
 		anchor: widget anchor
 		target: widget parent.
-	scale := widget globalScale.
+	scale := widget anchor globalScale.
 	anchorBounds := positioner anchorBoundsInTarget.
 	contentMaxBounds := positioner
-		popupPreferredMaxBoundsInTarget: (self unwrappedContent size + (0 @ handle height)) * scale.
-	scrollableContent := self scrollableContent.
+		popupPreferredMaxBoundsInTarget: (content size + (0 @ handle height)) * scale.
 	scrollableContent
 		constraintsDo: [ :c | 
-			c maxWidth: contentMaxBounds width.
-			c maxHeight: contentMaxBounds height ].
+			c maxWidth: contentMaxBounds width / scale.
+			c maxHeight: contentMaxBounds height /scale ].
 	position := 0 @ 0.
 	positioner popupPreferredPosition = (#bottom -> #right)
 		ifTrue: [ position := anchorBounds bottomLeft ].
@@ -61,7 +60,6 @@ BrTooltipLook >> relocate [
 		in: [ :e | handle margin: (BlInsets left: e right: e) ].
 	self
 		relocateTo: position
-		content: scrollableContent
 		handleAtTop: positioner popupPreferredPositionIsTop
 		atLeft: positioner popupPreferredPositionIsLeft
 ]

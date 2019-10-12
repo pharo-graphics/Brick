@@ -55,20 +55,19 @@ BrDropdownLook >> initialize [
 
 { #category : #'as yet unclassified' }
 BrDropdownLook >> relocate [
-	| positioner contentMaxBounds anchorBounds scale position scrollableContent |
+	| positioner contentMaxBounds anchorBounds scale position |
 	self assert: [ self canRelocate ].
 	positioner := BrAnchoredPopupPositioner
 		anchor: widget anchor
 		target: widget parent.
-	scale := widget globalScale.
+	scale := widget anchor globalScale.
 	anchorBounds := positioner anchorBoundsInTarget.
 	contentMaxBounds := positioner
-		popupPreferredMaxBoundsInTarget: self unwrappedContent size * scale.
-	scrollableContent := self scrollableContent.
+		popupPreferredMaxBoundsInTarget: content size * scale.
 	scrollableContent
 		constraintsDo: [ :c | 
-			c maxWidth: contentMaxBounds width.
-			c maxHeight: contentMaxBounds height ].
+			c maxWidth: contentMaxBounds width / scale.
+			c maxHeight: contentMaxBounds height /scale ].
 	position := 0 @ 0.
 	positioner popupPreferredPosition = (#bottom -> #right)
 		ifTrue: [ position := anchorBounds topLeft ].
@@ -83,7 +82,6 @@ BrDropdownLook >> relocate [
 			[ position := anchorBounds topRight - (scrollableContent size * scale) ].
 	self
 		relocateTo: position
-		content: scrollableContent
 		handleAtTop: positioner popupPreferredPositionIsTop
 		atLeft: positioner popupPreferredPositionIsLeft
 ]
