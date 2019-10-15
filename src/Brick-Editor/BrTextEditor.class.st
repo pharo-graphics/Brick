@@ -750,7 +750,7 @@ BrTextEditor >> onStringInserted: aBrTextStringInserted [
 		in: self.
 
 	self
-		notifyInserted: (aProcessedString asRopedText)
+		notifyInserted: (aBrTextStringInserted string asRopedText)
 		at: aBrTextStringInserted index.
 
 	self styleText
