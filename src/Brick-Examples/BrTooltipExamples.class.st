@@ -27,7 +27,7 @@ BrTooltipExamples >> elementWithModelAndLook [
 						addState: BrHoverModel new;
 						yourself).
 	element look: look.
-	self assert: look stencil equals: model stencil.
+	"self assert: look stencil equals: model stencil."
 	^ element
 ]
 
