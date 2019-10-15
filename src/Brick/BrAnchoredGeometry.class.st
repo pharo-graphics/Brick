@@ -1,21 +1,34 @@
 Class {
-	#name : #BrGlamorousDropdownGeometry,
-	#superclass : #BlGeometry,
+	#name : #BrAnchoredGeometry,
+	#superclass : #BlRectangle,
 	#instVars : [
-		'cornerRadius',
-		'dropdown'
+		'element'
 	],
-	#category : #'Brick-Glamorous-Dropdown'
+	#category : #'Brick-Anchored - Support'
 }
 
 { #category : #'as yet unclassified' }
-BrGlamorousDropdownGeometry >> buildPathOnSpartaCanvas: aCanvas [
+BrAnchoredGeometry class >> cornerRadius: aNumber element: anElement [
+	^ (self cornerRadius: aNumber)
+		element: anElement;
+		yourself
+]
+
+{ #category : #'as yet unclassified' }
+BrAnchoredGeometry class >> element: anElement [
+	^ self new
+		element: anElement;
+		yourself
+]
+
+{ #category : #'as yet unclassified' }
+BrAnchoredGeometry >> buildPathOnSpartaCanvas: aCanvas [
 	"Computes boundaries according to https://stackoverflow.com/questions/289779/calculating-a-boundary-around-several-linked-rectangles.
 	Assumes bounds are overlapping or touching, gaps will lead to only parts included in geometry."
 
 	| bounds vertices xs ys areas corners points directions initialCursor cursor direction path |
 	"1. compute areas covered by children bounds"
-	bounds := dropdown children collect: [ :e | e bounds asRectangle ].
+	bounds := element children collect: [ :e | e bounds asRectangle ].
 	vertices := bounds
 		flatCollect: [ :e | 
 			{e origin.
@@ -78,7 +91,7 @@ BrGlamorousDropdownGeometry >> buildPathOnSpartaCanvas: aCanvas [
 	"4. compute path with rounded corners"
 	path := aCanvas path.
 	path
-		moveTo: points first + (cornerRadius @ cornerRadius * directions second).
+		moveTo: points first + (cornerRadii max @ cornerRadii max * directions second).
 	"last points is same as first, remove it"
 	points removeFirst.
 	directions removeFirst.
@@ -87,41 +100,27 @@ BrGlamorousDropdownGeometry >> buildPathOnSpartaCanvas: aCanvas [
 			| directionIncoming directionOutgoing next |
 			directionIncoming := directions at: i.
 			directionOutgoing := directions at: i \\ points size + 1.
-			path lineTo: e - (cornerRadius @ cornerRadius * directionIncoming).
-			next := e + (cornerRadius @ cornerRadius * directionOutgoing).
+			path
+				lineTo: e - (cornerRadii max @ cornerRadii max * directionIncoming).
+			next := e + (cornerRadii max @ cornerRadii max * directionOutgoing).
 			(directionIncoming crossProduct: directionOutgoing) < 0
 				ifTrue: [ path ccwArcTo: next ]
 				ifFalse: [ path cwArcTo: next ] ].
 	^ path close build
 ]
 
-{ #category : #accessing }
-BrGlamorousDropdownGeometry >> cornerRadius [
-	^ cornerRadius
+{ #category : #'geometry testing' }
+BrAnchoredGeometry >> containsPoint: aPoint in: aBlElement [
+	^ aBlElement children
+		anySatisfy: [ :e | e containsPoint: aPoint - e position ]
 ]
 
 { #category : #accessing }
-BrGlamorousDropdownGeometry >> cornerRadius: anObject [
-	cornerRadius := anObject
+BrAnchoredGeometry >> element [
+	^ element
 ]
 
 { #category : #accessing }
-BrGlamorousDropdownGeometry >> dropdown [
-	^ dropdown
-]
-
-{ #category : #accessing }
-BrGlamorousDropdownGeometry >> dropdown: anObject [
-	dropdown := anObject
-]
-
-{ #category : #initialization }
-BrGlamorousDropdownGeometry >> initialize [
-	super initialize.
-	cornerRadius := 10
-]
-
-{ #category : #geometry }
-BrGlamorousDropdownGeometry >> matchExtent: aPoint [
-	extent := aPoint
+BrAnchoredGeometry >> element: anObject [
+	element := anObject
 ]

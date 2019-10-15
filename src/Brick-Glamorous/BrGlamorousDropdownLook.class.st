@@ -4,22 +4,16 @@ Class {
 	#category : #'Brick-Glamorous-Dropdown'
 }
 
-{ #category : #accessing }
-BrGlamorousDropdownLook >> backgroundPaint: aColorOrPaint [
-	popupEmbellisher backgroundPaint: aColorOrPaint
-]
-
-{ #category : #accessing }
-BrGlamorousDropdownLook >> border: aBorder [
-	popupEmbellisher border: aBorder
-]
-
-{ #category : #initialization }
+{ #category : #'instance creation' }
 BrGlamorousDropdownLook >> initialize [
 	super initialize.
-	
-	self add: BrLayoutResizerLook inherit.
-	self addChangeProperty: #(widget layout) with: [ BlLinearLayout horizontal ]. 
-	
-	popupEmbellisher := BrGlamorousDropdownPopupEmbellisher new
+	self
+		add: BrShadowLook new;
+		addChangeProperty: #(widget geometry)
+			with: [ BrAnchoredGeometry cornerRadius: 4 element: widget ];
+		addChangeProperty: #(widget background) with: [ Color white ];
+		addChangeProperty: #(widget border)
+			with: [ BlBorder
+				paint: BrGlamorousColors defaultButtonBorderColor asBlPaint
+				width: 1 ]
 ]

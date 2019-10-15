@@ -1,6 +1,6 @@
 Class {
 	#name : #BrContextMenuVisibleRequest,
-	#superclass : #BrRequest,
+	#superclass : #BrAnchoredVisibleRequest,
 	#category : #'Brick-Context Menu - Events'
 }
 

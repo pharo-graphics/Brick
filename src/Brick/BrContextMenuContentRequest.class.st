@@ -1,6 +1,6 @@
 Class {
 	#name : #BrContextMenuContentRequest,
-	#superclass : #BrRequest,
+	#superclass : #BrAnchoredContentRequest,
 	#category : #'Brick-Context Menu - Events'
 }
 

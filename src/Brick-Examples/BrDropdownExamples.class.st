@@ -76,64 +76,89 @@ BrDropdownExamples >> alignedDropdowns [
 { #category : #'instance creation' }
 BrDropdownExamples >> badgeButton [
 	<gtExample>
-	
-	^ BrButton new
+	^ BrLabel new
+		layout: BlLinearLayout horizontal;
+		constraintsDo: [ :c | 
+			c horizontal fitContent.
+			c vertical fitContent ];
+		padding: (BlInsets all: 7);
 		background: Color orange;
-		label: ('3' asRopedText fontSize: 15; foreground: Color white; bold);
-		look: BrTextLabelLook + BrGlamorousDropdownLook;
-		padding: (BlInsets all: 7)
+		text:
+			('3' asRopedText
+				fontSize: 15;
+				foreground: Color white;
+				bold);
+		yourself
 ]
 
 { #category : #'as yet unclassified' }
 BrDropdownExamples >> coloredDropdown [
 	<gtExample>
-	| dropdown look |
-	dropdown := BrDropdown new.
-	look := BrGlamorousDropdownLook new.
-	look
-		reusePopup: true;
-		outskirtsEmbellisher: [ :e | 
-			dropdown viewModel children first stateModels first isExpanded
-				ifTrue: [ e
-						background: Color white;
-						border: (BlBorder paint: Color white asBlPaint width: 3) ]
-				ifFalse: [ e look
-						ifNil: [ e look: BrShadowLook ]
-						ifNotNil: [ (e look hasActor: BrShadowLook) ifFalse: [ e look add: BrShadowLook ] ] ].
-			e ].
-	dropdown
-		look: look;
-		clipChildren: false;
-		toggle: [ BrButton new
-				size: 20 @ 20;
-				geometry: (BlRectangle cornerRadius: 10);
-				look:
-					(BrInteractiveCommonLook new
-						default: [ :e | 
-							e
-								background: BrGlamorousColors defaultButtonBorderColor;
-								border:
-									(BlBorder
-										paint: BrGlamorousColors defaultButtonBackgroundColor
-										width: 3) ];
-						hovered: [ :e | 
-							e
-								background: BrGlamorousColors hoveredButtonBorderColor;
-								border:
-									(BlBorder
-										paint: BrGlamorousColors defaultButtonBackgroundColor
-										width: 3) ]);
-				yourself ];
-		popup: [ BlElement new
-				layout: BlLinearLayout vertical;
-				constraintsDo: [ :c | 
-					c horizontal fitContent.
-					c vertical fitContent ];
-				addChild:
-					(BrEditor new
-						look: BrGlamorousCodeEditorLook;
-						text:
-							'<content>
+	^ BrButton new
+		size: 20 @ 20;
+		geometry: (BlRectangle cornerRadius: 10);
+		label: 'howdy';
+		look:
+			(BrInteractiveCommonLook new
+				default: [ :e | 
+					e
+						background: BrGlamorousColors defaultButtonBorderColor;
+						border:
+							(BlBorder
+								paint: BrGlamorousColors defaultButtonBackgroundColor
+								width: 3) ];
+				hovered: [ :e | 
+					e
+						background: BrGlamorousColors hoveredButtonBorderColor;
+						border:
+							(BlBorder
+								paint: BrGlamorousColors defaultButtonBackgroundColor
+								width: 3) ]) + BrGlamorousWithLabelTooltipLook
+				+
+					(BrGlamorousWithContextMenuLook
+						content: [ BrGlamorousSimpleContextMenuContent new
+								display:
+									{('Change to blue' -> [ :e | e background: Color blue ]).
+									('Change to red' -> [ :e | e background: Color red ]).
+									('Change to green' -> [ :e | e background: Color green ])};
+								yourself ])
+				+
+					(BrGlamorousWithDropdownLook
+						stencil: [ BlElement new
+								look:
+									(BrGlamorousDropdownLook new
+										handle:
+											(BrButton new
+												size: 20 @ 20;
+												geometry: (BlRectangle cornerRadius: 10);
+												look:
+													(BrInteractiveCommonLook new
+														default: [ :e | 
+															e
+																background: BrGlamorousColors defaultButtonBorderColor;
+																border:
+																	(BlBorder
+																		paint: BrGlamorousColors defaultButtonBackgroundColor
+																		width: 3) ];
+														hovered: [ :e | 
+															e
+																background: BrGlamorousColors hoveredButtonBorderColor;
+																border:
+																	(BlBorder
+																		paint: BrGlamorousColors defaultButtonBackgroundColor
+																		width: 3) ]);
+												yourself);
+										content:
+											(BlElement new
+												layout: BlLinearLayout vertical;
+												constraintsDo: [ :c | 
+													c horizontal fitContent.
+													c vertical fitContent ];
+												addChild:
+													(BrEditor new
+														look: BrGlamorousCodeEditorLook;
+														text:
+															'<content>
 
 
 
@@ -141,13 +166,38 @@ BrDropdownExamples >> coloredDropdown [
 
 
 </content>';
-						padding: (BlInsets all: 10);
-						constraintsDo: [ :c | 
-							c horizontal matchParent.
-							c vertical matchParent ];
-						yourself);
-				yourself ].
-	^ dropdown
+														padding: (BlInsets all: 10);
+														constraintsDo: [ :c | 
+															c horizontal matchParent.
+															c vertical matchParent ];
+														yourself);
+												yourself);
+										yourself);
+								in: [ :e | e geometry: (BrAnchoredGeometry cornerRadius: 10 element: e) ];
+								yourself ]);
+		yourself
+]
+
+{ #category : #private }
+BrDropdownExamples >> compact [
+	<gtExample>
+	| element |
+	element := BrButton new
+		look:
+			BrGlamorousButtonWithLabelLook
+				+
+					(BrGlamorousWithDropdownLook
+						handle: [ BrButton new
+								look: BrGlamorousButtonRectangularLook + BrGlamorousButtonLabelLook;
+								label: 'click me';
+								yourself ]
+						content: [ BlElement new
+								background: Color white;
+								size: 100 @ 200;
+								yourself ]);
+		label: 'click me';
+		yourself.
+	^ element
 ]
 
 { #category : #'instance creation' }
@@ -162,25 +212,21 @@ BrDropdownExamples >> popupList [
 		hExact: 200
 ]
 
-{ #category : #'instance creation' }
-BrDropdownExamples >> roundLook [
-	<gtExample>
-
-	^ BrGlamorousDropdownLook new
-]
-
 { #category : #examples }
 BrDropdownExamples >> roundedDropdownList [
 	<gtExample>
-	^ BrDropdown new
-		layout: BlLinearLayout horizontal;
+	^ self toggleButton
+		look:
+			BrGlamorousButtonWithLabelAndIconLook
+				+
+					(BrGlamorousWithDropdownLook
+						handle: [ self toggleButton
+								look:
+									BrGlamorousButtonWithLabelAndIconLook - BrGlamorousButtonExteriorLook;
+								yourself ]
+						content: [ self popupList ]);
 		relocate: 200 @ 100;
-		constraintsDo: [ :c | 
-			c horizontal fitContent.
-			c vertical fitContent ];
-		in: [ :aDropdown | aDropdown toggle: [ self toggleButton ] ];
-		popup: [ self popupList ];
-		look: BrDropdownExamples new roundLook
+		yourself
 ]
 
 { #category : #'as yet unclassified' }
@@ -201,25 +247,43 @@ BrDropdownExamples >> scaledAndAlignedDropdowns [
 { #category : #examples }
 BrDropdownExamples >> suggesterBadgeDropdownList [
 	<gtExample>
-	^ BrDropdown new
+	^ self badgeButton
+		look:
+			BrTextLabelLook
+				+
+					(BrWithDropdownLook new
+						stencil: [ BlElement new
+								look:
+									(BrDropdownLook new
+										handle:
+											(self badgeButton
+												look: BrTextLabelLook;
+												yourself);
+										content: self popupList;
+										yourself);
+								border: (BlBorder paint: Color orange width: 1);
+								yourself ];
+						yourself);
 		relocate: 200 @ 100;
-		look: BrGlamorousDropdownLook new;
-		toggle: [ self badgeButton ];
-		popup: [ self popupList ]
+		yourself
 ]
 
 { #category : #'instance creation' }
 BrDropdownExamples >> toggleButton [
 	<gtExample>
-
 	^ BrButton new
-		look: BrGlamorousButtonWithLabelAndIconLook;
-		padding: (BlInsets top: 6 right: 8 bottom: 6 left: 15);
 		label: 'instance';
-		icon: (BlElement new
-			size: 8@8;
-			geometry: (BlPolygon vertices: {(0 @ 0). (8 @ 0). ((8 / 2) rounded @ 8)});
-			background: Color lightGray;
-			margin: (BlInsets left: 12 right: 10);
-			constraintsDo: [ :c | c linear vertical alignCenter ])
+		icon:
+			(BlElement new
+				size: 8 @ 8;
+				geometry:
+					(BlPolygon
+						vertices:
+							{(0 @ 0).
+							(8 @ 0).
+							((8 / 2) rounded @ 8)});
+				background: Color lightGray;
+				margin: (BlInsets left: 6);
+				constraintsDo: [ :c | c linear vertical alignCenter ]);
+		yourself
 ]

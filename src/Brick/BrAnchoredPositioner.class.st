@@ -1,24 +1,26 @@
 Class {
-	#name : #BrAnchoredPopupPositioner,
+	#name : #BrAnchoredPositioner,
 	#superclass : #Object,
 	#instVars : [
 		'target',
+		'anchor',
 		'anchorBoundsInTarget',
 		'popupPreferredMaxBoundsInTarget',
 		'popupPreferredPosition'
 	],
-	#category : #'Brick-Popup - UI'
+	#category : #'Brick-Anchored - Support'
 }
 
 { #category : #'as yet unclassified' }
-BrAnchoredPopupPositioner class >> anchor: anElement target: anotherElement [
-	^ self
-		anchorBoundsInTarget: (anElement bounds inSpace inChild: anotherElement)
-		target: anotherElement
+BrAnchoredPositioner class >> anchor: anElement target: anotherElement [
+	^ self new
+		anchor: anElement;
+		target: anotherElement;
+		yourself
 ]
 
 { #category : #'as yet unclassified' }
-BrAnchoredPopupPositioner class >> anchorBoundsInTarget: aBounds target: anotherElement [
+BrAnchoredPositioner class >> anchorBoundsInTarget: aBounds target: anotherElement [
 	^ self new
 		anchorBoundsInTarget: aBounds;
 		target: anotherElement;
@@ -26,37 +28,49 @@ BrAnchoredPopupPositioner class >> anchorBoundsInTarget: aBounds target: another
 ]
 
 { #category : #accessing }
-BrAnchoredPopupPositioner >> anchorBoundsInTarget [
-	^ anchorBoundsInTarget
+BrAnchoredPositioner >> anchor [
+	^ anchor
 ]
 
 { #category : #accessing }
-BrAnchoredPopupPositioner >> anchorBoundsInTarget: anObject [
+BrAnchoredPositioner >> anchor: anObject [
+	anchor := anObject
+]
+
+{ #category : #accessing }
+BrAnchoredPositioner >> anchorBoundsInTarget [
+	^ anchorBoundsInTarget
+		ifNil: [ anchor
+				ifNotNil: [ anchorBoundsInTarget := anchor bounds inSpace inChild: target ] ]
+]
+
+{ #category : #accessing }
+BrAnchoredPositioner >> anchorBoundsInTarget: anObject [
 	anchorBoundsInTarget := anObject
 ]
 
 { #category : #'as yet unclassified' }
-BrAnchoredPopupPositioner >> popupBottomLeftMaxBoundsInTarget [
+BrAnchoredPositioner >> maxBoundsBottomLeftInTarget [
 	^ BlBounds
-		origin: 0 @ anchorBoundsInTarget bottom
-		corner: anchorBoundsInTarget right @ target size y
+		origin: 0 @ self anchorBoundsInTarget bottom
+		corner: self anchorBoundsInTarget right @ target size y
 ]
 
 { #category : #'as yet unclassified' }
-BrAnchoredPopupPositioner >> popupBottomRightMaxBoundsInTarget [
+BrAnchoredPositioner >> maxBoundsBottomRightInTarget [
 	^ BlBounds
-		origin: anchorBoundsInTarget bottomLeft
+		origin: self anchorBoundsInTarget bottomLeft
 		corner: target size
 ]
 
 { #category : #'as yet unclassified' }
-BrAnchoredPopupPositioner >> popupPreferredMaxBoundsInTarget: anExtent [
+BrAnchoredPositioner >> maxBoundsPreferredInTarget: anExtent [
 	"Initializes #popupPreferredMaxBoundsInTarget and #popupPreferredPosition"
 
 	^ popupPreferredMaxBoundsInTarget
 		ifNil: [ | allPopupBounds fallback |
 			popupPreferredMaxBoundsInTarget := self
-				popupBottomRightMaxBoundsInTarget.
+				maxBoundsBottomRightInTarget.
 			popupPreferredMaxBoundsInTarget extent >= anExtent
 				ifTrue: [ popupPreferredPosition := #bottom -> #right.
 					^ popupPreferredMaxBoundsInTarget ].
@@ -64,21 +78,21 @@ BrAnchoredPopupPositioner >> popupPreferredMaxBoundsInTarget: anExtent [
 			allPopupBounds
 				add: #bottom -> #right -> popupPreferredMaxBoundsInTarget.
 			popupPreferredMaxBoundsInTarget := self
-				popupBottomLeftMaxBoundsInTarget.
+				maxBoundsBottomLeftInTarget.
 			popupPreferredMaxBoundsInTarget extent >= anExtent
 				ifTrue: [ popupPreferredPosition := #bottom -> #left.
 					^ popupPreferredMaxBoundsInTarget ].
 			allPopupBounds
 				add: #bottom -> #left -> popupPreferredMaxBoundsInTarget.
 			popupPreferredMaxBoundsInTarget := self
-				popupTopRightMaxBoundsInTarget.
+				maxBoundsTopRightInTarget.
 			popupPreferredMaxBoundsInTarget extent >= anExtent
 				ifTrue: [ popupPreferredPosition := #top -> #right.
 					^ popupPreferredMaxBoundsInTarget ].
 			allPopupBounds
 				add: #top -> #right -> popupPreferredMaxBoundsInTarget.
 			popupPreferredMaxBoundsInTarget := self
-				popupTopLeftMaxBoundsInTarget.
+				maxBoundsTopLeftInTarget.
 			popupPreferredMaxBoundsInTarget extent >= anExtent
 				ifTrue: [ popupPreferredPosition := #top -> #left.
 					^ popupPreferredMaxBoundsInTarget ].
@@ -93,7 +107,19 @@ BrAnchoredPopupPositioner >> popupPreferredMaxBoundsInTarget: anExtent [
 ]
 
 { #category : #'as yet unclassified' }
-BrAnchoredPopupPositioner >> popupPreferredPosition [
+BrAnchoredPositioner >> maxBoundsTopLeftInTarget [
+	^ BlBounds origin: 0 @ 0 corner: self anchorBoundsInTarget topRight
+]
+
+{ #category : #'as yet unclassified' }
+BrAnchoredPositioner >> maxBoundsTopRightInTarget [
+	^ BlBounds
+		origin: self anchorBoundsInTarget left @ 0
+		corner: target bounds width @ self anchorBoundsInTarget top
+]
+
+{ #category : #'as yet unclassified' }
+BrAnchoredPositioner >> positionPreferred [
 	"Answers an association of symbols, e.g. #top->#right, to denote the relative position of the popup to the anchor.
 	Requires #popupPreferredMaxBoundsInTarget: to be called before to initialize it, answers nil otherwise."
 
@@ -101,43 +127,31 @@ BrAnchoredPopupPositioner >> popupPreferredPosition [
 ]
 
 { #category : #'as yet unclassified' }
-BrAnchoredPopupPositioner >> popupPreferredPositionIsBottom [
+BrAnchoredPositioner >> positionPreferredIsBottom [
 	^ popupPreferredPosition key = #bottom
 ]
 
 { #category : #'as yet unclassified' }
-BrAnchoredPopupPositioner >> popupPreferredPositionIsLeft [
+BrAnchoredPositioner >> positionPreferredIsLeft [
 	^ popupPreferredPosition value = #left
 ]
 
 { #category : #'as yet unclassified' }
-BrAnchoredPopupPositioner >> popupPreferredPositionIsRight [
+BrAnchoredPositioner >> positionPreferredIsRight [
 	^ popupPreferredPosition value = #right
 ]
 
 { #category : #'as yet unclassified' }
-BrAnchoredPopupPositioner >> popupPreferredPositionIsTop [
+BrAnchoredPositioner >> positionPreferredIsTop [
 	^ popupPreferredPosition key = #top
 ]
 
-{ #category : #'as yet unclassified' }
-BrAnchoredPopupPositioner >> popupTopLeftMaxBoundsInTarget [
-	^ BlBounds origin: 0 @ 0 corner: anchorBoundsInTarget topRight
-]
-
-{ #category : #'as yet unclassified' }
-BrAnchoredPopupPositioner >> popupTopRightMaxBoundsInTarget [
-	^ BlBounds
-		origin: anchorBoundsInTarget left @ 0
-		corner: target bounds width @ anchorBoundsInTarget top
-]
-
 { #category : #accessing }
-BrAnchoredPopupPositioner >> target [
+BrAnchoredPositioner >> target [
 	^ target
 ]
 
 { #category : #accessing }
-BrAnchoredPopupPositioner >> target: anObject [
+BrAnchoredPositioner >> target: anObject [
 	target := anObject
 ]

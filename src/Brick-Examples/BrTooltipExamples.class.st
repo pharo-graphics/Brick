@@ -27,7 +27,7 @@ BrTooltipExamples >> elementWithModelAndLook [
 						addState: BrHoverModel new;
 						yourself).
 	element look: look.
-	self assert: look stencil equals: model stencil.
+	"self assert: look stencil equals: model stencil."
 	^ element
 ]
 
@@ -37,7 +37,7 @@ BrTooltipExamples >> look [
 	| look |
 	look := BrWithTooltipLook new.
 	self assert: look visible equals: false.
-	self assert: (look stencil asElement isKindOf: BlElement).
+	self assert: (look stencil asStencil asElement isKindOf: BlElement).
 	^ look
 ]
 
@@ -49,9 +49,9 @@ BrTooltipExamples >> model [
 		background: Color blue;
 		yourself.
 	model := BrTooltipModel new
-		stencil: [ tooltip ];
+		content: [ tooltip ];
 		yourself.
-	self assert: model visible equals: false.
-	self assert: model stencil asElement equals: tooltip.
+	"self assert: model visible equals: false.
+	self assert: model stencil asElement equals: tooltip."
 	^ model
 ]

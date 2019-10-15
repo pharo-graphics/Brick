@@ -1,6 +1,6 @@
 Class {
 	#name : #BrTooltipStencilRequest,
-	#superclass : #BrRequest,
+	#superclass : #BrAnchoredStencilRequest,
 	#category : #'Brick-Tooltip - Events'
 }
 

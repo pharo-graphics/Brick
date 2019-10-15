@@ -22,6 +22,16 @@ BlElement >> addViewModel: aViewModel [
 ]
 
 { #category : #'*Brick' }
+BlElement >> anchor [
+	^ self userData at: #brickAnchor ifAbsent: [ self parent ifNotNil: #anchor ]
+]
+
+{ #category : #'*Brick' }
+BlElement >> anchor: anElement [
+	self userData at: #brickAnchor put: anElement
+]
+
+{ #category : #'*Brick' }
 BlElement >> asStencil [
 	^ self
 ]

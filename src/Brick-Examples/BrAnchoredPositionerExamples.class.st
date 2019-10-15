@@ -1,11 +1,11 @@
 Class {
-	#name : #BrAnchoredPopupPositionerExamples,
+	#name : #BrAnchoredPositionerExamples,
 	#superclass : #Object,
-	#category : #'Brick-Examples-Popup'
+	#category : #'Brick-Examples-Anchored'
 }
 
 { #category : #accessing }
-BrAnchoredPopupPositionerExamples >> anchor [
+BrAnchoredPositionerExamples >> anchor [
 	<gtExample>
 	^ BlElement new
 		size: 30 @ 20;
@@ -14,7 +14,7 @@ BrAnchoredPopupPositionerExamples >> anchor [
 ]
 
 { #category : #accessing }
-BrAnchoredPopupPositionerExamples >> anchorContainer [
+BrAnchoredPositionerExamples >> anchorContainer [
 	<gtExample>
 	^ BlElement new
 		layout: BlLinearLayout horizontal;
@@ -32,12 +32,12 @@ BrAnchoredPopupPositionerExamples >> anchorContainer [
 ]
 
 { #category : #'as yet unclassified' }
-BrAnchoredPopupPositionerExamples >> anchorPosition: aBlock relocatePopup: anotherBlock assertPopupMaxBounds: yetAnotherBlock [
+BrAnchoredPositionerExamples >> anchorPosition: aBlock relocateAnchored: anotherBlock assertAnchoredMaxBounds: yetAnotherBlock [
 	| space positioner anchor anchorContainer target targetContainer popup popupSize popupPreferredMaxBoundsInTarget |
 	space := BlSpace new
 		extent: 800 @ 600;
 		yourself.
-	positioner := self anchoredPopupPositioner.
+	positioner := self anchoredPositioner.
 	anchor := positioner anchor.
 	target := positioner target.
 	anchorContainer := self anchorContainer.
@@ -60,7 +60,7 @@ BrAnchoredPopupPositionerExamples >> anchorPosition: aBlock relocatePopup: anoth
 	space doUpdateLayout.
 	popupSize := target size / 4.
 	popupPreferredMaxBoundsInTarget := positioner
-		popupPreferredMaxBoundsInTarget: popupSize.
+		maxBoundsPreferredInTarget: popupSize.
 	popup
 		size: popupSize;
 		relocate: (anotherBlock cull: popupPreferredMaxBoundsInTarget cull: popupSize).
@@ -72,53 +72,49 @@ BrAnchoredPopupPositionerExamples >> anchorPosition: aBlock relocatePopup: anoth
 ]
 
 { #category : #'as yet unclassified' }
-BrAnchoredPopupPositionerExamples >> anchoredPopupPositioner [
+BrAnchoredPositionerExamples >> anchoredPositioner [
 	<gtExample>
-	<noTest>
-	^ BrAnchoredPopupPositioner anchor: self anchor target: self target
+	^ BrAnchoredPositioner anchor: self anchor target: self target
 ]
 
 { #category : #'as yet unclassified' }
-BrAnchoredPopupPositionerExamples >> bottomLeft [
+BrAnchoredPositionerExamples >> bottomLeft [
 	<gtExample>
-	<noTest>
 	^ self
 		anchorPosition:
 			[ :target :anchor | 7 * (target size - anchor size) / 8 - (0 @ (6 / 8 * target height)) ]
-		relocatePopup:
+		relocateAnchored:
 			[ :popupPreferredMaxBoundsInTarget :popupSize | popupPreferredMaxBoundsInTarget topRight - (popupSize x @ 0) ]
-		assertPopupMaxBounds: [ :target :anchor :popup | 
+		assertAnchoredMaxBounds: [ :target :anchor :popup | 
 			BlBounds
 				origin: 0 @ (anchor bounds inSpace inChild: target) bottom
 				corner: (anchor bounds inSpace inChild: target) right @ target height ]
 ]
 
 { #category : #'as yet unclassified' }
-BrAnchoredPopupPositionerExamples >> bottomRight [
+BrAnchoredPositionerExamples >> bottomRight [
 	<gtExample>
-	<noTest>
 	^ self
 		anchorPosition: [ :target :anchor | (target size - anchor size) / 8 ]
-		relocatePopup:
+		relocateAnchored:
 			[ :popupPreferredMaxBoundsInTarget :popupSize | popupPreferredMaxBoundsInTarget topLeft ]
-		assertPopupMaxBounds:
+		assertAnchoredMaxBounds:
 			[ :target :anchor :popup | BlBounds origin: (anchor bounds inSpace inChild: target) bottomLeft corner: target size ]
 ]
 
 { #category : #accessing }
-BrAnchoredPopupPositionerExamples >> defaultToBottomRight [
+BrAnchoredPositionerExamples >> defaultToBottomRight [
 	<gtExample>
-	<noTest>
 	^ self
 		anchorPosition: [ :target :anchor | (target size - anchor size) / 2 ]
-		relocatePopup:
+		relocateAnchored:
 			[ :popupPreferredMaxBoundsInTarget :popupSize | popupPreferredMaxBoundsInTarget topLeft ]
-		assertPopupMaxBounds:
+		assertAnchoredMaxBounds:
 			[ :target :anchor :popup | BlBounds origin: (anchor bounds inSpace inChild: target) bottomLeft corner: target size ]
 ]
 
 { #category : #accessing }
-BrAnchoredPopupPositionerExamples >> popup [
+BrAnchoredPositionerExamples >> popup [
 	<gtExample>
 	^ BlElement new
 		background: Color white;
@@ -127,7 +123,7 @@ BrAnchoredPopupPositionerExamples >> popup [
 ]
 
 { #category : #accessing }
-BrAnchoredPopupPositionerExamples >> target [
+BrAnchoredPositionerExamples >> target [
 	<gtExample>
 	^ BlElement new
 		layout: BlLinearLayout horizontal;
@@ -144,7 +140,7 @@ BrAnchoredPopupPositionerExamples >> target [
 ]
 
 { #category : #accessing }
-BrAnchoredPopupPositionerExamples >> targetContainer [
+BrAnchoredPositionerExamples >> targetContainer [
 	<gtExample>
 	^ BlElement new
 		layout: BlLinearLayout horizontal;
@@ -162,28 +158,26 @@ BrAnchoredPopupPositionerExamples >> targetContainer [
 ]
 
 { #category : #'as yet unclassified' }
-BrAnchoredPopupPositionerExamples >> topLeft [
+BrAnchoredPositionerExamples >> topLeft [
 	<gtExample>
-	<noTest>
 	^ self
 		anchorPosition: [ :target :anchor | 7 * (target size - anchor size) / 8 ]
-		relocatePopup:
+		relocateAnchored:
 			[ :popupPreferredMaxBoundsInTarget :popupSize | popupPreferredMaxBoundsInTarget bottomRight - popupSize ]
-		assertPopupMaxBounds:
+		assertAnchoredMaxBounds:
 			[ :target :anchor :popup | BlBounds origin: 0 @ 0 corner: (anchor bounds inSpace inChild: target) topRight ]
 ]
 
 { #category : #'as yet unclassified' }
-BrAnchoredPopupPositionerExamples >> topRight [
+BrAnchoredPositionerExamples >> topRight [
 	<gtExample>
-	<noTest>
 	^ self
 		anchorPosition: [ :target :anchor | 
 			(target size - anchor size) / 8
 				+ (0 @ (6 / 8 * (target size - anchor size) y)) ]
-		relocatePopup:
+		relocateAnchored:
 			[ :popupPreferredMaxBoundsInTarget :popupSize | popupPreferredMaxBoundsInTarget bottomLeft - (0 @ popupSize y) ]
-		assertPopupMaxBounds: [ :target :anchor :popup | 
+		assertAnchoredMaxBounds: [ :target :anchor :popup | 
 			BlBounds
 				origin: (anchor bounds inSpace inChild: target) left @ 0
 				corner: target width @ (anchor bounds inSpace inChild: target) top ]
