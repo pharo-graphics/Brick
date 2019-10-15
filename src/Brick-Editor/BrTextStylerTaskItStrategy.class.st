@@ -21,11 +21,7 @@ Class {
 BrTextStylerTaskItStrategy >> commandNameFromText: aBrText [
 	^ aBrText isEmpty
 		ifTrue: [ '<empty query>' ]
-		ifFalse: [ (aBrText from: 1 to: (aBrText size min: 20)) asString
-				replace: [ :eachCharacter | 
-					eachCharacter isLineBreak
-						ifTrue: [ Character space ]
-						ifFalse: [ eachCharacter ] ] ]
+		ifFalse: [ (aBrText from: 1 to: (aBrText size min: 20)) printString ]
 ]
 
 { #category : #styling }
