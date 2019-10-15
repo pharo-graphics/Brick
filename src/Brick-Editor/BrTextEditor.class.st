@@ -740,14 +740,17 @@ BrTextEditor >> onLostFocus [
 { #category : #'hooks - text modifications' }
 BrTextEditor >> onStringInserted: aBrTextStringInserted [
 	"Is sent after a string is inserted in a text model"
-
+	| aProcessedString |
+	
+	aProcessedString := BlTextStringNormalizer new process: aBrTextStringInserted string.
+	
 	self segmentBuilder
-		insertedString: aBrTextStringInserted string
+		insertedString: aProcessedString
 		at: aBrTextStringInserted index
 		in: self.
 
 	self
-		notifyInserted: (aBrTextStringInserted string asRopedText)
+		notifyInserted: (aProcessedString asRopedText)
 		at: aBrTextStringInserted index.
 
 	self styleText

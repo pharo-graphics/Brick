@@ -4,7 +4,7 @@ I contain examples-tests of the editor backed up by line based segments
 Class {
 	#name : #BrTextEditorLineSegmentExamples,
 	#superclass : #Object,
-	#category : 'Brick-Editor-Examples'
+	#category : #'Brick-Editor-Examples'
 }
 
 { #category : #'examples - cursor' }
@@ -148,7 +148,7 @@ BrTextEditorLineSegmentExamples >> cursor_in_HACrCrLfBA_at_4 [
 	aSegment := aTextEditor segmentCollector segments third.
 	self assert: (aCursor
 		insideSubText: aSegment pieces first
-		of: aSegment) not.
+		of: aSegment).
 
 	^ aTextEditor
 ]
@@ -235,7 +235,7 @@ BrTextEditorLineSegmentExamples >> cursor_in_HACrCrLfBA_at_7 [
 	aSegment := aTextEditor segmentCollector segments third.
 	self assert: (aCursor
 		insideSubText: aSegment pieces first
-		of: aSegment).
+		of: aSegment) not.
 
 	^ aTextEditor
 ]
@@ -918,8 +918,8 @@ BrTextEditorLineSegmentExamples >> insert_CrLf_in_Hello_At_5 [
 	self assert: aTextEditor segmentCollector computedSegmentsCount equals: 2.
 	self assert: aTextEditor segmentCollector segments first textInterval equals: (0 to: 5).
 	self assert: aTextEditor segmentCollector segments first text asString equals: 'Hello'.
-	self assert: aTextEditor segmentCollector segments second textInterval equals: (7 to: 7).
-	self assert: aTextEditor segmentCollector segments second text asString equals: String lf.
+	self assert: aTextEditor segmentCollector segments second textInterval equals: (6 to: 6).
+	self assert: aTextEditor segmentCollector segments second text asString equals: String crlf.
 	self assert: aTextEditor segmentCollector cachedInterval equals: (1 to: 2).
 
 	^ aTextEditor
@@ -1000,13 +1000,14 @@ BrTextEditorLineSegmentExamples >> insert_NewLineCrLf_in_HACrBA_At_3 [
 
 	aTextEditor insertString: String cr, String lf at: 3.
 
-	self assert: aTextEditor text asString equals: 'HA', String cr, String cr, String lf, 'BA'.
+	self assert: aTextEditor text asArray equals: { $H. $A .  BlTextLineEndingMacClassic new . BlTextLineEndingWindows new . $B . $A }.
+
 	self assert: aTextEditor segmentCollector computedSegmentsCount equals: 3.
 	self assert: aTextEditor segmentCollector segments first textInterval equals: (0 to: 2).
 	self assert: aTextEditor segmentCollector segments first text asString equals: 'HA'.
 	self assert: aTextEditor segmentCollector segments second textInterval equals: (3 to: 3).
 	self assert: aTextEditor segmentCollector segments second text asString equals: String cr.
-	self assert: aTextEditor segmentCollector segments third textInterval equals: (5 to: 7).
+	self assert: aTextEditor segmentCollector segments third textInterval equals: (4 to: 6).
 	self assert: aTextEditor segmentCollector segments third text asString equals: 'BA'.
 	self assert: aTextEditor segmentCollector cachedInterval equals: (1 to: 3).
 
@@ -1463,9 +1464,9 @@ BrTextEditorLineSegmentExamples >> pieces_HelloCrLf [
 	self assert: theSecondPieces size equals: 1.
 	
 	self assert: (theSecondPieces first isKindOf: BrTextEditorLineSegmentTextPiece).
-	self assert: theSecondPieces first textStart equals: 7.
-	self assert: theSecondPieces first textEnd equals: 7.
-	self assert: (theSecondPieces first globalTextIndexToLocal: 7) equals: 0.
+	self assert: theSecondPieces first textStart equals: 6.
+	self assert: theSecondPieces first textEnd equals: 6.
+	self assert: (theSecondPieces first globalTextIndexToLocal: 6) equals: 0.
 	
 	^ aTextEditor
 ]
@@ -1999,7 +2000,7 @@ BrTextEditorLineSegmentExamples >> segment_in_HACrCrLfBA_at_4 [
 		ifFound: [ :aFoundSegment | aSegment := aFoundSegment ]
 		ifNotFound: [].
 
-	self assert: aSegment index equals: 2.
+	self assert: aSegment index equals: 3.
 
 	^ aTextEditor
 ]
