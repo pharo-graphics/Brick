@@ -1,7 +1,7 @@
 Class {
 	#name : #BrTextEditorLineSplitterExamples,
 	#superclass : #Object,
-	#category : 'Brick-Editor-Examples'
+	#category : #'Brick-Editor-Examples'
 }
 
 { #category : #'examples - split' }
@@ -128,8 +128,8 @@ BrTextEditorLineSplitterExamples >> split_CrLf [
 	self assert: aStream segments first textStart equals: 0.
 	self assert: aStream segments first textEnd equals: 0.
 	
-	self assert: aStream segments second textStart equals: 2.
-	self assert: aStream segments second textEnd equals: 2.
+	self assert: aStream segments second textStart equals: 1.
+	self assert: aStream segments second textEnd equals: 1.
 
 	^ aStream
 ]
@@ -149,11 +149,11 @@ BrTextEditorLineSplitterExamples >> split_CrLfCrLf [
 	self assert: aStream segments first textStart equals: 0.
 	self assert: aStream segments first textEnd equals: 0.
 	
-	self assert: aStream segments second textStart equals: 2.
-	self assert: aStream segments second textEnd equals: 2.
+	self assert: aStream segments second textStart equals: 1.
+	self assert: aStream segments second textEnd equals: 1.
 	
-	self assert: aStream segments third textStart equals: 4.
-	self assert: aStream segments third textEnd equals: 4.
+	self assert: aStream segments third textStart equals: 2.
+	self assert: aStream segments third textEnd equals: 2.
 
 	^ aStream
 ]
@@ -221,8 +221,8 @@ BrTextEditorLineSplitterExamples >> split_CraCrLf [
 	self assert: aStream segments second textStart equals: 1.
 	self assert: aStream segments second textEnd equals: 2.
 	
-	self assert: aStream segments third textStart equals: 4.
-	self assert: aStream segments third textEnd equals: 4.
+	self assert: aStream segments third textStart equals: 3.
+	self assert: aStream segments third textEnd equals: 3.
 
 	^ aStream
 ]
@@ -245,8 +245,8 @@ BrTextEditorLineSplitterExamples >> split_CraCrLfb [
 	self assert: aStream segments second textStart equals: 1.
 	self assert: aStream segments second textEnd equals: 2.
 	
-	self assert: aStream segments third textStart equals: 4.
-	self assert: aStream segments third textEnd equals: 5.
+	self assert: aStream segments third textStart equals: 3.
+	self assert: aStream segments third textEnd equals: 4.
 
 	^ aStream
 ]
@@ -269,11 +269,11 @@ BrTextEditorLineSplitterExamples >> split_CraCrLfbLf [
 	self assert: aStream segments second textStart equals: 1.
 	self assert: aStream segments second textEnd equals: 2.
 	
-	self assert: aStream segments third textStart equals: 4.
-	self assert: aStream segments third textEnd equals: 5.
+	self assert: aStream segments third textStart equals: 3.
+	self assert: aStream segments third textEnd equals: 4.
 	
-	self assert: aStream segments fourth textStart equals: 6.
-	self assert: aStream segments fourth textEnd equals: 6.
+	self assert: aStream segments fourth textStart equals: 5.
+	self assert: aStream segments fourth textEnd equals: 5.
 
 	^ aStream
 ]
