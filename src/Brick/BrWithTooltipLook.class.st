@@ -134,6 +134,11 @@ BrWithTooltipLook >> showLater [
 ]
 
 { #category : #'as yet unclassified' }
+BrWithTooltipLook >> showWishClass [
+	^ BrTooltipShowWish
+]
+
+{ #category : #'as yet unclassified' }
 BrWithTooltipLook >> stencilChangedClass [
 	^ BrTooltipStencilChanged
 ]

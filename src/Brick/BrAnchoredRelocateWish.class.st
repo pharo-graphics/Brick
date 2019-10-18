@@ -1,10 +1,6 @@
 Class {
 	#name : #BrAnchoredRelocateWish,
-	#superclass : #BrWish,
-	#instVars : [
-		'anchor',
-		'anchored'
-	],
+	#superclass : #BrAnchoredWish,
 	#category : #'Brick-Anchored - Events'
 }
 
@@ -14,26 +10,6 @@ BrAnchoredRelocateWish class >> anchor: anElement container: anotherElement [
 		anchor: anElement;
 		container: anotherElement;
 		yourself
-]
-
-{ #category : #accessing }
-BrAnchoredRelocateWish >> anchor [
-	^ anchor
-]
-
-{ #category : #accessing }
-BrAnchoredRelocateWish >> anchor: anObject [
-	anchor := anObject
-]
-
-{ #category : #accessing }
-BrAnchoredRelocateWish >> anchored [
-	^ anchored
-]
-
-{ #category : #accessing }
-BrAnchoredRelocateWish >> anchored: anObject [
-	anchored := anObject
 ]
 
 { #category : #converting }

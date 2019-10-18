@@ -45,6 +45,11 @@ BrWithContextMenuLook >> relocateWish [
 ]
 
 { #category : #'as yet unclassified' }
+BrWithContextMenuLook >> showWishClass [
+	^ BrContextMenuShowWish
+]
+
+{ #category : #'as yet unclassified' }
 BrWithContextMenuLook >> stencilChangedClass [
 	^ BrContextMenuStencilChanged
 ]

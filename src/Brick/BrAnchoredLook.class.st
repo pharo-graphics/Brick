@@ -118,8 +118,7 @@ BrAnchoredLook >> initialize [
 		on: self relocateWishClass
 		do: [ :e | 
 			relocation := e asRelocation.
-			(e anchor = widget anchor
-				and: [ e anchored = widget and: [ self canRelocate ] ])
+			(e anchor = widget anchor and: [ self canRelocate ])
 				ifTrue: [ self relocate ] ].
 	self
 		addChangeProperty: #(widget layout)

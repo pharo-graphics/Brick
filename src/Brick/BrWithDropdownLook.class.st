@@ -49,6 +49,11 @@ BrWithDropdownLook >> show [
 ]
 
 { #category : #'as yet unclassified' }
+BrWithDropdownLook >> showWishClass [
+	^ BrDropdownShowWish
+]
+
+{ #category : #'as yet unclassified' }
 BrWithDropdownLook >> stencilChangedClass [
 	^ BrDropdownStencilChanged
 ]

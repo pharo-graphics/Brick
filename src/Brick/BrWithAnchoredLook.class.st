@@ -9,7 +9,8 @@ Class {
 		'pressEscEventHandler',
 		'extentChangedEventHandler',
 		'positionInSpaceChangedEventHandler',
-		'hideEventHandler'
+		'hideEventHandler',
+		'showEventHandler'
 	],
 	#category : #'Brick-Anchored - Look'
 }
@@ -98,7 +99,8 @@ BrWithAnchoredLook >> initialize [
 						ifTrue: [ self hide ] ] ].
 	extentChangedEventHandler := BlEventHandler
 		on: BlElementExtentChangedEvent
-		do: [ :e | "relocate when extent changes"
+		do: [ :e | 
+			"relocate when extent changes"
 			self visible
 				ifTrue: [ self relocate ] ].
 	positionInSpaceChangedEventHandler := BlEventHandler
@@ -106,6 +108,12 @@ BrWithAnchoredLook >> initialize [
 		do: [ "relocate when position in space changes"
 			self visible
 				ifTrue: [ self relocate ] ].
+	showEventHandler := BlEventHandler
+		on: self showWishClass
+		do: [ :e | 
+			"show on wish"
+			(self visible not and: [ e anchor = widget ])
+				ifTrue: [ self show ] ].
 	hideEventHandler := BlEventHandler
 		on: self hideWishClass
 		do: [ :e | 
@@ -122,8 +130,14 @@ BrWithAnchoredLook >> initialize [
 				yourself);
 		addChange:
 			(BrLookChange new
-				up: [ :e | widget addEventHandler: hideEventHandler ];
-				down: [ :e | widget removeEventHandler: hideEventHandler ];
+				up: [ :e | 
+					widget
+						addEventHandler: showEventHandler;
+						addEventHandler: hideEventHandler ];
+				down: [ :e | 
+					widget
+						removeEventHandler: showEventHandler;
+						removeEventHandler: hideEventHandler ];
 				yourself)
 ]
 
@@ -152,7 +166,6 @@ BrWithAnchoredLook >> relocate [
 		dispatchEvent:
 			(self relocateWish
 				anchor: widget;
-				anchored: container;
 				yourself)
 ]
 
@@ -177,6 +190,11 @@ BrWithAnchoredLook >> show [
 		enqueueTask: watchDog;
 		addEventHandler: extentChangedEventHandler.
 	self relocate
+]
+
+{ #category : #'as yet unclassified' }
+BrWithAnchoredLook >> showWishClass [
+	self subclassResponsibility
 ]
 
 { #category : #accessing }
