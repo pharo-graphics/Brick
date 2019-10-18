@@ -52,5 +52,5 @@ BrTextEditorMouseDownHandler >> handleEvent: anEvent [
 
 { #category : #'api - event managing' }
 BrTextEditorMouseDownHandler >> wantsEvent: anEvent [
-	^ anEvent class = self eventClass
+	^ anEvent class = self eventClass and: [ anEvent primaryButtonPressed ]
 ]
