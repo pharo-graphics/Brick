@@ -20,7 +20,8 @@ Class {
 		'stylerStrategy',
 		'stylerEventHandler',
 		'interactions',
-		'cursors'
+		'cursors',
+		'attachedElements'
 	],
 	#classInstVars : [
 		'isDebug'
@@ -66,6 +67,31 @@ BrTextEditor >> assertIndex: aFromIndex to: aToIndex [
 	self
 		assert: [ aFromIndex <= aToIndex ]
 		description: [ '"from" index must be smaller or equal to "to" index' ].
+]
+
+{ #category : #asserting }
+BrTextEditor >> assertUIProcess [
+	"I check if the current process is a UI process of all attached editor elements"
+	| aCurrentProcess theElementGroupedByProcess allUIProcesses |
+	
+	aCurrentProcess := Processor activeProcess.
+
+	theElementGroupedByProcess := attachedElements groupedBy: [ :eachElement |
+		| eachSpace eachUIProcess |
+		eachSpace := eachElement isAttachedToSceneGraph
+			ifTrue: [ eachElement space ]
+			ifFalse: [ nil ].
+		eachUIProcess := nil.
+		eachSpace ifNotNil: [ eachSpace host uiProcessDo: [ :aProcess | eachUIProcess := aProcess ] ].
+		eachUIProcess ].
+	
+	allUIProcesses := theElementGroupedByProcess keys reject: #isNil.
+	
+	(allUIProcesses size <= 1)
+		ifFalse: [ BrEditorWrongThreadError signal: 'The editor is attached to multiple elements from different UI processes' ].
+		
+	(allUIProcesses isEmpty or: [ allUIProcesses anyOne == aCurrentProcess ])
+		ifFalse: [ BrEditorWrongThreadError signal: 'I am running from a non-UI process' ].
 ]
 
 { #category : #'private - selection' }
@@ -247,6 +273,8 @@ BrTextEditor >> hasSelection [
 { #category : #initialization }
 BrTextEditor >> initialize [
 	super initialize.
+	
+	attachedElements := Set new.
 	
 	cursors := self defaultCursors.
 	selection := self defaultSelection.
@@ -654,6 +682,8 @@ BrTextEditor >> notifySelelectedFrom: aFromIndex to: aToIndex [
 { #category : #hooks }
 BrTextEditor >> onAttached: anEditorElement [
 	super onAttached: anEditorElement.
+	
+	attachedElements := attachedElements copyWith: anEditorElement.
 
 	anEditorElement addEventHandler: BrTextEditorSelectionHandler new.
 	anEditorElement addEventHandler: BrTextEditorInsertionHandler new.
@@ -703,6 +733,8 @@ BrTextEditor >> onCreateHolder: anEditorElement type: aSegmentType [
 { #category : #hooks }
 BrTextEditor >> onDetached: anEditorElement [
 	super onDetached: anEditorElement.
+
+	attachedElements := attachedElements copyWithout: anEditorElement.
 
 	anEditorElement removeEventHandlersSuchThat: [ :aHandler | aHandler isKindOf: BrTextEditorSelectionHandler ].
 	anEditorElement removeEventHandlersSuchThat: [ :aHandler | aHandler isKindOf: BrTextEditorInsertionHandler ].
@@ -967,8 +999,13 @@ BrTextEditor >> stylerStrategy: aBrTextStylerStrategy [
 
 { #category : #accessing }
 BrTextEditor >> text [
+	"Return a current text in the text editor. All modification to the text
+	are reflected in the UI of the editor. For this reason I must only be
+	used from a UI thread. To access a text from a non-UI thread use #textSnapshot
+	which would give a copy of the current text"
 	<return: #BlText>
-
+	
+	self assertUIProcess.
 	^ text
 ]
 
@@ -992,6 +1029,16 @@ BrTextEditor >> text: aBrText [
 
 	"text changed, we should style it"
 	self styleText
+]
+
+{ #category : #accessing }
+BrTextEditor >> textSnapshot [
+	"Return a snaphost (copy) of the current text.
+	I am safe to use from a non-UI thread because the returned text is independent from the
+	current one and can be safely modified"
+	<return: #BlText>
+
+	^ text copy
 ]
 
 { #category : #'private - updating' }

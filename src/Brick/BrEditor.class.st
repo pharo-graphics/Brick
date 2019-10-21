@@ -76,6 +76,9 @@ BrEditor >> styler: aStyler [
 
 { #category : #'editor - accessing' }
 BrEditor >> text [
+	"Return a text I work with. All modifications to a text must be done from UI thread"
+	<return: #BlText>
+
 	^ editorModel text
 ]
 
