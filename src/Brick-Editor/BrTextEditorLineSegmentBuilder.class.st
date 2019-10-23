@@ -10,8 +10,37 @@ Class {
 		'lineStencilBuilder',
 		'wordStencilBuilder'
 	],
-	#category : 'Brick-Editor-Model - Segment-Text-Line'
+	#category : #'Brick-Editor-Model - Segment-Text-Line'
 }
+
+{ #category : #'text - modifications' }
+BrTextEditorLineSegmentBuilder >> addedAttribute: anAttribute from: aFromIndex to: aToIndex in: aBrTextEditor [
+	"Is sent after an attribute was added in provided text editor"
+	| aFromSegment aToSegment |
+
+	self
+		assert: [ aFromIndex <= aToIndex ]
+		description: [ '`From` index must be less or equal to `to` index' ].
+
+	aBrTextEditor segmentCollector
+		cachedSegmentAt: aFromIndex
+		ifFound: [ :aSegment | aFromSegment := aSegment ]
+		ifNotFound: [ ].
+
+	aBrTextEditor segmentCollector
+		cachedSegmentAt: aToIndex
+		ifFound: [ :aSegment | aToSegment := aSegment ]
+		ifNotFound: [ ].
+
+	"we add attribute something completely outside of the cached segments, just ignore it"
+	(aFromSegment isNil or: [ aToSegment isNil ])	
+		ifTrue: [
+			self flag: #TODO.
+			^ self ].
+
+	aBrTextEditor invalidate: aFromSegment textStart to: aToSegment textEnd.
+	aBrTextEditor update: aFromSegment textStart to: aToSegment textEnd
+]
 
 { #category : #initialization }
 BrTextEditorLineSegmentBuilder >> defaultSplitter [
