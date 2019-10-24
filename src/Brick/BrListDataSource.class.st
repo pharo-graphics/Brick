@@ -7,7 +7,7 @@ Class {
 		'rowStencil',
 		'listElement'
 	],
-	#category : 'Brick-List - Support'
+	#category : #'Brick-List - Support'
 }
 
 { #category : #initialization }
@@ -39,8 +39,12 @@ BrListDataSource >> onBindHolder: anElementHolder at: aPosition [
 	anElementHolder rowValue: (self rowValues at: aPosition) at: aPosition.
 
 	(self selection contains: aPosition)
-		ifTrue: [ anElementHolder itemElement effect: (BlOverlayAboveEffect new paint: (Color gray alpha: 0.15)) ]
-		ifFalse: [ anElementHolder itemElement effect: BlNullEffect new ]
+		ifTrue: [
+			anElementHolder itemElement effect: (BlOverlayAboveEffect new paint: (Color gray alpha: 0.15)).
+			anElementHolder itemElement dispatchEvent: (BrSelectedWish selected: true) ]
+		ifFalse: [
+			anElementHolder itemElement effect: BlNullEffect new.
+			anElementHolder itemElement dispatchEvent: (BrSelectedWish selected: false) ]
 ]
 
 { #category : #hooks }
