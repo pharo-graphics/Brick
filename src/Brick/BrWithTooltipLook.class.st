@@ -6,7 +6,9 @@ Class {
 		'overEventHandler',
 		'outEventHandler',
 		'hideLaterTask',
-		'showLaterTask'
+		'showLaterTask',
+		'showDelay',
+		'hideDelay'
 	],
 	#category : #'Brick-Tooltip - Look'
 }
@@ -38,11 +40,21 @@ BrWithTooltipLook >> hide [
 ]
 
 { #category : #accessing }
+BrWithTooltipLook >> hideDelay [
+	^ hideDelay
+]
+
+{ #category : #accessing }
+BrWithTooltipLook >> hideDelay: anObject [
+	hideDelay := anObject
+]
+
+{ #category : #accessing }
 BrWithTooltipLook >> hideLater [
 	self assert: [ self visible ].
 	self cancelHideLater.
 	hideLaterTask := BlDelayedTaskAction new
-		delay: 300 milliSeconds;
+		delay: self hideDelay;
 		action: [ self visible
 				ifTrue: [ self hide ].
 			hideLaterTask := nil ];
@@ -100,7 +112,10 @@ BrWithTooltipLook >> initialize [
 						ifTrue: [ self cancelShowLater ].
 					self willHideLater
 						ifTrue: [ self cancelHideLater ] ];
-				yourself)
+				yourself).
+	
+	self showDelay: 1000 milliSeconds.
+	self hideDelay: 300 milliSeconds
 ]
 
 { #category : #'as yet unclassified' }
@@ -121,11 +136,21 @@ BrWithTooltipLook >> show [
 ]
 
 { #category : #accessing }
+BrWithTooltipLook >> showDelay [
+	^ showDelay
+]
+
+{ #category : #accessing }
+BrWithTooltipLook >> showDelay: anObject [
+	showDelay := anObject
+]
+
+{ #category : #accessing }
 BrWithTooltipLook >> showLater [
 	self assert: [ self visible not ].
 	self cancelShowLater.
 	showLaterTask := BlDelayedTaskAction new
-		delay: 1000 milliSeconds;
+		delay: self showDelay;
 		action: [ (self visible not and: [ widget visibility shouldDraw ])
 				ifTrue: [ self show ].
 			showLaterTask := nil ];
