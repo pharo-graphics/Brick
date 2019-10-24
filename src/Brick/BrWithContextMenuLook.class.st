@@ -3,7 +3,8 @@ Class {
 	#superclass : #BrWithAnchoredLook,
 	#instVars : [
 		'position',
-		'clickEventHandler'
+		'clickEventHandler',
+		'mouseButton'
 	],
 	#category : #'Brick-Context Menu - Look'
 }
@@ -21,10 +22,12 @@ BrWithContextMenuLook >> hideWishClass [
 { #category : #initialization }
 BrWithContextMenuLook >> initialize [
 	super initialize.
+	mouseButton := BlMouseButton secondary.
+	
 	clickEventHandler := BlEventHandler
 		on: BlMouseUpEvent
 		do: [ :e | 
-			e button = BlMouseButton secondary
+			e button = mouseButton
 				ifTrue: [ self visible
 						ifTrue: [ self hide ].
 					position := e localPosition.
@@ -57,6 +60,11 @@ BrWithContextMenuLook >> stencilChangedClass [
 { #category : #'as yet unclassified' }
 BrWithContextMenuLook >> stencilRequest [
 	^ BrContextMenuStencilRequest new
+]
+
+{ #category : #'as yet unclassified' }
+BrWithContextMenuLook >> usePrimaryMouseButton [
+	mouseButton := BlMouseButton primary
 ]
 
 { #category : #'as yet unclassified' }
