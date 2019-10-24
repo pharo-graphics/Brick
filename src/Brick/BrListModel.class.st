@@ -29,6 +29,13 @@ BrListModel >> itemAt: anIndex [
 ]
 
 { #category : #'api - accessing' }
+BrListModel >> itemCount [
+	<return: #Number>
+
+	^ self items size
+]
+
+{ #category : #'api - accessing' }
 BrListModel >> items [
 	<return: #Collection of: #Object>
 	

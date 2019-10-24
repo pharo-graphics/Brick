@@ -119,7 +119,7 @@ BrColumnedTreeRowStencilBuilder >> makeSelectableContaine: aContainer forTreeEle
 			aTreeElement requestFocus ].
 		BrInteractiveModel new addState: BrSelectModel new 
 	}).
-			
+
 	aContainer
 		when: BlDoubleClickEvent
 		do: [ :anEvent |

@@ -26,7 +26,7 @@ BrColumnedTreeItemHolder >> initialize [
 
 { #category : #'api - binding' }
 BrColumnedTreeItemHolder >> rowValue: aTreeNode at: aRowIndex [
-	| aRowStencil theCellElements |
+	| aRowStencil theCellElements aRowContentElement |
 
 	rowValue := aTreeNode.
 
@@ -48,9 +48,13 @@ BrColumnedTreeItemHolder >> rowValue: aTreeNode at: aRowIndex [
 		
 		aColumn width applyOn: aCellElement.
 		aCellElement ].
+	
+	aRowContentElement := itemElement
+		childNamed: #expander
+		ifFound: [ :anElement | anElement ]
+		ifNone: [ itemElement ].
 
-	self columns first width applyOn: (itemElement childNamed: #expander).
-	itemElement addChild: theCellElements first in: #expander.
-
+	self columns first width applyOn: aRowContentElement.
+	aRowContentElement addChild: theCellElements first.
 	itemElement addChildren: theCellElements allButFirst
 ]
