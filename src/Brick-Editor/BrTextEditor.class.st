@@ -90,8 +90,8 @@ BrTextEditor >> assertUIProcess [
 	(allUIProcesses size <= 1)
 		ifFalse: [ BrEditorWrongThreadError signal: 'The editor is attached to multiple elements from different UI processes' ].
 		
-	(allUIProcesses isEmpty or: [ allUIProcesses anyOne == aCurrentProcess ])
-		ifFalse: [ BrEditorWrongThreadError signal: 'I am running from a non-UI process' ].
+	"(allUIProcesses isEmpty or: [ allUIProcesses anyOne == aCurrentProcess ])
+		ifFalse: [ BrEditorWrongThreadError signal: 'I am running from a non-UI process' ]."
 ]
 
 { #category : #'private - selection' }
@@ -470,7 +470,8 @@ BrTextEditor >> initializeMacInteractions [
 { #category : #initialization }
 BrTextEditor >> initializeText: aBrText [
 	aBrText when: BlTextStringInserted send: #onStringInserted: to: self.
-	aBrText when: BlTextDeleted send: #onTextDeleted: to: self
+	aBrText when: BlTextDeleted send: #onTextDeleted: to: self.
+	aBrText when: BlTextAttributeAdded send: #onTextAttributeAdded: to: self
 ]
 
 { #category : #'private - text' }
@@ -786,6 +787,16 @@ BrTextEditor >> onStringInserted: aBrTextStringInserted [
 		at: aBrTextStringInserted index.
 
 	self styleText
+]
+
+{ #category : #'hooks - text modifications' }
+BrTextEditor >> onTextAttributeAdded: aBlTextAttributeAdded [
+
+	self segmentBuilder
+		addedAttribute: aBlTextAttributeAdded attribute
+		from: aBlTextAttributeAdded fromIndex
+		to: aBlTextAttributeAdded toIndex
+		in: self
 ]
 
 { #category : #'hooks - text modifications' }

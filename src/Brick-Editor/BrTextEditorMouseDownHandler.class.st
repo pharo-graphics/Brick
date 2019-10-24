@@ -33,7 +33,7 @@ BrTextEditorMouseDownHandler >> handleEvent: anEvent [
 	
 	"To not create an instance of me for each tiny text element"
 	anEditorElement := anEvent currentTarget
-		allParentsDetect: [ :anElement | anElement isKindOf: BrEditorElement ]
+		withAllParentsDetect: [ :anElement | anElement isKindOf: BrEditorElement ]
 		ifFound: #yourself
 		ifNone: [ ^ self ].
 	

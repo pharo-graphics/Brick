@@ -16,6 +16,13 @@ Class {
 	#category : #'Brick-Editor-Model - Segment-Text'
 }
 
+{ #category : #'text - modifications' }
+BrTextEditorSegmentBuilder >> addedAttribute: anAttribute from: aFromIndex to: aToIndex in: aBrTextEditor [
+	"Is sent after an attribute was added in provided text editor"
+
+	self subclassResponsibility
+]
+
 { #category : #initialization }
 BrTextEditorSegmentBuilder >> defaultSplitter [
 	<return: #BrTextEditorSplitter>
