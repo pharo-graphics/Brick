@@ -5,6 +5,21 @@ Class {
 }
 
 { #category : #'instance creation' }
+BrLayoutAlignmentLook class >> forAlignable [
+	^ self new
+		none: [ :aWidget | aWidget layoutDo: [ :aLayout | aLayout alignNone ] ];
+		topLeft: [ :aWidget | aWidget layoutDo: [ :aLayout | aLayout alignTopLeft ] ];
+		topCenter: [ :aWidget | aWidget layoutDo: [ :aLayout | aLayout alignTopCenter ] ];
+		topRight: [ :aWidget | aWidget layoutDo: [ :aLayout | aLayout alignTopRight ] ];
+		centerLeft: [ :aWidget | aWidget layoutDo: [ :aLayout | aLayout alignCenterLeft ] ];
+		center: [ :aWidget | aWidget layoutDo: [ :aLayout | aLayout alignCenter ] ];
+		centerRight: [ :aWidget | aWidget layoutDo: [ :aLayout | aLayout alignCenterRight ] ];
+		bottomLeft: [ :aWidget | aWidget layoutDo: [ :aLayout | aLayout alignBottomLeft ] ];
+		bottomCenter: [ :aWidget | aWidget layoutDo: [ :aLayout | aLayout alignBottomCenter ] ];
+		bottomRight: [ :aWidget | aWidget layoutDo: [ :aLayout | aLayout alignBottomRight ] ]
+]
+
+{ #category : #'instance creation' }
 BrLayoutAlignmentLook class >> forFrameLayout [
 	^ self new
 		any: [ :aWidget | aWidget layout: BlFrameLayout new ]
