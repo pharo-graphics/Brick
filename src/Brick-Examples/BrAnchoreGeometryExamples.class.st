@@ -16,18 +16,23 @@ BrAnchoreGeometryExamples >> movingCorner [
 		in: [ :e | e geometry: (BrAnchoredGeometry cornerRadius: 25 element: e) ];
 		addChild:
 			(BlElement new
-				background: (Color blue alpha: 0.5);
+				background: BrGlamorousColors hoveredButtonBorderColor;
+				geometry: (BlRectangle cornerRadius: 25);
+				border: (BlBorder paint: Color transparent asBlPaint width: 12.5);
 				size: 50 @ 50;
 				relocate: 0 @ 0;
 				yourself);
 		addChild:
 			(BlElement new
-				background: (Color red alpha: 0.5);
 				size: 150 @ 150;
 				relocate: 50 @ 50;
 				yourself);
-		background: Color gray;
-		border: (BlBorder paint: Color black asBlPaint width: 5);
+		background: Color white;
+		border:
+			(BlBorder
+				paint: BrGlamorousColors defaultButtonBorderColor asBlPaint
+				width: 1);
+		look: BrShadowLook new;
 		yourself.
 	small := element children first.
 	big := element children second.
