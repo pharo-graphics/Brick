@@ -1,15 +1,17 @@
 Class {
 	#name : #BrAnchoredGeometry,
-	#superclass : #BlRectangle,
+	#superclass : #BlGeometry,
 	#instVars : [
-		'element'
+		'element',
+		'cornerRadius'
 	],
 	#category : #'Brick-Anchored - Support'
 }
 
 { #category : #'as yet unclassified' }
 BrAnchoredGeometry class >> cornerRadius: aNumber element: anElement [
-	^ (self cornerRadius: aNumber)
+	^ self new
+		cornerRadius: aNumber;
 		element: anElement;
 		yourself
 ]
@@ -28,7 +30,8 @@ BrAnchoredGeometry >> buildPathOnSpartaCanvas: aCanvas [
 
 	| bounds vertices xs ys areas corners points directions initialCursor cursor direction path |
 	"1. compute areas covered by children bounds"
-	bounds := element children collect: [ :e | e bounds asRectangle ].
+	bounds := element children
+		collect: [ :e | e bounds inParent asRectangle ].
 	vertices := bounds
 		flatCollect: [ :e | 
 			{e origin.
@@ -91,21 +94,26 @@ BrAnchoredGeometry >> buildPathOnSpartaCanvas: aCanvas [
 	"4. compute path with rounded corners"
 	path := aCanvas path.
 	path
-		moveTo: points first + (cornerRadii max @ cornerRadii max * directions second).
+		moveTo: points first + (cornerRadius @ cornerRadius * directions second).
 	"last points is same as first, remove it"
 	points removeFirst.
 	directions removeFirst.
 	points
 		withIndexDo: [ :e :i | 
-			| directionIncoming directionOutgoing next |
+			| directionIncoming directionOutgoing previous next before after |
 			directionIncoming := directions at: i.
 			directionOutgoing := directions at: i \\ points size + 1.
-			path
-				lineTo: e - (cornerRadii max @ cornerRadii max * directionIncoming).
-			next := e + (cornerRadii max @ cornerRadii max * directionOutgoing).
+			previous := points at: (i - 2 + points size) \\ points size + 1.
+			next := points at: i \\ points size + 1.
+			before := e
+				-
+					((cornerRadius min: (e - previous) r / 2) asPoint * directionIncoming).
+			after := e
+				+ ((cornerRadius min: (e - next) r / 2) asPoint * directionOutgoing).
+			path lineTo: before.
 			(directionIncoming crossProduct: directionOutgoing) < 0
-				ifTrue: [ path ccwArcTo: next ]
-				ifFalse: [ path cwArcTo: next ] ].
+				ifTrue: [ path ccwArcTo: after ]
+				ifFalse: [ path cwArcTo: after ] ].
 	^ path close build
 ]
 
@@ -116,6 +124,16 @@ BrAnchoredGeometry >> containsPoint: aPoint in: aBlElement [
 ]
 
 { #category : #accessing }
+BrAnchoredGeometry >> cornerRadius [
+	^ cornerRadius
+]
+
+{ #category : #accessing }
+BrAnchoredGeometry >> cornerRadius: anObject [
+	cornerRadius := anObject
+]
+
+{ #category : #accessing }
 BrAnchoredGeometry >> element [
 	^ element
 ]
@@ -123,4 +141,39 @@ BrAnchoredGeometry >> element [
 { #category : #accessing }
 BrAnchoredGeometry >> element: anObject [
 	element := anObject
+]
+
+{ #category : #initialization }
+BrAnchoredGeometry >> initialize [
+	super initialize.
+	cornerRadius := 0
+]
+
+{ #category : #geometry }
+BrAnchoredGeometry >> matchExtent: aPoint [
+	extent := aPoint
+]
+
+{ #category : #geometry }
+BrAnchoredGeometry >> pathOnSpartaCanvas: aCanvas [
+	^ self buildPathOnSpartaCanvas: aCanvas
+]
+
+{ #category : #'visual bounds' }
+BrAnchoredGeometry >> strokedBounds: aBlBounds of: anElement on: aCanvas [
+	^ anElement outskirts
+		strokedBounds: aBlBounds
+		of: anElement
+		on: aCanvas
+]
+
+{ #category : #'visual bounds' }
+BrAnchoredGeometry >> strokedBoundsCentered: aBlBounds of: aBlElement on: aCanvas [
+	^ (self geometryBounds: aBlBounds)
+		expandBy: aBlElement border width / 2.0
+]
+
+{ #category : #'visual bounds' }
+BrAnchoredGeometry >> strokedBoundsOutside: aBlBounds of: aBlElement on: aCanvas [
+	^ (self geometryBounds: aBlBounds) expandBy: aBlElement border width
 ]
