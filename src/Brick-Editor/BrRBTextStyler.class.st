@@ -190,7 +190,6 @@ BrRBTextStyler >> privateStyle: aText [
     ast := self parse: aText isMethod: self isForWorkspace not.
     ast methodNode compilationContext: (CompilationContext new
             class: (classOrMetaClass ifNil: [UndefinedObject]);
-				forSyntaxHighlighting: true;
 				requestor: workspace).
 				"Requestor already has support for obtaining the bindings. 
 				Adding both the requestor and the bindings creates two scopes
