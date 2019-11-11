@@ -30,8 +30,8 @@ BrTextWordPieceSelectionAcquiredHandler >> handleEvent: anEvent [
 			aGlobalTo := aTextElement textEnd ]
 		ifFalse: [ 
 			| aFromIndex aToIndex |
-			aFromIndex := aTextElement paragraph indexAtPosition: anEvent bounds origin.
-			aToIndex := aTextElement paragraph indexAtPosition: anEvent bounds corner.
+			aFromIndex := aTextElement indexAtScreenPosition: anEvent bounds origin.
+			aToIndex := aTextElement indexAtScreenPosition: anEvent bounds corner.
 
 			"remove previous selection"	
 			aTextElement selection do: [ :aMonotoneSelection |

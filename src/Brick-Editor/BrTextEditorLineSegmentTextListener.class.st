@@ -39,7 +39,7 @@ BrTextEditorLineSegmentTextListener >> handleEvent: aBlMouseEvent [
 	
 	aLocalPosition := aTextElement globalPointToLocal: aBlMouseEvent position.
 
-	aTextIndex := aTextElement paragraph indexAtPosition: aLocalPosition.
+	aTextIndex := aTextElement indexAtScreenPosition: aLocalPosition.
 
 	anIterator := aTextElement text iterator: (aTextIndex max: 1) to: (aTextIndex max: 1).
 	theAttributes := anIterator selectAttributes: [ :anAttribute | anAttribute isKindOf: BrTextEventHandlerAttribute ].

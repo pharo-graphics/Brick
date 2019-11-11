@@ -82,7 +82,7 @@ BrTextWordPieceStencilBuilder >> initialize [
 	super initialize.
 	
 	wordPadding := BlInsets top: 0 bottom: 0.
-	measurer := BlTextElementCanvasMeasurer new
+	measurer := BlTextElementOffscreenCanvasMeasurer new
 ]
 
 { #category : #accessing }

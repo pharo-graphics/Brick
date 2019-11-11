@@ -62,15 +62,6 @@ BrTextElementWithCursors >> cursorElements [
 	^ cursorElements
 ]
 
-{ #category : #'cursor - management' }
-BrTextElementWithCursors >> cursorScreenPositionAt: aTextIndex [
-	<return: #Point>
-	| aScreenPosition |
-	
-	aScreenPosition := self paragraph positionAt: aTextIndex.
-	^ aScreenPosition x @ (self height / 2.0)
-]
-
 { #category : #accessing }
 BrTextElementWithCursors >> cursorStencil [
 	^ cursorStencil
@@ -131,7 +122,7 @@ BrTextElementWithCursors >> measureCursors: anExtentMeasurementSpec [
 		self paragraph measuredEnd < aCursorPosition
 			ifTrue: [ ^ self ].
 
-		aTextPosition := self cursorScreenPositionAt: aCursorPosition.
+		aTextPosition := self screenPositionAt: aCursorPosition.
 		aTextPosition := (aTextPosition x - (aCursorElement measuredWidth // 2)) @ 0.
 		aCursorElement measuredBounds position: aTextPosition ].
 
