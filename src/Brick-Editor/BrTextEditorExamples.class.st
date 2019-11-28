@@ -240,6 +240,21 @@ BrTextEditorExamples >> editorWithAdormentDynamicAttribute [
 ]
 
 { #category : #examples }
+BrTextEditorExamples >> editorWithAdormentDynamicAttributeEmptyCollection [
+	<gtExample>
+	| editor text |
+	text := self newThreeLineText.
+	editor := self newEditor text: text.
+	editor text
+		attributes: { 
+			BrTextAdornmentDynamicAttribute new 
+				stencil: [ #() ] }
+		from: 1
+		to: text size.
+	^ editor
+]
+
+{ #category : #examples }
 BrTextEditorExamples >> editorWithAdormentDynamicAttributeReturningTwoElements [
 	<gtExample>
 	| editor text |
