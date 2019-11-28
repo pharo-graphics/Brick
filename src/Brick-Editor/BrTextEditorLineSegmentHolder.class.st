@@ -78,7 +78,7 @@ BrTextEditorLineSegmentHolder >> explicitScreenToCursor: aTransformation [
 		(aPieceElement bounds inParent bounds containsPoint: aPositionInSegment)
 			ifTrue: [ ^ aPiece screenToCursor: aTransformation of: self infiniteElement in: aPieceElement ] ].
 		
-	"clicked outside of a segent piece, should find the closest element"
+	"clicked outside of a segment piece, should find the closest element"
 	
 	aClosestPieceElement := itemElement layout findClosestChildOf: itemElement to: aPositionInSegment.
 	aClosestPiece := pieceElements
@@ -157,7 +157,9 @@ BrTextEditorLineSegmentHolder >> piecesAndTheirElementsDo: aBlock [
 	segment pieces do: [ :eachPiece |
 		pieceElements
 			at: eachPiece
-			ifPresent: [ :eachPieceElement | aBlock value: eachPiece value: eachPieceElement ] ]
+			ifPresent: [ :eachPieceElements | 
+				eachPieceElements do: [ :eachPieceElement |
+					aBlock value: eachPiece value: eachPieceElement ] ] ]
 ]
 
 { #category : #cursor }
@@ -179,7 +181,8 @@ BrTextEditorLineSegmentHolder >> segment: anEditorSegment [
 	segment := anEditorSegment.
 	
 	pieceElements := OrderedIdentityDictionary new.
-	segment pieces do: [ :aPiece | pieceElements at: aPiece put: (aPiece createElement: self infiniteElement) ].
+	segment pieces do: [ :aPiece | 
+		pieceElements at: aPiece put: (aPiece createElement: self infiniteElement) asCollection ].
 	
 	self piecesAndTheirElementsDo: [ :aPiece :aPieceElement |
 		aPiece updateCursor: aPieceElement of: anEditorSegment in: self infiniteElement.
@@ -187,7 +190,7 @@ BrTextEditorLineSegmentHolder >> segment: anEditorSegment [
 
 	itemElement
 		removeChildren;
-		addChildren: pieceElements values;
+		addChildren: (pieceElements flatCollect: #yourself as: Array);
 		constraintsDo: [ :c | c horizontal resizer: infiniteElement constraints horizontal resizer ];
 		padding: anEditorSegment paragraphMargin
 ]

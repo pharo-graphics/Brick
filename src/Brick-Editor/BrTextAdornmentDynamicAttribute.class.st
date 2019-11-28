@@ -29,13 +29,17 @@ Class {
 }
 
 { #category : #accessing }
-BrTextAdornmentDynamicAttribute >> affect: aBlText in: anEditorElement [
-	<return: #BlElement>
+BrTextAdornmentDynamicAttribute >> doAffect: aBlText in: anEditorElement [
+	"Return an element that should affect (either append or replace) a provided text piece"
+	<return: #SequenceableCollection of: #BlElement>
 
-	^ stencilBuilder
+	| aResult |
+	aResult := stencilBuilder
 		text: aBlText;
 		editor: anEditorElement;
-		asElement
+		build.
+	aResult isCollection ifTrue: [ ^ aResult ].
+	^ aResult asElement asCollection
 ]
 
 { #category : #accessing }

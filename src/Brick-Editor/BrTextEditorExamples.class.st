@@ -36,7 +36,7 @@ Class {
 	#classInstVars : [
 		'loremIpsum'
 	],
-	#category : 'Brick-Editor-Examples'
+	#category : #'Brick-Editor-Examples'
 }
 
 { #category : #cleanup }
@@ -234,6 +234,29 @@ BrTextEditorExamples >> editorWithAdormentDynamicAttribute [
 						size: 70 @ 50; 
 						margin: (BlInsets all: 5);
 						background: Color red ] }
+		from: 1
+		to: text size.
+	^ editor
+]
+
+{ #category : #examples }
+BrTextEditorExamples >> editorWithAdormentDynamicAttributeReturningTwoElements [
+	<gtExample>
+	| editor text |
+	text := self newThreeLineText.
+	editor := self newEditor text: text.
+	editor text
+		attributes: { 
+			BrTextAdornmentDynamicAttribute new 
+				stencil: [ 
+					{ BlElement new 
+						size: 70 @ 50; 
+						margin: (BlInsets all: 5);
+						background: Color red.
+					BlElement new 
+						size: 70 @ 50; 
+						margin: (BlInsets all: 5);
+						background: Color green } ] }
 		from: 1
 		to: text size.
 	^ editor
