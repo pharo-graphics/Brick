@@ -240,7 +240,7 @@ BrTextEditorExamples >> editorWithAdormentDynamicAttribute [
 ]
 
 { #category : #examples }
-BrTextEditorExamples >> editorWithAdormentDynamicAttributeEmptyCollection [
+BrTextEditorExamples >> editorWithAdormentDynamicAttributeReturningEmptyCollection [
 	<gtExample>
 	| editor text |
 	text := self newThreeLineText.
