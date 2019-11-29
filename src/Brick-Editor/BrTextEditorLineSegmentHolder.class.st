@@ -81,8 +81,8 @@ BrTextEditorLineSegmentHolder >> explicitScreenToCursor: aTransformation [
 	"clicked outside of a segment piece, should find the closest element"
 	
 	aClosestPieceElement := itemElement layout findClosestChildOf: itemElement to: aPositionInSegment.
-	aClosestPiece := pieceElements
-		keyAtValue: aClosestPieceElement
+	aClosestPiece := self 
+		pieceForElement: aClosestPieceElement
 		ifAbsent: [ ^ self ].
 		
 	aClosestPiece screenToCursor: aTransformation of: self infiniteElement in: aClosestPieceElement
@@ -147,6 +147,16 @@ BrTextEditorLineSegmentHolder >> onTextChanged [
 
 	self piecesAndTheirElementsDo: [ :aPiece :aPieceElement |
 		aPiece updateText: aPieceElement of: segment in: self infiniteElement ]
+]
+
+{ #category : #enumerating }
+BrTextEditorLineSegmentHolder >> pieceForElement: aBlElement ifAbsent: anAbsentBlock [
+	<return: #BrTextEditorLineSegmentPiece>
+	pieceElements 
+		keysAndValuesDo: [ :eachKey :eachCollectionOfElements | 
+			(eachCollectionOfElements includes: aBlElement) 
+				ifTrue: [ ^ eachKey ] ].
+	^ anAbsentBlock value
 ]
 
 { #category : #enumerating }
