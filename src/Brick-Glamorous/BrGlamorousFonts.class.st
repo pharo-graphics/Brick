@@ -334,132 +334,132 @@ BrGlamorousFonts class >> localGtDirectoryName [
 
 { #category : #fonts }
 BrGlamorousFonts class >> sourceCodePro200ExtraLight [
-	^ self fontsSourceCodeProFolder / 'SourceCodePro-ExtraLight.ttf'
+	^ (self fontsSourceCodeProFolder / 'SourceCodePro-ExtraLight.ttf') binaryReadStreamDo: [ :aFileStream | aFileStream contents ]
 ]
 
 { #category : #fonts }
 BrGlamorousFonts class >> sourceCodePro200italicExtraLight [
-	^ self fontsSourceCodeProFolder / 'SourceCodePro-ExtraLightIt.ttf'
+	^ (self fontsSourceCodeProFolder / 'SourceCodePro-ExtraLightIt.ttf') binaryReadStreamDo: [ :aFileStream | aFileStream contents ]
 ]
 
 { #category : #fonts }
 BrGlamorousFonts class >> sourceCodePro300Light [
-	^ self fontsSourceCodeProFolder / 'SourceCodePro-Light.ttf'
+	^ (self fontsSourceCodeProFolder / 'SourceCodePro-Light.ttf') binaryReadStreamDo: [ :aFileStream | aFileStream contents ]
 ]
 
 { #category : #fonts }
 BrGlamorousFonts class >> sourceCodePro300italicLight [
-	^ self fontsSourceCodeProFolder / 'SourceCodePro-LightIt.ttf'
+	^ (self fontsSourceCodeProFolder / 'SourceCodePro-LightIt.ttf') binaryReadStreamDo: [ :aFileStream | aFileStream contents ]
 ]
 
 { #category : #fonts }
 BrGlamorousFonts class >> sourceCodePro400Italic [
-	^ self fontsSourceCodeProFolder / 'SourceCodePro-It.ttf'
+	^ (self fontsSourceCodeProFolder / 'SourceCodePro-It.ttf') binaryReadStreamDo: [ :aFileStream | aFileStream contents ]
 ]
 
 { #category : #fonts }
 BrGlamorousFonts class >> sourceCodePro400Regular [
-	^ self fontsSourceCodeProFolder / 'SourceCodePro-Regular.ttf'
+	^ (self fontsSourceCodeProFolder / 'SourceCodePro-Regular.ttf') binaryReadStreamDo: [ :aFileStream | aFileStream contents ]
 ]
 
 { #category : #fonts }
 BrGlamorousFonts class >> sourceCodePro500Medium [
-	^ self fontsSourceCodeProFolder / 'SourceCodePro-Medium.ttf'
+	^ (self fontsSourceCodeProFolder / 'SourceCodePro-Medium.ttf') binaryReadStreamDo: [ :aFileStream | aFileStream contents ]
 ]
 
 { #category : #fonts }
 BrGlamorousFonts class >> sourceCodePro500italicMedium [
-	^ self fontsSourceCodeProFolder / 'SourceCodePro-MediumIt.ttf'
+	^ (self fontsSourceCodeProFolder / 'SourceCodePro-MediumIt.ttf') binaryReadStreamDo: [ :aFileStream | aFileStream contents ]
 ]
 
 { #category : #fonts }
 BrGlamorousFonts class >> sourceCodePro600Semibold [
-	^ self fontsSourceCodeProFolder / 'SourceCodePro-Semibold.ttf'
+	^ (self fontsSourceCodeProFolder / 'SourceCodePro-Semibold.ttf') binaryReadStreamDo: [ :aFileStream | aFileStream contents ]
 ]
 
 { #category : #fonts }
 BrGlamorousFonts class >> sourceCodePro600italicSemibold [
-	^ self fontsSourceCodeProFolder / 'SourceCodePro-SemiboldIt.ttf'
+	^ (self fontsSourceCodeProFolder / 'SourceCodePro-SemiboldIt.ttf') binaryReadStreamDo: [ :aFileStream | aFileStream contents ]
 ]
 
 { #category : #fonts }
 BrGlamorousFonts class >> sourceCodePro700Bold [
-	^ self fontsSourceCodeProFolder / 'SourceCodePro-Bold.ttf'
+	^ (self fontsSourceCodeProFolder / 'SourceCodePro-Bold.ttf') binaryReadStreamDo: [ :aFileStream | aFileStream contents ]
 ]
 
 { #category : #fonts }
 BrGlamorousFonts class >> sourceCodePro700italicBold [
-	^ self fontsSourceCodeProFolder / 'SourceCodePro-BoldIt.ttf'
+	^ (self fontsSourceCodeProFolder / 'SourceCodePro-BoldIt.ttf') binaryReadStreamDo: [ :aFileStream | aFileStream contents ]
 ]
 
 { #category : #fonts }
 BrGlamorousFonts class >> sourceCodePro900Black [
-	^ self fontsSourceCodeProFolder / 'SourceCodePro-Black.ttf'
+	^ (self fontsSourceCodeProFolder / 'SourceCodePro-Black.ttf') binaryReadStreamDo: [ :aFileStream | aFileStream contents ]
 ]
 
 { #category : #fonts }
 BrGlamorousFonts class >> sourceCodePro900italicBlack [
-	^ self fontsSourceCodeProFolder / 'SourceCodePro-BlackIt.ttf'
+	^ (self fontsSourceCodeProFolder / 'SourceCodePro-BlackIt.ttf') binaryReadStreamDo: [ :aFileStream | aFileStream contents ]
 ]
 
 { #category : #fonts }
 BrGlamorousFonts class >> sourceSansPro200ExtraLight [
-	^ self fontsSourceSansProFolder / 'SourceSansPro-ExtraLight.ttf'
+	^ (self fontsSourceSansProFolder / 'SourceSansPro-ExtraLight.ttf') binaryReadStreamDo: [ :aFileStream | aFileStream contents ]
 ]
 
 { #category : #fonts }
 BrGlamorousFonts class >> sourceSansPro200italicExtraLight [
-	^ self fontsSourceSansProFolder / 'SourceSansPro-ExtraLightIt.ttf'
+	^ (self fontsSourceSansProFolder / 'SourceSansPro-ExtraLightIt.ttf') binaryReadStreamDo: [ :aFileStream | aFileStream contents ]
 ]
 
 { #category : #fonts }
 BrGlamorousFonts class >> sourceSansPro300Light [
-	^ self fontsSourceSansProFolder / 'SourceSansPro-Light.ttf'
+	^ (self fontsSourceSansProFolder / 'SourceSansPro-Light.ttf') binaryReadStreamDo: [ :aFileStream | aFileStream contents ]
 ]
 
 { #category : #fonts }
 BrGlamorousFonts class >> sourceSansPro300italicLight [
-	^ self fontsSourceSansProFolder / 'SourceSansPro-LightIt.ttf'
+	^ (self fontsSourceSansProFolder / 'SourceSansPro-LightIt.ttf') binaryReadStreamDo: [ :aFileStream | aFileStream contents ]
 ]
 
 { #category : #fonts }
 BrGlamorousFonts class >> sourceSansPro400Italic [
-	^ self fontsSourceSansProFolder / 'SourceSansPro-It.ttf'
+	^ (self fontsSourceSansProFolder / 'SourceSansPro-It.ttf') binaryReadStreamDo: [ :aFileStream | aFileStream contents ]
 ]
 
 { #category : #fonts }
 BrGlamorousFonts class >> sourceSansPro400Regular [
-	^ self fontsSourceSansProFolder / 'SourceSansPro-Regular.ttf'
+	^ (self fontsSourceSansProFolder / 'SourceSansPro-Regular.ttf') binaryReadStreamDo: [ :aFileStream | aFileStream contents ]
 ]
 
 { #category : #fonts }
 BrGlamorousFonts class >> sourceSansPro600Semibold [
-	^ self fontsSourceSansProFolder / 'SourceSansPro-Semibold.ttf'
+	^ (self fontsSourceSansProFolder / 'SourceSansPro-Semibold.ttf') binaryReadStreamDo: [ :aFileStream | aFileStream contents ]
 ]
 
 { #category : #fonts }
 BrGlamorousFonts class >> sourceSansPro600italicSemibold [
-	^ self fontsSourceSansProFolder / 'SourceSansPro-SemiboldIt.ttf'
+	^ (self fontsSourceSansProFolder / 'SourceSansPro-SemiboldIt.ttf') binaryReadStreamDo: [ :aFileStream | aFileStream contents ]
 ]
 
 { #category : #fonts }
 BrGlamorousFonts class >> sourceSansPro700Bold [
-	^ self fontsSourceSansProFolder / 'SourceSansPro-Bold.ttf'
+	^ (self fontsSourceSansProFolder / 'SourceSansPro-Bold.ttf') binaryReadStreamDo: [ :aFileStream | aFileStream contents ]
 ]
 
 { #category : #fonts }
 BrGlamorousFonts class >> sourceSansPro700italicBold [
-	^ self fontsSourceSansProFolder / 'SourceSansPro-BoldIt.ttf'
+	^ (self fontsSourceSansProFolder / 'SourceSansPro-BoldIt.ttf') binaryReadStreamDo: [ :aFileStream | aFileStream contents ]
 ]
 
 { #category : #fonts }
 BrGlamorousFonts class >> sourceSansPro900Black [
-	^ self fontsSourceSansProFolder / 'SourceSansPro-Black.ttf'
+	^ (self fontsSourceSansProFolder / 'SourceSansPro-Black.ttf') binaryReadStreamDo: [ :aFileStream | aFileStream contents ]
 ]
 
 { #category : #fonts }
 BrGlamorousFonts class >> sourceSansPro900italicBlack [
-	^ self fontsSourceSansProFolder / 'SourceSansPro-BlackIt.ttf'
+	^ (self fontsSourceSansProFolder / 'SourceSansPro-BlackIt.ttf') binaryReadStreamDo: [ :aFileStream | aFileStream contents ]
 ]
 
 { #category : #initialization }
