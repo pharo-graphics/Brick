@@ -107,9 +107,9 @@ BrAnchoredGeometry >> buildPathOnSpartaCanvas: aCanvas [
 			next := points at: i \\ points size + 1.
 			before := e
 				-
-					((cornerRadius min: (e - previous) r / 2) asPoint * directionIncoming).
+					((cornerRadius min: (e - previous) r / 2.0) asPoint * directionIncoming).
 			after := e
-				+ ((cornerRadius min: (e - next) r / 2) asPoint * directionOutgoing).
+				+ ((cornerRadius min: (e - next) r / 2.0) asPoint * directionOutgoing).
 			path lineTo: before.
 			(directionIncoming crossProduct: directionOutgoing) < 0
 				ifTrue: [ path ccwArcTo: after ]
