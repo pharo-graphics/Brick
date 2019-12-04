@@ -129,7 +129,7 @@ BrGlamorousFonts class >> initializeSourceCodeProOn: aCanvas [
 		stretchNormal;
 		styleItalic;
 		weightNormal;
-		source: self sourceCodePro400Italic;
+		source: self sourceCodePro400italicRegular;
 		build.
 
 	aCanvas fontFace
@@ -245,7 +245,7 @@ BrGlamorousFonts class >> initializeSourceSansProOn: aCanvas [
 		stretchNormal;
 		styleItalic;
 		weightNormal;
-		source: self sourceSansPro400Italic;
+		source: self sourceSansPro400italicRegular;
 		build.
 
 	aCanvas fontFace
@@ -354,160 +354,134 @@ BrGlamorousFonts class >> localGtDirectoryName [
 	^ 'gt-extra'
 ]
 
-{ #category : #fonts }
+{ #category : #'fonts - source code pro' }
 BrGlamorousFonts class >> sourceCodePro200ExtraLight [
-	^ self fontNamed: 'SourceCodePro-ExtraLight.ttf' fromFolderNamed: self fontsSourceCodeProFolderName 
-	"^ (self fontsSourceCodeProFolder / ) binaryReadStreamDo: [ :aFileStream | aFileStream contents ]"
+	^ self fontNamed: 'Source Code Pro 200.ttf' fromFolderNamed: self fontsSourceCodeProFolderName
 ]
 
-{ #category : #fonts }
+{ #category : #'fonts - source code pro' }
 BrGlamorousFonts class >> sourceCodePro200italicExtraLight [
-	^ self fontNamed: 'SourceCodePro-ExtraLightIt.ttf' fromFolderNamed: self fontsSourceCodeProFolderName 
-	"^ (self fontsSourceCodeProFolder / 'SourceCodePro-ExtraLightIt.ttf') binaryReadStreamDo: [ :aFileStream | aFileStream contents ]"
+	^ self fontNamed: 'Source Code Pro 200italic.ttf' fromFolderNamed: self fontsSourceCodeProFolderName
 ]
 
-{ #category : #fonts }
+{ #category : #'fonts - source code pro' }
 BrGlamorousFonts class >> sourceCodePro300Light [
-	^ self fontNamed: 'SourceCodePro-Light.ttf' fromFolderNamed: self fontsSourceCodeProFolderName 
-	"^ (self fontsSourceCodeProFolder / 'SourceCodePro-Light.ttf') binaryReadStreamDo: [ :aFileStream | aFileStream contents ]"
+	^ self fontNamed: 'Source Code Pro 300.ttf' fromFolderNamed: self fontsSourceCodeProFolderName
 ]
 
-{ #category : #fonts }
+{ #category : #'fonts - source code pro' }
 BrGlamorousFonts class >> sourceCodePro300italicLight [
-	^ self fontNamed: 'SourceCodePro-LightIt.ttf' fromFolderNamed: self fontsSourceCodeProFolderName 
-	"^ (self fontsSourceCodeProFolder / 'SourceCodePro-LightIt.ttf') binaryReadStreamDo: [ :aFileStream | aFileStream contents ]"
+	^ self fontNamed: 'Source Code Pro 300italic.ttf' fromFolderNamed: self fontsSourceCodeProFolderName
 ]
 
-{ #category : #fonts }
-BrGlamorousFonts class >> sourceCodePro400Italic [
-	^ self fontNamed: 'SourceCodePro-It.ttf' fromFolderNamed: self fontsSourceCodeProFolderName 
-	"^ (self fontsSourceCodeProFolder / 'SourceCodePro-It.ttf') binaryReadStreamDo: [ :aFileStream | aFileStream contents ]"
-]
-
-{ #category : #fonts }
+{ #category : #'fonts - source code pro' }
 BrGlamorousFonts class >> sourceCodePro400Regular [
-	^ self fontNamed: 'SourceCodePro-Regular.ttf' fromFolderNamed: self fontsSourceCodeProFolderName 
-	"^ (self fontsSourceCodeProFolder / 'SourceCodePro-Regular.ttf') binaryReadStreamDo: [ :aFileStream | aFileStream contents ]"
+	^ self fontNamed: 'Source Code Pro regular.ttf' fromFolderNamed: self fontsSourceCodeProFolderName
 ]
 
-{ #category : #fonts }
+{ #category : #'fonts - source code pro' }
+BrGlamorousFonts class >> sourceCodePro400italicRegular [
+	^ self fontNamed: 'Source Code Pro italic.ttf' fromFolderNamed: self fontsSourceCodeProFolderName
+]
+
+{ #category : #'fonts - source code pro' }
 BrGlamorousFonts class >> sourceCodePro500Medium [
-	^ self fontNamed: 'SourceCodePro-Medium.ttf' fromFolderNamed: self fontsSourceCodeProFolderName 
-	"^ (self fontsSourceCodeProFolder / 'SourceCodePro-Medium.ttf') binaryReadStreamDo: [ :aFileStream | aFileStream contents ]"
+	^ self fontNamed: 'Source Code Pro 500.ttf' fromFolderNamed: self fontsSourceCodeProFolderName
 ]
 
-{ #category : #fonts }
+{ #category : #'fonts - source code pro' }
 BrGlamorousFonts class >> sourceCodePro500italicMedium [
-	^ self fontNamed: 'SourceCodePro-MediumIt.ttf' fromFolderNamed: self fontsSourceCodeProFolderName
-	"^ (self fontsSourceCodeProFolder / 'SourceCodePro-MediumIt.ttf') binaryReadStreamDo: [ :aFileStream | aFileStream contents ]"
+	^ self fontNamed: 'Source Code Pro 500italic.ttf' fromFolderNamed: self fontsSourceCodeProFolderName
 ]
 
-{ #category : #fonts }
+{ #category : #'fonts - source code pro' }
 BrGlamorousFonts class >> sourceCodePro600Semibold [
-	^ self fontNamed: 'SourceCodePro-Semibold.ttf' fromFolderNamed: self fontsSourceCodeProFolderName
-	"^ (self fontsSourceCodeProFolder / 'SourceCodePro-Semibold.ttf') binaryReadStreamDo: [ :aFileStream | aFileStream contents ]"
+	^ self fontNamed: 'Source Code Pro 600.ttf' fromFolderNamed: self fontsSourceCodeProFolderName
 ]
 
-{ #category : #fonts }
+{ #category : #'fonts - source code pro' }
 BrGlamorousFonts class >> sourceCodePro600italicSemibold [
-	^ self fontNamed: 'SourceCodePro-SemiboldIt.ttf' fromFolderNamed: self fontsSourceCodeProFolderName
-	"^ (self fontsSourceCodeProFolder / 'SourceCodePro-SemiboldIt.ttf') binaryReadStreamDo: [ :aFileStream | aFileStream contents ]"
+	^ self fontNamed: 'Source Code Pro 600italic.ttf' fromFolderNamed: self fontsSourceCodeProFolderName
 ]
 
-{ #category : #fonts }
+{ #category : #'fonts - source code pro' }
 BrGlamorousFonts class >> sourceCodePro700Bold [
-	^ self fontNamed: 'SourceCodePro-Bold.ttf' fromFolderNamed: self fontsSourceCodeProFolderName
-	"^ (self fontsSourceCodeProFolder / 'SourceCodePro-Bold.ttf') binaryReadStreamDo: [ :aFileStream | aFileStream contents ]"
+	^ self fontNamed: 'Source Code Pro 700.ttf' fromFolderNamed: self fontsSourceCodeProFolderName
 ]
 
-{ #category : #fonts }
+{ #category : #'fonts - source code pro' }
 BrGlamorousFonts class >> sourceCodePro700italicBold [
-	^ self fontNamed: 'SourceCodePro-BoldIt.ttf' fromFolderNamed: self fontsSourceCodeProFolderName
-	"^ (self fontsSourceCodeProFolder / 'SourceCodePro-BoldIt.ttf') binaryReadStreamDo: [ :aFileStream | aFileStream contents ]"
+	^ self fontNamed: 'Source Code Pro 700italic.ttf' fromFolderNamed: self fontsSourceCodeProFolderName
 ]
 
-{ #category : #fonts }
+{ #category : #'fonts - source code pro' }
 BrGlamorousFonts class >> sourceCodePro900Black [
-	^ self fontNamed: 'SourceCodePro-Black.ttf' fromFolderNamed: self fontsSourceCodeProFolderName
-	"^ (self fontsSourceCodeProFolder / 'SourceCodePro-Black.ttf') binaryReadStreamDo: [ :aFileStream | aFileStream contents ]"
+	^ self fontNamed: 'Source Code Pro 900.ttf' fromFolderNamed: self fontsSourceCodeProFolderName
 ]
 
-{ #category : #fonts }
+{ #category : #'fonts - source code pro' }
 BrGlamorousFonts class >> sourceCodePro900italicBlack [
-	^ self fontNamed: 'SourceCodePro-BlackIt.ttf' fromFolderNamed: self fontsSourceCodeProFolderName
-	"^ (self fontsSourceCodeProFolder / 'SourceCodePro-BlackIt.ttf') binaryReadStreamDo: [ :aFileStream | aFileStream contents ]"
+	^ self fontNamed: 'Source Code Pro 900italic.ttf' fromFolderNamed: self fontsSourceCodeProFolderName
 ]
 
-{ #category : #fonts }
+{ #category : #'fonts - source sans pro' }
 BrGlamorousFonts class >> sourceSansPro200ExtraLight [
-	^ self fontNamed: 'SourceSansPro-ExtraLight.ttf' fromFolderNamed: self fontsSourceSansProFolderName
-	"^ (self fontsSourceSansProFolder / 'SourceSansPro-ExtraLight.ttf') binaryReadStreamDo: [ :aFileStream | aFileStream contents ]"
+	^ self fontNamed: 'Source Sans Pro 200.ttf' fromFolderNamed: self fontsSourceSansProFolderName
 ]
 
-{ #category : #fonts }
+{ #category : #'fonts - source sans pro' }
 BrGlamorousFonts class >> sourceSansPro200italicExtraLight [
-	^ self fontNamed: 'SourceSansPro-ExtraLightIt.ttf' fromFolderNamed: self fontsSourceSansProFolderName
-	"^ (self fontsSourceSansProFolder / 'SourceSansPro-ExtraLightIt.ttf') binaryReadStreamDo: [ :aFileStream | aFileStream contents ]"
+	^ self fontNamed: 'Source Sans Pro 200italic.ttf' fromFolderNamed: self fontsSourceSansProFolderName
 ]
 
-{ #category : #fonts }
+{ #category : #'fonts - source sans pro' }
 BrGlamorousFonts class >> sourceSansPro300Light [
-	^ self fontNamed: 'SourceSansPro-Light.ttf' fromFolderNamed: self fontsSourceSansProFolderName
-	"^ (self fontsSourceSansProFolder / 'SourceSansPro-Light.ttf') binaryReadStreamDo: [ :aFileStream | aFileStream contents ]"
+	^ self fontNamed: 'Source Sans Pro 300.ttf' fromFolderNamed: self fontsSourceSansProFolderName
 ]
 
-{ #category : #fonts }
+{ #category : #'fonts - source sans pro' }
 BrGlamorousFonts class >> sourceSansPro300italicLight [
-	^ self fontNamed: 'SourceSansPro-LightIt.ttf' fromFolderNamed: self fontsSourceSansProFolderName
-	"^ (self fontsSourceSansProFolder / 'SourceSansPro-LightIt.ttf') binaryReadStreamDo: [ :aFileStream | aFileStream contents ]"
+	^ self fontNamed: 'Source Sans Pro 300italic.ttf' fromFolderNamed: self fontsSourceSansProFolderName
 ]
 
-{ #category : #fonts }
-BrGlamorousFonts class >> sourceSansPro400Italic [
-	^ self fontNamed: 'SourceSansPro-It.ttf' fromFolderNamed: self fontsSourceSansProFolderName
-	"^ (self fontsSourceSansProFolder / 'SourceSansPro-It.ttf') binaryReadStreamDo: [ :aFileStream | aFileStream contents ]"
-]
-
-{ #category : #fonts }
+{ #category : #'fonts - source sans pro' }
 BrGlamorousFonts class >> sourceSansPro400Regular [
-	^ self fontNamed: 'SourceSansPro-Regular.ttf' fromFolderNamed: self fontsSourceSansProFolderName
-	"^ (self fontsSourceSansProFolder / 'SourceSansPro-Regular.ttf') binaryReadStreamDo: [ :aFileStream | aFileStream contents ]"
+	^ self fontNamed: 'Source Sans Pro regular.ttf' fromFolderNamed: self fontsSourceSansProFolderName
 ]
 
-{ #category : #fonts }
+{ #category : #'fonts - source sans pro' }
+BrGlamorousFonts class >> sourceSansPro400italicRegular [
+	^ self fontNamed: 'Source Sans Pro italic.ttf' fromFolderNamed: self fontsSourceSansProFolderName
+]
+
+{ #category : #'fonts - source sans pro' }
 BrGlamorousFonts class >> sourceSansPro600Semibold [
-	^ self fontNamed: 'SourceSansPro-Semibold.ttf' fromFolderNamed: self fontsSourceSansProFolderName
-	"^ (self fontsSourceSansProFolder / 'SourceSansPro-Semibold.ttf') binaryReadStreamDo: [ :aFileStream | aFileStream contents ]"
+	^ self fontNamed: 'Source Sans Pro 600.ttf' fromFolderNamed: self fontsSourceSansProFolderName
 ]
 
-{ #category : #fonts }
+{ #category : #'fonts - source sans pro' }
 BrGlamorousFonts class >> sourceSansPro600italicSemibold [
-	^ self fontNamed: 'SourceSansPro-SemiboldIt.ttf' fromFolderNamed: self fontsSourceSansProFolderName
-	"^ (self fontsSourceSansProFolder / 'SourceSansPro-SemiboldIt.ttf') binaryReadStreamDo: [ :aFileStream | aFileStream contents ]"
+	^ self fontNamed: 'Source Sans Pro 600italic.ttf' fromFolderNamed: self fontsSourceSansProFolderName
 ]
 
-{ #category : #fonts }
+{ #category : #'fonts - source sans pro' }
 BrGlamorousFonts class >> sourceSansPro700Bold [
-	^ self fontNamed: 'SourceSansPro-Bold.ttf' fromFolderNamed: self fontsSourceSansProFolderName
-	"^ (self fontsSourceSansProFolder / 'SourceSansPro-Bold.ttf') binaryReadStreamDo: [ :aFileStream | aFileStream contents ]"
+	^ self fontNamed: 'Source Sans Pro 700.ttf' fromFolderNamed: self fontsSourceSansProFolderName
 ]
 
-{ #category : #fonts }
+{ #category : #'fonts - source sans pro' }
 BrGlamorousFonts class >> sourceSansPro700italicBold [
-	^ self fontNamed: 'SourceSansPro-BoldIt.ttf' fromFolderNamed: self fontsSourceSansProFolderName
-	"^ (self fontsSourceSansProFolder / 'SourceSansPro-BoldIt.ttf') binaryReadStreamDo: [ :aFileStream | aFileStream contents ]"
+	^ self fontNamed: 'Source Sans Pro 700italic.ttf' fromFolderNamed: self fontsSourceSansProFolderName
 ]
 
-{ #category : #fonts }
+{ #category : #'fonts - source sans pro' }
 BrGlamorousFonts class >> sourceSansPro900Black [
-	^ self fontNamed: 'SourceSansPro-Black.ttf' fromFolderNamed: self fontsSourceSansProFolderName
-	"^ (self fontsSourceSansProFolder / 'SourceSansPro-Black.ttf') binaryReadStreamDo: [ :aFileStream | aFileStream contents ]"
+	^ self fontNamed: 'Source Sans Pro 900.ttf' fromFolderNamed: self fontsSourceSansProFolderName
 ]
 
-{ #category : #fonts }
+{ #category : #'fonts - source sans pro' }
 BrGlamorousFonts class >> sourceSansPro900italicBlack [
-	^ self fontNamed: 'SourceSansPro-BlackIt.ttf' fromFolderNamed: self fontsSourceSansProFolderName
-	"^ (self fontsSourceSansProFolder / 'SourceSansPro-BlackIt.ttf') binaryReadStreamDo: [ :aFileStream | aFileStream contents ]"
+	^ self fontNamed: 'Source Sans Pro 900italic.ttf' fromFolderNamed: self fontsSourceSansProFolderName
 ]
 
 { #category : #initialization }
