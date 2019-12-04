@@ -50,12 +50,14 @@ BrTextStylerAsyncStrategy >> style: aBlText afterDo: aBlock [
 	self view ifNil: [ 
 		"A graphical widget is not available, we therefore do not need to style the text"
 		^ self ].
-	monitor critical: [ 
-		self terminateBackgroundStylingProcess.
-		backgroundProcess := [
-			self doStyle: aBlText afterDo: aBlock 
-		] forkAt: Processor userBackgroundPriority named: 'Text Styler Async Task' 
-	]
+	BlUseAsyncFeatures 
+		ifEnabledDo: [  
+			monitor critical: [ 
+				self terminateBackgroundStylingProcess.
+				backgroundProcess := [
+					self doStyle: aBlText afterDo: aBlock 
+				] forkAt: Processor userBackgroundPriority named: 'Text Styler Async Task' ] ]
+		otherwise: [ self doStyle: aBlText afterDo: aBlock ]
 ]
 
 { #category : #private }
