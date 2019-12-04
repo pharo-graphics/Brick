@@ -20,6 +20,16 @@ BrGlamorousButtonExteriorLook >> backgroundPaint: aPaint [
 ]
 
 { #category : #accessing }
+BrGlamorousButtonExteriorLook >> borderPaint [
+	^ borderPaint
+]
+
+{ #category : #accessing }
+BrGlamorousButtonExteriorLook >> borderPaint: aColor [
+	borderPaint := aColor
+]
+
+{ #category : #accessing }
 BrGlamorousButtonExteriorLook >> borderWidth [
 	^ borderWidth
 ]
