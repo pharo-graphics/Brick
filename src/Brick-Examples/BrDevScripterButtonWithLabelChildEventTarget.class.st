@@ -35,6 +35,13 @@ BrDevScripterButtonWithLabelChildEventTarget >> findTargetIn: anElement [
 		findTargetIn: anElement
 ]
 
+{ #category : #accessing }
+BrDevScripterButtonWithLabelChildEventTarget >> identifier [
+	^ self buttonLabel 
+		ifNotNil: [ BrButton name asString, ' label: ', self buttonLabel asString ]
+		ifNil: [ self ]
+]
+
 { #category : #printing }
 BrDevScripterButtonWithLabelChildEventTarget >> printOn: aStream [
 	self buttonLabel ifNil: [ ^ super printOn: aStream ].
