@@ -1,12 +1,18 @@
 Class {
 	#name : #BrGlamorousResizerLook,
 	#superclass : #BrResizerLook,
+	#instVars : [
+		'thickness'
+	],
 	#category : #'Brick-Glamorous-Resizer'
 }
 
 { #category : #initialization }
 BrGlamorousResizerLook >> initialize [
 	super initialize.
+	
+	thickness := 1.
+	
 	self
 		add:
 			(BrResizerInteractiveLook new
@@ -34,12 +40,12 @@ BrGlamorousResizerLook >> initialize [
 					aWidget
 						constraintsDo: [ :c | 
 							c horizontal matchParent.
-							c vertical exact: 1.
+							c vertical exact: self thickness.
 							c ignored horizontal weight: 0.4 ] ];
 				horizontal: [ :aWidget | 
 					aWidget
 						constraintsDo: [ :c | 
-							c horizontal exact: 1.
+							c horizontal exact: self thickness.
 							c vertical matchParent.
 							c ignored vertical weight: 0.4 ] ]).
 	self
@@ -48,4 +54,14 @@ BrGlamorousResizerLook >> initialize [
 	self
 		addChangeProperty: #(widget geometry)
 		with: [ BlRectangle cornerRadius: 2 ]
+]
+
+{ #category : #accessing }
+BrGlamorousResizerLook >> thickness [
+	^ thickness
+]
+
+{ #category : #accessing }
+BrGlamorousResizerLook >> thickness: anObject [
+	thickness := anObject
 ]
