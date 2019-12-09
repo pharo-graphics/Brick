@@ -9,6 +9,10 @@ Class {
 
 { #category : #initialization }
 BrLookAddChildChange >> containerOn: aLook [
+
+	path
+		ifEmpty: [ ^ aLook widget ].
+	
 	self flag: 'ugly hack around widgetContent'.
 	^ path first = #content
 		ifTrue: [ path size >= 2
