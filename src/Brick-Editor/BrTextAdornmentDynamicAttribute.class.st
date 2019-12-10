@@ -46,3 +46,16 @@ BrTextAdornmentDynamicAttribute >> doAffect: aBlText in: anEditorElement [
 BrTextAdornmentDynamicAttribute >> stencil: anAdornmentStencilBuilder [
 	stencilBuilder := anAdornmentStencilBuilder asStencilBuilder: BrTextAdornmentStencilBuilder
 ]
+
+{ #category : #printing }
+BrTextAdornmentDynamicAttribute >> storeOn: aStream [
+	super storeOn: aStream.
+	
+	aStream
+		space;
+		nextPutAll: #stencil: asString;
+		space;
+		nextPut: $(;
+		store: stencilBuilder;
+		nextPut: $)
+]

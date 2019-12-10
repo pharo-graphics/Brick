@@ -102,6 +102,16 @@ BrTextAdornmentAttribute >> shouldReplace [
 	^ shouldAppend not
 ]
 
+{ #category : #printing }
+BrTextAdornmentAttribute >> storeOn: aStream [
+	super storeOn: aStream.
+	
+	aStream nextPutAll: ' '.
+	aStream nextPutAll: (shouldAppend
+		ifTrue: [ #beAppend ]
+		ifFalse: [ #beReplace ]) asString
+]
+
 { #category : #comparing }
 BrTextAdornmentAttribute >> type [
 	^ self
