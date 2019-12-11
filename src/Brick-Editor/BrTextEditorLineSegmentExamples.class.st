@@ -919,7 +919,7 @@ BrTextEditorLineSegmentExamples >> insert_CrLf_in_Hello_At_5 [
 	self assert: aTextEditor segmentCollector segments first textInterval equals: (0 to: 5).
 	self assert: aTextEditor segmentCollector segments first text asString equals: 'Hello'.
 	self assert: aTextEditor segmentCollector segments second textInterval equals: (6 to: 6).
-	self assert: aTextEditor segmentCollector segments second text asString equals: String crlf.
+	self assert: aTextEditor segmentCollector segments second text asString equals: ''.
 	self assert: aTextEditor segmentCollector cachedInterval equals: (1 to: 2).
 
 	^ aTextEditor
@@ -1006,7 +1006,7 @@ BrTextEditorLineSegmentExamples >> insert_NewLineCrLf_in_HACrBA_At_3 [
 	self assert: aTextEditor segmentCollector segments first textInterval equals: (0 to: 2).
 	self assert: aTextEditor segmentCollector segments first text asString equals: 'HA'.
 	self assert: aTextEditor segmentCollector segments second textInterval equals: (3 to: 3).
-	self assert: aTextEditor segmentCollector segments second text asString equals: String cr.
+	self assert: aTextEditor segmentCollector segments second text asString equals: ''.
 	self assert: aTextEditor segmentCollector segments third textInterval equals: (4 to: 6).
 	self assert: aTextEditor segmentCollector segments third text asString equals: 'BA'.
 	self assert: aTextEditor segmentCollector cachedInterval equals: (1 to: 3).
@@ -1108,7 +1108,7 @@ BrTextEditorLineSegmentExamples >> insert_NewLine_in_BA_At_2 [
 	self assert: aTextEditor segmentCollector segments first textInterval equals: (0 to: 2).
 	self assert: aTextEditor segmentCollector segments first text asString equals: 'BA'.
 	self assert: aTextEditor segmentCollector segments second textInterval equals: (3 to: 3).
-	self assert: aTextEditor segmentCollector segments second text asString equals: String cr.
+	self assert: aTextEditor segmentCollector segments second text asString equals: ''.
 	self assert: aTextEditor segmentCollector cachedInterval equals: (1 to: 2).
 
 	^ aTextEditor
@@ -1148,7 +1148,7 @@ BrTextEditorLineSegmentExamples >> insert_NewLine_in_CrCDCrBA_At_0 [
 	self assert: aTextEditor segmentCollector segments first textInterval equals: (0 to: 0).
 	self assert: aTextEditor segmentCollector segments first text asString equals: ''.
 	self assert: aTextEditor segmentCollector segments second textInterval equals: (1 to: 1).
-	self assert: aTextEditor segmentCollector segments second text asString equals: String cr.
+	self assert: aTextEditor segmentCollector segments second text asString equals: ''.
 	self assert: aTextEditor segmentCollector segments third textInterval equals: (2 to: 4).
 	self assert: aTextEditor segmentCollector segments third text asString equals: 'CD'.
 	self assert: aTextEditor segmentCollector segments fourth textInterval equals: (5 to: 7).
@@ -1171,7 +1171,7 @@ BrTextEditorLineSegmentExamples >> insert_NewLine_in_CrCDCrBA_At_1 [
 	self assert: aTextEditor segmentCollector segments first textInterval equals: (0 to: 0).
 	self assert: aTextEditor segmentCollector segments first text asString equals: ''.
 	self assert: aTextEditor segmentCollector segments second textInterval equals: (1 to: 1).
-	self assert: aTextEditor segmentCollector segments second text asString equals: String cr.
+	self assert: aTextEditor segmentCollector segments second text asString equals: ''.
 	self assert: aTextEditor segmentCollector segments third textInterval equals: (2 to: 4).
 	self assert: aTextEditor segmentCollector segments third text asString equals: 'CD'.
 	self assert: aTextEditor segmentCollector segments fourth textInterval equals: (5 to: 7).
@@ -1270,7 +1270,7 @@ BrTextEditorLineSegmentExamples >> insert_NewLine_in_HABA_At_4 [
 	self assert: aTextEditor segmentCollector segments first textInterval equals: (0 to: 4).
 	self assert: aTextEditor segmentCollector segments first text asString equals: 'HABA'.
 	self assert: aTextEditor segmentCollector segments second textInterval equals: (5 to: 5).
-	self assert: aTextEditor segmentCollector segments second text asString equals: String cr.
+	self assert: aTextEditor segmentCollector segments second text asString equals: ''.
 	self assert: aTextEditor segmentCollector cachedInterval equals: (1 to: 2).
 
 	^ aTextEditor
@@ -1289,7 +1289,7 @@ BrTextEditorLineSegmentExamples >> insert_NewLine_in_HACrBA_At_2 [
 	self assert: aTextEditor segmentCollector segments first textInterval equals: (0 to: 2).
 	self assert: aTextEditor segmentCollector segments first text asString equals: 'HA'.
 	self assert: aTextEditor segmentCollector segments second textInterval equals: (3 to: 3).
-	self assert: aTextEditor segmentCollector segments second text asString equals: String cr.
+	self assert: aTextEditor segmentCollector segments second text asString equals: ''.
 	self assert: aTextEditor segmentCollector segments third textInterval equals: (4 to: 6).
 	self assert: aTextEditor segmentCollector segments third text asString equals: 'BA'.
 	self assert: aTextEditor segmentCollector cachedInterval equals: (1 to: 3).
@@ -1310,7 +1310,7 @@ BrTextEditorLineSegmentExamples >> insert_NewLine_in_HACrBA_At_3 [
 	self assert: aTextEditor segmentCollector segments first textInterval equals: (0 to: 2).
 	self assert: aTextEditor segmentCollector segments first text asString equals: 'HA'.
 	self assert: aTextEditor segmentCollector segments second textInterval equals: (3 to: 3).
-	self assert: aTextEditor segmentCollector segments second text asString equals: String cr.
+	self assert: aTextEditor segmentCollector segments second text asString equals: ''.
 	self assert: aTextEditor segmentCollector segments third textInterval equals: (4 to: 6).
 	self assert: aTextEditor segmentCollector segments third text asString equals: 'BA'.
 	self assert: aTextEditor segmentCollector cachedInterval equals: (1 to: 3).
@@ -1331,10 +1331,248 @@ BrTextEditorLineSegmentExamples >> insert_NewLine_in_HeCrllo_At_3 [
 	self assert: aTextEditor segmentCollector segments first textInterval equals: (0 to: 2).
 	self assert: aTextEditor segmentCollector segments first text asString equals: 'He'.
 	self assert: aTextEditor segmentCollector segments second textInterval equals: (3 to: 3).
-	self assert: aTextEditor segmentCollector segments second text asString equals: String cr.
+	self assert: aTextEditor segmentCollector segments second text asString equals: ''.
 	self assert: aTextEditor segmentCollector segments third textInterval equals: (4 to: 7).
 	self assert: aTextEditor segmentCollector segments third text asString equals: 'llo'.
 	self assert: aTextEditor segmentCollector cachedInterval equals: (1 to: 3).
+
+	^ aTextEditor
+]
+
+{ #category : #'examples - insertion' }
+BrTextEditorLineSegmentExamples >> insert_NewLine_in_HelloCrWorldCr_WithAppendingAfterWorld_at_5 [
+	<gtExample>
+	| aTextEditor aSegment thePieces |
+	aTextEditor := self pieces_HelloCrWorldCr_WithAppendingAfterWorld.
+	
+	aTextEditor insertString: String cr at: 5.
+
+	self assert: aTextEditor segmentCollector computedSegmentsCount equals: 4.
+	
+	aSegment := aTextEditor segmentCollector segments first.
+	self assert: aSegment index equals: 1.
+	self assert: aSegment text asString equals: 'Hello'.
+	self assert: aSegment textStart equals: 0.
+	self assert: aSegment textEnd equals: 5.
+	
+	aSegment := aTextEditor segmentCollector segments second.
+	self assert: aSegment index equals: 2.
+	self assert: aSegment text asString equals: ''.
+	self assert: aSegment textStart equals: 6.
+	self assert: aSegment textEnd equals: 6.
+	
+	aSegment := aTextEditor segmentCollector segments third.
+	self assert: aSegment index equals: 3.
+	self assert: aSegment text asString equals: 'World'.
+	self assert: aSegment textStart equals: 7.
+	self assert: aSegment textEnd equals: 12.
+	
+	aSegment := aTextEditor segmentCollector segments fourth.
+	self assert: aSegment index equals: 4.
+	self assert: aSegment text asString equals: ''.
+	self assert: aSegment textStart equals: 13.
+	self assert: aSegment textEnd equals: 13.
+	
+	thePieces := aTextEditor segmentCollector segments first pieces.
+	self assert: thePieces size equals: 1.
+	
+	self assert: (thePieces first isKindOf: BrTextEditorLineSegmentTextPiece).
+	self assert: thePieces first textStart equals: 0.
+	self assert: thePieces first textEnd equals: 5.
+	
+	thePieces := aTextEditor segmentCollector segments second pieces.
+	self assert: thePieces size equals: 1.
+	
+	self assert: (thePieces first isKindOf: BrTextEditorLineSegmentTextPiece).
+	self assert: thePieces first textStart equals: 6.
+	self assert: thePieces first textEnd equals: 6.
+	
+	thePieces := aTextEditor segmentCollector segments third pieces.
+	self assert: thePieces size equals: 2.
+	
+	self assert: (thePieces first isKindOf: BrTextEditorLineSegmentTextPiece).
+	self assert: thePieces first textStart equals: 7.
+	self assert: thePieces first textEnd equals: 12.
+	
+	self assert: (thePieces second isKindOf: BrTextEditorLineSegmentAdornmentPiece).
+	self assert: thePieces second textStart equals: 7.
+	self assert: thePieces second textEnd equals: 12.
+	self assert: thePieces second adornmentAttribute shouldAppend.
+	
+	self assert: (thePieces first text ~~ thePieces second text).
+	
+	thePieces := aTextEditor segmentCollector segments fourth pieces.
+	self assert: thePieces size equals: 1.
+
+	self assert: (thePieces first isKindOf: BrTextEditorLineSegmentTextPiece).
+	self assert: thePieces first textStart equals: 13.
+	self assert: thePieces first textEnd equals: 13.
+	
+	self assert: (thePieces first text ~~ aTextEditor segmentCollector segments fourth text).
+
+	^ aTextEditor
+]
+
+{ #category : #'examples - insertion' }
+BrTextEditorLineSegmentExamples >> insert_NewLine_in_HelloWorld_WithReplacementAndAppendingOfWorld_at_0 [
+	<gtExample>
+	| aTextEditor aSegment thePieces |
+	aTextEditor := self pieces_Hello_World_WithReplacementAndAppendingOfWorld.
+	
+	aTextEditor insertString: String cr at: 0.
+
+	self assert: aTextEditor segmentCollector computedSegmentsCount equals: 3.
+	
+	aSegment := aTextEditor segmentCollector segments first.
+	self assert: aSegment index equals: 1.
+	self assert: aSegment text asString equals: ''.
+	self assert: aSegment textStart equals: 0.
+	self assert: aSegment textEnd equals: 0.
+	
+	aSegment := aTextEditor segmentCollector segments second.
+	self assert: aSegment index equals: 2.
+	self assert: aSegment text asString equals: 'Hello'.
+	self assert: aSegment textStart equals: 1.
+	self assert: aSegment textEnd equals: 6.
+	
+	aSegment := aTextEditor segmentCollector segments third.
+	self assert: aSegment index equals: 3.
+	self assert: aSegment text asString equals: 'World'.
+	self assert: aSegment textStart equals: 7.
+	self assert: aSegment textEnd equals: 12.
+	
+	thePieces := aTextEditor segmentCollector segments first pieces.
+	self assert: thePieces size equals: 1.
+	
+	self assert: (thePieces first isKindOf: BrTextEditorLineSegmentTextPiece).
+	self assert: thePieces first textStart equals: 0.
+	self assert: thePieces first textEnd equals: 0.
+	
+	thePieces := aTextEditor segmentCollector segments second pieces.
+	self assert: thePieces size equals: 1.
+	
+	self assert: (thePieces first isKindOf: BrTextEditorLineSegmentTextPiece).
+	self assert: thePieces first textStart equals: 1.
+	self assert: thePieces first textEnd equals: 6.
+	
+	thePieces := aTextEditor segmentCollector segments third pieces.
+	self assert: thePieces size equals: 2.
+	
+	self assert: (thePieces first isKindOf: BrTextEditorLineSegmentAdornmentPiece).
+	self assert: thePieces first textStart equals: 7.
+	self assert: thePieces first textEnd equals: 12.
+	self assert: thePieces first adornmentAttribute shouldReplace.
+	
+	self assert: (thePieces second isKindOf: BrTextEditorLineSegmentAdornmentPiece).
+	self assert: thePieces second textStart equals: 7.
+	self assert: thePieces second textEnd equals: 12.
+	self assert: thePieces second adornmentAttribute shouldAppend.
+
+	^ aTextEditor
+]
+
+{ #category : #'examples - insertion' }
+BrTextEditorLineSegmentExamples >> insert_NewLine_in_HelloWorld_WithReplacementOfWorld_at_0 [
+	<gtExample>
+	| aTextEditor aSegment thePieces |
+	aTextEditor := self pieces_Hello_World_WithReplacementOfWorld.
+	
+	aTextEditor insertString: String cr at: 0.
+
+	self assert: aTextEditor segmentCollector computedSegmentsCount equals: 3.
+	
+	aSegment := aTextEditor segmentCollector segments first.
+	self assert: aSegment index equals: 1.
+	self assert: aSegment text asString equals: ''.
+	self assert: aSegment textStart equals: 0.
+	self assert: aSegment textEnd equals: 0.
+	
+	aSegment := aTextEditor segmentCollector segments second.
+	self assert: aSegment index equals: 2.
+	self assert: aSegment text asString equals: 'Hello'.
+	self assert: aSegment textStart equals: 1.
+	self assert: aSegment textEnd equals: 6.
+	
+	aSegment := aTextEditor segmentCollector segments third.
+	self assert: aSegment index equals: 3.
+	self assert: aSegment text asString equals: 'World'.
+	self assert: aSegment textStart equals: 7.
+	self assert: aSegment textEnd equals: 12.
+	
+	thePieces := aTextEditor segmentCollector segments first pieces.
+	self assert: thePieces size equals: 1.
+	
+	self assert: (thePieces first isKindOf: BrTextEditorLineSegmentTextPiece).
+	self assert: thePieces first textStart equals: 0.
+	self assert: thePieces first textEnd equals: 0.
+	
+	thePieces := aTextEditor segmentCollector segments second pieces.
+	self assert: thePieces size equals: 1.
+	
+	self assert: (thePieces first isKindOf: BrTextEditorLineSegmentTextPiece).
+	self assert: thePieces first textStart equals: 1.
+	self assert: thePieces first textEnd equals: 6.
+	
+	thePieces := aTextEditor segmentCollector segments third pieces.
+	self assert: thePieces size equals: 1.
+	
+	self assert: (thePieces first isKindOf: BrTextEditorLineSegmentAdornmentPiece).
+	self assert: thePieces first textStart equals: 7.
+	self assert: thePieces first textEnd equals: 12.
+	self assert: thePieces first adornmentAttribute shouldReplace.
+
+	^ aTextEditor
+]
+
+{ #category : #'examples - insertion' }
+BrTextEditorLineSegmentExamples >> insert_NewLine_in_HelloWorld_WithReplacementOfWorld_at_5 [
+	<gtExample>
+	| aTextEditor aSegment thePieces |
+	aTextEditor := self pieces_Hello_World_WithReplacementOfWorld.
+	
+	aTextEditor insertString: String cr at: 5.
+
+	self assert: aTextEditor segmentCollector computedSegmentsCount equals: 3.
+	
+	aSegment := aTextEditor segmentCollector segments first.
+	self assert: aSegment index equals: 1.
+	self assert: aSegment text asString equals: 'Hello'.
+	self assert: aSegment textStart equals: 0.
+	self assert: aSegment textEnd equals: 5.
+	
+	aSegment := aTextEditor segmentCollector segments second.
+	self assert: aSegment index equals: 2.
+	self assert: aSegment text asString equals: ''.
+	self assert: aSegment textStart equals: 6.
+	self assert: aSegment textEnd equals: 6.
+	
+	aSegment := aTextEditor segmentCollector segments third.
+	self assert: aSegment index equals: 3.
+	self assert: aSegment text asString equals: 'World'.
+	self assert: aSegment textStart equals: 7.
+	self assert: aSegment textEnd equals: 12.
+	
+	thePieces := aTextEditor segmentCollector segments first pieces.
+	self assert: thePieces size equals: 1.
+	
+	self assert: (thePieces first isKindOf: BrTextEditorLineSegmentTextPiece).
+	self assert: thePieces first textStart equals: 0.
+	self assert: thePieces first textEnd equals: 5.
+	
+	thePieces := aTextEditor segmentCollector segments second pieces.
+	self assert: thePieces size equals: 1.
+	
+	self assert: (thePieces first isKindOf: BrTextEditorLineSegmentTextPiece).
+	self assert: thePieces first textStart equals: 6.
+	self assert: thePieces first textEnd equals: 6.
+	
+	thePieces := aTextEditor segmentCollector segments third pieces.
+	self assert: thePieces size equals: 1.
+	
+	self assert: (thePieces first isKindOf: BrTextEditorLineSegmentAdornmentPiece).
+	self assert: thePieces first textStart equals: 7.
+	self assert: thePieces first textEnd equals: 12.
+	self assert: thePieces first adornmentAttribute shouldReplace.
 
 	^ aTextEditor
 ]
@@ -1371,7 +1609,7 @@ BrTextEditorLineSegmentExamples >> insert_NewLine_in_Hello_At_5 [
 	self assert: aTextEditor segmentCollector segments first textInterval equals: (0 to: 5).
 	self assert: aTextEditor segmentCollector segments first text asString equals: 'Hello'.
 	self assert: aTextEditor segmentCollector segments second textInterval equals: (6 to: 6).
-	self assert: aTextEditor segmentCollector segments second text asString equals: String cr.
+	self assert: aTextEditor segmentCollector segments second text asString equals: ''.
 	self assert: aTextEditor segmentCollector cachedInterval equals: (1 to: 2).
 
 	^ aTextEditor
@@ -1392,7 +1630,7 @@ BrTextEditorLineSegmentExamples >> insert_haCrCrbaCr_inHelloAt_2 [
 	self assert: aTextEditor segmentCollector segments first textInterval equals: (0 to: 4).
 	self assert: aTextEditor segmentCollector segments first text asString equals: 'Heha'.
 	self assert: aTextEditor segmentCollector segments second textInterval equals: (5 to: 5).
-	self assert: aTextEditor segmentCollector segments second text asString equals: String cr.
+	self assert: aTextEditor segmentCollector segments second text asString equals: ''.
 	self assert: aTextEditor segmentCollector segments third textInterval equals: (6 to: 8).
 	self assert: aTextEditor segmentCollector segments third text asString equals: 'ba'.
 	self assert: aTextEditor segmentCollector segments fourth textInterval equals: (9 to: 12).
@@ -1467,6 +1705,70 @@ BrTextEditorLineSegmentExamples >> pieces_HelloCrLf [
 	self assert: theSecondPieces first textStart equals: 6.
 	self assert: theSecondPieces first textEnd equals: 6.
 	self assert: (theSecondPieces first globalTextIndexToLocal: 6) equals: 0.
+	
+	^ aTextEditor
+]
+
+{ #category : #'examples - pieces' }
+BrTextEditorLineSegmentExamples >> pieces_HelloCrWorldCr_WithAppendingAfterWorld [
+	<gtExample>
+	| aTextEditor aSegment thePieces |
+	
+	aTextEditor := self emptyEditor.
+	aTextEditor text: self text_HelloCrWorldCr_WithAppendingAfterWorld.
+	
+	self assert: aTextEditor segmentCollector computedSegmentsCount equals: 3.
+	
+	aSegment := aTextEditor segmentCollector segments first.
+	self assert: aSegment index equals: 1.
+	self assert: aSegment text asString equals: 'Hello'.
+	self assert: aSegment textStart equals: 0.
+	self assert: aSegment textEnd equals: 5.
+	
+	aSegment := aTextEditor segmentCollector segments second.
+	self assert: aSegment index equals: 2.
+	self assert: aSegment text asString equals: 'World'.
+	self assert: aSegment textStart equals: 6.
+	self assert: aSegment textEnd equals: 11.
+	
+	aSegment := aTextEditor segmentCollector segments third.
+	self assert: aSegment index equals: 3.
+	self assert: aSegment text asString equals: ''.
+	self assert: aSegment textStart equals: 12.
+	self assert: aSegment textEnd equals: 12.
+	
+	thePieces := aTextEditor segmentCollector segments first pieces.
+	self assert: thePieces size equals: 1.
+	
+	self assert: (thePieces first isKindOf: BrTextEditorLineSegmentTextPiece).
+	self assert: thePieces first textStart equals: 0.
+	self assert: thePieces first textEnd equals: 5.
+
+	self assert: (thePieces first text ~~ aTextEditor segmentCollector segments first text).
+	
+	thePieces := aTextEditor segmentCollector segments second pieces.
+	self assert: thePieces size equals: 2.
+	
+	self assert: (thePieces first isKindOf: BrTextEditorLineSegmentTextPiece).
+	self assert: thePieces first textStart equals: 6.
+	self assert: thePieces first textEnd equals: 11.
+	
+	self assert: (thePieces second isKindOf: BrTextEditorLineSegmentAdornmentPiece).
+	self assert: thePieces second textStart equals: 6.
+	self assert: thePieces second textEnd equals: 11.
+	self assert: thePieces second adornmentAttribute shouldAppend.
+	
+	self assert: (thePieces first text ~~ thePieces second text).
+	self assert: (thePieces first text ~~ aTextEditor segmentCollector segments second text).
+	
+	thePieces := aTextEditor segmentCollector segments third pieces.
+	self assert: thePieces size equals: 1.
+
+	self assert: (thePieces first isKindOf: BrTextEditorLineSegmentTextPiece).
+	self assert: thePieces first textStart equals: 12.
+	self assert: thePieces first textEnd equals: 12.
+	
+	self assert: (thePieces first text ~~ aTextEditor segmentCollector segments third text).
 	
 	^ aTextEditor
 ]
@@ -1597,12 +1899,60 @@ BrTextEditorLineSegmentExamples >> pieces_Hello_World [
 ]
 
 { #category : #'examples - pieces' }
-BrTextEditorLineSegmentExamples >> pieces_Hello_World_WithReplacement [
+BrTextEditorLineSegmentExamples >> pieces_Hello_World_WithReplacementAndAppendingOfWorld [
+	<gtExample>
+	| aTextEditor thePieces aSegment |
+	
+	aTextEditor := self emptyEditor.
+	aTextEditor text: self text_HelloCrWorld_WithReplacementAndAppendingOfWorld.
+	
+	self assert: aTextEditor segmentCollector computedSegmentsCount equals: 2.
+	
+	aSegment := aTextEditor segmentCollector segments first.
+	self assert: aSegment index equals: 1.
+	self assert: aSegment text asString equals: 'Hello'.
+	self assert: aSegment textStart equals: 0.
+	self assert: aSegment textEnd equals: 5.
+	
+	aSegment := aTextEditor segmentCollector segments second.
+	self assert: aSegment index equals: 2.
+	self assert: aSegment text asString equals: 'World'.
+	self assert: aSegment textStart equals: 6.
+	self assert: aSegment textEnd equals: 11.
+	
+	thePieces := aTextEditor segmentCollector segments first pieces.
+	self assert: thePieces size equals: 1.
+	
+	self assert: (thePieces first isKindOf: BrTextEditorLineSegmentTextPiece).
+	self assert: thePieces first textStart equals: 0.
+	self assert: thePieces first textEnd equals: 5.
+	
+	thePieces := aTextEditor segmentCollector segments second pieces.
+	self assert: thePieces size equals: 2.
+	
+	self assert: (thePieces first isKindOf: BrTextEditorLineSegmentAdornmentPiece).
+	self assert: thePieces first textStart equals: 6.
+	self assert: thePieces first textEnd equals: 11.
+	self assert: thePieces first adornmentAttribute shouldReplace.
+	
+	self assert: (thePieces second isKindOf: BrTextEditorLineSegmentAdornmentPiece).
+	self assert: thePieces second textStart equals: 6.
+	self assert: thePieces second textEnd equals: 11.
+	self assert: thePieces second adornmentAttribute shouldAppend.
+	
+	"it is very important that pieces do not share same sub-text instance"
+	self assert: (thePieces first text ~~ thePieces second text).
+	
+	^ aTextEditor
+]
+
+{ #category : #'examples - pieces' }
+BrTextEditorLineSegmentExamples >> pieces_Hello_World_WithReplacementOfLineBreak [
 	<gtExample>
 	| aTextEditor thePieces |
 	
 	aTextEditor := self emptyEditor.
-	aTextEditor text: self text_Hello_World_WithReplacement.
+	aTextEditor text: self text_Hello_World_WithReplacementOfLineBreak.
 	
 	self assert: aTextEditor segmentCollector computedSegmentsCount equals: 1.
 	
@@ -1620,6 +1970,46 @@ BrTextEditorLineSegmentExamples >> pieces_Hello_World_WithReplacement [
 	self assert: (thePieces third isKindOf: BrTextEditorLineSegmentTextPiece).
 	self assert: thePieces third textStart equals: 8.
 	self assert: thePieces third textEnd equals: 11.
+	
+	^ aTextEditor
+]
+
+{ #category : #'examples - pieces' }
+BrTextEditorLineSegmentExamples >> pieces_Hello_World_WithReplacementOfWorld [
+	<gtExample>
+	| aTextEditor aSegment thePieces |
+	
+	aTextEditor := self emptyEditor.
+	aTextEditor text: self text_HelloCrWorld_WithReplacementOfWorld.
+	
+	self assert: aTextEditor segmentCollector computedSegmentsCount equals: 2.
+	
+	aSegment := aTextEditor segmentCollector segments first.
+	self assert: aSegment index equals: 1.
+	self assert: aSegment text asString equals: 'Hello'.
+	self assert: aSegment textStart equals: 0.
+	self assert: aSegment textEnd equals: 5.
+	
+	aSegment := aTextEditor segmentCollector segments second.
+	self assert: aSegment index equals: 2.
+	self assert: aSegment text asString equals: 'World'.
+	self assert: aSegment textStart equals: 6.
+	self assert: aSegment textEnd equals: 11.
+	
+	thePieces := aTextEditor segmentCollector segments first pieces.
+	self assert: thePieces size equals: 1.
+	
+	self assert: (thePieces first isKindOf: BrTextEditorLineSegmentTextPiece).
+	self assert: thePieces first textStart equals: 0.
+	self assert: thePieces first textEnd equals: 5.
+	
+	thePieces := aTextEditor segmentCollector segments second pieces.
+	self assert: thePieces size equals: 1.
+	
+	self assert: (thePieces first isKindOf: BrTextEditorLineSegmentAdornmentPiece).
+	self assert: thePieces first textStart equals: 6.
+	self assert: thePieces first textEnd equals: 11.
+	self assert: thePieces first adornmentAttribute shouldReplace.
 	
 	^ aTextEditor
 ]
@@ -2206,6 +2596,54 @@ BrTextEditorLineSegmentExamples >> text_HelloCrWorld [
 ]
 
 { #category : #'instance creation - text' }
+BrTextEditorLineSegmentExamples >> text_HelloCrWorldCr_WithAppendingAfterWorld [
+	<gtExample>
+	| aText |
+
+	aText := ('Hello', String cr, 'World', String cr) asRopedText fontSize: 20.
+	(aText from: 7 to: 11)
+		appendingAdornment: [ BlElement new size: 6@6; background: Color red ].
+		
+	^ aText
+]
+
+{ #category : #'instance creation - text' }
+BrTextEditorLineSegmentExamples >> text_HelloCrWorldCr_WithReplacementOfWorld [
+	<gtExample>
+	| aText |
+
+	aText := ('Hello', String cr, 'World', String cr) asRopedText fontSize: 20.
+	(aText from: 7 to: 11)
+		replacingAdornment: [ BlElement new size: 6@6; background: Color red ].
+		
+	^ aText
+]
+
+{ #category : #'instance creation - text' }
+BrTextEditorLineSegmentExamples >> text_HelloCrWorld_WithReplacementAndAppendingOfWorld [
+	<gtExample>
+	| aText |
+
+	aText := self text_HelloCrWorld_WithReplacementOfWorld.
+	(aText from: 7 to: 11)
+		appendingAdornment: [ BlElement new size: 6@6; background: Color blue ].
+		
+	^ aText
+]
+
+{ #category : #'instance creation - text' }
+BrTextEditorLineSegmentExamples >> text_HelloCrWorld_WithReplacementOfWorld [
+	<gtExample>
+	| aText |
+
+	aText := ('Hello', String cr, 'World') asRopedText fontSize: 20.
+	(aText from: 7 to: 11)
+		replacingAdornment: [ BlElement new size: 6@6; background: Color red ].
+		
+	^ aText
+]
+
+{ #category : #'instance creation - text' }
 BrTextEditorLineSegmentExamples >> text_Hello_1_WithAppending [
 	<gtExample>
 	| aText |
@@ -2289,7 +2727,19 @@ BrTextEditorLineSegmentExamples >> text_Hello_World_Cr_WithReplacement [
 ]
 
 { #category : #'instance creation - text' }
-BrTextEditorLineSegmentExamples >> text_Hello_World_WithReplacement [
+BrTextEditorLineSegmentExamples >> text_Hello_World_WithReplacementAndAppendingOfLineBreak [
+	<gtExample>
+	| aText |
+
+	aText := self text_Hello_World_WithReplacementOfLineBreak.
+	(aText from: 4 to: 8)
+		appendingAdornment: [ BlElement new size: 6@6; background: Color blue ].	
+	
+	^ aText
+]
+
+{ #category : #'instance creation - text' }
+BrTextEditorLineSegmentExamples >> text_Hello_World_WithReplacementOfLineBreak [
 	<gtExample>
 	| aText |
 
@@ -2297,18 +2747,6 @@ BrTextEditorLineSegmentExamples >> text_Hello_World_WithReplacement [
 	(aText from: 4 to: 8)
 		replacingAdornment: [ BlElement new size: 6@6; background: Color red ].
 		
-	^ aText
-]
-
-{ #category : #'instance creation - text' }
-BrTextEditorLineSegmentExamples >> text_Hello_World_WithReplacementAndAppending [
-	<gtExample>
-	| aText |
-
-	aText := self text_Hello_World_WithReplacement.
-	(aText from: 4 to: 8)
-		appendingAdornment: [ BlElement new size: 6@6; background: Color blue ].	
-	
 	^ aText
 ]
 

@@ -1,13 +1,6 @@
 Extension { #name : #BrTextEditor }
 
 { #category : #'*Brick-Editor-Extensions' }
-BrTextEditor >> gtInspectorSegmentsIn: aComposite [
-	<gtInspectorPresentationOrder: 15>
-
-	^ self segmentCollector gtInspectorSegmentsIn: aComposite
-]
-
-{ #category : #'*Brick-Editor-Extensions' }
 BrTextEditor >> gtLiveFor: aView [
 	<gtView>
 
@@ -21,6 +14,15 @@ BrTextEditor >> gtLiveFor: aView [
 				constraintsDo: [ :c | 
 					c horizontal matchParent.
 					c vertical matchParent ] ]
+]
+
+{ #category : #'*Brick-Editor-Extensions' }
+BrTextEditor >> gtSegmentsFor: aView [
+	<gtView>
+
+	^ (self segmentCollector gtSegmentsFor: aView)
+		title: 'Segments';
+		priority: 10
 ]
 
 { #category : #'*Brick-Editor-Extensions' }

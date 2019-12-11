@@ -197,13 +197,15 @@ BrTextEditorLineSegmentBuilder >> shouldMergeDeletingFrom: aFromIndex segment: a
 ]
 
 { #category : #private }
-BrTextEditorLineSegmentBuilder >> validateIntegrity: anEditor [
+BrTextEditorLineSegmentBuilder >> validateIntegrity: aTextEditor [
 	| anIntegrity |
 	
 	Bloc debugModeEnabled
 		ifFalse: [ ^ self ].
 	
-	anIntegrity := self validateSegmentsIn: anEditor.
+	self validateTextPieceUniquenessIn: aTextEditor.
+	
+	anIntegrity := self validateSegmentsIn: aTextEditor.
 	self
 		assert: [ anIntegrity key ]
 		description: [ anIntegrity value key ].
@@ -260,6 +262,28 @@ BrTextEditorLineSegmentBuilder >> validateSegmentsIn: aTextEditor [
 			aPreviousSegment := aTextEditorLineSegment ].
 
 	^ (true -> 'ok')
+]
+
+{ #category : #private }
+BrTextEditorLineSegmentBuilder >> validateTextPieceUniquenessIn: aTextEditor [
+	| allTextPieces allGroupedTextPieces |
+	
+	allTextPieces := Array streamContents: [ :aStream |
+		aTextEditor segmentCollector segments do: [ :eachSegment |
+			aStream nextPut: eachSegment.
+			eachSegment hasPieces
+				ifTrue: [ eachSegment pieces do: [ :eachPiece | aStream nextPut: eachPiece ] ] ] ].
+	
+	allGroupedTextPieces := OrderedIdentityDictionary new.
+	allTextPieces do: [ :eachPiece |
+		(allGroupedTextPieces
+			at: eachPiece text
+			ifAbsentPut: [ OrderedCollection new ]) add: eachPiece ].
+	
+	allGroupedTextPieces := allGroupedTextPieces select: [ :aGroup | aGroup size > 1 ].
+	self
+		assert: [ allGroupedTextPieces isEmpty ]
+		description: [ 'Some text pieces are not unique!' ].
 ]
 
 { #category : #'api - accessing' }

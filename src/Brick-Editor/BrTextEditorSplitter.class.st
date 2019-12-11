@@ -10,7 +10,7 @@ Class {
 { #category : #'api - splitting' }
 BrTextEditorSplitter >> split: aBlText in: aBrEditorSegmentStream [
 	self
-		split: (aBlText from: (1 min: aBlText size) to: aBlText size)
+		split: (aBlText from: 1 to: aBlText size)
 		in: aBrEditorSegmentStream
 		offset: 0
 ]

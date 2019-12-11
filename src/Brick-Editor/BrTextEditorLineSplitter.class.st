@@ -15,15 +15,13 @@ BrTextEditorLineSplitter >> newSegment [
 { #category : #'instance creation' }
 BrTextEditorLineSplitter >> newSegment: aBlText from: aStartIndex to: anEndIndex delimited: aDelimiterIndex offset: anOffset [
 	| aText anAbsoluteTextStart anAbsoluteTextEnd |
+	"aStartIndex and anEndIndex are given in text coordinates"
 
 	aText := aBlText
 		from: aStartIndex
 		to: anEndIndex.
-	
-	anAbsoluteTextStart := (aText allSatisfy: #isLineBreak)
-		ifTrue: [ aStartIndex ]
-		ifFalse: [ ((aStartIndex - 1) max: 0) ].
 
+	anAbsoluteTextStart := aStartIndex - 1.
 	anAbsoluteTextEnd := anEndIndex.
 
 	^ self newSegment
@@ -37,7 +35,7 @@ BrTextEditorLineSplitter >> split: aBrText in: aBrEditorSegmentStream offset: an
 	| anIterator |
 
 	aBrText isEmpty
-		ifTrue: [ ^ aBrEditorSegmentStream nextPut: (self newSegment: aBrText from: 0 to: 0 delimited: 0 offset: anOffset) ].
+		ifTrue: [ ^ aBrEditorSegmentStream nextPut: (self newSegment: aBrText from: 1 to: 0 delimited: 0 offset: anOffset) ].
 
 	anIterator := aBrText iterator.
 
@@ -52,7 +50,7 @@ BrTextEditorLineSplitter >> split: aBrText in: aBrEditorSegmentStream offset: an
 					ifNone: [ false ] ] ].
 
 	(aBrEditorSegmentStream wantsMore and: [ aBrText last isLineBreak ])
-		ifTrue: [ aBrEditorSegmentStream nextPut: (self newSegment: aBrText from: aBrText size to: aBrText size delimited: aBrText size offset: anOffset) ]
+		ifTrue: [ aBrEditorSegmentStream nextPut: (self newSegment: aBrText from: aBrText size + 1 to: aBrText size delimited: aBrText size offset: anOffset) ]
 ]
 
 { #category : #testing }

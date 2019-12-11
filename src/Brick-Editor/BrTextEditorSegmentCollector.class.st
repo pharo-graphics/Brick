@@ -283,7 +283,7 @@ BrTextEditorSegmentCollector >> computeSubText [
 		description: [ 'There must be cached segments in order to compute sub text' ].
 	
 	subText := text
-		from: (segments first textStart max: text size sign)
+		from: (segments first textStart + 1)
 		to: segments last textEnd
 ]
 
@@ -377,7 +377,7 @@ BrTextEditorSegmentCollector >> initialize [
 	segments := OrderedCollection new.
 	self flag: 'This limit has to be rethought, once the lazy loading of new segments is implemented'.
 	limit := SmallInteger maxVal.
-	subText := BlSubText text: '' asRopedText from: 0 to: 0
+	subText := BlSubText text: '' asRopedText from: 1 to: 0
 ]
 
 { #category : #testing }

@@ -82,19 +82,21 @@ BrTextEditorLineSegmentSplitter >> processWithReplacements: aTextIterator in: aS
 	aTextIterator
 		nextAttributedEnd: [ :eachAttribute | eachAttribute isAdornment ]
 		indicesDo: [ :aStart :anEnd :theAdornmentAttributes |
-			| anAdornmentSpan theAttributes |
+			| theAttributes |
 			
 			theAttributes := theAdornmentAttributes
 				ifEmpty: [ aTextIterator attributes
 					select: [ :eachAttribute | eachAttribute isAdornment and: [ eachAttribute shouldReplace ] ] ].
 			
-			anAdornmentSpan := aTextIterator text from: aStart to: anEnd.
 			theAttributes do: [ :eachAttribute |
-				| aTextStart aTextEnd |
+				| anAdornmentSpan aTextStart aTextEnd |
 				
 				aTextStart := ((aStart - 1) max: 0) + anOffset.
 				aTextEnd := anEnd + anOffset.
 				
+				"adornment span must not be cashed, because each line piece requires a unique sub-text"
+				anAdornmentSpan := aTextIterator text from: aStart to: anEnd.
+					
 				(anAdornmentSpan allSatisfy: #isLineBreak)
 					ifTrue: [ aTextEnd := aTextStart ].
 				
@@ -172,6 +174,7 @@ BrTextEditorLineSegmentSplitter >> processWithoutReplacements: aTextIterator in:
 
 { #category : #splitting }
 BrTextEditorLineSegmentSplitter >> split: aText from: aStartIndex to: anEndIndex [
+	"aStartIndex and anEndIndex are given in cursor coordinates"
 	| thePieces |
 		
 	thePieces := Array streamContents: [ :aStream |
@@ -182,7 +185,7 @@ BrTextEditorLineSegmentSplitter >> split: aText from: aStartIndex to: anEndIndex
 			self processSegment: lineIterator in: aStream offset: aStartIndex ] ].
 
 	thePieces := thePieces
-		ifEmpty:[ { self textPiece: aText from: 0 to: 0 } ]
+		ifEmpty:[ { self textPiece: (aText from: 1 to: aText size) from: aStartIndex to: anEndIndex } ]
 		ifNotEmpty: #yourself.
 
 	^ thePieces
