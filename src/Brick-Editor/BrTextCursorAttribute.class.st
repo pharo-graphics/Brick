@@ -20,7 +20,7 @@ BrTextCursorAttribute >> enterAction: anObject [
 ]
 
 { #category : #events }
-BrTextCursorAttribute >> handleEvent: anEvent in: aTextEditor [
+BrTextCursorAttribute >> handleEvent: anEvent in: aTextEditor on: aTBrTextEditorTextualPiece [
 	"Handle a given event or dispatch it using #sendTo:"
 
 	(anEvent isKindOf: BrTextEditorCursorAddedEvent)

@@ -8,9 +8,7 @@ Class {
 }
 
 { #category : #events }
-BrTextEventHandlerAttribute >> handleEvent: anEvent in: aTextEditor [
-	"Handle a given event or dispatch it using #sendTo:"
-
+BrTextEventHandlerAttribute >> handleEvent: anEvent in: aTextEditor on: aTBrTextEditorTextualPiece [
 	self subclassResponsibility
 ]
 

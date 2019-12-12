@@ -19,6 +19,11 @@ BrTextEditorLineSegmentTextListener class >> uniqueInstance [
 	^ uniqueInstance ifNil: [ uniqueInstance := self new ]
 ]
 
+{ #category : #accessing }
+BrTextEditorLineSegmentTextListener >> eventClass [
+	^ BlMouseEvent
+]
+
 { #category : #events }
 BrTextEditorLineSegmentTextListener >> handleEvent: aBlMouseEvent [
 	| aTextElement anEditorElement aLocalPosition aTextIndex anIterator theAttributes |
@@ -38,22 +43,13 @@ BrTextEditorLineSegmentTextListener >> handleEvent: aBlMouseEvent [
 
 	aTextIndex := aTextElement indexAtScreenPosition: aLocalPosition.
 
-	anIterator := aTextElement text iterator: (aTextIndex max: 1) to: (aTextIndex max: 1).
-	theAttributes := anIterator selectAttributes: [ :anAttribute | anAttribute isKindOf: BrTextEventHandlerAttribute ].
+	anIterator := aTextElement text
+		iterator: (aTextIndex + 1)
+		to: ((aTextIndex + 1) min: aTextElement text size).
+
+	theAttributes := anIterator selectAttributes: [ :anAttribute | anAttribute isEventHandler ].
 
 	theAttributes do: [ :anAttribute |
 		(anAttribute wantsEvent: aBlMouseEvent in: anEditorElement editor)
-			ifTrue: [ anAttribute handleEvent: aBlMouseEvent in: anEditorElement editor ] ]
-]
-
-{ #category : #events }
-BrTextEditorLineSegmentTextListener >> wantsEvent: anEvent [
-	
-	self flag: 'Dirty fix of assertion error.
-	The UI state is upodated after text modification. If a mouse event happens in between
-	then we get an assertion in text isNotEmpty'.
-
-	^ (anEvent isKindOf: BlMouseEvent)
-		and: [anEvent currentTarget isAttachedToSceneGraph
-			and: [ [ anEvent currentTarget text isNotEmpty ] on: Error do: [ false ] ] ]
+			ifTrue: [ anAttribute handleEvent: aBlMouseEvent in: anEditorElement editor on: aTextElement segmentPiece ] ]
 ]

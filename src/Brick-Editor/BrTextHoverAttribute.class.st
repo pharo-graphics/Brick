@@ -3,7 +3,8 @@ Class {
 	#superclass : #BrTextEventHandlerAttribute,
 	#instVars : [
 		'enterAction',
-		'leaveAction'
+		'leaveAction',
+		'isHovered'
 	],
 	#category : #'Brick-Editor-Text-Attributes'
 }
@@ -19,7 +20,7 @@ BrTextHoverAttribute >> enterAction: anObject [
 ]
 
 { #category : #events }
-BrTextHoverAttribute >> handleEvent: anEvent in: aTextEditor [
+BrTextHoverAttribute >> handleEvent: anEvent in: aTextEditor on: aTBrTextEditorTextualPiece [
 	"Handle a given event or dispatch it using #sendTo:"
 
 	(anEvent isKindOf: BlMouseEnterEvent)
@@ -34,7 +35,8 @@ BrTextHoverAttribute >> initialize [
 	super initialize.
 
 	enterAction := [ :aText :aTextElement :aTextEditor :anEvent | ].
-	leaveAction := [ :aText :aTextElement :aTextEditor :anEvent | ]
+	leaveAction := [ :aText :aTextElement :aTextEditor :anEvent | ].
+	isHovered := false
 ]
 
 { #category : #accessing }
@@ -53,6 +55,11 @@ BrTextHoverAttribute >> leaveAction: aBlock [
 
 { #category : #private }
 BrTextHoverAttribute >> performEnterAction: anEvent in: aTextEditor [
+	isHovered
+		ifTrue: [ ^ self ].
+		
+	isHovered := true.
+
 	self enterAction glamourValueWithArgs: {
 		anEvent currentTarget text. "first we pass text"
 		anEvent currentTarget. "then the text piece (word) element"
@@ -62,7 +69,12 @@ BrTextHoverAttribute >> performEnterAction: anEvent in: aTextEditor [
 ]
 
 { #category : #private }
-BrTextHoverAttribute >> performLeaveAction: anEvent in: aTextEditor [
+BrTextHoverAttribute >> performLeaveAction: anEvent in: aTextEditor [	
+	isHovered
+		ifFalse: [ ^ self ].
+
+	isHovered := false.
+	
 	self leaveAction glamourValueWithArgs: {
 		anEvent currentTarget text. "first we pass text"
 		anEvent currentTarget. "then the text piece (word) element"

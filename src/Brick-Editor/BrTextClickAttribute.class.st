@@ -22,21 +22,21 @@ BrTextClickAttribute >> action: aValuable [
 ]
 
 { #category : #events }
-BrTextClickAttribute >> handleEvent: anEvent in: aTextEditor [
-	self performAction: anEvent in: aTextEditor
+BrTextClickAttribute >> handleEvent: anEvent in: aTextEditor on: aTBrTextEditorTextualPiece [
+	self performAction: anEvent in: aTextEditor on: aTBrTextEditorTextualPiece
 ]
 
 { #category : #initialization }
 BrTextClickAttribute >> initialize [
 	super initialize.
 	
-	action := [ :aText :aTextElement :aTextEditor :anEvent | ]
+	action := [ :aTBrTextEditorTextualPiece :aTextElement :aTextEditor :anEvent | ]
 ]
 
 { #category : #private }
-BrTextClickAttribute >> performAction: anEvent in: aTextEditor [
+BrTextClickAttribute >> performAction: anEvent in: aTextEditor on: aTBrTextEditorTextualPiece [
 	self action glamourValueWithArgs: {
-		anEvent currentTarget text. "first we pass text"
+		aTBrTextEditorTextualPiece. "first we pass text"
 		anEvent currentTarget. "then the text piece (word) element"
 		aTextEditor. "then the whole text editor"
 		anEvent "the event itself"

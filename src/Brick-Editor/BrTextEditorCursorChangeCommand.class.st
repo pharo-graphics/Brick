@@ -74,5 +74,5 @@ BrTextEditorCursorChangeCommand >> processAttributesOn: aTextEditor [
 
 	theEventHandlingAttributes do: [ :eachAttribute |
 		(eachAttribute wantsEvent: anEvent in: aTextEditor)
-			ifTrue: [ eachAttribute handleEvent: anEvent in: aTextEditor ] ]
+			ifTrue: [ eachAttribute handleEvent: anEvent in: aTextEditor on: nil ] ]
 ]

@@ -34,5 +34,5 @@ BrTextWordPieceHandler >> localTextIndexToGlobal: aTextIndex in: aTextEditElemen
 
 { #category : #'api - event managing' }
 BrTextWordPieceHandler >> wantsEvent: anEvent [
-	^ anEvent class = self eventClass
+	^ anEvent class = self eventClass or: [ anEvent class inheritsFrom: self eventClass ]
 ]
