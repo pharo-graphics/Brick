@@ -10,7 +10,7 @@ Class {
 		'lines',
 		'lineSpacing'
 	],
-	#category : 'Brick-Editor-Layout'
+	#category : #'Brick-Editor-Layout'
 }
 
 { #category : #constraints }
@@ -77,7 +77,9 @@ BrEditorTextFlowLayout >> layout: anElement in: aRectangle [
 			aLeft := aLeft + aWidth + aChildElement margin right ].
 		"prepare values for the next line"
 		aLeft := anOffsetX.
-		aTop := aTop + aLine height + lineSpacing ]
+		aTop := aTop + aLine height + lineSpacing ].
+	
+	self layoutIgnored: anElement
 ]
 
 { #category : #accessing }
@@ -128,5 +130,7 @@ BrEditorTextFlowLayout >> measure: anElement with: anExtentSpec [
 			(theElements last isKindOf: BrTextElementWithCursors)
 				ifTrue: [
 					theElements last measure: (BlExtentMeasurementSpec exact:
-						theElements last measuredExtent + (((anElement measuredWidth - aLine width) max: 0) @ theElements last padding height negated)) ] ] ]
+						theElements last measuredExtent + (((anElement measuredWidth - aLine width) max: 0) @ theElements last padding height negated)) ] ] ].
+			
+	self measureIgnored: anElement with: anExtentSpec
 ]

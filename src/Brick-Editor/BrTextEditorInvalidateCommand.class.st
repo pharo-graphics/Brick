@@ -5,7 +5,7 @@ Class {
 		'fromIndex',
 		'toIndex'
 	],
-	#category : 'Brick-Editor-Commands'
+	#category : #'Brick-Editor-Commands'
 }
 
 { #category : #executing }
@@ -25,11 +25,11 @@ BrTextEditorInvalidateCommand >> executeOn: aTextEditor [
 	aTextEditor segmentCollector
 		cachedSegmentAt: changedTo
 		ifFound: [ :aSegment | changedTo := aSegment index ]
-		ifNotFound: [ changedTo := aTextEditor segmentCollector segments size ].	
-
+		ifNotFound: [ changedTo := aTextEditor segmentCollector segments size ].
+		
 	aTextEditor
-		notifyItemsChanged: (changedFrom to: changedTo)
-		payload: self newHolderCommand
+		enqueueHolderCommand: self newHolderCommand
+		interval: (changedFrom to: changedTo)
 ]
 
 { #category : #accessing }

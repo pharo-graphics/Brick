@@ -21,7 +21,8 @@ Class {
 		'stylerEventHandler',
 		'interactions',
 		'cursors',
-		'attachedElements'
+		'attachedElements',
+		'history'
 	],
 	#classInstVars : [
 		'isDebug'
@@ -250,8 +251,24 @@ BrTextEditor >> deselecter [
 ]
 
 { #category : #'commands - processing' }
-BrTextEditor >> enqueueCommand: aBrTextEditorInsertCommand [
-	aBrTextEditorInsertCommand executeOn: self
+BrTextEditor >> enqueueCommand: aBrTextEditorCommand [
+	(BrTextEditorCommandSignal textEditor: self)
+		command: aBrTextEditorCommand;
+		emit.
+
+	aBrTextEditorCommand executeOn: self
+]
+
+{ #category : #'commands - processing' }
+BrTextEditor >> enqueueHolderCommand: aBrTextEditorHolderCommand interval: aTextInterval [
+	(BrTextEditorHolderCommandSignal textEditor: self)
+		command: aBrTextEditorHolderCommand;
+		interval: aTextInterval;
+		emit.
+
+	self
+		notifyItems: aTextInterval
+		event: aBrTextEditorHolderCommand
 ]
 
 { #category : #accessing }
@@ -268,6 +285,13 @@ BrTextEditor >> hasSelection [
 	<return: #Boolean>
 	
 	^ self selection isNotEmpty
+]
+
+{ #category : #accessing }
+BrTextEditor >> history [
+	<return: #BrTextEditorHistory>
+	
+	^ history
 ]
 
 { #category : #initialization }
@@ -293,7 +317,9 @@ BrTextEditor >> initialize [
 	self useDefaultStylerStrategy.
 	
 	interactions := OrderedCollection new.
-	self initializeInteractions
+	self initializeInteractions.
+	
+	history := BrTextEditorHistory new
 ]
 
 { #category : #interactions }
@@ -350,6 +376,14 @@ BrTextEditor >> initializeInteractions [
 	self interactions add: (BlShortcut new
 		combination: BlKeyCombination primaryC;
 		action: [ self copySelected ]).
+		
+	self interactions add: (BlShortcut new
+		combination: BlKeyCombination primaryZ;
+		action: [ self undo ]).
+		
+	self interactions add: (BlShortcut new
+		combination: BlKeyCombination primaryShiftZ;
+		action: [ self redo ]).
 
 	"Paste a text from the clipboard at the current cursor position.
 	I delete any currently selected text and update cursor position"
@@ -782,6 +816,10 @@ BrTextEditor >> onStringInserted: aBrTextStringInserted [
 		at: aBrTextStringInserted index
 		in: self.
 
+	history
+		insertedString: aBrTextStringInserted string
+		at: aBrTextStringInserted index.
+
 	self
 		notifyInserted: (aBrTextStringInserted string asRopedText)
 		at: aBrTextStringInserted index.
@@ -807,6 +845,10 @@ BrTextEditor >> onTextDeleted: aBlTextDeleted [
 		deletedFrom: aBlTextDeleted fromIndex
 		to: aBlTextDeleted toIndex
 		in: self.
+		
+	history
+		deletedText: aBlTextDeleted text
+		at: aBlTextDeleted fromIndex.
 	
 	self
 		notifyDeletedFrom: aBlTextDeleted fromIndex
@@ -854,6 +896,11 @@ BrTextEditor >> recordSelection: aMonotoneTextSelection [
 		ifTrue: [ ^ self ].
 		
 	self moveCursorTo: (self selection + self selectionRecorder selection) to
+]
+
+{ #category : #'text - undo/redo' }
+BrTextEditor >> redo [
+	history redoOn: self
 ]
 
 { #category : #accessing }
@@ -1050,6 +1097,11 @@ BrTextEditor >> textSnapshot [
 	<return: #BlText>
 
 	^ text copy
+]
+
+{ #category : #'text - undo/redo' }
+BrTextEditor >> undo [
+	history undoOn: self
 ]
 
 { #category : #'private - updating' }

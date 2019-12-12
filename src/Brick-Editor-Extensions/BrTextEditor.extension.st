@@ -1,6 +1,15 @@
 Extension { #name : #BrTextEditor }
 
 { #category : #'*Brick-Editor-Extensions' }
+BrTextEditor >> gtHistoryFor: aView [
+	<gtView>
+
+	^ (self history gtHistoryFor: aView)
+		title: 'History';
+		priority: 2
+]
+
+{ #category : #'*Brick-Editor-Extensions' }
 BrTextEditor >> gtLiveFor: aView [
 	<gtView>
 
@@ -22,7 +31,7 @@ BrTextEditor >> gtSegmentsFor: aView [
 
 	^ (self segmentCollector gtSegmentsFor: aView)
 		title: 'Segments';
-		priority: 10
+		priority: 3
 ]
 
 { #category : #'*Brick-Editor-Extensions' }
@@ -30,7 +39,7 @@ BrTextEditor >> gtSelectionTreeFor: aView [
 	<gtView>
 
 	^ (selection gtTreeFor: aView)
-		priority: 1;
+		priority: 5;
 		title: 'Selection'
 ]
 
@@ -39,5 +48,5 @@ BrTextEditor >> gtTextFor: aView [
 	<gtView>
 	^ (self text 
 		gtTextFor: aView)
-		priority: 3
+		priority: 1
 ]

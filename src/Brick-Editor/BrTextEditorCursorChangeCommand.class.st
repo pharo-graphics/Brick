@@ -34,8 +34,8 @@ BrTextEditorCursorChangeCommand >> executeOn: aTextEditor [
 		cachedSegmentAt: self position
 		ifFound: [ :aSegment |
 			aTextEditor
-				notifyItems: (aSegment index to: aSegment index)
-				event: self newHolderCommand ]
+				enqueueHolderCommand: self newHolderCommand
+				interval: (aSegment index to: aSegment index) ]
 		ifNotFound: [  ].
 ]
 
