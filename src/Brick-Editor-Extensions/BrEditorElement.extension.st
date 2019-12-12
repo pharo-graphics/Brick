@@ -1,8 +1,10 @@
 Extension { #name : #BrEditorElement }
 
 { #category : #'*Brick-Editor-Extensions' }
-BrEditorElement >> gtInspectorSegmentsIn: aComposite [
-	<gtInspectorPresentationOrder: 15>
+BrEditorElement >> gtSegmentsFor: aView [
+	<gtView>
 
-	^ self editor gtInspectorSegmentsIn: aComposite
+	^ (self editor gtSegmentsFor: aView)
+		title: 'Segments';
+		priority: 2
 ]
