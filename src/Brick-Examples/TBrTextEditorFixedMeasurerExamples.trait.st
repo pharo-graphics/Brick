@@ -32,10 +32,10 @@ TBrTextEditorFixedMeasurerExamples >> editorFor: aText [
 	BlDevCrossover on: anEditor.
 	
 	anEditor editor segmentBuilder
-		wordStencil: [ :aWordText :aTextStart :aTextEnd |
+		wordStencil: [ :aTBrTextEditorTextualPiece |
 			| aTextElement |
 			aTextElement := BrTextWordPieceStencilBuilder new
-				text: aWordText start: aTextStart end: aTextEnd;
+				segmentPiece: aTBrTextEditorTextualPiece;
 				asElement.
 			aTextElement measurer: self fixedMeasurer.
 			aTextElement ].

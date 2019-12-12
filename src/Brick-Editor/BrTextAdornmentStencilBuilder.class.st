@@ -5,7 +5,7 @@ Example:
 [[[
 	stencilBuilder := BrTextAdornmentStencilBuilder new.
 	stencilBuilder
-		text: aBlText;
+		segmentPiece: aTBrTextEditorTextualPiece;
 		editor: anEditorElement.
 	adornmentElement := stencilBuilder asElement
 ]]]
@@ -20,7 +20,7 @@ Users can also directly use blocks for scripting:
 
 [[[
 	attribute := BrTextAdornmentDynamicAttribute new.
-	attribute stencil: [ :aText :anEditorElement | BlElement new  ]
+	attribute stencil: [ :aTBrTextEditorTextualPiece :anEditorElement | BlElement new  ]
 ]]]
 "
 Class {
@@ -28,7 +28,7 @@ Class {
 	#superclass : #BrStencilBuilder,
 	#instVars : [
 		'editorElement',
-		'text'
+		'segmentPiece'
 	],
 	#category : #'Brick-Editor-UI - Stencils'
 }
@@ -55,18 +55,18 @@ BrTextAdornmentStencilBuilder >> editor: aBrEditorElement [
 { #category : #'api - instantiation' }
 BrTextAdornmentStencilBuilder >> paramsOn: aStencilExecutor [
 	aStencilExecutor
-		push: self text;
+		push: self segmentPiece;
 		push: self editor
 ]
 
 { #category : #accessing }
-BrTextAdornmentStencilBuilder >> text [
-	<return: #BlText>
-
-	^ text
+BrTextAdornmentStencilBuilder >> segmentPiece [
+	<return: #TBrTextEditorTextualPiece>
+	
+	^ segmentPiece
 ]
 
 { #category : #accessing }
-BrTextAdornmentStencilBuilder >> text: aBlText [
-	text := aBlText
+BrTextAdornmentStencilBuilder >> segmentPiece: aTBrTextEditorTextualPiece [
+	segmentPiece := aTBrTextEditorTextualPiece
 ]

@@ -60,10 +60,10 @@ BrEmbeddedEditorExamples >> mainEditorText [
 BrEmbeddedEditorExamples >> makeFixedMeasurement: aSegmentBuilder [
 
 	aSegmentBuilder
-		wordStencil: [ :aText :aTextStart :aTextEnd |
+		wordStencil: [ :aTBrTextEditorTextualPiece |
 			| aTextElement |
 			aTextElement := BrTextWordPieceStencilBuilder new
-				text: aText start: aTextStart end: aTextEnd;
+				segmentPiece: aTBrTextEditorTextualPiece;
 				asElement.
 			aTextElement measurer: self fixedMeasurer.
 			aTextElement ]

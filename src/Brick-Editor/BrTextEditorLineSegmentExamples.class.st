@@ -784,13 +784,26 @@ BrTextEditorLineSegmentExamples >> delete_HACrCr_in_HACrCrBA_at_1_4 [
 { #category : #'instance creation' }
 BrTextEditorLineSegmentExamples >> emptyEditor [
 	<gtExample>
-	| aTextEditor |
+	| aTextEditor aTextEditorElement aSegmentElement aPieceElement |
 	
 	aTextEditor := BrTextEditor new segmentBuilder: self lineSegmentBuilder.
 	
 	self assert: aTextEditor text asString equals: ''.
 	self assert: aTextEditor segmentCollector computedSegmentsCount equals: 1.
 	self assert: aTextEditor segmentCollector segments first textInterval equals: (0 to: 0).
+	
+	aTextEditorElement := BrEditorElement new.
+	aTextEditorElement size: 600@600.
+	aTextEditorElement editor: aTextEditor.
+	aTextEditorElement forceLayout.
+	
+	self assert: aTextEditorElement childrenCount equals: 1.
+
+	aSegmentElement := aTextEditorElement children first.
+	self assert: aSegmentElement childrenCount equals: 1.
+	
+	aPieceElement := aSegmentElement children first.
+	self assert: aPieceElement segmentPiece == aTextEditor segmentCollector segments first pieces first.
 
 	^ aTextEditor
 ]

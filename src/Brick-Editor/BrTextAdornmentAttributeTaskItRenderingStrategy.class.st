@@ -5,10 +5,10 @@ Class {
 }
 
 { #category : #accessing }
-BrTextAdornmentAttributeTaskItRenderingStrategy >> affect: aBrText in: anEditorElement [
+BrTextAdornmentAttributeTaskItRenderingStrategy >> affect: aTBrTextEditorTextualPiece in: anEditorElement [
 	"Return an element that should affect (either append or replace) a provided text piece"
 	<return: #BlElement>
 	^ BlLazyElement new
 		in: [ :theElement | self attribute initializeLazyElement: theElement ];
-		elementBuilder: [ self attribute doAffect: aBrText in: anEditorElement ]
+		elementBuilder: [ self attribute doAffect: aTBrTextEditorTextualPiece in: anEditorElement ]
 ]

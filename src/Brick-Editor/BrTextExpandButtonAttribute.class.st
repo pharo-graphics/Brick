@@ -9,18 +9,18 @@ Class {
 		'attributesCreatingBlock',
 		'createdAttributes'
 	],
-	#category : 'Brick-Editor-Text-Attributes'
+	#category : #'Brick-Editor-Text-Attributes'
 }
 
 { #category : #accessing }
-BrTextExpandButtonAttribute >> affect: aBrText in: anEditorElement [
+BrTextExpandButtonAttribute >> affect: aTBrTextEditorTextualPiece in: anEditorElement [
 	^ BlElement new
 		size: 8 @ 11;
 		margin: (BlInsets top: 1 right: 5 bottom: 0 left: 5);
 		background: (Color gray alpha: 0.4);
 		geometry: self buttonGeometry;
 		addEventHandlerOn: BlClickEvent
-			do: [ :anEvent | self handleEventAffect: aBrText in: anEditorElement editor ]
+			do: [ :anEvent | self handleEventAffect: aTBrTextEditorTextualPiece in: anEditorElement editor ]
 ]
 
 { #category : #accessing }
@@ -65,14 +65,18 @@ BrTextExpandButtonAttribute >> createdAttributes: aCollection [
 ]
 
 { #category : #private }
-BrTextExpandButtonAttribute >> handleEventAffect: aBrText in: aTextEditor [
+BrTextExpandButtonAttribute >> handleEventAffect: aTBrTextEditorTextualPiece in: aTextEditor [
+	| aBrText |
+	
+	aBrText := aTBrTextEditorTextualPiece text.
+
 	isExpanded
 		ifTrue: [ aBrText clearAttributes: [ :aTextAttribute | 
 				self createdAttributes includes: aTextAttribute ] ]
 		ifFalse: [ self createAttributesAffect: aBrText in: aTextEditor ].
 	self isExpanded: isExpanded not.
-	aTextEditor invalidate: aBrText start to: aBrText end.
-	aTextEditor update: aBrText start to: aBrText end
+	aTextEditor invalidate: aTBrTextEditorTextualPiece textStart to: aTBrTextEditorTextualPiece textEnd.
+	aTextEditor update: aTBrTextEditorTextualPiece textStart to: aTBrTextEditorTextualPiece textEnd
 ]
 
 { #category : #initialization }

@@ -16,10 +16,11 @@ Class {
 }
 
 { #category : #accessing }
-BrTextAdornmentAttribute >> affect: aBrText in: anEditorElement [
+BrTextAdornmentAttribute >> affect: aTBrTextEditorTextualPiece in: anEditorElement [
 	"Return an element that should affect (either append or replace) a provided text piece"
 	<return: #SequenceableCollection of: #BlElement>
-	^ self renderingStrategy affect: aBrText in: anEditorElement
+
+	^ self renderingStrategy affect: aTBrTextEditorTextualPiece in: anEditorElement
 ]
 
 { #category : #accessing }
@@ -43,7 +44,7 @@ BrTextAdornmentAttribute >> beSync [
 ]
 
 { #category : #accessing }
-BrTextAdornmentAttribute >> doAffect: aBrText in: anEditorElement [
+BrTextAdornmentAttribute >> doAffect: aTBrTextEditorTextualPiece in: anEditorElement [
 	"Return an element that should affect (either append or replace) a provided text piece"
 	<return: #SequenceableCollection of: #BlElement>
 

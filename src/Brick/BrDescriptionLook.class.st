@@ -75,11 +75,11 @@ BrDescriptionLook >> initializeRequests [
 { #category : #initialization }
 BrDescriptionLook >> readonly [
 	editor segmentBuilder
-		wordStencil: [ :aWordText :aTextStart :aTextEnd |
+		wordStencil: [ :aTBrTextEditorTextualPiece |
 			| aTextElement |
 			aTextElement := BrTextElementWithCursors new
 				editorMeasurement
-				text: aWordText start: aTextStart end: aTextEnd.
+				segmentPiece: aTBrTextEditorTextualPiece.
 			aTextElement ].
 	descriptionElement preventMeAndChildrenMouseEvents
 ]

@@ -19,7 +19,7 @@ BrTextEditorLineSegmentTextPiece >> createElement: anEditorElement [
 
 	^ (anEditorElement editor segmentBuilder wordStencilBuilder
 		wordPadding: aWordPadding;
-		text: self text start: self textStart end: self textEnd) asElement
+		segmentPiece: self) asElement
 ]
 
 { #category : #testing }

@@ -10,7 +10,7 @@ Class {
 }
 
 { #category : #accessing }
-BrTextAdornmentAttributeRenderingStrategy >> affect: aBrText in: anEditorElement [
+BrTextAdornmentAttributeRenderingStrategy >> affect: aTBrTextEditorTextualPiece in: anEditorElement [
 	"Return an element that should affect (either append or replace) a provided text piece"
 	<return: #BlElement>
 	^ self subclassResponsibility 

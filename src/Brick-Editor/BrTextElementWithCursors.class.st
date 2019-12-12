@@ -4,11 +4,10 @@ I am extended version of the ${class:BlTextElement}$ with support of multiple cu
 Class {
 	#name : #BrTextElementWithCursors,
 	#superclass : #BlTextElement,
-	#traits : 'TBrTextEditorTextualPiece - {#start:end:. #scopeText:end:}',
-	#classTraits : 'TBrTextEditorTextualPiece classTrait',
 	#instVars : [
 		'cursorElements',
-		'cursorStencil'
+		'cursorStencil',
+		'segmentPiece'
 	],
 	#category : #'Brick-Editor-UI'
 }
@@ -167,15 +166,37 @@ BrTextElementWithCursors >> removeCursors [
 	self cursorElements removeAll
 ]
 
+{ #category : #accessing }
+BrTextElementWithCursors >> segmentPiece [
+	<return: #TBrTextEditorTextualPiece>
+
+	^ segmentPiece
+]
+
+{ #category : #accessing }
+BrTextElementWithCursors >> segmentPiece: aSegmentPiece [
+
+	segmentPiece := aSegmentPiece.
+	self text: segmentPiece text
+]
+
 { #category : #'cursor - management' }
 BrTextElementWithCursors >> showCursors [
 	self cursorElements do: [ :aCursorElement | aCursorElement visibility: BlVisibility visible ]
 ]
 
-{ #category : #initialization }
-BrTextElementWithCursors >> text: aBlText start: aTextStart end: aTextEnd [
-	self text: aBlText.
+{ #category : #'text - accessing' }
+BrTextElementWithCursors >> textEnd [
+	"Return an index of the last character of a subtext that I represent"
+	<return: #Number>
+	
+	^ segmentPiece textEnd
+]
 
-	textStart := aTextStart.
-	textEnd := aTextEnd
+{ #category : #'text - accessing' }
+BrTextElementWithCursors >> textStart [
+	"Return an index of the first character of a subtext that I represent"
+	<return: #Number>
+	
+	^ segmentPiece textStart
 ]

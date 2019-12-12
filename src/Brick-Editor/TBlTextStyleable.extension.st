@@ -4,7 +4,7 @@ Extension { #name : #TBlTextStyleable }
 TBlTextStyleable >> appendingAdornment: aBrTextAdornmentStencilBuilder [
 	"Append a visual element defined by a given stencil builder right after a text on which I am applied.
 	A stencil builder can also be a block in the following form:
-	[ :aText :anEditorElement | ] - where aText represents a piece of text after which an element should be append"
+	[ :aTBrTextEditorTextualPiece :anEditorElement | ] - where aText represents a piece of text after which an element should be append"
 
 	self attributesBuilder attribute: (BrTextAdornmentDynamicAttribute new
 		beAppend;
@@ -25,7 +25,7 @@ TBlTextStyleable >> paragraphMargin: anInsets [
 TBlTextStyleable >> replacingAdornment: aBrTextAdornmentStencilBuilder [
 	"Visually replace a piece of text with an element defined by a given stencil builder.
 	A stencil builder can also be a block in the following form:
-	[ :aText :anEditorElement | ] - where aText represents a piece of text that should be replaced"
+	[ :aTBrTextEditorTextualPiece :anEditorElement | ] - where aText represents a piece of text that should be replaced"
 
 	self attributesBuilder attribute: (BrTextAdornmentDynamicAttribute new
 		beReplace;

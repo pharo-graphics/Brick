@@ -3,11 +3,8 @@ I add support of BrTextEventHandlerAttribute - special kind of attribute that ca
 "
 Class {
 	#name : #BrTextEditorLineSegmentTextListener,
-	#superclass : #BlBasicEventHandler,
-	#classInstVars : [
-		'uniqueInstance'
-	],
-	#category : #'Brick-Editor-Model - Segment-Text-Line'
+	#superclass : #BrTextWordPieceUniqueHandler,
+	#category : #'Brick-Editor-UI - Word'
 }
 
 { #category : #cleanup }

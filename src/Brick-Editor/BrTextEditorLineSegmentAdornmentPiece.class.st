@@ -31,5 +31,5 @@ BrTextEditorLineSegmentAdornmentPiece >> adornmentAttribute: aBrTextAdornmentAtt
 
 { #category : #'instance creation' }
 BrTextEditorLineSegmentAdornmentPiece >> createElement: anEditorElement [
-	^ self adornmentAttribute affect: self text in: anEditorElement
+	^ self adornmentAttribute affect: self in: anEditorElement
 ]

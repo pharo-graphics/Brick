@@ -1,11 +1,10 @@
 Class {
 	#name : #BrTextWordPieceStencilBuilder,
 	#superclass : #BrStencilBuilder,
-	#traits : 'TBrTextEditorTextualPiece',
-	#classTraits : 'TBrTextEditorTextualPiece classTrait',
 	#instVars : [
 		'wordPadding',
-		'measurer'
+		'measurer',
+		'segmentPiece'
 	],
 	#classVars : [
 		'TextPiecePool'
@@ -73,7 +72,7 @@ BrTextWordPieceStencilBuilder >> acquire [
 { #category : #'api - instantiation' }
 BrTextWordPieceStencilBuilder >> buildDefault [
 	^ self acquire
-		text: self text start: self textStart end: self textEnd;
+		segmentPiece: self segmentPiece;
 		padding: self wordPadding
 ]
 
@@ -97,9 +96,7 @@ BrTextWordPieceStencilBuilder >> measurer: aMeasurer [
 
 { #category : #'api - instantiation' }
 BrTextWordPieceStencilBuilder >> paramsOn: aStencilExecutor [
-	aStencilExecutor push: self text.
-	aStencilExecutor push: self textStart.
-	aStencilExecutor push: self textEnd
+	aStencilExecutor push: self segmentPiece
 ]
 
 { #category : #'api - instantiation' }
@@ -115,17 +112,20 @@ BrTextWordPieceStencilBuilder >> recycle: aPieceElement [
 ]
 
 { #category : #accessing }
-BrTextWordPieceStencilBuilder >> text [
-	<return: #BlText>
+BrTextWordPieceStencilBuilder >> segmentPiece [
+	<return: #TBrTextEditorTextualPiece>
 
-	^ text
+	^ segmentPiece
+]
+
+{ #category : #accessing }
+BrTextWordPieceStencilBuilder >> segmentPiece: aTBrTextEditorTextualPiece [
+	segmentPiece := aTBrTextEditorTextualPiece
 ]
 
 { #category : #accessing }
 BrTextWordPieceStencilBuilder >> text: aText start: aTextStart end: aTextEnd [
-	text := aText.
-	textStart := aTextStart.
-	textEnd := aTextEnd
+	self deprecated: 'Use segmentPiece: instead'.
 ]
 
 { #category : #accessing }
