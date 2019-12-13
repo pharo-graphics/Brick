@@ -8,7 +8,7 @@ Trait {
 
 { #category : #'private - font metrics' }
 TBrTextEditorFixedMeasurerExamples >> ascent [
-	^ 20
+	^ -20
 ]
 
 { #category : #'private - font metrics' }
@@ -38,6 +38,7 @@ TBrTextEditorFixedMeasurerExamples >> editorFor: aText [
 				segmentPiece: aTBrTextEditorTextualPiece;
 				asElement.
 			aTextElement measurer: self fixedMeasurer.
+			aTextElement measurer measurer textOffset: aTBrTextEditorTextualPiece textStart.
 			aTextElement ].
 	
 	anEditor requestFocus.
@@ -57,7 +58,7 @@ TBrTextEditorFixedMeasurerExamples >> fixedMeasurer [
 
 { #category : #'private - font metrics' }
 TBrTextEditorFixedMeasurerExamples >> glyphHeight [
-	^ self ascent + self descent
+	^ self ascent abs + self descent
 ]
 
 { #category : #'private - font metrics' }
