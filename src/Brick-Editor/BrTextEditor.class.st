@@ -503,8 +503,8 @@ BrTextEditor >> initializeMacInteractions [
 
 { #category : #initialization }
 BrTextEditor >> initializeText: aBrText [
-	aBrText when: BlTextStringInserted send: #onStringInserted: to: self.
-	aBrText when: BlTextDeleted send: #onTextDeleted: to: self.
+	aBrText when: BlTextStringsInserted send: #onStringsInserted: to: self.
+	aBrText when: BlTextsDeleted send: #onTextsDeleted: to: self.
 	aBrText when: BlTextAttributeAdded send: #onTextAttributeAdded: to: self
 ]
 
@@ -805,24 +805,28 @@ BrTextEditor >> onLostFocus [
 ]
 
 { #category : #'hooks - text modifications' }
-BrTextEditor >> onStringInserted: aBrTextStringInserted [
-	"Is sent after a string is inserted in a text model"
-	| aProcessedString |
+BrTextEditor >> onStringsInserted: aBlTextStringsInserted [
+	"Is sent after a few strings (or one) are inserted in a text model"
 	
-	aProcessedString := BlTextStringNormalizer new process: aBrTextStringInserted string.
-	
-	self segmentBuilder
-		insertedString: aProcessedString
-		at: aBrTextStringInserted index
-		in: self.
+	aBlTextStringsInserted strings
+		with: aBlTextStringsInserted finalIndices
+		do: [ :aString :anIndex |
+			self segmentBuilder
+				insertedString: aString
+				at: anIndex
+				in: self ].
 
 	history
-		insertedString: aBrTextStringInserted string
-		at: aBrTextStringInserted index.
+		insertedStrings: aBlTextStringsInserted strings
+		undo: aBlTextStringsInserted finalIndices
+		redo: aBlTextStringsInserted requestedIndices.
 
-	self
-		notifyInserted: (aBrTextStringInserted string asRopedText)
-		at: aBrTextStringInserted index.
+	aBlTextStringsInserted strings
+		with: aBlTextStringsInserted finalIndices
+		do: [ :aString :anIndex |
+			self
+				notifyInserted: aString asRopedText
+				at: anIndex ].
 
 	self styleText
 ]
@@ -838,21 +842,26 @@ BrTextEditor >> onTextAttributeAdded: aBlTextAttributeAdded [
 ]
 
 { #category : #'hooks - text modifications' }
-BrTextEditor >> onTextDeleted: aBlTextDeleted [
+BrTextEditor >> onTextsDeleted: aBlTextsDeleted [
 	"Is sent after a piece of text was deleted in a text model"
 
-	self segmentBuilder
-		deletedFrom: aBlTextDeleted fromIndex
-		to: aBlTextDeleted toIndex
-		in: self.
-		
+	aBlTextsDeleted finalIntervals
+		do: [ :eachInterval |
+			self segmentBuilder
+				deletedFrom: eachInterval first
+				to:  eachInterval last
+				in: self ].
+
 	history
-		deletedText: aBlTextDeleted text
-		at: aBlTextDeleted fromIndex.
-	
-	self
-		notifyDeletedFrom: aBlTextDeleted fromIndex
-		to: aBlTextDeleted toIndex.
+		deletedTexts: aBlTextsDeleted texts
+		undo: (aBlTextsDeleted finalIntervals collect: #first)
+		redo: (aBlTextsDeleted requestedIntervals collect: #first).
+
+	aBlTextsDeleted finalIntervals
+		do: [ :eachInterval |
+			self
+				notifyDeletedFrom: eachInterval first
+				to:  eachInterval last ].
 
 	self styleText
 ]
@@ -1058,7 +1067,7 @@ BrTextEditor >> stylerStrategy: aBrTextStylerStrategy [
 { #category : #interactions }
 BrTextEditor >> surroundMap [
 	"When inserting some special symbols a text editor should surround a cursor or selection with that symbol"
-	
+
 	^ { 
 		#'(' -> #')'.
 		#'"' -> #'"'.

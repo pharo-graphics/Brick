@@ -31,8 +31,9 @@ Class {
 BrTextEditorInserter >> at: anIndex [
 	"Add a given index as another text insertion location"
 
-	(insertionIndices includes: anIndex)
-		ifFalse: [ insertionIndices add: anIndex ]
+	insertionIndices
+		detect: [ :eachAssociation | eachAssociation key = anIndex ]
+		ifNone: [ insertionIndices add: (anIndex -> text) ]
 ]
 
 { #category : #'api - configuration' }
@@ -95,8 +96,10 @@ BrTextEditorInserter >> deleteSelectedText [
 	aDeleter selected.
 
 	newInsertionIndices := SortedCollection new.
-	insertionIndices do: [ :anIndex |
-		newInsertionIndices add: (anIndex + (aDeleter computeIndexMovement: anIndex)) ].
+	insertionIndices do: [ :eachAssociation |
+		| anIndex |
+		anIndex := eachAssociation key.
+		newInsertionIndices add: (anIndex + (aDeleter computeIndexMovement: anIndex)) -> eachAssociation value ].
 	
 	insertionIndices := newInsertionIndices.
 	
@@ -107,7 +110,7 @@ BrTextEditorInserter >> deleteSelectedText [
 BrTextEditorInserter >> indentation [
 	"Insert an indentation (Tab)"
 
-	text := String tab
+	self text: String tab
 ]
 
 { #category : #initialization }
@@ -120,7 +123,7 @@ BrTextEditorInserter >> initialize [
 	if surround text is not set, we duplicate the inserted text itself"
 	rightSurroundText := nil.
 	
-	insertionIndices := SortedCollection new.
+	insertionIndices := SortedCollection sortBlock: [ :a :b | a key < b key ].
 	shouldUpdateCursor := true.
 	shouldUpdateSelection := true.
 	shouldDeleteSelected := true.
@@ -136,29 +139,68 @@ BrTextEditorInserter >> inputFilter: aTextEditorInputFilter [
 
 { #category : #'api - processing' }
 BrTextEditorInserter >> insert [
-	| aFilteredText aRightSurroundText |
-	
-	aFilteredText := inputFilter filter: text.
-	aFilteredText isEmpty
-		ifTrue: [ ^ self ].
-	
-	aRightSurroundText := withSurround
-		ifTrue: [ rightSurroundText
-			ifNil: [ aFilteredText ]
-			ifNotNil: [ inputFilter filter: rightSurroundText ] ]
-		ifFalse: [ aFilteredText ].
+	| theFilteredTextMap anInsertionIndices anInsertionStrings |
 
 	shouldDeleteSelected
 		ifTrue: [ self deleteSelectedText ].
 		
-	insertionIndices reverseDo: [ :anIndex |
-		withSurround
-			ifTrue: [ self
-				privateInsertString: aFilteredText
-				withSurround: aRightSurroundText
-				at: anIndex ]
-			ifFalse: [ self privateInsertString: aFilteredText at: anIndex ].
+	theFilteredTextMap := Dictionary new.
 
+	anInsertionIndices := OrderedCollection new.
+	anInsertionStrings := OrderedCollection new.
+
+	insertionIndices do: [ :eachAssociation |
+		| anIndex aFilteredText aRightSurroundText |
+		
+		anIndex := eachAssociation key.
+		
+		aFilteredText := theFilteredTextMap
+			at: eachAssociation value
+			ifAbsentPut: [ inputFilter filter: eachAssociation value ].
+	
+		aRightSurroundText := withSurround
+			ifTrue: [ rightSurroundText
+				ifNil: [ aFilteredText ]
+				ifNotNil: [
+					theFilteredTextMap
+						at: rightSurroundText
+						ifAbsentPut: [ inputFilter filter: rightSurroundText ] ] ]
+			ifFalse: [ aFilteredText ].
+		
+		withSurround
+			ifTrue: [
+				| theSurroundingIndices |
+				theSurroundingIndices := self privateComputeInsertionIndices: aFilteredText withSurround: aRightSurroundText at: anIndex.
+				
+				anInsertionIndices add: theSurroundingIndices first.
+				anInsertionStrings add: aFilteredText.
+				
+				anInsertionIndices add: theSurroundingIndices second.
+				anInsertionStrings add: aRightSurroundText ]
+			ifFalse: [
+				anInsertionIndices add: anIndex.
+				anInsertionStrings add: aFilteredText ] ].
+
+	self privateInsertStrings: anInsertionStrings atAll: anInsertionIndices.
+
+	insertionIndices reverseDo: [ :eachAssociation |
+		| anIndex aFilteredText aRightSurroundText |
+		
+		anIndex := eachAssociation key.
+		
+		aFilteredText := theFilteredTextMap
+			at: eachAssociation value
+			ifAbsentPut: [ inputFilter filter: eachAssociation value ].
+	
+		aRightSurroundText := withSurround
+			ifTrue: [ rightSurroundText
+				ifNil: [ aFilteredText ]
+				ifNotNil: [
+					theFilteredTextMap
+						at: rightSurroundText
+						ifAbsentPut: [ inputFilter filter: rightSurroundText ] ] ]
+			ifFalse: [ aFilteredText ].
+		
 		shouldUpdateCursor
 			ifTrue: [
 				withSurround
@@ -180,7 +222,7 @@ BrTextEditorInserter >> isInserter [
 BrTextEditorInserter >> lineEnding [
 	"Insert a line ending (Cr, Lf or CrLf depending on the current platform)"
 
-	text := OSPlatform current lineEnding
+	self text: OSPlatform current lineEnding
 ]
 
 { #category : #'api - configuration' }
@@ -188,9 +230,9 @@ BrTextEditorInserter >> lineEndingWithWhitespace [
 	"Insert a line ending (Cr, Lf or CrLf depending on the current platform)
 	additionally  adding a whitespace from the previous line according to a cursor"
 
-	text := self cursor isEmpty
+	self text: (self cursor isEmpty
 		ifTrue: [ OSPlatform current lineEnding ]
-		ifFalse: [ OSPlatform current lineEnding, (self findWhitespaceOfLineBefore: self cursor first position) ]
+		ifFalse: [ OSPlatform current lineEnding, (self findWhitespaceOfLineBefore: self cursor first position) ])
 ]
 
 { #category : #'api - configuration' }
@@ -209,7 +251,7 @@ BrTextEditorInserter >> onlyLetters [
 ]
 
 { #category : #private }
-BrTextEditorInserter >> privateComputeInsertionIndices: aString withSurround: aSurroundString at: aTextIndex [
+BrTextEditorInserter >> privateComputeCursorIndices: aString withSurround: aSurroundString at: aTextIndex [
 	| aLeftIndex aRightIndex |
 
 	aLeftIndex := aTextIndex.
@@ -224,30 +266,43 @@ BrTextEditorInserter >> privateComputeInsertionIndices: aString withSurround: aS
 ]
 
 { #category : #private }
-BrTextEditorInserter >> privateInsertString: aString at: aTextIndex [
-	| aCommand |
+BrTextEditorInserter >> privateComputeInsertionIndices: aString withSurround: aSurroundString at: aTextIndex [
+	| aLeftIndex aRightIndex |
 
-	aCommand := BrTextEditorInsertStringCommand new
-		string: aString;
-		index: aTextIndex.
-	self editor enqueueCommand: aCommand
+	aLeftIndex := aTextIndex.
+	aRightIndex := aTextIndex.
+	
+	(self selection do: [ :eachMonotoneSelection | (eachMonotoneSelection contains: aTextIndex)
+		ifTrue: [
+			aLeftIndex := eachMonotoneSelection from.
+			aRightIndex := eachMonotoneSelection to ] ]).
+	
+	^ { aLeftIndex . aRightIndex }
 ]
 
 { #category : #private }
-BrTextEditorInserter >> privateInsertString: aString withSurround: aRightSurroundText at: aTextIndex [
-	| aCommand theIndices |
+BrTextEditorInserter >> privateComputeSelectionIndices: aString withSurround: aSurroundString at: aTextIndex [
+	| aLeftIndex aRightIndex |
 
-	theIndices := self privateComputeInsertionIndices: aString withSurround: aRightSurroundText at: aTextIndex.
+	aLeftIndex := aTextIndex.
+	aRightIndex := aTextIndex + aString size.
+	
+	(self selection do: [ :eachMonotoneSelection | (eachMonotoneSelection contains: aTextIndex)
+		ifTrue: [
+			aLeftIndex := eachMonotoneSelection from.
+			aRightIndex := eachMonotoneSelection to + aString size ] ]).
+	
+	^ { aLeftIndex . aRightIndex }
+]
 
-	aCommand := BrTextEditorInsertStringCommand new
-		string: aString;
-		index: theIndices first.
-	self editor enqueueCommand: aCommand.
-	
-	aCommand := BrTextEditorInsertStringCommand new
-		string: aRightSurroundText;
-		index: theIndices second.
-	
+{ #category : #private }
+BrTextEditorInserter >> privateInsertStrings: aCollectionOfString atAll: aCollectionOfIndices [
+	| aCommand |
+
+	aCommand := BrTextEditorInsertStringsCommand new
+		strings: aCollectionOfString;
+		indices: aCollectionOfIndices.
+
 	self editor enqueueCommand: aCommand
 ]
 
@@ -271,7 +326,7 @@ BrTextEditorInserter >> privateUpdateCursorsAfterInsertion: aText at: anIndex [
 BrTextEditorInserter >> privateUpdateCursorsAfterInsertion: aText withSurround: aSurroundText at: aTextIndex [
 	| theIndices |
 
-	theIndices := self privateComputeInsertionIndices: aText withSurround: aSurroundText at: aTextIndex.
+	theIndices := self privateComputeCursorIndices: aText withSurround: aSurroundText at: aTextIndex.
 
 	self cursor do: [ :aCursor |
 		| aCursorDelta |
@@ -325,12 +380,13 @@ BrTextEditorInserter >> shouldUpdateSelection: anObject [
 
 { #category : #'api - configuration' }
 BrTextEditorInserter >> string: aString [
-	text := aString
+	self text: aString
 ]
 
 { #category : #'api - configuration' }
 BrTextEditorInserter >> text: aBlText [
-	text := aBlText
+	text := aBlText.
+	insertionIndices do: [ :eachAssociation | eachAssociation value ifNil: [ eachAssociation value: text ] ]
 ]
 
 { #category : #private }
@@ -352,7 +408,7 @@ BrTextEditorInserter >> updateSelectionAfterInsertion: aText at: anIndex [
 BrTextEditorInserter >> updateSelectionAfterInsertion: aText withSurround: aSurroundText at: aTextIndex [
 	| anExistingSelection theIndices |
 	
-	theIndices := self privateComputeInsertionIndices: aText withSurround: aSurroundText at: aTextIndex.
+	theIndices := self privateComputeSelectionIndices: aText withSurround: aSurroundText at: aTextIndex.
 
 	anExistingSelection := BlCompositeSelection new select: self editor selection.
 	anExistingSelection reverseDo: [ :aMonotoneSelection |

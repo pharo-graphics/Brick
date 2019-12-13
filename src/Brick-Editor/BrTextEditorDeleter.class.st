@@ -84,7 +84,7 @@ BrTextEditorDeleter >> delete [
 
 { #category : #'api - configuration' }
 BrTextEditorDeleter >> from: aFromIndex to: aToIndex [
-	"Mark a text interval given by from an to indices as the one to be deleted"
+	"Mark a text interval given by from an to indices as the one to be deleted in cursor coordinates"
 
 	aFromIndex = aToIndex
 		ifTrue: [ ^ self ].

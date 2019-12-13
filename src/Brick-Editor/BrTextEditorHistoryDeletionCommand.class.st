@@ -2,56 +2,78 @@ Class {
 	#name : #BrTextEditorHistoryDeletionCommand,
 	#superclass : #BrTextEditorHistoryCommand,
 	#instVars : [
-		'text',
-		'index'
+		'texts',
+		'undoIndices',
+		'redoIndices'
 	],
 	#category : #'Brick-Editor-History'
 }
 
 { #category : #printing }
 BrTextEditorHistoryDeletionCommand >> gtDisplayOn: aStream [
-	aStream
-		nextPutAll: 'Delete'; space;
-		print: self text; space;
-		nextPutAll: 'at'; space;
-		print: self index
+	aStream nextPutAll: 'Delete'.
+	texts
+		with: undoIndices
+		do: [ :eachString :eachIndex |
+			aStream
+				space;
+				print: eachString; space;
+				nextPutAll: 'at'; space;
+				print: eachIndex;
+				nextPut: $, ].
 ]
 
 { #category : #accessing }
-BrTextEditorHistoryDeletionCommand >> index [
-	^ index
+BrTextEditorHistoryDeletionCommand >> redoIndices [
+	^ redoIndices
 ]
 
 { #category : #accessing }
-BrTextEditorHistoryDeletionCommand >> index: anObject [
-	index := anObject
+BrTextEditorHistoryDeletionCommand >> redoIndices: anObject [
+	redoIndices := anObject
 ]
 
 { #category : #'api - undo/redo' }
 BrTextEditorHistoryDeletionCommand >> redoOn: aBrTextEditor [
+	| aDeleter |
 	aBrTextEditor deselecter all deselect.
 	
-	aBrTextEditor deleter
-		from: index - 1 to: index - 1 + text size;
-		delete
+	aDeleter := aBrTextEditor deleter.
+	texts
+		with: redoIndices
+		do: [ :eachText :eachIndex | aDeleter from: eachIndex to: eachIndex + eachText size ].
+	
+	aDeleter delete
 ]
 
 { #category : #accessing }
-BrTextEditorHistoryDeletionCommand >> text [
-	^ text
+BrTextEditorHistoryDeletionCommand >> texts [
+	^ texts
 ]
 
 { #category : #accessing }
-BrTextEditorHistoryDeletionCommand >> text: anObject [
-	text := anObject
+BrTextEditorHistoryDeletionCommand >> texts: anObject [
+	texts := anObject
+]
+
+{ #category : #accessing }
+BrTextEditorHistoryDeletionCommand >> undoIndices [
+	^ undoIndices
+]
+
+{ #category : #accessing }
+BrTextEditorHistoryDeletionCommand >> undoIndices: anObject [
+	undoIndices := anObject
 ]
 
 { #category : #'api - undo/redo' }
 BrTextEditorHistoryDeletionCommand >> undoOn: aBrTextEditor [
+	| anInserter |
 	aBrTextEditor deselecter all deselect.
 	
-	aBrTextEditor inserter
-		at: index - 1;
-		string: text characters asString;
-		insert
+	anInserter := aBrTextEditor inserter.
+	texts
+		with: undoIndices
+		do: [ :eachText :eachIndex | anInserter text: eachText characters asString; at: eachIndex - 1 ].
+	anInserter insert
 ]

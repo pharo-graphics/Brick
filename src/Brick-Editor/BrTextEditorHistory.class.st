@@ -19,10 +19,11 @@ BrTextEditorHistory >> addCommand: aCommand [
 ]
 
 { #category : #'api - history' }
-BrTextEditorHistory >> deletedText: aBlText at: anIndex [
+BrTextEditorHistory >> deletedTexts: aCollectionOfTexts undo: aCollectionOfUndoIndices redo: aCollectionOfRedoIndices [
 	self addCommand: (BrTextEditorHistoryDeletionCommand new
-		text: aBlText;
-		index: anIndex)
+		texts: aCollectionOfTexts;
+		undoIndices: aCollectionOfUndoIndices;
+		redoIndices: aCollectionOfRedoIndices)
 ]
 
 { #category : #'api - history' }
@@ -46,10 +47,11 @@ BrTextEditorHistory >> initialize [
 ]
 
 { #category : #'api - history' }
-BrTextEditorHistory >> insertedString: aString at: anIndex [
+BrTextEditorHistory >> insertedStrings: aCollectionOfStrings undo: aCollectionOfUndoIndices redo: aCollectionOfRedoIndices [
 	self addCommand: (BrTextEditorHistoryInsertionCommand new
-		string: aString;
-		index: anIndex)
+		strings: aCollectionOfStrings;
+		undoIndices: aCollectionOfUndoIndices;
+		redoIndices: aCollectionOfRedoIndices)
 ]
 
 { #category : #'api - undo/redo' }
