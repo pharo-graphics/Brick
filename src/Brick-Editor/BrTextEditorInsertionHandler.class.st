@@ -9,10 +9,21 @@ Class {
 
 { #category : #'api - insertion' }
 BrTextEditorInsertionHandler >> insert: aString atCursorIn: anEditor [
-	anEditor inserter
-		atCursor;
-		string: aString;
-		insert
+
+	anEditor surroundMap
+		at: aString asSymbol
+		ifPresent: [ :aSurroundSymbol |
+			anEditor inserter
+				atCursor;
+				string: aString;
+				withSurround: aSurroundSymbol asString;
+				withoutSelectionDelete;
+				insert ]
+		ifAbsent: [
+			anEditor inserter
+				atCursor;
+				string: aString;
+				insert ]
 ]
 
 { #category : #'keyboard handlers' }

@@ -20,7 +20,9 @@ Class {
 		'shouldUpdateCursor',
 		'shouldUpdateSelection',
 		'shouldDeleteSelected',
-		'inputFilter'
+		'inputFilter',
+		'withSurround',
+		'rightSurroundText'
 	],
 	#category : #'Brick-Editor-Model - Operators'
 }
@@ -112,10 +114,18 @@ BrTextEditorInserter >> indentation [
 BrTextEditorInserter >> initialize [
 	super initialize.
 	
+	text := nil.
+	
+	"a text that should be added on the right side when surround insertion is enabled.
+	if surround text is not set, we duplicate the inserted text itself"
+	rightSurroundText := nil.
+	
 	insertionIndices := SortedCollection new.
 	shouldUpdateCursor := true.
 	shouldUpdateSelection := true.
 	shouldDeleteSelected := true.
+	
+	withSurround := false.	
 	inputFilter := BrTextEditorNoInputfilter new
 ]
 
@@ -126,22 +136,39 @@ BrTextEditorInserter >> inputFilter: aTextEditorInputFilter [
 
 { #category : #'api - processing' }
 BrTextEditorInserter >> insert [
-	| aFilteredText |
+	| aFilteredText aRightSurroundText |
 	
 	aFilteredText := inputFilter filter: text.
 	aFilteredText isEmpty
 		ifTrue: [ ^ self ].
+	
+	aRightSurroundText := withSurround
+		ifTrue: [ rightSurroundText
+			ifNil: [ aFilteredText ]
+			ifNotNil: [ inputFilter filter: rightSurroundText ] ]
+		ifFalse: [ aFilteredText ].
 
 	shouldDeleteSelected
 		ifTrue: [ self deleteSelectedText ].
 		
 	insertionIndices reverseDo: [ :anIndex |
-		self privateInsertString: aFilteredText at: anIndex.
+		withSurround
+			ifTrue: [ self
+				privateInsertString: aFilteredText
+				withSurround: aRightSurroundText
+				at: anIndex ]
+			ifFalse: [ self privateInsertString: aFilteredText at: anIndex ].
 
 		shouldUpdateCursor
-			ifTrue: [ self updateCursorsAfterInsertion: aFilteredText at: anIndex ].
+			ifTrue: [
+				withSurround
+					ifTrue: [ self privateUpdateCursorsAfterInsertion: aFilteredText withSurround: aRightSurroundText at: anIndex ]
+					ifFalse: [ self privateUpdateCursorsAfterInsertion: aFilteredText at: anIndex ] ].
 		shouldUpdateSelection
-			ifTrue: [ self updateSelectionAfterInsertion: aFilteredText at: anIndex ] ]
+			ifTrue: [
+				withSurround
+					ifTrue: [ self updateSelectionAfterInsertion: aFilteredText withSurround: aRightSurroundText at: anIndex ]
+					ifFalse: [ self updateSelectionAfterInsertion: aFilteredText at: anIndex ] ] ]
 ]
 
 { #category : #testing }
@@ -182,6 +209,21 @@ BrTextEditorInserter >> onlyLetters [
 ]
 
 { #category : #private }
+BrTextEditorInserter >> privateComputeInsertionIndices: aString withSurround: aSurroundString at: aTextIndex [
+	| aLeftIndex aRightIndex |
+
+	aLeftIndex := aTextIndex.
+	aRightIndex := aTextIndex + aString size.
+	
+	(self selection do: [ :eachMonotoneSelection | (eachMonotoneSelection contains: aTextIndex)
+		ifTrue: [
+			aLeftIndex := eachMonotoneSelection from.
+			aRightIndex := eachMonotoneSelection to + aString size ] ]).
+	
+	^ { aLeftIndex . aRightIndex }
+]
+
+{ #category : #private }
 BrTextEditorInserter >> privateInsertString: aString at: aTextIndex [
 	| aCommand |
 
@@ -189,6 +231,66 @@ BrTextEditorInserter >> privateInsertString: aString at: aTextIndex [
 		string: aString;
 		index: aTextIndex.
 	self editor enqueueCommand: aCommand
+]
+
+{ #category : #private }
+BrTextEditorInserter >> privateInsertString: aString withSurround: aRightSurroundText at: aTextIndex [
+	| aCommand theIndices |
+
+	theIndices := self privateComputeInsertionIndices: aString withSurround: aRightSurroundText at: aTextIndex.
+
+	aCommand := BrTextEditorInsertStringCommand new
+		string: aString;
+		index: theIndices first.
+	self editor enqueueCommand: aCommand.
+	
+	aCommand := BrTextEditorInsertStringCommand new
+		string: aRightSurroundText;
+		index: theIndices second.
+	
+	self editor enqueueCommand: aCommand
+]
+
+{ #category : #private }
+BrTextEditorInserter >> privateUpdateCursorsAfterInsertion: aText at: anIndex [
+	self cursor do: [ :aCursor |
+		| aCursorDelta |
+		aCursorDelta := self
+			computeIndexMovement: aCursor position
+			afterInserted: aText
+			at: anIndex.
+
+		aCursorDelta isZero
+			ifFalse: [ self editor navigator
+				dueTo: self;
+				move: aCursor by: aCursorDelta;
+				apply ] ]
+]
+
+{ #category : #private }
+BrTextEditorInserter >> privateUpdateCursorsAfterInsertion: aText withSurround: aSurroundText at: aTextIndex [
+	| theIndices |
+
+	theIndices := self privateComputeInsertionIndices: aText withSurround: aSurroundText at: aTextIndex.
+
+	self cursor do: [ :aCursor |
+		| aCursorDelta |
+					
+		aCursorDelta := self
+			computeIndexMovement: aCursor position
+			afterInserted: aText
+			at: theIndices first.
+	
+		aCursorDelta := aCursorDelta + (self
+			computeIndexMovement: aCursor position
+			afterInserted: aSurroundText
+			at: theIndices second + aText size).
+
+		aCursorDelta isZero
+			ifFalse: [ self editor navigator
+				dueTo: self;
+				move: aCursor by: aCursorDelta;
+				apply ] ]
 ]
 
 { #category : #'private - accessing' }
@@ -232,22 +334,6 @@ BrTextEditorInserter >> text: aBlText [
 ]
 
 { #category : #private }
-BrTextEditorInserter >> updateCursorsAfterInsertion: aText at: anIndex [
-	self cursor do: [ :aCursor |
-		| aCursorDelta |
-		aCursorDelta := self
-			computeIndexMovement: aCursor position
-			afterInserted: aText
-			at: anIndex.
-
-		aCursorDelta isZero
-			ifFalse: [ self editor navigator
-				dueTo: self;
-				move: aCursor by: aCursorDelta;
-				apply ] ]
-]
-
-{ #category : #private }
 BrTextEditorInserter >> updateSelectionAfterInsertion: aText at: anIndex [
 	| anExistingSelection |
 
@@ -262,9 +348,43 @@ BrTextEditorInserter >> updateSelectionAfterInsertion: aText at: anIndex [
 				self editor select: aNewSelection from to: aNewSelection to ] ]
 ]
 
+{ #category : #private }
+BrTextEditorInserter >> updateSelectionAfterInsertion: aText withSurround: aSurroundText at: aTextIndex [
+	| anExistingSelection theIndices |
+	
+	theIndices := self privateComputeInsertionIndices: aText withSurround: aSurroundText at: aTextIndex.
+
+	anExistingSelection := BlCompositeSelection new select: self editor selection.
+	anExistingSelection reverseDo: [ :aMonotoneSelection |
+		| aNewSelection |
+
+		aNewSelection := self computeSelection: aMonotoneSelection afterInserted: aText at: theIndices first.
+		aNewSelection := self computeSelection: aNewSelection afterInserted: aText at: theIndices second.
+		aNewSelection = aMonotoneSelection
+			ifFalse: [
+				self editor deselect: aMonotoneSelection from to: aMonotoneSelection to.
+				self editor select: aNewSelection from to: aNewSelection to ] ]
+]
+
 { #category : #'api - configuration' }
 BrTextEditorInserter >> withSelectionDelete [
 	shouldDeleteSelected := true
+]
+
+{ #category : #'api - configuration' }
+BrTextEditorInserter >> withSurround [
+	"When inserting a text it should be duplicated surrounding a cursor or a selection"
+	
+	withSurround := true.
+	rightSurroundText := nil.
+]
+
+{ #category : #'api - configuration' }
+BrTextEditorInserter >> withSurround: aRightSurroundTextOrString [
+	"When inserting a text it should be duplicated surrounding a cursor or a selection"
+	
+	self withSurround.
+	rightSurroundText := aRightSurroundTextOrString
 ]
 
 { #category : #'api - configuration' }

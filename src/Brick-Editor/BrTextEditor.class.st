@@ -376,14 +376,6 @@ BrTextEditor >> initializeInteractions [
 	self interactions add: (BlShortcut new
 		combination: BlKeyCombination primaryC;
 		action: [ self copySelected ]).
-		
-	self interactions add: (BlShortcut new
-		combination: BlKeyCombination primaryZ;
-		action: [ self undo ]).
-		
-	self interactions add: (BlShortcut new
-		combination: BlKeyCombination primaryShiftZ;
-		action: [ self redo ]).
 
 	"Paste a text from the clipboard at the current cursor position.
 	I delete any currently selected text and update cursor position"
@@ -392,9 +384,17 @@ BrTextEditor >> initializeInteractions [
 		action: [ self paster fromClipboard atCursor paste ]).
 
 	self interactions add: (BlShortcut new
+		combination: BlKeyCombination primaryZ;
+		action: [ self undo ]).
+		
+	self interactions add: (BlShortcut new
+		combination: BlKeyCombination primaryShiftZ;
+		action: [ self redo ]).
+
+	self interactions add: (BlShortcut new
 		combination: BlKeyCombination escape;
 		action: [ self selectNone ]).
-
+	
 	self interactions add: (BlShortcut new
 		combination: (BlKeyCombination builder shift arrowLeft build);
 		action: [
@@ -1053,6 +1053,20 @@ BrTextEditor >> stylerStrategy: aBrTextStylerStrategy [
 		stylerStrategy view ifNotNil: [ :aView | 
 			aBrTextStylerStrategy view: aView ] ].
 	stylerStrategy := aBrTextStylerStrategy
+]
+
+{ #category : #interactions }
+BrTextEditor >> surroundMap [
+	"When inserting some special symbols a text editor should surround a cursor or selection with that symbol"
+	
+	^ { 
+		#'(' -> #')'.
+		#'"' -> #'"'.
+		#'''' -> #''''.
+		#'[' -> #']'.
+		#'{' -> #'}'.
+		#'|' -> #'|'.
+	} asDictionary
 ]
 
 { #category : #accessing }
