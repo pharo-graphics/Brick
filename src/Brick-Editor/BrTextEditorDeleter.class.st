@@ -132,26 +132,6 @@ BrTextEditorDeleter >> oneBeforeCursor: aCursor [
 		to: aCursor position
 ]
 
-{ #category : #'api - configuration' }
-BrTextEditorDeleter >> oneBeforeCursorWithSurroundMap: aDictionary [
-	"Delete one symbol before the cursor or the surrounding around the cursor but only if the cursor is not a part
-	of the selection"
-
-	self cursor do: [ :aCursor |
-		(self selection contains: aCursor position)
-			ifTrue: [ self oneBeforeCursor: aCursor ]
-			ifFalse: [
-				aDictionary associations
-					detect: [ :eachReplacement |
-						(self hasString: eachReplacement key beforeCursor: aCursor)
-							and: [ self hasString: eachReplacement key afterCursor: aCursor ] ]
-					ifFound: [ :aReplacement |
-						self
-							from: aCursor position - aReplacement key size
-							to: aCursor position + aReplacement value size ]
-					ifNone: [ self oneBeforeCursor: aCursor ] ] ]
-]
-
 { #category : #private }
 BrTextEditorDeleter >> privateDelete: aFromTextIndex to: aToTextIndex [
 	"I delete a piece of text within a given text interval without cursor or selection update.
