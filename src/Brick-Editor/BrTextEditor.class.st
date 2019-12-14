@@ -339,6 +339,7 @@ BrTextEditor >> initializeInteractions [
 			self deleter
 				selected;
 				oneBeforeCursor;
+				surroundings: self surroundMap;
 				delete ]).
 
 	self interactions add: (BlShortcut new

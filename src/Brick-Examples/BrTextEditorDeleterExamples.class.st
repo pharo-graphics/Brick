@@ -260,3 +260,128 @@ BrTextEditorDeleterExamples >> delete_0_to_5_from_HelloCr [
 
 	^ anEditor
 ]
+
+{ #category : #'examples - deletion special' }
+BrTextEditorDeleterExamples >> surroundings_delete_at_0_from_parenthesis_open_close [
+	<gtExample>
+	| anEditor |
+	
+	anEditor := self editorFor: '()'.
+	anEditor navigator
+		addAt: 0;
+		apply.
+
+	anEditor deleter
+		surroundings: { '(' -> ')' };
+		delete.
+
+	self assert: anEditor text asString equals: '()'.
+	self assert: anEditor cursors equals: (BrTextEditorCursor atAll: #(0)).
+
+	^ anEditor
+]
+
+{ #category : #'examples - deletion special' }
+BrTextEditorDeleterExamples >> surroundings_delete_at_1_from_parenthesis_open_close [
+	<gtExample>
+	| anEditor |
+	
+	anEditor := self editorFor: '()'.
+	anEditor navigator
+		addAt: 1;
+		apply.
+
+	anEditor deleter
+		surroundings: { '(' -> ')' };
+		delete.
+
+	self assert: anEditor text asString equals: ''.
+	self assert: anEditor cursors equals: (BrTextEditorCursor atAll: #(0)).
+
+	^ anEditor
+]
+
+{ #category : #'examples - deletion special' }
+BrTextEditorDeleterExamples >> surroundings_delete_at_1_from_parenthesis_open_close_close [
+	<gtExample>
+	| anEditor |
+	
+	anEditor := self editorFor: '())'.
+	anEditor navigator
+		addAt: 1;
+		apply.
+
+	anEditor deleter
+		surroundings: { '(' -> ')' };
+		delete.
+
+	self assert: anEditor text asString equals: ')'.
+	self assert: anEditor cursors equals: (BrTextEditorCursor atAll: #(0)).
+
+	^ anEditor
+]
+
+{ #category : #'examples - deletion special' }
+BrTextEditorDeleterExamples >> surroundings_delete_at_2_from_parenthesis_open_close [
+	<gtExample>
+	| anEditor |
+	
+	anEditor := self editorFor: '()'.
+	anEditor navigator
+		addAt: 2;
+		apply.
+
+	anEditor deleter
+		surroundings: { '(' -> ')' };
+		delete.
+
+	self assert: anEditor text asString equals: '()'.
+	self assert: anEditor cursors equals: (BrTextEditorCursor atAll: #(2)).
+
+	^ anEditor
+]
+
+{ #category : #'examples - deletion special' }
+BrTextEditorDeleterExamples >> surroundings_delete_at_2_from_parenthesis_open_close_selected_1_to_2 [
+	<gtExample>
+	| anEditor |
+	
+	anEditor := self editorFor: '()'.
+	
+	anEditor selecter
+		from: 1 to: 2;
+		select.
+	
+	anEditor navigator
+		addAt: 2;
+		apply.
+
+	anEditor deleter
+		surroundings: { '(' -> ')' };
+		delete.
+
+	self assert: anEditor text asString equals: '()'.
+	self assert: anEditor cursors equals: (BrTextEditorCursor atAll: #(2)).
+
+	^ anEditor
+]
+
+{ #category : #'examples - deletion special' }
+BrTextEditorDeleterExamples >> surroundings_delete_at_2_from_parenthesis_open_open_close [
+	<gtExample>
+	| anEditor |
+	
+	anEditor := self editorFor: '(()'.
+	anEditor navigator
+		addAt: 2;
+		apply.
+
+	anEditor deleter
+		surroundings: { '(' -> ')' };
+		delete.
+
+	self assert: anEditor text asString equals: '('.
+	self assert: anEditor cursors equals: (BrTextEditorCursor atAll: #(1)).
+
+	^ anEditor
+]

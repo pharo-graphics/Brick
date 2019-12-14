@@ -120,10 +120,36 @@ BrTextEditorDeleter >> oneAfterCursor [
 BrTextEditorDeleter >> oneBeforeCursor [
 	"Delete one symbol before the cursor"
 
+	self cursor do: [ :aCursor | self oneBeforeCursor: aCursor ]
+]
+
+{ #category : #'api - configuration' }
+BrTextEditorDeleter >> oneBeforeCursor: aCursor [
+	"Delete one symbol before the specified cursor "
+
+	self
+		from: ((aCursor position - 1) max: 0)
+		to: aCursor position
+]
+
+{ #category : #'api - configuration' }
+BrTextEditorDeleter >> oneBeforeCursorWithSurroundMap: aDictionary [
+	"Delete one symbol before the cursor or the surrounding around the cursor but only if the cursor is not a part
+	of the selection"
+
 	self cursor do: [ :aCursor |
-		self
-			from: ((aCursor position - 1) max: 0)
-			to: aCursor position ]
+		(self selection contains: aCursor position)
+			ifTrue: [ self oneBeforeCursor: aCursor ]
+			ifFalse: [
+				aDictionary associations
+					detect: [ :eachReplacement |
+						(self hasString: eachReplacement key beforeCursor: aCursor)
+							and: [ self hasString: eachReplacement key afterCursor: aCursor ] ]
+					ifFound: [ :aReplacement |
+						self
+							from: aCursor position - aReplacement key size
+							to: aCursor position + aReplacement value size ]
+					ifNone: [ self oneBeforeCursor: aCursor ] ] ]
 ]
 
 { #category : #private }
@@ -153,6 +179,29 @@ BrTextEditorDeleter >> selected [
 	"Mark currenty selected text as the one to be deleted"
 
 	self selection do: [ :aMonotoneSelection | self from: aMonotoneSelection from to: aMonotoneSelection to ]
+]
+
+{ #category : #'api - configuration' }
+BrTextEditorDeleter >> surroundings: aDictionaryOrArray [
+	"Delete the surrounding around each cursor (if there is any) but only if the cursor is not part of the selection"
+	| theAssociations |
+	
+	theAssociations := aDictionaryOrArray isDictionary
+		ifTrue: [ aDictionaryOrArray associations ]
+		ifFalse: [ aDictionaryOrArray ].
+	
+	
+	self cursor do: [ :aCursor |
+		(self selection contains: aCursor position)
+			ifFalse: [
+				theAssociations
+					detect: [ :eachReplacement |
+						(self hasString: eachReplacement key beforeCursor: aCursor)
+							and: [ self hasString: eachReplacement value afterCursor: aCursor ] ]
+					ifFound: [ :aReplacement |
+						self
+							from: aCursor position - aReplacement key size
+							to: aCursor position + aReplacement value size ] ] ]
 ]
 
 { #category : #private }

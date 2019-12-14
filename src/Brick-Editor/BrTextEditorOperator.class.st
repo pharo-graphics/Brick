@@ -207,6 +207,49 @@ BrTextEditorOperator >> findWhitespaceOfLineBefore: aTextIndex [
 	^ (aText from: (aLineStartIndex min: aTextIterator position) to: aTextIterator position) asString
 ]
 
+{ #category : #private }
+BrTextEditorOperator >> hasString: aString afterCursor: aCursor [
+	| anIterator |
+	
+	self
+		assert: [ aString isNotEmpty ]
+		description: [ 'String must not be empty' ].
+	
+	aCursor position = self text size
+		ifTrue: [ ^ false ].
+	
+	anIterator := self text iterator: ((aCursor position + 1) min: self text size) to: self text size.
+	aString do: [ :eachCharacter |
+		anIterator hasNext
+			ifFalse: [ ^ false ].
+			
+		anIterator next = eachCharacter
+			ifFalse: [ ^ false ] ].
+	^ true
+]
+
+{ #category : #private }
+BrTextEditorOperator >> hasString: aString beforeCursor: aCursor [
+	| anIterator |
+	
+	self
+		assert: [ aString isNotEmpty ]
+		description: [ 'String must not be empty' ].
+	
+	aCursor position isZero
+		ifTrue: [ ^ false ].
+	
+	anIterator := self text iterator: 1 to: ((aCursor position + 1) min: self text size).
+	anIterator skip: aCursor position.
+	aString reverseDo: [ :eachCharacter |
+		anIterator hasPrevious
+			ifFalse: [ ^ false ].
+			
+		anIterator previous = eachCharacter
+			ifFalse: [ ^ false ] ].
+	^ true
+]
+
 { #category : #initialization }
 BrTextEditorOperator >> initialize [
 	super initialize.
