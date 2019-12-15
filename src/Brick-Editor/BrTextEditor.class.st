@@ -1075,7 +1075,6 @@ BrTextEditor >> surroundMap [
 		#'''' -> #''''.
 		#'[' -> #']'.
 		#'{' -> #'}'.
-		#'|' -> #'|'.
 	} asDictionary
 ]
 

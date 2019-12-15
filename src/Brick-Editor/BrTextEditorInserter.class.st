@@ -21,8 +21,7 @@ Class {
 		'shouldUpdateSelection',
 		'shouldDeleteSelected',
 		'inputFilter',
-		'withSurround',
-		'rightSurroundText'
+		'surroundMap'
 	],
 	#category : #'Brick-Editor-Model - Operators'
 }
@@ -121,14 +120,13 @@ BrTextEditorInserter >> initialize [
 	
 	"a text that should be added on the right side when surround insertion is enabled.
 	if surround text is not set, we duplicate the inserted text itself"
-	rightSurroundText := nil.
+	surroundMap := Dictionary new.
 	
 	insertionIndices := SortedCollection sortBlock: [ :a :b | a key < b key ].
 	shouldUpdateCursor := true.
 	shouldUpdateSelection := true.
 	shouldDeleteSelected := true.
-	
-	withSurround := false.	
+
 	inputFilter := BrTextEditorNoInputfilter new
 ]
 
@@ -139,78 +137,94 @@ BrTextEditorInserter >> inputFilter: aTextEditorInputFilter [
 
 { #category : #'api - processing' }
 BrTextEditorInserter >> insert [
-	| theFilteredTextMap anInsertionIndices anInsertionStrings |
+	| theFilteredTextMap theInsertions |
 
 	shouldDeleteSelected
 		ifTrue: [ self deleteSelectedText ].
 		
 	theFilteredTextMap := Dictionary new.
-
-	anInsertionIndices := OrderedCollection new.
-	anInsertionStrings := OrderedCollection new.
+	theInsertions := OrderedCollection new.
 
 	insertionIndices do: [ :eachAssociation |
-		| anIndex aFilteredText aRightSurroundText |
+		| anIndex aFilteredText |
 		
 		anIndex := eachAssociation key.
 		
 		aFilteredText := theFilteredTextMap
 			at: eachAssociation value
 			ifAbsentPut: [ inputFilter filter: eachAssociation value ].
-	
-		aRightSurroundText := withSurround
-			ifTrue: [ rightSurroundText
-				ifNil: [ aFilteredText ]
-				ifNotNil: [
-					theFilteredTextMap
-						at: rightSurroundText
-						ifAbsentPut: [ inputFilter filter: rightSurroundText ] ] ]
-			ifFalse: [ aFilteredText ].
-		
-		withSurround
-			ifTrue: [
-				| theSurroundingIndices |
-				theSurroundingIndices := self privateComputeInsertionIndices: aFilteredText withSurround: aRightSurroundText at: anIndex.
-				
-				anInsertionIndices add: theSurroundingIndices first.
-				anInsertionStrings add: aFilteredText.
-				
-				anInsertionIndices add: theSurroundingIndices second.
-				anInsertionStrings add: aRightSurroundText ]
-			ifFalse: [
-				anInsertionIndices add: anIndex.
-				anInsertionStrings add: aFilteredText ] ].
 
-	self privateInsertStrings: anInsertionStrings atAll: anInsertionIndices.
-
-	insertionIndices reverseDo: [ :eachAssociation |
-		| anIndex aFilteredText aRightSurroundText |
-		
-		anIndex := eachAssociation key.
-		
-		aFilteredText := theFilteredTextMap
+		surroundMap
 			at: eachAssociation value
-			ifAbsentPut: [ inputFilter filter: eachAssociation value ].
-	
-		aRightSurroundText := withSurround
-			ifTrue: [ rightSurroundText
-				ifNil: [ aFilteredText ]
-				ifNotNil: [
-					theFilteredTextMap
-						at: rightSurroundText
-						ifAbsentPut: [ inputFilter filter: rightSurroundText ] ] ]
-			ifFalse: [ aFilteredText ].
+			ifPresent: [ :aRightSurroundText |
+				| aFilteredSurroundText theSurroundingIndices |
+
+				aFilteredSurroundText := theFilteredTextMap
+					at: aRightSurroundText
+					ifAbsentPut: [ inputFilter filter: aRightSurroundText ].
+
+				theSurroundingIndices := self
+					privateComputeInsertionIndices: aFilteredText
+					withSurround: aFilteredSurroundText
+					at: anIndex.
+					
+				theInsertions add: { 
+					#index -> theSurroundingIndices first.
+					#string -> aFilteredText.
+					#requestedIndex -> anIndex.
+					#surrounding -> {
+						#index -> theSurroundingIndices second.
+						#string -> aRightSurroundText.
+					} asDictionary
+				} asDictionary ]
+
+			ifAbsent: [
+				theInsertions add: { 
+					#index -> anIndex.
+					#requestedIndex -> anIndex.
+					#string -> aFilteredText.
+				} asDictionary ] ].
 		
+	theInsertions in: [ :_ |
+		| theInsertionStrings theInsertionIndices |
+		
+		theInsertionStrings := OrderedCollection new.
+		theInsertionIndices := OrderedCollection new.
+		
+		theInsertions do: [ :eachInsertion |
+			theInsertionStrings add: (eachInsertion at: #string).
+			theInsertionIndices add: (eachInsertion at: #index).
+			eachInsertion at: #surrounding
+					ifPresent: [ :aSurrounding |
+						theInsertionStrings add: (aSurrounding at: #string).
+						theInsertionIndices add: (aSurrounding at: #index) ] ].
+		self privateInsertStrings: theInsertionStrings atAll: theInsertionIndices ].	
+	
+	theInsertions reverseDo: [ :eachInsertion | 
 		shouldUpdateCursor
 			ifTrue: [
-				withSurround
-					ifTrue: [ self privateUpdateCursorsAfterInsertion: aFilteredText withSurround: aRightSurroundText at: anIndex ]
-					ifFalse: [ self privateUpdateCursorsAfterInsertion: aFilteredText at: anIndex ] ].
+				eachInsertion at: #surrounding
+					ifPresent: [ :aSurrounding |
+						self
+							privateUpdateCursorsAfterInsertion: (eachInsertion at: #string)
+							withSurround: (aSurrounding at: #string)
+							at: (eachInsertion at: #requestedIndex) ]
+					ifAbsent: [
+						self
+							privateUpdateCursorsAfterInsertion: (eachInsertion at: #string)
+							at: (eachInsertion at: #requestedIndex) ] ].
 		shouldUpdateSelection
 			ifTrue: [
-				withSurround
-					ifTrue: [ self updateSelectionAfterInsertion: aFilteredText withSurround: aRightSurroundText at: anIndex ]
-					ifFalse: [ self updateSelectionAfterInsertion: aFilteredText at: anIndex ] ] ]
+				eachInsertion at: #surrounding
+					ifPresent: [ :aSurrounding |
+						self
+							updateSelectionAfterInsertion: (eachInsertion at: #string)
+							withSurround: (aSurrounding at: #string)
+							at: (eachInsertion at: #requestedIndex) ]
+					ifAbsent: [
+						self
+							updateSelectionAfterInsertion: (eachInsertion at: #string)
+							at: (eachInsertion at: #requestedIndex) ] ] ]
 ]
 
 { #category : #testing }
@@ -384,6 +398,11 @@ BrTextEditorInserter >> string: aString [
 ]
 
 { #category : #'api - configuration' }
+BrTextEditorInserter >> surroundings: aDictionaryOrArray [
+	surroundMap := aDictionaryOrArray asDictionary
+]
+
+{ #category : #'api - configuration' }
 BrTextEditorInserter >> text: aBlText [
 	text := aBlText.
 	insertionIndices do: [ :eachAssociation | eachAssociation value ifNil: [ eachAssociation value: text ] ]
@@ -425,22 +444,6 @@ BrTextEditorInserter >> updateSelectionAfterInsertion: aText withSurround: aSurr
 { #category : #'api - configuration' }
 BrTextEditorInserter >> withSelectionDelete [
 	shouldDeleteSelected := true
-]
-
-{ #category : #'api - configuration' }
-BrTextEditorInserter >> withSurround [
-	"When inserting a text it should be duplicated surrounding a cursor or a selection"
-	
-	withSurround := true.
-	rightSurroundText := nil.
-]
-
-{ #category : #'api - configuration' }
-BrTextEditorInserter >> withSurround: aRightSurroundTextOrString [
-	"When inserting a text it should be duplicated surrounding a cursor or a selection"
-	
-	self withSurround.
-	rightSurroundText := aRightSurroundTextOrString
 ]
 
 { #category : #'api - configuration' }

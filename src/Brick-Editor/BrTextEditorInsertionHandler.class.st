@@ -16,13 +16,14 @@ BrTextEditorInsertionHandler >> insert: aString atCursorIn: anEditor [
 			anEditor inserter
 				atCursor;
 				string: aString;
-				withSurround: aSurroundSymbol asString;
+				surroundings: anEditor surroundMap;
 				withoutSelectionDelete;
 				insert ]
 		ifAbsent: [
 			anEditor inserter
 				atCursor;
 				string: aString;
+				surroundings: anEditor surroundMap;
 				insert ]
 ]
 

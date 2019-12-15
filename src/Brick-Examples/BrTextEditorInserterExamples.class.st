@@ -418,7 +418,7 @@ BrTextEditorInserterExamples >> insert_openParentheses_at_cursor_0_and_1_and_3_s
 	anEditor inserter
 		atCursor;
 		string: '(';
-		withSurround: ')';
+		surroundings: { '(' -> ')' };
 		insert.
 
 	self assert: anEditor text asString equals: (
@@ -448,7 +448,7 @@ BrTextEditorInserterExamples >> insert_openParentheses_at_cursor_0_and_1_selecti
 	anEditor inserter
 		atCursor;
 		string: '(';
-		withSurround: ')';
+		surroundings: { '(' -> ')' };
 		insert.
 
 	self assert: anEditor text asString equals: ('()',self multilineText first asString, '()', ((self multilineText from: 2 to: self multilineText size) asString)).
@@ -474,7 +474,7 @@ BrTextEditorInserterExamples >> insert_openParentheses_at_cursor_0_and_3_selecti
 	anEditor inserter
 		atCursor;
 		string: '(';
-		withSurround: ')';
+		surroundings: { '(' -> ')' };
 		withoutSelectionDelete;
 		insert.
 
@@ -505,7 +505,7 @@ BrTextEditorInserterExamples >> insert_openParentheses_at_cursor_0_selection_0_t
 	anEditor inserter
 		atCursor;
 		string: '(';
-		withSurround: ')';
+		surroundings: { '(' -> ')' };
 		insert.
 
 	self assert: anEditor text asString equals: ('()', self multilineText asString).
@@ -527,7 +527,7 @@ BrTextEditorInserterExamples >> insert_openParentheses_at_cursor_0_selection_0_t
 	anEditor inserter
 		atCursor;
 		string: '(';
-		withSurround: ')';
+		surroundings: { '(' -> ')' };
 		insert.
 
 	self assert: anEditor text asString equals: ('()', (self multilineText from: 2 to: self multilineText size) asString).
@@ -549,7 +549,7 @@ BrTextEditorInserterExamples >> insert_openParentheses_at_cursor_0_selection_0_t
 	anEditor inserter
 		atCursor;
 		string: '(';
-		withSurround: ')';
+		surroundings: { '(' -> ')' };
 		withoutSelectionDelete;
 		insert.
 
@@ -575,7 +575,7 @@ BrTextEditorInserterExamples >> insert_openParentheses_at_cursor_0_selection_2_t
 	anEditor inserter
 		atCursor;
 		string: '(';
-		withSurround: ')';
+		surroundings: { '(' -> ')' };
 		withoutSelectionDelete;
 		insert.
 
@@ -602,7 +602,7 @@ BrTextEditorInserterExamples >> insert_openParentheses_at_cursor_10_selection_2_
 	anEditor inserter
 		atCursor;
 		string: '(';
-		withSurround: ')';
+		surroundings: { '(' -> ')' };
 		withoutSelectionDelete;
 		insert.
 
@@ -632,7 +632,7 @@ BrTextEditorInserterExamples >> insert_openParentheses_at_cursor_2_selection_2_t
 	anEditor inserter
 		atCursor;
 		string: '(';
-		withSurround: ')';
+		surroundings: { '(' -> ')' };
 		withoutSelectionDelete;
 		insert.
 
@@ -662,7 +662,7 @@ BrTextEditorInserterExamples >> insert_openParentheses_at_cursor_8_selection_2_t
 	anEditor inserter
 		atCursor;
 		string: '(';
-		withSurround: ')';
+		surroundings: { '(' -> ')' };
 		withoutSelectionDelete;
 		insert.
 
@@ -676,6 +676,35 @@ BrTextEditorInserterExamples >> insert_openParentheses_at_cursor_8_selection_2_t
 	self assert: anEditor selection allSelections equals: {
 		BlSelection from: 3 to: 9.
 	}.
+
+	^ anEditor
+]
+
+{ #category : #'examples - insertion' }
+BrTextEditorInserterExamples >> insert_open_close_parentheses_at_cursor_0_selection_0_to_0 [
+	<gtExample>
+	<noTest>
+	| anEditor |
+	
+	anEditor := self editorOnMultilineText.
+	anEditor editor moveCursorTo: 0.
+	anEditor editor select: 0 to: 0.
+	
+	anEditor inserter
+		atCursor;
+		string: '(';
+		surroundings: { '(' -> ')' };
+		insert.
+		
+	anEditor inserter
+		atCursor;
+		string: ')';
+		surroundings: { '(' -> ')' };
+		insert.
+
+	self assert: anEditor text asString equals: ('()', self multilineText asString).
+	self assert: anEditor cursors allCursors equals: { BrTextEditorSingleCursor new position: 2 }.
+	self assert: anEditor selection isEmpty.
 
 	^ anEditor
 ]
