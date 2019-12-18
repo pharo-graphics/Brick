@@ -14,7 +14,8 @@ Class {
 		'cursorsToMove',
 		'shouldResetDesiredCoordinate',
 		'operations',
-		'dueTo'
+		'dueTo',
+		'shouldHistorize'
 	],
 	#category : #'Brick-Editor-Model - Operators'
 }
@@ -78,9 +79,15 @@ BrTextEditorNavigator >> apply [
 				ifTrue: [ theAddedCursors add: (theNewCursorsArray at: anIndex) ]
 				ifFalse: [ theRemovedCursors add: ((theCurrentCursorsArray at: anIndex)) ] ] ].
 
+	shouldHistorize ifTrue: [
+		self editor history
+			cursorsMovedFrom: (theRemovedCursors collect: #position), (theMovedCursors collect: [ :anAssociation | anAssociation key position ])
+			to: (theAddedCursors collect: #position), (theMovedCursors collect: [ :anAssociation | anAssociation value position ]) ].
+
 	theRemovedCursors do: [ :aCursor | self privateRemoveCursor: aCursor ].
 	theAddedCursors do: [ :aCursor | self privateAddCursor: aCursor ].
 	theMovedCursors do: [ :anAssociation | self privateMoveCursor: anAssociation key to: anAssociation value position ].
+	
 	dueTo := nil
 ]
 
@@ -102,7 +109,8 @@ BrTextEditorNavigator >> initialize [
 	cursorsToAdd := Set new.
 	cursorsToRemove := Set new.
 	cursorsToMove := Dictionary new.
-	shouldResetDesiredCoordinate := true
+	shouldResetDesiredCoordinate := true.
+	shouldHistorize := false
 ]
 
 { #category : #'api - configuration' }
@@ -401,6 +409,13 @@ BrTextEditorNavigator >> whenRemoved: aBlock [
 	"Subscribe to the cursor removed event and return an event handler"
 
 	^ self when: BrTextEditorCursorRemovedEvent do: aBlock
+]
+
+{ #category : #'api - configuration' }
+BrTextEditorNavigator >> withHistorization [
+	"Add cursor movement to the history sos that it can be undone / redone"
+	
+	shouldHistorize := true
 ]
 
 { #category : #'api - configuration' }

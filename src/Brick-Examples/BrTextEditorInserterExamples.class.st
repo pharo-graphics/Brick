@@ -689,13 +689,13 @@ BrTextEditorInserterExamples >> insert_open_close_parentheses_at_cursor_0_select
 	anEditor := self editorOnMultilineText.
 	anEditor editor moveCursorTo: 0.
 	anEditor editor select: 0 to: 0.
-	
+
 	anEditor inserter
 		atCursor;
 		string: '(';
 		surroundings: { '(' -> ')' };
 		insert.
-		
+
 	anEditor inserter
 		atCursor;
 		string: ')';

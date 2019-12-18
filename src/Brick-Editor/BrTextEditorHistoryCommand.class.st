@@ -4,6 +4,11 @@ Class {
 	#category : #'Brick-Editor-History'
 }
 
+{ #category : #testing }
+BrTextEditorHistoryCommand >> isGroup [
+	^ false
+]
+
 { #category : #'api - undo/redo' }
 BrTextEditorHistoryCommand >> redoOn: aBrTextEditor [
 	self subclassResponsibility

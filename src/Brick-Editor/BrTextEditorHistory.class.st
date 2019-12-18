@@ -4,7 +4,8 @@ Class {
 	#instVars : [
 		'undoCommands',
 		'redoCommands',
-		'isEnabled'
+		'isEnabled',
+		'shouldGroup'
 	],
 	#category : #'Brick-Editor-History'
 }
@@ -13,9 +14,25 @@ Class {
 BrTextEditorHistory >> addCommand: aCommand [
 	isEnabled
 		ifFalse: [ ^ self ].
-
-	undoCommands add: aCommand.
+		
+	shouldGroup
+		ifTrue: [ 
+			| aCompositeCommand |
+			aCompositeCommand := undoCommands
+				ifEmpty: [ BrTextEditorHistoryCompositeCommand new in: [ :newGroup | undoCommands add: newGroup ]; yourself ]
+				ifNotEmpty: [ undoCommands last isGroup
+					ifTrue: [ undoCommands last ]
+					ifFalse: [ BrTextEditorHistoryCompositeCommand new in: [ :newGroup | undoCommands add: newGroup ]; yourself ] ].
+			aCompositeCommand addCommand: aCommand ]
+		ifFalse: [ undoCommands add: aCommand ].
 	redoCommands removeAll
+]
+
+{ #category : #'api - history' }
+BrTextEditorHistory >> cursorsMovedFrom: aCollectionOfFromIndices to: aCollectionOfToIndices [
+	self addCommand: (BrTextEditorHistoryCursorMovementCommand new
+		fromIndices: aCollectionOfFromIndices;
+		toIndices: aCollectionOfToIndices)
 ]
 
 { #category : #'api - history' }
@@ -36,6 +53,16 @@ BrTextEditorHistory >> disableDuring: aBlock [
 	aBlock ensure: [ isEnabled := wasEnabled ]
 ]
 
+{ #category : #'api - history' }
+BrTextEditorHistory >> groupDuring: aBlock [
+	| wasGrouped |
+	
+	wasGrouped := shouldGroup.
+	shouldGroup := true.
+	
+	aBlock ensure: [ shouldGroup := wasGrouped ]
+]
+
 { #category : #initialization }
 BrTextEditorHistory >> initialize [
 	super initialize.
@@ -43,7 +70,10 @@ BrTextEditorHistory >> initialize [
 	undoCommands := OrderedCollection new.
 	redoCommands := OrderedCollection new.
 
-	isEnabled := true
+	isEnabled := true.
+	
+	"when set to false all commands are added individually, otherwise they end up in a composite group"
+	shouldGroup := false
 ]
 
 { #category : #'api - history' }

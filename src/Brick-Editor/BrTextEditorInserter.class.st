@@ -137,13 +137,15 @@ BrTextEditorInserter >> inputFilter: aTextEditorInputFilter [
 
 { #category : #'api - processing' }
 BrTextEditorInserter >> insert [
-	| theFilteredTextMap theInsertions |
+	| theFilteredTextMap theInsertions theInverseSurroundMap theCursorMovements |
 
 	shouldDeleteSelected
 		ifTrue: [ self deleteSelectedText ].
 		
 	theFilteredTextMap := Dictionary new.
 	theInsertions := OrderedCollection new.
+	theInverseSurroundMap := Dictionary newFromKeys: surroundMap values andValues: surroundMap keys.
+	theCursorMovements := OrderedCollection new.
 
 	insertionIndices do: [ :eachAssociation |
 		| anIndex aFilteredText |
@@ -179,11 +181,29 @@ BrTextEditorInserter >> insert [
 				} asDictionary ]
 
 			ifAbsent: [
-				theInsertions add: { 
-					#index -> anIndex.
-					#requestedIndex -> anIndex.
-					#string -> aFilteredText.
-				} asDictionary ] ].
+				theInverseSurroundMap
+					at: eachAssociation value
+					ifPresent: [ :aLeftSurroundText |
+						(self hasString: eachAssociation value afterCursor: (BrTextEditorSingleCursor at: anIndex))
+							ifTrue: [
+								shouldUpdateCursor
+									ifTrue: [
+										self cursors do: [ :eachCursor |
+											(eachCursor position = anIndex) ifTrue: [ theCursorMovements add: (eachCursor -> (anIndex + eachAssociation value size)) ] ] ]]
+							ifFalse: [
+								theInsertions add: { 
+									#index -> anIndex.
+									#requestedIndex -> anIndex.
+									#string -> aFilteredText.
+								} asDictionary
+					] ]
+					ifAbsent: [
+						theInsertions add: { 
+							#index -> anIndex.
+							#requestedIndex -> anIndex.
+							#string -> aFilteredText.
+						} asDictionary
+					] ] ].
 		
 	theInsertions in: [ :_ |
 		| theInsertionStrings theInsertionIndices |
@@ -198,7 +218,14 @@ BrTextEditorInserter >> insert [
 					ifPresent: [ :aSurrounding |
 						theInsertionStrings add: (aSurrounding at: #string).
 						theInsertionIndices add: (aSurrounding at: #index) ] ].
-		self privateInsertStrings: theInsertionStrings atAll: theInsertionIndices ].	
+
+		self editor history groupDuring: [
+			theCursorMovements ifNotEmpty: [ :theMovements |
+				| aNavigator |
+				aNavigator := self editor navigator.
+				theMovements do: [ :eachMovement | aNavigator move: eachMovement key to: eachMovement value ].
+				aNavigator apply ].
+			self privateInsertStrings: theInsertionStrings atAll: theInsertionIndices ] ].	
 	
 	theInsertions reverseDo: [ :eachInsertion | 
 		shouldUpdateCursor
