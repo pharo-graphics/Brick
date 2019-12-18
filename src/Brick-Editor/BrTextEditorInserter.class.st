@@ -223,6 +223,7 @@ BrTextEditorInserter >> insert [
 			theCursorMovements ifNotEmpty: [ :theMovements |
 				| aNavigator |
 				aNavigator := self editor navigator.
+				aNavigator withHistorization.
 				theMovements do: [ :eachMovement | aNavigator move: eachMovement key to: eachMovement value ].
 				aNavigator apply ].
 			self privateInsertStrings: theInsertionStrings atAll: theInsertionIndices ] ].	

@@ -17,6 +17,11 @@ BrTextEditorHistoryCompositeCommand >> addCommand: aCommand [
 	commands add: aCommand
 ]
 
+{ #category : #accessing }
+BrTextEditorHistoryCompositeCommand >> commands [
+	^ commands
+]
+
 { #category : #initialization }
 BrTextEditorHistoryCompositeCommand >> initialize [
 	super initialize.

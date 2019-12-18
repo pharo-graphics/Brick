@@ -5,7 +5,8 @@ Class {
 		'undoCommands',
 		'redoCommands',
 		'isEnabled',
-		'shouldGroup'
+		'shouldGroup',
+		'currentGroup'
 	],
 	#category : #'Brick-Editor-History'
 }
@@ -16,14 +17,7 @@ BrTextEditorHistory >> addCommand: aCommand [
 		ifFalse: [ ^ self ].
 		
 	shouldGroup
-		ifTrue: [ 
-			| aCompositeCommand |
-			aCompositeCommand := undoCommands
-				ifEmpty: [ BrTextEditorHistoryCompositeCommand new in: [ :newGroup | undoCommands add: newGroup ]; yourself ]
-				ifNotEmpty: [ undoCommands last isGroup
-					ifTrue: [ undoCommands last ]
-					ifFalse: [ BrTextEditorHistoryCompositeCommand new in: [ :newGroup | undoCommands add: newGroup ]; yourself ] ].
-			aCompositeCommand addCommand: aCommand ]
+		ifTrue: [ currentGroup addCommand: aCommand ]
 		ifFalse: [ undoCommands add: aCommand ].
 	redoCommands removeAll
 ]
@@ -58,9 +52,22 @@ BrTextEditorHistory >> groupDuring: aBlock [
 	| wasGrouped |
 	
 	wasGrouped := shouldGroup.
-	shouldGroup := true.
+	wasGrouped
+		ifFalse: [
+			currentGroup := BrTextEditorHistoryCompositeCommand new.
+			undoCommands add: currentGroup ].
 	
-	aBlock ensure: [ shouldGroup := wasGrouped ]
+	shouldGroup := true.
+	aBlock ensure: [
+		shouldGroup := wasGrouped.
+		shouldGroup ifFalse: [
+			currentGroup commands
+				ifEmpty: [ undoCommands remove: currentGroup ]
+				ifNotEmpty: [ :theCommands |
+					theCommands size = 1
+						ifTrue: [
+							undoCommands remove: currentGroup.
+							undoCommands addAll: theCommands ] ] ] ]
 ]
 
 { #category : #initialization }
@@ -73,7 +80,8 @@ BrTextEditorHistory >> initialize [
 	isEnabled := true.
 	
 	"when set to false all commands are added individually, otherwise they end up in a composite group"
-	shouldGroup := false
+	shouldGroup := false.
+	currentGroup := BrTextEditorHistoryCompositeCommand new
 ]
 
 { #category : #'api - history' }
