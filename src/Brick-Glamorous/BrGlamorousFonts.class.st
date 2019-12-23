@@ -60,10 +60,15 @@ BrGlamorousFonts class >> fontNamed: aFontFileName fromFolderNamed: aFontFolderN
 { #category : #'private - accessing' }
 BrGlamorousFonts class >> fontsFolder [
 	"Determine the fonts folder. Should work both for releaser and in development mode when the repository is present."
-	| fontsFolderPath anIcebergFileReference |
+	| fontsFolderPath anIcebergFileReference aLocalFileReference |
 	
-	fontsFolderPath := (Path * 'feenkcom' / 'Brick' / 'data' / 'fonts').	
-	anIcebergFileReference := GtIcebergUtility resourceAtPath: fontsFolderPath.
+	fontsFolderPath := (Path * 'feenkcom' / 'Brick' / 'data' / 'fonts').
+	
+	anIcebergFileReference := IceLibgitRepository repositoriesLocation resolvePath: fontsFolderPath.
+	anIcebergFileReference exists ifTrue: [ ^ anIcebergFileReference ].
+	
+	aLocalFileReference := self localGtDirectory resolvePath: fontsFolderPath.
+	aLocalFileReference exists ifTrue: [ ^ aLocalFileReference ].
 	^ anIcebergFileReference
 ]
 
