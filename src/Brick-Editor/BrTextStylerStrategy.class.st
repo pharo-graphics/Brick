@@ -35,6 +35,11 @@ BrTextStylerStrategy >> style: aBlText afterDo: aBlock [
 	self subclassResponsibility
 ]
 
+{ #category : #styling }
+BrTextStylerStrategy >> styleTextInEditor: aBrTextEditor afterDo: aBlock [
+	self subclassResponsibility
+]
+
 { #category : #accessing }
 BrTextStylerStrategy >> styler [
 	<return: #BlTextStyler>

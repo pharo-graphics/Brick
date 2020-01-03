@@ -22,3 +22,9 @@ BrTextStylerSyncStrategy >> style: aBlText afterDo: aBlock [
 		fireStyledEventForText: aStyledBlText
 		andAfterAction: aBlock.
 ]
+
+{ #category : #styling }
+BrTextStylerSyncStrategy >> styleTextInEditor: aBrTextEditor afterDo: aBlock [
+	aBrTextEditor text isEmpty ifTrue: [ ^ self ].
+	self style: aBrTextEditor text nextGeneration afterDo: aBlock.
+]

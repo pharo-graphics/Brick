@@ -29,13 +29,23 @@ BrTextStylerExamples >> editorWithAsyncStylerStrategy [
 	anEditor stylerStrategy delay: 0 seconds.
 	self assert: anEditor stylerStrategy delay equals: 0 seconds.
 	anEditor styleTextAndAfterDo: [ aSemaphore signal ].
+	
 	aTimeout := aSemaphore waitTimeoutMSecs: 100.
 	"It timeouts anyway as the element is not in a Space yet."
 	self assert: aTimeout.
 	
-	"We simulate the task execution"
+	"We simulate the task execution that triggers styling"
 	self assert: anElement taskQueue tasks size equals: 1.
-	anElement taskQueue tasks first run.
+	BlUseAsyncFeatures disableDuring: [ 
+		anElement taskQueue tasks first run ].
+	
+	"We simulate the task execution of a new enqueued task that should update the editor text"
+	self assert: anElement taskQueue tasks size equals: 2.
+	anElement taskQueue tasks second run.
+	
+	aTimeout := aSemaphore waitTimeoutMSecs: 100.
+	"It does not timeout as styling is processed in the same process as this test."
+	self assert: aTimeout not.
 	
 	"And the text is finally styled"
 	theTextAttributes := anEditor text attributesAt: 1.
@@ -83,13 +93,23 @@ BrTextStylerExamples >> editorWithTaskItStylerStrategy [
 	"Async styler strategy needs a view"
 	anElement := BrEditorElement new editor: anEditor. 
 	anEditor styleTextAndAfterDo: [ aSemaphore signal ].
+
 	aTimeout := aSemaphore waitTimeoutMSecs: 100.
 	"It timeouts anyway as the element is not in a Space yet."
 	self assert: aTimeout.
-	
-	"We simulate the task execution"
+
+	"We simulate the task execution that triggers styling"
 	self assert: anElement taskQueue tasks size equals: 1.
-	anElement taskQueue tasks first run.
+	BlUseAsyncFeatures disableDuring: [ 
+		anElement taskQueue tasks first run ].
+	
+	"We simulate the task execution of a new enqueued task that should update the editor text"
+	self assert: anElement taskQueue tasks size equals: 2.
+	anElement taskQueue tasks second run.
+	
+	aTimeout := aSemaphore waitTimeoutMSecs: 100.
+	"It does not timeout as styling is processed in the same process as this test."
+	self assert: aTimeout not.
 	
 	"And the text is finally styled"
 	theTextAttributes := anEditor text attributesAt: 1.
