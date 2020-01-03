@@ -29,7 +29,9 @@ BaselineOfBrick >> baseline: spec [
 				spec requires: #('Brick' ). ];
 			package: #'Brick-Glamorous' with: [
 				spec requires: #('Brick' ). ];
+			package: #'Brick-DevTool' with: [
+				spec requires: #('Brick' ). ];
 			package: #'Brick-Examples' with: [
-				spec requires: #('Brick' 'Brick-Material' 'Brick-Glamorous' 'Brick-Hydra' ). ]. ].
+				spec requires: #('Brick' 'Brick-Material' 'Brick-Glamorous' 'Brick-Hydra' 'Brick-DevTool' ). ]. ].
 
 ]

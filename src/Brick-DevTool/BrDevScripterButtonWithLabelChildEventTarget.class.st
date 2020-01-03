@@ -4,7 +4,7 @@ Class {
 	#instVars : [
 		'buttonLabel'
 	],
-	#category : #'Brick-Examples-Scripter'
+	#category : #'Brick-DevTool'
 }
 
 { #category : #asserting }
