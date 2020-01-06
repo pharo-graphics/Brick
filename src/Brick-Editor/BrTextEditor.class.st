@@ -1023,8 +1023,7 @@ BrTextEditor >> styleText [
 BrTextEditor >> styleTextAndAfterDo: aBlock [
 	"I first style, and then I do aBlock once I am finished"
 	
-	self text isEmpty ifTrue: [ ^ self ].
-	self stylerStrategy style: self text nextGeneration afterDo: aBlock.
+	self stylerStrategy styleTextInEditor: self afterDo: aBlock.
 ]
 
 { #category : #accessing }
