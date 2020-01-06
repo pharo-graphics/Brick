@@ -4,7 +4,7 @@ Class {
 	#instVars : [
 		'columns'
 	],
-	#category : 'Brick-List - Support'
+	#category : #'Brick-List - Support'
 }
 
 { #category : #accessing }
@@ -37,11 +37,14 @@ BrColumnedListItemHolder >> rowValue: anObject at: aRowIndex [
 		build) asElement.
 
 	theCellElements := self columns withIndexCollect: [ :aListColumn :aColumnIndex |	
-		(aListColumn stencil
+		| aCellElement |
+		aCellElement := (aListColumn stencil
 			rowValue: anObject;
 			rowIndex: aRowIndex;
 			columnIndex: aColumnIndex;
-			build) asElement ].
+			build) asElement.
+		aListColumn width applyOn: aCellElement.
+		aCellElement ].
 	
 	itemElement addChildren: theCellElements
 ]
