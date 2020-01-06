@@ -60,31 +60,13 @@ BrGlamorousFonts class >> fontNamed: aFontFileName fromFolderNamed: aFontFolderN
 { #category : #'private - accessing' }
 BrGlamorousFonts class >> fontsFolder [
 	"Determine the fonts folder. Should work both for releaser and in development mode when the repository is present."
-	| fontsFolderPath anIcebergFileReference aLocalFileReference |
-	
-	fontsFolderPath := (Path * 'feenkcom' / 'Brick' / 'data' / 'fonts').
-	
-	anIcebergFileReference := IceLibgitRepository repositoriesLocation resolvePath: fontsFolderPath.
-	anIcebergFileReference exists ifTrue: [ ^ anIcebergFileReference ].
-	
-	aLocalFileReference := self localGtDirectory resolvePath: fontsFolderPath.
-	aLocalFileReference exists ifTrue: [ ^ aLocalFileReference ].
-	^ anIcebergFileReference
-]
-
-{ #category : #'private - accessing' }
-BrGlamorousFonts class >> fontsSourceCodeProFolder [
-	^ (self fontsFolder / 'Source_Code_Pro') asFileReference
+	<return: #FileReference>
+	^ GtResourcesUtility default resourceAtPath: Path * 'feenkcom' / 'Brick' / 'data' / 'fonts'
 ]
 
 { #category : #'private - accessing' }
 BrGlamorousFonts class >> fontsSourceCodeProFolderName [
 	^ 'Source_Code_Pro'
-]
-
-{ #category : #'private - accessing' }
-BrGlamorousFonts class >> fontsSourceSansProFolder [
-	^ (self fontsFolder / 'Source_Sans_Pro') asFileReference 
 ]
 
 { #category : #'private - accessing' }
@@ -327,31 +309,6 @@ BrGlamorousFonts class >> initializeSourceSansProOn: aCanvas [
 		weight: 900;
 		source: self sourceSansPro900italicBlack;
 		build
-]
-
-{ #category : #'private - accessing' }
-BrGlamorousFonts class >> load: aFontFile as: aName [
-	"I compile a method that returns a ByteArray with a font."
-	 aFontFile asFileReference binaryReadStreamDo: [ :aFileStream |
-		self class compile: (String streamContents: [ :aStream |
-			aStream
-				nextPutAll: aName;
-				cr;
-				tab;
-				nextPutAll: '^ ';
-				print: aFileStream contents
-		]) classified: 'fonts' ]
-]
-
-{ #category : #'private - accessing' }
-BrGlamorousFonts class >> localGtDirectory [
-	<return: #FileReference>
-	^ Smalltalk imageDirectory / self localGtDirectoryName
-]
-
-{ #category : #'private - accessing' }
-BrGlamorousFonts class >> localGtDirectoryName [
-	^ 'gt-extra'
 ]
 
 { #category : #'fonts - source code pro' }
