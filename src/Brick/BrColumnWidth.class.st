@@ -5,6 +5,6 @@ Class {
 }
 
 { #category : #hook }
-BrColumnWidth >> applyOn: theLayoutConstraints [
+BrColumnWidth >> applyOn: anElement [
 	
 ]
