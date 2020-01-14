@@ -40,7 +40,6 @@ BrTextEditorSegment >> insert: aCollectionOfSegments [
 
 	theSegments := { self }, aCollectionOfSegments allButFirst.
 
-	
 	theRestLength := self textLength - (aCollectionOfSegments first textStart - textStart).
 
 	"when inserting multiple segments we just need to alter intervals of the first (myself)
@@ -80,6 +79,10 @@ BrTextEditorSegment >> moveTextBy: aNumber [
 	aNumber must not be zero - undefined behaviour (nothing was inserted but the message is sent? Probably a bug)"
 
 	self start: textStart + aNumber end: textEnd + aNumber
+]
+
+{ #category : #'text - modifications' }
+BrTextEditorSegment >> moveTextPiecesBy: aNumber at: aTextIndex [
 ]
 
 { #category : #printing }
