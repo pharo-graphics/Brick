@@ -12,6 +12,17 @@ Class {
 	#category : #'Brick-Editor-Model - Segment-Text-Line'
 }
 
+{ #category : #comparing }
+BrTextEditorLineSegmentAdornmentPiece >> = anotherObject [
+	self == anotherObject
+		ifTrue: [ ^ true ].
+	(anotherObject isKindOf: self class)
+		ifFalse: [ ^ false ].
+	
+	^ anotherObject text = self text
+		and: [ anotherObject adornmentAttribute = self adornmentAttribute ]
+]
+
 { #category : #accessing }
 BrTextEditorLineSegmentAdornmentPiece >> adornmentAttribute [
 	<return: #BrTextAdornmentAttribute>
@@ -32,4 +43,9 @@ BrTextEditorLineSegmentAdornmentPiece >> adornmentAttribute: aBrTextAdornmentAtt
 { #category : #'instance creation' }
 BrTextEditorLineSegmentAdornmentPiece >> createElement: anEditorElement [
 	^ self adornmentAttribute affect: self in: anEditorElement
+]
+
+{ #category : #comparing }
+BrTextEditorLineSegmentAdornmentPiece >> hash [
+	^ (self class hash bitXor: self text hash) bitXor: self adornmentAttribute hash
 ]

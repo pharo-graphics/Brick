@@ -10,16 +10,6 @@ Class {
 	#category : #'Brick-Editor-Model - Segment-Text-Line'
 }
 
-{ #category : #comparing }
-BrTextEditorLineSegmentPiece >> = anotherObject [
-	self == anotherObject
-		ifTrue: [ ^ true ].
-	(anotherObject isKindOf: self class)
-		ifFalse: [ ^ false ].
-	
-	^ anotherObject text = self text
-]
-
 { #category : #'instance creation' }
 BrTextEditorLineSegmentPiece >> createElement: anEditorElement [
 	<return: #BlElement>
@@ -79,11 +69,6 @@ BrTextEditorLineSegmentPiece >> globalTextIndexToLocal: aTextIndex [
 { #category : #printing }
 BrTextEditorLineSegmentPiece >> gtDisplayOn: aStream [
 	self printOn: aStream
-]
-
-{ #category : #comparing }
-BrTextEditorLineSegmentPiece >> hash [
-	^ self class hash bitXor: self text hash
 ]
 
 { #category : #initialization }
@@ -217,5 +202,10 @@ BrTextEditorLineSegmentPiece >> updateSelection: aTextElement of: aLineSegment i
 
 { #category : #updating }
 BrTextEditorLineSegmentPiece >> updateText: aTextElement of: aLineSegment in: anEditorElement [
-	aTextElement dispatchEvent: (BrTextEditorTextChangedRequest new editorElement: anEditorElement)
+	aTextElement dispatchEvent: (BrTextEditorTextChangedRequest new
+		editorElement: anEditorElement;
+		segmentPiece: self;
+		text: self text;
+		textStart: self textStart;
+		textEnd: self textEnd)
 ]
