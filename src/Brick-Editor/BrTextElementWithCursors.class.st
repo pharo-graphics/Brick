@@ -175,8 +175,7 @@ BrTextElementWithCursors >> segmentPiece [
 
 { #category : #accessing }
 BrTextElementWithCursors >> segmentPiece: aSegmentPiece [
-
-	segmentPiece := aSegmentPiece.
+	segmentPiece := aSegmentPiece.	
 	self text: segmentPiece text
 ]
 
