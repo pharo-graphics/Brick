@@ -24,6 +24,27 @@ BrTextStylerTaskItStrategy >> commandNameFromText: aBrText [
 		ifFalse: [ (aBrText from: 1 to: (aBrText size min: 20)) printString ]
 ]
 
+{ #category : #'instance creation' }
+BrTextStylerTaskItStrategy >> newStylingCommandFor: aBlText afterDo: aBlock [
+	<return: #BlTktTerminableCommand>
+	| aName aCommand |
+	aName := self commandNameFromText: aBlText.
+	aCommand := [
+		self doStyle: aBlText afterDo: aBlock ] asBlTktTerminableCommand.
+	aCommand name: 'Text Styler for ''' , aName , ''''.
+	^ aCommand
+]
+
+{ #category : #private }
+BrTextStylerTaskItStrategy >> postponeStylingOf: aBlText afterDo: aBlock [
+	"Must be called within monitor critical code"
+	command := BlTaskAtPostponedTerminableTask new
+		command: (self newStylingCommandFor: aBlText afterDo: aBlock);
+		pool: BlTktWorkerProvider highUICPUBoundPool;
+		scheduledTime: BlTime real now + 300 milliSeconds.
+	BlTaskAtQueue default schedule: command
+]
+
 { #category : #styling }
 BrTextStylerTaskItStrategy >> style: aBlText afterDo: aBlock [
 	self view ifNil: [ 
@@ -33,14 +54,8 @@ BrTextStylerTaskItStrategy >> style: aBlText afterDo: aBlock [
 	BlUseAsyncFeatures 
 		ifEnabledDo: [ 
 			monitor critical: [ 
-				| aName |
 				self terminateBackgroundStylingProcess.
-				aName := self commandNameFromText: aBlText.
-				command := [
-					300 milliSeconds wait.
-					self doStyle: aBlText afterDo: aBlock ] asBlTktTerminableCommand.
-				command name: 'Text Styler for ''' , aName , ''''.
-				BlTktWorkerProvider highUICPUBoundPool schedule: command ] ]
+				self postponeStylingOf: aBlText afterDo: aBlock ] ]
 		otherwise: [ self doStyle: aBlText afterDo: aBlock ]
 ]
 
