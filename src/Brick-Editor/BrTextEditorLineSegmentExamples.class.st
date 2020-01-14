@@ -958,6 +958,43 @@ BrTextEditorLineSegmentExamples >> insert_D_in_CCrBA_At_1 [
 ]
 
 { #category : #'examples - insertion' }
+BrTextEditorLineSegmentExamples >> insert_E_in_Hello_World_at_2 [
+	<gtExample>
+	| aTextEditor thePiecesBeforeInsertion |
+	aTextEditor := self insert_Hello_World_inEmptyAt_0.
+	
+	thePiecesBeforeInsertion := aTextEditor segmentCollector segments first pieces.
+	self assert: thePiecesBeforeInsertion size equals: 3.
+	
+	self assert: thePiecesBeforeInsertion first textStart equals: 0.
+	self assert: thePiecesBeforeInsertion first textEnd equals: 5.
+	
+	self assert: thePiecesBeforeInsertion second textStart equals: 5.
+	self assert: thePiecesBeforeInsertion second textEnd equals: 6.
+
+	self assert: thePiecesBeforeInsertion third textStart equals: 6.
+	self assert: thePiecesBeforeInsertion third textEnd equals: 11.
+
+	aTextEditor insertString: 'E' at: 2.
+	
+	self assert: thePiecesBeforeInsertion first textStart equals: 0.
+	self assert: thePiecesBeforeInsertion first textEnd equals: 6.
+	
+	self assert: thePiecesBeforeInsertion second textStart equals: 6.
+	self assert: thePiecesBeforeInsertion second textEnd equals: 7.
+
+	self assert: thePiecesBeforeInsertion third textStart equals: 7.
+	self assert: thePiecesBeforeInsertion third textEnd equals: 12.
+
+	self assert: aTextEditor text asString equals: 'HeEllo World'.
+	self assert: aTextEditor segmentCollector computedSegmentsCount equals: 1.
+	self assert: aTextEditor segmentCollector segments first textInterval equals: (0 to: 12).
+	self assert: aTextEditor segmentCollector cachedInterval equals: (1 to: 1).
+
+	^ aTextEditor
+]
+
+{ #category : #'examples - insertion' }
 BrTextEditorLineSegmentExamples >> insert_HABA_inEmptyAt_0 [
 	<gtExample>
 	| aTextEditor |

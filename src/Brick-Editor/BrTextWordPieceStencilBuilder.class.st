@@ -106,7 +106,7 @@ BrTextWordPieceStencilBuilder >> recycle: aPieceElement [
 
 	"otherwise attributes may not be garbage collected
 	see https://github.com/feenkcom/gtoolkit/issues/537"
-	aPieceElement text: '' asRopedText.
+	aPieceElement removeSegmentPiece.
 
 	TextPiecePool release: aPieceElement
 ]

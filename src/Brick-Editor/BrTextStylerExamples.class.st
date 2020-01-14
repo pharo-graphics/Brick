@@ -1,5 +1,5 @@
 "
-Hello *https://gtoolkit.com*
+Hello World *https://gtoolkit.com*
 "
 Class {
 	#name : #BrTextStylerExamples,

@@ -167,6 +167,12 @@ BrTextElementWithCursors >> removeCursors [
 ]
 
 { #category : #accessing }
+BrTextElementWithCursors >> removeSegmentPiece [
+	segmentPiece := nil.	
+	self text: '' asRopedText
+]
+
+{ #category : #accessing }
 BrTextElementWithCursors >> segmentPiece [
 	<return: #TBrTextEditorTextualPiece>
 
@@ -175,8 +181,13 @@ BrTextElementWithCursors >> segmentPiece [
 
 { #category : #accessing }
 BrTextElementWithCursors >> segmentPiece: aSegmentPiece [
-	segmentPiece := aSegmentPiece.	
-	self text: segmentPiece text
+	
+	segmentPiece := aSegmentPiece.
+	(self text equals: aSegmentPiece text)
+		ifFalse: [
+			"('text changed {1}' format: { aSegmentPiece text }) traceCr."
+			self text: (aSegmentPiece text copyFrom: 1 to: aSegmentPiece text size) ]
+		ifTrue: [ "('text same {1}' format: { aSegmentPiece text }) traceCr. " ]
 ]
 
 { #category : #'cursor - management' }

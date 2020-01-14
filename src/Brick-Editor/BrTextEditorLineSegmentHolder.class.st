@@ -227,8 +227,10 @@ BrTextEditorLineSegmentHolder >> updateSegment: anEditorSegment [
 	
 	newPieceMap := OrderedCollection new.
 	newPieceElements := OrderedCollection new.
+	
 	segment pieces do: [ :eachSegmentPiece | 
 		| thePieceElements |
+	
 		thePieceElements := pieceElements
 			detect: [ :eachAssociation | eachAssociation key = eachSegmentPiece ]
 			ifFound: [ :eachAssociation |

@@ -39,7 +39,7 @@ BrTextWordPieceScreenToCursorHandler >> relativeScreenToCursor: aTransformation 
 	aTextElement := anEvent currentTarget.
 	aCursor := aTransformation cursor.
 	
-	aLocalTextPositionOfThisCursor := aCursor position - aTextElement text textOffset.
+	aLocalTextPositionOfThisCursor := aCursor position - aTextElement segmentPiece textStart.
 	aLocalositionOfThisCursor := aTextElement screenPositionAt: aLocalTextPositionOfThisCursor.
 
 	aDesiredBounds := anEvent editorElement localBoundsToMine: (BlBounds origin: aLocalositionOfThisCursor extent: 0@0) fromChild: aTextElement.

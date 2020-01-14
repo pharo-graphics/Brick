@@ -1161,6 +1161,13 @@ BrTextEditor >> updateSelection: aFromTextIndex to: aToTextIndex [
 	self enqueueCommand: aCommand
 ]
 
+{ #category : #'api - modification' }
+BrTextEditor >> updater [
+	<return: #BrTextEditorUpdater>
+
+	^ BrTextEditorUpdater new editor: self
+]
+
 { #category : #initialization }
 BrTextEditor >> useAsyncStylerStrategy [
 	self stylerStrategy: BrTextStylerAsyncStrategy new.

@@ -115,8 +115,9 @@ BrTextEditorLineSegmentBuilder >> deletedFrom: aFromIndex to: aToIndex in: aBrTe
 
 	aTargetSegment := self deleteFrom: aFromIndex segment: aFromSegment to: aToIndex segment: aToSegment in: aBrTextEditor.
 
-	aBrTextEditor invalidate: aTargetSegment textStart to: aTargetSegment textEnd.
-	aBrTextEditor update: aTargetSegment textStart to: aTargetSegment textEnd
+	aBrTextEditor updater
+		from: aTargetSegment textStart to: aTargetSegment textEnd;
+		update
 ]
 
 { #category : #initialization }
@@ -157,10 +158,12 @@ BrTextEditorLineSegmentBuilder >> insertedString: aString at: aTextIndex in: aBr
 	theNewSegments size > 1
 		ifTrue: [ aBrTextEditor segmentCollector addSegments: theNewSegments allButFirst after: aCurrentSegment ].
 
+	aCurrentSegment moveTextPiecesBy: aString size at: aTextIndex.
 	aBrTextEditor segmentCollector moveTextBy: aString size after: theNewSegments last.
 	
-	aBrTextEditor invalidate: aCurrentSegment textStart to: aCurrentSegment textEnd.
-	aBrTextEditor update: aCurrentSegment textStart to: aCurrentSegment textEnd.
+	aBrTextEditor updater
+		from: aCurrentSegment textStart to: aCurrentSegment textEnd;
+		update
 ]
 
 { #category : #'api - accessing' }

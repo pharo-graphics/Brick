@@ -94,6 +94,23 @@ BrTextEditorLineSegment >> moveTextBy: aNumber [
 		do: [ :aTextPiece | aTextPiece start: aTextPiece textStart + aNumber end: aTextPiece textEnd + aNumber ]
 ]
 
+{ #category : #'text - modifications' }
+BrTextEditorLineSegment >> moveTextPiecesBy: aNumber at: aTextIndex [
+	super moveTextPiecesBy: aNumber at: aTextIndex.
+
+	"no pieces created (they were not requested yet so no need to move them)"
+	self hasPieces
+		ifFalse: [ ^ self ].
+
+	self pieces
+		do: [ :aTextPiece |
+			aTextPiece textEnd > aTextIndex
+				ifTrue: [
+					aTextPiece textStart > aTextIndex
+						ifTrue: [ aTextPiece start: aTextPiece textStart + aNumber end: aTextPiece textEnd + aNumber ]
+						ifFalse: [ aTextPiece start: aTextPiece textStart end: aTextPiece textEnd + aNumber ] ] ]
+]
+
 { #category : #'attributes - paragraph' }
 BrTextEditorLineSegment >> paragraphMargin [
 	<return: #BlInsets>
