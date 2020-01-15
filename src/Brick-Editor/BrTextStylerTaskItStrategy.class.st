@@ -30,7 +30,7 @@ BrTextStylerTaskItStrategy >> newStylingCommandFor: aBlText afterDo: aBlock [
 	| aName aCommand |
 	aName := self commandNameFromText: aBlText.
 	aCommand := [
-		self doStyle: aBlText afterDo: aBlock ] asBlTktTerminableCommand.
+		self doStyle: aBlText afterDo: aBlock ] asBlTktTerminableCommand asBlTktLoggingCommand.
 	aCommand name: 'Text Styler for ''' , aName , ''''.
 	^ aCommand
 ]
