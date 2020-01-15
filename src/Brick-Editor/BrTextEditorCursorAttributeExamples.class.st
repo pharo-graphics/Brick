@@ -13,12 +13,10 @@ BrTextEditorCursorAttributeExamples >> changingForeground [
 - second item' asRopedText.
 
 	(text from: 13 to: 24) attribute: (BrTextCursorAttribute new
-		enterAction: [ :aTextEditor |
-			(aTextEditor text from: 13 to: 24) foreground: Color blue.
-			aTextEditor invalidate: 13 to: 24 ];
+		enterAction: [ :aTextEditor | (aTextEditor text from: 13 to: 24) foreground: Color blue ];
 		leaveAction: [ :aTextEditor |
 			(aTextEditor text from: 13 to: 24) foreground: Color black.
-			aTextEditor invalidate: 13 to: 24 ]).
+			aTextEditor updater from: 13 to: 24; update ]).
 
 	^ text
 ]

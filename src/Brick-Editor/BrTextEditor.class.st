@@ -197,8 +197,9 @@ BrTextEditor >> defaultStylerEventHandler [
 			ifTrue: [
 				self text rope: anEvent text text rope.
 				anEvent afterAction cull: self text cull: self.
-				self invalidateAll.
-				self updateAll ]
+				self updater
+					all;
+					update ]
 			ifFalse: [
 				Bloc debugModeEnabled
 					ifTrue: [ Error signal: 'Wrong generation!' ].
@@ -534,25 +535,24 @@ BrTextEditor >> interactions [
 { #category : #'private - updating' }
 BrTextEditor >> invalidate: aFromTextIndex to: aToTextIndex [
 	"Update text rendering within an interval defined by provided from and to indices."
-
-	| aCommand |
-	self assertIndex: aFromTextIndex to: aToTextIndex.
 	
-	aCommand := self newInvalidateCommand
-		fromIndex: aFromTextIndex;
-		toIndex: aToTextIndex.
-	self enqueueCommand: aCommand
+	self deprecated: 'Invalidation is deprecated and merged with updater'.
+
+	self updater
+		from: aFromTextIndex to: aToTextIndex;
+		redrawOnly;
+		update
 ]
 
 { #category : #'private - updating' }
 BrTextEditor >> invalidateAll [
 	"Invalidate the rendering (request the redraw, don't create new segments or words)"
-	| aCommand |
+	self deprecated: 'Invalidation is deprecated and merged with updater'.
 
-	aCommand := self newInvalidateCommand
-		fromIndex: self segmentCollector start;
-		toIndex: self segmentCollector end.
-	self enqueueCommand: aCommand
+	self updater
+		all;
+		redrawOnly;
+		update
 ]
 
 { #category : #accessing }
@@ -1130,24 +1130,22 @@ BrTextEditor >> undo [
 BrTextEditor >> update: aFromTextIndex to: aToTextIndex [
 	"Invalidate segments (reset their internal cache) within text interval specified by from and to indices"
 	
-	| aCommand |
-	self assertIndex: aFromTextIndex to: aToTextIndex.
+	self deprecated: 'Use editor updater unstead'.
 	
-	aCommand := self newUpdateCommand
-		fromIndex: aFromTextIndex;
-		toIndex: aToTextIndex.
-	self enqueueCommand: aCommand
+	self updater
+		from: aFromTextIndex to: aToTextIndex;
+		update
 ]
 
 { #category : #'private - updating' }
 BrTextEditor >> updateAll [
 	"Reset segments cache and recreate new words"
-	| aCommand |
 
-	aCommand := self newUpdateCommand
-		fromIndex: self segmentCollector start;
-		toIndex: self segmentCollector end.
-	self enqueueCommand: aCommand
+	self deprecated: 'Use editor updater unstead'.
+
+	self updater
+		all;
+		update
 ]
 
 { #category : #'private - updating' }

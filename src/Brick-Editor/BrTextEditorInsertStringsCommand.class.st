@@ -26,6 +26,19 @@ BrTextEditorInsertStringsCommand >> indices: anObject [
 	indices := anObject
 ]
 
+{ #category : #printing }
+BrTextEditorInsertStringsCommand >> printOn: aStream [
+	aStream
+		nextPutAll: 'Inserted'.
+	
+	self strings with: self indices do: [ :aString :anIndex |
+		aStream
+			space;
+			print: aString;
+			nextPutAll: ' at ';
+			print: anIndex ]
+]
+
 { #category : #accessing }
 BrTextEditorInsertStringsCommand >> strings [
 	^ strings

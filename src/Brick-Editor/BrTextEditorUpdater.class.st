@@ -10,6 +10,11 @@ Class {
 }
 
 { #category : #'api - configuration' }
+BrTextEditorUpdater >> all [
+	self from: 1 to: self text size
+]
+
+{ #category : #'api - configuration' }
 BrTextEditorUpdater >> from: aFromTextIndex to: aToTextIndex [
 	"Both from and to indices must be given in text coordinates"
 

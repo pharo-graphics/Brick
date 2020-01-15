@@ -111,7 +111,6 @@ BrTextElementWithCursors >> measureCursors: anExtentMeasurementSpec [
 	
 	cursorElements do: [ :aCursorElement |
 		| aCursorPosition aTextPosition |
-	
 		aCursorPosition := aCursorElement textPosition.
 		aTextPosition := self screenPositionAt: aCursorPosition.
 		aTextPosition := (aTextPosition x - (aCursorElement measuredWidth // 2)) @ 0.
