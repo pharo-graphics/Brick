@@ -1,3 +1,6 @@
+"
+Hello World *https://gtoolkit.com*
+"
 Class {
 	#name : #BrTextStylerExamples,
 	#superclass : #Object,

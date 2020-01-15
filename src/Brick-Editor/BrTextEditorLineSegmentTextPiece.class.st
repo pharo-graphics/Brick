@@ -4,6 +4,16 @@ Class {
 	#category : #'Brick-Editor-Model - Segment-Text-Line'
 }
 
+{ #category : #comparing }
+BrTextEditorLineSegmentTextPiece >> = anotherObject [
+	self == anotherObject
+		ifTrue: [ ^ true ].
+	(anotherObject isKindOf: self class)
+		ifFalse: [ ^ false ].
+	
+	^ anotherObject text = self text
+]
+
 { #category : #'instance creation' }
 BrTextEditorLineSegmentTextPiece >> createElement: anEditorElement [
 	<return: #BlElement>
@@ -22,6 +32,11 @@ BrTextEditorLineSegmentTextPiece >> createElement: anEditorElement [
 		segmentPiece: self) asElement
 ]
 
+{ #category : #comparing }
+BrTextEditorLineSegmentTextPiece >> hash [
+	^ self class hash bitXor: self text hash
+]
+
 { #category : #testing }
 BrTextEditorLineSegmentTextPiece >> isText [
 	^ true
@@ -30,9 +45,4 @@ BrTextEditorLineSegmentTextPiece >> isText [
 { #category : #'instance creation' }
 BrTextEditorLineSegmentTextPiece >> onRecycled: aPieceElement in: anEditorElement [
 	anEditorElement editor segmentBuilder wordStencilBuilder recycle: aPieceElement
-]
-
-{ #category : #updating }
-BrTextEditorLineSegmentTextPiece >> updateText: aTextElement of: aLineSegment in: anEditorElement [
-	aTextElement dispatchEvent: (BrTextEditorTextChangedRequest new editorElement: anEditorElement)
 ]
