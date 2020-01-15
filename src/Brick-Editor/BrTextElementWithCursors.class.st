@@ -16,8 +16,6 @@ Class {
 BrTextElementWithCursors >> addCursorAt: aTextPosition [
 	<return: #BrCursorElement>
 	
-	self assertCursorPosition: aTextPosition.
-	
 	^ self
 		cursorAt: aTextPosition
 		ifFound: #yourself
@@ -113,14 +111,8 @@ BrTextElementWithCursors >> measureCursors: anExtentMeasurementSpec [
 	
 	cursorElements do: [ :aCursorElement |
 		| aCursorPosition aTextPosition |
-		
-		self assertCursor: aCursorElement.
+	
 		aCursorPosition := aCursorElement textPosition.
-
-		"cursor is not within paragraph"
-		self paragraph measuredEnd < aCursorPosition
-			ifTrue: [ ^ self ].
-
 		aTextPosition := self screenPositionAt: aCursorPosition.
 		aTextPosition := (aTextPosition x - (aCursorElement measuredWidth // 2)) @ 0.
 		aCursorElement measuredBounds position: aTextPosition ].
