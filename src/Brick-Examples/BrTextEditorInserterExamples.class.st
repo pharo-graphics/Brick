@@ -7,7 +7,6 @@ Class {
 { #category : #'examples - insertion' }
 BrTextEditorInserterExamples >> filter_insert_Hello123Symbols_onlyAlphaNumeric [
 	<gtExample>
-	<noTest>
 	| anEditor |
 	
 	anEditor := self editorOnMultilineText.	
@@ -29,7 +28,6 @@ BrTextEditorInserterExamples >> filter_insert_Hello123Symbols_onlyAlphaNumeric [
 { #category : #'examples - insertion' }
 BrTextEditorInserterExamples >> filter_insert_Hello123_onlyDigits [
 	<gtExample>
-	<noTest>
 	| anEditor |
 	
 	anEditor := self editorOnMultilineText.	
@@ -51,7 +49,6 @@ BrTextEditorInserterExamples >> filter_insert_Hello123_onlyDigits [
 { #category : #'examples - insertion' }
 BrTextEditorInserterExamples >> filter_insert_Hello123_onlyLetters [
 	<gtExample>
-	<noTest>
 	| anEditor |
 	
 	anEditor := self editorOnMultilineText.	
@@ -74,7 +71,6 @@ BrTextEditorInserterExamples >> filter_insert_Hello123_onlyLetters [
 BrTextEditorInserterExamples >> insert_Hello_atCursorAt_0_and_1_selection_no [
 	<gtExample>
 	<description: '"Insertion at multiple cursors'>
-	<noTest>
 	| anEditor |
 
 	anEditor := self editorOnMultilineText.
@@ -100,7 +96,6 @@ BrTextEditorInserterExamples >> insert_Hello_atCursorAt_0_and_1_selection_no [
 { #category : #'examples - insertion' }
 BrTextEditorInserterExamples >> insert_Hello_at_0_cursorAt_0_selection_0_to_0 [
 	<gtExample>
-	<noTest>
 	| anEditor |
 	
 	anEditor := self editorOnMultilineText.
@@ -289,7 +284,6 @@ BrTextEditorInserterExamples >> insert_Hello_at_1_cursorAt_0_selection_0_to_0 [
 { #category : #'examples - insertion' }
 BrTextEditorInserterExamples >> insert_Hello_at_1_cursorAt_1_selection_0_to_0 [
 	<gtExample>
-	<noTest>
 	| anEditor |
 	
 	anEditor := self editorOnMultilineText.
