@@ -28,7 +28,7 @@ BrWithContextMenuLook >> initialize [
 		on: BlMouseUpEvent
 		do: [ :e | 
 			e button = mouseButton
-				ifTrue: [ self visible
+				ifTrue: [ self canHide
 						ifTrue: [ self hide ].
 					position := e localPosition.
 					self show ] ].

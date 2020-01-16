@@ -51,11 +51,11 @@ BrWithTooltipLook >> hideDelay: anObject [
 
 { #category : #accessing }
 BrWithTooltipLook >> hideLater [
-	self assert: [ self visible ].
+	self assert: [ self canHide ].
 	self cancelHideLater.
 	hideLaterTask := BlDelayedTaskAction new
 		delay: self hideDelay;
-		action: [ self visible
+		action: [ self canHide
 				ifTrue: [ self hide ].
 			hideLaterTask := nil ];
 		yourself.
@@ -74,21 +74,21 @@ BrWithTooltipLook >> initialize [
 		on: BlClickEvent
 		do: [ self willHideLater
 				ifTrue: [ self cancelHideLater ].
-			self visible
+			self canHide
 				ifTrue: [ self hide ] ].
 	overEventHandler := BlEventHandler
 		on: BlMouseOverEvent
 		do: [ :e | 
 			self willHideLater
 				ifTrue: [ self cancelHideLater ].
-			self visible
-				ifFalse: [ self showLater ] ].
+			self canShow
+				ifTrue: [ self showLater ] ].
 	outEventHandler := BlEventHandler
 		on: BlMouseOutEvent
 		do: [ :e | 
 			self willShowLater
 				ifTrue: [ self cancelShowLater ].
-			self visible
+			self canHide
 				ifTrue: [ self hideLater ] ].
 	self
 		addChange:
@@ -113,7 +113,6 @@ BrWithTooltipLook >> initialize [
 					self willHideLater
 						ifTrue: [ self cancelHideLater ] ];
 				yourself).
-	
 	self showDelay: 1000 milliSeconds.
 	self hideDelay: 300 milliSeconds
 ]
@@ -147,11 +146,11 @@ BrWithTooltipLook >> showDelay: anObject [
 
 { #category : #accessing }
 BrWithTooltipLook >> showLater [
-	self assert: [ self visible not ].
+	self assert: [ self canShow ].
 	self cancelShowLater.
 	showLaterTask := BlDelayedTaskAction new
 		delay: self showDelay;
-		action: [ (self visible not and: [ widget visibility shouldDraw ])
+		action: [ self canShow
 				ifTrue: [ self show ].
 			showLaterTask := nil ];
 		yourself.

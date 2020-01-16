@@ -55,3 +55,40 @@ BrTooltipExamples >> model [
 	self assert: model stencil asElement equals: tooltip."
 	^ model
 ]
+
+{ #category : #accessing }
+BrTooltipExamples >> removingAnchor [
+	<gtExample>
+	| container1 container2 button |
+	container1 := BlElement new
+		layout: BlLinearLayout horizontal;
+		constraintsDo: [ :c | 
+			c horizontal fitContent.
+			c vertical fitContent ];
+		padding: (BlInsets all: 20);
+		look: BrShadowLook;
+		background: Color white;
+		yourself.
+	container2 := BlElement new
+		layout: BlLinearLayout horizontal;
+		constraintsDo: [ :c | 
+			c horizontal fitContent.
+			c vertical fitContent ];
+		padding: (BlInsets all: 20);
+		look: BrShadowLook;
+		background: Color white;
+		yourself.
+	button := BrButton new
+		look: BrGlamorousButtonWithIconLook;
+		icon: BrGlamorousIcons remove asElement;
+		label: 'Click to remove me';
+		action: [ Processor activeProcess identityHash asBeaconSignal emit.
+			ContextStackSignal emit.
+			500000 timesRepeat: [ BlElement new ].
+			ContextStackSignal emit.
+			container1 removeFromParent ];
+		yourself.
+	container1 addChild: container2.
+	container2 addChild: button.
+	^ container1
+]

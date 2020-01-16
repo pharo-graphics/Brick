@@ -50,9 +50,23 @@ BrWithAnchoredLook class >> stencil: anObject [
 		yourself
 ]
 
+{ #category : #testing }
+BrWithAnchoredLook >> canHide [
+	^ self visible
+		and: [ widget isNil or: [ widget isAttachedToSceneGraph ] ]
+]
+
+{ #category : #testing }
+BrWithAnchoredLook >> canShow [
+	^ self visible not
+		and: [ widget isNotNil
+				and:
+					[ widget isAttachedToSceneGraph and: [ widget visibility shouldDraw ] ] ]
+]
+
 { #category : #accessing }
 BrWithAnchoredLook >> hide [
-	self assert: [ self visible ].
+	self assert: [ self canHide ].
 	widget
 		removeEventHandler: extentChangedEventHandler;
 		removeEventHandler: positionInSpaceChangedEventHandler.
@@ -79,23 +93,22 @@ BrWithAnchoredLook >> initialize [
 	watchDog := BlRepeatedTaskAction new
 		delay: 500 milliSeconds;
 		action: [ "hide when widget removed from scene by checking repeatedly"
-			(self visible
-				and: [ widget isNil or: [ widget isAttachedToSceneGraph not ] ])
+			self canHide
 				ifTrue: [ self hide ] ];
 		yourself.
 	clickOutsideEventHandler := BlEventHandler
 		on: BlMouseUpEvent
 		do: [ :e | 
 			"hide when clicked outside of container"
-			(self visible
-				and: [ e target ~~ container and: [ (e target hasParent: container) not ] ])
+			((e target ~~ container and: [ (e target hasParent: container) not ])
+				and: [ self canHide ])
 				ifTrue: [ self hide ] ].
 	pressEscEventHandler := BlEventHandler
 		on: BlKeyUpEvent
 		do: [ :e | 
 			"hide when esc pressed"
 			e key = BlKeyboardKey escape
-				ifTrue: [ self visible
+				ifTrue: [ self canHide
 						ifTrue: [ self hide ] ] ].
 	extentChangedEventHandler := BlEventHandler
 		on: BlElementExtentChangedEvent
@@ -112,20 +125,20 @@ BrWithAnchoredLook >> initialize [
 		on: self showWishClass
 		do: [ :e | 
 			"show on wish"
-			(self visible not and: [ e anchor = widget ])
+			(e anchor = widget and: [ self canShow ])
 				ifTrue: [ self show ] ].
 	hideEventHandler := BlEventHandler
 		on: self hideWishClass
 		do: [ :e | 
 			"hide on wish"
-			(self visible and: [ e anchor = widget ])
+			(e anchor = widget and: [ self canHide ])
 				ifTrue: [ self hide ] ].
 	self
 		addChange:
 			(BrLookChange new
 				up: [ :e |  ];
 				down: [ :e | 
-					self visible
+					self canHide
 						ifTrue: [ self hide ] ];
 				yourself);
 		addChange:
@@ -176,7 +189,7 @@ BrWithAnchoredLook >> relocateWish [
 
 { #category : #'host space - displaying' }
 BrWithAnchoredLook >> show [
-	self assert: [ self visible not ].
+	self assert: [ self canShow ].
 	container := stencil asElement.
 	container anchor: widget.
 	widget topMostParent addChild: container.
@@ -207,7 +220,7 @@ BrWithAnchoredLook >> stencil: anObject [
 	stencil = anObject
 		ifTrue: [ ^ self ].
 	stencil := anObject asStencil.
-	self visible
+	self canHide
 		ifTrue: [ self
 				hide;
 				show ]
@@ -231,9 +244,9 @@ BrWithAnchoredLook >> visible [
 { #category : #accessing }
 BrWithAnchoredLook >> visible: aBoolean [
 	aBoolean
-		ifTrue: [ self visible
-				ifFalse: [ self show ] ]
-		ifFalse: [ self visible
+		ifTrue: [ self canShow
+				ifTrue: [ self show ] ]
+		ifFalse: [ self canHide
 				ifTrue: [ self hide ] ]
 ]
 
