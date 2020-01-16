@@ -208,6 +208,28 @@ BrTextEditorOperator >> findWhitespaceOfLineBefore: aTextIndex [
 ]
 
 { #category : #private }
+BrTextEditorOperator >> hasSpaceAroundCursor: aCursor [
+	"Answer a boolean indicating whether the characters either side of the cursor are separators (or end of string)"
+	| anIterator |
+	
+	aCursor position isZero ifTrue: [ ^ true ].
+
+	anIterator := self text 
+			iterator: (aCursor position min: self text size)
+			to: ((aCursor position + 1) min: self text size).
+	2 timesRepeat:
+		[ (anIterator hasNext and:
+			[ anIterator next isSeparator not ]) ifTrue: [ ^false ] ].
+	^ true
+]
+
+{ #category : #testing }
+BrTextEditorOperator >> hasSpaceAroundIndex: anIndex [
+
+	^ self hasSpaceAroundCursor: (BrTextEditorSingleCursor at: anIndex)
+]
+
+{ #category : #private }
 BrTextEditorOperator >> hasString: aString afterCursor: aCursor [
 	| anIterator |
 	

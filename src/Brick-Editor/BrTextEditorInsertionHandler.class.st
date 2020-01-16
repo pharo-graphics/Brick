@@ -11,7 +11,7 @@ Class {
 BrTextEditorInsertionHandler >> insert: aString atCursorIn: anEditor [
 
 	anEditor surroundMap
-		at: aString asSymbol
+		openingAt: aString asSymbol
 		ifPresent: [ :aSurroundSymbol |
 			anEditor inserter
 				atCursor;

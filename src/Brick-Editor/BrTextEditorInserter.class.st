@@ -120,7 +120,7 @@ BrTextEditorInserter >> initialize [
 	
 	"a text that should be added on the right side when surround insertion is enabled.
 	if surround text is not set, we duplicate the inserted text itself"
-	surroundMap := Dictionary new.
+	surroundMap := BrTextEditorSurroundMap new.
 	
 	insertionIndices := SortedCollection sortBlock: [ :a :b | a key < b key ].
 	shouldUpdateCursor := true.
@@ -137,14 +137,13 @@ BrTextEditorInserter >> inputFilter: aTextEditorInputFilter [
 
 { #category : #'api - processing' }
 BrTextEditorInserter >> insert [
-	| theFilteredTextMap theInsertions theInverseSurroundMap theCursorMovements |
+	| theFilteredTextMap theInsertions theCursorMovements |
 
 	shouldDeleteSelected
 		ifTrue: [ self deleteSelectedText ].
 		
 	theFilteredTextMap := Dictionary new.
 	theInsertions := OrderedCollection new.
-	theInverseSurroundMap := Dictionary newFromKeys: surroundMap values andValues: surroundMap keys.
 	theCursorMovements := OrderedCollection new.
 
 	insertionIndices do: [ :eachAssociation |
@@ -157,10 +156,10 @@ BrTextEditorInserter >> insert [
 			ifAbsentPut: [ inputFilter filter: eachAssociation value ].
 
 		surroundMap
-			at: eachAssociation value
+			openingAt: eachAssociation value
+			in: self at: anIndex
 			ifPresent: [ :aRightSurroundText |
 				| aFilteredSurroundText theSurroundingIndices |
-
 				aFilteredSurroundText := theFilteredTextMap
 					at: aRightSurroundText
 					ifAbsentPut: [ inputFilter filter: aRightSurroundText ].
@@ -181,8 +180,8 @@ BrTextEditorInserter >> insert [
 				} asDictionary ]
 
 			ifAbsent: [
-				theInverseSurroundMap
-					at: eachAssociation value
+				surroundMap
+					closingAt: eachAssociation value
 					ifPresent: [ :aLeftSurroundText |
 						(self hasString: eachAssociation value afterCursor: (BrTextEditorSingleCursor at: anIndex))
 							ifTrue: [
@@ -426,8 +425,8 @@ BrTextEditorInserter >> string: aString [
 ]
 
 { #category : #'api - configuration' }
-BrTextEditorInserter >> surroundings: aDictionaryOrArray [
-	surroundMap := aDictionaryOrArray asDictionary
+BrTextEditorInserter >> surroundings: aSurroundMap [
+	surroundMap := aSurroundMap
 ]
 
 { #category : #'api - configuration' }
