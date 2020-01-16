@@ -18,3 +18,10 @@ BrTextEditorCommandSignal >> command [
 BrTextEditorCommandSignal >> command: aBrTextEditorCommand [
 	command := aBrTextEditorCommand
 ]
+
+{ #category : #printing }
+BrTextEditorCommandSignal >> printOneLineContentsOn: aStream [
+	"hook to be overriden by subclasses"
+	
+	aStream print: self command
+]

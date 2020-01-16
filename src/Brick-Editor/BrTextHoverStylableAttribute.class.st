@@ -34,5 +34,5 @@ BrTextHoverStylableAttribute >> initialize [
 	enterAction := [ :aText :aTextElement :aTextEditor :anEvent | aText attributes: self attributes ].
 	leaveAction := [ :aText :aTextElement :aTextEditor :anEvent |
 		aText clearAttributes: [ :aTextAttribute | self attributes identityIncludes: aTextAttribute ].
-		aTextEditor invalidateAll ]
+		aTextEditor updater all update ]
 ]

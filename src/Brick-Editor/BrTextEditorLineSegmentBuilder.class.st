@@ -38,8 +38,9 @@ BrTextEditorLineSegmentBuilder >> addedAttribute: anAttribute from: aFromIndex t
 			self flag: #TODO.
 			^ self ].
 
-	aBrTextEditor invalidate: aFromSegment textStart to: aToSegment textEnd.
-	aBrTextEditor update: aFromSegment textStart to: aToSegment textEnd
+	aBrTextEditor updater
+		from: aFromSegment textStart to: aToSegment textEnd;
+		update
 ]
 
 { #category : #initialization }

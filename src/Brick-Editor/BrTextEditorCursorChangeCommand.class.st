@@ -54,6 +54,13 @@ BrTextEditorCursorChangeCommand >> position: anObject [
 	position := anObject
 ]
 
+{ #category : #printing }
+BrTextEditorCursorChangeCommand >> printOn: aStream [
+	aStream
+		nextPutAll: 'Cursor changed at ';
+		print: self position
+]
+
 { #category : #executing }
 BrTextEditorCursorChangeCommand >> processAttributesOn: aTextEditor [
 	| hasCursor anEvent theEventHandlingAttributes |

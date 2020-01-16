@@ -75,8 +75,11 @@ BrTextExpandButtonAttribute >> handleEventAffect: aTBrTextEditorTextualPiece in:
 				self createdAttributes includes: aTextAttribute ] ]
 		ifFalse: [ self createAttributesAffect: aBrText in: aTextEditor ].
 	self isExpanded: isExpanded not.
-	aTextEditor invalidate: aTBrTextEditorTextualPiece textStart to: aTBrTextEditorTextualPiece textEnd.
-	aTextEditor update: aTBrTextEditorTextualPiece textStart to: aTBrTextEditorTextualPiece textEnd
+
+	aTextEditor updater
+		from: aTBrTextEditorTextualPiece textStart
+		to: aTBrTextEditorTextualPiece textEnd;
+		update.
 ]
 
 { #category : #initialization }
