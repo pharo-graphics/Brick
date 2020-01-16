@@ -53,7 +53,6 @@ BrWithAnchoredLook class >> stencil: anObject [
 { #category : #testing }
 BrWithAnchoredLook >> canHide [
 	^ self visible
-		and: [ widget isNil or: [ widget isAttachedToSceneGraph ] ]
 ]
 
 { #category : #testing }
@@ -93,7 +92,7 @@ BrWithAnchoredLook >> initialize [
 	watchDog := BlRepeatedTaskAction new
 		delay: 500 milliSeconds;
 		action: [ "hide when widget removed from scene by checking repeatedly"
-			self canHide
+			(widget isAttachedToSceneGraph not and: [ self canHide ])
 				ifTrue: [ self hide ] ];
 		yourself.
 	clickOutsideEventHandler := BlEventHandler

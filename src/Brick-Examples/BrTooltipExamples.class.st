@@ -58,6 +58,8 @@ BrTooltipExamples >> model [
 
 { #category : #accessing }
 BrTooltipExamples >> removingAnchor [
+	"Removing an anchor with a tooltip while the tooltip is scheduled to show later, but an expensive task is running during before the removal effectively finishing after the show later delay lead to an assertion failure due to the assertion being too weak, assuming the widget of the look being still attached to the scene. This example exercises the race condition, yet there is now no assertion failure anymore."
+
 	<gtExample>
 	| container1 container2 button |
 	container1 := BlElement new
@@ -82,10 +84,9 @@ BrTooltipExamples >> removingAnchor [
 		look: BrGlamorousButtonWithIconLook;
 		icon: BrGlamorousIcons remove asElement;
 		label: 'Click to remove me';
-		action: [ Processor activeProcess identityHash asBeaconSignal emit.
-			ContextStackSignal emit.
+		action:
+				[ "this task takes more than 1000ms, the default show delay on a tooltip"
 			500000 timesRepeat: [ BlElement new ].
-			ContextStackSignal emit.
 			container1 removeFromParent ];
 		yourself.
 	container1 addChild: container2.
