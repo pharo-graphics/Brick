@@ -44,14 +44,29 @@ BrTextEditorSurroundMap >> associations [
 ]
 
 { #category : #accessing }
-BrTextEditorSurroundMap >> closingAt: aCharacter ifPresent: presentBlock ifAbsent: absentBlock [
-
+BrTextEditorSurroundMap >> closingFor: aCharacter ifPresent: presentBlock ifAbsent: absentBlock [
+	"Answer the matching closing character for the supplied opening character"
 	| definition |
 
 	definition := definitions
-		detect: [ :each | each closeCharacter = aCharacter ]
+		detect: [ :each | each openCharacter = aCharacter ]
 		ifNone: [ ^absentBlock value ].
-	^presentBlock value: definition openCharacter.
+	^presentBlock value: definition closeCharacter.
+]
+
+{ #category : #accessing }
+BrTextEditorSurroundMap >> closingFor: aCharacter in: anOperator at: anIndex ifPresent: presentBlock ifAbsent: absentBlock [
+	"Answer the matching closing character for the supplied opening character.
+	If the receiver has a condition block that evaluates to false, execute the absentBlock."
+	| definition |
+
+	definition := definitions
+		detect: [ :each | each openCharacter = aCharacter ]
+		ifNone: [ ^absentBlock value ].
+	definition condition ifNotNil: [ :condition |
+		(condition value: anOperator value: anIndex) ifFalse: 
+			[ ^absentBlock value ] ].
+	^presentBlock value: definition closeCharacter.
 ]
 
 { #category : #initialization }
@@ -62,26 +77,12 @@ BrTextEditorSurroundMap >> initialize [
 ]
 
 { #category : #accessing }
-BrTextEditorSurroundMap >> openingAt: aCharacter ifPresent: presentBlock ifAbsent: absentBlock [
-
+BrTextEditorSurroundMap >> openingFor: aCharacter ifPresent: presentBlock ifAbsent: absentBlock [
+	"Answer the matching opening character for the supplied closing character"
 	| definition |
 
 	definition := definitions
-		detect: [ :each | each openCharacter = aCharacter ]
+		detect: [ :each | each closeCharacter = aCharacter ]
 		ifNone: [ ^absentBlock value ].
-	^presentBlock value: definition closeCharacter.
-]
-
-{ #category : #accessing }
-BrTextEditorSurroundMap >> openingAt: aCharacter in: anOperator at: anIndex ifPresent: presentBlock ifAbsent: absentBlock [
-
-	| definition |
-
-	definition := definitions
-		detect: [ :each | each openCharacter = aCharacter ]
-		ifNone: [ ^absentBlock value ].
-	definition condition ifNotNil: [ :condition |
-		(condition value: anOperator value: anIndex) ifFalse: 
-			[ ^absentBlock value ] ].
-	^presentBlock value: definition closeCharacter.
+	^presentBlock value: definition openCharacter.
 ]

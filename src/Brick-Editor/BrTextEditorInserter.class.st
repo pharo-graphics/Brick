@@ -156,7 +156,7 @@ BrTextEditorInserter >> insert [
 			ifAbsentPut: [ inputFilter filter: eachAssociation value ].
 
 		surroundMap
-			openingAt: eachAssociation value
+			closingFor: eachAssociation value
 			in: self at: anIndex
 			ifPresent: [ :aRightSurroundText |
 				| aFilteredSurroundText theSurroundingIndices |
@@ -181,7 +181,7 @@ BrTextEditorInserter >> insert [
 
 			ifAbsent: [
 				surroundMap
-					closingAt: eachAssociation value
+					openingFor: eachAssociation value
 					ifPresent: [ :aLeftSurroundText |
 						(self hasString: eachAssociation value afterCursor: (BrTextEditorSingleCursor at: anIndex))
 							ifTrue: [

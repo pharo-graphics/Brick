@@ -28,15 +28,14 @@ BrTextEditorSurroundMapExamples >> surroundSet [
 BrTextEditorSurroundMapExamples >> surroundSetClosing [
 	<gtExample>
 
-	| definition |
+	| opening |
 
-	definition := self surroundSet
-		closingAt: $' 
+	opening := self surroundSet
+		openingFor: $' 
 		ifPresent: [ :def | def ] 
 		ifAbsent: [  ].
-	self assert: definition class equals: BrTextEditorSurroundDefinition.
-	self assert: definition closeCharacter equals: $'.
-	^definition
+	self assert: opening equals: $'.
+	^opening
 ]
 
 { #category : #examples }
@@ -46,7 +45,7 @@ BrTextEditorSurroundMapExamples >> surroundSetClosingAbsent [
 	| definition |
 
 	definition := self surroundSet
-		closingAt: $x
+		openingFor: $x
 		ifPresent: [ :def | def ] 
 		ifAbsent: [ #absent ].
 	self assert: definition equals: #absent.
@@ -60,7 +59,7 @@ BrTextEditorSurroundMapExamples >> surroundSetOpeningAbsent [
 	| definition |
 
 	definition := self surroundSet
-		openingAt: $x
+		closingFor: $x
 		in: self at: 0 
 		ifPresent: [ :def | def ] 
 		ifAbsent: [ #absent ].
@@ -75,7 +74,7 @@ BrTextEditorSurroundMapExamples >> surroundSetOpeningConditionRejects [
 	| definition |
 
 	definition := self surroundSet
-		openingAt: $"
+		closingFor: $"
 		in: self at: 0
 		ifPresent: [ :def | def ] 
 		ifAbsent: [ #absent ].
@@ -87,14 +86,13 @@ BrTextEditorSurroundMapExamples >> surroundSetOpeningConditionRejects [
 BrTextEditorSurroundMapExamples >> surroundSetOpeningPresent [
 	<gtExample>
 
-	| definition |
+	| closing |
 
-	definition := self surroundSet
-		openingAt: $' 
+	closing := self surroundSet
+		closingFor: $' 
 		in: self at: 0
 		ifPresent: [ :def | def ] 
 		ifAbsent: [  ].
-	self assert: definition class equals: BrTextEditorSurroundDefinition.
-	self assert: definition openCharacter equals: $'.
-	^definition
+	self assert: closing equals: $'.
+	^closing
 ]
