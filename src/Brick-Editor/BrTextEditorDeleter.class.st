@@ -166,9 +166,9 @@ BrTextEditorDeleter >> surroundings: aDictionaryOrArray [
 	"Delete the surrounding around each cursor (if there is any) but only if the cursor is not part of the selection"
 	| theAssociations |
 	
-	theAssociations := aDictionaryOrArray isDictionary
-		ifTrue: [ aDictionaryOrArray associations ]
-		ifFalse: [ aDictionaryOrArray ].
+	theAssociations := aDictionaryOrArray isArray
+		ifFalse: [ aDictionaryOrArray associations ]
+		ifTrue: [ aDictionaryOrArray ].
 	
 	
 	self cursor do: [ :aCursor |

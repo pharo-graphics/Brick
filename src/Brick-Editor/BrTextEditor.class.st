@@ -1068,13 +1068,22 @@ BrTextEditor >> stylerStrategy: aBrTextStylerStrategy [
 BrTextEditor >> surroundMap [
 	"When inserting some special symbols a text editor should surround a cursor or selection with that symbol"
 
-	^ { 
-		#'(' -> #')'.
-		#'"' -> #'"'.
-		#'''' -> #''''.
-		#'[' -> #']'.
-		#'{' -> #'}'.
-	} asDictionary
+	| definitions spaceBlock |
+	spaceBlock := [ :anOperator :anIndex |
+			anOperator hasSpaceAroundIndex: anIndex ].
+	definitions := { 
+		{ #'('. #')'. nil. }.
+		{ #'"'. #'"'. spaceBlock. }.
+		{ #''''. #''''. spaceBlock. }.
+		{ #'['. #']'. nil. }.
+		{ #'{'. #'}'. nil. }.
+		} collect: [ :each |
+			BrTextEditorSurroundDefinition new 
+					openCharacter: each first;
+					closeCharacter: each second;
+					condition: each third ].
+	^ BrTextEditorSurroundMap new
+		addDefinitions: definitions.
 ]
 
 { #category : #accessing }
