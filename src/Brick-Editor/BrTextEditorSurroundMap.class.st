@@ -23,6 +23,27 @@ Class {
 	#category : #'Brick-Editor-Model - Operators'
 }
 
+{ #category : #'instance creation' }
+BrTextEditorSurroundMap class >> newFromArray: anArrayOfArray [
+	^ self newFromArrays: { anArrayOfArray }
+]
+
+{ #category : #'instance creation' }
+BrTextEditorSurroundMap class >> newFromArrays: anArrayOfArray [
+	"When inserting some special symbols a text editor should surround a cursor or selection with that symbol
+	anArrayOfArray is:
+		{ { <left-character>. <right-character> <condition> } { ... } ... }
+	<condition> is:
+		[ :anOperator :anIndex | anOperator hasSpaceAroundIndex: anIndex ]"
+	| theDefinitions |
+	theDefinitions := anArrayOfArray collect: [ :each |
+			BrTextEditorSurroundDefinition new 
+					openCharacter: each first;
+					closeCharacter: each second;
+					condition: each third ].
+	^ self new addDefinitions: theDefinitions.
+]
+
 { #category : #adding }
 BrTextEditorSurroundMap >> addDefinition: aBrTextEditorSurroundDefinition [
 
