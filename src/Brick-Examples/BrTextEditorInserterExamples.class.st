@@ -621,6 +621,66 @@ BrTextEditorInserterExamples >> insert_openParentheses_at_cursor_10_selection_2_
 ]
 
 { #category : #'examples - insertion' }
+BrTextEditorInserterExamples >> insert_openParentheses_at_cursor_1_selection_1_to_2_withOperatorAccountingSelection_withoutSelectionDelete [
+	"I make sure that selected text gets surrounded if it is described in condition"
+	<gtExample>
+	| anEditor |
+
+	anEditor := self editorOnMultilineText.
+	anEditor editor moveCursorTo: 1.
+	anEditor editor select: 1 to: 2.
+	
+	anEditor inserter
+		atCursor;
+		string: '(';
+		surroundings: (BrTextEditorSurroundMap newFromArray: {
+			'('. ')'. [ :anOperator :anIndex |
+				(anOperator hasSpaceAroundIndex: anIndex) or: [ anOperator selection contains: anIndex ] ] });
+		withoutSelectionDelete;
+		insert.
+
+	self assert: anEditor text asString equals:
+		(self multilineText first asString, '(',self multilineText second asString,')', (self multilineText from: 3 to: self multilineText size) asString).
+	self assert: anEditor cursors allCursors equals: { BrTextEditorSingleCursor new position: 2 }.
+
+	self assert: anEditor selection allSelections equals: {
+		BlSelection from: 2 to: 3.
+	}.
+
+	^ anEditor
+]
+
+{ #category : #'examples - insertion' }
+BrTextEditorInserterExamples >> insert_openParentheses_at_cursor_1_selection_1_to_2_withOperatorNotAccountingSelection_withoutSelectionDelete [
+	"I make sure that selected text is not surrounded if it is selected and when it is not described in operator"
+	<gtExample>
+	| anEditor |
+
+	anEditor := self editorOnMultilineText.
+	anEditor editor moveCursorTo: 1.
+	anEditor editor select: 1 to: 2.
+	
+	anEditor inserter
+		atCursor;
+		string: '(';
+		surroundings: (BrTextEditorSurroundMap newFromArray: {
+			'('. ')'. [ :anOperator :anIndex |
+				(anOperator hasSpaceAroundIndex: anIndex) ] });
+		withoutSelectionDelete;
+		insert.
+
+	self assert: anEditor text asString equals:
+		(self multilineText first asString, '(', (self multilineText from: 2 to: self multilineText size) asString).
+	self assert: anEditor cursors allCursors equals: { BrTextEditorSingleCursor new position: 2 }.
+
+	self assert: anEditor selection allSelections equals: {
+		BlSelection from: 2 to: 3.
+	}.
+
+	^ anEditor
+]
+
+{ #category : #'examples - insertion' }
 BrTextEditorInserterExamples >> insert_openParentheses_at_cursor_2_selection_2_to_8_withoutSelectionDelete [
 	<gtExample>
 	| anEditor |
