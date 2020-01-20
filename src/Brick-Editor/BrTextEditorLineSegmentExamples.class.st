@@ -353,15 +353,20 @@ BrTextEditorLineSegmentExamples >> delete_BA_in_BA_at_1_2 [
 { #category : #'examples - deletion' }
 BrTextEditorLineSegmentExamples >> delete_B_in_BA_at_1_1 [
 	<gtExample>
-	| aTextEditor |
+	| aTextEditor theOldPieces theNewPieces |
 	aTextEditor := self insert_B_in_A_at_0.
 	
+	theOldPieces := aTextEditor segmentCollector segments first pieces.
+
 	aTextEditor delete: 0 to: 1.
 
 	self assert: aTextEditor text asString equals: 'A'.
 	self assert: aTextEditor segmentCollector computedSegmentsCount equals: 1.
 	self assert: aTextEditor segmentCollector segments first textInterval equals: (0 to: 1).
 	self assert: aTextEditor segmentCollector cachedInterval equals: (1 to: 1).
+	
+	theNewPieces := aTextEditor segmentCollector segments first pieces.
+	self assert: theOldPieces equals: theNewPieces.
 
 	^ aTextEditor
 ]
@@ -1695,6 +1700,298 @@ BrTextEditorLineSegmentExamples >> lineSegmentBuilder [
 	<gtExample>
 	
 	^ BrTextEditorLineSegmentBuilder new
+]
+
+{ #category : #'examples - overwrite' }
+BrTextEditorLineSegmentExamples >> overwrite_Hello_World_with_S_in_Hello_World [
+	<gtExample>
+	| aTextEditor aSegment theOldPieces theNewPieces |
+	aTextEditor := self insert_Hello_World_inEmptyAt_0.
+	
+	self assert: aTextEditor segmentCollector computedSegmentsCount equals: 1.
+	
+	aSegment := aTextEditor segmentCollector segments first.
+	self assert: aSegment index equals: 1.
+	self assert: aSegment text asString equals: 'Hello World'.
+	self assert: aSegment textStart equals: 0.
+	self assert: aSegment textEnd equals: 11.
+	
+	theOldPieces := aTextEditor segmentCollector segments first pieces.
+	self assert: theOldPieces size equals: 3.
+	
+	self assert: (theOldPieces first isKindOf: BrTextEditorLineSegmentTextPiece).
+	self assert: theOldPieces first textStart equals: 0.
+	self assert: theOldPieces first textEnd equals: 5.
+	
+	self assert: (theOldPieces second isKindOf: BrTextEditorLineSegmentTextPiece).
+	self assert: theOldPieces second textStart equals: 5.
+	self assert: theOldPieces second textEnd equals: 6.
+	
+	self assert: (theOldPieces third isKindOf: BrTextEditorLineSegmentTextPiece).
+	self assert: theOldPieces third textStart equals: 6.
+	self assert: theOldPieces third textEnd equals: 11.
+	
+	aTextEditor selecter
+		from: 0 to: 11;
+		select.
+	
+	aTextEditor inserter
+		atCursor;
+		string: 'S';
+		insert.
+
+	self assert: aTextEditor segmentCollector computedSegmentsCount equals: 1.
+	
+	aSegment := aTextEditor segmentCollector segments first.
+	self assert: aSegment index equals: 1.
+	self assert: aSegment text asString equals: 'S'.
+	self assert: aSegment textStart equals: 0.
+	self assert: aSegment textEnd equals: 1.
+	
+	theNewPieces := aTextEditor segmentCollector segments first pieces.
+	self assert: theNewPieces size equals: 1.
+	
+	self assert: (theNewPieces first isKindOf: BrTextEditorLineSegmentTextPiece).
+	self assert: theNewPieces first textStart equals: 0.
+	self assert: theNewPieces first textEnd equals: 1.
+	
+	"the state of old pieces should be at the moment of deletion, right before insertion"
+	self assert: (theOldPieces first isKindOf: BrTextEditorLineSegmentTextPiece).
+	self assert: theOldPieces first textStart equals: 0.
+	self assert: theOldPieces first textEnd equals: 0.
+	
+	self assert: (theOldPieces second isKindOf: BrTextEditorLineSegmentTextPiece).
+	self assert: theOldPieces second textStart equals: 0.
+	self assert: theOldPieces second textEnd equals: 0.
+	
+	self assert: (theOldPieces third isKindOf: BrTextEditorLineSegmentTextPiece).
+	self assert: theOldPieces third textStart equals: 0.
+	self assert: theOldPieces third textEnd equals: 0.
+	
+	^ aTextEditor
+]
+
+{ #category : #'examples - overwrite' }
+BrTextEditorLineSegmentExamples >> overwrite_World_with_S_in_Hello_World [
+	<gtExample>
+	| aTextEditor aSegment theOldPieces theNewPieces |
+	aTextEditor := self insert_Hello_World_inEmptyAt_0.
+	
+	self assert: aTextEditor segmentCollector computedSegmentsCount equals: 1.
+	
+	aSegment := aTextEditor segmentCollector segments first.
+	self assert: aSegment index equals: 1.
+	self assert: aSegment text asString equals: 'Hello World'.
+	self assert: aSegment textStart equals: 0.
+	self assert: aSegment textEnd equals: 11.
+	
+	theOldPieces := aTextEditor segmentCollector segments first pieces.
+	self assert: theOldPieces size equals: 3.
+	
+	self assert: (theOldPieces first isKindOf: BrTextEditorLineSegmentTextPiece).
+	self assert: theOldPieces first textStart equals: 0.
+	self assert: theOldPieces first textEnd equals: 5.
+	
+	self assert: (theOldPieces second isKindOf: BrTextEditorLineSegmentTextPiece).
+	self assert: theOldPieces second textStart equals: 5.
+	self assert: theOldPieces second textEnd equals: 6.
+	
+	self assert: (theOldPieces third isKindOf: BrTextEditorLineSegmentTextPiece).
+	self assert: theOldPieces third textStart equals: 6.
+	self assert: theOldPieces third textEnd equals: 11.
+	
+	aTextEditor selecter
+		from: 6 to: 11;
+		select.
+	
+	aTextEditor inserter
+		atCursor;
+		string: 'S';
+		insert.
+
+	self assert: aTextEditor segmentCollector computedSegmentsCount equals: 1.
+	
+	aSegment := aTextEditor segmentCollector segments first.
+	self assert: aSegment index equals: 1.
+	self assert: aSegment text asString equals: 'Hello S'.
+	self assert: aSegment textStart equals: 0.
+	self assert: aSegment textEnd equals: 7.
+	
+	theNewPieces := aTextEditor segmentCollector segments first pieces.
+	self assert: theNewPieces size equals: 3.
+	
+	self assert: (theNewPieces first isKindOf: BrTextEditorLineSegmentTextPiece).
+	self assert: theNewPieces first textStart equals: 0.
+	self assert: theNewPieces first textEnd equals: 5.
+	
+	self assert: (theNewPieces second isKindOf: BrTextEditorLineSegmentTextPiece).
+	self assert: theNewPieces second textStart equals: 5.
+	self assert: theNewPieces second textEnd equals: 6.
+	
+	self assert: (theNewPieces third isKindOf: BrTextEditorLineSegmentTextPiece).
+	self assert: theNewPieces third textStart equals: 6.
+	self assert: theNewPieces third textEnd equals: 7.
+	
+	"the state of old pieces should be at the moment of deletion, right before insertion"
+	self assert: (theOldPieces first isKindOf: BrTextEditorLineSegmentTextPiece).
+	self assert: theOldPieces first textStart equals: 0.
+	self assert: theOldPieces first textEnd equals: 5.
+	
+	self assert: (theOldPieces second isKindOf: BrTextEditorLineSegmentTextPiece).
+	self assert: theOldPieces second textStart equals: 5.
+	self assert: theOldPieces second textEnd equals: 6.
+	
+	self assert: (theOldPieces third isKindOf: BrTextEditorLineSegmentTextPiece).
+	self assert: theOldPieces third textStart equals: 6.
+	self assert: theOldPieces third textEnd equals: 6.
+	
+	^ aTextEditor
+]
+
+{ #category : #'examples - overwrite' }
+BrTextEditorLineSegmentExamples >> overwrite_d_with_S_in_Hello_World [
+	<gtExample>
+	| aTextEditor aSegment theOldPieces theNewPieces |
+	aTextEditor := self insert_Hello_World_inEmptyAt_0.
+	
+	self assert: aTextEditor segmentCollector computedSegmentsCount equals: 1.
+	
+	aSegment := aTextEditor segmentCollector segments first.
+	self assert: aSegment index equals: 1.
+	self assert: aSegment text asString equals: 'Hello World'.
+	self assert: aSegment textStart equals: 0.
+	self assert: aSegment textEnd equals: 11.
+	
+	theOldPieces := aTextEditor segmentCollector segments first pieces.
+	self assert: theOldPieces size equals: 3.
+	
+	self assert: (theOldPieces first isKindOf: BrTextEditorLineSegmentTextPiece).
+	self assert: theOldPieces first textStart equals: 0.
+	self assert: theOldPieces first textEnd equals: 5.
+	
+	self assert: (theOldPieces second isKindOf: BrTextEditorLineSegmentTextPiece).
+	self assert: theOldPieces second textStart equals: 5.
+	self assert: theOldPieces second textEnd equals: 6.
+	
+	self assert: (theOldPieces third isKindOf: BrTextEditorLineSegmentTextPiece).
+	self assert: theOldPieces third textStart equals: 6.
+	self assert: theOldPieces third textEnd equals: 11.
+	
+	aTextEditor selecter
+		from: 10 to: 11;
+		select.
+	
+	aTextEditor inserter
+		atCursor;
+		string: 'S';
+		insert.
+
+	self assert: aTextEditor segmentCollector computedSegmentsCount equals: 1.
+	
+	aSegment := aTextEditor segmentCollector segments first.
+	self assert: aSegment index equals: 1.
+	self assert: aSegment text asString equals: 'Hello WorlS'.
+	self assert: aSegment textStart equals: 0.
+	self assert: aSegment textEnd equals: 11.
+	
+	theNewPieces := aTextEditor segmentCollector segments first pieces.
+	self assert: theNewPieces size equals: 3.
+	
+	self assert: (theNewPieces first isKindOf: BrTextEditorLineSegmentTextPiece).
+	self assert: theNewPieces first textStart equals: 0.
+	self assert: theNewPieces first textEnd equals: 5.
+	
+	self assert: (theNewPieces second isKindOf: BrTextEditorLineSegmentTextPiece).
+	self assert: theNewPieces second textStart equals: 5.
+	self assert: theNewPieces second textEnd equals: 6.
+	
+	self assert: (theNewPieces third isKindOf: BrTextEditorLineSegmentTextPiece).
+	self assert: theNewPieces third textStart equals: 6.
+	self assert: theNewPieces third textEnd equals: 11.
+	
+	"the state of old pieces should be at the moment of deletion, right before insertion"
+	self assert: (theOldPieces first isKindOf: BrTextEditorLineSegmentTextPiece).
+	self assert: theOldPieces first textStart equals: 0.
+	self assert: theOldPieces first textEnd equals: 5.
+	
+	self assert: (theOldPieces second isKindOf: BrTextEditorLineSegmentTextPiece).
+	self assert: theOldPieces second textStart equals: 5.
+	self assert: theOldPieces second textEnd equals: 6.
+	
+	self assert: (theOldPieces third isKindOf: BrTextEditorLineSegmentTextPiece).
+	self assert: theOldPieces third textStart equals: 6.
+	self assert: theOldPieces third textEnd equals: 10.
+	
+	^ aTextEditor
+]
+
+{ #category : #'examples - overwrite' }
+BrTextEditorLineSegmentExamples >> overwrite_llo_World_with_S_in_Hello_World [
+	<gtExample>
+	| aTextEditor aSegment theOldPieces theNewPieces |
+	aTextEditor := self insert_Hello_World_inEmptyAt_0.
+	
+	self assert: aTextEditor segmentCollector computedSegmentsCount equals: 1.
+	
+	aSegment := aTextEditor segmentCollector segments first.
+	self assert: aSegment index equals: 1.
+	self assert: aSegment text asString equals: 'Hello World'.
+	self assert: aSegment textStart equals: 0.
+	self assert: aSegment textEnd equals: 11.
+	
+	theOldPieces := aTextEditor segmentCollector segments first pieces.
+	self assert: theOldPieces size equals: 3.
+	
+	self assert: (theOldPieces first isKindOf: BrTextEditorLineSegmentTextPiece).
+	self assert: theOldPieces first textStart equals: 0.
+	self assert: theOldPieces first textEnd equals: 5.
+	
+	self assert: (theOldPieces second isKindOf: BrTextEditorLineSegmentTextPiece).
+	self assert: theOldPieces second textStart equals: 5.
+	self assert: theOldPieces second textEnd equals: 6.
+	
+	self assert: (theOldPieces third isKindOf: BrTextEditorLineSegmentTextPiece).
+	self assert: theOldPieces third textStart equals: 6.
+	self assert: theOldPieces third textEnd equals: 11.
+	
+	aTextEditor selecter
+		from: 2 to: 11;
+		select.
+	
+	aTextEditor inserter
+		atCursor;
+		string: 'S';
+		insert.
+
+	self assert: aTextEditor segmentCollector computedSegmentsCount equals: 1.
+	
+	aSegment := aTextEditor segmentCollector segments first.
+	self assert: aSegment index equals: 1.
+	self assert: aSegment text asString equals: 'HeS'.
+	self assert: aSegment textStart equals: 0.
+	self assert: aSegment textEnd equals: 3.
+	
+	theNewPieces := aTextEditor segmentCollector segments first pieces.
+	self assert: theNewPieces size equals: 1.
+	
+	self assert: (theNewPieces first isKindOf: BrTextEditorLineSegmentTextPiece).
+	self assert: theNewPieces first textStart equals: 0.
+	self assert: theNewPieces first textEnd equals: 3.
+	
+	"the state of old pieces should be at the moment of deletion, right before insertion"
+	self assert: (theOldPieces first isKindOf: BrTextEditorLineSegmentTextPiece).
+	self assert: theOldPieces first textStart equals: 0.
+	self assert: theOldPieces first textEnd equals: 2.
+	
+	self assert: (theOldPieces second isKindOf: BrTextEditorLineSegmentTextPiece).
+	self assert: theOldPieces second textStart equals: 2.
+	self assert: theOldPieces second textEnd equals: 2.
+	
+	self assert: (theOldPieces third isKindOf: BrTextEditorLineSegmentTextPiece).
+	self assert: theOldPieces third textStart equals: 2.
+	self assert: theOldPieces third textEnd equals: 2.
+	
+	^ aTextEditor
 ]
 
 { #category : #'examples - pieces' }

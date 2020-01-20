@@ -83,6 +83,7 @@ BrTextEditorLineSegmentBuilder >> deleteFrom: aFromIndex segment: aFromSegment t
 			
 			aBrTextEditor segmentCollector removeSegmentInterval: (removeSegmentStart to: removeSegmentEnd) ].
 	
+	aTargetSegment moveTextPiecesBy: removedLength negated at: aFromIndex.
 	aBrTextEditor segmentCollector
 		moveTextBy: removedLength negated
 		after: aTargetSegment.

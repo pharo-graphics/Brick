@@ -1070,13 +1070,16 @@ BrTextEditor >> surroundMap [
 
 	| spaceBlock |
 	spaceBlock := [ :anOperator :anIndex |
-			anOperator hasSpaceAroundIndex: anIndex ].
-	^ BrTextEditorSurroundMap newFromArrays: { 
-		{ #'('. #')'. nil. }.
-		{ #'"'. #'"'. spaceBlock. }.
-		{ #''''. #''''. spaceBlock. }.
-		{ #'['. #']'. nil. }.
-		{ #'{'. #'}'. nil. }.
+		(anOperator hasSpaceAroundIndex: anIndex)
+			or: [ anOperator selection contains: anIndex ] ].
+
+	^ BrTextEditorSurroundMap newFromArrays:
+		{ 
+			{ #'('. #')'. nil. }.
+			{ #'"'. #'"'. spaceBlock. }.
+			{ #''''. #''''. spaceBlock. }.
+			{ #'['. #']'. nil. }.
+			{ #'{'. #'}'. nil. }
 		}
 ]
 
