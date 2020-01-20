@@ -96,7 +96,11 @@ BrTextEditorLineSegment >> moveTextBy: aNumber [
 
 { #category : #'text - modifications' }
 BrTextEditorLineSegment >> moveTextPiecesBy: aNumber at: aTextIndex [
+	"aTextIndex is a Text index, not a cursor one!"
+	| aCursorIndex |
 	super moveTextPiecesBy: aNumber at: aTextIndex.
+	
+	aCursorIndex := (aTextIndex - 1) max: 0.
 
 	"no pieces created (they were not requested yet so no need to move them)"
 	self hasPieces
@@ -104,11 +108,35 @@ BrTextEditorLineSegment >> moveTextPiecesBy: aNumber at: aTextIndex [
 
 	self pieces
 		do: [ :aTextPiece |
-			aTextPiece textEnd > aTextIndex
+			
+			aNumber > 0
 				ifTrue: [
-					aTextPiece textStart > aTextIndex
-						ifTrue: [ aTextPiece start: aTextPiece textStart + aNumber end: aTextPiece textEnd + aNumber ]
-						ifFalse: [ aTextPiece start: aTextPiece textStart end: aTextPiece textEnd + aNumber ] ] ]
+					aTextPiece textEnd > aCursorIndex
+						ifTrue: [
+							aTextPiece textStart > aCursorIndex
+								ifTrue: [ aTextPiece
+									start: aTextPiece textStart + aNumber
+									end: aTextPiece textEnd + aNumber ]
+								ifFalse: [ aTextPiece
+									start: aTextPiece textStart
+									end: aTextPiece textEnd + aNumber ] ] ]
+				ifFalse: [
+					aTextPiece textEnd > aCursorIndex
+						ifTrue: [
+							"deletion happened before this text piece"
+							aTextPiece textStart > aCursorIndex
+								ifTrue: [
+									| aLastDeletedIndex |
+									aLastDeletedIndex := aCursorIndex + aNumber abs.
+									aTextPiece
+										start: aCursorIndex
+										end: ((aTextPiece textEnd - aLastDeletedIndex) max: aCursorIndex) ]
+								"deletion happened inside of this text piece"
+								ifFalse: [
+									aTextPiece
+										start: aTextPiece textStart
+										"end is start + how many left after deletion"
+										end: aCursorIndex + ((aTextPiece textEnd - aCursorIndex - aNumber abs) max: 0) ] ] ] ]
 ]
 
 { #category : #'attributes - paragraph' }

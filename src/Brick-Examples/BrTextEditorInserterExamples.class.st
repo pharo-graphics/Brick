@@ -289,7 +289,7 @@ BrTextEditorInserterExamples >> insert_Hello_at_1_cursorAt_1_selection_0_to_0 [
 	anEditor := self editorOnMultilineText.
 	anEditor editor moveCursorTo: 1.
 	anEditor editor select: 0 to: 0.
-	
+
 	anEditor inserter
 		at: 1;
 		string: 'Hello';
