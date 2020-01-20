@@ -5,7 +5,7 @@ Class {
 		'amount',
 		'total'
 	],
-	#category : 'Brick-Progress - Look'
+	#category : #'Brick-Progress - Look'
 }
 
 { #category : #accessing }
@@ -56,23 +56,6 @@ BrProgressLook >> initialize [
 	self
 		addChangeProperty: #(widgetContent layout)
 		with: [ BlFrameLayout new ].
-	self
-		addChangeProperty: #(widgetProgress constraints vertical resizer)
-		with: BlLayoutResizer matchParent.
-	self
-		addChangeProperty: #(widgetProgress constraints horizontal resizer)
-		with: BlLayoutResizer matchParent.
-	self
-		addChange:
-			(BrLookChange new
-				up: [ :e | 
-					self widgetProgress
-						constraintsDo: [ :c | 
-							c frame horizontal weight: self fraction.
-							c frame horizontal alignLeft.
-							c frame vertical alignCenter ] ];
-				down: [ :e |  ];
-				yourself)
 ]
 
 { #category : #initialization }
@@ -91,16 +74,9 @@ BrProgressLook >> initializeRequests [
 	self request: BrProgressStatusRequest new
 ]
 
-{ #category : #'instance creation' }
-BrProgressLook >> newProgressElement [
-	^ BlElement new
-]
-
 { #category : #hooks }
 BrProgressLook >> onProgressChanged [
-	self widgetDo: [ :aWidget | 
-		self widgetProgress constraintsDo: [ :c | 
-			c frame horizontal weight: self fraction ] ]
+	"looks can react to progress changes"
 ]
 
 { #category : #'accessing-computed' }
@@ -116,28 +92,4 @@ BrProgressLook >> percentage: aNumber [
 { #category : #accessing }
 BrProgressLook >> total [
 	^ total
-]
-
-{ #category : #accessing }
-BrProgressLook >> widgetProgress [
-	"Return widget's progress container element"
-	<return: #BlElement>
-
-	self
-		assert: [ widget isNotNil ]
-		description: [ 'I must be attached to the widget first' ].
-
-	"if widget does not have explicit #content container, we treat widget as a container itself"
-	self widgetContent
-		childNamed: self widgetProgressName
-		ifFound: [ :anElement | ^ anElement ]
-		ifNone: [ | anElement |
-			anElement := self newProgressElement.
-			self widgetContent addChild: anElement as: self widgetProgressName.
-			^ anElement ]
-]
-
-{ #category : #accessing }
-BrProgressLook >> widgetProgressName [
-	^ self class widgetProgressName
 ]
