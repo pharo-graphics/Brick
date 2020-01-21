@@ -8,14 +8,26 @@ Class {
 	#category : #'Brick-Progress - Look'
 }
 
+{ #category : #accessing }
+BrProgressBarLook >> bar [
+	<return: #BlElement>
+	^ bar
+]
+
 { #category : #enumerating }
 BrProgressBarLook >> barDo: aBlock [
-	aBlock value: bar
+	aBlock value: self bar
+]
+
+{ #category : #accessing }
+BrProgressBarLook >> container [
+	<return: #BlElement>
+	^ container
 ]
 
 { #category : #enumerating }
 BrProgressBarLook >> containerDo: aBlock [
-	aBlock value: container
+	aBlock value: self container
 ]
 
 { #category : #initialization }
@@ -52,5 +64,5 @@ BrProgressBarLook >> onProgressChanged [
 	super onProgressChanged.
 	self widgetDo: [ :aWidget | 
 		bar constraintsDo: [ :c | 
-			c frame horizontal weight: self fraction ] ]
+			c frame horizontal weight: self fraction asFloat ] ]
 ]

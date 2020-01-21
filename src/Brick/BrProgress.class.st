@@ -21,7 +21,7 @@ BrProgress >> fileSizeLabelValues [
 
 { #category : #'accessing - label format' }
 BrProgress >> fixedLabel: aString [
-	^ self viewModel fixedLabel: aString
+	self viewModel fixedLabel: aString
 ]
 
 { #category : #'accessing - label value format' }
@@ -63,7 +63,7 @@ BrProgress >> label [
 
 { #category : #'accessing - label format' }
 BrProgress >> patternLabel: aString [
-	^ self viewModel patternLabel: aString
+	self viewModel patternLabel: aString
 ]
 
 { #category : #accessing }

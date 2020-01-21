@@ -18,7 +18,7 @@ BrProgressExamples >> barAndTextAbove [
 	self assert: aProgress childrenCount equals: 2.
 	self assert: aProgress children second layout class equals: BlFrameLayout.
 	self assert: aProgress children second childrenCount equals: 1.
-	self assert: aProgress children second children first constraints frame horizontal weight equals: 3/10.
+	self assert: aProgress children second children first constraints frame horizontal weight equals: 0.3.
 	self assert: aProgress children first text asString equals: 'Out of 100%, 30% transfered'.
 	^ aProgress
 ]
@@ -37,7 +37,7 @@ BrProgressExamples >> barAndTextBelow [
 	self assert: aProgress childrenCount equals: 2.
 	self assert: aProgress children first layout class equals: BlFrameLayout.
 	self assert: aProgress children first childrenCount equals: 1.
-	self assert: aProgress children first children first constraints frame horizontal weight equals: 3/10.
+	self assert: aProgress children first children first constraints frame horizontal weight equals: 0.3.
 	self assert: aProgress children second text asString equals: 'Out of 100%, 30% transfered'.
 	^ aProgress
 ]
@@ -60,7 +60,7 @@ BrProgressExamples >> barAndTextInside [
 	self assert: aProgress childrenCount equals: 2.
 	self assert: aProgress children first layout class equals: BlFrameLayout.
 	self assert: aProgress children first childrenCount equals: 1.
-	self assert: aProgress children first children first constraints frame horizontal weight equals: 3/10.
+	self assert: aProgress children first children first constraints frame horizontal weight equals: 0.3.
 	self assert: aProgress children second text asString equals: 'Out of 100%, 30% transfered'.
 	self assert: aProgress children second constraints ignoredByLayout.
 	^ aProgress
@@ -94,7 +94,7 @@ BrProgressExamples >> barOnly [
 	self assert: aProgress childrenCount equals: 1.
 	self assert: aProgress children first layout class equals: BlFrameLayout.
 	self assert: aProgress children first childrenCount equals: 1.
-	self assert: aProgress children first children first constraints frame horizontal weight equals: 3/10.
+	self assert: aProgress children first children first constraints frame horizontal weight equals: 0.3.
 	^ aProgress
 ]
 
