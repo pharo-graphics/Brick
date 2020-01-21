@@ -4,74 +4,105 @@ Class {
 	#category : #'Brick-Examples-Progress'
 }
 
-{ #category : #support }
-BrProgressExamples >> addPlusAndMinuxButtonsIn: aContainer for: aProgressElement [
-	<gtExample>
-	aContainer 
-		addChild: (BrButton new 
-			layout: BlLinearLayout horizontal;
-			look: BrTextLabelLook; 
-			label: 'minus'; 
-			action: [ 
-				| aPercentage |
-				aPercentage := aProgressElement viewModel percentage.
-				aPercentage := (aPercentage - 10) max: 0. 
-				aProgressElement viewModel percentage: aPercentage ];
-			constraintsDo: [ :c | 
-				c linear vertical alignCenter.
-				c horizontal fitContent.
-				c vertical fitContent ]);
-		addChild: (BrButton new 
-			layout: BlLinearLayout horizontal;
-			look: BrTextLabelLook; 
-			label: 'plus'; 
-			action: [ 
-				| aPercentage |
-				aPercentage := aProgressElement viewModel percentage.
-				aPercentage := (aPercentage + 10) min: 100. 
-				aProgressElement viewModel percentage: aPercentage ];
-			constraintsDo: [ :c | 
-				c linear vertical alignCenter.
-				c horizontal fitContent.
-				c vertical fitContent ]).
-	^ aContainer
-]
-
-{ #category : #'examples - basic element' }
-BrProgressExamples >> barElement [
-	<gtExample>
-	^ self element
-		background: Color gray;
-		geometry: (BlRectangle cornerRadius: 2)
-]
-
-{ #category : #'examples - basic element' }
-BrProgressExamples >> containerElement [
-	<gtExample>
-	^ self element
-		padding: (BlInsets all: 10);
-		margin: (BlInsets all: 10);
-		background: Color veryLightGray muchLighter;
-		geometry: (BlRectangle cornerRadius: 2)
-]
-
-{ #category : #'examples - exact with text' }
-BrProgressExamples >> downloadProgressWithBarAndLabelLook [
+{ #category : #'examples - bar and text compositions' }
+BrProgressExamples >> barAndTextAbove [
 	<gtExample>
 	| aProgress |
-	aProgress := self exactProgressWithBarAndLabelLook.
-	aProgress amount: 300 * 1024 total: 8 * 1024 * 1024.
-	aProgress patternLabel: '{1} out of {2} bytes downloaded'.
-	aProgress integerLabelValues.
-	self assert: aProgress label asString equals: '307200 out of 8388608 bytes downloaded'.
+	aProgress := self thirtyPercentProgress.
+	aProgress 
+		layout: BlLinearLayout vertical;
+		constraintsDo: [ :c | 
+			c horizontal matchParent.
+			c vertical fitContent ];
+		look: self textLook + self barLook.
+	self assert: aProgress childrenCount equals: 2.
+	self assert: aProgress children second layout class equals: BlFrameLayout.
+	self assert: aProgress children second childrenCount equals: 1.
+	self assert: aProgress children second children first constraints frame horizontal weight equals: 3/10.
+	self assert: aProgress children first text asString equals: 'Out of 100%, 30% transfered'.
 	^ aProgress
 ]
 
-{ #category : #'examples - exact with text' }
-BrProgressExamples >> downloadProgressWithBarAndLabelLook_FileSize [
+{ #category : #'examples - bar and text compositions' }
+BrProgressExamples >> barAndTextBelow [
 	<gtExample>
 	| aProgress |
-	aProgress := self exactProgressWithBarAndLabelLook.
+	aProgress := self thirtyPercentProgress.
+	aProgress 
+		layout: BlLinearLayout vertical;
+		constraintsDo: [ :c | 
+			c horizontal matchParent.
+			c vertical fitContent ];
+		look: self barLook + self textLook.
+	self assert: aProgress childrenCount equals: 2.
+	self assert: aProgress children first layout class equals: BlFrameLayout.
+	self assert: aProgress children first childrenCount equals: 1.
+	self assert: aProgress children first children first constraints frame horizontal weight equals: 3/10.
+	self assert: aProgress children second text asString equals: 'Out of 100%, 30% transfered'.
+	^ aProgress
+]
+
+{ #category : #'examples - bar and text compositions' }
+BrProgressExamples >> barAndTextInside [
+	<gtExample>
+	| aProgress |
+	aProgress := self thirtyPercentProgress.
+	aProgress 
+		layout: BlLinearLayout new;
+		constraintsDo: [ :c | 
+			c horizontal matchParent.
+			c vertical fitContent ];
+		look: self barLook + (self textLook 
+			foreground: Color white;
+			labelDo: [ :aLabel | 
+				aLabel constraintsDo: [ :c | 
+					c ignoreByLayout ] ]).
+	self assert: aProgress childrenCount equals: 2.
+	self assert: aProgress children first layout class equals: BlFrameLayout.
+	self assert: aProgress children first childrenCount equals: 1.
+	self assert: aProgress children first children first constraints frame horizontal weight equals: 3/10.
+	self assert: aProgress children second text asString equals: 'Out of 100%, 30% transfered'.
+	self assert: aProgress children second constraints ignoredByLayout.
+	^ aProgress
+]
+
+{ #category : #'examples - looks' }
+BrProgressExamples >> barLook [
+	<gtExample>
+	^ BrProgressBarLook new
+			barDo: [ :aBar | 
+				aBar background: Color blue.
+				aBar geometry: (BlRectangle cornerRadius: 8).
+				aBar constraintsDo: [ :c | 
+					c vertical exact: 20 ] ];
+			containerDo: [ :aBarContainer | 
+				aBarContainer background: Color blue muchLighter.
+				aBarContainer geometry: (BlRectangle cornerRadius: 8) ]
+]
+
+{ #category : #'examples - bar and text compositions' }
+BrProgressExamples >> barOnly [
+	<gtExample>
+	| aProgress |
+	aProgress := self thirtyPercentProgress.
+	aProgress 
+		layout: BlLinearLayout vertical;
+		constraintsDo: [ :c | 
+			c horizontal matchParent.
+			c vertical fitContent ];
+		look: self barLook.
+	self assert: aProgress childrenCount equals: 1.
+	self assert: aProgress children first layout class equals: BlFrameLayout.
+	self assert: aProgress children first childrenCount equals: 1.
+	self assert: aProgress children first children first constraints frame horizontal weight equals: 3/10.
+	^ aProgress
+]
+
+{ #category : #'examples - text formats' }
+BrProgressExamples >> fileSizeValues [
+	<gtExample>
+	| aProgress |
+	aProgress := self barAndTextInside.
 	aProgress amount: 300 total: 8 * 1024 * 1024.
 	aProgress patternLabel: '{1} out of {2} downloaded'.
 	aProgress fileSizeLabelValues.
@@ -79,74 +110,38 @@ BrProgressExamples >> downloadProgressWithBarAndLabelLook_FileSize [
 	^ aProgress
 ]
 
-{ #category : #'examples - exact with text' }
-BrProgressExamples >> downloadProgressWithBarAndLabelLook_FloatValues [
+{ #category : #'examples - text formats' }
+BrProgressExamples >> fixedLabel [
 	<gtExample>
 	| aProgress |
-	aProgress := self exactProgressWithBarAndLabelLook.
+	aProgress := self barAndTextInside.
+	aProgress amount: 300 total: 8 * 1024 * 1024.
+	aProgress fixedLabel: 'downloading...'.
+	self assert: aProgress label asString equals: 'downloading...'.
+	^ aProgress
+]
+
+{ #category : #'examples - text formats' }
+BrProgressExamples >> floatValues [
+	<gtExample>
+	| aProgress |
+	aProgress := self barAndTextInside.
 	aProgress amount: 300 total: 8 * 1024.
-	aProgress patternLabel: '{1} out of {2} kbytes downloaded'.
+	aProgress patternLabel: '{1} kbytes out of {2} kbytes'.
 	aProgress floatLabelValuesWithDecimals: 1.
-	self assert: aProgress label asString equals: '300.0 out of 8192.0 kbytes downloaded'.
+	self assert: aProgress label asString equals: '300.0 kbytes out of 8192.0 kbytes'.
 	^ aProgress
 ]
 
-{ #category : #'examples - basic element' }
-BrProgressExamples >> element [
-	<gtExample>
-	^ BlElement new
-]
-
-{ #category : #'examples - exact with text' }
-BrProgressExamples >> exactProgress [
+{ #category : #'examples - text formats' }
+BrProgressExamples >> integerValues [
 	<gtExample>
 	| aProgress |
-	aProgress := self progress.
-	aProgress percentage: 30.
-	aProgress patternLabel: 'Out of {2}%, {1}% transfered'.
-	self assert: aProgress percentage equals: 30.
-	^ aProgress
-]
-
-{ #category : #'examples - exact with text' }
-BrProgressExamples >> exactProgressWithBarAndLabelLook [
-	<gtExample>
-	| aProgress aLabelLook |
-	aProgress := self exactProgressWithBarLook.
-	aLabelLook := BrTextLabelLook new foreground: Color white.
-	aLabelLook labelDo: [ :aWidget | 
-		aWidget constraintsDo: [ :c | 
-			c frame horizontal alignCenter.
-			c frame vertical alignCenter ] ].
-	aProgress addLook: aLabelLook.
-	self assert: aProgress childrenCount equals: 2.
-	self assert: aLabelLook text asString equals: 'Out of 100%, 30% transfered'.
-	self assert: aLabelLook label text asString equals: 'Out of 100%, 30% transfered'.
-	^ aProgress
-]
-
-{ #category : #'examples - exact with text' }
-BrProgressExamples >> exactProgressWithBarLook [
-	<gtExample>
-	| aProgress |
-	aProgress := self exactProgress.
-	aProgress 
-		look: BrProgressWithBarLook;
-		geometry: (BlRectangle cornerRadius: 10);
-		background: Color blue muchLighter;
-		constraintsDo: [ :c | 
-			c padding: (BlInsets all: 3).
-			c horizontal matchParent.
-			c vertical exact: 20 ].
-	aProgress barDo: [ :anElement | 
-		anElement 
-			background: Color blue;
-			geometry: (BlRectangle cornerRadius: 8);
-			constraintsDo: [ :c |
-				c horizontal matchParent.
-				c vertical matchParent. ] ].
-	self assert: aProgress percentage equals: 30.
-	self assert: aProgress childrenCount equals: 1.
+	aProgress := self barAndTextInside.
+	aProgress amount: 300 * 1024 total: 8 * 1024 * 1024.
+	aProgress patternLabel: '{1} out of {2} bytes downloaded'.
+	aProgress integerLabelValues.
+	self assert: aProgress label asString equals: '307200 out of 8388608 bytes downloaded'.
 	^ aProgress
 ]
 
@@ -166,39 +161,6 @@ BrProgressExamples >> progress [
 	^ aProgress
 ]
 
-{ #category : #'examples - basic element' }
-BrProgressExamples >> progressElement [
-	<gtExample>
-	| aContainer aBarElement |
-	aBarElement := self barElement.
-	aContainer := self containerElement.
-	aContainer 
-		constraintsDo: [ :c |
-			c horizontal matchParent.
-			c vertical exact: 30. ];
-		addChild: aBarElement as: BrProgressLook widgetProgressName.
-	aContainer viewModel: self progressModel.
-	aContainer look: BrProgressWithBarLook.
-	^ aContainer
-]
-
-{ #category : #'examples - basic element' }
-BrProgressExamples >> progressElementWithPlusAndMinusButtons [
-	<gtExample>
-	| aContainer aProgressElement |
-	aContainer := self containerElement.
-	aProgressElement := self progressElement.
-	aContainer 
-		layout: BlLinearLayout horizontal;
-		constraintsDo: [ :c | 
-			c horizontal matchParent.
-			c vertical exact: 72 ];
-		background: Color transparent;
-		addChild: aProgressElement.
-	self addPlusAndMinuxButtonsIn: aContainer for: aProgressElement.
-	^ aContainer
-]
-
 { #category : #'examples - model' }
 BrProgressExamples >> progressModel [
 	<gtExample>
@@ -210,13 +172,27 @@ BrProgressExamples >> progressModel [
 	^ aModel
 ]
 
-{ #category : #'examples - basic element' }
-BrProgressExamples >> rootContainerElement [
+{ #category : #'examples - looks' }
+BrProgressExamples >> textLook [
 	<gtExample>
-	^ self containerElement
-		layout: BlLinearLayout horizontal;
-		constraintsDo: [ :c | 
-			c horizontal matchParent.
-			c vertical fitContent ];
-		background: Color transparent
+	^ BrTextLabelLook new 
+			foreground: Color lightGray;
+			labelDo: [ :aWidget | 
+				aWidget constraintsDo: [ :c | 
+					c margin: (BlInsets all: 3).
+					c linear horizontal alignCenter.
+					c ignored horizontal alignCenter.
+					c ignored vertical alignCenter ] ]
+]
+
+{ #category : #'examples - basic widget' }
+BrProgressExamples >> thirtyPercentProgress [
+	<gtExample>
+	| aProgress |
+	aProgress := self progress.
+	aProgress percentage: 30.
+	aProgress patternLabel: 'Out of {2}%, {1}% transfered'.
+	self assert: aProgress percentage equals: 30.
+	self assert: aProgress label asString equals: 'Out of 100%, 30% transfered'.
+	^ aProgress
 ]

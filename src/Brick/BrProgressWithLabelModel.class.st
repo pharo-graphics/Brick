@@ -24,7 +24,7 @@ BrProgressWithLabelModel >> defaultLabelStencil [
 
 { #category : #initialization }
 BrProgressWithLabelModel >> defaultValueStencil [
-	^ BrProgressIntegerValueStencil new
+	^ BrProgressAsIsValueStencil new
 ]
 
 { #category : #'accessing - label value format' }

@@ -9,11 +9,6 @@ Class {
 }
 
 { #category : #accessing }
-BrProgressLook class >> widgetProgressName [
-	^ #progress
-]
-
-{ #category : #accessing }
 BrProgressLook >> amount [
 	^ amount
 ]
@@ -53,9 +48,6 @@ BrProgressLook >> initialize [
 	super initialize.
 	amount := 0.
 	total := 100.
-	self
-		addChangeProperty: #(widgetContent layout)
-		with: [ BlFrameLayout new ].
 ]
 
 { #category : #initialization }
