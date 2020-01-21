@@ -30,6 +30,7 @@ BrProgressWithLabelModel >> defaultValueStencil [
 { #category : #'accessing - label value format' }
 BrProgressWithLabelModel >> fileSizeLabelValues [
 	self valueStencil: BrProgressFileSizeValueStencil new.
+	self updateLabel.
 ]
 
 { #category : #'accessing - label format' }
@@ -42,11 +43,13 @@ BrProgressWithLabelModel >> fixedLabel: aString [
 { #category : #'accessing - label value format' }
 BrProgressWithLabelModel >> floatLabelValues [
 	self valueStencil: BrProgressFloatValueStencil new.
+	self updateLabel.
 ]
 
 { #category : #'accessing - label value format' }
 BrProgressWithLabelModel >> floatLabelValuesWithDecimals: aNumberOfDecimals [
 	self valueStencil: (BrProgressFloatValueStencil new numberOfDecimals: aNumberOfDecimals).
+	self updateLabel.
 ]
 
 { #category : #initialization }
@@ -61,6 +64,7 @@ BrProgressWithLabelModel >> initialize [
 { #category : #'accessing - label value format' }
 BrProgressWithLabelModel >> integerLabelValues [
 	self valueStencil: BrProgressIntegerValueStencil new.
+	self updateLabel.
 ]
 
 { #category : #accessing }
