@@ -136,6 +136,20 @@ BrTextElementWithCursors >> onMeasure: anExtentMeasurementSpec [
 	self measureCursors: anExtentMeasurementSpec
 ]
 
+{ #category : #printing }
+BrTextElementWithCursors >> printOn: aStream [
+	segmentPiece
+		ifNil: [ ^ aStream nextPutAll: 'Uknown segment' ].
+	
+	aStream
+		nextPut: $(;
+		nextPutAll: segmentPiece textStart;
+		nextPutAll: ' - ';
+		nextPutAll: segmentPiece textEnd;
+		nextPut: $);
+		print: segmentPiece text
+]
+
 { #category : #'cursor - management' }
 BrTextElementWithCursors >> removeCursorAt: aTextIndex [
 	"Remove cursor at a goven position"
