@@ -55,6 +55,42 @@ BrProgressExamples >> containerElement [
 		geometry: (BlRectangle cornerRadius: 2)
 ]
 
+{ #category : #'examples - exact with text' }
+BrProgressExamples >> downloadProgressWithBarAndLabelLook [
+	<gtExample>
+	| aProgress |
+	aProgress := self exactProgressWithBarAndLabelLook.
+	aProgress amount: 300 * 1024 total: 8 * 1024 * 1024.
+	aProgress patternLabel: '{1} out of {2} bytes downloaded'.
+	aProgress integerLabelValues.
+	self assert: aProgress label asString equals: '307200 out of 8388608 bytes downloaded'.
+	^ aProgress
+]
+
+{ #category : #'examples - exact with text' }
+BrProgressExamples >> downloadProgressWithBarAndLabelLook_FileSize [
+	<gtExample>
+	| aProgress |
+	aProgress := self exactProgressWithBarAndLabelLook.
+	aProgress amount: 300 total: 8 * 1024 * 1024.
+	aProgress patternLabel: '{1} out of {2} downloaded'.
+	aProgress fileSizeLabelValues.
+	self assert: aProgress label asString equals: '300 bytes out of 8192 KB downloaded'.
+	^ aProgress
+]
+
+{ #category : #'examples - exact with text' }
+BrProgressExamples >> downloadProgressWithBarAndLabelLook_FloatValues [
+	<gtExample>
+	| aProgress |
+	aProgress := self exactProgressWithBarAndLabelLook.
+	aProgress amount: 300 total: 8 * 1024.
+	aProgress patternLabel: '{1} out of {2} kbytes downloaded'.
+	aProgress floatLabelValuesWithDecimals: 1.
+	self assert: aProgress label asString equals: '300.0 out of 8192.0 kbytes downloaded'.
+	^ aProgress
+]
+
 { #category : #'examples - basic element' }
 BrProgressExamples >> element [
 	<gtExample>

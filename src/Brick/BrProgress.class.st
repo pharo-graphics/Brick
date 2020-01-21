@@ -19,9 +19,24 @@ BrProgress >> barDo: anOneArgBlock [
 	anOneArgBlock value: (self childNamed: BrProgressLook widgetProgressName)
 ]
 
-{ #category : #accessing }
+{ #category : #'accessing - label value format' }
+BrProgress >> fileSizeLabelValues [
+	self viewModel fileSizeLabelValues
+]
+
+{ #category : #'accessing - label format' }
 BrProgress >> fixedLabel: aString [
 	^ self viewModel fixedLabel: aString
+]
+
+{ #category : #'accessing - label value format' }
+BrProgress >> floatLabelValues [
+	self viewModel floatLabelValues
+]
+
+{ #category : #'accessing - label value format' }
+BrProgress >> floatLabelValuesWithDecimals: aNumberOfDecimals [
+	self viewModel floatLabelValuesWithDecimals: aNumberOfDecimals
 ]
 
 { #category : #accessing }
@@ -40,13 +55,18 @@ BrProgress >> initialize [
 	self viewModel: BrProgressWithLabelModel new
 ]
 
+{ #category : #'accessing - label value format' }
+BrProgress >> integerLabelValues [
+	self viewModel integerLabelValues
+]
+
 { #category : #accessing }
 BrProgress >> label [
 	<return: #BlRopedText>
 	^ self viewModel label
 ]
 
-{ #category : #accessing }
+{ #category : #'accessing - label format' }
 BrProgress >> patternLabel: aString [
 	^ self viewModel patternLabel: aString
 ]

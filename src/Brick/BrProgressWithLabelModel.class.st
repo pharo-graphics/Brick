@@ -2,22 +2,51 @@ Class {
 	#name : #BrProgressWithLabelModel,
 	#superclass : #BrProgressModel,
 	#instVars : [
+		'labelModel',
 		'labelStencil',
-		'labelModel'
+		'valueStencil'
 	],
 	#category : #'Brick-Progress - Model'
 }
+
+{ #category : #accessing }
+BrProgressWithLabelModel >> amountString [
+	<return: #String>
+	^ self valueStencil 
+		value: self amount;
+		create
+]
 
 { #category : #initialization }
 BrProgressWithLabelModel >> defaultLabelStencil [
 	^ BrProgressFixedLabelStencil new
 ]
 
-{ #category : #accessing }
+{ #category : #initialization }
+BrProgressWithLabelModel >> defaultValueStencil [
+	^ BrProgressIntegerValueStencil new
+]
+
+{ #category : #'accessing - label value format' }
+BrProgressWithLabelModel >> fileSizeLabelValues [
+	self valueStencil: BrProgressFileSizeValueStencil new.
+]
+
+{ #category : #'accessing - label format' }
 BrProgressWithLabelModel >> fixedLabel: aString [
 	"Set fixed progress label"
 	labelStencil := BrProgressFixedLabelStencil new label: aString.
 	self updateLabel.
+]
+
+{ #category : #'accessing - label value format' }
+BrProgressWithLabelModel >> floatLabelValues [
+	self valueStencil: BrProgressFloatValueStencil new.
+]
+
+{ #category : #'accessing - label value format' }
+BrProgressWithLabelModel >> floatLabelValuesWithDecimals: aNumberOfDecimals [
+	self valueStencil: (BrProgressFloatValueStencil new numberOfDecimals: aNumberOfDecimals).
 ]
 
 { #category : #initialization }
@@ -25,16 +54,21 @@ BrProgressWithLabelModel >> initialize [
 	super initialize.
 	labelModel := BrLabelModel new.
 	self add: labelModel.
+	self valueStencil: self defaultValueStencil.
 	self labelStencil: self defaultLabelStencil.
-	
+]
+
+{ #category : #'accessing - label value format' }
+BrProgressWithLabelModel >> integerLabelValues [
+	self valueStencil: BrProgressIntegerValueStencil new.
 ]
 
 { #category : #accessing }
 BrProgressWithLabelModel >> label [
 	<return: #BlRopedText>
 	^ labelStencil 
-		amount: self amount; 
-		total: self total;
+		amount: self amountString; 
+		total: self totalString;
 		create
 ]
 
@@ -56,7 +90,7 @@ BrProgressWithLabelModel >> onProgressChanged: anAmountNumber total: aTotalNumbe
 	self updateLabel.
 ]
 
-{ #category : #accessing }
+{ #category : #'accessing - label format' }
 BrProgressWithLabelModel >> patternLabel: aString [
 	"The input string can include two place holders called {1} and {2},
 	where {1} is transfered amount, and {2} is total to transfer.
@@ -65,7 +99,26 @@ BrProgressWithLabelModel >> patternLabel: aString [
 	self updateLabel.
 ]
 
+{ #category : #accessing }
+BrProgressWithLabelModel >> totalString [
+	<return: #String>
+	^ self valueStencil 
+		value: self total;
+		create
+]
+
 { #category : #updating }
 BrProgressWithLabelModel >> updateLabel [
 	labelModel text: self label
+]
+
+{ #category : #accessing }
+BrProgressWithLabelModel >> valueStencil [
+	<return: #BrProgressValueStencil>
+	^ valueStencil
+]
+
+{ #category : #accessing }
+BrProgressWithLabelModel >> valueStencil: anObject [
+	valueStencil := anObject
 ]
