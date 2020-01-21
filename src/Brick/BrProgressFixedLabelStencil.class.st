@@ -4,7 +4,7 @@ Class {
 	#instVars : [
 		'label'
 	],
-	#category : #'Brick-Progress - Look'
+	#category : #'Brick-Progress - Model'
 }
 
 { #category : #'api - instantiation' }
@@ -16,7 +16,7 @@ BrProgressFixedLabelStencil >> create [
 { #category : #initialization }
 BrProgressFixedLabelStencil >> initialize [
 	super initialize.
-	self label: 'Label'.
+	self label: 'Preparing...'.
 ]
 
 { #category : #accessing }

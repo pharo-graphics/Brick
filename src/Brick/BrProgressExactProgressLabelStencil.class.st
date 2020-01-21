@@ -4,7 +4,7 @@ Class {
 	#instVars : [
 		'pattern'
 	],
-	#category : #'Brick-Progress - Look'
+	#category : #'Brick-Progress - Model'
 }
 
 { #category : #'api - instantiation' }

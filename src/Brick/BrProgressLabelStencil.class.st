@@ -5,7 +5,7 @@ Class {
 		'amount',
 		'total'
 	],
-	#category : #'Brick-Progress - Look'
+	#category : #'Brick-Progress - Model'
 }
 
 { #category : #accessing }

@@ -1,9 +1,6 @@
 Class {
 	#name : #BrProgress,
 	#superclass : #BlElement,
-	#instVars : [
-		'labelModel'
-	],
 	#category : #'Brick-Progress - UI'
 }
 
@@ -23,6 +20,11 @@ BrProgress >> barDo: anOneArgBlock [
 ]
 
 { #category : #accessing }
+BrProgress >> fixedLabel: aString [
+	^ self viewModel fixedLabel: aString
+]
+
+{ #category : #accessing }
 BrProgress >> fraction [
 	^ self viewModel fraction
 ]
@@ -35,20 +37,18 @@ BrProgress >> fraction: aNumber [
 { #category : #initialization }
 BrProgress >> initialize [
 	super initialize.
-	self viewModel: (BrProgressModel new
-		+ (labelModel := BrLabelModel new))
+	self viewModel: BrProgressWithLabelModel new
 ]
 
 { #category : #accessing }
 BrProgress >> label [
-	<return: #BlText>
-
-	^ labelModel text
+	<return: #BlRopedText>
+	^ self viewModel label
 ]
 
 { #category : #accessing }
-BrProgress >> label: aStringOrText [
-	labelModel text: aStringOrText
+BrProgress >> patternLabel: aString [
+	^ self viewModel patternLabel: aString
 ]
 
 { #category : #accessing }

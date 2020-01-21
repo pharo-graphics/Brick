@@ -67,6 +67,7 @@ BrProgressExamples >> exactProgress [
 	| aProgress |
 	aProgress := self progress.
 	aProgress percentage: 30.
+	aProgress patternLabel: 'Out of {2}%, {1}% transfered'.
 	self assert: aProgress percentage equals: 30.
 	^ aProgress
 ]
@@ -81,12 +82,10 @@ BrProgressExamples >> exactProgressWithBarAndLabelLook [
 		aWidget constraintsDo: [ :c | 
 			c frame horizontal alignCenter.
 			c frame vertical alignCenter ] ].
-	aProgress 
-		addLook: (BrProgressWithLabelLook new pattern: 'Out of {2}%, {1}% transfered');
-		addLook: aLabelLook.
+	aProgress addLook: aLabelLook.
 	self assert: aProgress childrenCount equals: 2.
-	"self assert: aLabelLook text asString equals: 'Out of 100%, 30% transfered'.
-	self assert: aLabelLook label text asString equals: 'Out of 100%, 30% transfered'."
+	self assert: aLabelLook text asString equals: 'Out of 100%, 30% transfered'.
+	self assert: aLabelLook label text asString equals: 'Out of 100%, 30% transfered'.
 	^ aProgress
 ]
 
@@ -127,6 +126,7 @@ BrProgressExamples >> progress [
 	self assert: aProgress total equals: 100.
 	self assert: aProgress percentage equals: 0.
 	self assert: aProgress fraction equals: 0.
+	self assert: aProgress label asString equals: 'Preparing...'.
 	^ aProgress
 ]
 
