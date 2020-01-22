@@ -1,3 +1,10 @@
+"
+I am an abstract class. I am a basic ${class:BrProgress}$ look. I listen to progress changes from ${class:BrProgressModel}$ and trigger ${method:BrProgressLook>>#onProgressChanged|label=#selector}$ on progress status changes.
+
+See my subclasses for specific use cases: ${class:BrProgressLook|show=#gtSubclassesFor:|expanded=true|height=200}$
+
+
+"
 Class {
 	#name : #BrProgressLook,
 	#superclass : #BrLook,

@@ -1,3 +1,9 @@
+"
+My subclasses create a specific progress label content (string).
+
+See my subclasses for specific examples: ${class:BrProgressLabelStencil|show=#gtSubclassesFor:|expanded=true|height=150}$
+
+"
 Class {
 	#name : #BrProgressLabelStencil,
 	#superclass : #BrStencil,
@@ -7,6 +13,11 @@ Class {
 	],
 	#category : #'Brick-Progress - Model'
 }
+
+{ #category : #testing }
+BrProgressLabelStencil class >> isAbstract [
+	^ self name = #BrProgressLabelStencil 
+]
 
 { #category : #accessing }
 BrProgressLabelStencil >> amount [
@@ -22,6 +33,13 @@ BrProgressLabelStencil >> amount: anObject [
 BrProgressLabelStencil >> create [
 	<return: #BlRopedText>
 	^ self subclassResponsibility
+]
+
+{ #category : #initialization }
+BrProgressLabelStencil >> initialize [
+	super initialize.
+	amount := 0.
+	total := 100.
 ]
 
 { #category : #accessing }

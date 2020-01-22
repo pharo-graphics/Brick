@@ -1,3 +1,7 @@
+"
+I am basic ${class:BrProgress}$ bar glamorous look.
+See ${class:BrGlamorousProgressExamples}$ class comment for spefic glamorous examples.
+"
 Class {
 	#name : #BrGlamorousProgressBarLook,
 	#superclass : #BrProgressAnimatedBarLook,

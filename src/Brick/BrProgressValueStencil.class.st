@@ -1,3 +1,9 @@
+"
+My subclasses convert ${method:BrProgressModel>>#amount|label=#selector}$ and ${method:BrProgressModel>>#total|label=#selector}$ values to ${class:String}$ using different strategies.
+
+See my subclasses for specific examples: ${class:BrProgressValueStencil|show=#gtSubclassesFor:|expanded=true|height=200}$
+
+"
 Class {
 	#name : #BrProgressValueStencil,
 	#superclass : #BrStencil,
@@ -6,6 +12,11 @@ Class {
 	],
 	#category : #'Brick-Progress - Model'
 }
+
+{ #category : #testing }
+BrProgressValueStencil class >> isAbstract [
+	^ self name = #BrProgressValueStencil 
+]
 
 { #category : #'api - instantiation' }
 BrProgressValueStencil >> create [

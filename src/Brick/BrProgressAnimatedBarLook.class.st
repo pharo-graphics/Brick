@@ -1,3 +1,11 @@
+"
+I am an animated ${class:BrProgressBarLook}$. I add an animated background to the progress bar widget: 
+
+${example:BrProgressExamples>>#animatedBar|codeExpanded=false|previewExpanded=true|previewHeight=180}$
+
+I use ${class:BrProgressPaintStencil}$ to compute new progress bar background on every animation step.
+
+"
 Class {
 	#name : #BrProgressAnimatedBarLook,
 	#superclass : #BrProgressBarLook,
@@ -10,6 +18,24 @@ Class {
 { #category : #accessing }
 BrProgressAnimatedBarLook >> animationDelay [
 	^ 121 milliSeconds
+]
+
+{ #category : #configuration }
+BrProgressAnimatedBarLook >> beGradientAnimation [
+	self paintStencil: BrProgressGradientPaintStencil new
+]
+
+{ #category : #configuration }
+BrProgressAnimatedBarLook >> beGradientAnimationBaseColor: aStartColor highlightColor: aStopColor [
+	self paintStencil: (BrProgressGradientPaintStencil new
+		startColor: aStartColor;
+		stopColor: aStopColor)
+]
+
+{ #category : #configuration }
+BrProgressAnimatedBarLook >> beGradientAnimationColor: aStopColor [
+	self paintStencil: (BrProgressGradientPaintStencil new
+		stopColor: aStopColor)
 ]
 
 { #category : #initialization }
@@ -33,12 +59,13 @@ BrProgressAnimatedBarLook >> newAnimationTask [
 
 { #category : #accessing }
 BrProgressAnimatedBarLook >> paintStencil [
+	<return: #BrProgressPaintStencil>
 	^ paintStencil
 ]
 
 { #category : #accessing }
-BrProgressAnimatedBarLook >> paintStencil: anObject [
-	paintStencil := anObject
+BrProgressAnimatedBarLook >> paintStencil: aBrProgressPaintStencil [
+	paintStencil := aBrProgressPaintStencil
 ]
 
 { #category : #updating }

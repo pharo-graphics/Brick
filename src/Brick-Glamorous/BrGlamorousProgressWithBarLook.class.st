@@ -1,3 +1,8 @@
+"
+I am a ${class:BrProgress}$ glamorous look.
+I display a progress bar only. 
+See ${class:BrGlamorousProgressExamples}$ class comment for spefic glamorous examples.
+"
 Class {
 	#name : #BrGlamorousProgressWithBarLook,
 	#superclass : #BrLook,

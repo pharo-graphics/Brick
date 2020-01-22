@@ -1,3 +1,17 @@
+"
+I am a progress bar widget. 
+I use ${class:BrProgressWithLabelModel}$ to keep progress information.
+
+You can attach ${class:BrProgressLook}$ and ${class:BrTextLabelLook}$ to display progress bar and a description text.
+
+See ${class:BrProgressExamples}$ and ${class:BrGlamorousProgressExamples}$ examples.
+
+!! Animated Progress Bar With Text Above
+
+${example:BrProgressExamples>>#animatedBarAndTextAbove|codeExpanded=false|previewExpanded=true|previewHeight=180}$
+
+
+"
 Class {
 	#name : #BrProgress,
 	#superclass : #BlElement,
@@ -12,6 +26,11 @@ BrProgress >> amount [
 { #category : #accessing }
 BrProgress >> amount: anAmountNumber total: aTotalNumber [
 	^ self viewModel amount: anAmountNumber total: aTotalNumber
+]
+
+{ #category : #'accessing - label value format' }
+BrProgress >> asIsValues [
+	self viewModel asIsValues
 ]
 
 { #category : #'accessing - label value format' }

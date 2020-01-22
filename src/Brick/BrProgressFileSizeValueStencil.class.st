@@ -1,3 +1,9 @@
+"
+I convert ${method:BrProgressModel>>#amount|label=#selector}$ and ${method:BrProgressModel>>#total|label=#selector}$ values to a human readable file size: 
+
+${example:BrProgressExamples>>#fileSizeValues|codeExpanded=false|previewExpanded=true|previewHeight=180}$
+
+"
 Class {
 	#name : #BrProgressFileSizeValueStencil,
 	#superclass : #BrProgressValueStencil,

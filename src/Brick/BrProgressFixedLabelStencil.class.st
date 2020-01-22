@@ -1,3 +1,9 @@
+"
+I return always a same progress label regardless of the progress status (amount and total values):
+
+${example:BrProgressExamples>>#fixedLabel|codeExpanded=false|previewExpanded=true|previewHeight=180}$
+
+"
 Class {
 	#name : #BrProgressFixedLabelStencil,
 	#superclass : #BrProgressLabelStencil,

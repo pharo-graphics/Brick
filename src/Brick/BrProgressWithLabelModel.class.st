@@ -1,3 +1,27 @@
+"
+I extend ${class:BrProgressModel}$ with a progress label information:
+
+${example:BrProgressExamples>>#barAndTextAbove|codeExpanded=false|previewExpanded=true|previewHeight=180}$
+
+When a progress status is changed, I compute new description value and notify about the label change using a ${class:BrLabelModel}$ object (which I keep as an instance variable).
+
+!! Label Format
+
+I use a ${class:BrProgressLabelStencil}$ object to define a label content. Different label contents can be set using the ${method:BrProgressWithLabelModel>>#labelStencil:|label=#selector}$ method. There are convenience methods to simplify the configuration: 
+
+- ${method:BrProgressWithLabelModel>>#fixedLabel:|label=#selector}$ to set a fixed progress description that does not change on progress status changes, see ${class:BrProgressFixedLabelStencil}$,
+- ${method:BrProgressWithLabelModel>>#patternLabel:|label=#selector}$ that defines a description pattern, see ${class:BrProgressExactProgressLabelStencil}$. 
+
+!! Amount and Total Value Format
+
+Individual ${method:BrProgressModel>>#amount|label=#selector}$ and ${method:BrProgressModel>>#total|label=#selector}$ values can be transformed to text (string) using ${class:BrProgressValueStencil}$. Different number-to-string strategies can be set using the ${method:BrProgressWithLabelModel>>#valueStencil:|label=#selector}$ method. There are convenience methods to simplify the configuration: 
+
+- ${method:BrProgressWithLabelModel>>#integerLabelValues|label=#selector}$, converting to ${class:Integer}$,
+- ${method:BrProgressWithLabelModel>>#floatLabelValues|label=#selector}$, converting to ${class:Float}$,
+- ${method:BrProgressWithLabelModel>>#floatLabelValuesWithDecimals:|label=#selector}$, converting to ${class:Float}$ with given number of decimals,
+- ${method:BrProgressWithLabelModel>>#fileSizeLabelValues|label=#selector}$, converting to human readable file size values, e.g., 300 bytes, 10 MB.
+
+"
 Class {
 	#name : #BrProgressWithLabelModel,
 	#superclass : #BrProgressModel,
@@ -15,6 +39,12 @@ BrProgressWithLabelModel >> amountString [
 	^ self valueStencil 
 		value: self amount;
 		create
+]
+
+{ #category : #'accessing - label value format' }
+BrProgressWithLabelModel >> asIsValues [
+	self valueStencil: BrProgressAsIsValueStencil new.
+	self updateLabel.
 ]
 
 { #category : #initialization }

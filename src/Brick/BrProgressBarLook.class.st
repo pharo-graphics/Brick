@@ -1,3 +1,10 @@
+"
+I am a basic ${class:BrProgress}$ bar look. I create a progress bar widget and keep it updated, see the ${method:BrProgressBarLook>>#onProgressChanged|label=#selector|expanded=false}$ method:
+
+${example:BrProgressExamples>>#barOnly|codeExpanded=false|previewExpanded=true|previewHeight=180}$
+
+
+"
 Class {
 	#name : #BrProgressBarLook,
 	#superclass : #BrProgressLook,

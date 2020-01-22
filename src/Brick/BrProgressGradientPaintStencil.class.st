@@ -1,3 +1,20 @@
+"
+I define an animated tool bar background. My subclasses return ${class:BlLinearGradientPaint}$ object on every ${method:BrProgressPaintStencil>>#create|label=#selector}$ call.
+
+!! Default Gradients
+
+${example:BrProgressExamples>>#basicGradientPaintStencil|codeExpanded=false|previewExpanded=true}$
+
+!! Green and Blue Gradients
+
+${example:BrProgressExamples>>#blueGradientPaintStencil|codeExpanded=false|previewExpanded=true}$
+
+!! Animated Progress Bar With Gradients
+
+${example:BrProgressExamples>>#animatedBarAndTextAbove|codeExpanded=false|previewExpanded=true|previewHeight=180}$
+
+
+"
 Class {
 	#name : #BrProgressGradientPaintStencil,
 	#superclass : #BrProgressPaintStencil,
