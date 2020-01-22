@@ -1,6 +1,6 @@
 Class {
 	#name : #BrGlamorousProgressLabelLook,
-	#superclass : #BrGlamorousLabelLook,
+	#superclass : #BrGlamorousTextLabelLook,
 	#category : #'Brick-Glamorous-Progress'
 }
 
