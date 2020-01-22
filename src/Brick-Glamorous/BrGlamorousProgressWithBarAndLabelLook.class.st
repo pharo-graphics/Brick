@@ -1,8 +1,20 @@
 Class {
 	#name : #BrGlamorousProgressWithBarAndLabelLook,
 	#superclass : #BrLook,
+	#traits : 'TBlTextStyleable',
+	#classTraits : 'TBlTextStyleable classTrait',
+	#instVars : [
+		'labelLook'
+	],
 	#category : #'Brick-Glamorous-Progress'
 }
+
+{ #category : #accessing }
+BrGlamorousProgressWithBarAndLabelLook >> attributesBuilder [
+	<return: #BlTextAttributesBuilder>
+	
+	^ labelLook attributesBuilder
+]
 
 { #category : #initialization }
 BrGlamorousProgressWithBarAndLabelLook >> initialize [
@@ -14,6 +26,6 @@ BrGlamorousProgressWithBarAndLabelLook >> initialize [
 	
 	self addAll: {
 		BrGlamorousProgressBarLook new.
-		BrGlamorousProgressLabelLook new.
+		labelLook := BrGlamorousProgressLabelLook new.
 	}
 ]
