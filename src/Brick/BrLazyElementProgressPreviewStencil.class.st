@@ -6,12 +6,9 @@ Class {
 
 { #category : #'api - instantiation' }
 BrLazyElementProgressPreviewStencil >> create [
-	^ BlElement new
-		layout: BlFrameLayout new;
+	^ BrFrame new
+		matchParent;
 		background: BlBackground transparent;
-		constraintsDo: [ :c | 
-			c horizontal matchParent.
-			c vertical matchParent. ];
 		addChild: self newProgress
 ]
 

@@ -59,11 +59,7 @@ BrProgressBarLook >> newProgressBarElement [
 
 { #category : #'instance creation' }
 BrProgressBarLook >> newProgressContainerElement [
-	^ BlElement new
-		layout: BlFrameLayout new;
-		constraintsDo: [ :c | 
-			c horizontal matchParent.
-			c vertical fitContent ].
+	^ BrFrame new matchParent
 ]
 
 { #category : #hooks }
