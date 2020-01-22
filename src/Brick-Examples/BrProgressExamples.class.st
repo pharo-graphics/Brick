@@ -5,6 +5,38 @@ Class {
 }
 
 { #category : #'examples - bar and text compositions' }
+BrProgressExamples >> animatedBar [
+	<gtExample>
+	| aProgress |
+	aProgress := self thirtyPercentProgress.
+	aProgress 
+		layout: BlLinearLayout vertical;
+		constraintsDo: [ :c | 
+			c horizontal matchParent.
+			c vertical fitContent ];
+		look: self animatedBarLook.
+	self assert: aProgress childrenCount equals: 1.
+	self assert: aProgress children first layout class equals: BlFrameLayout.
+	self assert: aProgress children first childrenCount equals: 1.
+	self assert: aProgress children first children first constraints frame horizontal weight equals: 0.3.
+	^ aProgress
+]
+
+{ #category : #'examples - looks' }
+BrProgressExamples >> animatedBarLook [
+	<gtExample>
+	^ BrProgressAnimatedBarLook new
+			barDo: [ :aBar | 
+				aBar background: Color blue.
+				aBar geometry: (BlRectangle cornerRadius: 8).
+				aBar constraintsDo: [ :c | 
+					c vertical exact: 20 ] ];
+			containerDo: [ :aBarContainer | 
+				aBarContainer background: Color blue muchLighter.
+				aBarContainer geometry: (BlRectangle cornerRadius: 8) ]
+]
+
+{ #category : #'examples - bar and text compositions' }
 BrProgressExamples >> barAndTextAbove [
 	<gtExample>
 	| aProgress |

@@ -3,7 +3,9 @@ Class {
 	#superclass : #BrProgressPaintStencil,
 	#instVars : [
 		'stop',
-		'step'
+		'step',
+		'startColor',
+		'stopColor'
 	],
 	#category : #'Brick-Progress - Look'
 }
@@ -18,19 +20,82 @@ BrProgressGradientPaintStencil >> create [
 ]
 
 { #category : #initialization }
+BrProgressGradientPaintStencil >> defaultStartColor [
+	^ Color white
+]
+
+{ #category : #initialization }
+BrProgressGradientPaintStencil >> defaultStep [
+	^ 0.1
+]
+
+{ #category : #initialization }
+BrProgressGradientPaintStencil >> defaultStop [
+	^ 0.1
+]
+
+{ #category : #initialization }
+BrProgressGradientPaintStencil >> defaultStopColor [
+	^ Color veryVeryLightGray 
+]
+
+{ #category : #initialization }
 BrProgressGradientPaintStencil >> initialize [
 	super initialize.
-	stop := 0.1.
-	step := 0.01.
+	stop := self defaultStop.
+	step := self defaultStep.
+	startColor := self defaultStartColor.
+	stopColor := self defaultStopColor.
+	
 ]
 
 { #category : #'instance creation' }
 BrProgressGradientPaintStencil >> newGradientBackgroundAt: aStop [
 	^ BlLinearGradientPaint new
 			stops:
-				{ ( 0.0   -> Color white ).
-				  ( aStop -> Color gray ).
-				  ( 1.0   -> Color white ) };
+				{ ( 0.0   -> self startColor ).
+				  ( aStop -> self stopColor ).
+				  ( 1.0   -> self startColor ) };
 			start: 0@0;
 			end: 1@1
+]
+
+{ #category : #accessing }
+BrProgressGradientPaintStencil >> startColor [
+	^ startColor
+]
+
+{ #category : #accessing }
+BrProgressGradientPaintStencil >> startColor: anObject [
+	startColor := anObject
+]
+
+{ #category : #accessing }
+BrProgressGradientPaintStencil >> step [
+	^ step
+]
+
+{ #category : #accessing }
+BrProgressGradientPaintStencil >> step: anObject [
+	step := anObject
+]
+
+{ #category : #accessing }
+BrProgressGradientPaintStencil >> stop [
+	^ stop
+]
+
+{ #category : #accessing }
+BrProgressGradientPaintStencil >> stop: anObject [
+	stop := anObject
+]
+
+{ #category : #accessing }
+BrProgressGradientPaintStencil >> stopColor [
+	^ stopColor
+]
+
+{ #category : #accessing }
+BrProgressGradientPaintStencil >> stopColor: anObject [
+	stopColor := anObject
 ]
