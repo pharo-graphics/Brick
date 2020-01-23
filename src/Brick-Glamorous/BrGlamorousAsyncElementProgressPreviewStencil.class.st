@@ -1,6 +1,15 @@
+"
+I represent a basic preview stencil for ${class:BlAsyncDelayedPreviewStrategy}$. 
+
+I generate the following preview: ${example:BrGlamorousAsyncElementExamples>>#progressStencil|codeExpanded=false|previewExpanded=true}$
+
+The following example will desplay the preview for about 3 seconds: ${example:BrGlamorousAsyncElementExamples>>#lazyPreviewedElementWithProgressStentil}$
+
+
+"
 Class {
 	#name : #BrGlamorousAsyncElementProgressPreviewStencil,
-	#superclass : #BlLazyElementPreviewStencil,
+	#superclass : #BlAsyncElementPreviewStencil,
 	#category : #'Brick-Glamorous-Async Preview'
 }
 
