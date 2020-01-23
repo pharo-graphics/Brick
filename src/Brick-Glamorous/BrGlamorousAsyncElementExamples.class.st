@@ -1,37 +1,37 @@
 Class {
-	#name : #BrLazyPreviewedElementExamples,
+	#name : #BrGlamorousAsyncElementExamples,
 	#superclass : #Object,
 	#instVars : [
 		'asyncExamples'
 	],
-	#category : #'Brick-Examples-Lazy Preview'
+	#category : #'Brick-Glamorous-Async Preview'
 }
 
 { #category : #initialization }
-BrLazyPreviewedElementExamples >> initialize [
+BrGlamorousAsyncElementExamples >> initialize [
 	super initialize.
 	asyncExamples := BlAsyncElementExamples new.
 ]
 
 { #category : #'examples - lazy element' }
-BrLazyPreviewedElementExamples >> lazyPreviewedElement [
+BrGlamorousAsyncElementExamples >> lazyPreviewedElement [
 	<gtExample>
 	^ asyncExamples lazyPreviewedElement
 ]
 
 { #category : #'examples - lazy element' }
-BrLazyPreviewedElementExamples >> lazyPreviewedElementWithProgressStentil [
+BrGlamorousAsyncElementExamples >> lazyPreviewedElementWithProgressStentil [
 	<gtExample>
 	| anElement |
 	anElement := self lazyPreviewedElement.
 	anElement layout: BlFrameLayout new.
-	anElement previewStencil: self progressStencil.
+	anElement withDelayedPreview: self progressStencil.
 	^ anElement
 ]
 
 { #category : #'examples - preview stencil' }
-BrLazyPreviewedElementExamples >> progressStencil [
+BrGlamorousAsyncElementExamples >> progressStencil [
 	<gtExample>
-	^ BrLazyElementProgressPreviewStencil new.
+	^ BrGlamorousAsyncElementProgressPreviewStencil new.
 	
 ]

@@ -1,11 +1,11 @@
 Class {
-	#name : #BrLazyElementProgressPreviewStencil,
+	#name : #BrGlamorousAsyncElementProgressPreviewStencil,
 	#superclass : #BlLazyElementPreviewStencil,
-	#category : #'Brick-Lazy Preview - Support'
+	#category : #'Brick-Glamorous-Async Preview'
 }
 
 { #category : #'api - instantiation' }
-BrLazyElementProgressPreviewStencil >> create [
+BrGlamorousAsyncElementProgressPreviewStencil >> create [
 	^ BrFrame new
 		matchParent;
 		background: BlBackground transparent;
@@ -13,7 +13,7 @@ BrLazyElementProgressPreviewStencil >> create [
 ]
 
 { #category : #'api - instantiation' }
-BrLazyElementProgressPreviewStencil >> newProgress [
+BrGlamorousAsyncElementProgressPreviewStencil >> newProgress [
 	^ BrProgress new 
 		fixedLabel: 'Rendering...' asRopedText;
 		look: (BrGlamorousProgressWithLabelAndBarLook new foreground: Color gray lighter);
