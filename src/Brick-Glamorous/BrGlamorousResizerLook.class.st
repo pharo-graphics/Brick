@@ -2,16 +2,28 @@ Class {
 	#name : #BrGlamorousResizerLook,
 	#superclass : #BrResizerLook,
 	#instVars : [
-		'thickness'
+		'thickness',
+		'borderSeparation'
 	],
 	#category : #'Brick-Glamorous-Resizer'
 }
+
+{ #category : #accessing }
+BrGlamorousResizerLook >> borderSeparation [
+	^ borderSeparation
+]
+
+{ #category : #accessing }
+BrGlamorousResizerLook >> borderSeparation: anObject [
+	borderSeparation := anObject
+]
 
 { #category : #initialization }
 BrGlamorousResizerLook >> initialize [
 	super initialize.
 	
-	thickness := 1.
+	thickness := 3.
+	borderSeparation := 1.
 	
 	self
 		add:
@@ -20,22 +32,26 @@ BrGlamorousResizerLook >> initialize [
 					aWidget
 						constraintsDo: [ :c | 
 							c ignored horizontal alignCenter.
-							c ignored vertical alignTop ] ];
+							c ignored vertical alignTop.
+							c margin: (BlInsets top: self borderSeparation right: 0 bottom: 0 left: 0) ] ];
 				bottom: [ :aWidget | 
 					aWidget
 						constraintsDo: [ :c | 
 							c ignored horizontal alignCenter.
-							c ignored vertical alignBottom ] ];
+							c ignored vertical alignBottom.
+							c margin: (BlInsets top: 0 right: 0 bottom: self borderSeparation left: 0) ] ];
 				left: [ :aWidget | 
 					aWidget
 						constraintsDo: [ :c | 
 							c ignored horizontal alignLeft.
-							c ignored vertical alignCenter ] ];
+							c ignored vertical alignCenter.
+							c margin: (BlInsets top: 0 right: 0 bottom: 0 left: self borderSeparation) ] ];
 				right: [ :aWidget | 
 					aWidget
 						constraintsDo: [ :c | 
 							c ignored horizontal alignRight.
-							c ignored vertical alignCenter ] ];
+							c ignored vertical alignCenter.
+							c margin: (BlInsets top: 0 right: self borderSeparation bottom: 0 left: 0) ] ];
 				vertical: [ :aWidget | 
 					aWidget
 						constraintsDo: [ :c | 
