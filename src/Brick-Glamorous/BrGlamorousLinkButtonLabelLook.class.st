@@ -25,6 +25,6 @@ BrGlamorousLinkButtonLabelLook >> initialize [
 	self add: (BrInteractiveCommonLook new
 		default: [ self foreground: Color black ];
 		hovered: [ self foreground: BrGlamorousColors defaultButtonBackgroundColor ];
-		pressed: [ self foreground: BrGlamorousColors pressedButtonTextColor ];
+		pressed: [ self foreground: BrGlamorousColors defaultButtonBackgroundColor ];
 		disabled: [ self foreground: BrGlamorousColors disabledButtonTextColor ])
 ]

@@ -12,7 +12,9 @@ BrGlamorousLinkButtonWithLabelLook >> initialize [
 	super initialize.
 	
 	self addAll: {
-		BrGlamorousLinkButtonLabelLook new.
+		BrGlamorousLinkButtonLabelLook new
+			labelDo: [ :aLabelElement |
+				aLabelElement padding: (BlInsets all: 0) ].
 		BrGlamorousLinkButtonExteriorLook new.
 	}
 ]
