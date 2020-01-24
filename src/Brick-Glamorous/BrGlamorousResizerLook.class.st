@@ -23,7 +23,7 @@ BrGlamorousResizerLook >> initialize [
 	super initialize.
 	
 	thickness := 3.
-	borderSeparation := 1.
+	borderSeparation := 0.
 	
 	self
 		add:
