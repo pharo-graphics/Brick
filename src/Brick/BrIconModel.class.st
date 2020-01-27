@@ -4,7 +4,7 @@ Class {
 	#instVars : [
 		'icon'
 	],
-	#category : 'Brick-! Core'
+	#category : #'Brick-! Core'
 }
 
 { #category : #printing }
@@ -32,8 +32,12 @@ BrIconModel >> icon: aStencil [
 { #category : #initialization }
 BrIconModel >> initialize [
 	super initialize.
-	
-	icon := [ (BlEllipse radius: 5) asElement ] asStencil
+	icon := [
+		BlElement new
+			size: 10 @ 10;
+			geometry: BlEllipse new;
+			background: Color lightGray;
+			border: (BlBorder paint: Color gray width: 1) ] asStencil
 ]
 
 { #category : #initialization }
