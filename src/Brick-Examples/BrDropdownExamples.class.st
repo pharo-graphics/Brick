@@ -91,7 +91,7 @@ BrDropdownExamples >> badgeButton [
 		yourself
 ]
 
-{ #category : #'as yet unclassified' }
+{ #category : #accessing }
 BrDropdownExamples >> coloredDropdown [
 	<gtExample>
 	^ BrButton new
@@ -124,7 +124,7 @@ BrDropdownExamples >> coloredDropdown [
 								yourself ])
 				+
 					(BrGlamorousWithDropdownLook
-						stencil: [ BlElement new
+						stencil: [ BrAnchoredElement new
 								look:
 									(BrGlamorousDropdownLook new
 										handle:
@@ -252,7 +252,7 @@ BrDropdownExamples >> suggesterBadgeDropdownList [
 			BrTextLabelLook
 				+
 					(BrWithDropdownLook new
-						stencil: [ BlElement new
+						stencil: [ BrAnchoredElement new
 								look:
 									(BrDropdownLook new
 										handle:

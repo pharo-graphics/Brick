@@ -1,62 +1,47 @@
 Class {
-	#name : #BrWithAnchoredLook,
+	#name : #BrWithAnchoredLook2,
 	#superclass : #BrLook,
 	#instVars : [
-		'container',
+		'root',
+		'outerContainer',
+		'innerContainer',
 		'stencil',
+		'strategy',
+		'preferredExtent',
 		'watchDog',
 		'clickOutsideEventHandler',
 		'pressEscEventHandler',
 		'extentChangedEventHandler',
 		'positionInSpaceChangedEventHandler',
 		'hideEventHandler',
-		'showEventHandler'
+		'showEventHandler',
+		'relocateEventHandler'
 	],
 	#category : #'Brick-Anchored - Look'
 }
 
-{ #category : #'as yet unclassified' }
-BrWithAnchoredLook class >> anchoredLookClass [
-	^ BrAnchoredLook
-]
-
-{ #category : #'as yet unclassified' }
-BrWithAnchoredLook class >> content: anObject [
-	^ self
-		stencil: [ BlElement new
-				look:
-					(self anchoredLookClass new
-						content: anObject asStencil asElement;
-						yourself);
-				yourself ]
-]
-
-{ #category : #'as yet unclassified' }
-BrWithAnchoredLook class >> handle: anObject content: anotherObject [
-	^ self
-		stencil: [ BlElement new
-				look:
-					(self anchoredLookClass new
-						handle: anObject asStencil asElement;
-						content: anotherObject asStencil asElement;
-						yourself);
-				yourself ]
-]
-
 { #category : #accessing }
-BrWithAnchoredLook class >> stencil: anObject [
+BrWithAnchoredLook2 class >> stencil: anObject [
 	^ self new
 		stencil: anObject;
 		yourself
 ]
 
 { #category : #testing }
-BrWithAnchoredLook >> canHide [
+BrWithAnchoredLook2 >> canHide [
 	^ self visible
 ]
 
 { #category : #testing }
-BrWithAnchoredLook >> canShow [
+BrWithAnchoredLook2 >> canRelocate [
+	^ widget isNotNil
+		and: [ widget isAttachedToSceneGraph
+				and: [ outerContainer isNotNil
+						and: [ outerContainer isAttachedToSceneGraph ] ] ]
+]
+
+{ #category : #testing }
+BrWithAnchoredLook2 >> canShow [
 	^ self visible not
 		and: [ widget isNotNil
 				and:
@@ -64,29 +49,31 @@ BrWithAnchoredLook >> canShow [
 ]
 
 { #category : #accessing }
-BrWithAnchoredLook >> hide [
+BrWithAnchoredLook2 >> hide [
 	self assert: [ self canHide ].
 	widget
 		removeEventHandler: extentChangedEventHandler;
 		removeEventHandler: positionInSpaceChangedEventHandler.
-	container topMostParent
+	self root
+		removeChild: outerContainer;
 		removeEventFilter: clickOutsideEventHandler;
 		removeEventFilter: pressEscEventHandler.
-	container
+	outerContainer := nil.
+	self
+		flag: 'TODO extentChangedEventHandler really needed on inner container?'.
+	innerContainer
 		dequeueTask: watchDog;
-		removeEventHandler: extentChangedEventHandler;
-		removeFromParent;
-		anchor: nil.
-	container := nil
+		removeEventHandler: extentChangedEventHandler.
+	innerContainer := nil
 ]
 
 { #category : #'as yet unclassified' }
-BrWithAnchoredLook >> hideWishClass [
+BrWithAnchoredLook2 >> hideWishClass [
 	self subclassResponsibility
 ]
 
 { #category : #initialization }
-BrWithAnchoredLook >> initialize [
+BrWithAnchoredLook2 >> initialize [
 	super initialize.
 	self stencil: [ BlElement new ].
 	watchDog := BlRepeatedTaskAction new
@@ -99,7 +86,8 @@ BrWithAnchoredLook >> initialize [
 		on: BlMouseUpEvent
 		do: [ :e | 
 			"hide when clicked outside of container"
-			((e target ~~ container and: [ (e target hasParent: container) not ])
+			((e target ~~ innerContainer
+				and: [ (e target hasParent: innerContainer) not ])
 				and: [ self canHide ])
 				ifTrue: [ self hide ] ].
 	pressEscEventHandler := BlEventHandler
@@ -120,6 +108,11 @@ BrWithAnchoredLook >> initialize [
 		do: [ "relocate when position in space changes"
 			self visible
 				ifTrue: [ self relocate ] ].
+	relocateEventHandler := BlEventHandler
+		on: self relocateWishClass
+		do: [ :e | 
+			(e anchor = widget and: [ self canRelocate ])
+				ifTrue: [ self relocate: e ] ].
 	showEventHandler := BlEventHandler
 		on: self showWishClass
 		do: [ :e | 
@@ -144,17 +137,19 @@ BrWithAnchoredLook >> initialize [
 			(BrLookChange new
 				up: [ :e | 
 					widget
+						addEventHandler: relocateEventHandler;
 						addEventHandler: showEventHandler;
 						addEventHandler: hideEventHandler ];
 				down: [ :e | 
 					widget
+						removeEventHandler: relocateEventHandler;
 						removeEventHandler: showEventHandler;
 						removeEventHandler: hideEventHandler ];
 				yourself)
 ]
 
 { #category : #initialization }
-BrWithAnchoredLook >> initializeListeners [
+BrWithAnchoredLook2 >> initializeListeners [
 	super initializeListeners.
 	self
 		when: self stencilChangedClass
@@ -165,58 +160,94 @@ BrWithAnchoredLook >> initializeListeners [
 ]
 
 { #category : #initialization }
-BrWithAnchoredLook >> initializeRequests [
+BrWithAnchoredLook2 >> initializeRequests [
 	super initializeRequests.
 	self request: self stencilRequest.
 	self request: self visibleRequest
 ]
 
+{ #category : #accessing }
+BrWithAnchoredLook2 >> preferredExtent [
+	^ preferredExtent
+]
+
+{ #category : #accessing }
+BrWithAnchoredLook2 >> preferredExtent: anObject [
+	preferredExtent = anObject
+		ifTrue: [ ^ self ].
+	preferredExtent := anObject.
+	self canRelocate
+		ifTrue: [ self canRelocate ]
+]
+
 { #category : #'host space - displaying' }
-BrWithAnchoredLook >> relocate [
-	self assert: [ self visible ].
-	container
-		dispatchEvent:
-			(self relocateWish
-				anchor: widget;
-				yourself)
+BrWithAnchoredLook2 >> relocate [
+	self relocate: nil
+]
+
+{ #category : #'host space - displaying' }
+BrWithAnchoredLook2 >> relocate: aRelocateEvent [
+	self assert: [ self canRelocate ].
+	strategy
+		invalidate: outerContainer
+		forPreferredExtent: preferredExtent
 ]
 
 { #category : #'as yet unclassified' }
-BrWithAnchoredLook >> relocateWish [
+BrWithAnchoredLook2 >> relocateWishClass [
 	self subclassResponsibility
 ]
 
+{ #category : #accessing }
+BrWithAnchoredLook2 >> root [
+	^ root ifNil: [ root := widget topMostParent ]
+]
+
+{ #category : #accessing }
+BrWithAnchoredLook2 >> root: anElement [
+	| shouldHide |
+	self flag: 'TODO root should be part of model'.
+	shouldHide := self canHide.
+	shouldHide
+		ifTrue: [ self hide ].
+	root := anElement.
+	shouldHide
+		ifTrue: [ self show ]
+]
+
 { #category : #'host space - displaying' }
-BrWithAnchoredLook >> show [
+BrWithAnchoredLook2 >> show [
 	self assert: [ self canShow ].
-	container := stencil asElement.
-	self flag: 'TODO get rid of having to set anchor'.
-	container anchor: widget.
-	widget topMostParent addChild: container.
+	self flag: 'TODO extentChangedEventHandler really needed on inner container?'.
+	innerContainer := stencil asElement
+		enqueueTask: watchDog;
+		addEventHandler: extentChangedEventHandler;
+		yourself.
+	outerContainer := BrAnchoredOuterContainer new
+		addChild: innerContainer;
+		yourself.
+	self root
+		addChild: outerContainer;
+		addEventFilter: clickOutsideEventHandler;
+		addEventFilter: pressEscEventHandler.
 	widget
 		addEventHandler: extentChangedEventHandler;
 		addEventHandler: positionInSpaceChangedEventHandler.
-	container topMostParent
-		addEventFilter: clickOutsideEventHandler;
-		addEventFilter: pressEscEventHandler.
-	container
-		enqueueTask: watchDog;
-		addEventHandler: extentChangedEventHandler.
 	self relocate
 ]
 
 { #category : #'as yet unclassified' }
-BrWithAnchoredLook >> showWishClass [
+BrWithAnchoredLook2 >> showWishClass [
 	self subclassResponsibility
 ]
 
 { #category : #accessing }
-BrWithAnchoredLook >> stencil [
+BrWithAnchoredLook2 >> stencil [
 	^ stencil
 ]
 
 { #category : #accessing }
-BrWithAnchoredLook >> stencil: anObject [
+BrWithAnchoredLook2 >> stencil: anObject [
 	stencil = anObject
 		ifTrue: [ ^ self ].
 	stencil := anObject asStencil.
@@ -227,22 +258,36 @@ BrWithAnchoredLook >> stencil: anObject [
 ]
 
 { #category : #'as yet unclassified' }
-BrWithAnchoredLook >> stencilChangedClass [
+BrWithAnchoredLook2 >> stencilChangedClass [
 	self subclassResponsibility
 ]
 
 { #category : #'as yet unclassified' }
-BrWithAnchoredLook >> stencilRequest [
+BrWithAnchoredLook2 >> stencilRequest [
 	self subclassResponsibility
 ]
 
 { #category : #accessing }
-BrWithAnchoredLook >> visible [
-	^ container ifNil: [ false ] ifNotNil: #isAttachedToSceneGraph
+BrWithAnchoredLook2 >> strategy [
+	^ strategy
 ]
 
 { #category : #accessing }
-BrWithAnchoredLook >> visible: aBoolean [
+BrWithAnchoredLook2 >> strategy: anObject [
+	strategy = anObject
+		ifTrue: [ ^ self ].
+	strategy := anObject.
+	self canRelocate
+		ifTrue: [ self canRelocate ]
+]
+
+{ #category : #accessing }
+BrWithAnchoredLook2 >> visible [
+	^ innerContainer ifNil: [ false ] ifNotNil: #isAttachedToSceneGraph
+]
+
+{ #category : #accessing }
+BrWithAnchoredLook2 >> visible: aBoolean [
 	aBoolean
 		ifTrue: [ self canShow
 				ifTrue: [ self show ] ]
@@ -251,11 +296,11 @@ BrWithAnchoredLook >> visible: aBoolean [
 ]
 
 { #category : #'as yet unclassified' }
-BrWithAnchoredLook >> visibleChangedClass [
+BrWithAnchoredLook2 >> visibleChangedClass [
 	self subclassResponsibility
 ]
 
 { #category : #'as yet unclassified' }
-BrWithAnchoredLook >> visibleRequest [
+BrWithAnchoredLook2 >> visibleRequest [
 	self subclassResponsibility
 ]

@@ -19,7 +19,7 @@ BrGlamorousWithLabelTooltipLook >> initializeRequests [
 { #category : #accessing }
 BrGlamorousWithLabelTooltipLook >> text: aTextOrString [
 	self
-		stencil: [ BlElement new
+		stencil: [ BrAnchoredElement new
 				look:
 					(BrGlamorousTooltipLook new
 						content:

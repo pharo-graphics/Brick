@@ -178,16 +178,12 @@ BrAnchoredLook >> relocateTo: aPoint handleAtTop: aBoolean atLeft: anotherBoolea
 	anotherBoolean
 		ifTrue: [ handle constraintsDo: [ :c | c linear horizontal alignRight ] ]
 		ifFalse: [ handle constraintsDo: [ :c | c linear horizontal alignLeft ] ].
-	self
-		flag:
-			'TODO is there a better way to force the redraw of a geometry if bounds did not change?'.
 	widget
 		transformDo: [ :t | 
 			t
 				origin: BlAffineTransformationTopLeftOrigin new;
 				scaleBy: widget anchor globalScale;
-				translateBy: aPoint ];
-		geometry: widget geometry
+				translateBy: aPoint ]
 ]
 
 { #category : #'as yet unclassified' }

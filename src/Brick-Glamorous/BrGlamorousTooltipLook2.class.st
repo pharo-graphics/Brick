@@ -1,11 +1,11 @@
 Class {
-	#name : #BrGlamorousTooltipLook,
-	#superclass : #BrTooltipLook,
+	#name : #BrGlamorousTooltipLook2,
+	#superclass : #BrTooltipLook2,
 	#category : #'Brick-Glamorous-Tooltip'
 }
 
 { #category : #initialization }
-BrGlamorousTooltipLook >> initialize [
+BrGlamorousTooltipLook2 >> initialize [
 	super initialize.
 	self add: BrGlamorousAnchoredLook
 ]
