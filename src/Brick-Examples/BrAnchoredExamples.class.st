@@ -108,48 +108,33 @@ BrAnchoredExamples >> dropdown [
 { #category : #accessing }
 BrAnchoredExamples >> tooltip [
 	<gtExample>
-	| handle content container anchor anchorContainer |
-	handle := BlElement new
-		size: 8 @ 8;
-		yourself.
-	content := (BrLabel new
-		look:
-			(BrGlamorousLabelLook new
-				glamorousRegularFontAndSize;
-				yourself);
-		padding: (BlInsets all: handle width);
-		text: 'look at me!';
-		yourself) asScrollableElement
-		alignCenter;
-		yourself.
+	| content container anchor anchorContainer |
+	content := BrLabel new
+		look: (BrGlamorousLabelLook new glamorousRegularFontAndSize);
+		padding: (BlInsets all: 20);
+		text: 'no transformation affects me!';
+		alignCenter.
 	container := BlElement new
 		background: Color gray muchLighter;
 		layout: BlLinearLayout vertical;
 		constraintsDo: [ :c | 
 			c horizontal matchParent.
 			c vertical matchParent ];
-		transformDo: [ :t | 
-			t
+		transformDo: [ :t | t 
 				origin: BlAffineTransformationTopLeftOrigin new;
 				rotateBy: 30;
-				translateBy: 400 @ 100;
-				scaleBy: 0.5 ];
-		yourself.
+				translateBy: 500 @ 100;
+				scaleBy: 0.5 ].
 	anchor := BlElement new
 		look: (BrGlamorousWithTooltipLook2 content: content);
 		background: Color red;
-		size: 40 @ 80;
-		addEventHandler: BlPullHandler new;
-		yourself.
+		size: 80 @ 100;
+		addEventHandler: BlPullHandler new.
 	anchorContainer := BlElement new
-		background: Color red muchLighter;
-		relocate: 200 @ 250;
+		background: Color paleRed;
+		relocate: 100 @ 150;
 		size: 400 @ 200;
 		constraintsDo: [ :c | c ignoreByLayout ];
-		clipChildren: false;
-		addChild: anchor;
-		yourself.
-	^ container
-		addChild: anchorContainer;
-		yourself
+		addChild: anchor.
+	^ container addChild: anchorContainer
 ]
