@@ -10,17 +10,34 @@ Class {
 { #category : #'api - instantiation' }
 BrDebugglableElementStencil >> create [
 	<return: #BlElement>
-	| aRootContainer aInnerContainer |
-	aInnerContainer := BrHorizontalPane new
-		fitContent;
+	| aLabel aButton aContainer |
+	aLabel := BrButton new
+		hMatchParent;
+		label: self newTextLabel;
+		look: BrGlamorousLabelLook new;
+		margin: (BlInsets right: 6);
 		constraintsDo: [ :c | 
-			c frame vertical alignCenter.
-			c frame horizontal alignCenter ];
-		addChild: self newDebugLabel;
-		addChild: self newDebugButton.
-	aRootContainer := BrFrame new matchParent
-		addChild: aInnerContainer.
-	^ aRootContainer
+			c linear vertical alignCenter ];
+		action: self newDebugAction.
+	aButton := BrButton new
+		hFitContent;
+		look: BrGlamorousButtonWithIconLook new;
+		icon: BrGlamorousIcons debug;
+		beSmall;
+		constraintsDo: [ :c | 
+			c linear vertical alignCenter ];
+		action: self newDebugAction.
+	aContainer := BlElement new
+		layout: BlLinearLayout horizontal;
+		constraintsDo: [ :c | 
+			c horizontal fitContentLimited.
+			c vertical fitContent.
+			c frame horizontal alignCenter.
+			c frame vertical alignCenter ];
+		addChildren: {aLabel. aButton}.
+	^ BrFrame new
+		matchParent;
+		addChild: aContainer
 ]
 
 { #category : #accessing }
@@ -50,31 +67,6 @@ BrDebugglableElementStencil >> newDebugAction [
 				fullView: true
 				notification: nil
 		] forkNamed: 'Debug' ].
-]
-
-{ #category : #'instance creation' }
-BrDebugglableElementStencil >> newDebugButton [
-	^ BrButton new
-		icon: BrGlamorousIcons debug;
-		label: 'Debug';
-		look: BrGlamorousButtonWithIconLook;
-		beSmall;
-		action: self newDebugAction;
-		constraintsDo: [ :c | 
-			c linear vertical alignCenter. ]
-]
-
-{ #category : #'instance creation' }
-BrDebugglableElementStencil >> newDebugLabel [
-	^ BlShrinkingTextElement new 
-			text: self newTextLabel;
-			when: BlClickEvent do: [ :anEvent | self newDebugAction value ];
-			clipChildren: true;
-			constraintsDo: [ :c | 
-				c linear vertical alignCenter.
-				c padding: (BlInsets right: 6).
-				c horizontal fitContent.
-				c vertical fitContent ].
 ]
 
 { #category : #'instance creation' }
