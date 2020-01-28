@@ -1,11 +1,11 @@
 Class {
-	#name : #BrGlamorousDropdownLook,
-	#superclass : #BrDropdownLook,
+	#name : #BrGlamorousDropdownLook2,
+	#superclass : #BrDropdownLook2,
 	#category : #'Brick-Glamorous-Dropdown'
 }
 
 { #category : #'instance creation' }
-BrGlamorousDropdownLook >> initialize [
+BrGlamorousDropdownLook2 >> initialize [
 	super initialize.
 	self add: BrGlamorousAnchoredLook
 ]

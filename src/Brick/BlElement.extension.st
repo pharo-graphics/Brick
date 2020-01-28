@@ -32,6 +32,11 @@ BlElement >> anchor: anElement [
 ]
 
 { #category : #'*Brick' }
+BlElement >> asBrAnchoredAnchorBounds [
+	^ BrAnchoredElementAnchorBounds element: self
+]
+
+{ #category : #'*Brick' }
 BlElement >> asStencil [
 	^ self
 ]

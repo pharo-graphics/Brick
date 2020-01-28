@@ -66,12 +66,12 @@ BrContextMenuExamples >> look [
 	^ look
 ]
 
-{ #category : #'as yet unclassified' }
+{ #category : #accessing }
 BrContextMenuExamples >> model [
 	<gtExample>
 	| model |
 	model := BrWithContextMenuModel new
-		stencil: [ BlElement new
+		stencil: [ BrAnchoredElement new
 				look:
 					(BrContextMenuLook new
 						handle:
@@ -93,11 +93,11 @@ BrContextMenuExamples >> model [
 	^ model
 ]
 
-{ #category : #'as yet unclassified' }
+{ #category : #accessing }
 BrContextMenuExamples >> modelForElement: anElement [
 	| model |
 	model := BrWithContextMenuModel new
-		stencil: [ BlElement new
+		stencil: [ BrAnchoredElement new
 				look:
 					(BrGlamorousContextMenuLook new
 						content:

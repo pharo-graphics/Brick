@@ -1,11 +1,11 @@
 Class {
-	#name : #BrAnchoreGeometryExamples,
+	#name : #BrAnchoredGeometryExamples,
 	#superclass : #Object,
 	#category : #'Brick-Examples-Anchored'
 }
 
 { #category : #'as yet unclassified' }
-BrAnchoreGeometryExamples >> movingCorner [
+BrAnchoredGeometryExamples >> movingCorner [
 	<gtExample>
 	| element small big |
 	element := BrAnchoredElement new
@@ -120,9 +120,9 @@ BrAnchoreGeometryExamples >> movingCorner [
 ]
 
 { #category : #'as yet unclassified' }
-BrAnchoreGeometryExamples >> touchingCorners [
+BrAnchoredGeometryExamples >> touchingCorners [
 	<gtExample>
-	^ BlElement new
+	^ BrAnchoredElement new
 		layout: BlFitLayout new;
 		constraintsDo: [ :c | 
 			c horizontal fitContent.
