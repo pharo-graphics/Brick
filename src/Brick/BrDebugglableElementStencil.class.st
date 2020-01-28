@@ -23,7 +23,7 @@ BrDebugglableElementStencil >> create [
 		hFitContent;
 		look: BrGlamorousButtonWithIconLook new;
 		icon: BrGlamorousIcons debug;
-		beSmall;
+		beTiny;
 		constraintsDo: [ :c | 
 			c linear vertical alignCenter ];
 		action: self newDebugAction.
