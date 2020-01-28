@@ -42,7 +42,7 @@ BrToggleExamples >> changeIconOfThePredefinedToggle [
 	| aToggle anIcon |
 	
 	aToggle := self predefinedToggle.
-	anIcon := (BlEllipse extent: 10@10) asElement.
+	anIcon := ((BlEllipse new) extent: 10@10) asElement.
 	
 	aToggle icon: anIcon.
 	self assert: aToggle icon equals: anIcon.

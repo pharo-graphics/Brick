@@ -339,7 +339,7 @@ BrButtonLabelLookExamples >> changeIconOfButtonModelEvent [
 	| anIconModel aButtonIcon anIconChangedEvent |
 
 	anIconModel := self iconModel.
-	aButtonIcon := (BlEllipse extent: 10@10) asElement.
+	aButtonIcon := ((BlEllipse new) extent: 10@10) asElement.
 	
 	anIconChangedEvent := nil.
 	anIconModel when: BrIconChanged do: [ :anEvent | anIconChangedEvent := anEvent copy ].
@@ -406,7 +406,7 @@ BrButtonLabelLookExamples >> iconChangedEvent [
 	| aButton newIcon anIconChangedEvent |
 
 	anIconChangedEvent := nil.
-	newIcon := (BlEllipse extent: 10@10) asElement.
+	newIcon := ((BlEllipse new) extent: 10@10) asElement.
 
 	aButton := self buttonWithModelAndLookWithoutConstraints.
 	aButton look when: BrIconChanged do: [ :anEvent | anIconChangedEvent := anEvent copy ].
