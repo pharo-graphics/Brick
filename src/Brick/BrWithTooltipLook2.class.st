@@ -114,6 +114,10 @@ BrWithTooltipLook2 >> initialize [
 						remove: BrTooltipTopCenterLook;
 						remove: BrTooltipCenterLeftLook;
 						remove: BrTooltipCenterRightLook;
+						remove: BrTooltipBottomLeftLook;
+						remove: BrTooltipBottomRightLook;
+						remove: BrTooltipTopLeftLook;
+						remove: BrTooltipTopRightLook;
 						add: BrTooltipBottomCenterLook ] ];
 		single: [ :e | 
 			e
@@ -125,6 +129,10 @@ BrWithTooltipLook2 >> initialize [
 						remove: BrTooltipBottomCenterLook;
 						remove: BrTooltipCenterLeftLook;
 						remove: BrTooltipCenterRightLook;
+						remove: BrTooltipBottomLeftLook;
+						remove: BrTooltipBottomRightLook;
+						remove: BrTooltipTopLeftLook;
+						remove: BrTooltipTopRightLook;
 						add: BrTooltipTopCenterLook ] ];
 		single: [ :e | 
 			e
@@ -136,6 +144,10 @@ BrWithTooltipLook2 >> initialize [
 						remove: BrTooltipBottomCenterLook;
 						remove: BrTooltipTopCenterLook;
 						remove: BrTooltipCenterLeftLook;
+						remove: BrTooltipBottomLeftLook;
+						remove: BrTooltipBottomRightLook;
+						remove: BrTooltipTopLeftLook;
+						remove: BrTooltipTopRightLook;
 						add: BrTooltipCenterRightLook ] ];
 		single: [ :e | 
 			e
@@ -147,7 +159,71 @@ BrWithTooltipLook2 >> initialize [
 						remove: BrTooltipBottomCenterLook;
 						remove: BrTooltipTopCenterLook;
 						remove: BrTooltipCenterRightLook;
+						remove: BrTooltipBottomLeftLook;
+						remove: BrTooltipBottomRightLook;
+						remove: BrTooltipTopLeftLook;
+						remove: BrTooltipTopRightLook;
 						add: BrTooltipCenterLeftLook ] ];
+		single: [ :e | 
+			e
+				anchorBounds: [ :f | widget bounds inParent: f ];
+				referencePoint: BrAnchoredBottomLeftReferencePoint;
+				availableBounds: BrAnchoredBottomLeftAvailableBounds;
+				scaleFactor: BrAnchoredGlobalScaleFactor;
+				apply: [ innerContainer look
+						remove: BrTooltipBottomCenterLook;
+						remove: BrTooltipTopCenterLook;
+						remove: BrTooltipCenterLeftLook;
+						remove: BrTooltipCenterRightLook;
+						remove: BrTooltipBottomRightLook;
+						remove: BrTooltipTopLeftLook;
+						remove: BrTooltipTopRightLook;
+						add: BrTooltipBottomLeftLook ] ];
+		single: [ :e | 
+			e
+				anchorBounds: [ :f | widget bounds inParent: f ];
+				referencePoint: BrAnchoredBottomRightReferencePoint;
+				availableBounds: BrAnchoredBottomRightAvailableBounds;
+				scaleFactor: BrAnchoredGlobalScaleFactor;
+				apply: [ innerContainer look
+						remove: BrTooltipBottomCenterLook;
+						remove: BrTooltipTopCenterLook;
+						remove: BrTooltipCenterLeftLook;
+						remove: BrTooltipCenterRightLook;
+						remove: BrTooltipBottomLeftLook;
+						remove: BrTooltipTopLeftLook;
+						remove: BrTooltipTopRightLook;
+						add: BrTooltipBottomRightLook ] ];
+		single: [ :e | 
+			e
+				anchorBounds: [ :f | widget bounds inParent: f ];
+				referencePoint: BrAnchoredTopLeftReferencePoint;
+				availableBounds: BrAnchoredTopLeftAvailableBounds;
+				scaleFactor: BrAnchoredGlobalScaleFactor;
+				apply: [ innerContainer look
+						remove: BrTooltipBottomCenterLook;
+						remove: BrTooltipTopCenterLook;
+						remove: BrTooltipCenterLeftLook;
+						remove: BrTooltipCenterRightLook;
+						remove: BrTooltipBottomLeftLook;
+						remove: BrTooltipBottomRightLook;
+						remove: BrTooltipTopRightLook;
+						add: BrTooltipTopLeftLook ] ];
+		single: [ :e | 
+			e
+				anchorBounds: [ :f | widget bounds inParent: f ];
+				referencePoint: BrAnchoredTopRightReferencePoint;
+				availableBounds: BrAnchoredTopRightAvailableBounds;
+				scaleFactor: BrAnchoredGlobalScaleFactor;
+				apply: [ innerContainer look
+						remove: BrTooltipBottomCenterLook;
+						remove: BrTooltipTopCenterLook;
+						remove: BrTooltipCenterLeftLook;
+						remove: BrTooltipCenterRightLook;
+						remove: BrTooltipBottomLeftLook;
+						remove: BrTooltipBottomRightLook;
+						remove: BrTooltipTopLeftLook;
+						add: BrTooltipTopRightLook ] ];
 		build.
 	clickEventHandler := BlEventHandler
 		on: BlClickEvent
