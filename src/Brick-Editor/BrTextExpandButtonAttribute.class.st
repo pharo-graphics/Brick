@@ -14,13 +14,20 @@ Class {
 
 { #category : #accessing }
 BrTextExpandButtonAttribute >> affect: aTBrTextEditorTextualPiece in: anEditorElement [
-	^ BlElement new
-		size: 8 @ 11;
-		margin: (BlInsets top: 1 right: 5 bottom: 0 left: 5);
-		background: (Color gray alpha: 0.4);
-		geometry: self buttonGeometry;
+	| element |
+	element := BlElement new.
+	element size: 8 @ 11.
+	element margin: (BlInsets top: 1 right: 5 bottom: 0 left: 5).
+	element background: (Color gray alpha: 0.4).
+	element geometry: self buttonGeometry.
+	element
 		addEventHandlerOn: BlClickEvent
-			do: [ :anEvent | self handleEventAffect: aTBrTextEditorTextualPiece in: anEditorElement editor ]
+		do: [ :anEvent | 
+			self
+				handleEventAffect: aTBrTextEditorTextualPiece
+				in: anEditorElement editor.
+			element geometry: self buttonGeometry ].
+	^ element
 ]
 
 { #category : #accessing }
