@@ -145,9 +145,9 @@ BrTextElementWithCursors >> printOn: aStream [
 	
 	aStream
 		nextPut: $(;
-		nextPutAll: segmentPiece textStart;
+		nextPutAll: segmentPiece textStart asString;
 		nextPutAll: ' - ';
-		nextPutAll: segmentPiece textEnd;
+		nextPutAll: segmentPiece textEnd asString;
 		nextPut: $);
 		print: segmentPiece text
 ]

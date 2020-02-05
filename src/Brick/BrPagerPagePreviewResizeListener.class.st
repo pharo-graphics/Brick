@@ -8,7 +8,7 @@ Class {
 		'previewElement',
 		'height'
 	],
-	#category : 'Brick-Pager - Look'
+	#category : #'Brick-Pager - Look'
 }
 
 { #category : #'element handlers' }
@@ -54,12 +54,24 @@ BrPagerPagePreviewResizeListener >> previewElement: anObject [
 BrPagerPagePreviewResizeListener >> updateSizeFrom: aPageElement [
 	| aPageExtent aScale aPreviewExtent |
 
-	aPageExtent := aPageElement extent.
-	aScale := aPageExtent y / self height.
+	aPageExtent := aPageElement extent max: 1@1.
+	aScale := (aPageExtent y / 10).
 	
-	aPreviewExtent := aScale isZero
-		ifTrue: [ 0@0 ]
-		ifFalse: [ (aPageExtent / aScale) rounded ].
+	self
+		assert: [ aScale isZero not ]
+		description: [ 'Scale must not be zero' ].
+	
+	aScale < 1
+		ifTrue: [
+			aScale := 1.
+			aPageExtent := self height asPoint ].
+
+	aPreviewExtent := (aPageExtent / aScale).
+	aPreviewExtent := ((aPreviewExtent x / (aPreviewExtent y / self height)) @ self height) ceiling.
+
+	self
+		assert: [ aPreviewExtent isIntegerPoint ]
+		description: [ 'Extent must be an integer point' ].
 	
 	self previewElement size: aPreviewExtent
 ]
