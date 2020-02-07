@@ -1,5 +1,5 @@
 "
-I am a text attribute that adds a small expand button that when clicked may apply further attribues on the text
+I am a text attribute that adds a small expand button that when clicked may apply further attributes on the text
 "
 Class {
 	#name : #BrTextExpandButtonAttribute,
@@ -14,20 +14,37 @@ Class {
 
 { #category : #accessing }
 BrTextExpandButtonAttribute >> affect: aTBrTextEditorTextualPiece in: anEditorElement [
-	| element |
-	element := BlElement new.
-	element size: 8 @ 11.
-	element margin: (BlInsets top: 1 right: 5 bottom: 0 left: 5).
-	element background: (Color gray alpha: 0.4).
-	element geometry: self buttonGeometry.
-	element
-		addEventHandlerOn: BlClickEvent
-		do: [ :anEvent | 
+	| anIcon |
+
+	anIcon := BlElement new.
+	anIcon size: 8 @ 11.
+	anIcon viewModel: (BrInteractiveModel withAll: { BrExpandableModel new }).
+	anIcon look: (BrInteractiveCommonLook new
+		expanded: [ :e | e geometry: self expandedGeometry ];
+		collapsed: [ :e | e geometry: self collapsedGeometry ]).
+	
+	^ BrToggle new
+		look: BrGlamorousButtonRectangularLook new + 
+			BrGlamorousButtonIconLook new + 
+			BrGlamorousWithLabelTooltipLook new + (BrInteractiveCommonLook new
+				default: [ anIcon background: (BrGlamorousColors defaultButtonBorderColor) ];
+				hovered: [ anIcon background: (BrGlamorousColors hoveredButtonBorderColor) ]);
+		icon: anIcon;
+		beTiny;
+		vMatchParent;
+		hFitContent;
+		mouseCursor: BlCursor default;
+		label: 'Expand';
+		when: BrToggleActivatedEvent do: [ :anEvent |
+			anEvent currentTarget label: 'Collapse'.
+			anIcon dispatchEvent: BrExpansionWish expand ];
+		when: BrToggleDeactivatedEvent do: [ :anEvent |
+			anEvent currentTarget label: 'Expand'.
+			anIcon dispatchEvent: BrExpansionWish collapse ];
+		action: [ :aButtonElement | 
 			self
 				handleEventAffect: aTBrTextEditorTextualPiece
-				in: anEditorElement editor.
-			element geometry: self buttonGeometry ].
-	^ element
+				in: anEditorElement editor ]
 ]
 
 { #category : #accessing }
@@ -41,16 +58,13 @@ BrTextExpandButtonAttribute >> attributesCreatingBlock: aBlock [
 ]
 
 { #category : #private }
-BrTextExpandButtonAttribute >> buttonGeometry [
+BrTextExpandButtonAttribute >> collapsedGeometry [
 	^ BlPolygon
-		vertices:
-			(self isExpanded
-				ifTrue: [ {(0 @ 3).
-					(8 @ 3).
-					(4 @ 11)} ]
-				ifFalse: [ {(0 @ 3).
-					(8 @ 7).
-					(0 @ 11)} ])
+		vertices: {
+			(0 @ 3).
+			(8 @ 7).
+			(0 @ 11)
+		}
 ]
 
 { #category : #private }
@@ -69,6 +83,16 @@ BrTextExpandButtonAttribute >> createdAttributes [
 { #category : #accessing }
 BrTextExpandButtonAttribute >> createdAttributes: aCollection [
 	createdAttributes := aCollection
+]
+
+{ #category : #private }
+BrTextExpandButtonAttribute >> expandedGeometry [
+	^ BlPolygon
+		vertices: {
+			(0 @ 4).
+			(8 @ 4).
+			(4 @ 12)
+		}
 ]
 
 { #category : #private }

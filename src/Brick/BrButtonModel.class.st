@@ -44,7 +44,7 @@ BrButtonModel >> action: aBlockOrSymbolOrValuable [
 	"An action can be a block with two optional parameters:
 	 - a UI element to which this button model is attached
 	 - this button model
-	[ :aButtonElement :aButtonModel |  ].
+	[ :aButtonElement :aButtonModel :anEvent |  ].
 
 	Button action must not be nil"
 
