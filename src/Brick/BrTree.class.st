@@ -73,6 +73,19 @@ BrTree >> maxSelectionIndex [
 	^ self viewModel root size
 ]
 
+{ #category : #scripting }
+BrTree >> selectAndScrollTo: anObject [
+	self viewModel root
+		allChildrenNodesBreadthFirstDo: [ :treeNode | 
+			treeNode ensureChildNodesComputed.
+			anObject = treeNode value
+				ifTrue: [ treeNode withAllParentNodesDo: [ :node | node expand ].
+					(self isSelectedAt: treeNode globalIndexInTree)
+						ifFalse: [ self selectOne: treeNode globalIndexInTree ].
+					(self childNamed: #tree)
+						scrollToPosition: treeNode globalIndexInTree ] ]
+]
+
 { #category : #'api - selection' }
 BrTree >> selectedNodeDo: aBlock [
 	"Evaluate aBlock with the currently selected node"
