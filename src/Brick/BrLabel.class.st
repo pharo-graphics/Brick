@@ -19,7 +19,8 @@ BrLabel >> initialize [
 	self viewModel: (BrLabelModel new add: (BrInteractiveModel withAll: {
 		BrLayoutHorizontalResizerModel fitContent.
 		BrLayoutVerticalResizerModel fitContent.
-		BrLayoutAlignmentModel new centerLeft
+		BrLayoutAlignmentModel new centerLeft.
+		BrHoverModel new
 	}))
 ]
 
