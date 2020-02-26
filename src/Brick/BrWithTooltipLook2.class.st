@@ -63,6 +63,15 @@ BrWithTooltipLook2 >> cancelShowLater [
 ]
 
 { #category : #accessing }
+BrWithTooltipLook2 >> contentStencil: aStencil [
+	self stencil: [ 
+		BlElement new
+			look: (self class anchoredLook
+						withAnchoredLook: self;
+						content: aStencil asStencil asElement) ]
+]
+
+{ #category : #accessing }
 BrWithTooltipLook2 >> hide [
 	super hide.
 	self willShowLater
@@ -285,8 +294,8 @@ BrWithTooltipLook2 >> show [
 	self willHideLater
 		ifTrue: [ self cancelHideLater ].
 	innerContainer
-		addEventHandlerOn: BlMouseOverEvent do: [ self cancelHideLater ];
-		addEventHandlerOn: BlMouseOutEvent do: [ self hideLater ]
+		addEventFilterOn: BlMouseOverEvent do: [ :e | self cancelHideLater ];
+		addEventFilterOn: BlMouseOutEvent do: [ :e | self hideLater ]
 ]
 
 { #category : #accessing }
