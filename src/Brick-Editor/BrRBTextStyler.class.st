@@ -235,7 +235,7 @@ BrRBTextStyler >> style: aText ast: ast [
 	text attributes: (self attributesFor: #default).
 	bracketLevel := 0.
 	parentheseLevel := 0.
-	ast acceptVisitor: self
+	self visitNode: ast
 ]
 
 { #category : #private }
