@@ -353,7 +353,6 @@ BrButtonLabelLookExamples >> changeIconOfButtonModelEvent [
 	self assert: anIconChangedEvent target equals: anIconModel.
 	self assert: anIconChangedEvent currentTarget equals: anIconModel.
 	self assert: anIconChangedEvent isConsumed not.
-	self assert: anIconChangedEvent traversedTargets size equals: 2.
 	
 	^ anIconChangedEvent
 ]
@@ -378,7 +377,6 @@ BrButtonLabelLookExamples >> changeLabelOfButtonModelEvent [
 	self assert: aLabelChangedEvent target equals: aButtonModel.
 	self assert: aLabelChangedEvent currentTarget equals: aButtonModel.
 	self assert: aLabelChangedEvent isConsumed not.
-	self assert: aLabelChangedEvent traversedTargets size equals: 2.
 	
 	^ aLabelChangedEvent
 ]
@@ -420,13 +418,7 @@ BrButtonLabelLookExamples >> iconChangedEvent [
 	self assert: anIconChangedEvent currentTarget equals: aButton look.
 	self assert: anIconChangedEvent source equals: aButton viewModel widgetModels second.
 	self assert: anIconChangedEvent icon equals: newIcon.
-	self assert: anIconChangedEvent timestamp isNil.
-
-	self flag: 'anIconChangedEvent traversedTargets size is sometimes 6, sometimes 8'.
-	"self assert: anIconChangedEvent traversedTargets size equals: 6."
-	self assert: ( #( 6 8 ) includes: anIconChangedEvent traversedTargets size).
-
-	
+	self assert: anIconChangedEvent timestamp isNil.	
 
 	^ anIconChangedEvent
 ]
@@ -459,9 +451,6 @@ BrButtonLabelLookExamples >> labelChangedEvent [
 	self assert: aLabelChangedEvent source equals: aButton viewModel widgetModels first.
 	self assert: aLabelChangedEvent text asString equals: newLabel.
 	self assert: aLabelChangedEvent timestamp isNil.
-	self flag: 'aLabelChangedEvent traversedTargets size is sometimes 6, sometimes 8'.
-	"self assert: aLabelChangedEvent traversedTargets size equals: 6."
-	self assert: ( #( 6 8 ) includes: aLabelChangedEvent traversedTargets size).
 
 	^ aLabelChangedEvent
 ]

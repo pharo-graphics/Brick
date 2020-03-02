@@ -213,7 +213,6 @@ BrToggleGroupExamples >> toggleAddedEvent [
 	self assert: aToggleAddedEvent source equals: aToggleGroupModel.
 	self assert: aToggleAddedEvent target equals: aToggleGroupModel.
 	self assert: aToggleAddedEvent currentTarget equals: aToggleGroupModel.
-	self assert: aToggleAddedEvent traversedTargets size equals: 2.
 	self assert: aToggleAddedEvent isConsumed not.
 
 	self assert: aToggleAddedEvent toggle equals: aToggleModel.
@@ -238,7 +237,6 @@ BrToggleGroupExamples >> toggleDeactivatedEventDueToRemoving [
 	self assert: aToggleDeactivatedEvent source equals: aToggleModel.
 	self assert: aToggleDeactivatedEvent target equals: aToggleModel.
 	self assert: aToggleDeactivatedEvent currentTarget equals: aToggleModel.
-	self assert: aToggleDeactivatedEvent traversedTargets size equals: 2.
 	self assert: aToggleDeactivatedEvent isConsumed not.
 
 	self assert: aToggleDeactivatedEvent toggle equals: aToggleModel.
@@ -270,7 +268,6 @@ BrToggleGroupExamples >> toggleRemovedDeactivatedEvent [
 	self assert: aToggleRemovedEvent source equals: aToggleGroupModel.
 	self assert: aToggleRemovedEvent target equals: aToggleGroupModel.
 	self assert: aToggleRemovedEvent currentTarget equals: aToggleGroupModel.
-	self assert: aToggleRemovedEvent traversedTargets size equals: 2.
 	self assert: aToggleRemovedEvent isConsumed not.
 
 	self assert: aToggleRemovedEvent toggle equals: aToggleModel.

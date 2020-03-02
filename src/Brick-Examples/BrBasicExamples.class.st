@@ -23,7 +23,6 @@ BrBasicExamples >> widgetModelAttachedEvent [
 	self assert: viewModelAttachedEvent target equals: aWidgetModel.
 	self assert: viewModelAttachedEvent currentTarget equals: aWidgetModel.
 	self assert: viewModelAttachedEvent viewModel equals: aWidgetModel.
-	self assert: viewModelAttachedEvent traversedTargets size equals: 2.
 
 	^ viewModelAttachedEvent
 ]
