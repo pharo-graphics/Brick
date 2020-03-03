@@ -18,11 +18,6 @@ Class {
 	#category : #'Brick-! Core - Looks'
 }
 
-{ #category : #'element handlers' }
-BrInteractiveLook >> elementAddedToSuperParentEvent: anEvent [
-	self initializeRequests
-]
-
 { #category : #initialization }
 BrInteractiveLook >> initialize [
 	super initialize.
@@ -39,7 +34,8 @@ BrInteractiveLook >> initialize [
 BrInteractiveLook >> initializeListeners [
 	super initializeListeners.
 	
-	self when: BrInteractionChanged do: [ :anEvent | self statesChanged: anEvent ]
+	self when: BrInteractionChanged do: [ :anEvent | self statesChanged: anEvent ].
+	self when: BlElementAddedToSuperParentEvent do: [ :anEvent | self initializeRequests ]
 ]
 
 { #category : #initialization }

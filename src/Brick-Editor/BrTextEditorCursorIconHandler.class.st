@@ -1,6 +1,6 @@
 Class {
 	#name : #BrTextEditorCursorIconHandler,
-	#superclass : #BlElementEventListener,
+	#superclass : #BlEventListener,
 	#classInstVars : [
 		'uniqueInstance'
 	],

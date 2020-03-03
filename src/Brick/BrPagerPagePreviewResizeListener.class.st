@@ -3,7 +3,7 @@ I update the size of a page preview element in a scroll bar according to the siz
 "
 Class {
 	#name : #BrPagerPagePreviewResizeListener,
-	#superclass : #BlElementEventListener,
+	#superclass : #BlCustomEventHandler,
 	#instVars : [
 		'previewElement',
 		'height'
@@ -14,6 +14,11 @@ Class {
 { #category : #'element handlers' }
 BrPagerPagePreviewResizeListener >> elementExtentChangedEvent: anEvent [
 	self updateSizeFrom: anEvent currentTarget
+]
+
+{ #category : #'api - accessing' }
+BrPagerPagePreviewResizeListener >> eventsToHandle [
+	^ { BlElementExtentChangedEvent }
 ]
 
 { #category : #accessing }

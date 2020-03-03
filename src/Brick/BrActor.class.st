@@ -1,6 +1,6 @@
 Class {
 	#name : #BrActor,
-	#superclass : #BlElementEventListener,
+	#superclass : #BlEventListener,
 	#traits : 'TBlEventTarget',
 	#classTraits : 'TBlEventTarget classTrait',
 	#instVars : [
@@ -8,7 +8,7 @@ Class {
 		'widget',
 		'actors'
 	],
-	#category : 'Brick-! Core'
+	#category : #'Brick-! Core'
 }
 
 { #category : #accessing }

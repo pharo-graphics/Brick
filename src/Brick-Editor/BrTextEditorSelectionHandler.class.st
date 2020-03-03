@@ -1,6 +1,6 @@
 Class {
 	#name : #BrTextEditorSelectionHandler,
-	#superclass : #BlElementEventListener,
+	#superclass : #BlEventListener,
 	#instVars : [
 		'startIndex'
 	],

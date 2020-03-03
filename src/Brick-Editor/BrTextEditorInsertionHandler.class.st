@@ -3,7 +3,7 @@ I handle keystroke-based insertions and must be added to the editor element
 "
 Class {
 	#name : #BrTextEditorInsertionHandler,
-	#superclass : #BlElementEventListener,
+	#superclass : #BlEventListener,
 	#category : #'Brick-Editor-UI - Handlers'
 }
 
