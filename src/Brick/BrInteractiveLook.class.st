@@ -19,7 +19,7 @@ Class {
 }
 
 { #category : #'element handlers' }
-BrInteractiveLook >> elementAddedToSuperParent: anEvent [
+BrInteractiveLook >> elementAddedToSuperParentEvent: anEvent [
 	self initializeRequests
 ]
 

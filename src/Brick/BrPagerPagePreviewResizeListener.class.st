@@ -12,7 +12,7 @@ Class {
 }
 
 { #category : #'element handlers' }
-BrPagerPagePreviewResizeListener >> elementExtentChanged: anEvent [
+BrPagerPagePreviewResizeListener >> elementExtentChangedEvent: anEvent [
 	self updateSizeFrom: anEvent currentTarget
 ]
 
