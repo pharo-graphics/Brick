@@ -5,16 +5,19 @@ Class {
 		'listElement',
 		'rowStencil'
 	],
-	#category : 'Brick-List - Look'
+	#category : #'Brick-List - Look'
 }
 
 { #category : #initialization }
 BrColumnedListLook >> initialize [
 	super initialize.
+	
 	listElement := BrInfiniteListElement new.
 	listElement dataSource: BrColumnedListDataSource new.
 	self rowStencilBuilder: BrColumnedListRowStencilBuilder new.
+	
 	self add: (BrLayoutResizerLook inherit inherit: listElement).
+	
 	self
 		addChange:
 			(BrLookChange new

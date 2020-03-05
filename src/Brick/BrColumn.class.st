@@ -1,5 +1,5 @@
 "
-I represent a column within a columned model. A column has associated title and a cell stencil builder.
+I represent a column within a columned model. A column has associated title, width resizer and a cell stencil builder.
 
 Cell stencil builder builds a stencil or an element for each cell within a columned list taking row value, row index and current column index into account.
 
@@ -23,6 +23,13 @@ Class {
 	],
 	#category : #'Brick-Column - Model'
 }
+
+{ #category : #accessing }
+BrColumn >> fixed: aNumber [
+	"Make column occupy a fixed space defined by aNumber"
+
+	width := BrColumnFixedWidth new width: aNumber
+]
 
 { #category : #initialization }
 BrColumn >> initialize [
@@ -59,6 +66,8 @@ BrColumn >> title: aStringOrText [
 
 { #category : #accessing }
 BrColumn >> weight: aNumber [
+	"Make a column match parent with a given proportion as a number (usually between 0 and 1)"
+
 	width := BrColumnProportionalWidth new weight: aNumber
 ]
 
@@ -71,5 +80,11 @@ BrColumn >> width [
 
 { #category : #accessing }
 BrColumn >> width: aNumber [
-	width := BrColumnFixedWidth new width: aNumber
+	"Make column occupy a fixed space defined by aNumber"
+
+	self
+		deprecated: 'Use #fixed: instead'
+		transformWith: '`@receiver width: `@arg' -> '`@receiver fixed: `@arg'.
+
+	self fixed: aNumber
 ]
