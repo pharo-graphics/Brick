@@ -53,6 +53,9 @@ BrLayoutResizerModel >> resizer [
 
 { #category : #accessing }
 BrLayoutResizerModel >> resizer: aLayoutResizer [
+	resizer = aLayoutResizer
+		ifTrue: [ ^ self ].
+
 	resizer := aLayoutResizer.
 	self notifyStateChanged: aLayoutResizer
 ]

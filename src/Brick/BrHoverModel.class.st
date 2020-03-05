@@ -42,7 +42,11 @@ BrHoverModel >> initialize [
 BrHoverModel >> initializeListeners [
 	super initializeListeners.
 	
-	self when: BrHoveredRequest reply: [ :aResponse | aResponse hovered: self isHovered ]
+	self when: BrHoveredRequest reply: [ :aResponse | aResponse hovered: self isHovered ].
+	self when: BlDragEnterEvent do: [ :anEvent | self dragEnterEvent: anEvent ].
+	self when: BlDragLeaveEvent do: [ :anEvent | self dragLeaveEvent: anEvent ].
+	self when: BlMouseOutEvent do: [ :anEvent | self mouseOutEvent: anEvent ].
+	self when: BlMouseOverEvent do: [ :anEvent | self mouseOverEvent: anEvent ]
 ]
 
 { #category : #testing }

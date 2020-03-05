@@ -47,7 +47,7 @@ BrInteractiveLook >> initializeRequests [
 
 { #category : #initialization }
 BrInteractiveLook >> requestStates [
-	self statesChanged: (self request: BrInteractionRequest oneWay)
+	self widgetDo: [ self statesChanged: (self request: BrInteractionRequest oneWay) ]
 ]
 
 { #category : #accessing }
@@ -57,10 +57,13 @@ BrInteractiveLook >> state [
 
 { #category : #hooks }
 BrInteractiveLook >> statesChanged: anEvent [
-
+	| aWidget |
+	
+	aWidget := self widget.
+	
 	styles
 		select: [ :aStyle | aStyle state matches: anEvent states ]
-		thenDo: [ :aStyle | aStyle action cull: self widget cull: aStyle state ]
+		thenDo: [ :aStyle | aStyle action cull: aWidget cull: aStyle state ]
 ]
 
 { #category : #'api - style' }

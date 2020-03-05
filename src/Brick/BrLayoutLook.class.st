@@ -164,15 +164,7 @@ BrLayoutLook >> initialize [
 	horizontalAlignment := BlNullAlignment horizontal.
 	verticalAlignment := BlNullAlignment vertical.
 	consraintsBlock := [ :c |  ].
-	self
-		addChange:
-			(BrLookChange new
-				up: [ :e | 
-					self targetElement
-						when: BlElementAddedToParentEvent
-						do: [ self widgetDo: [ self onAddedToParent ] ] ];
-				down: [ :e |  ];
-				yourself).
+	
 	self
 		addChangeProperty: #(targetElement constraints horizontal resizer)
 		with: [ self horizontalResizer ].
@@ -188,6 +180,13 @@ BrLayoutLook >> initialize [
 					self updateAlignment ];
 				down: [ :e |  ];
 				yourself)
+]
+
+{ #category : #initialization }
+BrLayoutLook >> initializeListeners [
+	super initializeListeners.
+
+	self when: BlElementAddedToParentEvent do: [ :anEvent | self onAddedToParent ]
 ]
 
 { #category : #accessing }

@@ -25,36 +25,6 @@ BrActivationExamples >> buttonModel [
 ]
 
 { #category : #'examples - activatable buttons' }
-BrActivationExamples >> buttonModelWithDisabledActivation [
-	<gtExample>
-	| aButton aResponse |
-
-	aButton := self buttonModelWithoutActivation.
-	aButton add: (BrInteractiveModel new addState: self disabledModel).
-
-	aResponse := aButton request: BrActivationRequest oneWay.
-	self assert: aResponse enabled not.
-	self assert: aResponse isActivated not.
-
-	^ aButton
-]
-
-{ #category : #'examples - activatable buttons' }
-BrActivationExamples >> buttonModelWithEnabledActivation [
-	<gtExample>
-	| aButton aResponse |
-
-	aButton := self buttonModelWithoutActivation.
-	aButton add: (BrInteractiveModel new addState: self enabledModel).
-
-	aResponse := aButton request: BrActivationRequest oneWay.
-	self assert: aResponse enabled.
-	self assert: aResponse isActivated.
-
-	^ aButton
-]
-
-{ #category : #'examples - activatable buttons' }
 BrActivationExamples >> buttonModelWithoutActivation [
 	<gtExample>
 	| aButton aResponse |

@@ -7,9 +7,10 @@ Class {
 	#name : #BrWidgetModel,
 	#superclass : #BrActor,
 	#instVars : [
-		'model'
+		'model',
+		'whenAttachedActions'
 	],
-	#category : 'Brick-! Core'
+	#category : #'Brick-! Core'
 }
 
 { #category : #'api - composition' }
@@ -35,6 +36,9 @@ BrWidgetModel >> + anotherModel [
 { #category : #'api - composition' }
 BrWidgetModel >> add: aBrWidgetModel [
 
+	self isAttachedToWidget and: [ self widget lookDo: [ :aLook |
+		self error: 'Can not add a view model if there is a look'	] ].
+
 	actors := actors copyWith: aBrWidgetModel.
 	self widgetDo: [ :anElement | aBrWidgetModel onInstalledIn: anElement ]
 ]
@@ -53,8 +57,19 @@ BrWidgetModel >> asModel [
 BrWidgetModel >> dispatchViewModelAttachedEvent [
 	"ViewModelAttached event is listened by Looks to request data from view model.
 	If widget has no look attached yet, then there is no need to send this event at all"
+	| aCopyOfActions |
+	
+	aCopyOfActions := whenAttachedActions copy.
+	
+	whenAttachedActions := OrderedCollection new.
+	aCopyOfActions do: [ :eachAction | eachAction cull: widget ]
+]
 
-	widget lookDo: [ self dispatchEvent: (BrViewModelAttached viewModel: self) ]
+{ #category : #initialization }
+BrWidgetModel >> initialize [
+	super initialize.
+
+	whenAttachedActions := OrderedCollection new
 ]
 
 { #category : #accessing }
@@ -73,22 +88,24 @@ BrWidgetModel >> modelName [
 ]
 
 { #category : #hooks }
-BrWidgetModel >> onAttachedTo: anElement [
+BrWidgetModel >> onInstalledIn: anElement [
+	super onInstalledIn: anElement.
+
+	self dispatchViewModelAttachedEvent.	
+	self widgetModels do: [ :aWidgetModel | aWidgetModel onInstalledIn: anElement ]
 ]
 
 { #category : #hooks }
-BrWidgetModel >> onInstalledIn: anElement [
-	super onInstalledIn: anElement.
-	
-	self
-		assert: [ widget isNil ]
-		description: [ 'Can not install the same look instance on multiple widgets' ].
+BrWidgetModel >> onUninstalledIn: anElement [
+	super onUninstalledIn: anElement.
 
-	widget := anElement.
-	self onAttachedTo: anElement.
-	self dispatchViewModelAttachedEvent.
-	
-	self widgetModels do: [ :aWidgetModel | aWidgetModel onInstalledIn: anElement ]
+	self
+		assert: [ self widget == anElement ]
+		description: [ 'Can not uninstall from a different widget' ].
+
+	self widgetModels reversed do: [ :aWidgetModel | aWidgetModel onUninstalledIn: anElement ].
+	widget := nil.
+	self initializeListeners
 ]
 
 { #category : #printing }
@@ -120,22 +137,17 @@ BrWidgetModel >> when: aRequestClass reply: aBlock [
 
 		aReplyEvent source: self.
 		aRequest isOneWay
-			ifFalse: [ aRequest source dispatchEventToMyself: aReplyEvent ] ]
+			ifFalse: [ aRequest source dispatchEvent: aReplyEvent ] ]
 ]
 
 { #category : #'event management' }
 BrWidgetModel >> whenAttachedDo: aBlockClosure [
+	"Evaluate a aBlockClosure as *once* when I am attached to the widget.
+	If I am already attached to the widget evaluate the aBlockClosure right away"
+
 	self isAttachedToWidget
 		ifTrue: [ aBlockClosure cull: self widget ]
-		ifFalse: [
-			| anAttachedListener |
-			anAttachedListener := nil.
-			anAttachedListener := BlEventHandler
-				on: BrViewModelAttached
-				do: [
-					self removeEventHandler: anAttachedListener.
-					aBlockClosure cull: self widget ].
-			self addEventHandler: anAttachedListener ]
+		ifFalse: [ whenAttachedActions add: aBlockClosure ]
 ]
 
 { #category : #accessing }

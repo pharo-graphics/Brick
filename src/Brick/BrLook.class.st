@@ -130,14 +130,6 @@ BrLook >> initialize [
 ]
 
 { #category : #initialization }
-BrLook >> initializeListeners [
-	"Override me to initialize event listeners such as property updates from the view model"
-	
-	self flag: 'FIXME listeners should be removed when look is removed. how to do that in the general case?'.
-	self when: BrViewModelAttached do: [ self initializeRequests ]
-]
-
-{ #category : #initialization }
 BrLook >> initializeRequests [
 	"Override me to implement requests to the view model to synchronise its properties"
 ]
@@ -150,25 +142,30 @@ BrLook >> looks [
 { #category : #'api - hooks' }
 BrLook >> onInstalledIn: anElement [
 	super onInstalledIn: anElement.
-	self
-		assert: [ widget isNil ]
-		description: [ 'Can not install the same look instance on multiple widgets' ].
-	widget := anElement.
+	
 	changes upOn: self.
+
 	"we must send events after look initialization where we set defaults"
 	self initializeRequests.
+
 	self looks do: [ :aLook | aLook onInstalledIn: anElement ]
 ]
 
 { #category : #'api - hooks' }
 BrLook >> onUninstalledIn: anElement [
 	super onUninstalledIn: anElement.
+
 	self
 		assert: [ self widget == anElement ]
 		description: [ 'Can not uninstall from a different widget' ].
+
 	self looks reversed do: [ :aLook | aLook onUninstalledIn: anElement ].
+
 	changes downOn: self.
-	widget := nil
+	widget := nil.
+	ContextStackSignal emit.
+	
+	self initializeListeners
 ]
 
 { #category : #'api - composition' }

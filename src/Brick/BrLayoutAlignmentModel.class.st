@@ -72,6 +72,9 @@ BrLayoutAlignmentModel >> alignment: anAlignment [
 		assert: [ anAlignment isNotNil ]
 		description: [ 'Alignment must not be nil' ].
 
+	alignment = anAlignment
+		ifTrue: [ ^ self ].
+	
 	alignment := anAlignment.
 	self notifyStateChanged: anAlignment
 ]

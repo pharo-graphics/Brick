@@ -69,3 +69,8 @@ BrButtonModel >> initialize [
 
 	action := [  ]
 ]
+
+{ #category : #initialization }
+BrButtonModel >> initializeListeners [
+	self when: BlClickEvent do: [ :anEvent | self clickEvent: anEvent ]
+]

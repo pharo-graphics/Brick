@@ -71,10 +71,6 @@ BrColumnedTreeRowStencilBuilder >> createExpandCollapseElementFor: aNode [
 		geometry: BlEllipse new;
 		margin: (BlInsets all: 2);
 		size: 16@16;
-		look: (BrInteractiveCommonLook new
-			default: [ :aWidget | aWidget background: (Color transparent) ];
-			hovered: [ :aWidget | aWidget background: (Color gray alpha: 0.1) ];
-			pressed: [ :aWidget | aWidget background: (Color gray alpha: 0.2) ]);
 		viewModel: (BrWidgetModel new 
 			addAll: { 
 				BrButtonModel new action: [ aNode toggle ].
@@ -83,6 +79,10 @@ BrColumnedTreeRowStencilBuilder >> createExpandCollapseElementFor: aNode [
 						ifTrue: [ #() ]
 						ifFalse: [ { BrHoverModel new . BrPressModel new } ]
 				), { BrActivationModel new disabled: aNode isEmpty } });
+		look: (BrInteractiveCommonLook new
+			default: [ :aWidget | aWidget background: (Color transparent) ];
+			hovered: [ :aWidget | aWidget background: (Color gray alpha: 0.1) ];
+			pressed: [ :aWidget | aWidget background: (Color gray alpha: 0.2) ]);
 		addChild: (self createArrowInterationElementForNode: aNode)
 ]
 
@@ -109,16 +109,18 @@ BrColumnedTreeRowStencilBuilder >> initialize [
 
 { #category : #private }
 BrColumnedTreeRowStencilBuilder >> makeSelectableContaine: aContainer forTreeElement: aTreeElement atIndex: aRowIndex [
-	aContainer look: (BrInteractiveCommonLook new
-		selected: [ :aWidget | aWidget background: self selectionColor ];
-		deselected: [ :aWidget | aWidget background: Color transparent ]).
-
 	aContainer viewModel: (BrWidgetModel new addAll: { 
 		BrButtonModel new action: [ :aWidget :aButtonModel :anEvent |
 			aTreeElement selectOne: aRowIndex dueTo: anEvent.
 			aTreeElement requestFocus ].
 		BrInteractiveModel new addState: BrSelectModel new 
 	}).
+	
+	aContainer look: (BrInteractiveCommonLook new
+		selected: [ :aWidget | aWidget background: self selectionColor ];
+		deselected: [ :aWidget | aWidget background: Color transparent ]).
+
+	
 
 	aContainer
 		when: BlDoubleClickEvent

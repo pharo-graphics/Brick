@@ -5,7 +5,7 @@ Class {
 		'content',
 		'contentElementsCache'
 	],
-	#category : 'Brick-Tabs - Look'
+	#category : #'Brick-Tabs - Look'
 }
 
 { #category : #'api - accessing' }
@@ -55,6 +55,7 @@ BrTabGroupContentLook >> onTabDeselected: aTabModel [
 { #category : #hooks }
 BrTabGroupContentLook >> onTabSelected: aTabModel [
 	| aContentElement |
+	
 	self widgetContent removeChildren.
 
 	aContentElement := contentElementsCache

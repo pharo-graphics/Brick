@@ -37,8 +37,8 @@ BrSimpleListExamples >> listAllClasses [
 	aListModel items: Smalltalk allClasses.
 
 	aListLook := self listLook.	
-	aListElement look: aListLook.
 	aListElement viewModel: aListModel.
+	aListElement look: aListLook.
 
 	^ aListElement
 ]

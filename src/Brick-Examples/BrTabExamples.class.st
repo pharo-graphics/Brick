@@ -48,8 +48,8 @@ BrTabExamples >> groupHeaderWithAddedTabAtFirstPosition [
 	aTabGroupModel := self tabGroupWithOneTab.
 	aHeaderLook := self groupHeaderLook.
 	aHeaderElement := BlElement new
-		look: aHeaderLook;
 		viewModel: aTabGroupModel;
+		look: aHeaderLook;
 		layout: BlLinearLayout vertical;
 		constraintsDo: [ :c |
 			c horizontal fitContent.
@@ -71,31 +71,30 @@ BrTabExamples >> groupHeaderWithAddedTabAtFirstPosition [
 { #category : #'examples - ui header' }
 BrTabExamples >> groupHeaderWithBoundTabs [
 	<gtExample>
-	<noTest>
 	| aHeaderElement tabElement1 tabElement2 tabElement3 |
 
 	aHeaderElement := self groupHeaderWithoutBoundTabs.
 
 	"binding order does not matter"
 	tabElement2 := BlElement new
-		look: self groupTabLook;
-		viewModel: aHeaderElement viewModel tabs second.
+		viewModel: aHeaderElement viewModel tabs second;
+		look: self groupTabLook.
 		
 	self assert: aHeaderElement children asArray equals: { aHeaderElement look header }.
-	self assert: aHeaderElement children first children asArray equals: { aHeaderElement look scrollTabbar. aHeaderElement look toolbar }.
+	self assert: aHeaderElement children first children asArray equals: { aHeaderElement look scrollTabbar. aHeaderElement look toolbar . aHeaderElement look actionbar }.
 
 	self assert: aHeaderElement look tabbar children asArray equals: { tabElement2 }.
 
 	tabElement1 := BlElement new
-		look: self groupTabLook;
-		viewModel: aHeaderElement viewModel tabs first.
+		viewModel: aHeaderElement viewModel tabs first;
+		look: self groupTabLook.
 		
 	self assert: aHeaderElement children asArray equals: { aHeaderElement look header }.
 	self assert: aHeaderElement look tabbar children asArray equals: { tabElement1 . tabElement2 }.
 
 	tabElement3 := BlElement new
-		look: self groupTabLook;
-		viewModel: aHeaderElement viewModel tabs third.
+		viewModel: aHeaderElement viewModel tabs third;
+		look: self groupTabLook.
 
 	self assert: aHeaderElement children asArray equals: { aHeaderElement look header }.
 	self assert: aHeaderElement look tabbar children asArray equals: { tabElement1 . tabElement2 . tabElement3 }.
@@ -121,8 +120,8 @@ BrTabExamples >> groupHeaderWithoutBoundTabs [
 	headerLook when: BrTabGroupTabsChangedEvent do: [ :aTabsChanged | tabsChanged := aTabsChanged copy ].
 	
 	headerElement := BlElement new
-		look: headerLook;
 		viewModel: tabGroup;
+		look: headerLook;
 		layout: BlLinearLayout vertical;
 		constraintsDo: [ :c |
 			c horizontal fitContent.

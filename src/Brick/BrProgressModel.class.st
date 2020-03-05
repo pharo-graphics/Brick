@@ -70,18 +70,18 @@ BrProgressModel >> initialize [
 	total := 100.
 ]
 
-{ #category : #notifying }
-BrProgressModel >> notifyProgressChanged: anAmountNumber total: aTotalNumber [
-	self dispatchEvent: (BrProgressChangedEvent amount: anAmountNumber total: aTotalNumber)
-]
-
 { #category : #hooks }
-BrProgressModel >> onAttachedTo: anElement [
-	super onAttachedTo: anElement.
+BrProgressModel >> initializeListeners [
+	super initializeListeners.
 
 	self 
 		when: BrProgressStatusRequest 
 		reply: [ BrProgressChangedEvent amount: self amount total: self total ]
+]
+
+{ #category : #notifying }
+BrProgressModel >> notifyProgressChanged: anAmountNumber total: aTotalNumber [
+	self dispatchEvent: (BrProgressChangedEvent amount: anAmountNumber total: aTotalNumber)
 ]
 
 { #category : #hooks }

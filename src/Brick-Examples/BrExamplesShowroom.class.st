@@ -294,7 +294,7 @@ BrExamplesShowroom >> glamorousTabs [
 				c vertical matchParent ];
 			margin: (BlInsets all: 10);
 			background: (Color red alpha: 0.2) ]).
-		
+
 	aTabGroup addTab: (BrTab new
 		look: BrGlamorousTabLook new;
 		label: 'Tab 2';

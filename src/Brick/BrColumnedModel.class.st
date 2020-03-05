@@ -61,16 +61,16 @@ BrColumnedModel >> initialize [
 	columns := OrderedCollection new
 ]
 
+{ #category : #hooks }
+BrColumnedModel >> initializeListeners [
+	super initializeListeners.
+
+	self when: BrColumnsRequest reply: [ :aResponse | aResponse columns: self columns ]
+]
+
 { #category : #initialization }
 BrColumnedModel >> newColumn [
 	<return: #BrColumn>
 	
 	^ BrColumn new
-]
-
-{ #category : #hooks }
-BrColumnedModel >> onAttachedTo: anElement [
-	super onAttachedTo: anElement.
-
-	self when: BrColumnsRequest reply: [ :aResponse | aResponse columns: self columns ]
 ]

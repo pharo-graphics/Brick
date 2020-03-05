@@ -50,6 +50,9 @@ BrResizerLocationModel >> location [
 
 { #category : #accessing }
 BrResizerLocationModel >> location: aLocation [
+	location = aLocation
+		ifTrue: [ ^ self ].
+
 	location := aLocation.
 	self notifyStateChanged: aLocation
 ]

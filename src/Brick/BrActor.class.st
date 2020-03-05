@@ -1,23 +1,34 @@
 Class {
 	#name : #BrActor,
-	#superclass : #BlEventListener,
+	#superclass : #Object,
 	#traits : 'TBlEventTarget',
 	#classTraits : 'TBlEventTarget classTrait',
 	#instVars : [
-		'eventDispatcher',
 		'widget',
-		'actors'
+		'actors',
+		'eventDispatcher'
 	],
 	#category : #'Brick-! Core'
 }
 
 { #category : #accessing }
 BrActor >> actors [
+	<return: #Collection of: #BrActor>
+
 	^ self children
+]
+
+{ #category : #'event management' }
+BrActor >> addEventHandler: anEventHandler [
+	self isAttachedToWidget
+		ifTrue: [ self widget addEventHandler: (BlEventForwarder forwardTo: anEventHandler from: self) ]
+		ifFalse: [ self eventDispatcher addEventHandler: anEventHandler ]
 ]
 
 { #category : #accessing }
 BrActor >> allChildren [
+	<return: #Collection of: #BrActor>
+
 	^ Array streamContents: [ :aStream |
 		self children do: [ :each |
 			aStream nextPut: each.
@@ -26,13 +37,15 @@ BrActor >> allChildren [
 
 { #category : #accessing }
 BrActor >> children [
+	<return: #Collection of: #BrActor>
+
 	^ actors
 ]
 
 { #category : #'event management' }
 BrActor >> dispatchEvent: anEvent [
-	"I only call my event dispatcher, so the event can be only handled by my event handlers/filters"
-	"we should not dispatch an event that was sent by me"
+	"If I am attached to the widget I dispatch event to the widget,
+	otherwise I dispatch a given event to myself and my children "
 
 	anEvent hasSource
 		ifFalse: [ anEvent source: self ].
@@ -42,30 +55,18 @@ BrActor >> dispatchEvent: anEvent [
 
 	"then let the rest of the element components receive it"
 	self isAttachedToWidget
-		ifTrue: [ self dispatchEventToWidget: anEvent ]
-		ifFalse: [ self children do: [ :anActor | anActor handleEvent: anEvent ] ]
+		ifTrue: [ self widget dispatchEvent: anEvent ]
+		ifFalse: [ self children do: [ :anActor | anActor dispatchEvent: anEvent ] ]
 ]
 
 { #category : #'event management' }
 BrActor >> dispatchEventToMyself: anEvent [
 
-	anEvent forwardingTarget: self.
 	anEvent target: self.
+	anEvent forwardingTarget: self.
 
 	(self eventDispatcher wantsEvent: anEvent)
-		ifTrue: [ self eventDispatcher dispatchEvent: anEvent ].
-		
-	anEvent sendTo: self
-]
-
-{ #category : #'event management' }
-BrActor >> dispatchEventToWidget: anEvent [
-
-	self
-		assert: [ self isAttachedToWidget ]
-		description: [ 'I must be attached to a widget to dispatch event' ].
-
-	self widget dispatchEvent: anEvent
+		ifTrue: [ self eventDispatcher dispatchEvent: anEvent ]
 ]
 
 { #category : #'event management accessing' }
@@ -102,13 +103,16 @@ BrActor >> findActor: anActorClass ifFound: aFoundBlock ifNone: aNoneBlock [
 	"Return an actor that corresponds to a given class.
 	Throw error if it is not found"
 	
-	self findActor: anActorClass ifFound: [ :anActor | ^ aFoundBlock value: anActor ].
+	self
+		findActor: anActorClass
+		ifFound: [ :anActor | ^ aFoundBlock value: anActor ].
+	
 	^ aNoneBlock value
 ]
 
 { #category : #'event management' }
 BrActor >> fireEvent: anEvent [
-	"I fire provided event building an event dispatcher chain
+	"I fire provided event while building an event dispatcher chain
 	(from target to the root element) and dispatch the event with it.
 	anEvent must not be nil"
 
@@ -121,7 +125,7 @@ BrActor >> fireEvent: anEvent [
 	"then let the rest of the element components receive it"
 	self isAttachedToWidget
 		ifTrue: [ self widget fireEvent: anEvent ]
-		ifFalse: [ self children do: [ :anActor | anActor handleEvent: anEvent ] ]
+		ifFalse: [ self children do: [ :anActor | anActor fireEvent: anEvent ] ]
 ]
 
 { #category : #'event management' }
@@ -143,49 +147,7 @@ BrActor >> gtInspectorChildrenIn: aComposite [
 		when: [ self children isNotEmpty ]
 ]
 
-{ #category : #'gt-inspector-extension' }
-BrActor >> gtInspectorFiltersIn: aComposite [
-	<gtInspectorPresentationOrder: 80>
-
-	self eventDispatcher gtInspectorFiltersIn: aComposite
-]
-
-{ #category : #'gt-inspector-extension' }
-BrActor >> gtInspectorHandlersIn: aComposite [
-	<gtInspectorPresentationOrder: 80>
-
-	self eventDispatcher gtInspectorHandlersIn: aComposite
-]
-
-{ #category : #'event handling' }
-BrActor >> handleEvent: anEvent [
-	| aCurrentTarget aTarget |
-
-	self
-		assert: [ self actors allSatisfy: [ :eachActor | eachActor isNotNil ] ]
-		description: [ 'There must not be nil actors' ].
-
-	self actors do: [ :anActor |
-		self
-			assert: [ anActor isNotNil ]
-			description: [ 'Actor must not be nil here' ].
-		
-		anActor handleEvent: anEvent ].
-
-	"do not handle outgoing events"
-	(anEvent source == self)
-		ifTrue: [ ^ self ].
-
-	"We should restore current event target after forwarding "
-	aCurrentTarget := anEvent currentTarget.
-	aTarget := anEvent target.
-	[ self dispatchEventToMyself: anEvent ]
-		ensure: [
-			anEvent currentTarget: aCurrentTarget.
-			anEvent target: aTarget ]
-]
-
-{ #category : #testing }
+{ #category : #'api - testing' }
 BrActor >> hasActor: anActorClass [
 	"Return true if I or any of my children is of the given type"
 	<return: #Boolean>
@@ -194,7 +156,7 @@ BrActor >> hasActor: anActorClass [
 		or: [ self actors anySatisfy: [ :eachActor | eachActor hasActor: anActorClass ] ]
 ]
 
-{ #category : #testing }
+{ #category : #'api - testing' }
 BrActor >> hasOwner [
 	"Utility #owner message makes it possible to have a polymorphic way to visualise a tree structure of the elements"
 	<return: #Boolean>
@@ -205,7 +167,7 @@ BrActor >> hasOwner [
 { #category : #initialization }
 BrActor >> initialize [
 	super initialize.
-
+	
 	eventDispatcher := BlDirectEventDispatcher on: self.
 	actors := #().
 	
@@ -214,13 +176,36 @@ BrActor >> initialize [
 
 { #category : #initialization }
 BrActor >> initializeListeners [
+	"Override me to initialize event listeners such as property updates from the view model"
 ]
 
 { #category : #'api - testing' }
 BrActor >> isAttachedToWidget [
+	"Return true if I am attached to a widget element, false otherwise.
+	When an actor (look or model) is not attached to the element it can not send or receive events"
 	<return: #Boolean>
 
 	^ widget isNotNil
+]
+
+{ #category : #'api - hooks' }
+BrActor >> onInstalledIn: anElement [
+	"Is sent when I am added to an element (or to the other actor which is added to the element)"
+
+	self
+		assert: [ widget isNil ]
+		description: [ 'Can not install the same look instance on multiple widgets' ].
+
+	widget := anElement.
+	
+	self transferEventHandlersToWidget
+]
+
+{ #category : #'api - hooks' }
+BrActor >> onUninstalledIn: anElement [
+	"Is sent when I am removed from an element (or from the other actor which was part of the element)"
+	
+	self removeEventHandlersFromWidget
 ]
 
 { #category : #accessing }
@@ -231,6 +216,12 @@ BrActor >> owner [
 	^ self widget
 ]
 
+{ #category : #'private - event management' }
+BrActor >> removeEventHandlersFromWidget [
+	self widget removeEventHandlersSuchThat: [ :eachEventHandler |
+		(eachEventHandler isKindOf: BlEventForwarder) and: [ eachEventHandler eventTarget == self ] ]
+]
+
 { #category : #'event management' }
 BrActor >> request: aBrRequest [
 
@@ -239,6 +230,16 @@ BrActor >> request: aBrRequest [
 		ifFalse: [ self dispatchEvent: aBrRequest ].
 
 	^ aBrRequest response
+]
+
+{ #category : #'private - event management' }
+BrActor >> transferEventHandlersToWidget [
+	| theEventHandlers |
+	
+	theEventHandlers := self eventDispatcher handlers.
+	self eventDispatcher removeEventHandlers.
+	
+	theEventHandlers do: [ :eachHandler | self widget addEventHandler: (BlEventForwarder forwardTo: eachHandler from: self) ]
 ]
 
 { #category : #accessing }
@@ -259,5 +260,7 @@ BrActor >> widgetDo: aBlockClosure [
 
 { #category : #accessing }
 BrActor >> withAllChildren [
+	<return: #Collection of: #BrActor>
+
 	^ { self }, self allChildren
 ]

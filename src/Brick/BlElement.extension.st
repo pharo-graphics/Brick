@@ -105,11 +105,14 @@ BlElement >> look [
 BlElement >> look: aLook [
 	| aLookInstance |
 	
+	self lookDo: [ :aCurrentLook |
+		aCurrentLook onUninstalledIn: self.
+		self userData at: #brickLook put: nil ].
+
 	aLookInstance := aLook asLook.
-	self removeEventHandlersSuchThat: [ :each | each isKindOf: BrLook ].
-	
+
 	self userData at: #brickLook put: aLookInstance.
-	self addEventHandler: aLookInstance.
+	aLookInstance onInstalledIn: self
 ]
 
 { #category : #'*Brick' }
@@ -132,10 +135,15 @@ BlElement >> viewModel [
 ]
 
 { #category : #'*Brick' }
-BlElement >> viewModel: aBrToggleModel [
-	self removeEventHandler: self viewModel.
-	self userData at: #brickViewModel put: aBrToggleModel.
-	self addEventHandler: aBrToggleModel
+BlElement >> viewModel: aBrViewModel [
+	self lookDo: [ :aLook | self error: 'View model must be added before look' ].
+
+	self viewModelDo: [ :aCurrentModel |
+		aCurrentModel onUninstalledIn: self.
+		self userData at: #brickViewModel put: nil ].
+
+	self userData at: #brickViewModel put: aBrViewModel.
+	aBrViewModel onInstalledIn: self
 ]
 
 { #category : #'*Brick' }

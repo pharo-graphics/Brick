@@ -55,6 +55,19 @@ BrToggleModel >> initialize [
 	oneWay := false
 ]
 
+{ #category : #hooks }
+BrToggleModel >> initializeListeners [
+	super initializeListeners.
+
+	self
+		when: BrToggleStateRequest
+		do: [ self isActivated
+				ifTrue: [ BrToggleActivatedEvent toggle: self ]
+				ifFalse: [ BrToggleDeactivatedEvent toggle: self ] ].
+			
+	self when: BlClickEvent do: [ :anEvent | self clickEvent: anEvent ]
+]
+
 { #category : #testing }
 BrToggleModel >> isActivated [
 	<return: #Boolean>
@@ -78,16 +91,6 @@ BrToggleModel >> notifyToggleActivated [
 { #category : #notifying }
 BrToggleModel >> notifyToggleDeactivated [
 	self fireEvent: (BrToggleDeactivatedEvent toggle: self)
-]
-
-{ #category : #hooks }
-BrToggleModel >> onAttachedTo: anElement [
-	super onAttachedTo: anElement.
-	self
-		when: BrToggleStateRequest
-		do: [ self isActivated
-				ifTrue: [ BrToggleActivatedEvent toggle: self ]
-				ifFalse: [ BrToggleDeactivatedEvent toggle: self ] ]
 ]
 
 { #category : #'api - toggle' }

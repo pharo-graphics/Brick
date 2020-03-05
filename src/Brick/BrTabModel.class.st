@@ -69,6 +69,7 @@ BrTabModel >> initialize [
 BrTabModel >> initializeListeners [
 	super initializeListeners.
 
+	self when: BlClickEvent do: [ :anEvent | self clickEvent: anEvent ].
 	self when: BrTabActionbarRequest reply: [ :aResponse | aResponse stencil: actionbarStencilBuilder ].
 	self when: BrTabToolbarRequest reply: [ :aResponse | aResponse stencil: toolbarStencilBuilder ].
 

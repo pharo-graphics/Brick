@@ -31,7 +31,7 @@ ${example:name=BrButtonLabelLookExamples>>#buttonWithLookFirstThenModel|expanded
 Class {
 	#name : #BrButtonLabelLookExamples,
 	#superclass : #Object,
-	#category : #'Brick-Examples'
+	#category : #'Brick-Examples-Button'
 }
 
 { #category : #'example - instance creation' }
@@ -157,37 +157,6 @@ BrButtonLabelLookExamples >> buttonWithDirectlyEmbeddedLabel [
 ]
 
 { #category : #'example - button' }
-BrButtonLabelLookExamples >> buttonWithLookFirstThenModel [
-	<gtExample>
-	| aButton aModel aLook modelLabel lookLabel aLabelElement |
-	
-	modelLabel := 'Hello world'.
-	lookLabel := 'Hello glamorous world'.
-	
-	aButton := self buttonElement.
-
-	aModel := self labelModel + self buttonModel.
-	aModel text: modelLabel.
-	
-	aLook := self buttonLabelLookWithConstraints.
-	aLook text: lookLabel.
-	
-	aButton look: aLook.
-	self assert: aLook text asString equals: lookLabel.
-
-	aLabelElement := aButton children first.
-	self assert: aLabelElement text asString equals: lookLabel.
-	
-	aButton viewModel: aModel.
-	
-	self assert: aLook text asString equals: modelLabel.
-	self assert: aModel text asString equals: modelLabel.
-	self assert: aLabelElement text asString equals: modelLabel.
-	
-	^ aButton
-]
-
-{ #category : #'example - button' }
 BrButtonLabelLookExamples >> buttonWithModelAndLookAndChangedModelLabel [
 	<gtExample>
 	| aButton newLabel |
@@ -237,8 +206,8 @@ BrButtonLabelLookExamples >> buttonWithModelAndLookWithoutConstraints [
 	
 	aButton addChild: aContent as: #content.
 
-	aButton look: aLabelLook.
 	aButton viewModel: self allModels.
+	aButton look: aLabelLook.
 	
 	self assert: aLabelLook label text asString equals: self labelText.
 
@@ -414,7 +383,7 @@ BrButtonLabelLookExamples >> iconChangedEvent [
 
 	self assert: anIconChangedEvent notNil.
 	self assert: anIconChangedEvent isConsumed not.
-	self assert: anIconChangedEvent target equals: aButton look.
+	self assert: anIconChangedEvent target equals: aButton.
 	self assert: anIconChangedEvent currentTarget equals: aButton look.
 	self assert: anIconChangedEvent source equals: aButton viewModel widgetModels second.
 	self assert: anIconChangedEvent icon equals: newIcon.
@@ -446,7 +415,7 @@ BrButtonLabelLookExamples >> labelChangedEvent [
 
 	self assert: aLabelChangedEvent notNil.
 	self assert: aLabelChangedEvent isConsumed not.
-	self assert: aLabelChangedEvent target equals: aButton look.
+	self assert: aLabelChangedEvent target equals: aButton.
 	self assert: aLabelChangedEvent currentTarget equals: aButton look.
 	self assert: aLabelChangedEvent source equals: aButton viewModel widgetModels first.
 	self assert: aLabelChangedEvent text asString equals: newLabel.

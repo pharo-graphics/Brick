@@ -23,6 +23,14 @@ BrListModel >> initialize [
 	items := #()
 ]
 
+{ #category : #hooks }
+BrListModel >> initializeListeners [
+	super initializeListeners.
+
+	"answer if somebody is interested in what items I have"
+	self when: BrListItemsRequest reply: [ :aResponse | aResponse items: self items ]
+]
+
 { #category : #'api - accessing' }
 BrListModel >> itemAt: anIndex [
 	^ self items at: anIndex
@@ -47,12 +55,4 @@ BrListModel >> items: aCollectionOfBrWidgetModel [
 
 	items := aCollectionOfBrWidgetModel.
 	self dispatchEvent: (BrListItemsChangedEvent items: self items)
-]
-
-{ #category : #hooks }
-BrListModel >> onAttachedTo: anElement [
-	super onAttachedTo: anElement.
-
-	"answer if somebody is interested in what items I have"
-	self when: BrListItemsRequest reply: [ :aResponse | aResponse items: self items ]
 ]

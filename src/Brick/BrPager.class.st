@@ -20,10 +20,10 @@ BrPager >> hasPageAfter: aPageElement [
 BrPager >> initialize [
 	super initialize.
 	
-	self look: BrPagerScrollbarLook new + BrScrollablePagerLook new.
 	self viewModel: (BrPagerModel new add: (BrInteractiveModel withAll: {
-				BrLayoutHorizontalResizerModel matchParent.
-				BrLayoutVerticalResizerModel matchParent })).
+		BrLayoutHorizontalResizerModel matchParent.
+		BrLayoutVerticalResizerModel matchParent })).
+	self look: BrPagerScrollbarLook new + BrScrollablePagerLook new.
 
 	self layout: BlLinearLayout vertical
 ]
