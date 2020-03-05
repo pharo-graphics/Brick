@@ -18,6 +18,8 @@ BrLayoutHorizontalResizerModel >> stateChangedEventClass [
 ]
 
 { #category : #'state - streaming' }
-BrLayoutHorizontalResizerModel >> streamStateOn: aStream [
-	aStream nextPut: (BrLayoutHorizontalResizerState resizer: self resizer)
+BrLayoutHorizontalResizerModel >> streamStateIn: aBrInteractionStatesMapping [
+	aBrInteractionStatesMapping
+		addState: (BrLayoutHorizontalResizerState resizer: self resizer)
+		model: self
 ]

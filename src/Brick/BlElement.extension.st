@@ -153,7 +153,7 @@ BlElement >> viewModelDo: aBlock [
 
 { #category : #'*Brick' }
 BlElement >> viewModelDo: aBlock ifAbsent: anAbsentBlock [
-	self userData
+	^ self userData
 		at: #brickViewModel
 		ifPresent: aBlock
 		ifAbsent: anAbsentBlock

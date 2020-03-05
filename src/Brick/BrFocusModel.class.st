@@ -47,8 +47,10 @@ BrFocusModel >> stateChangedEventClass [
 ]
 
 { #category : #streaming }
-BrFocusModel >> streamStateOn: aStream [
-	aStream nextPut: (self isFocused
-		ifTrue: [ BrFocusedState new ]
-		ifFalse: [ BrFocusedState new not ])
+BrFocusModel >> streamStateIn: aBrInteractionStatesMapping [
+	aBrInteractionStatesMapping
+		addState: (self isFocused
+			ifTrue: [ BrFocusedState new ]
+			ifFalse: [ BrFocusedState new not ])
+		model: self
 ]

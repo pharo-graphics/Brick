@@ -78,10 +78,12 @@ BrExpandableModel >> stateChangedEventClass [
 ]
 
 { #category : #streaming }
-BrExpandableModel >> streamStateOn: aStream [
-	self isExpanded 
-		ifTrue: [ aStream nextPut: BrExpandedState new ]
-		ifFalse: [ aStream nextPut: BrExpandedState new not ]
+BrExpandableModel >> streamStateIn: aBrInteractionStatesMapping [
+	aBrInteractionStatesMapping
+		addState: (self isExpanded 
+			ifTrue: [ BrExpandedState new ]
+			ifFalse: [ BrExpandedState new not ])
+		model: self
 ]
 
 { #category : #'api - expandable' }

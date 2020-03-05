@@ -25,7 +25,7 @@ BrInteractiveModel >> addState: aStateModel [
 	"Add a given state model as my sub-model and register corresponding update events"
 
 	self
-		assert: [ stateModels noneSatisfy:  [ :eachModel | eachModel class = aStateModel class ] ]
+		assert: [ stateModels noneSatisfy: [ :eachModel | eachModel class = aStateModel class ] ]
 		description: [ 'State model of type ', aStateModel class name, ' already exists!' ].
 
 	stateModels add: aStateModel.
@@ -36,6 +36,17 @@ BrInteractiveModel >> addState: aStateModel [
 { #category : #'api - states' }
 BrInteractiveModel >> addStates: aCollectionOfStateModels [
 	aCollectionOfStateModels do: [ :aStateModel | self addState: aStateModel ]
+]
+
+{ #category : #'gt-extension' }
+BrInteractiveModel >> gtLocalStatesFor: aView [
+	<gtView>
+	
+	^ aView forward
+		priority: 1;
+		title: 'Local States';
+		object: [ self statesMapping ];
+		view: #gtStatesFor:
 ]
 
 { #category : #initialization }
@@ -49,34 +60,32 @@ BrInteractiveModel >> initialize [
 BrInteractiveModel >> initializeListeners [
 	super initializeListeners.
 
-	self when: BrInteractionRequest reply: [ :aResponse | aResponse states: self statesToRoot ]
+	self when: BrInteractionRequest reply: [ :aResponse | aResponse states: self statesMapping states ]
 ]
 
 { #category : #notifying }
 BrInteractiveModel >> notifyInteractionChanged [
-	| theStates |
-	
-	theStates := self statesMappingToRoot.
-	self dispatchEvent: (BrInteractionChanged new states: theStates values flattened asSet).
+	| theStatesMapping theStates |
+
+	theStatesMapping := self statesMapping.
+	theStates := theStatesMapping states.
+	self dispatchEvent: (BrInteractionChanged new states: theStates).
 
 	self widgetDo: [ :anElement | anElement childrenDo: [ :eachChild | self notifyStatesChanged: theStates toChildren: eachChild ] ]
 ]
 
 { #category : #notifying }
-BrInteractiveModel >> notifyStatesChanged: theStates toChildren: anElement [
-	| currentStates |
-
-	currentStates := theStates.
-
+BrInteractiveModel >> notifyStatesChanged: aSetOfStates toChildren: anElement [
 	"If an element has a state model of the same type we stop propagation of the notification,
 	because such widgets are no longer within my state context"
+
 	anElement viewModelDo: [ :aViewModel |
 		aViewModel
 			findActor: self class
-			ifFound: [ :anIteractiveModel | currentStates addAll: anIteractiveModel statesMapping ] ].
+			ifFound: [ :anIteractiveModel | ^ self ] ].
 
-	anElement dispatchEvent: (BrInteractionChanged new states: theStates values flattened asSet).
-	anElement childrenDo: [ :eachChild | self notifyStatesChanged: currentStates copy toChildren: eachChild ]
+	anElement dispatchEvent: (BrInteractionChanged new states: aSetOfStates).
+	anElement childrenDo: [ :eachChild | self notifyStatesChanged: aSetOfStates toChildren: eachChild ]
 ]
 
 { #category : #'api - states' }
@@ -86,36 +95,18 @@ BrInteractiveModel >> stateModels [
 
 { #category : #'private - states' }
 BrInteractiveModel >> statesMapping [
-	<return: #Dictionary key: #'BrStateModel class' value: #BrInteractionState>
+	<return: #BrInteractionStatesMapping>
 
-	^ (self stateModels collect: [ :aStateModel | aStateModel class -> (Array streamContents: [ :aStream | aStateModel streamStateOn: aStream ]) ]) asDictionary
+	^ self statesMappingIn: BrInteractionStatesMapping new
 ]
 
 { #category : #'private - states' }
-BrInteractiveModel >> statesMappingToRoot [
-	<return: #Dictionary key: #'BrStateModel class' value: #BrInteractionState>
-	| aParentChain theStates |
-	
-	self isAttachedToWidget
-		ifFalse: [ ^ self statesMapping ].
-	
-	aParentChain := BlParentChain new.
-	self widgetDo: [ :aWidget | aParentChain := BlParentChain of: aWidget ].
-	
-	theStates := Dictionary new.
-	
-	aParentChain do: [ :eachElement |
-		eachElement viewModelDo: [ :aViewModel | aViewModel findActor: self class ifFound: [ :eachInteractionModel |
-			theStates addAll: eachInteractionModel statesMapping ] ] ].
+BrInteractiveModel >> statesMappingIn: aStatesMapping [
+	<return: #BrInteractionStatesMapping>
 
-	^ theStates
-]
+	self stateModels do: [ :aStateModel | aStateModel streamStateIn: aStatesMapping ].
 
-{ #category : #'private - states' }
-BrInteractiveModel >> statesToRoot [
-	<return: #Set of: #BrInteractionState>
-	
-	^ self statesMappingToRoot values flattened asSet
+	^ aStatesMapping
 ]
 
 { #category : #'api - interactions' }

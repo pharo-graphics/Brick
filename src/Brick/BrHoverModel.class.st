@@ -82,7 +82,7 @@ BrHoverModel >> stateChangedEventClass [
 ]
 
 { #category : #streaming }
-BrHoverModel >> streamStateOn: aStream [
+BrHoverModel >> streamStateIn: aBrInteractionStatesMapping [
 	self isHovered
-		ifTrue: [ aStream nextPut: BrHoveredState new ]
+		ifTrue: [ aBrInteractionStatesMapping addState: BrHoveredState new model: self ]
 ]

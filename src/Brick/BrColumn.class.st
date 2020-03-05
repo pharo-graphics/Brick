@@ -24,13 +24,6 @@ Class {
 	#category : #'Brick-Column - Model'
 }
 
-{ #category : #accessing }
-BrColumn >> fixed: aNumber [
-	"Make column occupy a fixed space defined by aNumber"
-
-	width := BrColumnFixedWidth new width: aNumber
-]
-
 { #category : #initialization }
 BrColumn >> initialize [
 	super initialize.
@@ -82,9 +75,5 @@ BrColumn >> width [
 BrColumn >> width: aNumber [
 	"Make column occupy a fixed space defined by aNumber"
 
-	self
-		deprecated: 'Use #fixed: instead'
-		transformWith: '`@receiver width: `@arg' -> '`@receiver fixed: `@arg'.
-
-	self fixed: aNumber
+	width := BrColumnFixedWidth new width: aNumber
 ]

@@ -45,6 +45,19 @@ BrInteractiveLook >> initializeRequests [
 	self requestStates
 ]
 
+{ #category : #'api - hooks' }
+BrInteractiveLook >> onInstalledIn: anElement [
+	super onInstalledIn: anElement.
+
+	"anElement
+		viewModelDo: [ :aViewModel |
+			aViewModel
+				findActor: BrInteractiveModel
+				ifFound: [ :anActor |  ]
+				ifNone: [ self error: 'Interactive look requires an interactive model' ] ]
+		ifAbsent: [ self error: 'Interactive look requires an interactive model' ]"
+]
+
 { #category : #initialization }
 BrInteractiveLook >> requestStates [
 	self widgetDo: [ self statesChanged: (self request: BrInteractionRequest oneWay) ]

@@ -65,10 +65,12 @@ BrSelectModel >> stateChangedEventClass [
 ]
 
 { #category : #'state - streaming' }
-BrSelectModel >> streamStateOn: aStream [
-	aStream nextPut: (self isSelected
+BrSelectModel >> streamStateIn: aBrInteractionStatesMapping [	
+	aBrInteractionStatesMapping
+		addState: (self isSelected
 		ifTrue: [ BrSelectedState new ]
 		ifFalse: [ BrSelectedState new not ])
+		model: self
 ]
 
 { #category : #'api - selection' }

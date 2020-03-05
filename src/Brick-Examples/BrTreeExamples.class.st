@@ -46,15 +46,13 @@ BrTreeExamples >> rawTree [
 	^ treeElement
 ]
 
-{ #category : #'as yet unclassified' }
+{ #category : #accessing }
 BrTreeExamples >> widgetColumnedTree [
 	<gtExample>
-	|  aRope aTree |
-	
+	| aRope aTree |
 	aRope := BlConcatenationRopeExamples new attributes_small_2_to_3.
-
 	aTree := BrColumnedTree new.
-	aTree items: { aRope } children: [ :eachRope | eachRope children ].
+	aTree items: {aRope} children: [ :eachRope | eachRope children ].
 	aTree column
 		title: 'Text';
 		width: 150;
@@ -62,8 +60,8 @@ BrTreeExamples >> widgetColumnedTree [
 	aTree column
 		title: 'Length';
 		weight: 2;
-		stencil: [ :aTreeNode | BrColumnCellLabelStencil new text: aTreeNode value size asString ].
-
+		stencil:
+				[ :aTreeNode | BrColumnCellLabelStencil new text: aTreeNode value size asString ].
 	^ aTree
 ]
 

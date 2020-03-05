@@ -81,6 +81,8 @@ BrSizeModel >> stateChangedEventClass [
 ]
 
 { #category : #'state - streaming' }
-BrSizeModel >> streamStateOn: aStream [
-	aStream nextPut: (BrSizeState new dimension: self dimension)
+BrSizeModel >> streamStateIn: aBrInteractionStatesMapping [
+	aBrInteractionStatesMapping
+		addState: (BrSizeState new dimension: self dimension)
+		model: self
 ]

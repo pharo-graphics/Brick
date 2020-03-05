@@ -18,6 +18,6 @@ BrStateModel >> stateChangedEventClass [
 ]
 
 { #category : #'state - streaming' }
-BrStateModel >> streamStateOn: aStream [
+BrStateModel >> streamStateIn: aBrInteractionStatesMapping [
 	self subclassResponsibility
 ]

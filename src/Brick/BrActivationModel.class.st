@@ -97,10 +97,12 @@ BrActivationModel >> stateChangedEventClass [
 ]
 
 { #category : #streaming }
-BrActivationModel >> streamStateOn: aStream [
-	self isEnabled
-		ifTrue: [ aStream nextPut: BrDisabledState new not ]
-		ifFalse: [ aStream nextPut: BrDisabledState new ]
+BrActivationModel >> streamStateIn: aBrInteractionStatesMapping [
+	aBrInteractionStatesMapping
+		addState: (self isEnabled
+			ifTrue: [ BrDisabledState new not ]
+			ifFalse: [ BrDisabledState new ])
+		model: self
 ]
 
 { #category : #'api - activation' }

@@ -82,7 +82,7 @@ BrPressModel >> stateChangedEventClass [
 ]
 
 { #category : #streaming }
-BrPressModel >> streamStateOn: aStream [
+BrPressModel >> streamStateIn: aBrInteractionStatesMapping [
 	self isPressed
-		ifTrue: [ aStream nextPut: BrPressedState new ]
+		ifTrue: [ aBrInteractionStatesMapping addState: BrPressedState new model: self ]
 ]

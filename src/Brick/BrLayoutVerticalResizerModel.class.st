@@ -18,6 +18,8 @@ BrLayoutVerticalResizerModel >> stateChangedEventClass [
 ]
 
 { #category : #'state - streaming' }
-BrLayoutVerticalResizerModel >> streamStateOn: aStream [
-	aStream nextPut: (BrLayoutVerticalResizerState resizer: self resizer)
+BrLayoutVerticalResizerModel >> streamStateIn: aBrInteractionStatesMapping [
+	aBrInteractionStatesMapping
+		addState: (BrLayoutVerticalResizerState resizer: self resizer)
+		model: self
 ]

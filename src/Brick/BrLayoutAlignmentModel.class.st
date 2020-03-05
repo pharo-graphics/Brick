@@ -135,8 +135,10 @@ BrLayoutAlignmentModel >> stateChangedEventClass [
 ]
 
 { #category : #'state - streaming' }
-BrLayoutAlignmentModel >> streamStateOn: aStream [
-	aStream nextPut: (BrLayoutAlignmentState alignment: self alignment)
+BrLayoutAlignmentModel >> streamStateIn: aBrInteractionStatesMapping [
+	aBrInteractionStatesMapping
+		addState: (BrLayoutAlignmentState alignment: self alignment)
+		model: self
 ]
 
 { #category : #accessing }

@@ -20,7 +20,7 @@ BrColumnExamples >> setFixed [
 	| aColumn |
 	
 	aColumn := self default.
-	aColumn fixed: 300.
+	aColumn width: 300.
 	
 	self
 		assert: aColumn width
