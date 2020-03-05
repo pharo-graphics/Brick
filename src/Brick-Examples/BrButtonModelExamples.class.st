@@ -3,7 +3,7 @@
 
 ${class:BrButtonModel}$ is one of the most essential parts of the brick. It allows users to create clickable widgets and attach a custom action that will be executed on ${class:BlClickEvent}$.
 
-By default ${class:BrButtonModel}$ has and empty action that does nothing:
+By default ${class:BrButtonModel}$ has an empty action that does nothing:
 ${example:BrButtonModelExamples>>#default|expanded=true|noCode|previewShow=#gtActionFor:|previewHeight=100}$
 
 Every button model creates a corresponding event handler that responds to ${class:BlClickEvent}$:
@@ -57,7 +57,7 @@ BrButtonModelExamples >> default [
 	
 	aButtonModel := BrButtonModel new.
 
-	self doesEventTarget: aButtonModel hasEventHandlerOn: BlClickEvent.
+	self assertEventTarget: aButtonModel hasEventHandlerOn: BlClickEvent.
 	self assert: aButtonModel isAttachedToWidget not.
 	self assert: aButtonModel widgetModels isEmpty.
 
@@ -67,9 +67,20 @@ BrButtonModelExamples >> default [
 { #category : #'examples - with element' }
 BrButtonModelExamples >> elementWithButtonModel [
 	<gtExample>
+	| anElement aButtonModel |
 
-	^ BlElement new
-		viewModel: self buttonModelWithAction;
+	aButtonModel := self buttonModelWithAction.
+	
+	anElement := BlElement new
 		size: 60@30;
-		background: Color veryLightGray
+		background: Color veryLightGray.
+		
+	self assertEventTarget: anElement hasNoEventHandlerOn: BlClickEvent.
+	
+	anElement viewModel: aButtonModel.
+	
+	self assertEventTarget: aButtonModel hasNoEventHandlerOn: BlClickEvent.
+	self assertEventTarget: anElement hasEventHandlerOn: BlClickEvent.
+	
+	^ anElement
 ]
