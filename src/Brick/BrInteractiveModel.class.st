@@ -84,7 +84,8 @@ BrInteractiveModel >> notifyStatesChanged: aSetOfStates toChildren: anElement [
 			findActor: self class
 			ifFound: [ :anIteractiveModel | ^ self ] ].
 
-	anElement dispatchEvent: (BrInteractionChanged new states: aSetOfStates).
+	"no need to dispatch an event if there is no look"
+	anElement lookDo: [ :aLook | anElement dispatchEvent: (BrInteractionChanged new states: aSetOfStates) ].
 	anElement childrenDo: [ :eachChild | self notifyStatesChanged: aSetOfStates toChildren: eachChild ]
 ]
 
