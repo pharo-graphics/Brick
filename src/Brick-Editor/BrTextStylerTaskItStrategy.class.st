@@ -41,7 +41,7 @@ BrTextStylerTaskItStrategy >> postponeStylingOf: aBlText afterDo: aBlock [
 	command := BlTaskAtPostponedTerminableTask new
 		command: (self newStylingCommandFor: aBlText afterDo: aBlock);
 		pool: BlTktWorkerProvider highUICPUBoundPool;
-		scheduledTime: BlTime real now + 300 milliSeconds.
+		scheduledTime: BlTime real now.
 	BlTaskAtQueue default schedule: command
 ]
 
