@@ -163,7 +163,6 @@ BrLook >> onUninstalledIn: anElement [
 
 	changes downOn: self.
 	widget := nil.
-	ContextStackSignal emit.
 	
 	self initializeListeners
 ]
