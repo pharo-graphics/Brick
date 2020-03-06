@@ -34,6 +34,14 @@ BrFocusModel >> initialize [
 	focused := false
 ]
 
+{ #category : #initialization }
+BrFocusModel >> initializeListeners [
+	super initializeListeners.
+	
+	self when: BlFocusInEvent do: [ :anEvent | self focusInEvent: anEvent ].
+	self when: BlFocusOutEvent do: [ :anEvent | self focusOutEvent: anEvent ]
+]
+
 { #category : #'api - testing' }
 BrFocusModel >> isFocused [
 	<return: #Boolean>
