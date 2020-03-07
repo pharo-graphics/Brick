@@ -227,7 +227,7 @@ BrGlamorousColors class >> errorBackgroundColor: aColor [
 	ErrorBackgroundColor := aColor
 ]
 
-{ #category : #'button - border' }
+{ #category : #'status - border' }
 BrGlamorousColors class >> errorBorderColor [
 	^ ErrorBorderColor
 ]
@@ -240,6 +240,11 @@ BrGlamorousColors class >> failureBackgroundColor [
 { #category : #'status - background' }
 BrGlamorousColors class >> failureBackgroundColor: aColor [
 	FailureBackgroundColor := aColor
+]
+
+{ #category : #'status - border' }
+BrGlamorousColors class >> failureBorderColor [
+	^ FailureBorderColor
 ]
 
 { #category : #accessing }
@@ -390,7 +395,7 @@ BrGlamorousColors class >> successBackgroundColor: aColor [
 	SuccessBackgroundColor := aColor
 ]
 
-{ #category : #'button - border' }
+{ #category : #'status - border' }
 BrGlamorousColors class >> successBorderColor [
 	^ SuccessBorderColor
 ]
