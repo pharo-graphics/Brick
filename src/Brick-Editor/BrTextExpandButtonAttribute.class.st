@@ -24,7 +24,7 @@ BrTextExpandButtonAttribute >> affect: aTBrTextEditorTextualPiece in: anEditorEl
 		collapsed: [ :e | e geometry: self collapsedGeometry ]).
 	
 	^ BrToggle new
-		look: BrGlamorousButtonRectangularLook new + 
+		look: BrGlamorousButtonLayoutLook new + 
 			BrGlamorousButtonIconLook new + 
 			BrGlamorousWithLabelTooltipLook new + (BrInteractiveCommonLook new
 				default: [ anIcon background: (BrGlamorousColors defaultButtonBorderColor) ];

@@ -10,17 +10,12 @@ Class {
 { #category : #initialization }
 BrGlamorousButtonRectangularLook >> initialize [
 	super initialize.
-	self addChangeProperty: #(widget height) with: 24.
-	self
-		addChangeProperty: #(widget padding)
-		with: (BlInsets left: 10 right: 10).
 
 	self
 		addChangeProperty: #(widgetContent geometry)
 		with: (BlRectangle cornerRadius: 4).
-
-	self add: BrLayoutResizerLook inherit.
-	self add: BrLayoutAlignmentLook forHorizontalLinearLayout.
+		
+	self add: BrGlamorousButtonLayoutLook new.
 	
 	self add: (BrInteractiveSizeLook new
 		default: [ :aWidget | 
