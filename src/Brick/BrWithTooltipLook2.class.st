@@ -241,14 +241,14 @@ BrWithTooltipLook2 >> initialize [
 			self canHide
 				ifTrue: [ self hide ] ].
 	overEventHandler := BlEventHandler
-		on: BlMouseOverEvent
+		on: BlMouseEnterEvent
 		do: [ :e | 
 			self willHideLater
 				ifTrue: [ self cancelHideLater ].
 			self canShow
 				ifTrue: [ self showLater ] ].
 	outEventHandler := BlEventHandler
-		on: BlMouseOutEvent
+		on: BlMouseLeaveEvent
 		do: [ :e | 
 			self willShowLater
 				ifTrue: [ self cancelShowLater ].
@@ -294,8 +294,8 @@ BrWithTooltipLook2 >> show [
 	self willHideLater
 		ifTrue: [ self cancelHideLater ].
 	innerContainer
-		addEventFilterOn: BlMouseOverEvent do: [ :e | self cancelHideLater ];
-		addEventFilterOn: BlMouseOutEvent do: [ :e | self hideLater ]
+		addEventFilterOn: BlMouseEnterEvent do: [ :e | self cancelHideLater ];
+		addEventFilterOn: BlMouseLeaveEvent do: [ :e | self hideLater ]
 ]
 
 { #category : #accessing }

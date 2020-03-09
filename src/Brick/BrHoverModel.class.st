@@ -45,8 +45,8 @@ BrHoverModel >> initializeListeners [
 	self when: BrHoveredRequest reply: [ :aResponse | aResponse hovered: self isHovered ].
 	self when: BlDragEnterEvent do: [ :anEvent | self dragEnterEvent: anEvent ].
 	self when: BlDragLeaveEvent do: [ :anEvent | self dragLeaveEvent: anEvent ].
-	self when: BlMouseOutEvent do: [ :anEvent | self mouseOutEvent: anEvent ].
-	self when: BlMouseOverEvent do: [ :anEvent | self mouseOverEvent: anEvent ]
+	self when: BlMouseEnterEvent do: [ :anEvent | self mouseEnterEvent: anEvent ].
+	self when: BlMouseLeaveEvent do: [ :anEvent | self mouseLeaveEvent: anEvent ]
 ]
 
 { #category : #testing }
@@ -55,17 +55,13 @@ BrHoverModel >> isHovered [
 ]
 
 { #category : #'mouse handlers' }
-BrHoverModel >> mouseOutEvent: anEvent [
-	anEvent consumed: true.
-	
-	self hovered: false
+BrHoverModel >> mouseEnterEvent: anEvent [
+	self hovered: true
 ]
 
 { #category : #'mouse handlers' }
-BrHoverModel >> mouseOverEvent: anEvent [
-	anEvent consumed: true.
-	
-	self hovered: true
+BrHoverModel >> mouseLeaveEvent: anEvent [
+	self hovered: false
 ]
 
 { #category : #printing }
