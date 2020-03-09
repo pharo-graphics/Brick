@@ -19,6 +19,8 @@ Class {
 		'EditorBorderColor',
 		'ErrorBackgroundColor',
 		'ErrorBorderColor',
+		'FailureBackgroundColor',
+		'FailureBorderColor',
 		'FocusedEditorBorderColor',
 		'HeaderBackgroundColor',
 		'HeaderTextColor',
@@ -215,19 +217,34 @@ BrGlamorousColors class >> editorBorderColor: anObject [
 	EditorBorderColor := anObject
 ]
 
-{ #category : #'button - background' }
+{ #category : #'status - background' }
 BrGlamorousColors class >> errorBackgroundColor [
 	^ ErrorBackgroundColor
 ]
 
-{ #category : #'button - background' }
+{ #category : #'status - background' }
 BrGlamorousColors class >> errorBackgroundColor: aColor [
 	ErrorBackgroundColor := aColor
 ]
 
-{ #category : #'button - border' }
+{ #category : #'status - border' }
 BrGlamorousColors class >> errorBorderColor [
 	^ ErrorBorderColor
+]
+
+{ #category : #'status - background' }
+BrGlamorousColors class >> failureBackgroundColor [
+	^ FailureBackgroundColor
+]
+
+{ #category : #'status - background' }
+BrGlamorousColors class >> failureBackgroundColor: aColor [
+	FailureBackgroundColor := aColor
+]
+
+{ #category : #'status - border' }
+BrGlamorousColors class >> failureBorderColor [
+	^ FailureBorderColor
 ]
 
 { #category : #accessing }
@@ -272,14 +289,20 @@ BrGlamorousColors class >> initialize [
 	HoveredButtonBorderColor := PrimaryBorderColor.
 	PressedButtonBorderColor := ActiveColor.
 	DisabledButtonBorderColor := LightBorderColor.
+
+	"status - border"
 	SuccessBorderColor := Color fromHexString: #'389e0d' "green-7".
 	ErrorBorderColor := Color fromHexString: #'cf1322' "red-7".
+	FailureBorderColor := Color fromHexString: #'d48806' "gold-7".
 	
 	"buttons - background"
 	ButtonBackgroundColor := Color white.
 	DisabledButtonBackgroundColor := Color fromHexString: #f5f5f5 "grey-3".
-	ErrorBackgroundColor := Color fromHexString: #ffa39e "red-3".
-	SuccessBackgroundColor := Color fromHexString: #b7eb8f "green-3".
+	
+	"status - background"
+	ErrorBackgroundColor := Color fromHexString: #ff7875 "red-4".
+	SuccessBackgroundColor := Color fromHexString: #'95de64' "green-4".
+	FailureBackgroundColor := Color fromHexString: #ffd666 "gold-4".
 
 	"buttons - text"
 	ButtonTextColor := Color black alpha: 0.65.
@@ -362,17 +385,17 @@ BrGlamorousColors class >> secondaryHeaderBackgroundColor [
 	^ SecondaryHeaderBackgroundColor
 ]
 
-{ #category : #'button - background' }
+{ #category : #'status - background' }
 BrGlamorousColors class >> successBackgroundColor [
 	^ SuccessBackgroundColor
 ]
 
-{ #category : #'button - background' }
+{ #category : #'status - background' }
 BrGlamorousColors class >> successBackgroundColor: aColor [
 	SuccessBackgroundColor := aColor
 ]
 
-{ #category : #'button - border' }
+{ #category : #'status - border' }
 BrGlamorousColors class >> successBorderColor [
 	^ SuccessBorderColor
 ]
