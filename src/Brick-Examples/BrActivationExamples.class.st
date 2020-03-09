@@ -55,28 +55,6 @@ BrActivationExamples >> childWithActivationLook [
 					border: (BlBorder builder dashed paint: (Color gray alpha: 0.5); width: 1; build) ] ])
 ]
 
-{ #category : #'examples - propagation' }
-BrActivationExamples >> disabledActivationPropagation [
-	<gtExample>
-	| parent child aResponse |
-
-	parent := self elementsForActivationPropagation.
-	parent viewModel: self buttonModelWithDisabledActivation.
-	parent when: BlClickEvent do: [ :anEvent | anEvent currentTarget viewModel widgetModels first stateModels first toggle ].
-
-	child := parent children first.
-
-	aResponse := child look request: BrActivationRequest oneWay.
-	self assert: aResponse enabled not.
-	self assert: aResponse isActivated not.
-	
-	aResponse := parent look request: BrActivationRequest oneWay.
-	self assert: aResponse enabled not.
-	self assert: aResponse isActivated not.
-
-	^ parent
-]
-
 { #category : #'examples - enable / disable' }
 BrActivationExamples >> disabledModel [
 	<gtExample>
@@ -115,28 +93,6 @@ BrActivationExamples >> elementsForActivationPropagation [
 	parent addChild: child.
 
 	"by default widgets are activated, even if the model is absent"
-	aResponse := child look request: BrActivationRequest oneWay.
-	self assert: aResponse enabled.
-	self assert: aResponse isActivated.
-	
-	aResponse := parent look request: BrActivationRequest oneWay.
-	self assert: aResponse enabled.
-	self assert: aResponse isActivated.
-
-	^ parent
-]
-
-{ #category : #'examples - propagation' }
-BrActivationExamples >> enabledActivationPropagation [
-	<gtExample>
-	| parent child aResponse |
-
-	parent := self elementsForActivationPropagation.
-	parent viewModel: self buttonModelWithEnabledActivation.
-	parent when: BlClickEvent do: [ :anEvent | anEvent currentTarget viewModel widgetModels first stateModels first toggle ].
-
-	child := parent children first.
-
 	aResponse := child look request: BrActivationRequest oneWay.
 	self assert: aResponse enabled.
 	self assert: aResponse isActivated.
