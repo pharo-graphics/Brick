@@ -8,7 +8,11 @@ Class {
 BrFlowList >> initialize [
 	super initialize.
 
-	self look: BrFlowListLook new + BrLayoutLook frame matchParent
+	self look: BrFlowListLook new.
+	self layout: BlFrameLayout new.
+	self constraintsDo: [ :c |
+		c horizontal matchParent.
+		c vertical matchParent ].
 ]
 
 { #category : #accessing }

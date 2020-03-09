@@ -148,7 +148,11 @@ BrToggleExamples >> predefinedToggle [
 	| aToggle |
 
 	aToggle := BrToggle new.
-	aToggle look: BrIconLook + BrTextLabelLook + BrLayoutLook linearHorizontal fitContent + BrToggleLook.
+	aToggle look: BrIconLook + BrTextLabelLook + BrToggleLook.
+	aToggle layout: BlLinearLayout horizontal.
+	aToggle constraintsDo: [ :c |
+		c horizontal fitContent.
+		c vertical fitContent ].
 
 	self assert: aToggle isActivated not.
 

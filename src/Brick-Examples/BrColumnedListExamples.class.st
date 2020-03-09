@@ -59,7 +59,11 @@ BrColumnedListExamples >> addColorValueColumn [
 				padding: (BlInsets all: 6);
 				margin: (BlInsets top: 3 left: 0 bottom: 3 right: 0);
 				background: (Color fromHexString: aHexString);
-				look: (BrTextLabelLook new text: '#',aHexString; thin; foreground: ((Color fromHexString: aHexString) contrastingBlackAndWhiteColor)) + (BrLayoutLook frame hMatchParent; vFitContent) + (BrLayoutLook of: #label) alignCenter ].
+				layout: BlLinearLayout horizontal alignCenter;
+				constraintsDo: [ :c |
+					c horizontal matchParent.
+					c vertical fitContent ];
+				look: (BrTextLabelLook new text: '#',aHexString; thin; foreground: ((Color fromHexString: aHexString) contrastingBlackAndWhiteColor))  ].
 		
 	self assert: aColumnModel columns size equals: 3.
 	self assert: aColumnModel columns third title equals: 'Hex'.

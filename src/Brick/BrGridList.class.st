@@ -8,7 +8,11 @@ Class {
 BrGridList >> initialize [
 	super initialize.
 
-	self look: BrGridListLook new + BrLayoutLook frame matchParent
+	self look: BrGridListLook new.
+	self layout: BlFrameLayout new.
+	self constraintsDo: [ :c |
+		c horizontal matchParent.
+		c vertical matchParent ].
 ]
 
 { #category : #accessing }

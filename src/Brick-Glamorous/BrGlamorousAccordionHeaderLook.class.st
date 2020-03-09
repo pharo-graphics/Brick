@@ -10,9 +10,18 @@ Class {
 { #category : #initialization }
 BrGlamorousAccordionHeaderLook >> initialize [
 	super initialize.
+	
+	self
+		addChangeProperty: #(widget layout)
+			with: [ BlLinearLayout horizontal ];
+		addChangeProperty: #(widget constraints vertical resizer)
+			with: [ BlLayoutResizer fitContent ];
+		addChangeProperty: #(widget constraints horizontal resizer)
+			with: [ BlLayoutResizer matchParent ].
+	
 	self
 		addAll:
-			{BrLayoutLook linearHorizontal vFitContent hMatchParent.
+			{
 			(labelLook := BrGlamorousTextLabelLook new).
 			(BrInteractiveLook new
 				style: [ :aStyler | 

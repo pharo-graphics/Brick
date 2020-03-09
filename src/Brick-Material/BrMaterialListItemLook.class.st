@@ -2,10 +2,9 @@ Class {
 	#name : #BrMaterialListItemLook,
 	#superclass : #BrLook,
 	#instVars : [
-		'padding',
-		'layoutLook'
+		'padding'
 	],
-	#category : 'Brick-Material-List'
+	#category : #'Brick-Material-List'
 }
 
 { #category : #'api - configuration' }
@@ -56,16 +55,21 @@ BrMaterialListItemLook >> compactPadding [
 
 { #category : #accessing }
 BrMaterialListItemLook >> height: aNumber [
-	layoutLook height: aNumber
+	
 ]
 
 { #category : #initialization }
 BrMaterialListItemLook >> initialize [
 	super initialize.
+	
 	self
-		addAll:
-			{(layoutLook := BrLayoutLook linearHorizontal hMatchParent
-				layoutDo: [ :aLayout | aLayout alignCenterLeft ])}.
+		addChangeProperty: #(widget layout)
+			with: [ BlLinearLayout horizontal alignCenterLeft ];
+		addChangeProperty: #(widget constraints vertical resizer)
+			with: [ BlLayoutResizer fitContent ];
+		addChangeProperty: #(widget constraints horizontal resizer)
+			with: [ BlLayoutResizer matchParent ].
+	
 	self beCompact.
 	self addChangeProperty: #(widget padding) with: [ self padding ].
 	self addChangeProperty: #(widget background) with: [ Color white ]

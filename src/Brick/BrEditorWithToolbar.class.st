@@ -21,7 +21,7 @@ BrEditorWithToolbar >> initialize [
 	super initialize.
 	
 	toolbar := BrToolbar new.
-	toolbar look: BrGlamorousToolbarLook horizontal.
+	toolbar look: BrGlamorousToolbarLook new.
 	editor := BrEditor new.
 	editor text: ((String loremIpsum: 100) shuffled trimBoth, String crlf, (String loremIpsum: 250) shuffled trimBoth) asRopedText.
 	editor look: BrEditorLook + BrGlamorousTextAreaSpacingLook.
