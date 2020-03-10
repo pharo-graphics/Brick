@@ -14,7 +14,8 @@ Class {
 		'width',
 		'height',
 		'pushedQueue',
-		'origin'
+		'origin',
+		'baseline'
 	],
 	#category : #'Brick-Editor-Layout'
 }
@@ -38,6 +39,11 @@ BrEditorTextFlowLine >> add: anElement [
 	^ anElement constraints textFlow shouldBreakLineAfter
 		ifTrue: [ currentLine nextLine ]
 		ifFalse: [ currentLine ]
+]
+
+{ #category : #accessing }
+BrEditorTextFlowLine >> baseline [
+	^ baseline
 ]
 
 { #category : #accessing }
@@ -133,6 +139,7 @@ BrEditorTextFlowLine >> initialize [
 	width := 0.
 	height := 0.
 	origin := 0@0.
+	baseline := 0.
 	availableWidth := maxWidth.
 	elements := OrderedCollection new.
 	pushedQueue := LinkedList new
@@ -195,7 +202,9 @@ BrEditorTextFlowLine >> push: anElement [
 
 	width := width + (anElement measuredWidth + anElement margin width).
 	height := height max: (anElement measuredHeight + anElement margin height).
-	availableWidth := maxWidth - width
+	availableWidth := maxWidth - width.
+	
+	baseline := baseline max: anElement baselineOffset
 ]
 
 { #category : #accessing }

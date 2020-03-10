@@ -17,12 +17,12 @@ BrTextExpandButtonAttribute >> affect: aTBrTextEditorTextualPiece in: anEditorEl
 	| anIcon |
 
 	anIcon := BlElement new.
-	anIcon size: 8 @ 11.
+	anIcon size: 8 @ 8.
 	anIcon viewModel: (BrInteractiveModel withAll: { BrExpandableModel new }).
 	anIcon look: (BrInteractiveCommonLook new
 		expanded: [ :e | e geometry: self expandedGeometry ];
 		collapsed: [ :e | e geometry: self collapsedGeometry ]).
-	
+
 	^ BrToggle new
 		look: BrGlamorousButtonLayoutLook new + 
 			BrGlamorousButtonIconLook new + 
@@ -30,9 +30,9 @@ BrTextExpandButtonAttribute >> affect: aTBrTextEditorTextualPiece in: anEditorEl
 				default: [ anIcon background: (BrGlamorousColors defaultButtonBorderColor) ];
 				hovered: [ anIcon background: (BrGlamorousColors hoveredButtonBorderColor) ]);
 		icon: anIcon;
-		beTiny;
-		vMatchParent;
-		hFitContent;
+		fitContent;
+		padding: (BlInsets all: 2);
+		margin: (BlInsets top: 2);
 		mouseCursor: BlCursor default;
 		label: 'Expand';
 		when: BrToggleActivatedEvent do: [ :anEvent |
@@ -61,9 +61,9 @@ BrTextExpandButtonAttribute >> attributesCreatingBlock: aBlock [
 BrTextExpandButtonAttribute >> collapsedGeometry [
 	^ BlPolygon
 		vertices: {
-			(0 @ 3).
-			(8 @ 7).
-			(0 @ 11)
+			(0 @ 0).
+			(8 @ 4).
+			(0 @ 8)
 		}
 ]
 
@@ -89,9 +89,9 @@ BrTextExpandButtonAttribute >> createdAttributes: aCollection [
 BrTextExpandButtonAttribute >> expandedGeometry [
 	^ BlPolygon
 		vertices: {
-			(0 @ 4).
-			(8 @ 4).
-			(4 @ 12)
+			(0 @ 0).
+			(8 @ 0).
+			(4 @ 8)
 		}
 ]
 
@@ -102,15 +102,14 @@ BrTextExpandButtonAttribute >> handleEventAffect: aTBrTextEditorTextualPiece in:
 	aBrText := aTBrTextEditorTextualPiece text.
 
 	isExpanded
-		ifTrue: [ aBrText clearAttributes: [ :aTextAttribute | 
-				self createdAttributes includes: aTextAttribute ] ]
+		ifTrue: [ aBrText clearAttributes: [ :aTextAttribute | self createdAttributes includes: aTextAttribute ] ]
 		ifFalse: [ self createAttributesAffect: aBrText in: aTextEditor ].
 	self isExpanded: isExpanded not.
 
 	aTextEditor updater
 		from: aTBrTextEditorTextualPiece textStart
 		to: aTBrTextEditorTextualPiece textEnd;
-		update.
+		update
 ]
 
 { #category : #initialization }
