@@ -29,6 +29,7 @@ Class {
 		'LightBorderColor',
 		'LinkColor',
 		'LinkWithErrorColor',
+		'NeutralBackgroundColor',
 		'PressedButtonBorderColor',
 		'PressedButtonTextColor',
 		'PrimaryBorderColor',
@@ -303,6 +304,7 @@ BrGlamorousColors class >> initialize [
 	ErrorBackgroundColor := Color fromHexString: #ff7875 "red-4".
 	SuccessBackgroundColor := Color fromHexString: #'95de64' "green-4".
 	FailureBackgroundColor := Color fromHexString: #ffd666 "gold-4".
+	NeutralBackgroundColor := Color fromHexString: #'f0f0f0' "gray-4".
 
 	"buttons - text"
 	ButtonTextColor := Color black alpha: 0.65.
@@ -311,8 +313,8 @@ BrGlamorousColors class >> initialize [
 	DisabledButtonTextColor := Color black alpha: 0.25.
 
 	"header - background"
-	HeaderBackgroundColor := Color fromHexString: #'d9d9d9'. "grey-4"
-	SecondaryHeaderBackgroundColor := Color fromHexString: #'e8e8e8'. "grey-5"
+	HeaderBackgroundColor := Color fromHexString: #'d9d9d9'. "grey-5"
+	SecondaryHeaderBackgroundColor := Color fromHexString: #'e8e8e8'. "grey-6"
 
 	"header - text"
 	HeaderTextColor := Color black alpha: 0.85.
@@ -348,6 +350,11 @@ BrGlamorousColors class >> linkColor [
 { #category : #links }
 BrGlamorousColors class >> linkWithErrorColor [
 	^ LinkWithErrorColor
+]
+
+{ #category : #'status - background' }
+BrGlamorousColors class >> neutralBackgroundColor [
+	^ NeutralBackgroundColor
 ]
 
 { #category : #'button - border' }
