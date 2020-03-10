@@ -42,7 +42,12 @@ BrTextEditorLineSegmentAdornmentPiece >> adornmentAttribute: aBrTextAdornmentAtt
 
 { #category : #'instance creation' }
 BrTextEditorLineSegmentAdornmentPiece >> createElement: anEditorElement [
-	^ self adornmentAttribute affect: self in: anEditorElement
+	| theAdornmentElements |
+
+	theAdornmentElements := (self adornmentAttribute affect: self in: anEditorElement) asCollection.
+	theAdornmentElements do: [ :eachElement |
+		eachElement mouseCursor ifNil: [ eachElement mouseCursor: BlCursor default ] ].
+	^ theAdornmentElements
 ]
 
 { #category : #comparing }
