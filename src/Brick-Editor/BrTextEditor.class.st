@@ -428,8 +428,9 @@ BrTextEditor >> initializeInteractions [
 				select.
 			self navigator
 				moveUp;
+				withoutResettingDesiredCoordinate;
 				apply ]).
-			
+
 	self interactions add: (BlShortcut new
 		combination: (BlKeyCombination builder shift arrowDown build);
 		action: [
@@ -439,6 +440,7 @@ BrTextEditor >> initializeInteractions [
 				select.
 			self navigator
 				moveDown;
+				withoutResettingDesiredCoordinate;
 				apply ]).
 
 	"left-arrow => move cursor left and deselect everything"
@@ -462,12 +464,22 @@ BrTextEditor >> initializeInteractions [
 	"up-arrow => move cursor up"
 	self interactions add: (BlShortcut new
 		combination: (BlKeyCombination builder arrowUp build);
-		action: [ self moveCursorUp ]).
+		action: [
+			self deselecter all deselect.
+			self navigator
+				moveUp;
+				withoutResettingDesiredCoordinate;
+				apply ]).
 
 	"down-arrow => move cursor down"
 	self interactions add: (BlShortcut new
 		combination: (BlKeyCombination builder arrowDown build);
-		action: [ self moveCursorDown ]). 
+		action: [ 
+			self deselecter all deselect.
+			self navigator
+				moveDown;
+				withoutResettingDesiredCoordinate;
+				apply ]). 
 
 	self interactions add: (BlShortcut new
 		combination: (BlKeyCombination builder primary arrowRight build);
@@ -500,7 +512,6 @@ BrTextEditor >> initializeMacInteractions [
 	self interactions add: (BlShortcut new
 		combination: (BlKeyCombination builder primary arrowRight build);
 		action: [ self moveCursorToLineEnd ])
-
 ]
 
 { #category : #initialization }
@@ -574,18 +585,6 @@ BrTextEditor >> itemTypeAt: aPosition [
 ]
 
 { #category : #'text - cursor' }
-BrTextEditor >> moveCursorDown [
-	"Moves cursor down by one line without any other side effects.
-	Note:
-		- I don't change current selection.
-		- I request segments update"
-
-	self navigator
-		moveDown;
-		apply
-]
-
-{ #category : #'text - cursor' }
 BrTextEditor >> moveCursorTo: aTextIndex [
 	"Moves cursor to a given position without any further action such as cancelling selection"
 	<event: #BrTextEditorCursorMovedEvent>
@@ -648,18 +647,6 @@ BrTextEditor >> moveCursorToStartPreviousWord [
 
 	newPosition := newPosition max: 0.
 	self moveCursorTo: newPosition
-]
-
-{ #category : #'text - cursor' }
-BrTextEditor >> moveCursorUp [
-	"Moves cursor up by one line without any other side effects.
-	Note:
-		- I don't change current selection.
-		- I request segments update"
-
-	self navigator
-		moveUp;
-		apply
 ]
 
 { #category : #'api - modification' }

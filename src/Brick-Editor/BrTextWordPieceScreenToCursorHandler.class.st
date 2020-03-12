@@ -44,7 +44,7 @@ BrTextWordPieceScreenToCursorHandler >> relativeScreenToCursor: aTransformation 
 
 	aDesiredBounds := anEvent editorElement localBoundsToMine: (BlBounds origin: aLocalositionOfThisCursor extent: 0@0) fromChild: aTextElement.
 	aScreenPositionOfThisCursor := aDesiredBounds center.
-
+	
 	aCursor hasDesiredCoordinate
 		ifTrue: [ aDesiredBounds translateX: (aCursor desiredCoordinate - aScreenPositionOfThisCursor x) Y: 0 ]
 		ifFalse: [ aCursor desiredCoordinate: aScreenPositionOfThisCursor x ].
@@ -55,11 +55,10 @@ BrTextWordPieceScreenToCursorHandler >> relativeScreenToCursor: aTransformation 
 
 	aFocusFinder := BlFocusFinder new.
 	(aFocusFinder
-		nextFocus: nil
-		within: anEvent editorElement
-		from: aDesiredBounds
-		along: aDirection)
-			ifNotNil: [ :aReceiverElement |
+		root: anEvent editorElement;
+		referenceArea: aDesiredBounds;
+		direction: aDirection)
+			nextFocusDo: [ :aReceiverElement |
 				(aReceiverElement isKindOf: aTextElement class)
 					ifTrue: [
 						| aCursorBoundsInEditor aCursorBoundsInTheOtherText aLocalTextPosition aGlobalTextPosition aDesiredCoordinate |

@@ -9,7 +9,7 @@ Class {
 
 { #category : #factory }
 BrLayoutResizerState class >> any [
-	^ self exact or: (self matchParent or: self fitContent)
+	^ self exact or: (self matchParent or: (self fitContent or: self fitContentLimited))
 ]
 
 { #category : #'instance creation' }
@@ -25,6 +25,11 @@ BrLayoutResizerState class >> exact: aNumber [
 { #category : #'instance creation' }
 BrLayoutResizerState class >> fitContent [
 	^ self resizer: BlLayoutResizer fitContent
+]
+
+{ #category : #'instance creation' }
+BrLayoutResizerState class >> fitContentLimited [
+	^ self resizer: BlLayoutResizer fitContentLimited
 ]
 
 { #category : #factory }

@@ -18,6 +18,11 @@ BrLayoutResizerWish class >> fitContent [
 ]
 
 { #category : #'instance creation' }
+BrLayoutResizerWish class >> fitContentLimited [
+	^ self resizer: BlLayoutResizer fitContentLimited
+]
+
+{ #category : #'instance creation' }
 BrLayoutResizerWish class >> matchParent [
 	^ self resizer: BlLayoutResizer matchParent
 ]

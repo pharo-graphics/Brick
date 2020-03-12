@@ -180,7 +180,7 @@ BrTextEditorLineSegmentHolder >> relativeScreenToCursor: aTransformation [
 	"trying to find a segment that actually contains a given position"
 
 	self piecesAndTheirElementsDo: [ :aPiece :aPieceElement |
-		(aTransformation cursor position between: aPiece textStart and: aPiece textEnd)
+		(aTransformation cursor insideSubText: aPiece of: segment)
 			ifTrue: [ ^ aPiece screenToCursor: aTransformation of: self infiniteElement in: aPieceElement ] ]
 ]
 

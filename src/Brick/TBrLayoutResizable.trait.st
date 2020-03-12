@@ -19,6 +19,12 @@ TBrLayoutResizable >> fitContent [
 ]
 
 { #category : #'api - style' }
+TBrLayoutResizable >> fitContentLimited [
+	self hFitContentLimited.
+	self vFitContentLimited
+]
+
+{ #category : #'api - style' }
 TBrLayoutResizable >> hExact: aNumber [
 	self dispatchEvent: (BrLayoutHorizontalResizerWish exact: aNumber)
 ]
@@ -26,6 +32,11 @@ TBrLayoutResizable >> hExact: aNumber [
 { #category : #'api - style' }
 TBrLayoutResizable >> hFitContent [
 	self dispatchEvent: (BrLayoutHorizontalResizerWish fitContent)
+]
+
+{ #category : #'api - style' }
+TBrLayoutResizable >> hFitContentLimited [
+	self dispatchEvent: (BrLayoutHorizontalResizerWish fitContentLimited)
 ]
 
 { #category : #'api - style' }
@@ -47,6 +58,11 @@ TBrLayoutResizable >> vExact: aNumber [
 { #category : #'api - style' }
 TBrLayoutResizable >> vFitContent [
 	self dispatchEvent: (BrLayoutVerticalResizerWish fitContent)
+]
+
+{ #category : #'api - style' }
+TBrLayoutResizable >> vFitContentLimited [
+	self dispatchEvent: (BrLayoutVerticalResizerWish fitContentLimited)
 ]
 
 { #category : #'api - style' }

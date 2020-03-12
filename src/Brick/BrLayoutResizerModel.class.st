@@ -18,6 +18,11 @@ BrLayoutResizerModel class >> fitContent [
 ]
 
 { #category : #'instance creation' }
+BrLayoutResizerModel class >> fitContentLimited [
+	^ self new fitContentLimited
+]
+
+{ #category : #'instance creation' }
 BrLayoutResizerModel class >> matchParent [
 	^ self new matchParent
 ]
@@ -30,6 +35,11 @@ BrLayoutResizerModel >> exact: aNumber [
 { #category : #'instance creation' }
 BrLayoutResizerModel >> fitContent [
 	self resizer: BlLayoutResizer fitContent
+]
+
+{ #category : #'instance creation' }
+BrLayoutResizerModel >> fitContentLimited [
+	self resizer: BlLayoutResizer fitContentLimited
 ]
 
 { #category : #initialization }
