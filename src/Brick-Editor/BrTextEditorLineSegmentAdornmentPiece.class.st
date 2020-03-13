@@ -46,7 +46,8 @@ BrTextEditorLineSegmentAdornmentPiece >> createElement: anEditorElement [
 
 	theAdornmentElements := (self adornmentAttribute affect: self in: anEditorElement) asCollection.
 	theAdornmentElements do: [ :eachElement |
-		eachElement mouseCursor ifNil: [ eachElement mouseCursor: BlCursor default ] ].
+		eachElement mouseCursor ifNil: [ eachElement mouseCursor: BlCursor default ].
+		eachElement focusability: BlFocusabilityNone new ].
 	^ theAdornmentElements
 ]
 
