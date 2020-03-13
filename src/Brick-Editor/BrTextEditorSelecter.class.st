@@ -176,8 +176,15 @@ BrTextEditorSelecter >> overwrite [
 ]
 
 { #category : #private }
-BrTextEditorSelecter >> privateDeselectExisting [
-	self editor deselecter all deselect
+BrTextEditorSelecter >> privateDeselectExisting: aSelection [
+	| aDeselecter |
+	
+	aSelection isEmpty
+		ifTrue: [ ^ self ].
+
+	aDeselecter := self editor deselecter.	
+	aSelection do: [ :eachMonotoneSelection | aDeselecter from: eachMonotoneSelection from to: eachMonotoneSelection to ].
+	aDeselecter deselect
 ]
 
 { #category : #private }
@@ -200,14 +207,25 @@ BrTextEditorSelecter >> privateSelect: aFromTextIndex to: aToTextIndex [
 
 { #category : #'api - processing' }
 BrTextEditorSelecter >> select [
+	| toBeSelected |
 
 	selection isEmpty
 		ifTrue: [ ^ self ].
 
 	shouldDeselectExisting
-		ifTrue: [ self privateDeselectExisting ].
+		ifTrue: [
+			| toBeDeselected |
+			
+			toBeDeselected := self selection copy.
+			selection do: [ :aMonotoneSelection | toBeDeselected deselect: aMonotoneSelection from to: aMonotoneSelection to ].			
+			self privateDeselectExisting: toBeDeselected ].
+	
+	toBeSelected := selection copy.
+	self selection do: [ :aMonotoneSelection | toBeSelected deselect: aMonotoneSelection from to: aMonotoneSelection to ].
 
-	selection do: [ :aMonotoneSelection | self privateSelect: aMonotoneSelection from to: aMonotoneSelection to ].
+	toBeSelected do: [ :aMonotoneSelection |
+		(aMonotoneSelection interval size > 1)
+			ifTrue: [ self privateSelect: aMonotoneSelection from to: aMonotoneSelection to ] ].
 
 	shouldUpdateCursor
 		ifTrue: [ self updateCursors ]
