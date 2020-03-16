@@ -4,7 +4,7 @@ Class {
 	#instVars : [
 		'splitter'
 	],
-	#category : 'Brick-Tabs - Look'
+	#category : #'Brick-Tabs - Look'
 }
 
 { #category : #initialization }
@@ -12,7 +12,7 @@ BrTabGroupSplitterLook >> initialize [
 	super initialize.
 
 	splitter := BlElement new labeled: 'Splitter'.
-	splitter background: Color veryVeryLightGray.
+	splitter background: BrGlamorousColors lightBorderColor.
 	splitter elevation: (BlRelativeElevation elevation: -1).
 	splitter constraintsDo: [ :c |
 		c horizontal matchParent.
