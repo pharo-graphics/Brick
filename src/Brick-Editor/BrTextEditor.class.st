@@ -698,6 +698,11 @@ BrTextEditor >> notifyInserted: aText at: aTextIndex [
 ]
 
 { #category : #'event firing' }
+BrTextEditor >> notifyModified: aText [
+	self dispatchEvent: (BrTextEditorModifiedEvent new text: aText)
+]
+
+{ #category : #'event firing' }
 BrTextEditor >> notifySelelectedFrom: aFromIndex to: aToIndex [
 	self dispatchEvent: (BrTextEditorSelectedEvent new fromIndex: aFromIndex; toIndex: aToIndex)
 ]
@@ -815,6 +820,8 @@ BrTextEditor >> onStringsInserted: aBlTextStringsInserted [
 			self
 				notifyInserted: aString asRopedText
 				at: anIndex ].
+			
+	self notifyModified: self text.
 
 	self styleText
 ]
@@ -850,6 +857,8 @@ BrTextEditor >> onTextsDeleted: aBlTextsDeleted [
 			self
 				notifyDeletedFrom: eachInterval first
 				to:  eachInterval last ].
+
+	self notifyModified: self text.
 
 	self styleText
 ]

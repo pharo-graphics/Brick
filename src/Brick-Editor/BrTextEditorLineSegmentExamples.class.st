@@ -2294,6 +2294,41 @@ BrTextEditorLineSegmentExamples >> pieces_Hello_World_WithReplacementAndAppendin
 ]
 
 { #category : #'examples - pieces' }
+BrTextEditorLineSegmentExamples >> pieces_Hello_World_WithReplacementOf [
+	<gtExample>
+	| aTextEditor aSegment thePieces |
+	
+	aTextEditor := self emptyEditor.
+	aTextEditor text: self text_HelloSpaceWorld_WithReplacementOfSpace.
+	
+	self assert: aTextEditor segmentCollector computedSegmentsCount equals: 1.
+	
+	aSegment := aTextEditor segmentCollector segments first.
+	self assert: aSegment index equals: 1.
+	self assert: aSegment text asString equals: 'Hello World'.
+	self assert: aSegment textStart equals: 0.
+	self assert: aSegment textEnd equals: 11.
+	
+	thePieces := aTextEditor segmentCollector segments first pieces.
+	self assert: thePieces size equals: 3.
+	
+	self assert: (thePieces first isKindOf: BrTextEditorLineSegmentTextPiece).
+	self assert: thePieces first textStart equals: 0.
+	self assert: thePieces first textEnd equals: 5.
+	
+	self assert: (thePieces second isKindOf: BrTextEditorLineSegmentAdornmentPiece).
+	self assert: thePieces second textStart equals: 5.
+	self assert: thePieces second textEnd equals: 6.
+	self assert: thePieces second adornmentAttribute shouldReplace.
+	
+	self assert: (thePieces third isKindOf: BrTextEditorLineSegmentTextPiece).
+	self assert: thePieces third textStart equals: 6.
+	self assert: thePieces third textEnd equals: 11.
+	
+	^ aTextEditor
+]
+
+{ #category : #'examples - pieces' }
 BrTextEditorLineSegmentExamples >> pieces_Hello_World_WithReplacementOfLineBreak [
 	<gtExample>
 	| aTextEditor thePieces |
@@ -2985,6 +3020,18 @@ BrTextEditorLineSegmentExamples >> text_HelloCrWorld_WithReplacementOfWorld [
 
 	aText := ('Hello', String cr, 'World') asRopedText fontSize: 20.
 	(aText from: 7 to: 11)
+		replacingAdornment: [ BlElement new size: 6@6; background: Color red ].
+		
+	^ aText
+]
+
+{ #category : #'instance creation - text' }
+BrTextEditorLineSegmentExamples >> text_HelloSpaceWorld_WithReplacementOfSpace [
+	<gtExample>
+	| aText |
+
+	aText := ('Hello World') asRopedText fontSize: 20.
+	(aText from: 6 to: 6)
 		replacingAdornment: [ BlElement new size: 6@6; background: Color red ].
 		
 	^ aText

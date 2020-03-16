@@ -209,3 +209,19 @@ BrTextEditorLineSegmentPiece >> updateText: aTextElement of: aLineSegment in: an
 		textStart: self textStart;
 		textEnd: self textEnd)
 ]
+
+{ #category : #'api - geometry' }
+BrTextEditorLineSegmentPiece >> wordPadding [
+	<return: #BlInsets>
+	| aWordPadding aHalfOfLineSpacing |
+	
+	aHalfOfLineSpacing := (self segment lineSpacing / 2.0) floor.
+
+	aWordPadding := BlInsets
+		top: self segment wordPadding top + aHalfOfLineSpacing
+		left: self segment wordPadding left
+		bottom: self segment wordPadding bottom + (self segment lineSpacing - aHalfOfLineSpacing)
+		right: self segment wordPadding right.
+		
+	^ aWordPadding
+]

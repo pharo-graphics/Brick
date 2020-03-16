@@ -106,9 +106,7 @@ BrTextElementWithCursors >> initialize [
 ]
 
 { #category : #layout }
-BrTextElementWithCursors >> measureCursors: anExtentMeasurementSpec [
-	| aMaxCursorExtent |
-	
+BrTextElementWithCursors >> measureCursors: anExtentMeasurementSpec [	
 	cursorElements do: [ :aCursorElement |
 		| aCursorPosition aTextPosition |
 		
@@ -116,11 +114,11 @@ BrTextElementWithCursors >> measureCursors: anExtentMeasurementSpec [
 		aCursorPosition := aCursorElement textPosition min: self text size max: 0.
 		aTextPosition := self screenPositionAt: aCursorPosition.
 		aTextPosition := (aTextPosition x - (aCursorElement measuredWidth // 2)) @ 0.
-		aCursorElement measuredBounds position: aTextPosition ].
-
-	aMaxCursorExtent := 0@0.
-	cursorElements do: [ :aCursorElement | aMaxCursorExtent := aMaxCursorExtent max: aCursorElement measuredExtent ].
-	self measuredExtent: (self measuredExtent max: aMaxCursorExtent)
+		aTextPosition := aTextPosition + self padding topLeft.
+		
+		aCursorElement measuredBounds
+			extent: aCursorElement measuredWidth @ ((self measuredHeight - self padding height) max: 0);
+			position: aTextPosition ]
 ]
 
 { #category : #initialization }
