@@ -55,3 +55,8 @@ BrTextEditorLineSegmentAdornmentPiece >> createElement: anEditorElement [
 BrTextEditorLineSegmentAdornmentPiece >> hash [
 	^ (self class hash bitXor: self text hash) bitXor: self adornmentAttribute hash
 ]
+
+{ #category : #'api - cursor' }
+BrTextEditorLineSegmentAdornmentPiece >> screenToCursor: aTransformation of: anEditorElement in: aPieceElement [
+	aTransformation transformed: self textEnd
+]
