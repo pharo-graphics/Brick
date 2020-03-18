@@ -69,11 +69,11 @@ BrEditorTextFlowLayout >> layout: anElement in: aRectangle [
 		aLine elements do: [ :aChildElement |
 			| aWidth aMarginedTop |
 			aLeft := aLeft + aChildElement margin left.
-			aMarginedTop := aTop + aChildElement margin top.
+			aMarginedTop := aTop .
 			
 			aChildElement supportsBaseline
 				ifTrue: [ aMarginedTop := aMarginedTop + (aLine baseline - aChildElement baselineOffset) ]
-				ifFalse: [ aMarginedTop := aMarginedTop + ((aLine baseline - aChildElement measuredHeight) max: 0) ].
+				ifFalse: [ aMarginedTop := aMarginedTop + aChildElement margin top + ((aLine baseline - aChildElement measuredHeight) max: 0) ].
 			
 			aWidth := aChildElement measuredWidth.
 			"we computed layout bounds for the element, let it apply it"

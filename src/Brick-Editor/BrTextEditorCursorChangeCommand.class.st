@@ -64,16 +64,16 @@ BrTextEditorCursorChangeCommand >> printOn: aStream [
 { #category : #executing }
 BrTextEditorCursorChangeCommand >> processAttributesOn: aTextEditor [
 	| hasCursor anEvent theEventHandlingAttributes |
-	
+
 	(self position >= aTextEditor text size)
 		ifTrue: [ ^ self ].
 
 	theEventHandlingAttributes := (aTextEditor text attributesAt: self position)
 		select: [ :eachAttribute | eachAttribute isEventHandler ].
-		
+
 	theEventHandlingAttributes
 		ifEmpty: [ ^ self ].
-	
+
 	hasCursor := aTextEditor cursor anySatisfy: [ :eachCursor | eachCursor position = self position ].
 	anEvent := hasCursor
 		ifTrue: [ BrTextEditorCursorAddedEvent cursor: self cursor ]

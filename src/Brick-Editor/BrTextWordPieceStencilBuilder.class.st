@@ -3,6 +3,7 @@ Class {
 	#superclass : #BrStencilBuilder,
 	#instVars : [
 		'wordPadding',
+		'wordMargin',
 		'measurer',
 		'segmentPiece'
 	],
@@ -73,14 +74,16 @@ BrTextWordPieceStencilBuilder >> acquire [
 BrTextWordPieceStencilBuilder >> buildDefault [
 	^ self acquire
 		segmentPiece: self segmentPiece;
-		padding: self wordPadding
+		padding: self wordPadding;
+		margin: self wordMargin
 ]
 
 { #category : #initialization }
 BrTextWordPieceStencilBuilder >> initialize [
 	super initialize.
 	
-	wordPadding := BlInsets top: 0 bottom: 0.
+	wordPadding := BlInsets empty.
+	wordMargin := BlInsets empty.
 	measurer := BlTextElementOffscreenCanvasMeasurer new
 ]
 
@@ -126,6 +129,18 @@ BrTextWordPieceStencilBuilder >> segmentPiece: aTBrTextEditorTextualPiece [
 { #category : #accessing }
 BrTextWordPieceStencilBuilder >> text: aText start: aTextStart end: aTextEnd [
 	self deprecated: 'Use segmentPiece: instead'.
+]
+
+{ #category : #accessing }
+BrTextWordPieceStencilBuilder >> wordMargin [
+	<return: #BlInsets>
+
+	^ wordMargin
+]
+
+{ #category : #accessing }
+BrTextWordPieceStencilBuilder >> wordMargin: aBlInsets [
+	wordMargin := aBlInsets
 ]
 
 { #category : #accessing }

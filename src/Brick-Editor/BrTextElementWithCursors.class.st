@@ -101,12 +101,15 @@ BrTextElementWithCursors >> hideCursors [
 BrTextElementWithCursors >> initialize [
 	super initialize.
 
+	"otherwise cursor elements may not be visible"	
+	self clipChildren: false.
+
 	cursorElements := OrderedCollection new.
 	cursorStencil := BrCursorStencil uniqueInstance
 ]
 
 { #category : #layout }
-BrTextElementWithCursors >> measureCursors: anExtentMeasurementSpec [	
+BrTextElementWithCursors >> measureCursors: anExtentMeasurementSpec [
 	cursorElements do: [ :aCursorElement |
 		| aCursorPosition aTextPosition |
 		

@@ -17,18 +17,10 @@ BrTextEditorLineSegmentTextPiece >> = anotherObject [
 { #category : #'instance creation' }
 BrTextEditorLineSegmentTextPiece >> createElement: anEditorElement [
 	<return: #BlElement>
-	| aWordPadding aHalfOfLineSpacing |
-	
-	aHalfOfLineSpacing := (self segment lineSpacing / 2.0) floor.
-
-	aWordPadding := BlInsets
-		top: self segment wordPadding top + aHalfOfLineSpacing
-		left: self segment wordPadding left
-		bottom: self segment wordPadding bottom + (self segment lineSpacing - aHalfOfLineSpacing)
-		right: self segment wordPadding right.
 
 	^ (anEditorElement editor segmentBuilder wordStencilBuilder
-		wordPadding: aWordPadding;
+		wordPadding: self wordPadding;
+		wordMargin: self wordMargin;
 		segmentPiece: self) asElement
 ]
 

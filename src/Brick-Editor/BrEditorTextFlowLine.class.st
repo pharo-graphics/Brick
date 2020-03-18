@@ -204,7 +204,7 @@ BrEditorTextFlowLine >> push: anElement [
 	height := height max: (anElement measuredHeight + anElement margin height).
 	availableWidth := maxWidth - width.
 	
-	baseline := baseline max: anElement baselineOffset
+	baseline := baseline max: (anElement baselineOffset + anElement margin top)
 ]
 
 { #category : #accessing }
