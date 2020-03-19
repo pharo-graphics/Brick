@@ -28,6 +28,14 @@ BrGlamorousEditorSpacingLook >> initialize [
 		with: [ BlBorder paint: EditorBorderColor width: 1 ]
 ]
 
+{ #category : #initialization }
+BrGlamorousEditorSpacingLook >> initializeListeners [
+	super initializeListeners.
+	
+	self when: BlBlurEvent do: [ :anEvent | self blurEvent: anEvent ].
+	self when: BlFocusEvent do: [ :anEvent | self focusEvent: anEvent ]
+]
+
 { #category : #'mouse handlers' }
 BrGlamorousEditorSpacingLook >> mouseEnterEvent: anEvent [
 	self widget mouseCursor: BlCursor overEditableText

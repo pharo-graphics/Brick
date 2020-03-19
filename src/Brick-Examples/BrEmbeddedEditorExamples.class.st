@@ -6,6 +6,37 @@ Class {
 	#category : #'Brick-Examples-Editor'
 }
 
+{ #category : #'instance creation' }
+BrEmbeddedEditorExamples >> editorFor: aText [
+	<return: #BrEditor>
+	| anEditor aRopedText |
+
+	aRopedText := aText asRopedText lineSpacing: self lineSpacing; paragraphMargin: self paragraphMargin; wordPadding: self wordPadding.
+
+	anEditor := BrEditor new.
+	anEditor look: BrEditorLook new.
+	anEditor padding: BlInsets empty.
+	anEditor fitContent.
+	anEditor text: aRopedText.
+	
+	BlDevCrossover on: anEditor.
+	
+	anEditor editor segmentBuilder
+		wordStencil: [ :aTBrTextEditorTextualPiece |
+			| aTextElement |
+			aTextElement := BrTextEditableWordPieceStencilBuilder new
+				segmentPiece: aTBrTextEditorTextualPiece;
+				asElement.
+			aTextElement measurer: self fixedMeasurer.
+			aTextElement measurer measurer textOffset: aTBrTextEditorTextualPiece textStart.
+			aTextElement ].
+	
+	anEditor requestFocus.
+	anEditor forceLayout.
+
+	^ anEditor
+]
+
 { #category : #'examples - embedded' }
 BrEmbeddedEditorExamples >> editorWithEmbeddedEditor [
 	<gtExample>
@@ -62,7 +93,7 @@ BrEmbeddedEditorExamples >> makeFixedMeasurement: aSegmentBuilder [
 	aSegmentBuilder
 		wordStencil: [ :aTBrTextEditorTextualPiece |
 			| aTextElement |
-			aTextElement := BrTextWordPieceStencilBuilder new
+			aTextElement := BrTextEditableWordPieceStencilBuilder new
 				segmentPiece: aTBrTextEditorTextualPiece;
 				asElement.
 			aTextElement measurer: self fixedMeasurer.

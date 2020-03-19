@@ -43,6 +43,16 @@ BrTextEditorLineSegmentBuilder >> addedAttribute: anAttribute from: aFromIndex t
 		update
 ]
 
+{ #category : #'api - accessing' }
+BrTextEditorLineSegmentBuilder >> beEditable [
+	self wordStencil: BrTextEditableWordPieceStencilBuilder new
+]
+
+{ #category : #'api - accessing' }
+BrTextEditorLineSegmentBuilder >> beReadOnly [
+	self wordStencil: BrTextReadonlyWordPieceStencilBuilder new
+]
+
 { #category : #initialization }
 BrTextEditorLineSegmentBuilder >> defaultSplitter [
 	^ BrTextEditorLineSplitter new
@@ -126,7 +136,7 @@ BrTextEditorLineSegmentBuilder >> deletedFrom: aFromIndex to: aToIndex in: aBrTe
 BrTextEditorLineSegmentBuilder >> initialize [
 	super initialize.
 
-	wordStencilBuilder := BrTextWordPieceStencilBuilder new
+	wordStencilBuilder := BrTextEditableWordPieceStencilBuilder new
 ]
 
 { #category : #'text - modifications' }
@@ -170,7 +180,7 @@ BrTextEditorLineSegmentBuilder >> insertedString: aString at: aTextIndex in: aBr
 
 { #category : #'api - accessing' }
 BrTextEditorLineSegmentBuilder >> lineStencil: aLineStencilBuilder [
-	lineStencilBuilder := aLineStencilBuilder asStencilBuilder: BrTextWordPieceStencilBuilder
+	lineStencilBuilder := aLineStencilBuilder asStencilBuilder: BrTextEditableWordPieceStencilBuilder
 ]
 
 { #category : #accessing }
@@ -293,12 +303,12 @@ BrTextEditorLineSegmentBuilder >> validateTextPieceUniquenessIn: aTextEditor [
 
 { #category : #'api - accessing' }
 BrTextEditorLineSegmentBuilder >> wordStencil: aWordStencilBuilder [
-	wordStencilBuilder := aWordStencilBuilder asStencilBuilder: BrTextWordPieceStencilBuilder
+	wordStencilBuilder := aWordStencilBuilder asStencilBuilder: BrTextEditableWordPieceStencilBuilder
 ]
 
 { #category : #accessing }
 BrTextEditorLineSegmentBuilder >> wordStencilBuilder [
-	<return: #BrTextWordPieceStencilBuilder>
+	<return: #BrTextEditableWordPieceStencilBuilder>
 
 	^ wordStencilBuilder
 ]

@@ -23,6 +23,16 @@ BrTextEditorSegmentBuilder >> addedAttribute: anAttribute from: aFromIndex to: a
 	self subclassResponsibility
 ]
 
+{ #category : #accessing }
+BrTextEditorSegmentBuilder >> beEditable [
+	self subclassResponsibility
+]
+
+{ #category : #accessing }
+BrTextEditorSegmentBuilder >> beReadOnly [
+	self subclassResponsibility
+]
+
 { #category : #initialization }
 BrTextEditorSegmentBuilder >> defaultSplitter [
 	<return: #BrTextEditorSplitter>

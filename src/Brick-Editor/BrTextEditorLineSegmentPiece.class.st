@@ -10,7 +10,7 @@ Class {
 	#category : #'Brick-Editor-Model - Segment-Text-Line'
 }
 
-{ #category : #'as yet unclassified' }
+{ #category : #copying }
 BrTextEditorLineSegmentPiece >> copyWithText: aBlText [
 	^ self copy
 		initializeWith: aBlText
@@ -149,7 +149,22 @@ BrTextEditorLineSegmentPiece >> segment: anObject [
 ]
 
 { #category : #updating }
-BrTextEditorLineSegmentPiece >> updateCursor: aTextElement of: aLineSegment in: anEditorElement [
+BrTextEditorLineSegmentPiece >> setCursor: aPieceElement of: aLineSegment in: anEditorElement [
+	| theUpdatedCursors |
+	"select text editor cursors that are currently within this segment piece and convert them to local ones"
+	theUpdatedCursors := (anEditorElement editor cursor allCursors
+		select: [ :aCursor | aCursor insideSubText: self of: aLineSegment ]
+		thenCollect: [ :aCursor | self globalCursorToLocal: aCursor ]) asSet.
+
+	"update current cursors"
+	currentCursors := theUpdatedCursors.
+	
+	"tell to add new cursors"
+	theUpdatedCursors do: [ :aCursor | self onCursorAdded: aCursor to: aPieceElement in: anEditorElement ]
+]
+
+{ #category : #updating }
+BrTextEditorLineSegmentPiece >> updateCursor: aPieceElement of: aLineSegment in: anEditorElement [
 	| theUpdatedCursors theAddedCursors theRemovedCursors |
 
 	"select text editor cursors that are currently within this segment piece and convert them to local ones"
@@ -164,10 +179,10 @@ BrTextEditorLineSegmentPiece >> updateCursor: aTextElement of: aLineSegment in: 
 	currentCursors := theUpdatedCursors.
 	
 	"tell to remove deleted cursors"
-	theRemovedCursors do: [ :aCursor | self onCursorRemoved: aCursor from: aTextElement in: anEditorElement ].
+	theRemovedCursors do: [ :aCursor | self onCursorRemoved: aCursor from: aPieceElement in: anEditorElement ].
 	
 	"tell to add new cursors"
-	theAddedCursors do: [ :aCursor | self onCursorAdded: aCursor to: aTextElement in: anEditorElement ]
+	theAddedCursors do: [ :aCursor | self onCursorAdded: aCursor to: aPieceElement in: anEditorElement ]
 ]
 
 { #category : #updating }

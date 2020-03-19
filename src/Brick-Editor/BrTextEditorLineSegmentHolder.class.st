@@ -206,8 +206,9 @@ BrTextEditorLineSegmentHolder >> segment: anEditorSegment [
 		pieceElements add: (aPiece -> thePieceElements) ].
 	
 	self piecesAndTheirElementsDo: [ :aPiece :aPieceElement |
-		aPiece updateCursor: aPieceElement of: anEditorSegment in: self infiniteElement.
-		aPiece updateSelection: aPieceElement of: anEditorSegment in: self infiniteElement ].
+		aPiece setCursor: aPieceElement of: anEditorSegment in: self infiniteElement.
+		aPiece updateSelection: aPieceElement of: anEditorSegment in: self infiniteElement.
+		aPiece updateFocus: self infiniteElement hasFocus of: aPieceElement in: self infiniteElement ].
 
 	itemElement
 		removeChildren;

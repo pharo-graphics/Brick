@@ -12,6 +12,21 @@ BrEditorElement >> asScrollableElement [
 	^ self
 ]
 
+{ #category : #'api - editor' }
+BrEditorElement >> beEditable [
+	self editor beEditable
+]
+
+{ #category : #'api - editor' }
+BrEditorElement >> beReadOnly [
+	self editor beReadOnly
+]
+
+{ #category : #'api - editor' }
+BrEditorElement >> beReadOnlyWithSelection [
+	self editor beReadOnlyWithSelection
+]
+
 { #category : #initialization }
 BrEditorElement >> defaultLayout [
 	^ BlInfiniteLinearLayout vertical
@@ -25,7 +40,7 @@ BrEditorElement >> editor [
 { #category : #accessing }
 BrEditorElement >> editor: aBrTextEditor [
 	self dataSource: aBrTextEditor.
-	aBrTextEditor view: self.
+	aBrTextEditor view: self
 ]
 
 { #category : #scrolling }

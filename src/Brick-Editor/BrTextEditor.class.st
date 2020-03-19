@@ -11,6 +11,7 @@ Class {
 	#name : #BrTextEditor,
 	#superclass : #BlInfiniteDataSource,
 	#instVars : [
+		'mode',
 		'text',
 		'selection',
 		'selectionRecorder',
@@ -45,6 +46,19 @@ BrTextEditor class >> isDebug [
 { #category : #accessing }
 BrTextEditor class >> isDebug: aBoolean [
 	isDebug := aBoolean
+]
+
+{ #category : #'api - interactions' }
+BrTextEditor >> addInteraction: aBrTextEditorInteraction [
+
+	(aBrTextEditorInteraction isKindOf: BrTextEditorInteraction)
+		ifFalse: [ self error: ('Interaction should be an instance of {1} but was {2}' format: { BrTextEditorInteraction . aBrTextEditorInteraction class }) ].
+
+	self interactions
+		add: aBrTextEditorInteraction
+		ifReplaced: [ :aPreviousInteraction | self onInteractionRemoved: aPreviousInteraction ].
+	
+	self onInteractionAdded: aBrTextEditorInteraction
 ]
 
 { #category : #asserting }
@@ -93,6 +107,21 @@ BrTextEditor >> assertUIProcess [
 		
 	"(allUIProcesses isEmpty or: [ allUIProcesses anyOne == aCurrentProcess ])
 		ifFalse: [ BrEditorWrongThreadError signal: 'I am running from a non-UI process' ]."
+]
+
+{ #category : #'api - mode' }
+BrTextEditor >> beEditable [
+	self editorMode: BrTextEditorEditableMode new
+]
+
+{ #category : #'api - mode' }
+BrTextEditor >> beReadOnly [
+	self editorMode: BrTextEditorReadonlyMode new
+]
+
+{ #category : #'api - mode' }
+BrTextEditor >> beReadOnlyWithSelection [
+	self editorMode: BrTextEditorReadonlyWithSelectionMode new
 ]
 
 { #category : #'private - selection' }
@@ -251,6 +280,33 @@ BrTextEditor >> deselecter [
 	^ BrTextEditorDeselecter new editor: self
 ]
 
+{ #category : #'api - mode' }
+BrTextEditor >> editorMode [
+	<return: #BrTextEditorMode>
+
+	^ mode
+]
+
+{ #category : #'api - mode' }
+BrTextEditor >> editorMode: aBrTextEditorMode [
+	self
+		assert: [ aBrTextEditorMode isNotNil ]
+		description: [ 'Mode must not be nil' ].
+	
+	mode = aBrTextEditorMode
+		ifTrue: [ ^ self ].
+
+	"Uninstall existing mode"
+	mode uninstallFromEditor: self.
+	attachedElements do: [ :eachElement | mode uninstallFromEditorElement: eachElement ].
+
+	mode := aBrTextEditorMode.
+	mode installOnEditor: self.
+	attachedElements do: [ :eachElement | mode installOnEditorElement: eachElement ].
+	
+	self notifyChanged
+]
+
 { #category : #'commands - processing' }
 BrTextEditor >> enqueueCommand: aBrTextEditorCommand [
 	(BrTextEditorCommandSignal textEditor: self)
@@ -299,6 +355,8 @@ BrTextEditor >> history [
 BrTextEditor >> initialize [
 	super initialize.
 	
+	mode := BrTextEditorNullMode new.
+	
 	attachedElements := Set new.
 	
 	cursors := self defaultCursors.
@@ -317,199 +375,21 @@ BrTextEditor >> initialize [
 	stylerEventHandler := self defaultStylerEventHandler.	
 	self useDefaultStylerStrategy.
 	
-	interactions := OrderedCollection new.
-	self initializeInteractions.
-	
-	history := BrTextEditorHistory new
+	interactions := BrTextEditorInteractions new.
+	history := BrTextEditorHistory new.
+
+	self beEditable
 ]
 
-{ #category : #interactions }
-BrTextEditor >> initializeInteractions [
-	
-	self interactions add: (BlShortcut new
-		combination: BlKeyCombination delete;
-		action: [
-			self deleter
-				selected;
-				oneAfterCursor;
-				delete ]).
-	
-	self interactions add: (BlShortcut new
-		combination: BlKeyCombination backspace;
-		action: [
-			self deleter
-				selected;
-				oneBeforeCursor;
-				surroundings: self surroundMap;
-				delete ]).
-
-	self interactions add: (BlShortcut new
-		combination: BlKeyCombination return;
-		action: [
-			self inserter
-				atCursor;
-				lineEndingWithWhitespace;
-				insert ]).
-
-	self interactions add: (BlShortcut new
-		combination: BlKeyCombination tab;
-		action: [
-			self selection isEmpty
-				ifTrue: [
-					self inserter
-						atCursor;
-						indentation;
-						insert ]
-				ifFalse: [
-					self inserter
-						indentation;
-						beforeSelectedLines;
-						withoutSelectionDelete;
-						insert ] ]).
-
-	self interactions add: (BlShortcut new
-		combination: BlKeyCombination primaryA;
-		action: [ self selecter all select ]).
-
-	self interactions add: (BlShortcut new
-		combination: BlKeyCombination primaryX;
-		action: [ self cutSelected ]).
-
-	self interactions add: (BlShortcut new
-		combination: BlKeyCombination primaryC;
-		action: [ self copySelected ]).
-
-	"Paste a text from the clipboard at the current cursor position.
-	I delete any currently selected text and update cursor position"
-	self interactions add: (BlShortcut new
-		combination: BlKeyCombination primaryV;
-		action: [ self paster fromClipboard atCursor paste ]).
-
-	self interactions add: (BlShortcut new
-		combination: BlKeyCombination primaryZ;
-		action: [ self undo ]).
-		
-	self interactions add: (BlShortcut new
-		combination: BlKeyCombination primaryShiftZ;
-		action: [ self redo ]).
-
-	self interactions add: (BlShortcut new
-		combination: BlKeyCombination escape;
-		action: [ self selectNone ]).
-	
-	self interactions add: (BlShortcut new
-		combination: (BlKeyCombination builder shift arrowLeft build);
-		action: [
-			self selecter
-				withoutCursorUpdate;
-				moveOneToLeft;
-				select.
-			self navigator
-				moveLeft;
-				apply ]).
-
-	self interactions add: (BlShortcut new
-		combination: (BlKeyCombination builder shift arrowRight build);
-		action: [
-			self selecter
-				withoutCursorUpdate;
-				moveOneToRight;
-				select.
-			self navigator
-				moveRight;
-				apply ]).
-			
-	self interactions add: (BlShortcut new
-		combination: (BlKeyCombination builder shift arrowUp build);
-		action: [
-			self selecter
-				withoutCursorUpdate;
-				moveOneUp;
-				select.
-			self navigator
-				moveUp;
-				withoutResettingDesiredCoordinate;
-				apply ]).
-
-	self interactions add: (BlShortcut new
-		combination: (BlKeyCombination builder shift arrowDown build);
-		action: [
-			self selecter
-				withoutCursorUpdate;
-				moveOneDown;
-				select.
-			self navigator
-				moveDown;
-				withoutResettingDesiredCoordinate;
-				apply ]).
-
-	"left-arrow => move cursor left and deselect everything"
-	self interactions add: (BlShortcut new
-		combination: (BlKeyCombination builder arrowLeft build);
-		action: [
-			self deselecter all deselect.
-			self navigator
-				moveLeft;
-				apply ]).
-
-	"right-arrow => move cursor right and deselect everything"
-	self interactions add: (BlShortcut new
-		combination: (BlKeyCombination builder arrowRight build);
-		action: [
-			self deselecter all deselect.
-			self navigator
-				moveRight;
-				apply ]).
-
-	"up-arrow => move cursor up"
-	self interactions add: (BlShortcut new
-		combination: (BlKeyCombination builder arrowUp build);
-		action: [
-			self deselecter all deselect.
-			self navigator
-				moveUp;
-				withoutResettingDesiredCoordinate;
-				apply ]).
-
-	"down-arrow => move cursor down"
-	self interactions add: (BlShortcut new
-		combination: (BlKeyCombination builder arrowDown build);
-		action: [ 
-			self deselecter all deselect.
-			self navigator
-				moveDown;
-				withoutResettingDesiredCoordinate;
-				apply ]). 
-
-	self interactions add: (BlShortcut new
-		combination: (BlKeyCombination builder primary arrowRight build);
-		action: [ self moveCursorToEndNextWord ]).
-
-	self interactions add: (BlShortcut new
-		combination: (BlKeyCombination builder primary arrowLeft build);
-		action: [ self moveCursorToStartPreviousWord ]).
-
-	self interactions add: (BlShortcut new
-		combination: BlKeyCombination home;
-		action: [ self moveCursorToLineStart ]).
-
-	self interactions add: (BlShortcut new
-		combination: BlKeyCombination end;
-		action: [ self moveCursorToLineEnd ]).
-
-	"Callback for platform specific interactions"
-	OSPlatform current initializeBrickInteractionsFor: self
-]
-
-{ #category : #interactions }
+{ #category : #'api - interactions' }
 BrTextEditor >> initializeMacInteractions [
 	"Add and override key definitions which are Mac specific"
 
-	self interactions add: (BlShortcut new
+	self addInteraction: (BlShortcut new
 		combination: (BlKeyCombination builder primary arrowLeft build);
 		action: [ self moveCursorToLineStart ]).
 
-	self interactions add: (BlShortcut new
+	self addInteraction: (BlShortcut new
 		combination: (BlKeyCombination builder primary arrowRight build);
 		action: [ self moveCursorToLineEnd ])
 ]
@@ -538,8 +418,10 @@ BrTextEditor >> inserter [
 	^ BrTextEditorInserter new editor: self
 ]
 
-{ #category : #interactions }
+{ #category : #'api - interactions' }
 BrTextEditor >> interactions [
+	<return: #BrTextEditorInteractions>
+
 	^ interactions
 ]
 
@@ -698,6 +580,16 @@ BrTextEditor >> notifyInserted: aText at: aTextIndex [
 ]
 
 { #category : #'event firing' }
+BrTextEditor >> notifyInteractionAdded: anInteraction [
+	self dispatchEvent: (BrTextEditorInteractionAddedEvent new interaction: anInteraction)
+]
+
+{ #category : #'event firing' }
+BrTextEditor >> notifyInteractionRemoved: anInteraction [
+	self dispatchEvent: (BrTextEditorInteractionRemovedEvent new interaction: anInteraction)
+]
+
+{ #category : #'event firing' }
 BrTextEditor >> notifyModified: aText [
 	self dispatchEvent: (BrTextEditorModifiedEvent new text: aText)
 ]
@@ -710,15 +602,11 @@ BrTextEditor >> notifySelelectedFrom: aFromIndex to: aToIndex [
 { #category : #hooks }
 BrTextEditor >> onAttached: anEditorElement [
 	super onAttached: anEditorElement.
-	
+
 	attachedElements := attachedElements copyWith: anEditorElement.
 
-	anEditorElement addEventHandler: BrTextEditorSelectionHandler new.
-	anEditorElement addEventHandler: BrTextEditorInsertionHandler new.
-	anEditorElement addEventHandler: BrTextEditorMouseDownHandler uniqueInstance.
-	anEditorElement addEventHandler: BrTextEditorCursorIconHandler uniqueInstance.
-
-	self interactions do: [ :anInteraction | anEditorElement addShortcut: anInteraction ].
+ 	mode installOnEditorElement: anEditorElement.
+	interactions do: [ :eachInteraction | self onInteractionAdded: eachInteraction to: anEditorElement ].
 
 	anEditorElement when: BlMouseUpEvent do: [ :anEvent | anEvent consumed: true ].
 	anEditorElement when: BlClickEvent do: [ :anEvent | anEvent consumed: true ].
@@ -764,12 +652,8 @@ BrTextEditor >> onDetached: anEditorElement [
 
 	attachedElements := attachedElements copyWithout: anEditorElement.
 
-	anEditorElement removeEventHandlersSuchThat: [ :aHandler | aHandler isKindOf: BrTextEditorSelectionHandler ].
-	anEditorElement removeEventHandlersSuchThat: [ :aHandler | aHandler isKindOf: BrTextEditorInsertionHandler ].
-	anEditorElement removeEventHandlersSuchThat: [ :aHandler | aHandler isKindOf: BrTextEditorMouseDownHandler ].
-	anEditorElement removeEventHandler: BrTextEditorCursorIconHandler uniqueInstance.
-
-	self interactions do: [ :anInteraction | anEditorElement removeShortcut: anInteraction ].
+	mode uninstallFromEditorElement: anEditorElement.
+	interactions do: [ :eachInteraction | self onInteractionRemoved: eachInteraction from: anEditorElement ].
 
 	anEditorElement
 		removeEventHandlersSuchThat: [ :aHandler | (aHandler isKindOf: BlEventHandler)
@@ -790,6 +674,29 @@ BrTextEditor >> onGotFocus [
 		ifTrue: [ self navigator moveTo: 0; apply ].
 
 	self enqueueCommand: (self newFocusChangedCommand hasFocus: true)
+]
+
+{ #category : #hooks }
+BrTextEditor >> onInteractionAdded: anInteraction [
+	attachedElements do: [ :eachElement | self onInteractionAdded: anInteraction to: eachElement ].
+	self notifyInteractionAdded: anInteraction
+]
+
+{ #category : #hooks }
+BrTextEditor >> onInteractionAdded: anInteraction to: anEditorElement [
+	anEditorElement removeShortcutsWithCombination: anInteraction combination.
+	anEditorElement addShortcut: anInteraction asShortcut
+]
+
+{ #category : #hooks }
+BrTextEditor >> onInteractionRemoved: anInteraction [
+	attachedElements do: [ :eachElement | self onInteractionRemoved: anInteraction from: eachElement ].
+	self notifyInteractionRemoved: anInteraction
+]
+
+{ #category : #hooks }
+BrTextEditor >> onInteractionRemoved: anInteraction from: anEditorElement [
+	anEditorElement removeShortcutsWithCombination: anInteraction combination
 ]
 
 { #category : #'private - focus' }
@@ -907,6 +814,17 @@ BrTextEditor >> recordSelection: aMonotoneTextSelection [
 { #category : #'text - undo/redo' }
 BrTextEditor >> redo [
 	history redoOn: self
+]
+
+{ #category : #'api - interactions' }
+BrTextEditor >> removeInteraction: aBrTextEditorInteraction [
+
+	(aBrTextEditorInteraction isKindOf: BrTextEditorInteraction)
+		ifFalse: [ self error: ('Interaction should be an instance of {1} but was {2}' format: { BrTextEditorInteraction . aBrTextEditorInteraction class }) ].
+
+	self interactions
+		remove: aBrTextEditorInteraction
+		ifFound: [ :aPreviousInteraction | self onInteractionRemoved: aPreviousInteraction ]
 ]
 
 { #category : #accessing }
@@ -1060,7 +978,7 @@ BrTextEditor >> stylerStrategy: aBrTextStylerStrategy [
 	stylerStrategy := aBrTextStylerStrategy
 ]
 
-{ #category : #interactions }
+{ #category : #'api - interactions' }
 BrTextEditor >> surroundMap [
 	"When inserting some special symbols a text editor should surround a cursor or selection with that symbol"
 
@@ -1071,11 +989,11 @@ BrTextEditor >> surroundMap [
 
 	^ BrTextEditorSurroundMap newFromArrays:
 		{ 
-			{ #'('. #')'. nil. }.
+			{ #'('. #')'. spaceBlock. }.
 			{ #'"'. #'"'. spaceBlock. }.
 			{ #''''. #''''. spaceBlock. }.
-			{ #'['. #']'. nil. }.
-			{ #'{'. #'}'. nil. }
+			{ #'['. #']'. spaceBlock. }.
+			{ #'{'. #'}'. spaceBlock. }
 		}
 ]
 

@@ -7,83 +7,40 @@ Class {
 		'segmentPiece',
 		'shouldUsePool'
 	],
-	#classVars : [
-		'TextPiecePool'
-	],
 	#category : #'Brick-Editor-UI - Stencils'
 }
 
-{ #category : #'class initialization' }
-BrTextWordPieceStencilBuilder class >> cleanUp [
-	self initialize
-]
-
-{ #category : #'class initialization' }
-BrTextWordPieceStencilBuilder class >> initialize [
-	TextPiecePool := BlSynchronizedObjectPool pool: (BlBagObjectPool new: 1000)
-]
-
-{ #category : #'api - instantiation' }
+{ #category : #'private - pool' }
 BrTextWordPieceStencilBuilder >> acquire [
-	| anAcquiredElement |
+	<return: #BrTextElementWithCursors or: nil>
 	
-	^ (shouldUsePool and: [ (anAcquiredElement := TextPiecePool acquire) isNotNil ])
-		ifTrue: [ anAcquiredElement ]
-		ifFalse: [
-			BrTextElementWithCursors new
-				editorMeasurement;
-
-				"to support event-handling attributes"
-				addEventHandler: BrTextEditorLineSegmentTextListener uniqueInstance;
-
-				"editor requests to show a cursor as a result of its position change"
-				addEventHandler: BrTextWordPieceShowCursorHandler uniqueInstance;
-
-				"editor requests to remove a cursor as a result of its position change"
-				addEventHandler: BrTextWordPieceHideCursorHandler uniqueInstance;
-				
-				"for screen position to cursor index transformation"
-				addEventHandler: BrTextWordPieceScreenToCursorHandler uniqueInstance;
-
-				addEventHandler: BrTextWordPieceFocusHandler uniqueInstance;
-				addEventHandler: BrTextWordPieceBlurHandler uniqueInstance;
-				
-				"selection changed in the editor, select a given interval"
-				addEventHandler: BrTextWordPieceSelectionHandler uniqueInstance;
-				
-				"selection changed in the editor, deselect a given interval"
-				addEventHandler: BrTextWordPieceDeselectionHandler uniqueInstance;
-				
-				"text changed in the editor"
-				addEventHandler: BrTextWordPieceTextChangeHandler uniqueInstance;		
-				
-				"when clicking inside of a text piece we should move cursor there and request editor focus"
-				addEventHandler: BrTextEditorMouseDownHandler uniqueInstance;
-				
-				"when double-clicking inside of a text piece we should select the whole word"
-				addEventHandler: BrTextWordPieceDoubleClickHandler uniqueInstance;
-
-				"text piece got inside of selected area"
-				addEventHandler: BrTextWordPieceSelectionAcquiredHandler uniqueInstance;
-
-				"text piece got outside of then selected area"
-				addEventHandler: BrTextWordPieceSelectionLostHandler uniqueInstance;
-
-				yourself ]
+	shouldUsePool
+		ifFalse: [ ^ nil ].
+	
+	^ self pool acquire
 ]
 
 { #category : #'api - instantiation' }
 BrTextWordPieceStencilBuilder >> buildDefault [
 	| aTextElement |
 	
-	aTextElement := self acquire
+	aTextElement := (self acquire ifNil: [ self createWordElement ])
 		segmentPiece: self segmentPiece;
 		padding: self wordPadding;
 		margin: self wordMargin.
 		
+	aTextElement userData at: #editorPool put: self pool.
+
 	self reset.
 	
 	^ aTextElement
+]
+
+{ #category : #'api - instantiation' }
+BrTextWordPieceStencilBuilder >> createWordElement [
+	<return: #BrTextElementWithCursors>
+
+	^ self subclassResponsibility
 ]
 
 { #category : #initialization }
@@ -98,7 +55,12 @@ BrTextWordPieceStencilBuilder >> paramsOn: aStencilExecutor [
 	aStencilExecutor push: self segmentPiece
 ]
 
-{ #category : #'api - instantiation' }
+{ #category : #'private - pool' }
+BrTextWordPieceStencilBuilder >> pool [
+	^ self subclassResponsibility
+]
+
+{ #category : #'private - pool' }
 BrTextWordPieceStencilBuilder >> recycle: aPieceElement [
 	aPieceElement removeFromParent.
 	aPieceElement removeCursors.
@@ -107,7 +69,9 @@ BrTextWordPieceStencilBuilder >> recycle: aPieceElement [
 	see https://github.com/feenkcom/gtoolkit/issues/537"
 	aPieceElement removeSegmentPiece.
 
-	TextPiecePool release: aPieceElement
+	aPieceElement userData
+		at: #editorPool
+		ifPresent: [ :aPool | aPool == self pool ifTrue: [ self pool release: aPieceElement  ] ]
 ]
 
 { #category : #initialization }
@@ -138,11 +102,6 @@ BrTextWordPieceStencilBuilder >> shouldUsePool [
 { #category : #accessing }
 BrTextWordPieceStencilBuilder >> shouldUsePool: aBoolean [
 	shouldUsePool := aBoolean
-]
-
-{ #category : #accessing }
-BrTextWordPieceStencilBuilder >> text: aText start: aTextStart end: aTextEnd [
-	self deprecated: 'Use segmentPiece: instead'.
 ]
 
 { #category : #accessing }
