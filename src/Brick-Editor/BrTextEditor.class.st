@@ -115,13 +115,13 @@ BrTextEditor >> beEditable [
 ]
 
 { #category : #'api - mode' }
-BrTextEditor >> beReadOnly [
-	self editorMode: BrTextEditorReadonlyMode new
+BrTextEditor >> beReadOnlyWithSelection [
+	self editorMode: BrTextEditorReadonlyWithSelectionMode new
 ]
 
 { #category : #'api - mode' }
-BrTextEditor >> beReadOnlyWithSelection [
-	self editorMode: BrTextEditorReadonlyWithSelectionMode new
+BrTextEditor >> beReadOnlyWithoutSelection [
+	self editorMode: BrTextEditorReadonlyWithoutSelectionMode new
 ]
 
 { #category : #'private - selection' }

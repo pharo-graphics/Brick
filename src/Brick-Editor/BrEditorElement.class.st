@@ -18,13 +18,13 @@ BrEditorElement >> beEditable [
 ]
 
 { #category : #'api - editor' }
-BrEditorElement >> beReadOnly [
-	self editor beReadOnly
+BrEditorElement >> beReadOnlyWithSelection [
+	self editor beReadOnlyWithSelection
 ]
 
 { #category : #'api - editor' }
-BrEditorElement >> beReadOnlyWithSelection [
-	self editor beReadOnlyWithSelection
+BrEditorElement >> beReadOnlyWithoutSelection [
+	self editor beReadOnlyWithoutSelection
 ]
 
 { #category : #initialization }
