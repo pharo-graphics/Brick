@@ -33,6 +33,13 @@ TBlTextStyleable >> replacingAdornment: aBrTextAdornmentStencilBuilder [
 ]
 
 { #category : #'*Brick-Editor' }
+TBlTextStyleable >> replacingText: aCharacter [
+	"Visually replace a piece of text with a repeating aCharacter"
+
+	self attributesBuilder attribute: (BrTextReplacingAttribute new withCharacter: aCharacter)
+]
+
+{ #category : #'*Brick-Editor' }
 TBlTextStyleable >> wordPadding: anInsets [
 	self attributesBuilder attribute: (BrTextParagraphWordPaddingAttribute wordPadding: anInsets)
 ]
