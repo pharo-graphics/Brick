@@ -12,7 +12,7 @@ BrTextWordPieceScreenToCursorHandler >> eventClass [
 { #category : #geometry }
 BrTextWordPieceScreenToCursorHandler >> explicitScreenToCursor: aTransformation for: anEvent [
 	| aLocalPosition aLocalTextIndex aGobaltextIndex |
-	
+		
 	aLocalPosition := (anEvent currentTarget globalBoundsToMine: (BlBounds origin: aTransformation screenPosition extent: 0@0) fromParent: anEvent editorElement) center.
 	
 	aLocalTextIndex := anEvent currentTarget indexAtScreenPosition: aLocalPosition.
@@ -68,7 +68,7 @@ BrTextWordPieceScreenToCursorHandler >> relativeScreenToCursor: aTransformation 
 
 						aDesiredCoordinate := aCursorBoundsInTheOtherText center x.
 
-						aLocalTextPosition := aReceiverElement indexAtScreenPosition: aDesiredCoordinate @ 0.
+						aLocalTextPosition := aReceiverElement indexAtScreenPosition: (aDesiredCoordinate @ 0) + aReceiverElement padding topLeft .
 						aGlobalTextPosition := self localTextIndexToGlobal: aLocalTextPosition in: aReceiverElement.
 
 						aTransformation transformed: aGlobalTextPosition ] ]

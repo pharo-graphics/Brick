@@ -4,8 +4,8 @@ Class {
 	#instVars : [
 		'wordPadding',
 		'wordMargin',
-		'measurer',
-		'segmentPiece'
+		'segmentPiece',
+		'shouldUsePool'
 	],
 	#classVars : [
 		'TextPiecePool'
@@ -25,9 +25,11 @@ BrTextWordPieceStencilBuilder class >> initialize [
 
 { #category : #'api - instantiation' }
 BrTextWordPieceStencilBuilder >> acquire [
-
-	^ TextPiecePool acquire
-		ifNil: [
+	| anAcquiredElement |
+	
+	^ (shouldUsePool and: [ (anAcquiredElement := TextPiecePool acquire) isNotNil ])
+		ifTrue: [ anAcquiredElement ]
+		ifFalse: [
 			BrTextElementWithCursors new
 				editorMeasurement;
 
@@ -36,7 +38,7 @@ BrTextWordPieceStencilBuilder >> acquire [
 
 				"editor requests to show a cursor as a result of its position change"
 				addEventHandler: BrTextWordPieceShowCursorHandler uniqueInstance;
-				
+
 				"editor requests to remove a cursor as a result of its position change"
 				addEventHandler: BrTextWordPieceHideCursorHandler uniqueInstance;
 				
@@ -72,29 +74,23 @@ BrTextWordPieceStencilBuilder >> acquire [
 
 { #category : #'api - instantiation' }
 BrTextWordPieceStencilBuilder >> buildDefault [
-	^ self acquire
+	| aTextElement |
+	
+	aTextElement := self acquire
 		segmentPiece: self segmentPiece;
 		padding: self wordPadding;
-		margin: self wordMargin
+		margin: self wordMargin.
+		
+	self reset.
+	
+	^ aTextElement
 ]
 
 { #category : #initialization }
 BrTextWordPieceStencilBuilder >> initialize [
 	super initialize.
 	
-	wordPadding := BlInsets empty.
-	wordMargin := BlInsets empty.
-	measurer := BlTextElementOffscreenCanvasMeasurer new
-]
-
-{ #category : #accessing }
-BrTextWordPieceStencilBuilder >> measurer [
-	^ measurer
-]
-
-{ #category : #accessing }
-BrTextWordPieceStencilBuilder >> measurer: aMeasurer [
-	measurer := aMeasurer
+	self reset
 ]
 
 { #category : #'api - instantiation' }
@@ -114,6 +110,14 @@ BrTextWordPieceStencilBuilder >> recycle: aPieceElement [
 	TextPiecePool release: aPieceElement
 ]
 
+{ #category : #initialization }
+BrTextWordPieceStencilBuilder >> reset [
+	wordPadding := BlInsets empty.
+	wordMargin := BlInsets empty.
+	segmentPiece := nil.
+	shouldUsePool := true
+]
+
 { #category : #accessing }
 BrTextWordPieceStencilBuilder >> segmentPiece [
 	<return: #TBrTextEditorTextualPiece>
@@ -124,6 +128,16 @@ BrTextWordPieceStencilBuilder >> segmentPiece [
 { #category : #accessing }
 BrTextWordPieceStencilBuilder >> segmentPiece: aTBrTextEditorTextualPiece [
 	segmentPiece := aTBrTextEditorTextualPiece
+]
+
+{ #category : #accessing }
+BrTextWordPieceStencilBuilder >> shouldUsePool [
+	^ shouldUsePool
+]
+
+{ #category : #accessing }
+BrTextWordPieceStencilBuilder >> shouldUsePool: aBoolean [
+	shouldUsePool := aBoolean
 ]
 
 { #category : #accessing }

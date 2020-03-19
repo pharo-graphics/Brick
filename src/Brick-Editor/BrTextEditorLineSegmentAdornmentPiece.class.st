@@ -58,5 +58,8 @@ BrTextEditorLineSegmentAdornmentPiece >> hash [
 
 { #category : #'api - cursor' }
 BrTextEditorLineSegmentAdornmentPiece >> screenToCursor: aTransformation of: anEditorElement in: aPieceElement [
-	aTransformation transformed: self textEnd
+	super screenToCursor: aTransformation of: anEditorElement in: aPieceElement.
+	
+	aTransformation hasResult
+		ifFalse: [ aTransformation transformed: self textEnd ]
 ]
