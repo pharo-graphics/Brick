@@ -6,7 +6,8 @@ Class {
 	#instVars : [
 		'attributesBuilder',
 		'text',
-		'styler'
+		'styler',
+		'mode'
 	],
 	#category : #'Brick-Editor - Look'
 }
@@ -24,6 +25,7 @@ BrEditorLook >> initialize [
 	
 	styler := BlTextNullStyler new.
 	text := '' asRopedText.
+	mode := BrTextEditorNullMode new.
 	
 	attributesBuilder := BlTextDelegatedAttributesBuilder new attributesTarget: text.
 	attributesBuilder beNotOverwritableByStyler.
@@ -37,7 +39,8 @@ BrEditorLook >> initializeListeners [
 	super initializeListeners.
 	
 	self when: BrEditorStylerChanged do: [ :anEvent | self styler: anEvent styler ].
-	self when: BrEditorTextChanged do: [ :anEvent | self text: anEvent text ]
+	self when: BrEditorTextChanged do: [ :anEvent | self text: anEvent text ].
+	self when: BrEditorModeChanged do: [ :anEvent | self mode: anEvent mode ]
 ]
 
 { #category : #initialization }
@@ -45,7 +48,14 @@ BrEditorLook >> initializeRequests [
 	super initializeRequests.
 
 	self request: BrEditorStylerRequest new.
-	self request: BrEditorTextRequest new
+	self request: BrEditorTextRequest new.
+	self request: BrEditorModeRequest new
+]
+
+{ #category : #accessing }
+BrEditorLook >> mode: aTextEditorMode [
+	mode := aTextEditorMode.	
+	self widgetDo: [ :aWidget | aWidget editor editorMode: aTextEditorMode ]
 ]
 
 { #category : #accessing }

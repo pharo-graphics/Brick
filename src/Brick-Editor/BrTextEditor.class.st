@@ -278,6 +278,8 @@ BrTextEditor >> deselect: aFromTextIndex to: aToTextIndex [
 
 { #category : #'api - modification' }
 BrTextEditor >> deselecter [
+	<return: #BrTextEditorDeselecter>
+
 	^ BrTextEditorDeselecter new editor: self
 ]
 

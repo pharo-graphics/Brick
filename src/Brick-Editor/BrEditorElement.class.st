@@ -12,21 +12,6 @@ BrEditorElement >> asScrollableElement [
 	^ self
 ]
 
-{ #category : #'api - editor' }
-BrEditorElement >> beEditable [
-	self editor beEditable
-]
-
-{ #category : #'api - editor' }
-BrEditorElement >> beReadOnlyWithSelection [
-	self editor beReadOnlyWithSelection
-]
-
-{ #category : #'api - editor' }
-BrEditorElement >> beReadOnlyWithoutSelection [
-	self editor beReadOnlyWithoutSelection
-]
-
 { #category : #initialization }
 BrEditorElement >> defaultLayout [
 	^ BlInfiniteLinearLayout vertical
