@@ -14,6 +14,7 @@ BrTextEditorInsertionHandler >> insert: aString atCursorIn: anEditor [
 		closingFor: aString asSymbol
 		ifPresent: [ :aSurroundSymbol |
 			anEditor inserter
+				inputFilter: anEditor inputFilter;
 				atCursor;
 				string: aString;
 				surroundings: anEditor surroundMap;
@@ -21,6 +22,7 @@ BrTextEditorInsertionHandler >> insert: aString atCursorIn: anEditor [
 				insert ]
 		ifAbsent: [
 			anEditor inserter
+				inputFilter: anEditor inputFilter;
 				atCursor;
 				string: aString;
 				surroundings: anEditor surroundMap;

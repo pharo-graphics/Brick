@@ -36,6 +36,11 @@ BrEditor >> initialize [
 				BrLayoutVerticalResizerModel matchParent }))
 ]
 
+{ #category : #'api - editor' }
+BrEditor >> inputFilter: aBrTextEditorInputFilter [
+	self editor inputFilter: aBrTextEditorInputFilter
+]
+
 { #category : #'editor - operations' }
 BrEditor >> inserter [
 	<return: #BrTextEditorInserter>

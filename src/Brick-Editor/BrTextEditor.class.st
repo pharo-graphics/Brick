@@ -23,7 +23,8 @@ Class {
 		'interactions',
 		'cursors',
 		'attachedElements',
-		'history'
+		'history',
+		'filter'
 	],
 	#classInstVars : [
 		'isDebug'
@@ -359,6 +360,7 @@ BrTextEditor >> initialize [
 	
 	attachedElements := Set new.
 	
+	filter := BrTextEditorNoInputFilter new.
 	cursors := self defaultCursors.
 	selection := self defaultSelection.
 	selectionRecorder := self defaultSelectionRecorder.
@@ -399,6 +401,18 @@ BrTextEditor >> initializeText: aBrText [
 	aBrText when: BlTextStringsInserted send: #onStringsInserted: to: self.
 	aBrText when: BlTextsDeleted send: #onTextsDeleted: to: self.
 	aBrText when: BlTextAttributeAdded send: #onTextAttributeAdded: to: self
+]
+
+{ #category : #'api - filter' }
+BrTextEditor >> inputFilter [
+	<return: #BrTextEditorInputFilter>
+
+	^ filter
+]
+
+{ #category : #'api - filter' }
+BrTextEditor >> inputFilter: aBrTextEditorInputFilter [
+	filter := aBrTextEditorInputFilter
 ]
 
 { #category : #'private - text' }

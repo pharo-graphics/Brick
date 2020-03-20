@@ -127,7 +127,7 @@ BrTextEditorInserter >> initialize [
 	shouldUpdateSelection := true.
 	shouldDeleteSelected := true.
 
-	inputFilter := BrTextEditorNoInputfilter new
+	inputFilter := BrTextEditorNoInputFilter new
 ]
 
 { #category : #'api - configuration' }
@@ -211,12 +211,14 @@ BrTextEditorInserter >> insert [
 		theInsertionIndices := OrderedCollection new.
 		
 		theInsertions do: [ :eachInsertion |
-			theInsertionStrings add: (eachInsertion at: #string).
-			theInsertionIndices add: (eachInsertion at: #index).
+			(eachInsertion at: #string) ifNotEmpty: [ :eachString |
+				theInsertionStrings add: eachString.
+				theInsertionIndices add: (eachInsertion at: #index) ].
 			eachInsertion at: #surrounding
 					ifPresent: [ :aSurrounding |
-						theInsertionStrings add: (aSurrounding at: #string).
-						theInsertionIndices add: (aSurrounding at: #index) ] ].
+						(aSurrounding at: #string) ifNotEmpty: [ :eachString |
+							theInsertionStrings add: eachString.
+							theInsertionIndices add: (aSurrounding at: #index) ] ] ].
 
 		self editor history groupDuring: [
 			theCursorMovements ifNotEmpty: [ :theMovements |

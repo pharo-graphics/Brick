@@ -34,6 +34,7 @@ BrTextEditorEditableMode >> initialize [
 	
 		BlKeyCombination return -> [ :aTextEditor |
 			aTextEditor inserter
+				inputFilter: aTextEditor inputFilter;
 				atCursor;
 				lineEndingWithWhitespace;
 				insert ].
@@ -58,7 +59,12 @@ BrTextEditorEditableMode >> initialize [
 		BlKeyCombination escape -> [ :aTextEditor | aTextEditor selectNone ].
 		"Paste a text from the clipboard at the current cursor position.
 		I delete any currently selected text and update cursor position"
-		BlKeyCombination primaryV -> [ :aTextEditor | aTextEditor paster fromClipboard atCursor paste ].
+		BlKeyCombination primaryV -> [ :aTextEditor |
+			aTextEditor paster
+				inputFilter: aTextEditor inputFilter;
+				fromClipboard;
+				atCursor;
+				paste ].
 		BlKeyCombination primaryZ -> [ :aTextEditor | aTextEditor undo ].
 		BlKeyCombination primaryShiftZ -> [ :aTextEditor | aTextEditor redo ].
 		

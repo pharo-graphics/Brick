@@ -2,13 +2,13 @@
 I don't apply any filter and return the bare input
 "
 Class {
-	#name : #BrTextEditorNoInputfilter,
+	#name : #BrTextEditorNoInputFilter,
 	#superclass : #BrTextEditorInputFilter,
 	#category : #'Brick-Editor-Model'
 }
 
 { #category : #accessing }
-BrTextEditorNoInputfilter >> filter: aString [
+BrTextEditorNoInputFilter >> filter: aString [
 	<return: #String>
 	
 	^ aString
