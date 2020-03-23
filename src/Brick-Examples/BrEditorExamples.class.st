@@ -14,7 +14,29 @@ BrEditorExamples >> editableEditorWithGlamorousRegularLook [
 		text: String loremIpsum
 ]
 
-{ #category : #'examples - editor' }
+{ #category : #'examples - input filter' }
+BrEditorExamples >> editorWithAlphaNumericFilter [
+	<gtExample>
+	
+	^ BrEditor new
+		look: BrGlamorousRegularEditorLook + BrGlamorousEditorSpacingLook;
+		inputFilter: BrTextEditorAlphaNumericInputFilter new;
+		vFitContent;
+		text: 'Only alpha-numeric chatacters are allowed'
+]
+
+{ #category : #'examples - input filter' }
+BrEditorExamples >> editorWithDigitFilter [
+	<gtExample>
+	
+	^ BrEditor new
+		look: BrGlamorousRegularEditorLook + BrGlamorousEditorSpacingLook;
+		inputFilter: BrTextEditorDigitInputFilter new;
+		vFitContent;
+		text: 'Only digits are allowed'
+]
+
+{ #category : #examples }
 BrEditorExamples >> editorWithGlamorousRegularLook [
 	<gtExample>
 	
@@ -23,7 +45,7 @@ BrEditorExamples >> editorWithGlamorousRegularLook [
 		text: String loremIpsum
 ]
 
-{ #category : #'examples - editor mode look' }
+{ #category : #'examples - modes look' }
 BrEditorExamples >> editorWithGlamorousRegularLookAndModeLook [
 	<gtExample>
 	| aModeLook anEditor |
@@ -62,6 +84,17 @@ BrEditorExamples >> editorWithGlamorousRegularLookAndModeLook [
 						action: [ anEditor beReadOnlyWithoutSelection ]
 				}
 		}
+]
+
+{ #category : #'examples - input filter' }
+BrEditorExamples >> editorWithNoFilter [
+	<gtExample>
+	
+	^ BrEditor new
+		look: BrGlamorousRegularEditorLook + BrGlamorousEditorSpacingLook;
+		inputFilter: BrTextEditorNoInputFilter new;
+		vFitContent;
+		text: 'All characters are allowed'
 ]
 
 { #category : #'examples - modes' }
