@@ -538,12 +538,12 @@ BrTextEditor >> moveCursorToStartPreviousWord [
 	"Moves cursor to the left by one character"
 
 	newPosition := self cursor first position - 1.
+	newPosition := newPosition max: 0.
 	[ newPosition > 0 and: [ (self text at: newPosition) isSeparator ] ] whileTrue:
 		[ newPosition := newPosition - 1 ].
 	[ newPosition = 0 or: [ (self text at: newPosition) isSeparator ] ] whileFalse:
 		[ newPosition := newPosition - 1 ].
 
-	newPosition := newPosition max: 0.
 	self moveCursorTo: newPosition
 ]
 
