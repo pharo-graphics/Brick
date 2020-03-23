@@ -433,7 +433,7 @@ BrTextEditorInserter >> surroundings: aSurroundMap [
 
 { #category : #'api - configuration' }
 BrTextEditorInserter >> text: aBlText [
-	text := aBlText characters asString.
+	text := aBlText asString.
 	insertionIndices do: [ :eachAssociation | eachAssociation value ifNil: [ eachAssociation value: text ] ]
 ]
 
