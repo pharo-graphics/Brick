@@ -23,6 +23,47 @@ BrEditorExamples >> editorWithGlamorousRegularLook [
 		text: String loremIpsum
 ]
 
+{ #category : #'examples - editor mode look' }
+BrEditorExamples >> editorWithGlamorousRegularLookAndModeLook [
+	<gtExample>
+	| aModeLook anEditor |
+	
+	aModeLook := BrEditorModeLook new
+		editableFocused: [ :aWidget | aWidget border: (BlBorder paint: BrGlamorousColors focusedEditorBorderColor width: 1) ];
+		editableUnfocused: [ :aWidget | aWidget border: (BlBorder paint: BrGlamorousColors editorBorderColor width: 1) ];
+		readOnly: [ :aWidget | aWidget border: BlBorder empty ].
+
+	anEditor := BrEditor new
+		look: BrGlamorousRegularEditorLook new + aModeLook;
+		text: String loremIpsum;
+		vFitContent.
+
+	^ BrHorizontalPane new
+		cellSpacing: 5;
+		hMatchParent;
+		vFitContent;
+		addChildren: { 
+			anEditor.
+			BrVerticalPane new
+				fitContent;
+				cellSpacing: 5;
+				addChildren: { 
+					BrButton new
+						look: BrGlamorousButtonWithLabelLook new;
+						label: 'Editable';
+						action: [ anEditor beEditable ].
+					BrButton new
+						look: BrGlamorousButtonWithLabelLook new;
+						label: 'Readonly with selection';
+						action: [ anEditor beReadOnlyWithSelection ].
+					BrButton new
+						look: BrGlamorousButtonWithLabelLook new;
+						label: 'Readonly without selection';
+						action: [ anEditor beReadOnlyWithoutSelection ]
+				}
+		}
+]
+
 { #category : #'examples - modes' }
 BrEditorExamples >> readOnlyWithSelectionEditorWithGlamorousRegularLook [
 	<gtExample>

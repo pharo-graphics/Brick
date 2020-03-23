@@ -8,5 +8,5 @@ Class {
 BrVerticalPaneLook >> initialize [
 	super initialize.
 
-	self add: BrLayoutAlignmentLook forVerticalLinearLayout
+	self add: BrLayoutAlignmentLook forAlignable
 ]
