@@ -77,6 +77,7 @@ BrButton >> initialize [
 				BrActivationModel new.
 				BrPressModel new.
 				BrHoverModel new.
+				BrFocusModel new.
 				dimensionModel := BrSizeModel new.
 				BrLayoutAlignmentModel center.
 				BrLayoutHorizontalResizerModel fitContent.
