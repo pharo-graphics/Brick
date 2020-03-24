@@ -148,3 +148,8 @@ BrTextEditorEditableMode >> installOnEditor: aTextEditor [
 
 	aTextEditor segmentBuilder beEditable
 ]
+
+{ #category : #testing }
+BrTextEditorEditableMode >> isEditable [
+	^ true
+]

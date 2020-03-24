@@ -8,15 +8,22 @@ Class {
 }
 
 { #category : #'adding / removing' }
-BrTextEditorInteractions >> add: aNewShortcut ifReplaced: aReplacedBlock [
-	"I add a new interaction shortcut or replace existing if a shortcut for the same combination already exists and evaluate aReplacedBlock if it was the case"
-	
+BrTextEditorInteractions >> add: aNewInteraction ifAdded: anAddedBlock ifReplaced: aReplacedBlock [
+	"I add a new interaction shortcut or replace an existing one for the same combination and evaluate aReplacedBlock if it was the case"
+
 	interactions
-		at: aNewShortcut combination
-		ifPresent: [ :anExistingShortcut |
-			interactions at: aNewShortcut combination put: aNewShortcut.
-			aReplacedBlock value: anExistingShortcut ]
-		ifAbsentPut: [ aNewShortcut ]
+		at: aNewInteraction combination
+		ifPresent: [ :anExistingInteraction |
+			(anExistingInteraction isOverwritableByMode
+				or: [ aNewInteraction isOverwritableByMode not ])
+					ifTrue: [
+						interactions at: aNewInteraction combination put: aNewInteraction.
+						aReplacedBlock value: anExistingInteraction.
+						anAddedBlock value: aNewInteraction.
+					] ]
+		ifAbsent: [
+			interactions at: aNewInteraction combination put: aNewInteraction.
+			anAddedBlock value: aNewInteraction ]
 ]
 
 { #category : #enumerating }
@@ -36,9 +43,9 @@ BrTextEditorInteractions >> remove: anInteraction ifFound: aFoundBlock [
 	
 	interactions
 		at: anInteraction combination
-		ifPresent: [ :anExistingShortcut |
-			anExistingShortcut = anInteraction
+		ifPresent: [ :anExistingInteraction |
+			anExistingInteraction = anInteraction
 				ifTrue: [
 					interactions removeKey: anInteraction combination.
-					aFoundBlock value: anExistingShortcut ] ]
+					aFoundBlock value: anExistingInteraction ] ]
 ]

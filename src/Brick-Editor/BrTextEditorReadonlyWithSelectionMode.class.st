@@ -28,3 +28,8 @@ BrTextEditorReadonlyWithSelectionMode >> installOnEditor: aTextEditor [
 
 	aTextEditor segmentBuilder beReadOnly
 ]
+
+{ #category : #testing }
+BrTextEditorReadonlyWithSelectionMode >> isReadOnly [
+	^ true
+]

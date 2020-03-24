@@ -10,3 +10,8 @@ BrTextEditorReadonlyWithoutSelectionMode >> installOnEditor: aTextEditor [
 
 	aTextEditor segmentBuilder beReadOnly
 ]
+
+{ #category : #testing }
+BrTextEditorReadonlyWithoutSelectionMode >> isReadOnly [
+	^ true
+]

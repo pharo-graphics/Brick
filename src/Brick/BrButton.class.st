@@ -20,6 +20,13 @@ BrButton >> action [
 
 { #category : #'api - widget' }
 BrButton >> action: aValuable [
+	"An action can be a block with two optional parameters:
+	 - a UI element to which this button model is attached
+	 - this button model
+	[ :aButtonElement :aButtonModel :anEvent |  ].
+
+	Button action must not be nil"
+
 	self viewModel action: aValuable
 ]
 

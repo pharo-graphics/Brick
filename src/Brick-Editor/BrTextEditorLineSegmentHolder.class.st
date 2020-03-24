@@ -44,6 +44,7 @@ BrTextEditorLineSegmentHolder >> createSegmentElement [
 
 	^ BrTextEditorSegmentElement new
 		layout: self class defaultSegmentLayout;
+		clipChildren: false;
 		focusability: BlFocusability after;
 		addEventHandler: BrTextEditorMouseDownHandler uniqueInstance;
 		constraintsDo: [ :c |

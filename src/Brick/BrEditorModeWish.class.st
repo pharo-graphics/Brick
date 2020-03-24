@@ -13,6 +13,11 @@ BrEditorModeWish class >> editable [
 ]
 
 { #category : #'instance creation' }
+BrEditorModeWish class >> mode: aTextEditorMode [
+	^ self new mode: aTextEditorMode
+]
+
+{ #category : #'instance creation' }
 BrEditorModeWish class >> readOnlyWithSelection [
 	^ self new mode: BrTextEditorReadonlyWithSelectionMode new
 ]

@@ -57,3 +57,8 @@ BrTextEditorBasicMode >> uninstallFromEditorElement: anEditorElement [
 	eventHandlers do: [ :eachEventHandler |
 		anEditorElement removeEventHandler: eachEventHandler ]
 ]
+
+{ #category : #initialization }
+BrTextEditorBasicMode >> withInteractions: aCollectionOfDefinitions [
+	interactions := interactions, (self buildInteractions: aCollectionOfDefinitions)
+]

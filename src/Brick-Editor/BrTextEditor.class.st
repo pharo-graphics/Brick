@@ -57,9 +57,8 @@ BrTextEditor >> addInteraction: aBrTextEditorInteraction [
 
 	self interactions
 		add: aBrTextEditorInteraction
-		ifReplaced: [ :aPreviousInteraction | self onInteractionRemoved: aPreviousInteraction ].
-	
-	self onInteractionAdded: aBrTextEditorInteraction
+		ifAdded: [ :aNewInteraction | self onInteractionAdded: aNewInteraction ]
+		ifReplaced: [ :aPreviousInteraction | self onInteractionRemoved: aPreviousInteraction ]
 ]
 
 { #category : #asserting }

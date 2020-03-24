@@ -10,8 +10,18 @@ Class {
 }
 
 { #category : #'api - editor' }
+BrEditor >> addInteraction: aBrTextEditorInteraction [
+	self editor addInteraction: aBrTextEditorInteraction
+]
+
+{ #category : #'api - editor' }
 BrEditor >> beEditable [
 	self dispatchEvent: (BrEditorModeWish editable)
+]
+
+{ #category : #'api - editor' }
+BrEditor >> beMode: aTextEditorMode [
+	self dispatchEvent: (BrEditorModeWish mode: aTextEditorMode)
 ]
 
 { #category : #'api - editor' }
@@ -73,6 +83,24 @@ BrEditor >> inserter [
 	<return: #BrTextEditorInserter>
 
 	^ self editor inserter
+]
+
+{ #category : #'api - editor' }
+BrEditor >> isEditable [
+	<return: #Boolean>
+	| aRequest |
+
+	self dispatchEvent: (aRequest := BrEditorModeRequest new oneWay).
+	^ aRequest response mode isEditable
+]
+
+{ #category : #'api - editor' }
+BrEditor >> isReadOnly [
+	<return: #Boolean>
+	| aRequest |
+
+	self dispatchEvent: (aRequest := BrEditorModeRequest new oneWay).
+	^ aRequest response mode isReadOnly
 ]
 
 { #category : #'editor - operations' }

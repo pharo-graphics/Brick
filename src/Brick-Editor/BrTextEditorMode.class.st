@@ -23,6 +23,16 @@ BrTextEditorMode >> installOnEditor: aTextEditor [
 BrTextEditorMode >> installOnEditorElement: aTextEditorElement [
 ]
 
+{ #category : #testing }
+BrTextEditorMode >> isEditable [
+	^ false
+]
+
+{ #category : #testing }
+BrTextEditorMode >> isReadOnly [
+	^ false
+]
+
 { #category : #'api - hooks' }
 BrTextEditorMode >> uninstallFromEditor: aTextEditor [
 ]

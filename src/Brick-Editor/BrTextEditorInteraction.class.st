@@ -4,7 +4,8 @@ Class {
 	#instVars : [
 		'combination',
 		'action',
-		'shortcut'
+		'shortcut',
+		'isOverwritableByMode'
 	],
 	#category : #'Brick-Editor-Model'
 }
@@ -38,7 +39,19 @@ BrTextEditorInteraction >> asShortcut [
 	^ shortcut ifNil: [
 		shortcut := BlShortcut new
 			combination: self combination;
-			action: [ :aShortcut :anEvent | self action value: anEvent currentTarget editor ] ]
+			action: [ :aShortcut :anEvent | self action
+				cull: anEvent currentTarget editor
+				cull: anEvent ] ]
+]
+
+{ #category : #accessing }
+BrTextEditorInteraction >> beNotOverwritableByMode [
+	isOverwritableByMode := false
+]
+
+{ #category : #accessing }
+BrTextEditorInteraction >> beOverwritableByMode [
+	isOverwritableByMode := true
 ]
 
 { #category : #accessing }
@@ -56,4 +69,18 @@ BrTextEditorInteraction >> hash [
 	"Answer an integer value that is related to the identity of the receiver."
 
 	^ combination hash bitXor: action hash
+]
+
+{ #category : #initialization }
+BrTextEditorInteraction >> initialize [
+	super initialize.
+	
+	isOverwritableByMode := true
+]
+
+{ #category : #accessing }
+BrTextEditorInteraction >> isOverwritableByMode [
+	<return: #Boolean>
+
+	^ isOverwritableByMode
 ]
