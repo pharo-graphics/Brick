@@ -83,7 +83,7 @@ BrGlamorousTaggerEditableLook >> newTagCreatorElement [
 	| aNewTagCreator |
 
 	aNewTagCreator := BrEditableLabel new
-		look: BrGlamorousEditableLabelLook new;
+		look: BrGlamorousEditableLabelLook new glamorousRegularFontAndSize;
 		text: '';
 		requestFocus;
 		switchToEditor;
