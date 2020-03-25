@@ -1,20 +1,17 @@
 Class {
 	#name : #BrGlamorousEditorSpacingLook,
 	#superclass : #BrLook,
-	#pools : [
-		'BrGlamorousColors'
-	],
 	#category : #'Brick-Glamorous-Editor'
 }
 
 { #category : #'focus handlers' }
 BrGlamorousEditorSpacingLook >> blurEvent: anEvent [
-	self widgetContent border: (BlBorder paint: EditorBorderColor width: 1)
+	self widgetContent border: (BlBorder paint: BrGlamorousColors editorBorderColor width: 1)
 ]
 
 { #category : #'focus handlers' }
 BrGlamorousEditorSpacingLook >> focusEvent: anEvent [
-	self widgetContent border: (BlBorder paint: FocusedEditorBorderColor width: 1)
+	self widgetContent border: (BlBorder paint: BrGlamorousColors focusedEditorBorderColor width: 1)
 ]
 
 { #category : #accessing }
@@ -25,7 +22,7 @@ BrGlamorousEditorSpacingLook >> initialize [
 		with: [ Color white ].
 	self
 		addChangeProperty: #(widgetContent border)
-		with: [ BlBorder paint: EditorBorderColor width: 1 ]
+		with: [ BlBorder paint: BrGlamorousColors editorBorderColor width: 1 ]
 ]
 
 { #category : #initialization }

@@ -1,6 +1,6 @@
 Class {
 	#name : #BrEditorStylerChanged,
-	#superclass : #BrChangeEvent,
+	#superclass : #BrEditorChangedEvent,
 	#instVars : [
 		'styler'
 	],

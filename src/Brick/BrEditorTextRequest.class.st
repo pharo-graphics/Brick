@@ -1,6 +1,6 @@
 Class {
 	#name : #BrEditorTextRequest,
-	#superclass : #BrRequest,
+	#superclass : #BrEditorRequest,
 	#category : #'Brick-Editor - Events'
 }
 

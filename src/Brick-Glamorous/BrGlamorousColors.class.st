@@ -208,12 +208,12 @@ BrGlamorousColors class >> distinctTenStrongColors [
 			yourself
 ]
 
-{ #category : #accessing }
+{ #category : #'editor - border' }
 BrGlamorousColors class >> editorBorderColor [
 	^ EditorBorderColor
 ]
 
-{ #category : #accessing }
+{ #category : #'editor - border' }
 BrGlamorousColors class >> editorBorderColor: anObject [
 	EditorBorderColor := anObject
 ]
@@ -248,12 +248,12 @@ BrGlamorousColors class >> failureBorderColor [
 	^ FailureBorderColor
 ]
 
-{ #category : #accessing }
+{ #category : #'editor - border' }
 BrGlamorousColors class >> focusedEditorBorderColor [
 	^ FocusedEditorBorderColor
 ]
 
-{ #category : #accessing }
+{ #category : #'editor - border' }
 BrGlamorousColors class >> focusedEditorBorderColor: anObject [
 	FocusedEditorBorderColor := anObject
 ]

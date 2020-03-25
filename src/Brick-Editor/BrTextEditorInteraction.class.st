@@ -10,6 +10,13 @@ Class {
 	#category : #'Brick-Editor-Model'
 }
 
+{ #category : #'instance creation' }
+BrTextEditorInteraction class >> fromAssociation: anAssociation [
+	^ self new
+		combination: anAssociation key;
+		action: anAssociation value
+]
+
 { #category : #comparing }
 BrTextEditorInteraction >> = anObject [
 	"Answer whether the receiver and anObject represent the same object."
@@ -39,7 +46,7 @@ BrTextEditorInteraction >> asShortcut [
 	^ shortcut ifNil: [
 		shortcut := BlShortcut new
 			combination: self combination;
-			action: [ :aShortcut :anEvent | self action
+			action: [ :anEvent | self action
 				cull: anEvent currentTarget editor
 				cull: anEvent ] ]
 ]

@@ -1,9 +1,6 @@
 Class {
 	#name : #BrGlamorousCodeEditorLook,
 	#superclass : #BrGlamorousEditorLook,
-	#pools : [
-		'BrGlamorousColors'
-	],
 	#category : #'Brick-Glamorous-Editor'
 }
 

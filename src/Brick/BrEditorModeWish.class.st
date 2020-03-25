@@ -1,6 +1,6 @@
 Class {
 	#name : #BrEditorModeWish,
-	#superclass : #BrWish,
+	#superclass : #BrEditorWish,
 	#instVars : [
 		'mode'
 	],

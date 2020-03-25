@@ -1,6 +1,6 @@
 Class {
 	#name : #BrEditorTextChanged,
-	#superclass : #BrChangeEvent,
+	#superclass : #BrEditorChangedEvent,
 	#instVars : [
 		'text'
 	],
