@@ -13,9 +13,12 @@ BrEditableLabel >> acceptEdition [
 	"Accept editor changes and switch back to the label"
 
 	self isEditable
-		ifTrue: [ self onEditionAccepted: self text ].
+		ifFalse: [ ^ self ].
 
-	self switchToLabel
+	"we should switch to label before we process acceptance, otherwise we may end up in the infinite loop"
+	self switchToLabel.
+
+	self onEditionAccepted: self text
 ]
 
 { #category : #'api - editor' }
@@ -23,9 +26,12 @@ BrEditableLabel >> cancelEdition [
 	"Cancel editor changes and switch back to the label"
 
 	self isEditable
-		ifTrue: [ self onEditionCancelled ].
+		ifFalse: [ ^ self ].
 
-	self switchToLabel
+	"we should switch to label before we process cancelation, otherwise we may end up in the infinite loop"
+	self switchToLabel.
+
+	self onEditionCancelled
 ]
 
 { #category : #initialization }

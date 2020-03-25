@@ -1,0 +1,37 @@
+Class {
+	#name : #BrTagger,
+	#superclass : #BlElement,
+	#traits : 'TBrLayoutResizable',
+	#classTraits : 'TBrLayoutResizable classTrait',
+	#category : #'Brick-Tagger - UI'
+}
+
+{ #category : #'api - tags' }
+BrTagger >> addTag: aTaggerTag [
+	self viewModel addTag: aTaggerTag
+]
+
+{ #category : #initialization }
+BrTagger >> initialize [
+	super initialize.
+
+	self viewModel: BrTaggerModel new + (BrInteractiveModel withAll: {
+		BrLayoutHorizontalResizerModel matchParent.
+		BrLayoutVerticalResizerModel fitContent
+	})
+]
+
+{ #category : #'api - tags' }
+BrTagger >> namedTags: aCollectionOfTagNames [
+	self viewModel namedTags: aCollectionOfTagNames
+]
+
+{ #category : #'api - tags' }
+BrTagger >> removeTag: aTaggerTag [
+	self viewModel removeTag: aTaggerTag
+]
+
+{ #category : #'api - tags' }
+BrTagger >> renameTag: aTaggerTag to: aNewName [
+	self viewModel renameTag: aTaggerTag to: aNewName
+]
