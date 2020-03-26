@@ -89,12 +89,9 @@ BrTree >> selectAndScrollTo: anObject [
 { #category : #'api - selection' }
 BrTree >> selectedNodeDo: aBlock [
 	"Evaluate aBlock with the currently selected node"
-
-	self selection isEmpty
-		ifTrue: [ ^ self ].
 	
-	(self selection from between: 0 and: self viewModel itemCount)
-		ifFalse: [ ^ self ].
-	
-	aBlock value: (self viewModel itemAt: self selection from + 1)
+	self selectedIndices
+		ifNotEmpty: [ :theIndices |
+			(theIndices first between: 1 and: self viewModel itemCount)
+				ifTrue: [ aBlock value: (self viewModel itemAt: theIndices first) ] ]
 ]
