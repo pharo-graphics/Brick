@@ -10,7 +10,7 @@ Class {
 		'deselectedInterval',
 		'sourceEvent'
 	],
-	#category : 'Brick-! Core - Events'
+	#category : #'Brick-! Core - Events'
 }
 
 { #category : #'api - accessing' }
@@ -30,6 +30,13 @@ BrSelectionChanged >> deselectedInterval: anObject [
 	deselectedInterval := anObject
 ]
 
+{ #category : #accessing }
+BrSelectionChanged >> indices [
+	<return: #Collection of: #Number>
+
+	^ selection indices
+]
+
 { #category : #'api - accessing' }
 BrSelectionChanged >> selectedDo: aBlock [
 	"Evaluate a given block with a newly selected interval as an argument if there is one"
@@ -45,13 +52,6 @@ BrSelectionChanged >> selectedInterval [
 { #category : #accessing }
 BrSelectionChanged >> selectedInterval: anObject [
 	selectedInterval := anObject
-]
-
-{ #category : #'api - accessing' }
-BrSelectionChanged >> selection [
-	<return: #BlSelection>
-
-	^ selection
 ]
 
 { #category : #accessing }

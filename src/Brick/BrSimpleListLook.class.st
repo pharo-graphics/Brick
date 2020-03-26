@@ -30,7 +30,7 @@ BrSimpleListLook >> initializeListeners [
 	super initializeListeners.
 
 	self when: BrListItemsChangedEvent do: [ :anEvent | self onItemsChanged: anEvent items ].
-	self when: BrSelectionChanged do: [ :anEvent | self onSelectionChanged: anEvent selection ]
+	self when: BrSelectionChanged do: [ :anEvent | self onSelectionChanged: anEvent indices ]
 ]
 
 { #category : #initialization }
@@ -61,6 +61,6 @@ BrSimpleListLook >> onItemsChanged: aCollectionOfObjects [
 ]
 
 { #category : #hooks }
-BrSimpleListLook >> onSelectionChanged: aBlSelection [
-	listElement dataSource selection: aBlSelection
+BrSimpleListLook >> onSelectionChanged: aCollectionOfIndices [
+	listElement dataSource selection: (BlCompositeSelection fromIndices: aCollectionOfIndices)
 ]

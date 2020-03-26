@@ -14,7 +14,8 @@ BrTaggerExamples >> newGlamorousTagger [
 		when: BrTaggerAddTagRequest do: [ :aRequest |
 			aRequest tag name
 				ifNotEmpty: [ aRequest currentTarget addTag: aRequest tag ] ];
-		when: BrTaggerRemoveTagRequest do: [ :aRequest | aRequest currentTarget removeTag: aRequest tag ];
+		when: BrTaggerRemoveTagRequest do: [ :aRequest |
+			aRequest currentTarget removeTag: aRequest tag ];
 		when: BrTaggerRenameTagRequest do: [ :aRequest |
 			aRequest newName trimmed
 				ifEmpty: [ aRequest currentTarget removeTag: aRequest tag ]

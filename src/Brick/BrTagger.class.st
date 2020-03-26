@@ -11,6 +11,11 @@ BrTagger >> addTag: aTaggerTag [
 	self viewModel addTag: aTaggerTag
 ]
 
+{ #category : #'api - tags' }
+BrTagger >> addTagNamed: aTagName [
+	self viewModel addTagNamed: aTagName
+]
+
 { #category : #initialization }
 BrTagger >> initialize [
 	super initialize.
@@ -32,6 +37,16 @@ BrTagger >> removeTag: aTaggerTag [
 ]
 
 { #category : #'api - tags' }
+BrTagger >> removeTagNamed: aTagName [
+	self viewModel removeTagNamed: aTagName
+]
+
+{ #category : #'api - tags' }
 BrTagger >> renameTag: aTaggerTag to: aNewName [
 	self viewModel renameTag: aTaggerTag to: aNewName
+]
+
+{ #category : #'api - tags' }
+BrTagger >> renameTagNamed: aTagName to: aNewName [
+	self viewModel renameTagNamed: aTagName to: aNewName
 ]

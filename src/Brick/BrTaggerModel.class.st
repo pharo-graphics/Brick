@@ -102,6 +102,14 @@ BrTaggerModel >> renameTag: aTaggerTag to: aNewName [
 	self notifyTagRenamed: aTaggerTag from: anOldName to: aNewName
 ]
 
+{ #category : #'api - tags' }
+BrTaggerModel >> renameTagNamed: aTagName to: aNewName [
+	| toBeRenamed |
+
+	toBeRenamed := tags select: [ :eachTag | eachTag name = aTagName ].
+	toBeRenamed do: [ :eachTag | self renameTag: eachTag to: aNewName ]
+]
+
 { #category : #accessing }
 BrTaggerModel >> tags [
 	^ tags

@@ -41,7 +41,7 @@ BrFlowListLook >> initializeListeners [
 	super initializeListeners.
 
 	self when: BrListItemsChangedEvent do: [ :anEvent | self onItemsChanged: anEvent items ].
-	self when: BrSelectionChanged do: [ :anEvent | self onSelectionChanged: anEvent selection ]
+	self when: BrSelectionChanged do: [ :anEvent | self onSelectionChanged: anEvent indices ]
 ]
 
 { #category : #accessing }
@@ -65,8 +65,8 @@ BrFlowListLook >> onItemsChanged: aCollectionOfObjects [
 ]
 
 { #category : #hooks }
-BrFlowListLook >> onSelectionChanged: aBlSelection [
-	selection := aBlSelection.
+BrFlowListLook >> onSelectionChanged: aCollectionOfIndices [
+	selection := BlCompositeSelection fromIndices: aCollectionOfIndices.
 	self updateSelection
 ]
 

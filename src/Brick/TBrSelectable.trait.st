@@ -34,9 +34,9 @@ TBrSelectable >> maxSelectionIndex [
 
 { #category : #'api - selection' }
 TBrSelectable >> selectNext [
-	selectionModel selection isEmpty
-		ifTrue: [ self selectOne: 1  ]
-		ifFalse: [ self selectOne: ((selectionModel selection to + 1) min: self maxSelectionIndex) ]
+	self selectedIndices
+		ifEmpty: [ self selectOne: 1  ]
+		ifNotEmpty: [ :theIndices | self selectOne: (theIndices first + 1 min: self maxSelectionIndex) ]
 ]
 
 { #category : #'api - selection' }
@@ -51,14 +51,15 @@ TBrSelectable >> selectOne: anIndex dueTo: aSourceEvent [
 
 { #category : #'api - selection' }
 TBrSelectable >> selectPrevious [
-	selectionModel selection isEmpty
-		ifTrue: [ self selectOne: 1  ]
-		ifFalse: [ self selectOne: ((selectionModel selection to - 1) max: 1) ]
+	self selectedIndices
+		ifEmpty: [ self selectOne: 1  ]
+		ifNotEmpty: [ :theIndices | self selectOne: (theIndices first - 1 max: 1) ]
 ]
 
 { #category : #'api - selection' }
-TBrSelectable >> selection [
-	<return: #BlSelection>
+TBrSelectable >> selectedIndices [
+	"Return a collection of selected indices"
+	<return: #Collection of: #Number>
 
-	^ selectionModel selection
+	^ selectionModel indices
 ]

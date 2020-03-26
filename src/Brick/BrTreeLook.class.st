@@ -29,7 +29,7 @@ BrTreeLook >> initializeListeners [
 	super initializeListeners.
 	
 	self when: BrTreeChildrenChanged do: [ :anEvent | self root: anEvent root ].
-	self when: BrSelectionChanged do: [ :anEvent | self onSelectionChanged: anEvent selection ]
+	self when: BrSelectionChanged do: [ :anEvent | self onSelectionChanged: anEvent indices ]
 ]
 
 { #category : #initialization }
@@ -41,8 +41,8 @@ BrTreeLook >> initializeRequests [
 ]
 
 { #category : #hooks }
-BrTreeLook >> onSelectionChanged: aBlSelection [
-	treeElement dataSource selection: aBlSelection
+BrTreeLook >> onSelectionChanged: aCollectionOfIndices [
+	treeElement dataSource selection: (BlCompositeSelection fromIndices: aCollectionOfIndices)
 ]
 
 { #category : #initialization }

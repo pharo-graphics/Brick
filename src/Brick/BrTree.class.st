@@ -93,8 +93,8 @@ BrTree >> selectedNodeDo: aBlock [
 	self selection isEmpty
 		ifTrue: [ ^ self ].
 	
-	(self selection from between: 1 and: self viewModel itemCount)
+	(self selection from between: 0 and: self viewModel itemCount)
 		ifFalse: [ ^ self ].
 	
-	aBlock value: (self viewModel itemAt: self selection from)
+	aBlock value: (self viewModel itemAt: self selection from + 1)
 ]

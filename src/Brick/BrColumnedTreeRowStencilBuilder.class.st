@@ -120,13 +120,11 @@ BrColumnedTreeRowStencilBuilder >> makeSelectableContaine: aContainer forTreeEle
 		selected: [ :aWidget | aWidget background: self selectionColor ];
 		deselected: [ :aWidget | aWidget background: Color transparent ]).
 
-	
-
 	aContainer
 		when: BlDoubleClickEvent
 		do: [ :anEvent |
 			anEvent consumed: true.
-			aTreeElement dispatchEvent: (BrSelectionDoubleClicked new selection: aTreeElement selection; sourceEvent: anEvent) ]
+			aTreeElement dispatchEvent: (BrSelectionDoubleClicked new selection: aTreeElement selectedIndices; sourceEvent: anEvent) ]
 ]
 
 { #category : #accessing }

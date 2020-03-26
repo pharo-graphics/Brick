@@ -46,7 +46,7 @@ BrGridListLook >> initializeListeners [
 	super initializeListeners.
 
 	self when: BrListItemsChangedEvent do: [ :anEvent | self onItemsChanged: anEvent items ].
-	self when: BrSelectionChanged do: [ :anEvent | self onSelectionChanged: anEvent selection ]
+	self when: BrSelectionChanged do: [ :anEvent | self onSelectionChanged: anEvent indices ]
 ]
 
 { #category : #accessing }
@@ -70,8 +70,8 @@ BrGridListLook >> onItemsChanged: aCollectionOfObjects [
 ]
 
 { #category : #hooks }
-BrGridListLook >> onSelectionChanged: aBlSelection [
-	selection := aBlSelection.
+BrGridListLook >> onSelectionChanged: aCollectionOfIndices [
+	selection := BlCompositeSelection fromIndices: aCollectionOfIndices.
 	self updateSelection
 ]
 

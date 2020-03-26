@@ -65,16 +65,3 @@ BrList >> maxSelectionIndex [
 	
 	^ self items size
 ]
-
-{ #category : #'api - selection' }
-BrList >> selectedItemDo: aBlock [
-	"Evaluate aBlock with the currently selected node"
-
-	self selection isEmpty
-		ifTrue: [ ^ self ].
-	
-	(self selection from between: 1 and: self viewModel itemCount)
-		ifFalse: [ ^ self ].
-	
-	aBlock value: (self viewModel itemAt: self selection from)
-]

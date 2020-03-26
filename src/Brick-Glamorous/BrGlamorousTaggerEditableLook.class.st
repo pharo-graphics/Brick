@@ -47,6 +47,7 @@ BrGlamorousTaggerEditableLook >> giveFocusToNewTagDuring: aBlock [
 
 { #category : #'hooks - errors' }
 BrGlamorousTaggerEditableLook >> handleAcceptError: anError from: aTagCreatorElement [
+	anError description traceCr.
 
 	aTagCreatorElement switchToEditor.
 
@@ -55,11 +56,15 @@ BrGlamorousTaggerEditableLook >> handleAcceptError: anError from: aTagCreatorEle
 
 { #category : #'hooks - errors' }
 BrGlamorousTaggerEditableLook >> handleRemoveError: anError from: aTagElement [
+	anError description traceCr.
+
 	self addErrorOverlayTo: aTagElement
 ]
 
 { #category : #'hooks - errors' }
 BrGlamorousTaggerEditableLook >> handleRenameError: anError to: aNewName from: aTagElement [
+	anError description traceCr.
+
 	aTagElement switchToEditor.	
 
 	"revert text back to the new name"

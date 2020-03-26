@@ -36,7 +36,7 @@ BrColumnedListLook >> initializeListeners [
 	
 	self when: BrListItemsChangedEvent do: [ :anEvent | self onItemsChanged: anEvent items ].
 	self when: BrColumnsChanged do: [ :anEvent | self onColumnsChanged: anEvent columns ].
-	self when: BrSelectionChanged do: [ :anEvent | self onSelectionChanged: anEvent selection ]
+	self when: BrSelectionChanged do: [ :anEvent | self onSelectionChanged: anEvent indices ]
 ]
 
 { #category : #initialization }
@@ -59,8 +59,8 @@ BrColumnedListLook >> onItemsChanged: aCollectionOfBrWidgetModels [
 ]
 
 { #category : #hooks }
-BrColumnedListLook >> onSelectionChanged: aBlSelection [
-	listElement dataSource selection: aBlSelection
+BrColumnedListLook >> onSelectionChanged: aCollectionOfIndices [
+	listElement dataSource selection: (BlCompositeSelection fromIndices: aCollectionOfIndices)
 ]
 
 { #category : #accessing }
