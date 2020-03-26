@@ -219,7 +219,7 @@ BrTabGroupModel >> selectedTab [
 		assert: [ self hasSelectedTab ]
 		description: [ 'Can not access a selected tab if there is no one' ].
 		
-	^ self tabs at: self selection from
+	^ self tabs at: self selectedIndices first
 ]
 
 { #category : #accessing }

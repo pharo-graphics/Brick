@@ -142,7 +142,7 @@ BrTabExamples >> groupHeaderWithoutBoundTabs [
 BrTabExamples >> groupTabLook [
 	<gtExample>
 
-	^ BrTextLabelLook asLook
+	^ BrTextLabelLook new
 ]
 
 { #category : #'examples - tab group model' }
