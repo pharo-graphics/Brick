@@ -204,6 +204,18 @@ BrTextEditorNavigator >> moveUp [
 	self cursor do: [ :aCursor | operations add: (BrTextEditorNavigatorMoveUpOperation cursor: aCursor) ]
 ]
 
+{ #category : #'api - configuration' }
+BrTextEditorNavigator >> moveWithin: anInterval [
+	"Move all cursors so that they end up within a given text interval.
+	The operation is only applied on existing cursor, not the ones that will be added"
+
+	self cursor do: [ :aCursor |
+		aCursor position < anInterval first
+			ifTrue: [ self move: aCursor to: anInterval first ]
+			ifFalse: [ aCursor position > anInterval last
+				ifTrue: [ self move: aCursor to: anInterval last ] ] ]
+]
+
 { #category : #notifying }
 BrTextEditorNavigator >> notifyCursorAdded: aCursor [
 	self editor dispatchEvent: (BrTextEditorCursorAddedEvent cursor: aCursor)

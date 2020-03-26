@@ -43,6 +43,37 @@ BrTextEditorSelecterExamples >> select_all_in_empty_with_curor [
 	^ anEditor
 ]
 
+{ #category : #'examples - all' }
+BrTextEditorSelecterExamples >> select_all_reduced [
+	"There was a bug, that if a new text is smaller than the existing selection, then things can go wrong"
+	<gtExample>
+	| anEditor |
+
+	anEditor := self editorOnMultilineText.
+	anEditor selecter
+		all
+		select.
+		
+	self assert: anEditor selection equals: (BlCompositeSelection new select: 0 to: self multilineText size).
+	self assert: anEditor cursors equals: (BrTextEditorCursor atAll: { self multilineText size }).
+
+	anEditor text: 'hello'.
+
+	self assert: anEditor selection equals: (BlCompositeSelection new select: 0 to: 5).
+	self assert: anEditor cursors equals: (BrTextEditorCursor atAll: { 5 }).
+	
+	anEditor selecter
+		all
+		select.
+
+	anEditor text: 'hi'.
+
+	self assert: anEditor selection equals: (BlCompositeSelection new select: 0 to: 2).
+	self assert: anEditor cursors equals: (BrTextEditorCursor atAll: { 2 }).
+
+	^ anEditor
+]
+
 { #category : #'examples - word' }
 BrTextEditorSelecterExamples >> select_word_at_0 [
 	<gtExample>

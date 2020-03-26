@@ -1027,6 +1027,17 @@ BrTextEditor >> text [
 { #category : #accessing }
 BrTextEditor >> text: aBrText [
 	
+	"when reducing the text size we should update the selection and cursor positions"
+	(aBrText size < text size)
+		ifTrue: [
+			self navigator
+				moveWithin: (0 to: aBrText size);
+				apply.
+			
+			self deselecter
+				from: aBrText size to: text size;
+				deselect ].
+
 	"before changing the text we must unsubscribe from existing one"	
 	text unsubscribe: self.
 
