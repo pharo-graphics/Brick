@@ -9,10 +9,26 @@ Class {
 }
 
 { #category : #private }
+BrGlamorousTaggerEditableLook >> addErrorOverlayTo: aTagElement [
+	| anOverlay anAnimation |
+
+	anOverlay := (BlOverlayElement on: aTagElement)
+		geometry: aTagElement geometry copy.
+	
+	anAnimation := BlColorTransition new
+		from: (BrGlamorousColors errorBackgroundColor alpha: 0.5);
+		to: Color transparent;
+		onStepDo: [ :eachColor | anOverlay background: eachColor ];
+		onFinishedDo: [ anOverlay removeFromParent ].
+	anOverlay addAnimation:  anAnimation.
+	tags addChild: anOverlay
+]
+
+{ #category : #private }
 BrGlamorousTaggerEditableLook >> addTagCreatorElement [
 	tags
 		addChild: self newTagCreatorElement
-		at: tags children size
+		at: (self request: BrTaggerTagsRequest new oneWay) tags size + 1
 ]
 
 { #category : #private }
@@ -27,6 +43,32 @@ BrGlamorousTaggerEditableLook >> giveFocusToNewTagDuring: aBlock [
 	previousValue := shouldGiveFocusToNewTag.
 	shouldGiveFocusToNewTag := true.
 	aBlock ensure: [ shouldGiveFocusToNewTag := previousValue ]
+]
+
+{ #category : #'hooks - errors' }
+BrGlamorousTaggerEditableLook >> handleAcceptError: anError from: aTagCreatorElement [
+
+	aTagCreatorElement switchToEditor.
+
+	self addErrorOverlayTo: aTagCreatorElement
+]
+
+{ #category : #'hooks - errors' }
+BrGlamorousTaggerEditableLook >> handleRemoveError: anError from: aTagElement [
+	self addErrorOverlayTo: aTagElement
+]
+
+{ #category : #'hooks - errors' }
+BrGlamorousTaggerEditableLook >> handleRenameError: anError to: aNewName from: aTagElement [
+	aTagElement switchToEditor.	
+
+	"revert text back to the new name"
+	aTagElement text: aNewName.
+	aTagElement selecter
+		all;
+		select.
+	
+	self addErrorOverlayTo: aTagElement
 ]
 
 { #category : #initialization }
@@ -90,8 +132,9 @@ BrGlamorousTaggerEditableLook >> newTagCreatorElement [
 		padding: (BlInsets top: 5 left: 10 bottom: 5 right: 10);
 		constraintsDo: [ :c | c flow vertical alignCenter ];
 		when: BrEditorAcceptWish do: [ :aWish |
-			aWish currentTarget removeFromParent.
-			self giveFocusToNewTagDuring: [ self dispatchEvent: (BrTaggerAddTagRequest new tag: (BrTaggerTag named: aWish text asString)) ] ];
+			self
+				requestAddTag: (BrTaggerTag named: aWish text asString)
+				from: aWish currentTarget ];
 		when: BrEditorCancelWish do: [ :anEvent |
 			anEvent currentTarget focusPrevious.
 			anEvent currentTarget removeFromParent ].
@@ -99,7 +142,7 @@ BrGlamorousTaggerEditableLook >> newTagCreatorElement [
 	aNewTagCreator navigator
 		moveTo: 0;
 		apply.
-		
+
 	^ aNewTagCreator
 ]
 
@@ -112,10 +155,14 @@ BrGlamorousTaggerEditableLook >> newTagElementFor: aTaggerTag [
 		text: aTaggerTag name;
 		margin: (BlInsets top: 2 left: 0 bottom: 2 right: 2);
 		when: BrEditorAcceptWish do: [ :aWish |
-			aWish currentTarget text: aTaggerTag name.
-			self widgetDo: [ :aWidget |
-				aWidget dispatchEvent: (BrTaggerRenameTagRequest new tag: aTaggerTag; newName: aWish text asString) ] ];
-		whenKey: BlKeyCombination backspace labelDo: [ :anEvent | self widgetDo: [ :aWidget | aWidget dispatchEvent: (BrTaggerRemoveTagRequest new tag: aTaggerTag) ] ]
+			self
+				requestRenameTag: aTaggerTag
+				to: aWish text asString
+				from: aWish currentTarget ];
+		whenKey: BlKeyCombination backspace labelDo: [ :anEditor :anEvent |
+			self
+				requestRemoveTag: aTaggerTag
+				from: anEvent currentTarget ]
 ]
 
 { #category : #hooks }
@@ -154,6 +201,45 @@ BrGlamorousTaggerEditableLook >> onTagRenamed: aTaggerTag to: aNewName [
 BrGlamorousTaggerEditableLook >> onTagsChanged: theTags [
 	tags removeChildren: self tagElements.
 	theTags withIndexDo: [ :eachTag :eachIndex | self onTagAdded: eachTag at: eachIndex ]
+]
+
+{ #category : #'api - requests' }
+BrGlamorousTaggerEditableLook >> requestAddTag: aTaggerTag from: aTagCreatorElement [
+	"I request the tagger to add a new tag while handling possible errors"
+	
+	[
+		self giveFocusToNewTagDuring: [ self dispatchEvent: (BrTaggerAddTagRequest new tag: aTaggerTag) ].
+		aTagCreatorElement removeFromParent.
+	]
+		on: Error
+		do: [ :anError | self handleAcceptError: anError from: aTagCreatorElement ]
+]
+
+{ #category : #'api - requests' }
+BrGlamorousTaggerEditableLook >> requestRemoveTag: aTaggerTag from: aTagCreatorElement [
+	
+	[
+		self dispatchEvent: (BrTaggerRemoveTagRequest new tag: aTaggerTag).
+	]
+		on: Error
+		do: [ :anError |
+			self
+				handleRemoveError: anError
+				from: aTagCreatorElement ]
+]
+
+{ #category : #'api - requests' }
+BrGlamorousTaggerEditableLook >> requestRenameTag: aTaggerTag to: aNewName from: aTagElement [	
+	[
+		aTagElement text: aTaggerTag name.
+		self dispatchEvent: (BrTaggerRenameTagRequest new tag: aTaggerTag; newName: aNewName).
+	]
+		on: Error
+		do: [ :anError |
+			self
+				handleRenameError: anError
+				to: aNewName
+				from: aTagElement ]
 ]
 
 { #category : #private }
