@@ -4,6 +4,13 @@ Class {
 	#category : #'Brick-Tagger - Look'
 }
 
+{ #category : #accessing }
+BrTaggerLook >> amountOfTags [
+	<return: #Number>
+
+	^ (self request: BrTaggerTagsRequest new oneWay) tags size
+]
+
 { #category : #initialization }
 BrTaggerLook >> initialize [
 	super initialize.

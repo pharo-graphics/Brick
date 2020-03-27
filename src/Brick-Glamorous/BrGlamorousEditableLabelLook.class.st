@@ -21,6 +21,8 @@ BrGlamorousEditableLabelLook >> initialize [
 				style: [ :aWidget | aWidget border: (BlBorder paint: BrGlamorousColors editorBorderColor width: 1) ];
 			when: (BrInteractionState focused and: BrEditorModeState editable)
 				style: [ :aWidget | aWidget border: (BlBorder paint: BrGlamorousColors focusedEditorBorderColor width: 1) ];
+			when: (BrInteractionState hovered and: BrEditorModeState readOnly)
+				style: [ :aWidget | aWidget background: BrGlamorousColors neutralBackgroundColor darker ];
 			when: (BrInteractionState focused and: BrEditorModeState readOnly)
 				style: [ :aWidget |
 					aWidget background: BrGlamorousColors focusedEditorBorderColor.

@@ -54,12 +54,16 @@ BrEditableLabel >> defaultLabelInteractions [
 
 { #category : #'api - focus' }
 BrEditableLabel >> focusNext [	
-	self nextSiblingDo: [ :anElement | anElement requestFocus ]
+	self
+		nextSiblingSuchThat: [ :eachElement | eachElement isFocusable ]
+		do: [ :anElement | anElement requestFocus ]
 ]
 
 { #category : #'api - focus' }
 BrEditableLabel >> focusPrevious [
-	self previousSiblingDo: [ :anElement | anElement requestFocus ]
+	self
+		previousSiblingSuchThat: [ :eachElement | eachElement isFocusable ]
+		do: [ :anElement | anElement requestFocus ]
 ]
 
 { #category : #initialization }
@@ -74,6 +78,10 @@ BrEditableLabel >> initialize [
 	self
 		when: BlDoubleClickEvent
 		do: [ :anEvent | anEvent currentTarget switchToEditor ].
+		
+	self
+		when: BlClickEvent
+		do: [ :anEvent | anEvent currentTarget requestFocus ].
 
 	self
 		when: BlBlurEvent
