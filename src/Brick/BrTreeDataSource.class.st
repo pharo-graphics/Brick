@@ -29,7 +29,7 @@ BrTreeDataSource >> itemCount [
 BrTreeDataSource >> onBindHolder: anElementHolder at: aPosition [
 	anElementHolder rowValue: (rootNode at: aPosition) at: aPosition.
 
-	(self selection contains: aPosition)
+	(self selection containsIndex: aPosition)
 		ifTrue: [ anElementHolder itemElement dispatchEvent: (BrSelectedWish new selected: true) ]
 		ifFalse: [ anElementHolder itemElement dispatchEvent: (BrSelectedWish new selected: false) ]
 ]

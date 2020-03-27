@@ -38,7 +38,7 @@ BrListDataSource >> listElement: anObject [
 BrListDataSource >> onBindHolder: anElementHolder at: aPosition [
 	anElementHolder rowValue: (self rowValues at: aPosition) at: aPosition.
 
-	(self selection contains: aPosition)
+	(self selection containsIndex: aPosition)
 		ifTrue: [
 			anElementHolder itemElement effect: (BlOverlayAboveEffect new paint: (Color gray alpha: 0.15)).
 			anElementHolder itemElement dispatchEvent: (BrSelectedWish selected: true) ]
