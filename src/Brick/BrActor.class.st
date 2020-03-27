@@ -137,16 +137,6 @@ BrActor >> fireEventToMyself: anEvent [
 	BlEvent fireEvent: anEvent target: self
 ]
 
-{ #category : #'gt-inspector-extension' }
-BrActor >> gtInspectorChildrenIn: aComposite [
-	<gtInspectorPresentationOrder: 80>
-
-	^ aComposite fastList
-		title: 'Children';
-		display: [ self children ];
-		when: [ self children isNotEmpty ]
-]
-
 { #category : #'api - testing' }
 BrActor >> hasActor: anActorClass [
 	"Return true if I or any of my children is of the given type"

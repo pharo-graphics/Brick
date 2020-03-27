@@ -31,15 +31,14 @@ BrLook >> + anotherLook [
 ]
 
 { #category : #'api - composition' }
-BrLook >> - anotherLook [
-	self remove: anotherLook
-]
+BrLook >> - aLookClass [
+	| toBeRemoved |
+	self
+		assert: [ aLookClass isClass ]
+		description: [ 'It is only possible to remove a look by its type (class) using this API' ].
 
-{ #category : #comparing }
-BrLook >> = anObject [
-	self == anObject
-		ifTrue: [ ^ true ].
-	^ self class = anObject class
+	toBeRemoved := actors select: [ :eachLook | eachLook class = aLookClass ].
+	toBeRemoved reverseDo: [ :eachLook | self remove: eachLook ]
 ]
 
 { #category : #'api - composition' }
@@ -116,11 +115,6 @@ BrLook >> asLook [
 { #category : #'api - changes' }
 BrLook >> changes [
 	^ changes
-]
-
-{ #category : #comparing }
-BrLook >> hash [
-	^ self class hash
 ]
 
 { #category : #initialization }

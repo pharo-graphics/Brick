@@ -11,3 +11,13 @@ Class {
 BrConjunctionState >> matches: aSetOfStates [
 	^ (self left matches: aSetOfStates) and: [ self right matches: aSetOfStates ]
 ]
+
+{ #category : #printing }
+BrConjunctionState >> printOn: aStream [
+	aStream
+		nextPut: $(;
+		print: self left;
+		nextPutAll: ' & ';
+		print: self right;
+		nextPut: $)
+]

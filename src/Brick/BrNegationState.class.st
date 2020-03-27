@@ -33,6 +33,15 @@ BrNegationState >> not [
 	^ self state
 ]
 
+{ #category : #printing }
+BrNegationState >> printOn: aStream [
+	aStream
+		nextPut: $(;
+		nextPutAll: 'not ';
+		print: self state;
+		nextPut: $)
+]
+
 { #category : #accessing }
 BrNegationState >> state [
 	^ state

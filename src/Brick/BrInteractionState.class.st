@@ -59,6 +59,11 @@ BrInteractionState class >> unfocused [
 	^ self focused not
 ]
 
+{ #category : #controlling }
+BrInteractionState >> & anAnotherState [
+	^ self and: anAnotherState
+]
+
 { #category : #comparing }
 BrInteractionState >> = anotherState [
 	^ anotherState class = self class
@@ -91,4 +96,9 @@ BrInteractionState >> or: anAnotherState [
 	^ BrDisjunctionState new
 		left: self;
 		right: anAnotherState
+]
+
+{ #category : #controlling }
+BrInteractionState >> | anAnotherState [
+	^ self or: anAnotherState
 ]

@@ -72,10 +72,6 @@ BrExpanderLook >> initialize [
 	contentStencil := [ BlElement new ] asStencil.
 	headerStencil := [ BlElement new ] asStencil.
 
-	self add: (BrInteractiveCommonLook new
-		expanded: [ self onExpanded ];
-		collapsed: [ self onCollapsed ]).
-
 	self add: (layoutResizerLook := BrLayoutResizerLook new
 		inherit; "for myself"
 		matchParentToMatchParentIn: [ :aBlock | self resizableElementsDo: aBlock ];
@@ -101,6 +97,10 @@ BrExpanderLook >> initializeHeaderElement [
 BrExpanderLook >> initializeListeners [
 	super initializeListeners.
 
+	self when: BrExpansionChanged do: [ :anEvent |
+		anEvent expanded
+			ifTrue: [ self onExpanded ]
+			ifFalse: [ self onCollapsed ] ].
 	self when: BrAccordionContentStencilChanged do: [ :anEvent | self contentStencil: anEvent stencil ].
 	self when: BrAccordionHeaderStencilChanged do: [ :anEvent | self headerStencil: anEvent stencil ]
 ]
@@ -110,7 +110,8 @@ BrExpanderLook >> initializeRequests [
 	super initializeRequests.
 	
 	self request: BrAccordionContentStencilRequest new.
-	self request: BrAccordionHeaderStencilRequest new
+	self request: BrAccordionHeaderStencilRequest new.
+	self request: BrExpansionStateRequest new
 ]
 
 { #category : #hooks }

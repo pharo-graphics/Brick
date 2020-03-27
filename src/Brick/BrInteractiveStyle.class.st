@@ -20,6 +20,15 @@ BrInteractiveStyle >> action: aValuable [
 	action := aValuable
 ]
 
+{ #category : #printing }
+BrInteractiveStyle >> printOn: aStream [
+	aStream
+		nextPutAll: 'when: ';
+		print: self state;
+		nextPutAll: ' style: ';
+		print: self action
+]
+
 { #category : #accessing }
 BrInteractiveStyle >> state [
 	<return: #BrInteractionState>
