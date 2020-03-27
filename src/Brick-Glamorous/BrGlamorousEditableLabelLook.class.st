@@ -1,20 +1,47 @@
 Class {
 	#name : #BrGlamorousEditableLabelLook,
 	#superclass : #BrGlamorousEditorLook,
+	#instVars : [
+		'defaultBackground',
+		'defaultForeground'
+	],
 	#category : #'Brick-Glamorous-Editor'
 }
+
+{ #category : #accessing }
+BrGlamorousEditableLabelLook >> defaultBackground [
+	^ defaultBackground
+]
+
+{ #category : #accessing }
+BrGlamorousEditableLabelLook >> defaultBackground: anObject [
+	defaultBackground := anObject
+]
+
+{ #category : #accessing }
+BrGlamorousEditableLabelLook >> defaultForeground [
+	^ defaultForeground
+]
+
+{ #category : #accessing }
+BrGlamorousEditableLabelLook >> defaultForeground: anObject [
+	defaultForeground := anObject
+]
 
 { #category : #initialization }
 BrGlamorousEditableLabelLook >> initialize [
 	super initialize.
+	
+	defaultBackground := BrGlamorousColors neutralBackgroundColor.
+	defaultForeground := Color veryDarkGray.
 
 	self
 		add: (BrInteractiveCommonLook new
 			default: [ :aWidget |
 				aWidget geometry: (BlRectangle cornerRadius: 4).
-				aWidget background: BrGlamorousColors neutralBackgroundColor.
+				aWidget background: self defaultBackground.
 				aWidget border: BlBorder empty.
-				self foreground: Color veryDarkGray ];
+				self foreground: self defaultForeground ];
 			when: BrEditorModeState editable
 				style: [ :aWidget | aWidget background: Color white ];
 			when: (BrInteractionState focused not and: BrEditorModeState editable)
