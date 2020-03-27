@@ -18,11 +18,7 @@ BrGlamorousButtonRectangularLook >> initialize [
 	self add: BrGlamorousButtonLayoutLook new.
 	
 	self add: (BrInteractiveSizeLook new
-		default: [ :aWidget | 
-			aWidget
-				vExact: 24;
-				padding: (BlInsets left: 10 right: 10) ];
-		tiny: [ :aWidget | 
+		tiny: [ :aWidget |
 			aWidget
 				vExact: 16;
 				padding: (BlInsets left: 6 right: 6) ];
@@ -30,6 +26,15 @@ BrGlamorousButtonRectangularLook >> initialize [
 			aWidget
 				vExact: 20;
 				padding: (BlInsets left: 8 right: 8) ];
-		huge: [ :aWidget | aWidget height: 48 ];
-		large: [ :aWidget | aWidget height: 30 ])
+		default: [ :aWidget | 
+			aWidget
+				vExact: 24;
+				padding: (BlInsets left: 10 right: 10) ];
+		large: [ :aWidget | aWidget
+			vExact: 30;
+			padding: (BlInsets left: 10 right: 10) ];
+		huge: [ :aWidget |
+			aWidget
+				vExact: 48;
+				padding: (BlInsets left: 16 right: 16) ])
 ]

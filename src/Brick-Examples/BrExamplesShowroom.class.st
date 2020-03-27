@@ -247,11 +247,33 @@ BrExamplesShowroom >> glamorousButtonWithTooltipLook [
 ]
 
 { #category : #buttons }
+BrExamplesShowroom >> glamorousDefaultButton [
+	<gtExample>
+	
+	^ BrButton new
+		beDefault;
+		look: BrGlamorousButtonWithLabelLook new;
+		label: 'Button';
+		action: [ self inform: 'Clicked' ]
+]
+
+{ #category : #buttons }
 BrExamplesShowroom >> glamorousDisabledButton [
 	<gtExample>
 	
 	^ self glamorousButton
 		disable
+]
+
+{ #category : #buttons }
+BrExamplesShowroom >> glamorousHugeButton [
+	<gtExample>
+	
+	^ BrButton new
+		beHuge;
+		look: BrGlamorousButtonWithLabelLook new;
+		label: 'Button';
+		action: [ self inform: 'Clicked' ]
 ]
 
 { #category : #buttons }
