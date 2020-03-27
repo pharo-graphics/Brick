@@ -120,7 +120,15 @@ BrEditorTextFlowLine >> hasSpaceFor: anElement [
 	<return: #Boolean>
 	
 	^ self isEmpty or: [
-		availableWidth >= (anElement measuredWidth + anElement margin width) ]
+		| aChildWidth |
+		
+		aChildWidth := anElement measuredWidth + anElement margin width.
+		
+		"we can not directly return the comparison, because it is possible that available width
+		is very very close but slightly less than (by a thousand of a pixel) the child's measured width."
+		availableWidth >= aChildWidth
+			ifTrue: [ true ]
+			ifFalse: [ availableWidth closeTo: aChildWidth epsilon: 0.5 ] ]
 ]
 
 { #category : #geometry }
