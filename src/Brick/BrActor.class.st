@@ -26,6 +26,18 @@ BrActor >> addEventHandler: anEventHandler [
 ]
 
 { #category : #accessing }
+BrActor >> allActorsBreadthFirstDo: aBlock [ 
+	self actors do: aBlock.
+	self actors do: [ :each | each allActorsBreadthFirstDo: aBlock ]
+]
+
+{ #category : #accessing }
+BrActor >> allActorsDepthFirstDo: aBlock [
+	self actors do: [ :each | each allActorsDepthFirstDo: aBlock ].
+	self actors do: aBlock
+]
+
+{ #category : #accessing }
 BrActor >> allChildren [
 	<return: #Collection of: #BrActor>
 
@@ -179,6 +191,19 @@ BrActor >> isAttachedToWidget [
 ]
 
 { #category : #'api - hooks' }
+BrActor >> onAttachedTo: anElement [
+	"Is sent when I am added to an element (or to the other actor which is added to the element)"
+
+	self
+		assert: [ widget isNil ]
+		description: [ 'Can not install the same look instance on multiple widgets' ].
+
+	widget := anElement.
+	
+	self transferEventHandlersToWidget
+]
+
+{ #category : #'api - hooks' }
 BrActor >> onInstalledIn: anElement [
 	"Is sent when I am added to an element (or to the other actor which is added to the element)"
 
@@ -246,6 +271,18 @@ BrActor >> widget [
 { #category : #accessing }
 BrActor >> widgetDo: aBlockClosure [
 	widget ifNotNil: aBlockClosure
+]
+
+{ #category : #accessing }
+BrActor >> withAllActorsBreadthFirstDo: aBlock [
+	aBlock value: self.
+	self allActorsBreadthFirstDo: aBlock
+]
+
+{ #category : #accessing }
+BrActor >> withAllActorsDepthFirstDo: aBlock [
+	self allActorsDepthFirstDo: aBlock.
+	aBlock value: self
 ]
 
 { #category : #accessing }

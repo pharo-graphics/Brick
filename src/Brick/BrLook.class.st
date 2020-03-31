@@ -135,14 +135,9 @@ BrLook >> looks [
 
 { #category : #'api - hooks' }
 BrLook >> onInstalledIn: anElement [
-	super onInstalledIn: anElement.
-	
-	changes upOn: self.
-
-	"we must send events after look initialization where we set defaults"
-	self initializeRequests.
-
-	self looks do: [ :aLook | aLook onInstalledIn: anElement ]
+	self withAllActorsBreadthFirstDo: [ :eachLook | eachLook onAttachedTo: anElement ].
+	self withAllActorsBreadthFirstDo: [ :eachLook | eachLook changes upOn: eachLook ].
+	self withAllActorsBreadthFirstDo: [ :eachLook | eachLook initializeRequests ]
 ]
 
 { #category : #'api - hooks' }
