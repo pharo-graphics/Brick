@@ -54,8 +54,8 @@ BrGlamorousTaggerEditableLook >> assignTag: aTaggerTag toElement: aTagElement [
 ]
 
 { #category : #'api - style' }
-BrGlamorousTaggerEditableLook >> editableLabel: aStencil [
-	editableLabelStencil := aStencil asStencil
+BrGlamorousTaggerEditableLook >> editableLabel: aBrTaggerTagStencilBuilder [
+	editableLabelStencil := aBrTaggerTagStencilBuilder asStencilBuilder: BrTaggerTagStencilBuilder
 ]
 
 { #category : #private }
@@ -110,9 +110,10 @@ BrGlamorousTaggerEditableLook >> initialize [
 	shouldGiveFocusToNewTag := false.
 	separatorStencil := nil.
 	margin := BlInsets top: 3 left: 0 bottom: 3 right: 5.
-	editableLabelStencil := [
+	editableLabelStencil := [ :aTag |
 		BrEditableLabel new
-			look: BrGlamorousEditableLabelLook new glamorousRegularFontAndSize ] asStencil.
+			look: BrGlamorousEditableLabelLook new glamorousRegularFontAndSize;
+			text: aTag name ] asStencilBuilder: BrTaggerTagStencilBuilder.
 
 	tags := BlElement new layout: BlFlowLayout horizontal.
 	tags addChild: self newAddTagButton.
@@ -177,8 +178,7 @@ BrGlamorousTaggerEditableLook >> newSeparatorElement [
 BrGlamorousTaggerEditableLook >> newTagCreatorElement [
 	| aNewTagCreator |
 
-	aNewTagCreator := editableLabelStencil asElement
-		text: '';
+	aNewTagCreator := (editableLabelStencil tag: (BrTaggerTag named: ''))asElement
 		requestFocus;
 		switchToEditor;
 		padding: (BlInsets top: 5 left: 6 bottom: 5 right: 6);
@@ -205,8 +205,7 @@ BrGlamorousTaggerEditableLook >> newTagCreatorElement [
 BrGlamorousTaggerEditableLook >> newTagElementFor: aTaggerTag [
 	<return: #BlElement>
 
-	^ editableLabelStencil asElement
-		text: aTaggerTag name;
+	^ (editableLabelStencil tag: aTaggerTag) asElement
 		margin: margin;
 		when: BrEditorAcceptWish do: [ :aWish |
 			self
