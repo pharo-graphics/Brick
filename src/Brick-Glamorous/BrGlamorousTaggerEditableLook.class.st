@@ -170,7 +170,7 @@ BrGlamorousTaggerEditableLook >> newAddTagButton [
 BrGlamorousTaggerEditableLook >> newSeparatorElement [
 	^ separatorStencil asElement
 		focusability: BlFocusability none;
-		margin: (BlInsets right: margin right);
+		margin: (BlInsets left: (margin right / 2.0) negated right: (margin right / 2));
 		constraintsDo: [ :c | c flow vertical alignCenter ]
 ]
 
