@@ -20,7 +20,7 @@ BrGlamorousButtonLabelLook >> initialize [
 		weight: 400;
 		fontName: 'Source Sans Pro'.
 
-	self add: (BrInteractiveSizeLook new
+	self add: (BrSizeAdjustmentLook new
 		default: [ self
 			foreground: BrGlamorousColors defaultButtonTextColor;
 			fontSize: 14 ];

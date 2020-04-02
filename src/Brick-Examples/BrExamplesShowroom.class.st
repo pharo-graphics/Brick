@@ -251,7 +251,6 @@ BrExamplesShowroom >> glamorousDefaultButton [
 	<gtExample>
 	
 	^ BrButton new
-		beDefault;
 		look: BrGlamorousButtonWithLabelLook new;
 		label: 'Button';
 		action: [ self inform: 'Clicked' ]

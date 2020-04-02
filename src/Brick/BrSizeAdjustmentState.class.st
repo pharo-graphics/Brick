@@ -1,5 +1,5 @@
 Class {
-	#name : #BrSizeState,
+	#name : #BrSizeAdjustmentState,
 	#superclass : #BrInteractionState,
 	#instVars : [
 		'dimension'
@@ -8,83 +8,93 @@ Class {
 }
 
 { #category : #'instance creation' }
-BrSizeState class >> default [
+BrSizeAdjustmentState class >> default [
 	^ self new dimension: self defaultName
 ]
 
 { #category : #accessing }
-BrSizeState class >> defaultName [
+BrSizeAdjustmentState class >> defaultName [
 	^ #default
 ]
 
 { #category : #'instance creation' }
-BrSizeState class >> huge [
+BrSizeAdjustmentState class >> huge [
 	^ self new dimension: self hugeName
 ]
 
 { #category : #accessing }
-BrSizeState class >> hugeName [
+BrSizeAdjustmentState class >> hugeName [
 	^ #huge
 ]
 
 { #category : #'instance creation' }
-BrSizeState class >> large [
+BrSizeAdjustmentState class >> large [
 	^ self new dimension: self largeName
 ]
 
 { #category : #accessing }
-BrSizeState class >> largeName [
+BrSizeAdjustmentState class >> largeName [
 	^ #large
 ]
 
 { #category : #'instance creation' }
-BrSizeState class >> sized: aNamedSize [
-	^ BrSizeState new dimension: aNamedSize
+BrSizeAdjustmentState class >> mini [
+	^ self new dimension: self miniName
+]
+
+{ #category : #accessing }
+BrSizeAdjustmentState class >> miniName [
+	^ #mini
 ]
 
 { #category : #'instance creation' }
-BrSizeState class >> small [
+BrSizeAdjustmentState class >> sized: aNamedSize [
+	^ BrSizeAdjustmentState new dimension: aNamedSize
+]
+
+{ #category : #'instance creation' }
+BrSizeAdjustmentState class >> small [
 	^ self new dimension: self smallName
 ]
 
 { #category : #accessing }
-BrSizeState class >> smallName [
+BrSizeAdjustmentState class >> smallName [
 	^ #small
 ]
 
 { #category : #'instance creation' }
-BrSizeState class >> tiny [
+BrSizeAdjustmentState class >> tiny [
 	^ self new dimension: self tinyName
 ]
 
 { #category : #accessing }
-BrSizeState class >> tinyName [
+BrSizeAdjustmentState class >> tinyName [
 	^ #tiny
 ]
 
 { #category : #comparing }
-BrSizeState >> = anotherState [
+BrSizeAdjustmentState >> = anotherState [
 	^ anotherState class = self class
 		and: [ anotherState dimension = self dimension ]
 ]
 
 { #category : #accessing }
-BrSizeState >> dimension [
+BrSizeAdjustmentState >> dimension [
 	^ dimension
 ]
 
 { #category : #accessing }
-BrSizeState >> dimension: anObject [
+BrSizeAdjustmentState >> dimension: anObject [
 	dimension := anObject
 ]
 
 { #category : #comparing }
-BrSizeState >> hash [
+BrSizeAdjustmentState >> hash [
 	^ self class hash bitXor: self dimension hash
 ]
 
 { #category : #initialization }
-BrSizeState >> initialize [
+BrSizeAdjustmentState >> initialize [
 	super initialize.
 
 	dimension := self class defaultName

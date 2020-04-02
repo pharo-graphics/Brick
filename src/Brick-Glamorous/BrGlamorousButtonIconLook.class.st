@@ -8,7 +8,7 @@ Class {
 BrGlamorousButtonIconLook >> initialize [
 	super initialize.
 	
-	self add: (BrInteractiveSizeLook new
+	self add: (BrSizeAdjustmentLook new
 		default: [ self icon transformDo: [ :t | t scaleBy: 1 ] ];
 		small: [ self icon transformDo: [ :t | t scaleBy: 0.75] ])
 ]

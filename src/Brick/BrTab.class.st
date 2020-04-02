@@ -57,7 +57,7 @@ BrTab >> initialize [
 			BrPressModel new.
 			BrHoverModel new.
 			BrSelectModel new.
-			BrSizeModel new.
+			BrSizeAdjustmentModel new.
 			BrLayoutHorizontalResizerModel fitContent.
 			BrLayoutVerticalResizerModel fitContent
 	}))

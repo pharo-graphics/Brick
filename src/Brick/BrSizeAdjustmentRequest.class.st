@@ -1,10 +1,10 @@
 Class {
-	#name : #BrDimensionRequest,
+	#name : #BrSizeAdjustmentRequest,
 	#superclass : #BrRequest,
 	#category : #'Brick-! Core - Events'
 }
 
 { #category : #initialization }
-BrDimensionRequest >> responseClass [
-	^ BrDimensionChanged
+BrSizeAdjustmentRequest >> responseClass [
+	^ BrSizeAdjustmentChanged
 ]

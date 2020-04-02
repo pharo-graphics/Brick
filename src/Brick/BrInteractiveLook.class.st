@@ -13,7 +13,8 @@ Class {
 	#name : #BrInteractiveLook,
 	#superclass : #BrLook,
 	#instVars : [
-		'styles'
+		'styles',
+		'currentStates'
 	],
 	#category : #'Brick-! Core - Looks'
 }
@@ -34,7 +35,10 @@ BrInteractiveLook >> gtStylesFor: aView [
 { #category : #initialization }
 BrInteractiveLook >> initialize [
 	super initialize.
+	
 	styles := OrderedCollection new.
+	currentStates := #().
+	
 	self
 		addChange:
 			(BrLookChange new
@@ -70,12 +74,17 @@ BrInteractiveLook >> state [
 
 { #category : #hooks }
 BrInteractiveLook >> statesChanged: anEvent [
-	| aWidget |
-	
+	| aWidget newStates |
+
 	aWidget := self widget.
-	
+	newStates := anEvent states.
+
+	currentStates = newStates
+		ifTrue: [ ^ self ].
+
+	currentStates := newStates.
 	styles
-		select: [ :aStyle | aStyle state matches: anEvent states ]
+		select: [ :aStyle | aStyle state matches: currentStates ]
 		thenDo: [ :aStyle | aStyle action cull: aWidget cull: aStyle state ]
 ]
 

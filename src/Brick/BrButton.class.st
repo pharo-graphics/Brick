@@ -1,8 +1,8 @@
 Class {
 	#name : #BrButton,
 	#superclass : #BlElement,
-	#traits : 'TBrActivatable + TBrLayoutAlignable + TBrLayoutResizable',
-	#classTraits : 'TBrActivatable classTrait + TBrLayoutAlignable classTrait + TBrLayoutResizable classTrait',
+	#traits : 'TBrActivatable + TBrLayoutAlignable + TBrLayoutResizable + TBrSizeAdjustable',
+	#classTraits : 'TBrActivatable classTrait + TBrLayoutAlignable classTrait + TBrLayoutResizable classTrait + TBrSizeAdjustable classTrait',
 	#instVars : [
 		'labelModel',
 		'iconModel',
@@ -32,27 +32,8 @@ BrButton >> action: aValuable [
 
 { #category : #'api - size' }
 BrButton >> beDefault [
-	dimensionModel beDefault
-]
-
-{ #category : #'api - size' }
-BrButton >> beHuge [
-	dimensionModel beHuge
-]
-
-{ #category : #'api - size' }
-BrButton >> beLarge [
-	dimensionModel beLarge
-]
-
-{ #category : #'api - size' }
-BrButton >> beSmall [
-	dimensionModel beSmall
-]
-
-{ #category : #'api - size' }
-BrButton >> beTiny [
-	dimensionModel beTiny
+	self deprecated: 'Use #beNormal instead.' transformWith: '`@receiver beDefault' -> '`@receiver beNormal'.
+	self beNormal
 ]
 
 { #category : #'api - widget' }
@@ -78,7 +59,7 @@ BrButton >> initialize [
 				BrPressModel new.
 				BrHoverModel new.
 				BrFocusModel new.
-				dimensionModel := BrSizeModel new.
+				dimensionModel := BrSizeAdjustmentModel new.
 				BrLayoutAlignmentModel center.
 				BrLayoutHorizontalResizerModel fitContent.
 				BrLayoutVerticalResizerModel fitContent

@@ -1,5 +1,5 @@
 Class {
-	#name : #BrDimensionChanged,
+	#name : #BrSizeAdjustmentChanged,
 	#superclass : #BrStateChangedEvent,
 	#instVars : [
 		'dimension'
@@ -8,26 +8,26 @@ Class {
 }
 
 { #category : #accessing }
-BrDimensionChanged >> dimension [
+BrSizeAdjustmentChanged >> dimension [
 	<return: #Symbol>
 
 	^ dimension
 ]
 
 { #category : #accessing }
-BrDimensionChanged >> dimension: aSymbol [
+BrSizeAdjustmentChanged >> dimension: aSymbol [
 	dimension := aSymbol
 ]
 
 { #category : #initialization }
-BrDimensionChanged >> initialize [
+BrSizeAdjustmentChanged >> initialize [
 	super initialize.
 	
 	dimension := #default
 ]
 
 { #category : #accessing }
-BrDimensionChanged >> state: anObject [
+BrSizeAdjustmentChanged >> state: anObject [
 	"Override me to properly set the given state"
 
 	self dimension: anObject

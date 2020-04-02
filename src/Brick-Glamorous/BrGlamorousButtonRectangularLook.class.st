@@ -17,7 +17,7 @@ BrGlamorousButtonRectangularLook >> initialize [
 		
 	self add: BrGlamorousButtonLayoutLook new.
 	
-	self add: (BrInteractiveSizeLook new
+	self add: (BrSizeAdjustmentLook new
 		tiny: [ :aWidget |
 			aWidget
 				vExact: 16;

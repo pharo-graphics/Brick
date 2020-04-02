@@ -28,6 +28,11 @@ TBlTextStyleable >> glamorousCodeFontDo: aBlock [
 ]
 
 { #category : #'*Brick-Glamorous' }
+TBlTextStyleable >> glamorousCodeMiniSize [
+	self fontSize: 8
+]
+
+{ #category : #'*Brick-Glamorous' }
 TBlTextStyleable >> glamorousCodeSize [
 	self fontSize: 14
 ]
@@ -43,6 +48,11 @@ TBlTextStyleable >> glamorousCodeSizeDo: aBlock [
 
 { #category : #'*Brick-Glamorous' }
 TBlTextStyleable >> glamorousCodeSmallSize [
+	self fontSize: 12
+]
+
+{ #category : #'*Brick-Glamorous' }
+TBlTextStyleable >> glamorousCodeTinySize [
 	self fontSize: 10
 ]
 

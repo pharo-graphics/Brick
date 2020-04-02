@@ -1,51 +1,58 @@
 Class {
-	#name : #BrInteractiveSizeLook,
+	#name : #BrSizeAdjustmentLook,
 	#superclass : #BrInteractiveLook,
 	#category : #'Brick-! Core - Looks'
 }
 
 { #category : #'api - style' }
-BrInteractiveSizeLook >> default: aStyleBlock [
+BrSizeAdjustmentLook >> default: aStyleBlock [
 	self
 		when: self state default
 		style: aStyleBlock
 ]
 
 { #category : #'api - style' }
-BrInteractiveSizeLook >> huge: aStyleBlock [
+BrSizeAdjustmentLook >> huge: aStyleBlock [
 	self
 		when: self state huge
 		style: aStyleBlock
 ]
 
 { #category : #'api - style' }
-BrInteractiveSizeLook >> large: aStyleBlock [
+BrSizeAdjustmentLook >> large: aStyleBlock [
 	self
 		when: self state large
 		style: aStyleBlock
 ]
 
 { #category : #'api - style' }
-BrInteractiveSizeLook >> sized: aNamedSize style: aStyleBlock [
+BrSizeAdjustmentLook >> mini: aStyleBlock [
+	self
+		when: self state mini
+		style: aStyleBlock
+]
+
+{ #category : #'api - style' }
+BrSizeAdjustmentLook >> sized: aNamedSize style: aStyleBlock [
 	self
 		when: (self state sized: aNamedSize)
 		style: aStyleBlock
 ]
 
 { #category : #'api - style' }
-BrInteractiveSizeLook >> small: aStyleBlock [
+BrSizeAdjustmentLook >> small: aStyleBlock [
 	self
 		when: self state small
 		style: aStyleBlock
 ]
 
 { #category : #accessing }
-BrInteractiveSizeLook >> state [
-	^ BrSizeState
+BrSizeAdjustmentLook >> state [
+	^ BrSizeAdjustmentState
 ]
 
 { #category : #'api - style' }
-BrInteractiveSizeLook >> tiny: aStyleBlock [
+BrSizeAdjustmentLook >> tiny: aStyleBlock [
 	self
 		when: self state tiny
 		style: aStyleBlock

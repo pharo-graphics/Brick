@@ -8,6 +8,6 @@ Class {
 BrGlamorousRegularEditorLook >> initialize [
 	super initialize.
 	self 
-		fontName: 'Source Sans Pro';
+		glamorousRegularFont;
 		fontSize: 14
 ]
