@@ -4,13 +4,10 @@ Class {
 	#instVars : [
 		'container',
 		'stencil',
-		'watchDog',
 		'clickOutsideEventHandler',
 		'pressEscEventHandler',
 		'extentChangedEventHandler',
-		'positionInSpaceChangedEventHandler',
-		'hideEventHandler',
-		'showEventHandler'
+		'positionInSpaceChangedEventHandler'
 	],
 	#category : #'Brick-Anchored - Look'
 }
@@ -73,7 +70,6 @@ BrWithAnchoredLook >> hide [
 		removeEventFilter: clickOutsideEventHandler;
 		removeEventFilter: pressEscEventHandler.
 	container
-		dequeueTask: watchDog;
 		removeEventHandler: extentChangedEventHandler;
 		removeFromParent;
 		anchor: nil.
@@ -89,12 +85,7 @@ BrWithAnchoredLook >> hideWishClass [
 BrWithAnchoredLook >> initialize [
 	super initialize.
 	self stencil: [ BlElement new ].
-	watchDog := BlRepeatedTaskAction new
-		delay: 500 milliSeconds;
-		action: [ "hide when widget removed from scene by checking repeatedly"
-			(widget isAttachedToSceneGraph not and: [ self canHide ])
-				ifTrue: [ self hide ] ];
-		yourself.
+	
 	clickOutsideEventHandler := BlEventHandler
 		on: BlMouseUpEvent
 		do: [ :e | 
@@ -120,48 +111,49 @@ BrWithAnchoredLook >> initialize [
 		do: [ "relocate when position in space changes"
 			self visible
 				ifTrue: [ self relocate ] ].
-	showEventHandler := BlEventHandler
-		on: self showWishClass
-		do: [ :e | 
-			"show on wish"
-			(e anchor = widget and: [ self canShow ])
-				ifTrue: [ self show ] ].
-	hideEventHandler := BlEventHandler
-		on: self hideWishClass
-		do: [ :e | 
-			"hide on wish"
-			(e anchor = widget and: [ self canHide ])
-				ifTrue: [ self hide ] ].
-	self
-		addChange:
-			(BrLookChange new
-				up: [ :e |  ];
-				down: [ :e | 
-					self canHide
-						ifTrue: [ self hide ] ];
-				yourself);
-		addChange:
-			(BrLookChange new
-				up: [ :e | 
-					widget
-						addEventHandler: showEventHandler;
-						addEventHandler: hideEventHandler ];
-				down: [ :e | 
-					widget
-						removeEventHandler: showEventHandler;
-						removeEventHandler: hideEventHandler ];
-				yourself)
+	
+
+	self addChange:
+		(BrLookChange new
+			up: [ :e |  ];
+			down: [ :e | self canHide ifTrue: [ self hide ] ]
+			yourself)
 ]
 
 { #category : #initialization }
 BrWithAnchoredLook >> initializeListeners [
 	super initializeListeners.
+
 	self
 		when: self stencilChangedClass
 		do: [ :e | self stencil: e stencil ].
 	self
 		when: self visibleChangedClass
-		do: [ :e | self visible: e visible ]
+		do: [ :e | self visible: e visible ].
+		
+	self
+		when: BlElementPositionInSpaceChangedEvent
+		do: [ "relocate when position in space changes"
+			self visible
+				ifTrue: [ self relocate ] ].
+
+	self
+		when: BlElementRemovedFromSceneGraphEvent
+		do: [ self canHide ifTrue: [ self hide ] ].
+
+	self
+		when: self showWishClass
+		do: [ :e | 
+			"show on wish"
+			(e anchor = widget and: [ self canShow ])
+				ifTrue: [ self show ] ].
+
+	self
+		when: self hideWishClass
+		do: [ :e | 
+			"hide on wish"
+			(e anchor = widget and: [ self canHide ])
+				ifTrue: [ self hide ] ]
 ]
 
 { #category : #initialization }
@@ -200,7 +192,6 @@ BrWithAnchoredLook >> show [
 		addEventFilter: clickOutsideEventHandler;
 		addEventFilter: pressEscEventHandler.
 	container
-		enqueueTask: watchDog;
 		addEventHandler: extentChangedEventHandler.
 	self relocate
 ]
