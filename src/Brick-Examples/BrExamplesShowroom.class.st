@@ -491,7 +491,7 @@ BrExamplesShowroom >> simpleList [
 			BrLabel new
 				look:
 					(BrGlamorousLabelLook new
-						foreground: aColor contrastingForegroundColor);
+						foreground: aColor contrastingBlackAndWhiteColor);
 				text: aColor asString;
 				background: aColor;
 				padding: (BlInsets all: 12);
