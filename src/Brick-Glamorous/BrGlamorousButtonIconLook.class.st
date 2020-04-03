@@ -4,7 +4,7 @@ Class {
 	#category : #'Brick-Glamorous-Buttons - Support'
 }
 
-{ #category : #'as yet unclassified' }
+{ #category : #initialization }
 BrGlamorousButtonIconLook >> initialize [
 	super initialize.
 	

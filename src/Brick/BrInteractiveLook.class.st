@@ -52,7 +52,7 @@ BrInteractiveLook >> initializeListeners [
 	super initializeListeners.
 	
 	self when: BrInteractionChanged do: [ :anEvent | self statesChanged: anEvent ].
-	self when: BlElementAddedToSuperParentEvent do: [ :anEvent | self initializeRequests ]
+	self when: BlElementAddedToSuperParentEvent do: [ :anEvent | self requestStates ]
 ]
 
 { #category : #initialization }
