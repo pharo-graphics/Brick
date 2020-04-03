@@ -7,7 +7,8 @@ Class {
 		'contentElement',
 		'headerElement',
 		'layoutResizerLook',
-		'shouldRecreateHeader'
+		'shouldRecreateHeader',
+		'shouldReplaceHeader'
 	],
 	#category : #'Brick-Expander - Look'
 }
@@ -43,6 +44,13 @@ BrExpanderLook >> contentStencil: aBrStencil [
 		ifFalse: [ self onCollapsed ]
 ]
 
+{ #category : #'api - configuration' }
+BrExpanderLook >> doNotReplaceHeader [
+	"Tell expander to not replace header with the content, but instead just add it"
+	
+	shouldReplaceHeader := false
+]
+
 { #category : #accessing }
 BrExpanderLook >> headerStencil [
 	 ^ headerStencil
@@ -69,6 +77,8 @@ BrExpanderLook >> initialize [
 	super initialize.
 	
 	shouldRecreateHeader := false.
+	shouldReplaceHeader := true.
+
 	contentStencil := [ BlElement new ] asStencil.
 	headerStencil := [ BlElement new ] asStencil.
 
@@ -130,14 +140,15 @@ BrExpanderLook >> onCollapsed [
 
 { #category : #hooks }
 BrExpanderLook >> onExpanded [
-	headerElement ifNotNil: #removeFromParent.
+	shouldReplaceHeader
+		ifTrue: [ headerElement ifNotNil: #removeFromParent ].
 	
 	contentElement ifNil: [ self initializeContentElement ].
 	contentElement hasParent
 		ifFalse: [ self addContentElement: contentElement ]
 ]
 
-{ #category : #accessing }
+{ #category : #'api - configuration' }
 BrExpanderLook >> recreateHeader [
 	"Tell expander to recreate the header every time I am collapsed"
 	shouldRecreateHeader := true

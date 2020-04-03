@@ -82,3 +82,8 @@ TBlTextStyleable >> glamorousRegularSize [
 TBlTextStyleable >> glamorousRegularSmallSize [
 	self fontSize: 12
 ]
+
+{ #category : #'*Brick-Glamorous' }
+TBlTextStyleable >> glamorousRoundedBackground [
+	self attribute: (BrTextEmbellishmentAttribute new roundedBackground: BrGlamorousColors neutralBackgroundColor)
+]

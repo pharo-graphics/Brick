@@ -60,7 +60,10 @@ BrInteractiveModel >> initialize [
 BrInteractiveModel >> initializeListeners [
 	super initializeListeners.
 
-	self when: BrInteractionRequest reply: [ :aResponse | aResponse states: self statesMapping states ]
+	self when: BrInteractionRequest reply: [ :aResponse :aRequest |
+		aResponse
+			states: self statesMapping states;
+			forceUpdate: aRequest forceUpdate ]
 ]
 
 { #category : #notifying }
