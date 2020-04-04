@@ -20,12 +20,12 @@ BrInteractiveModelExamples >> default [
 ]
 
 { #category : #'examples - activation' }
-BrInteractiveModelExamples >> withActivation [
+BrInteractiveModelExamples >> withEnablement [
 	<gtExample>
 	| anInteractiveModel anActivationModel |
 	
 	
-	anActivationModel := BrActivationModel new.
+	anActivationModel := BrEnablementModel new.
 
 	anInteractiveModel := self default.
 	anInteractiveModel addState: anActivationModel.

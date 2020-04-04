@@ -1,5 +1,5 @@
 Class {
-	#name : #BrActivationModel,
+	#name : #BrEnablementModel,
 	#superclass : #BrStateModel,
 	#instVars : [
 		'enabled'
@@ -8,22 +8,22 @@ Class {
 }
 
 { #category : #'instance creation' }
-BrActivationModel class >> disabled [
+BrEnablementModel class >> disabled [
 	^ self new disabled: true
 ]
 
 { #category : #'instance creation' }
-BrActivationModel class >> enabled [
+BrEnablementModel class >> enabled [
 	^ self new enabled: true
 ]
 
 { #category : #printing }
-BrActivationModel class >> modelName [
+BrEnablementModel class >> modelName [
 	^ 'Activation'
 ]
 
 { #category : #'api - activation' }
-BrActivationModel >> disable [
+BrEnablementModel >> disable [
 	self isDisabled
 		ifTrue: [ ^ self ].
 
@@ -32,14 +32,14 @@ BrActivationModel >> disable [
 ]
 
 { #category : #'api - activation' }
-BrActivationModel >> disabled: aBoolean [
+BrEnablementModel >> disabled: aBoolean [
 	aBoolean
 		ifTrue: [ self disable ]
 		ifFalse: [ self enable ]
 ]
 
 { #category : #'api - activation' }
-BrActivationModel >> enable [
+BrEnablementModel >> enable [
 	self isEnabled
 		ifTrue: [ ^ self ].
 
@@ -48,43 +48,43 @@ BrActivationModel >> enable [
 ]
 
 { #category : #'api - activation' }
-BrActivationModel >> enabled: aBoolean [
+BrEnablementModel >> enabled: aBoolean [
 	aBoolean
 		ifTrue: [ self enable ]
 		ifFalse: [ self disable ]
 ]
 
 { #category : #initialization }
-BrActivationModel >> initialize [
+BrEnablementModel >> initialize [
 	super initialize.
 	
 	enabled := true
 ]
 
 { #category : #initialization }
-BrActivationModel >> initializeListeners [
+BrEnablementModel >> initializeListeners [
 	super initializeListeners.
 
-	self when: BrActivationRequest reply: [ :aResponse | aResponse enabled: self isEnabled ].
-	self when: BrActivationWish do: [ :aWish | self enabled: aWish isActivated ]
+	self when: BrEnablementRequest reply: [ :aResponse | aResponse enabled: self isEnabled ].
+	self when: BrEnablementWish do: [ :aWish | self enabled: aWish isEnabled ]
 ]
 
 { #category : #'api - testing' }
-BrActivationModel >> isDisabled [
+BrEnablementModel >> isDisabled [
 	<return: #Boolean>
 
 	^ self isEnabled not
 ]
 
 { #category : #'api - testing' }
-BrActivationModel >> isEnabled [
+BrEnablementModel >> isEnabled [
 	<return: #Boolean>
 
 	^ enabled
 ]
 
 { #category : #printing }
-BrActivationModel >> printOn: aStream [
+BrEnablementModel >> printOn: aStream [
 	aStream
 		nextPutAll: self modelName, '(';
 		nextPutAll: (self isEnabled ifTrue: [ 'enabled' ] ifFalse: [ 'disabled' ]);
@@ -92,12 +92,12 @@ BrActivationModel >> printOn: aStream [
 ]
 
 { #category : #notifying }
-BrActivationModel >> stateChangedEventClass [
-	^ BrActivationChanged
+BrEnablementModel >> stateChangedEventClass [
+	^ BrEnablementChanged
 ]
 
 { #category : #streaming }
-BrActivationModel >> streamStateIn: aBrInteractionStatesMapping [
+BrEnablementModel >> streamStateIn: aBrInteractionStatesMapping [
 	aBrInteractionStatesMapping
 		addState: (self isEnabled
 			ifTrue: [ BrDisabledState new not ]
@@ -106,6 +106,6 @@ BrActivationModel >> streamStateIn: aBrInteractionStatesMapping [
 ]
 
 { #category : #'api - activation' }
-BrActivationModel >> toggle [
+BrEnablementModel >> toggle [
 	self enabled: self isEnabled not
 ]

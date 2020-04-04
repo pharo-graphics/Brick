@@ -53,7 +53,7 @@ BrTab >> initialize [
 		(iconModel := BrIconModel new) +
 		(BrInteractiveModel withAll: {
 			BrLayoutAlignmentModel new center.
-			BrActivationModel new.
+			BrEnablementModel new.
 			BrPressModel new.
 			BrHoverModel new.
 			BrSelectModel new.

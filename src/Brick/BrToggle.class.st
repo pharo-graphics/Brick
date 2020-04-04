@@ -1,14 +1,20 @@
 Class {
 	#name : #BrToggle,
-	#superclass : #BrButton,
+	#superclass : #BlElement,
+	#traits : 'TBrDisableable + TBrLayoutAlignable + TBrLayoutResizable + TBrSizeAdjustable',
+	#classTraits : 'TBrDisableable classTrait + TBrLayoutAlignable classTrait + TBrLayoutResizable classTrait + TBrSizeAdjustable classTrait',
 	#instVars : [
-		'toggleModel'
+		'toggleModel',
+		'labelModel',
+		'iconModel'
 	],
 	#category : #'Brick-Toggle - UI'
 }
 
 { #category : #'api - toggle' }
 BrToggle >> activate [
+	"Activate the toggle if it is deactivated, otherwise do nothing"
+
 	toggleModel activate
 ]
 
@@ -19,22 +25,83 @@ BrToggle >> activated: aBoolean [
 
 { #category : #'api - toggle' }
 BrToggle >> deactivate [
+	"Deactivate the toggle if it is activated, otherwise do nothing"
+
 	toggleModel deactivate
+]
+
+{ #category : #'api - activation' }
+BrToggle >> disable [
+	self dispatchEvent: (BrEnablementWish activated: false)
+]
+
+{ #category : #'api - activation' }
+BrToggle >> enable [
+	self dispatchEvent: (BrEnablementWish activated: true)
+]
+
+{ #category : #'api - widget' }
+BrToggle >> icon [
+	<return: #BlElement>
+
+	^ iconModel icon
+]
+
+{ #category : #'api - widget' }
+BrToggle >> icon: anElement [
+	iconModel icon: anElement
 ]
 
 { #category : #initialization }
 BrToggle >> initialize [
 	super initialize.
-	self viewModel add: (toggleModel := BrToggleModel new)
+	
+	self viewModel: (BrButtonModel new +
+		(labelModel := BrLabelModel new) +
+		(iconModel := BrIconModel new) +
+		(toggleModel := BrToggleModel new) +
+		(BrInteractiveModel new
+			addStates: {
+				BrEnablementModel new.
+				BrPressModel new.
+				BrHoverModel new.
+				BrFocusModel new.
+				BrSizeAdjustmentModel new.
+				BrLayoutAlignmentModel center.
+				BrLayoutHorizontalResizerModel fitContent.
+				BrLayoutVerticalResizerModel fitContent
+			}))
 ]
 
 { #category : #'api - toggle' }
 BrToggle >> isActivated [
 	<return: #Boolean>
+
 	^ toggleModel isActivated
+]
+
+{ #category : #'api - activation' }
+BrToggle >> isEnabled [ 	
+	^ (self viewModel request: BrEnablementRequest oneWay) enabled
+]
+
+{ #category : #'api - widget' }
+BrToggle >> label [
+	<return: #BlText>
+
+	^ labelModel text
+]
+
+{ #category : #'api - widget' }
+BrToggle >> label: aStringOrBrText [
+	labelModel text: aStringOrBrText
 ]
 
 { #category : #'api - toggle' }
 BrToggle >> toggle [
+	"Invert the toggle's state:
+	 - activate if the toggle is deactivated
+	 - deactivate if the toggle is already activated"
+
 	toggleModel toggle
 ]

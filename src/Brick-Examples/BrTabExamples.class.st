@@ -110,7 +110,7 @@ BrTabExamples >> groupHeaderWithoutBoundTabs [
 	tabsRequest := nil.
 	
 	tab1 := BrTabModel new add: (BrLabelModel text: 'Tab 1').
-	tab2 := BrTabModel new add: (BrLabelModel text: 'Tab 2'); add: BrActivationModel disabled.
+	tab2 := BrTabModel new add: (BrLabelModel text: 'Tab 2'); add: BrEnablementModel disabled.
 	tab3 := BrTabModel new add: (BrLabelModel text: 'Tab 3').
 	
 	tabGroup := BrTabGroupModel with: { tab1 . tab2 . tab3 }.

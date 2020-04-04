@@ -78,7 +78,7 @@ BrColumnedTreeRowStencilBuilder >> createExpandCollapseElementFor: aNode [
 					aNode isEmpty
 						ifTrue: [ #() ]
 						ifFalse: [ { BrHoverModel new . BrPressModel new } ]
-				), { BrActivationModel new disabled: aNode isEmpty } });
+				), { BrEnablementModel new disabled: aNode isEmpty } });
 		look: (BrInteractiveCommonLook new
 			default: [ :aWidget | aWidget background: (Color transparent) ];
 			hovered: [ :aWidget | aWidget background: (Color gray alpha: 0.1) ];

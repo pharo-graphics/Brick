@@ -7,7 +7,7 @@ Class {
 	#instVars : [
 		'text'
 	],
-	#category : 'Brick-! Core'
+	#category : #'Brick-! Core'
 }
 
 { #category : #printing }
@@ -49,6 +49,8 @@ BrLabelModel >> printOn: aStream [
 
 { #category : #accessing }
 BrLabelModel >> text [
+	<return: #BlText>
+
 	^ text
 ]
 

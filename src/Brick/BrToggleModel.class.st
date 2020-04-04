@@ -29,6 +29,7 @@ BrToggleModel >> beOneWay [
 	"One way toggle can only be activated as a result of click,
 	however it can be deactivated programmatically.
 	One way toggles are used within a toggle group"
+
 	oneWay := true
 ]
 
@@ -36,7 +37,8 @@ BrToggleModel >> beOneWay [
 BrToggleModel >> clickEvent: anEvent [
 	anEvent consumed: true.
 	
-	self activated: (oneWay or: [ self isActivated not ])
+	(self request: BrEnablementRequest oneWay) isEnabled
+		ifTrue: [ self activated: (oneWay or: [ self isActivated not ]) ]
 ]
 
 { #category : #'api - toggle' }

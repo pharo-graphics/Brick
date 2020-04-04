@@ -1,13 +1,12 @@
 Class {
 	#name : #BrButton,
 	#superclass : #BlElement,
-	#traits : 'TBrActivatable + TBrLayoutAlignable + TBrLayoutResizable + TBrSizeAdjustable',
-	#classTraits : 'TBrActivatable classTrait + TBrLayoutAlignable classTrait + TBrLayoutResizable classTrait + TBrSizeAdjustable classTrait',
+	#traits : 'TBrDisableable + TBrLayoutAlignable + TBrLayoutResizable + TBrSizeAdjustable',
+	#classTraits : 'TBrDisableable classTrait + TBrLayoutAlignable classTrait + TBrLayoutResizable classTrait + TBrSizeAdjustable classTrait',
 	#instVars : [
 		'labelModel',
 		'iconModel',
 		'interactiveModel',
-		'dimensionModel',
 		'expandableModel'
 	],
 	#category : #'Brick-Button - UI'
@@ -30,10 +29,20 @@ BrButton >> action: aValuable [
 	self viewModel action: aValuable
 ]
 
-{ #category : #'api - size' }
+{ #category : #'api - size adjustable' }
 BrButton >> beDefault [
 	self deprecated: 'Use #beNormal instead.' transformWith: '`@receiver beDefault' -> '`@receiver beNormal'.
 	self beNormal
+]
+
+{ #category : #'api - activation' }
+BrButton >> disable [
+	self dispatchEvent: (BrEnablementWish activated: false)
+]
+
+{ #category : #'api - activation' }
+BrButton >> enable [
+	self dispatchEvent: (BrEnablementWish activated: true)
 ]
 
 { #category : #'api - widget' }
@@ -55,15 +64,20 @@ BrButton >> initialize [
 		(iconModel := BrIconModel new) + 
 		(BrInteractiveModel new
 			addStates: {
-				BrActivationModel new.
+				BrEnablementModel new.
 				BrPressModel new.
 				BrHoverModel new.
 				BrFocusModel new.
-				dimensionModel := BrSizeAdjustmentModel new.
+				BrSizeAdjustmentModel new.
 				BrLayoutAlignmentModel center.
 				BrLayoutHorizontalResizerModel fitContent.
 				BrLayoutVerticalResizerModel fitContent
 			}))
+]
+
+{ #category : #'api - activation' }
+BrButton >> isEnabled [ 	
+	^ (self viewModel request: BrEnablementRequest oneWay) enabled
 ]
 
 { #category : #'api - widget' }

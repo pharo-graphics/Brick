@@ -114,8 +114,8 @@ BrInteractiveModel >> statesMappingIn: aStatesMapping [
 ]
 
 { #category : #'api - interactions' }
-BrInteractiveModel >> withActivation [
-	self addState: BrActivationModel new
+BrInteractiveModel >> withEnablement [
+	self addState: BrEnablementModel new
 ]
 
 { #category : #'api - interactions' }

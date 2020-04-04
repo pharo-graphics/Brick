@@ -2,7 +2,7 @@
 I am sent when the activation status (enabled / disabled) of the widget is changed
 "
 Class {
-	#name : #BrActivationChanged,
+	#name : #BrEnablementChanged,
 	#superclass : #BrStateChangedEvent,
 	#instVars : [
 		'enabled'
@@ -11,36 +11,41 @@ Class {
 }
 
 { #category : #'instance creation' }
-BrActivationChanged class >> enabled: aBoolean [
+BrEnablementChanged class >> enabled: aBoolean [
 	^ self new enabled: aBoolean
 ]
 
 { #category : #accessing }
-BrActivationChanged >> enabled [
+BrEnablementChanged >> enabled [
 	<return: #Boolean>
 
 	^ enabled
 ]
 
 { #category : #accessing }
-BrActivationChanged >> enabled: aBoolean [
+BrEnablementChanged >> enabled: aBoolean [
 	enabled := aBoolean
 ]
 
 { #category : #initialization }
-BrActivationChanged >> initialize [
+BrEnablementChanged >> initialize [
 	super initialize.
 	
 	enabled := true
 ]
 
 { #category : #testing }
-BrActivationChanged >> isActivated [
+BrEnablementChanged >> isActivated [
+	^ self isEnabled
+]
+
+{ #category : #testing }
+BrEnablementChanged >> isEnabled [
 	^ self enabled
 ]
 
 { #category : #accessing }
-BrActivationChanged >> state: anObject [
+BrEnablementChanged >> state: anObject [
 	"Override me to properly set the given state"
 
 	self enabled: anObject
