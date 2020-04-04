@@ -4,7 +4,6 @@ Class {
 	#traits : 'TBrEnableable + TBrLayoutAlignable + TBrLayoutResizable + TBrSizeAdjustable',
 	#classTraits : 'TBrEnableable classTrait + TBrLayoutAlignable classTrait + TBrLayoutResizable classTrait + TBrSizeAdjustable classTrait',
 	#instVars : [
-		'toggleModel',
 		'labelModel',
 		'iconModel'
 	],
@@ -15,19 +14,19 @@ Class {
 BrToggle >> activate [
 	"Activate the toggle if it is deactivated, otherwise do nothing"
 
-	toggleModel activate
+	self viewModel activate
 ]
 
 { #category : #'api - toggle' }
 BrToggle >> activated: aBoolean [
-	toggleModel activated: aBoolean
+	self viewModel activated: aBoolean
 ]
 
 { #category : #'api - toggle' }
 BrToggle >> deactivate [
 	"Deactivate the toggle if it is activated, otherwise do nothing"
 
-	toggleModel deactivate
+	self viewModel deactivate
 ]
 
 { #category : #'api - widget' }
@@ -46,10 +45,9 @@ BrToggle >> icon: anElement [
 BrToggle >> initialize [
 	super initialize.
 	
-	self viewModel: (BrButtonModel new +
+	self viewModel: (BrToggleModel new +
 		(labelModel := BrLabelModel new) +
 		(iconModel := BrIconModel new) +
-		(toggleModel := BrToggleModel new) +
 		(BrInteractiveModel new
 			addStates: {
 				BrEnablementModel new.
@@ -67,7 +65,7 @@ BrToggle >> initialize [
 BrToggle >> isActivated [
 	<return: #Boolean>
 
-	^ toggleModel isActivated
+	^ self viewModel isActivated
 ]
 
 { #category : #'api - widget' }
@@ -88,5 +86,5 @@ BrToggle >> toggle [
 	 - activate if the toggle is deactivated
 	 - deactivate if the toggle is already activated"
 
-	toggleModel toggle
+	self viewModel toggle
 ]

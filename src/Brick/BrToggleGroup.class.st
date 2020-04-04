@@ -1,13 +1,13 @@
 Class {
 	#name : #BrToggleGroup,
 	#superclass : #BlElement,
-	#category : 'Brick-Toggle - UI'
+	#category : #'Brick-Toggle - UI'
 }
 
 { #category : #'adding / removing' }
 BrToggleGroup >> addToggle: aToggle [
-	self viewModel addToggle: aToggle viewModel children last.
-	self addChild: aToggle.
+	self viewModel addToggle: aToggle viewModel.
+	self addChild: aToggle
 ]
 
 { #category : #'adding / removing' }

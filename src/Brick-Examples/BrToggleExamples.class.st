@@ -81,7 +81,7 @@ BrToggleExamples >> clickOnActivatedPredefinedToggle [
 	| aToggleElement aToggleModel aToggleDeactivatedEvent |
 		
 	aToggleElement := self activatePredefinedToggle.
-	aToggleModel := aToggleElement viewModel children last.
+	aToggleModel := aToggleElement viewModel.
 	
 	aToggleDeactivatedEvent := nil.
 	aToggleElement when: BrToggleDeactivatedEvent do: [ :anEvent | aToggleDeactivatedEvent := anEvent copy ].
@@ -108,7 +108,7 @@ BrToggleExamples >> clickOnDeactivatedPredefinedToggle [
 	| aToggleElement aToggleModel aToggleActivatedEvent |
 	
 	aToggleElement := self deactivatePredefinedToggle.
-	aToggleModel := aToggleElement viewModel children last.
+	aToggleModel := aToggleElement viewModel.
 	
 	aToggleActivatedEvent := nil.
 	aToggleElement when: BrToggleActivatedEvent do: [ :anEvent | aToggleActivatedEvent := anEvent copy ].
