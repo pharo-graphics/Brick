@@ -1,8 +1,8 @@
 Class {
 	#name : #BrButton,
 	#superclass : #BlElement,
-	#traits : 'TBrDisableable + TBrLayoutAlignable + TBrLayoutResizable + TBrSizeAdjustable',
-	#classTraits : 'TBrDisableable classTrait + TBrLayoutAlignable classTrait + TBrLayoutResizable classTrait + TBrSizeAdjustable classTrait',
+	#traits : 'TBrEnableable + TBrLayoutAlignable + TBrLayoutResizable + TBrSizeAdjustable',
+	#classTraits : 'TBrEnableable classTrait + TBrLayoutAlignable classTrait + TBrLayoutResizable classTrait + TBrSizeAdjustable classTrait',
 	#instVars : [
 		'labelModel',
 		'iconModel',
