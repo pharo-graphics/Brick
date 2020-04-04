@@ -40,11 +40,11 @@ BrTextExpandButtonAttribute >> affect: aTBrTextEditorTextualPiece in: anEditorEl
 			anIcon dispatchEvent: BrExpansionWish expand ];
 		when: BrToggleDeactivatedEvent do: [ :anEvent |
 			anEvent currentTarget label: 'Expand'.
-			anIcon dispatchEvent: BrExpansionWish collapse ];
+			anIcon dispatchEvent: BrExpansionWish collapse ]";
 		action: [ :aButtonElement | 
 			self
 				handleEventAffect: aTBrTextEditorTextualPiece
-				in: anEditorElement editor ]
+				in: anEditorElement editor ]"
 ]
 
 { #category : #accessing }
