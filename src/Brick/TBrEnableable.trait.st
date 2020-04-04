@@ -6,29 +6,27 @@ Trait {
 	#category : #'Brick-! Core - Support'
 }
 
-{ #category : #'api - activation' }
+{ #category : #'api - enablement' }
 TBrEnableable >> disable [
-	self dispatchEvent: (BrEnablementWish activated: false)
+	self dispatchEvent: (BrEnablementWish enabled: false)
 ]
 
-{ #category : #'api - activation' }
+{ #category : #'api - enablement' }
 TBrEnableable >> enable [
-	self dispatchEvent: (BrEnablementWish activated: true)
+	self dispatchEvent: (BrEnablementWish enabled: true)
 ]
 
-{ #category : #'api - activation' }
+{ #category : #'api - enablement' }
 TBrEnableable >> enabled: aBoolean [
-	aBoolean
-		ifTrue: [ self enable ]
-		ifFalse: [ self disable ]
+	self dispatchEvent: (BrEnablementWish enabled: aBoolean)
 ]
 
-{ #category : #'api - activation' }
+{ #category : #'api - enablement' }
 TBrEnableable >> isDisabled [	
 	^ self isEnabled not
 ]
 
-{ #category : #'api - activation' }
+{ #category : #'api - enablement' }
 TBrEnableable >> isEnabled [ 	
 	^ (self viewModel request: BrEnablementRequest oneWay) isEnabled
 ]

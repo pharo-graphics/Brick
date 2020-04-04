@@ -35,16 +35,6 @@ BrButton >> beDefault [
 	self beNormal
 ]
 
-{ #category : #'api - activation' }
-BrButton >> disable [
-	self dispatchEvent: (BrEnablementWish activated: false)
-]
-
-{ #category : #'api - activation' }
-BrButton >> enable [
-	self dispatchEvent: (BrEnablementWish activated: true)
-]
-
 { #category : #'api - widget' }
 BrButton >> icon [
 	^ iconModel icon
@@ -73,11 +63,6 @@ BrButton >> initialize [
 				BrLayoutHorizontalResizerModel fitContent.
 				BrLayoutVerticalResizerModel fitContent
 			}))
-]
-
-{ #category : #'api - activation' }
-BrButton >> isEnabled [ 	
-	^ (self viewModel request: BrEnablementRequest oneWay) enabled
 ]
 
 { #category : #'api - widget' }

@@ -30,16 +30,6 @@ BrToggle >> deactivate [
 	toggleModel deactivate
 ]
 
-{ #category : #'api - activation' }
-BrToggle >> disable [
-	self dispatchEvent: (BrEnablementWish activated: false)
-]
-
-{ #category : #'api - activation' }
-BrToggle >> enable [
-	self dispatchEvent: (BrEnablementWish activated: true)
-]
-
 { #category : #'api - widget' }
 BrToggle >> icon [
 	<return: #BlElement>
@@ -78,11 +68,6 @@ BrToggle >> isActivated [
 	<return: #Boolean>
 
 	^ toggleModel isActivated
-]
-
-{ #category : #'api - activation' }
-BrToggle >> isEnabled [ 	
-	^ (self viewModel request: BrEnablementRequest oneWay) enabled
 ]
 
 { #category : #'api - widget' }
