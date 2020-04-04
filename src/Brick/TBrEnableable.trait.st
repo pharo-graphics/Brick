@@ -27,6 +27,6 @@ TBrEnableable >> isDisabled [
 ]
 
 { #category : #'api - enablement' }
-TBrEnableable >> isEnabled [ 	
+TBrEnableable >> isEnabled [
 	^ (self viewModel request: BrEnablementRequest new oneWay) isEnabled
 ]

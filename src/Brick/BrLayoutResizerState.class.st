@@ -19,7 +19,6 @@ BrLayoutResizerState class >> exact [
 
 { #category : #'instance creation' }
 BrLayoutResizerState class >> exact: aNumber [
-	self haltOnce.
 	^ self resizer: (BlLayoutResizer exact: aNumber)
 ]
 
