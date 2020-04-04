@@ -12,6 +12,11 @@ BrEnablementWish class >> activated: aBoolean [
 	^ self new activated: aBoolean
 ]
 
+{ #category : #'instance creation' }
+BrEnablementWish class >> enabled: aBoolean [
+	^ self new enabled: aBoolean
+]
+
 { #category : #accessing }
 BrEnablementWish >> activated [
 	^ enabled
