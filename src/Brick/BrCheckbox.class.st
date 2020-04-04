@@ -3,10 +3,6 @@ Class {
 	#superclass : #BlElement,
 	#traits : 'TBrCheckable + TBrEnableable + TBrLayoutResizable + TBrLayoutAlignable + TBrSizeAdjustable',
 	#classTraits : 'TBrCheckable classTrait + TBrEnableable classTrait + TBrLayoutResizable classTrait + TBrLayoutAlignable classTrait + TBrSizeAdjustable classTrait',
-	#instVars : [
-		'labelModel',
-		'iconModel'
-	],
 	#category : #'Brick-Checkbox - UI'
 }
 
@@ -14,8 +10,7 @@ Class {
 BrCheckbox >> initialize [
 	super initialize.
 
-	self viewModel: ((labelModel := BrLabelModel new) +
-		(iconModel := BrIconModel new) + 
+	self viewModel: (
 		(BrInteractiveModel new
 			addStates: {
 				BrCheckboxModel new.

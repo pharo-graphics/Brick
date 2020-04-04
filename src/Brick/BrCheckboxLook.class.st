@@ -1,6 +1,6 @@
 Class {
 	#name : #BrCheckboxLook,
-	#superclass : #BrInteractiveLook,
+	#superclass : #BrInteractiveCommonLook,
 	#category : #'Brick-Checkbox - Look'
 }
 

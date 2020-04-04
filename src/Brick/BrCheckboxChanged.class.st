@@ -1,6 +1,6 @@
 Class {
 	#name : #BrCheckboxChanged,
-	#superclass : #BrChangeEvent,
+	#superclass : #BrStateChangedEvent,
 	#instVars : [
 		'state'
 	],
