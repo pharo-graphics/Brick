@@ -14,8 +14,8 @@ BrGlamorousCheckboxLook >> initialize [
 	self add: BrLayoutResizerLook inherit.
 	self add: BrLayoutAlignmentLook forHorizontalLinearLayout.
 	self add: (iconLook := BrIconLook new icon: (BrGlamorousVectorIcons checkbox asElement
-		size: 10@10;
-		background: BrGlamorousColors darkBorderColor)).
+		size: 8@8;
+		background: BrGlamorousColors darkBorderColor muchDarker)).
 
 	self add: (BrCheckboxLook new
 		default: [ :aWidget |
@@ -23,7 +23,7 @@ BrGlamorousCheckboxLook >> initialize [
 				geometry: (BlRectangle cornerRadius: 2);
 				background: Color white;
 				border: (BlBorder paint: BrGlamorousColors defaultButtonBorderColor width: 1) ];
-		hovered: [ :aWidget | aWidget border: (BlBorder paint: BrGlamorousColors darkBorderColor width: 1). ];
+		hovered: [ :aWidget | aWidget border: (BlBorder paint: BrGlamorousColors darkBorderColor width: 1) ];
 		unchecked: [ :aWidget |
 			iconLook iconDo: [ :anIcon | anIcon visibility: BlVisibility gone ]  ];
 		checked: [ :aWidget |

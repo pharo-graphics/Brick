@@ -19,7 +19,7 @@ BrTextEditorLineSegmentBuilder >> addedAttribute: anAttribute from: aFromIndex t
 	| aFromSegment aToSegment |
 
 	self
-		assert: [ aFromIndex <= aToIndex ]
+		assert: [ aFromIndex <= (aToIndex + 1) ]
 		description: [ '`From` index must be less or equal to `to` index' ].
 
 	aBrTextEditor segmentCollector

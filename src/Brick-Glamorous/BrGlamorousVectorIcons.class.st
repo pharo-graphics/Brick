@@ -30,7 +30,7 @@ BrGlamorousVectorIcons class >> checkbox [
 
 	^ [ BlElement new
 		size: 16@16;
-		geometry: (self crossGeometry: 0.22 extent: 1@1 origin: 0@0);
+		geometry: (self crossGeometry: 0.16 extent: 1@1 origin: 0@0);
 		background: Color black ] asStencil
 ]
 
