@@ -15,20 +15,21 @@ BrGlamorousCheckboxLook >> initialize [
 	self add: BrLayoutAlignmentLook forHorizontalLinearLayout.
 	self add: (iconLook := BrIconLook new icon: (BrGlamorousVectorIcons checkbox asElement
 		size: 10@10;
-		background: Color white)).
+		background: BrGlamorousColors darkBorderColor)).
 
 	self add: (BrCheckboxLook new
-		default: [ :aWidget | aWidget
-			geometry: (BlRectangle cornerRadius: 2);
-			border: (BlBorder paint: BrGlamorousColors defaultButtonBorderColor width: 1) ];
-		hovered: [ :aWidget | aWidget border: (BlBorder paint: Color black width: 1) ];
+		default: [ :aWidget |
+			aWidget
+				geometry: (BlRectangle cornerRadius: 2);
+				background: Color white;
+				border: (BlBorder paint: BrGlamorousColors defaultButtonBorderColor width: 1) ];
+		hovered: [ :aWidget | aWidget border: (BlBorder paint: BrGlamorousColors darkBorderColor width: 1). ];
 		unchecked: [ :aWidget |
-			aWidget background: Color transparent.
 			iconLook iconDo: [ :anIcon | anIcon visibility: BlVisibility gone ]  ];
 		checked: [ :aWidget |
-			aWidget background: Color black.
-			aWidget border: (BlBorder empty).
-			iconLook iconDo: [ :anIcon | anIcon visibility: BlVisibility visible ] ]).
+			iconLook iconDo: [ :anIcon |
+				aWidget border: (BlBorder paint: BrGlamorousColors darkBorderColor width: 1).
+				anIcon visibility: BlVisibility visible ] ]).
 
 	self add: (BrSizeAdjustmentLook new
 		default: [ :aWidget | 
