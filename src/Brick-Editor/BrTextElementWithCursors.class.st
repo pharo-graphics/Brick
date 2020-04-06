@@ -101,9 +101,6 @@ BrTextElementWithCursors >> hideCursors [
 BrTextElementWithCursors >> initialize [
 	super initialize.
 
-	"otherwise cursor elements may not be visible"	
-	self clipChildren: false.
-
 	cursorElements := OrderedCollection new.
 	cursorStencil := BrCursorStencil uniqueInstance
 ]
@@ -111,12 +108,17 @@ BrTextElementWithCursors >> initialize [
 { #category : #layout }
 BrTextElementWithCursors >> measureCursors: anExtentMeasurementSpec [
 	cursorElements do: [ :aCursorElement |
-		| aCursorPosition aTextPosition |
+		| aCursorPosition aTextPositionX aMaxTextPositionX aMinTextPositionX aTextPosition |
 		
 		"we make sure that the cursor is within text bounds (we allow to add a cursor outside of the text bounds)"
 		aCursorPosition := aCursorElement textPosition min: self text size max: 0.
-		aTextPosition := self screenPositionAt: aCursorPosition.
-		aTextPosition := (aTextPosition x - (aCursorElement measuredWidth // 2)) @ self padding top.
+		
+		aMaxTextPositionX := ((self measuredWidth - (aCursorElement measuredWidth))) max: 0.
+		aMinTextPositionX := 0.
+		
+		aTextPositionX := (self screenPositionAt: aCursorPosition) x.
+		aTextPositionX := ((aTextPositionX - (aCursorElement measuredWidth // 2)) min: aMaxTextPositionX) max: aMinTextPositionX.
+		aTextPosition := aTextPositionX @ self padding top.
 		
 		aCursorElement measuredBounds
 			extent: aCursorElement measuredWidth @ ((self measuredHeight - self padding height) max: 0);
