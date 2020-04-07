@@ -73,7 +73,7 @@ BrButtonModel >> gtActionFor: aView [
 BrButtonModel >> initialize [
 	super initialize.
 
-	action := [  ]
+	action := [ :anElement :aButtonModel :anEvent | ]
 ]
 
 { #category : #initialization }

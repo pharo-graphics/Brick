@@ -116,6 +116,7 @@ BrGlamorousTaggerEditableLook >> initialize [
 			text: aTag name ] asStencilBuilder: BrTaggerTagStencilBuilder.
 
 	tags := BlElement new layout: BlFlowLayout horizontal.
+	tags focusability: BlFocusability ignore.
 	tags addChild: self newAddTagButton.
 
 	tagElements := OrderedCollection new.
@@ -125,6 +126,10 @@ BrGlamorousTaggerEditableLook >> initialize [
 	self
 		addChangeProperty: #(widget layout)
 			with: [ BlLinearLayout horizontal ].
+
+	self
+		addChangeProperty: #(widget focusability)
+			with: [ BlFocusability ignore ].
 	
 	self add: BrHorizontalPaneLook new.
 	self add: (BrLayoutResizerLook new

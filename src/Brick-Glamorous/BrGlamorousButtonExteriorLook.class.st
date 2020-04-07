@@ -60,6 +60,7 @@ BrGlamorousButtonExteriorLook >> initialize [
 			aWidget
 				background: backgroundPaint;
 				border: (BlBorder paint: borderPaint width: self borderWidth) ];
+		focused: [ :aWidget | aWidget border: (BlBorder paint: BrGlamorousColors hoveredButtonBorderColor width: self borderWidth) ];
 		hovered: [ :aWidget |
 			aWidget border: (BlBorder paint: BrGlamorousColors hoveredButtonBorderColor width: self borderWidth) ];
 		pressed: [ :aWidget | 
