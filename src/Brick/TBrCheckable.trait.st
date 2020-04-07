@@ -32,3 +32,17 @@ TBrCheckable >> isUnchecked [
 TBrCheckable >> uncheck [
 	self dispatchEvent: BrCheckboxWish unchecked
 ]
+
+{ #category : #'api - checkbox' }
+TBrCheckable >> whenCheckedDo: aBlock [
+	self when: BrCheckboxChanged do: [ :anEvent |
+		anEvent isChecked
+			ifTrue: [ aBlock cull: anEvent ] ]
+]
+
+{ #category : #'api - checkbox' }
+TBrCheckable >> whenUncheckedDo: aBlock [
+	self when: BrCheckboxChanged do: [ :anEvent |
+		anEvent isUnchecked
+			ifTrue: [ aBlock cull: anEvent ] ]
+]
