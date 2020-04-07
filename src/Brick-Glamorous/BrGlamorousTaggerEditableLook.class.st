@@ -261,6 +261,17 @@ BrGlamorousTaggerEditableLook >> onTagsChanged: theTags [
 ]
 
 { #category : #private }
+BrGlamorousTaggerEditableLook >> removeTagCreatorElement: aTagCreatorElement withSeparatorAt: aTagIndex [
+	| aSeparatorIndex |
+
+	aTagCreatorElement removeFromParent.
+	
+	aSeparatorIndex := self separatorChildIndexFor: aTagIndex.
+	aSeparatorIndex > 2
+		ifTrue: [ tags removeChildAt: aSeparatorIndex ]
+]
+
+{ #category : #private }
 BrGlamorousTaggerEditableLook >> removeTagElement: aTagElement withSeparatorAt: aTagIndex [
 	| aSeparatorIndex |
 
@@ -278,7 +289,7 @@ BrGlamorousTaggerEditableLook >> requestAddTag: aTaggerTag from: aTagCreatorElem
 	[
 		self giveFocusToNewTagDuring: [ self dispatchEvent: (BrTaggerAddTagRequest new tag: aTaggerTag) ].
 		self
-			removeTagElement: aTagCreatorElement
+			removeTagCreatorElement: aTagCreatorElement
 			withSeparatorAt: tagElements size + 1
 	]
 		on: Error
