@@ -84,6 +84,13 @@ BrGlamorousVectorIcons class >> checkbox [
 ]
 
 { #category : #icons }
+BrGlamorousVectorIcons class >> clipboard [
+	<script: 'self clipboard inspect'>
+
+	^ self transcript
+]
+
+{ #category : #icons }
 BrGlamorousVectorIcons class >> close [
 	<script: 'self close inspect'>
 
@@ -244,6 +251,11 @@ BrGlamorousVectorIcons class >> largeSignal [
 		outskirts: (BlOutskirts centered) ] asStencil
 ]
 
+{ #category : #'private - sizes' }
+BrGlamorousVectorIcons class >> largeSize [
+	^ 64@64
+]
+
 { #category : #icons }
 BrGlamorousVectorIcons class >> largeTranscript [
 	<script: 'self largeTranscript inspect'>
@@ -337,5 +349,22 @@ BrGlamorousVectorIcons class >> search [
 		geometry: (BlSvgPath new
 			svg: 'M 8.972855 11.595775 L 11.208238 13.831159 L 13.329559 11.709838 L 11.252205 9.632485 C 12.448393 7.704032 12.209501 5.1384323 10.53553 3.46447 C 8.58291 1.51184 5.41709 1.51184 3.46447 3.46447 C 1.51184 5.41709 1.51184 8.58291 3.46447 10.53553 C 4.953712 12.02478 7.1486665 12.378195 8.972855 11.595775 Z M 9.739856 8.223948 L 8.223948 9.739856 C 7.1216205 10.232024 5.783204 10.025845 4.878682 9.121318 C 3.707104 7.949746 3.707104 6.050254 4.878682 4.878682 C 6.050254 3.707104 7.949746 3.707104 9.121318 4.878682 C 10.025845 5.783204 10.232024 7.1216205 9.739856 8.223948 Z'
 			viewbox: (0@0 extent: 16@16));
+		background: Color black ] asStencil
+]
+
+{ #category : #'private - sizes' }
+BrGlamorousVectorIcons class >> standardSize [
+	^ 16@16
+]
+
+{ #category : #icons }
+BrGlamorousVectorIcons class >> transcript [
+	<script: 'self transcript inspect'>
+
+	^ [ BlElement new
+		size: self standardSize;
+		geometry: (BlSvgPath new
+			svg: 'M 6.453291 1.8837905 L 9.549366 1.8837905 L 9.549366 2.687707 L 6.453291 2.687707 Z M 4.567742 6.864086 L 4.567742 8.008172 L 11.432258 8.008172 L 11.432258 6.864086 Z M 4.567742 9.152258 L 4.567742 10.296344 L 11.432258 10.296344 L 11.432258 9.152258 Z M 4.567742 11.44043 L 4.567742 12.584516 L 11.432258 12.584516 L 11.432258 11.44043 Z M 4.984516 2.704516 L 2.2877418 2.704516 C 1.8815453 2.704516 1.552258 3.0338033 1.552258 3.44 L 1.552258 14.864516 C 1.552258 15.270713 1.8815453 15.6 2.2877418 15.6 L 13.712258 15.6 C 14.118455 15.6 14.447742 15.270713 14.447742 14.864516 L 14.447742 3.44 C 14.447742 3.0338033 14.118455 2.704516 13.712258 2.704516 L 11.04 2.704516 L 11.04 1.1354838 C 11.04 .7292872 10.710713 .3999999 10.304517 .3999999 L 5.72 .3999999 C 5.3138036 .3999999 4.984516 .7292872 4.984516 1.1354838 Z M 5.5816425 4.16249 C 5.586882 4.1634875 5.592141 4.164429 5.5974194 4.1653147 L 5.5974194 5.389753 C 5.5974194 5.443913 5.6413244 5.487818 5.695484 5.487818 L 10.304516 5.487818 C 10.358676 5.487818 10.402581 5.443913 10.402581 5.389753 L 10.402581 4.169003 C 10.416132 4.1671977 10.429567 4.165023 10.442874 4.16249 L 12.997926 4.16249 L 12.997926 14.13501 L 2.9987097 14.13501 L 2.9987097 4.16249 Z'
+			viewbox: (0@0 extent: self standardSize));
 		background: Color black ] asStencil
 ]
