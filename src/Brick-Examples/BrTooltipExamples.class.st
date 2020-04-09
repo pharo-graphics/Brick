@@ -82,7 +82,7 @@ BrTooltipExamples >> removingAnchor [
 		yourself.
 	button := BrButton new
 		look: BrGlamorousButtonWithIconLook;
-		icon: BrGlamorousIcons remove asElement;
+		icon: BrGlamorousVectorIcons remove;
 		label: 'Click to remove me';
 		action:
 				[ "this task takes more than 1000ms, the default show delay on a tooltip"

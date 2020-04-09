@@ -242,7 +242,7 @@ BrExamplesShowroom >> glamorousButtonWithTooltipLook [
 	^ BrButton new
 		look: BrGlamorousButtonWithIconLook;
 		label: 'Accept';
-		icon: BrGlamorousIcons accept asElement;
+		icon: BrGlamorousVectorIcons accept;
 		action: [ self inform: 'Clicked' ]
 ]
 

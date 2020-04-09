@@ -63,6 +63,7 @@ BrGlamorousIcons class >> alarm [
 
 { #category : #utility }
 BrGlamorousIcons class >> allIcons [
+	<script: 'super inspect'>
 	^ (self class methodsInProtocol: #icons)
 		sort: [ :a :b | a selector < b selector ];
 		collect: [ :eachCompiledMethod | 

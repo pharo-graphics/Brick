@@ -156,7 +156,7 @@ BrGlamorousTaggerEditableLook >> newAddTagButton [
 				hovered: [ :aWidget | aWidget background: BrGlamorousColors neutralBackgroundColor darker ];
 				pressed: [ :aWidget | aWidget background: BrGlamorousColors neutralBackgroundColor darker darker ];
 				focused: [ :aWidget | aWidget border: (BlBorder paint: BrGlamorousColors focusedEditorBorderColor width: 1) ]));
-		icon: BrGlamorousIcons add;
+		icon: BrGlamorousVectorIcons add;
 		label: 'Add';
 		beSmall;
 		hExact: 20;
