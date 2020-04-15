@@ -177,7 +177,7 @@ BrExamplesShowroom >> columnedList [
 	aList column
 		stencil: [ :aColor :aRowIndex |
 			BrLabel new
-				look: (BrGlamorousLabelLook new foreground: aColor contrastingForegroundColor);
+				look: (BrGlamorousLabelLook new foreground: aColor contrastingBlackAndWhiteColor);
 				text: aRowIndex asString;
 				background: aColor;
 				padding: (BlInsets all: 12);
@@ -186,7 +186,7 @@ BrExamplesShowroom >> columnedList [
 	aList column
 		stencil: [ :aColor |
 			BrLabel new
-				look: (BrGlamorousLabelLook new foreground: aColor contrastingForegroundColor);
+				look: (BrGlamorousLabelLook new foreground: aColor contrastingBlackAndWhiteColor);
 				text: aColor asString;
 				background: aColor;
 				padding: (BlInsets all: 12);
