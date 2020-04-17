@@ -61,6 +61,12 @@ BrTextEditor >> addInteraction: aBrTextEditorInteraction [
 		ifReplaced: [ :aPreviousInteraction | self onInteractionRemoved: aPreviousInteraction ]
 ]
 
+{ #category : #'api - interactions' }
+BrTextEditor >> addInteractions: aCollectionOfBrTextEditorInteraction [
+	aCollectionOfBrTextEditorInteraction
+		do: [ :eachInteraction | self addInteraction: eachInteraction ]
+]
+
 { #category : #asserting }
 BrTextEditor >> assertIndex: aFromIndex to: aToIndex [
 	self
@@ -840,6 +846,11 @@ BrTextEditor >> removeInteraction: aBrTextEditorInteraction [
 	self interactions
 		remove: aBrTextEditorInteraction
 		ifFound: [ :aPreviousInteraction | self onInteractionRemoved: aPreviousInteraction ]
+]
+
+{ #category : #'api - interactions' }
+BrTextEditor >> removeInteractions: aCollectionOfBrTextEditorInteractions [
+	aCollectionOfBrTextEditorInteractions do: [ :eachInteraction | self removeInteraction: eachInteraction ]
 ]
 
 { #category : #accessing }

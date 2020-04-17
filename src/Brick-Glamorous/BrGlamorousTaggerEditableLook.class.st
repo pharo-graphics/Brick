@@ -1,14 +1,6 @@
 Class {
 	#name : #BrGlamorousTaggerEditableLook,
-	#superclass : #BrTaggerLook,
-	#instVars : [
-		'tags',
-		'shouldGiveFocusToNewTag',
-		'separatorStencil',
-		'tagElements',
-		'editableLabelStencil',
-		'margin'
-	],
+	#superclass : #BrGlamorousTaggerLook,
 	#category : #'Brick-Glamorous-Tagger'
 }
 
@@ -35,36 +27,12 @@ BrGlamorousTaggerEditableLook >> addTagCreatorElement [
 		withSeparatorAt: tagElements size + 1
 ]
 
-{ #category : #private }
-BrGlamorousTaggerEditableLook >> addTagElement: aTagElement withSeparatorAt: aTagIndex [
-	| aSeparatorIndex aTagElementIndex |
-	
-	aSeparatorIndex := self separatorChildIndexFor: aTagIndex.
-	aTagElementIndex := self tagChildIndexFor: aTagIndex.
-	
-	aSeparatorIndex isZero
-		ifFalse: [ tags addChild: self newSeparatorElement at: aSeparatorIndex ].
-
-	tags addChild: aTagElement at: aTagElementIndex
-]
-
-{ #category : #private }
-BrGlamorousTaggerEditableLook >> assignTag: aTaggerTag toElement: aTagElement [
-	aTagElement userData at: #brickTaggerTag put: aTaggerTag
-]
-
-{ #category : #'api - style' }
-BrGlamorousTaggerEditableLook >> editableLabel: aBrTaggerTagStencilBuilder [
-	editableLabelStencil := aBrTaggerTagStencilBuilder asStencilBuilder: BrTaggerTagStencilBuilder
-]
-
-{ #category : #private }
-BrGlamorousTaggerEditableLook >> giveFocusToNewTagDuring: aBlock [
-	| previousValue |
-	
-	previousValue := shouldGiveFocusToNewTag.
-	shouldGiveFocusToNewTag := true.
-	aBlock ensure: [ shouldGiveFocusToNewTag := previousValue ]
+{ #category : #initialization }
+BrGlamorousTaggerEditableLook >> defaultTagLabelStencil [
+	^ [ :aTag |
+		BrEditableLabel new
+			look: BrGlamorousEditableLabelLook new glamorousRegularFontAndSize;
+			text: aTag name ] asStencilBuilder: BrTaggerTagStencilBuilder
 ]
 
 { #category : #'hooks - errors' }
@@ -98,48 +66,11 @@ BrGlamorousTaggerEditableLook >> handleRenameError: anError to: aNewName from: a
 	self addErrorOverlayTo: aTagElement
 ]
 
-{ #category : #testing }
-BrGlamorousTaggerEditableLook >> hasSeparator [
-	^ separatorStencil isNotNil
-]
-
 { #category : #initialization }
 BrGlamorousTaggerEditableLook >> initialize [
 	super initialize.
 	
-	shouldGiveFocusToNewTag := false.
-	separatorStencil := nil.
-	margin := BlInsets top: 3 left: 0 bottom: 3 right: 5.
-	editableLabelStencil := [ :aTag |
-		BrEditableLabel new
-			look: BrGlamorousEditableLabelLook new glamorousRegularFontAndSize;
-			text: aTag name ] asStencilBuilder: BrTaggerTagStencilBuilder.
-
-	tags := BlElement new layout: BlFlowLayout horizontal.
-	tags focusability: BlFocusability ignore.
-	tags addChild: self newAddTagButton.
-
-	tagElements := OrderedCollection new.
-	
-	self addChangeAddChildAs: #(tags) with: [ tags ].	
-	
-	self
-		addChangeProperty: #(widget layout)
-			with: [ BlLinearLayout horizontal ].
-
-	self
-		addChangeProperty: #(widget focusability)
-			with: [ BlFocusability ignore ].
-	
-	self add: BrHorizontalPaneLook new.
-	self add: (BrLayoutResizerLook new
-		inherit;
-		inherit: tags)
-]
-
-{ #category : #'api - style' }
-BrGlamorousTaggerEditableLook >> margin: aBlInsets [
-	margin := aBlInsets
+	tags addChild: self newAddTagButton
 ]
 
 { #category : #'private - instance creation' }
@@ -172,18 +103,10 @@ BrGlamorousTaggerEditableLook >> newAddTagButton [
 ]
 
 { #category : #'private - instance creation' }
-BrGlamorousTaggerEditableLook >> newSeparatorElement [
-	^ separatorStencil asElement
-		focusability: BlFocusability none;
-		margin: (BlInsets left: (margin right / 2.0) negated right: (margin right / 2));
-		constraintsDo: [ :c | c flow vertical alignCenter ]
-]
-
-{ #category : #'private - instance creation' }
 BrGlamorousTaggerEditableLook >> newTagCreatorElement [
 	| aNewTagCreator |
 
-	aNewTagCreator := (editableLabelStencil tag: (BrTaggerTag named: ''))asElement
+	aNewTagCreator := (tagLabelStencil tag: (BrTaggerTag named: ''))asElement
 		requestFocus;
 		switchToEditor;
 		padding: (BlInsets top: 5 left: 6 bottom: 5 right: 6);
@@ -210,8 +133,7 @@ BrGlamorousTaggerEditableLook >> newTagCreatorElement [
 BrGlamorousTaggerEditableLook >> newTagElementFor: aTaggerTag [
 	<return: #BlElement>
 
-	^ (editableLabelStencil tag: aTaggerTag) asElement
-		margin: margin;
+	^ (super newTagElementFor: aTaggerTag)
 		when: BrEditorAcceptWish do: [ :aWish |
 			self
 				requestRenameTag: aTaggerTag
@@ -223,48 +145,6 @@ BrGlamorousTaggerEditableLook >> newTagElementFor: aTaggerTag [
 				from: anEvent currentTarget ]
 ]
 
-{ #category : #hooks }
-BrGlamorousTaggerEditableLook >> onTagAdded: aTaggerTag at: aTagIndex [
-	| aTagElement |
-
-	aTagElement := self newTagElementFor: aTaggerTag.
-	self assignTag: aTaggerTag toElement: aTagElement.
-
-	self addTagElement: aTagElement withSeparatorAt: aTagIndex.
-	tagElements add: aTagElement beforeIndex: aTagIndex.
-	
-	shouldGiveFocusToNewTag
-		ifTrue: [ aTagElement requestFocus ]
-]
-
-{ #category : #hooks }
-BrGlamorousTaggerEditableLook >> onTagRemoved: aTaggerTag at: anIndex [
-	self
-		tagElementFor: aTaggerTag
-		ifFound: [ :aTagElement |
-			aTagElement hasFocus
-				ifTrue: [
-					anIndex = 1
-						ifFalse: [ aTagElement focusPrevious ]
-						ifTrue: [ aTagElement focusNext ] ].
-			
-			tagElements remove: aTagElement.
-			self removeTagElement: aTagElement withSeparatorAt: anIndex ]
-]
-
-{ #category : #hooks }
-BrGlamorousTaggerEditableLook >> onTagRenamed: aTaggerTag to: aNewName [
-	self
-		tagElementFor: aTaggerTag
-		ifFound: [ :aTagElement | aTagElement text: aNewName ]
-]
-
-{ #category : #hooks }
-BrGlamorousTaggerEditableLook >> onTagsChanged: theTags [
-	tags removeChildren: self tagElements.
-	theTags withIndexDo: [ :eachTag :eachIndex | self onTagAdded: eachTag at: eachIndex ]
-]
-
 { #category : #private }
 BrGlamorousTaggerEditableLook >> removeTagCreatorElement: aTagCreatorElement withSeparatorAt: aTagIndex [
 	| aSeparatorIndex |
@@ -274,17 +154,6 @@ BrGlamorousTaggerEditableLook >> removeTagCreatorElement: aTagCreatorElement wit
 	aSeparatorIndex := self separatorChildIndexFor: aTagIndex.
 	aSeparatorIndex > 2
 		ifTrue: [ tags removeChildAt: aSeparatorIndex ]
-]
-
-{ #category : #private }
-BrGlamorousTaggerEditableLook >> removeTagElement: aTagElement withSeparatorAt: aTagIndex [
-	| aSeparatorIndex |
-
-	aTagElement removeFromParent.
-	
-	aSeparatorIndex := self separatorChildIndexFor: aTagIndex.
-	aSeparatorIndex isZero
-		ifFalse: [ tags removeChildAt: aSeparatorIndex ]
 ]
 
 { #category : #'api - requests' }
@@ -326,70 +195,4 @@ BrGlamorousTaggerEditableLook >> requestRenameTag: aTaggerTag to: aNewName from:
 				handleRenameError: anError
 				to: aNewName
 				from: aTagElement ]
-]
-
-{ #category : #'api - style' }
-BrGlamorousTaggerEditableLook >> separator: aStencil [
-	separatorStencil := aStencil asStencil
-]
-
-{ #category : #private }
-BrGlamorousTaggerEditableLook >> separatorChildIndexFor: aTagIndex [
-	"I compute an index of a separator when we add a new tag with a given index, assuming that a separator is added before the tag"
-	<return: #Number>
-	
-	self hasSeparator
-		ifFalse: [ ^ 0 ].
-
-	aTagIndex = 1
-		ifTrue: [
-			^ tagElements
-				ifEmpty: [ 0 ]
-				ifNotEmpty: [ 1 ] ].
-	
-	^ (aTagIndex - 1) * 2
-]
-
-{ #category : #private }
-BrGlamorousTaggerEditableLook >> separatorForTagElement: aTagElement ifFound: aFoundBlock [
-	aTagElement userData
-		at: #brickTaggerSeparator
-		ifPresent: aFoundBlock
-]
-
-{ #category : #private }
-BrGlamorousTaggerEditableLook >> tagChildIndexFor: aTagIndex [
-	<return: #Number>
-	
-	self hasSeparator
-		ifFalse: [ ^ aTagIndex ].
-
-	aTagIndex isZero
-		ifTrue: [ ^ 0 ].
-
-	aTagIndex = 1
-		ifTrue: [ ^ 1 ].
-	
-	^ (aTagIndex * 2) - 1
-]
-
-{ #category : #private }
-BrGlamorousTaggerEditableLook >> tagElementFor: aTaggerTag ifFound: aFoundBlock [
-	tags children
-		detect: [ :eachTagElement |
-			eachTagElement userData
-				at: #brickTaggerTag
-				ifPresent: [ :eachTag | eachTag == aTaggerTag ]
-				ifAbsent: [ false ] ]
-		ifFound: aFoundBlock
-]
-
-{ #category : #private }
-BrGlamorousTaggerEditableLook >> tagElements [
-	^ tags children
-		select: [ :eachTagElement |
-			eachTagElement userData
-				at: #brickTaggerTag
-				ifPresent: [ true ]
-				ifAbsent: [ false ] ]
 ]
