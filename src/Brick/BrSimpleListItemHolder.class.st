@@ -1,7 +1,7 @@
 Class {
 	#name : #BrSimpleListItemHolder,
 	#superclass : #BrListItemHolder,
-	#category : 'Brick-List - Support'
+	#category : #'Brick-List - Support'
 }
 
 { #category : #'api - binding' }
@@ -13,6 +13,7 @@ BrSimpleListItemHolder >> rowValue: anObject at: aRowIndex [
 	aStencil := self rowStencilBuilder
 		rowValue: anObject;
 		rowIndex: aRowIndex;
+		listElement: self listElement;
 		build.
 
 	itemElement := aStencil asElement

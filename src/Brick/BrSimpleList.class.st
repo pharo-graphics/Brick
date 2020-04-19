@@ -12,6 +12,8 @@ BrSimpleList >> initialize [
 ]
 
 { #category : #'api - scripting' }
-BrSimpleList >> stencil: aListRowStencilBuilder [
-	self look itemStencilBuilder: aListRowStencilBuilder
+BrSimpleList >> stencil: aBrListRowStencilBuilder [
+	"A stencil builder can be a valuable of the form [ :aRowValue :anIndex :aListWidget | ]"
+
+	self look itemStencilBuilder: aBrListRowStencilBuilder
 ]
