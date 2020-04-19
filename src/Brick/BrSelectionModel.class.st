@@ -117,14 +117,15 @@ BrSelectionModel >> selectOne: anIndex [
 { #category : #'api - selection' }
 BrSelectionModel >> selectOne: anIndex dueTo: aSourceEvent [
 	"Select an item at a given index deselecting all previously selected items"
-	| thePreviouslySelected |
+	| aSelectionCopy |
 
-	thePreviouslySelected := Array streamContents: [ :aStream |
-		selection do: [ :aMonotoneSelection | aStream nextPut: aMonotoneSelection indices ] ].
-	
-	selection removeAll.
-	"we must notify after actually removing all selections"
-	thePreviouslySelected do: [ :anInterval | self notifyDeselected: anInterval ].
+	aSelectionCopy := selection copy.
+	aSelectionCopy deselect: anIndex - 1 to: anIndex.
+
+	aSelectionCopy do: [ :aMonotoneSelection | self deselect: aMonotoneSelection from + 1 to: aMonotoneSelection to ].
+
+	(self contains: anIndex)
+		ifTrue: [ ^ self ].
 
 	selection select: anIndex - 1 to: anIndex.
 	self notifySelected: (anIndex to: anIndex) dueTo: aSourceEvent

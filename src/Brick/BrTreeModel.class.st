@@ -29,6 +29,33 @@ BrTreeModel >> expandUpTo: aLevelIndex [
 	self upToDepth: aLevelIndex do: [ :eachNode | eachNode expand ].
 ]
 
+{ #category : #accessing }
+BrTreeModel >> indexOf: anObject [
+	<return: #Number>
+	| anIndex |
+	
+	anIndex := self root isHidden
+		ifTrue: [ -1 ]
+		ifFalse: [ 0 ].
+
+	self root withAllChildrenNodesLinearDo: [ :eachTreeNode |
+		anIndex := anIndex + 1.
+		eachTreeNode value = anObject
+			ifTrue: [ ^ anIndex ] ].
+
+	^ 0
+]
+
+{ #category : #accessing }
+BrTreeModel >> indexOf: anObject do: aBlock [
+	<return: #Number>
+	| anIndex |
+	
+	anIndex := self indexOf: anObject.
+	anIndex > 0
+		ifTrue: [ aBlock value: anIndex ]
+]
+
 { #category : #initialization }
 BrTreeModel >> initialize [
 	super initialize.

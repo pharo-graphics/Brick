@@ -29,7 +29,20 @@ BrTreeNode >> allChildrenNodesBreadthFirst [
 { #category : #enumeration }
 BrTreeNode >> allChildrenNodesBreadthFirstDo: aBlock [ 
 	self childrenNodesDo: aBlock.
-	self childrenNodesDo: [ :eachNode | eachNode allChildrenNodesBreadthFirstDo: aBlock ]
+	self childrenNodesDo: [ :eachNode | eachNode allChildrenNodesBreadthFirstDo: aBlock ].
+]
+
+{ #category : #enumeration }
+BrTreeNode >> allChildrenNodesDepthFirstDo: aBlock [ 
+	self childrenNodesDo: [ :eachNode | eachNode allChildrenNodesDepthFirstDo: aBlock ].
+	self childrenNodesDo: aBlock
+]
+
+{ #category : #enumeration }
+BrTreeNode >> allChildrenNodesLinearDo: aBlock [
+	self childrenNodesDo:  [ :eachChild |
+		aBlock value: eachChild.
+		eachChild  allChildrenNodesLinearDo: aBlock ]
 ]
 
 { #category : #accessing }
@@ -44,7 +57,11 @@ BrTreeNode >> at: anIndex [
 
 	self
 		assert: [ anIndex between: 1 and: self size ]
-		description: [ 'Index must be within node bounds' ].
+		description: [
+			'Index({1}) must be within node bounds ({2})'
+				format: { 
+					anIndex.
+					1 to: self size } ].
 
 	(anIndex + isHidden asBit) = 1
 		ifTrue: [ ^ self ].
@@ -245,6 +262,11 @@ BrTreeNode >> precomputeChildrenValues [
 	theChildren do: [ :eachChild | children at: eachChild put: nil ]
 ]
 
+{ #category : #printing }
+BrTreeNode >> printOn: aStream [
+	aStream print: self value
+]
+
 { #category : #accessing }
 BrTreeNode >> root [
 	^ self hasParent
@@ -296,6 +318,18 @@ BrTreeNode >> withAllChildrenNodesBreadthFirst [
 BrTreeNode >> withAllChildrenNodesBreadthFirstDo: aBlock [ 
 	aBlock value: self.
 	self allChildrenNodesBreadthFirstDo: aBlock
+]
+
+{ #category : #enumeration }
+BrTreeNode >> withAllChildrenNodesDepthFirstDo: aBlock [ 
+	self allChildrenNodesDepthFirstDo: aBlock.
+	aBlock value: self
+]
+
+{ #category : #enumeration }
+BrTreeNode >> withAllChildrenNodesLinearDo: aBlock [
+	aBlock value: self.
+	self allChildrenNodesLinearDo: aBlock
 ]
 
 { #category : #enumeration }
