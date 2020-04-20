@@ -74,6 +74,14 @@ BrTree >> maxSelectionIndex [
 ]
 
 { #category : #scripting }
+BrTree >> scrollTo: anIndex [
+	self
+		childNamed: #tree
+		ifFound: [ :aScrollableTree | aScrollableTree scrollToPosition: anIndex ]
+		ifNone: [  ]
+]
+
+{ #category : #scripting }
 BrTree >> selectAndScrollTo: anObject [
 	self viewModel root
 		allChildrenNodesBreadthFirstDo: [ :treeNode | 
