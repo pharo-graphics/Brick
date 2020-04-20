@@ -56,6 +56,35 @@ BrTreeModel >> indexOf: anObject do: aBlock [
 		ifTrue: [ aBlock value: anIndex ]
 ]
 
+{ #category : #accessing }
+BrTreeModel >> indexOfSuchThat: aBlock [
+	<return: #Number>
+	| anIndex aCheckBlock |
+	
+	anIndex := 0.
+	
+	aCheckBlock := [ :eachTreeNode |
+		anIndex := anIndex + 1.
+		(aBlock value: eachTreeNode value)
+			ifTrue: [ ^ anIndex ] ].
+
+	self root isHidden
+		ifTrue: [ self root allChildrenNodesLinearDo: aCheckBlock ]
+		ifFalse: [ self root withAllChildrenNodesLinearDo: aCheckBlock ].
+
+	^ 0
+]
+
+{ #category : #accessing }
+BrTreeModel >> indexOfSuchThat: aBlock do: aFoundBlock [
+	<return: #Number>
+	| anIndex |
+	
+	anIndex := self indexOfSuchThat: aBlock.
+	anIndex > 0
+		ifTrue: [ aFoundBlock value: anIndex ]
+]
+
 { #category : #initialization }
 BrTreeModel >> initialize [
 	super initialize.
