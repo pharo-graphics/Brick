@@ -293,6 +293,18 @@ BrGlamorousVectorIcons class >> largebranching [
 ]
 
 { #category : #icons }
+BrGlamorousVectorIcons class >> leftSide [
+	<script: 'self leftSide inspect'>
+
+	^ [ BlElement new
+		size: 16@16;
+		geometry: (BlSvgPath new
+			svg: 'M 7.5 14.5 L 8.5 14.5 L 14.5 14.5 L 14.5 1.5 L 8.5 1.5 L 7.5 1.5 L 1.5 1.5 L 1.5 14.5 Z M 8.5 13.5 L 8.5 2.5 L 13.5 2.5 L 13.5 13.5 Z M 8.5 13.5 L 8.5 2.5'
+			viewbox: (0@0 extent: 16@16));
+		background: Color black ] asStencil
+]
+
+{ #category : #icons }
 BrGlamorousVectorIcons class >> performance [
 	<script: 'self performance inspect'>
 
@@ -329,6 +341,18 @@ BrGlamorousVectorIcons class >> playinspect [
 ]
 
 { #category : #icons }
+BrGlamorousVectorIcons class >> refresh [
+	<script: 'self refresh inspect'>
+
+	^ [ BlElement new
+		size: 16@16;
+		geometry: (BlSvgPath new
+			svg: 'M 10.808615 4.7833314 C 9.528482 3.9172044 8.283157 3.4365278 7.115401 3.5007545 C 5.818468 3.572084 4.702849 4.0937684 3.772776 4.912676 C 3.1742156 5.439694 2.7742314 5.9681214 2.5651493 6.336531 L 2.3183602 6.771382 L 3.1880615 7.26496 L 3.4348507 6.830109 C 3.470442 6.7673965 3.5505065 6.643973 3.6744106 6.480281 C 3.884959 6.202122 4.138442 5.9230966 4.4336054 5.663212 C 5.206068 4.983077 6.116834 4.5571856 7.170318 4.4992455 C 8.054369 4.4506225 9.078983 4.837451 10.162979 5.5547056 C 10.066121 5.785556 10.018969 6.0414586 10.034183 6.308226 L 10.034183 6.3082265 C 10.087641 7.245586 10.89086 7.962132 11.828219 7.908674 C 12.76558 7.8552165 13.482125 7.051999 13.428667 6.114638 C 13.375209 5.177279 12.57199 4.4607326 11.63463 4.5141905 C 11.329601 4.531587 11.047955 4.6283776 10.808616 4.7833494 Z M 4.968434 10.886314 C 6.179986 11.867999 7.3869915 12.460553 8.559506 12.499721 C 9.917603 12.54509 11.113443 12.083009 12.128808 11.291223 C 12.706325 10.840873 13.104762 10.388503 13.319767 10.072309 L 13.600916 9.658841 L 12.773982 9.096543 L 12.492833 9.510011 C 12.457051 9.562632 12.376967 9.667176 12.254486 9.806236 C 12.045826 10.043141 11.798161 10.280957 11.513873 10.502646 C 10.67076 11.160109 9.695127 11.5371 8.592893 11.500279 C 7.703416 11.470565 6.706572 10.989921 5.6767326 10.17232 C 5.792915 9.950127 5.861537 9.698702 5.868729 9.431177 L 5.868729 9.431177 C 5.89396 8.492633 5.1535716 7.711337 4.2150283 7.686106 C 3.276483 7.660874 2.4951885 8.401261 2.4699573 9.339806 C 2.444726 10.27835 3.1851146 11.059646 4.123658 11.084877 C 4.4287173 11.093078 4.7171636 11.020393 4.968434 10.886309 Z'
+			viewbox: (0@0 extent: 16@16));
+		background: Color black ] asStencil
+]
+
+{ #category : #icons }
 BrGlamorousVectorIcons class >> remove [
 	<script: 'self remove inspect'>
 
@@ -336,6 +360,18 @@ BrGlamorousVectorIcons class >> remove [
 		size: 16@16;
 		geometry: (BlSvgPath new
 			svg: 'M 4.5 7 L 11.5 7 L 11.5 9 L 4.5 9 Z'
+			viewbox: (0@0 extent: 16@16));
+		background: Color black ] asStencil
+]
+
+{ #category : #icons }
+BrGlamorousVectorIcons class >> rightSide [
+	<script: 'self rightSide inspect'>
+
+	^ [ BlElement new
+		size: 16@16;
+		geometry: (BlSvgPath new
+			svg: 'M 1.5 1.5 L 1.5 14.5 L 14.5 14.5 L 14.5 1.5 Z M 2.5 2.5 L 7.5 2.5 L 7.5 13.5 L 2.5 13.5 Z'
 			viewbox: (0@0 extent: 16@16));
 		background: Color black ] asStencil
 ]
