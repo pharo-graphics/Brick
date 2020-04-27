@@ -39,7 +39,7 @@ BrTextAdornmentDynamicAttribute >> doAffect: aTBrTextEditorTextualPiece in: anEd
 		editor: anEditorElement;
 		build.
 	aResult isCollection ifTrue: [ ^ aResult ].
-	^ aResult asElement asCollection
+	^ aResult asElement asOrderedCollection
 ]
 
 { #category : #accessing }

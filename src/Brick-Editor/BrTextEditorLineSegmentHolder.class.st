@@ -201,7 +201,7 @@ BrTextEditorLineSegmentHolder >> segment: anEditorSegment [
 	newPieceElements := OrderedCollection new.
 	segment pieces do: [ :aPiece | 
 		| thePieceElements |
-		thePieceElements := (aPiece createElement: self infiniteElement) asCollection.
+		thePieceElements := (aPiece createElement: self infiniteElement) asOrderedCollection.
 		newPieceElements addAll: thePieceElements.
 		pieceElements add: (aPiece -> thePieceElements) ].
 	
@@ -241,7 +241,7 @@ BrTextEditorLineSegmentHolder >> updateSegment: anEditorSegment [
 				theSegmentElements do: [ :eachSegmentElement |
 					eachPiece updateText: eachSegmentElement of: segment in: self infiniteElement ].
 				theSegmentElements ]
-			ifNone: [ (eachSegmentPiece createElement: self infiniteElement) asCollection ].
+			ifNone: [ (eachSegmentPiece createElement: self infiniteElement) asOrderedCollection ].
 		newPieceElements addAll: thePieceElements.
 		newPieceMap add: (eachSegmentPiece -> thePieceElements) ].
 
