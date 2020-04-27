@@ -4,8 +4,13 @@ Class {
 	#instVars : [
 		'embellisher'
 	],
-	#category : 'Brick-Pager - Model'
+	#category : #'Brick-Pager - Model'
 }
+
+{ #category : #defaults }
+BrPagerPageModel >> defaultEmbellisher [
+	^ BrPagerPageEmbellisher new
+]
 
 { #category : #accessing }
 BrPagerPageModel >> embellisher [
@@ -20,6 +25,5 @@ BrPagerPageModel >> embellisher: aPagerPageEmbellisher [
 { #category : #initialization }
 BrPagerPageModel >> initialize [
 	super initialize.
-	
-	embellisher := BrPagerPageEmbellisher new
+	embellisher := self defaultEmbellisher
 ]
