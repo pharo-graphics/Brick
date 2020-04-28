@@ -46,7 +46,7 @@ BrPager >> initializeViewModel [
 							BrLayoutVerticalResizerModel matchParent}))
 ]
 
-{ #category : #initialization }
+{ #category : #'instance creation' }
 BrPager >> newPagerModel [
 	^ BrPagerModel new
 ]
