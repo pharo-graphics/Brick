@@ -68,32 +68,48 @@ BrInteractiveModel >> initializeListeners [
 
 { #category : #notifying }
 BrInteractiveModel >> notifyInteractionChanged [
-	| theStatesMapping theStates |
-
-	theStatesMapping := self statesMapping.
-	theStates := theStatesMapping states.
-	self dispatchEvent: (BrInteractionChanged new states: theStates).
-
-	self widgetDo: [ :anElement | anElement childrenDo: [ :eachChild | self notifyStatesChanged: theStates toChildren: eachChild ] ]
+	self notifyStatesMappingChangedIn: BrInteractionStatesMapping new
 ]
 
 { #category : #notifying }
-BrInteractiveModel >> notifyStatesChanged: aSetOfStates toChildren: anElement [
+BrInteractiveModel >> notifyStatesChanged: aSetOfStates ofMapping: theStatesMapping toChildren: anElement [
 	"If an element has a state model of the same type we stop propagation of the notification,
 	because such widgets are no longer within my state context"
+	| aCurrentStatesMapping aCurrentSetOfStates |
+	
+	aCurrentStatesMapping := theStatesMapping.
+	aCurrentSetOfStates := aSetOfStates.
 
 	anElement viewModelDo: [ :aViewModel |
 		aViewModel
 			findActor: self class
-			ifFound: [ :anIteractiveModel | ^ self ] ].
+			ifFound: [ :anIteractiveModel |
+				| aMappingToPropagate |
+				aMappingToPropagate := theStatesMapping mappingToPropagateToChildren.
+				aMappingToPropagate isEmpty
+					ifTrue: [ ^ self ].
+				^ self notifyStatesMappingChangedIn: aMappingToPropagate ] ].
 
 	"no need to dispatch an event if there is no look"
-	anElement lookDo: [ :aLook | anElement dispatchEvent: (BrInteractionChanged new states: aSetOfStates) ].
-	anElement childrenDo: [ :eachChild | self notifyStatesChanged: aSetOfStates toChildren: eachChild ]
+	anElement lookDo: [ :aLook | anElement dispatchEvent: (BrInteractionChanged new states: aCurrentSetOfStates) ].
+	anElement childrenDo: [ :eachChild | self notifyStatesChanged: aCurrentSetOfStates ofMapping: aCurrentStatesMapping toChildren: eachChild ]
+]
+
+{ #category : #notifying }
+BrInteractiveModel >> notifyStatesMappingChangedIn: theStatesMapping [
+	| theStates |
+
+	self statesMappingIn: theStatesMapping.
+	theStates := theStatesMapping states.
+	self dispatchEvent: (BrInteractionChanged new states: theStates).
+
+	self widgetDo: [ :anElement | anElement childrenDo: [ :eachChild | self notifyStatesChanged: theStates ofMapping: theStatesMapping toChildren: eachChild ] ]
 ]
 
 { #category : #'api - states' }
 BrInteractiveModel >> stateModels [
+	<return: #Collection of: #BrStateModel>
+
 	^ stateModels
 ]
 

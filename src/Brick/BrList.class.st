@@ -8,6 +8,12 @@ Class {
 
 { #category : #'api - scripting' }
 BrList >> display: aCollectionOfValues [
+	self
+		deprecated: 'Please use items: method instead.'
+		transformWith:
+			'`@receiver display: `@statements1'
+				-> '`@receiver items: `@statements1'.
+
 	self items: aCollectionOfValues value
 ]
 

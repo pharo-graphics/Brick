@@ -3,7 +3,8 @@ Class {
 	#superclass : #BrLook,
 	#instVars : [
 		'listElement',
-		'rowStencil'
+		'rowStencil',
+		'scrollbar'
 	],
 	#category : #'Brick-List - Look'
 }
@@ -24,7 +25,11 @@ BrColumnedListLook >> initialize [
 				up: [ :e | listElement dataSource listElement: self widgetContent ];
 				down: [ :e |  ];
 				yourself).
+				
 	self addChangeAddChildAs: #(content list) with: [ listElement ].
+	scrollbar := (BrGlamorousVerticalScrollbarStencil new scrollable: listElement) asElement.
+	self addChangeAddChildAs: #(content scrollbar) with: [ scrollbar ].
+
 	self
 		addChangeProperty: #(widgetContent layout)
 		with: [ BlLinearLayout vertical ]

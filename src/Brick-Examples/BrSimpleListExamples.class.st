@@ -10,18 +10,22 @@ BrSimpleListExamples >> exampleWithSelection [
 	| aList |
 	aList := BrSimpleList new.
 	aList
-		stencil: [ :each :index |
+		stencil: [ :each :index | 
 			BlTextElement new
 				text: each key asRopedText;
 				constraintsDo: [ :c | c horizontal matchParent ];
 				padding: (BlInsets all: 5);
-				when: BlClickEvent do: [ :anEvent  |
+				when: BlClickEvent
+					do: [ :anEvent | 
 					anEvent consumed: true.
 					aList selectOne: index ] ];
-		display: (Smalltalk ui icons icons associations);
-		when: BrSelectionChanged do: [ :anEvent |
-			anEvent selectedDo: [ :anInterval | self inform: 'Selected: ', anInterval asString ].
-			anEvent deselectedDo: [ :anInterval | self inform: 'Deselected: ', anInterval asString ] ];
+		items: Smalltalk ui icons icons associations;
+		when: BrSelectionChanged
+			do: [ :anEvent | 
+			anEvent
+				selectedDo: [ :anInterval | self inform: 'Selected: ' , anInterval asString ].
+			anEvent
+				deselectedDo: [ :anInterval | self inform: 'Deselected: ' , anInterval asString ] ];
 		yourself.
 	^ aList
 ]
@@ -34,7 +38,7 @@ BrSimpleListExamples >> listAllClasses [
 	aListElement := self listElement.
 
 	aListModel := self listModel.
-	aListModel items: Smalltalk allClasses.
+	aListModel items: (Smalltalk allClasses first: 100).
 
 	aListLook := self listLook.	
 	aListElement viewModel: aListModel.

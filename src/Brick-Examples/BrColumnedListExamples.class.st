@@ -132,17 +132,15 @@ BrColumnedListExamples >> columnedListWithLookAndModelForColors [
 BrColumnedListExamples >> compositeAllClassesAndPackage [
 	<gtExample>
 	| aList |
-
 	aList := BrColumnedList new.
-	aList display: Smalltalk allClasses.
+	aList items: Smalltalk allClasses.
 	aList column
 		title: 'Class';
 		stencil: [ :aClass | BrColumnCellLabelStencil new text: aClass name asString ].
-		
 	aList column
 		title: 'Package';
-		stencil: [ :aClass | BrColumnCellLabelStencil new text: aClass package name asString ].
-
+		stencil:
+				[ :aClass | BrColumnCellLabelStencil new text: aClass package name asString ].
 	^ aList
 ]
 
