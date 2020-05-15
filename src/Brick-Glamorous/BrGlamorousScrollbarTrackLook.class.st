@@ -8,7 +8,7 @@ Class {
 BrGlamorousScrollbarTrackLook >> initialize [
 	super initialize.
 	
-	self default: [ :aWidget | aWidget background: (Color black alpha: 0.25) ].
+	self default: [ :aWidget | aWidget background: (BrGlamorousColors defaultHeaderBackgroundColor) ].
 
 	self add: (BrScrollbarOrientationLook new
 		horizontal: [ :aWidget |

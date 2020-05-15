@@ -9,16 +9,16 @@ BrGlamorousScrollbarThumbLook >> initialize [
 	super initialize.
 	
 	self default: [ :aWidget |
-		aWidget background: (Color black alpha: 0.25).
-		aWidget geometry: (BlRectangle cornerRadius: 4) ].
+		aWidget background: (BrGlamorousColors defaultHeaderBackgroundColor).
+		aWidget geometry: (BlRectangle cornerRadius: 3) ].
 
 	self add: (BrScrollbarOrientationLook new
 		horizontal: [ :aWidget |
 			aWidget constraintsDo: [ :c |
-				c vertical exact: 8.
+				c vertical exact: 6.
 				c horizontal matchParent ] ];
 		vertical: [ :aWidget |
 			aWidget constraintsDo: [ :c |
-				c horizontal exact: 8.
+				c horizontal exact: 6.
 				c vertical matchParent ] ])
 ]

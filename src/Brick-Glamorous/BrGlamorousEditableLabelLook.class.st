@@ -33,7 +33,7 @@ BrGlamorousEditableLabelLook >> initialize [
 	super initialize.
 	
 	defaultBackground := BrGlamorousColors neutralBackgroundColor.
-	defaultForeground := Color veryDarkGray.
+	defaultForeground := Color black.
 
 	self
 		add: (BrInteractiveCommonLook new
