@@ -35,12 +35,9 @@ BrStencilExamples >> coloredElementUsingBlock [
 BrStencilExamples >> createMaterialSimpleListUsingBlock [
 	<gtExample>
 	| aStencil aList |
-
 	aStencil := [ BrSimpleList new ] asStencil.
-
 	aList := aStencil create.
-	aList display: (1 to: 100).
-
+	aList items: (1 to: 100).
 	^ aList
 ]
 
@@ -48,12 +45,9 @@ BrStencilExamples >> createMaterialSimpleListUsingBlock [
 BrStencilExamples >> createMaterialSimpleListUsingStencil [
 	<gtExample>
 	| aStencil aList |
-
 	aStencil := self materialSimpleListStencil.
-
 	aList := aStencil create.
-	aList display: (1 to: 100).
-
+	aList items: (1 to: 100).
 	^ aList
 ]
 

@@ -172,29 +172,30 @@ BrExamplesShowroom >> accordionList [
 BrExamplesShowroom >> columnedList [
 	<gtExample>
 	| aList |
-
 	aList := BrColumnedList new.
 	aList column
-		stencil: [ :aColor :aRowIndex |
+		stencil: [ :aColor :aRowIndex | 
 			BrLabel new
-				look: (BrGlamorousLabelLook new foreground: aColor contrastingBlackAndWhiteColor);
+				look:
+					(BrGlamorousLabelLook new
+						foreground: aColor contrastingBlackAndWhiteColor);
 				text: aRowIndex asString;
 				background: aColor;
 				padding: (BlInsets all: 12);
 				hExact: 50;
 				vMatchParent ].
 	aList column
-		stencil: [ :aColor |
+		stencil: [ :aColor | 
 			BrLabel new
-				look: (BrGlamorousLabelLook new foreground: aColor contrastingBlackAndWhiteColor);
+				look:
+					(BrGlamorousLabelLook new
+						foreground: aColor contrastingBlackAndWhiteColor);
 				text: aColor asString;
 				background: aColor;
 				padding: (BlInsets all: 12);
 				hMatchParent;
 				vMatchParent ].
-
-	aList display: (Color indexedColors).
-
+	aList items: Color indexedColors.
 	^ aList
 ]
 
@@ -485,7 +486,7 @@ BrExamplesShowroom >> materialToolbar [
 BrExamplesShowroom >> simpleList [
 	<gtExample>
 	^ BrSimpleList new
-		display: Color indexedColors;
+		items: Color indexedColors;
 		stencil: [ :aColor | 
 			BrLabel new
 				look:
