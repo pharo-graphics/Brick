@@ -1,3 +1,6 @@
+# This repository is discontinued.
+Active development happens in https://github.com/feenkcom/Brick
+
 # Brick
 
 [![Travis](https://travis-ci.org/pharo-graphics/Brick.svg?branch=master)][travis]
