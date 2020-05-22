@@ -13,7 +13,7 @@ ${class:BrGlamorousVectorIcons|show=gtIconsFor:|expanded=}$
 Class {
 	#name : #BrGlamorousVectorIcons,
 	#superclass : #Object,
-	#category : #'Brick-Glamorous'
+	#category : #'Brick-Glamorous-Colors, Icons, Fonts'
 }
 
 { #category : #icons }

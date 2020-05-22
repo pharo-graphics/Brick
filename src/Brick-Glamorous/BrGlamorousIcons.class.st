@@ -18,7 +18,7 @@ Class {
 	#classInstVars : [
 		'icons'
 	],
-	#category : #'Brick-Glamorous'
+	#category : #'Brick-Glamorous-Colors, Icons, Fonts'
 }
 
 { #category : #icons }

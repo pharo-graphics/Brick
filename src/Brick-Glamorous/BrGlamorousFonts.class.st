@@ -45,7 +45,7 @@ Class {
 	#classInstVars : [
 		'fontsCache'
 	],
-	#category : #'Brick-Glamorous'
+	#category : #'Brick-Glamorous-Colors, Icons, Fonts'
 }
 
 { #category : #'private - accessing' }
