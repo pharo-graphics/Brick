@@ -174,25 +174,22 @@ BrColumnedListExamples >> compositeAllClassesAndPackageWithIndex [
 BrColumnedListExamples >> compositeAllClassesAndPackageWithIndexUsingBuilders [
 	<gtExample>
 	| aList |
-
 	aList := BrColumnedList new.
-	aList display: Smalltalk allClasses.
+	aList items: Smalltalk allClasses.
 	aList column
 		title: 'Index';
-		stencil: [ :aClass :anIndex |
+		stencil: [ :aClass :anIndex | 
 			BlTextElement new
 				width: 30;
 				margin: (BlInsets all: 3);
 				text: (anIndex asString asRopedText foreground: Color gray) ].
-
 	aList column
 		title: 'Class';
 		stencil: BrColumnNameCellStencilBuilder new.
-
 	aList column
 		title: 'Package';
-		stencil: [ :aClass | BrColumnCellLabelStencil new text: aClass package name asString ].
-
+		stencil:
+				[ :aClass | BrColumnCellLabelStencil new text: aClass package name asString ].
 	^ aList
 ]
 

@@ -23,7 +23,7 @@ BrColumnedTreeRowStencilBuilder >> buildDefault [
 	aContainer := BlElement new.
 	
 	(selectableBlock valueWithEnoughArguments: { aNode . aRowIndex . aTreeElement })
-		ifTrue: [ self makeSelectableContaine: aContainer forTreeElement: aTreeElement atIndex: aRowIndex ].
+		ifTrue: [ self makeSelectableContainer: aContainer forTreeElement: aTreeElement atIndex: aRowIndex ].
 		
 	aContainer constraintsDo: [ :c |
 		c horizontal matchParent.
@@ -55,35 +55,12 @@ BrColumnedTreeRowStencilBuilder >> cellSpacing: aNumber [
 ]
 
 { #category : #private }
-BrColumnedTreeRowStencilBuilder >> createArrowInterationElementForNode: aNode [
-	^ BlElement new
-		background: (aNode isEmpty ifTrue: [ Color transparent ] ifFalse: [ Color gray ]);
-		size: 12@12;
-		relocate: (aNode isExpanded ifTrue: [ 2@3 ] ifFalse: [ 3@2 ]);
-		geometry: (aNode isExpanded
-			ifTrue: [ BlPolygon vertices: { 2@2 . 10@2 . 6@10 } ]
-			ifFalse: [ BlPolygon vertices: { 2@2 . 10@6 . 2@10 } ])
-]
-
-{ #category : #private }
 BrColumnedTreeRowStencilBuilder >> createExpandCollapseElementFor: aNode [
-	^ BlElement new
-		geometry: BlEllipse new;
-		margin: (BlInsets all: 2);
-		size: 16@16;
-		viewModel: (BrWidgetModel new 
-			addAll: { 
-				BrButtonModel new action: [ aNode toggle ].
-				BrInteractiveModel new addStates: (
-					aNode isEmpty
-						ifTrue: [ #() ]
-						ifFalse: [ { BrHoverModel new . BrPressModel new } ]
-				), { BrEnablementModel new disabled: aNode isEmpty } });
-		look: (BrInteractiveCommonLook new
-			default: [ :aWidget | aWidget background: (Color transparent) ];
-			hovered: [ :aWidget | aWidget background: (Color gray alpha: 0.1) ];
-			pressed: [ :aWidget | aWidget background: (Color gray alpha: 0.2) ]);
-		addChild: (self createArrowInterationElementForNode: aNode)
+	^ BrTriangle new
+		look: BrGlamorousTriangleInCircleLook;
+		action: [ aNode toggle ];
+		hide: aNode isEmpty;
+		disabled: aNode isEmpty.
 ]
 
 { #category : #accessing }
@@ -104,11 +81,11 @@ BrColumnedTreeRowStencilBuilder >> initialize [
 	padding := BlInsets empty.
 	indentation := 15.
 	selectableBlock := [ :eachNode :eachIndex :aTree | true ].
-	selectionColor := Color gray alpha: 0.2.
+	selectionColor := BrGlamorousColors selectedListItemColor.
 ]
 
 { #category : #private }
-BrColumnedTreeRowStencilBuilder >> makeSelectableContaine: aContainer forTreeElement: aTreeElement atIndex: aRowIndex [
+BrColumnedTreeRowStencilBuilder >> makeSelectableContainer: aContainer forTreeElement: aTreeElement atIndex: aRowIndex [
 	aContainer viewModel: (BrWidgetModel new addAll: { 
 		BrButtonModel new action: [ :aWidget :aButtonModel :anEvent |
 			aTreeElement selectOne: aRowIndex dueTo: anEvent.
@@ -118,7 +95,7 @@ BrColumnedTreeRowStencilBuilder >> makeSelectableContaine: aContainer forTreeEle
 	
 	aContainer look: (BrInteractiveCommonLook new
 		selected: [ :aWidget | aWidget background: self selectionColor ];
-		deselected: [ :aWidget | aWidget background: Color transparent ]).
+		deselected: [ :aWidget | aWidget background: BrGlamorousColors deselectedtListItemColor ]).
 
 	aContainer
 		when: BlDoubleClickEvent

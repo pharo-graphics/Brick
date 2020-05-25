@@ -12,6 +12,7 @@ Class {
 		'ButtonBorderColor',
 		'ButtonTextColor',
 		'DarkBorderColor',
+		'DeselectedListItemBackgroundColor',
 		'DisabledButtonBackgroundColor',
 		'DisabledButtonBorderColor',
 		'DisabledButtonTextColor',
@@ -19,6 +20,7 @@ Class {
 		'EditorBorderColor',
 		'ErrorBackgroundColor',
 		'ErrorBorderColor',
+		'ExpandCollapseTriangleBackgroundColor',
 		'FailureBackgroundColor',
 		'FailureBorderColor',
 		'FocusedEditorBorderColor',
@@ -26,14 +28,17 @@ Class {
 		'HeaderTextColor',
 		'HoveredButtonBorderColor',
 		'HoveredButtonTextColor',
+		'HoveredListItemBackgroundColor',
 		'LightBorderColor',
 		'LinkColor',
 		'LinkWithErrorColor',
 		'NeutralBackgroundColor',
 		'PressedButtonBorderColor',
 		'PressedButtonTextColor',
+		'PressedListItemBackgroundColor',
 		'PrimaryBorderColor',
 		'SecondaryHeaderBackgroundColor',
+		'SelectedListItemBackgroundColor',
 		'SuccessBackgroundColor',
 		'SuccessBorderColor',
 		'TextHighlightColor'
@@ -91,9 +96,19 @@ BrGlamorousColors class >> defaultHeaderTextColor [
 	^ HeaderTextColor
 ]
 
-{ #category : #'list items - background' }
+{ #category : #'list and tree items - background' }
 BrGlamorousColors class >> defaultListItemColor [
-	^ Color transparent
+	^ self deselectedtListItemColor
+]
+
+{ #category : #'list and tree items - background' }
+BrGlamorousColors class >> deselectedtListItemColor [
+	^ DeselectedListItemBackgroundColor
+]
+
+{ #category : #'list and tree items - background' }
+BrGlamorousColors class >> deselectedtListItemColor: aColor [
+	DeselectedListItemBackgroundColor := aColor
 ]
 
 { #category : #'button - background' }
@@ -238,6 +253,16 @@ BrGlamorousColors class >> errorBorderColor [
 	^ ErrorBorderColor
 ]
 
+{ #category : #'list and tree items - background' }
+BrGlamorousColors class >> expandCollapseTriangleBackgroundColor [
+	^ ExpandCollapseTriangleBackgroundColor
+]
+
+{ #category : #'list and tree items - background' }
+BrGlamorousColors class >> expandCollapseTriangleBackgroundColor: aColor [
+	ExpandCollapseTriangleBackgroundColor := aColor
+]
+
 { #category : #'status - background' }
 BrGlamorousColors class >> failureBackgroundColor [
 	^ FailureBackgroundColor
@@ -263,7 +288,7 @@ BrGlamorousColors class >> focusedEditorBorderColor: anObject [
 	FocusedEditorBorderColor := anObject
 ]
 
-{ #category : #'list items - border' }
+{ #category : #'list and tree items - border' }
 BrGlamorousColors class >> focusedListItemBorder [
 	^ self primaryBorderColor
 ]
@@ -288,9 +313,14 @@ BrGlamorousColors class >> hoveredButtonTextColor: anObject [
 	HoveredButtonTextColor := anObject
 ]
 
-{ #category : #'list items - background' }
+{ #category : #'list and tree items - background' }
 BrGlamorousColors class >> hoveredListItemColor [
-	^ self disabledButtonTextColor
+	^ HoveredListItemBackgroundColor
+]
+
+{ #category : #'list and tree items - background' }
+BrGlamorousColors class >> hoveredListItemColor: aColor [
+	HoveredListItemBackgroundColor := aColor
 ]
 
 { #category : #initialization }
@@ -337,6 +367,13 @@ BrGlamorousColors class >> initialize [
 	
 	"highlighting - text"
 	TextHighlightColor := Color fromHexString: #ffd666.
+	
+	"list and tree items"
+	DeselectedListItemBackgroundColor := Color transparent.
+	HoveredListItemBackgroundColor := Color gray alpha: 0.1.
+	SelectedListItemBackgroundColor := Color gray alpha: 0.2.
+	PressedListItemBackgroundColor := Color gray alpha: 0.2. 
+	ExpandCollapseTriangleBackgroundColor := Color gray.
 
 	"editors"
 	EditorBorderColor := LightBorderColor.
@@ -392,9 +429,14 @@ BrGlamorousColors class >> pressedButtonTextColor: anObject [
 	PressedButtonTextColor := anObject
 ]
 
-{ #category : #'list items - background' }
+{ #category : #'list and tree items - background' }
 BrGlamorousColors class >> pressedListItemColor [
-	^ self pressedButtonBorderColor
+	^ PressedListItemBackgroundColor 
+]
+
+{ #category : #'list and tree items - background' }
+BrGlamorousColors class >> pressedListItemColor: aColor [
+	PressedListItemBackgroundColor := aColor
 ]
 
 { #category : #accessing }
@@ -412,9 +454,14 @@ BrGlamorousColors class >> secondaryHeaderBackgroundColor [
 	^ SecondaryHeaderBackgroundColor
 ]
 
-{ #category : #'list items - background' }
+{ #category : #'list and tree items - background' }
 BrGlamorousColors class >> selectedListItemColor [
-	^ self disabledButtonTextColor
+	^ SelectedListItemBackgroundColor
+]
+
+{ #category : #'list and tree items - background' }
+BrGlamorousColors class >> selectedListItemColor: aColor [
+	SelectedListItemBackgroundColor := aColor
 ]
 
 { #category : #'status - background' }

@@ -12,19 +12,29 @@ Class {
 { #category : #'api - instantiation' }
 BrSimpleTreeRowStencilBuilder >> buildDefault [
 	<return: #BrStencil or: #BlElement>
-	| aContainer aText |
-
+	| aContainer |
 	aContainer := (BrColumnedTreeRowStencilBuilder new
 		treeNode: self treeNode;
 		rowIndex: self rowIndex;
 		treeElement: self treeElement;
 		padding: self padding;
 		cellSpacing: self cellSpacing) asElement.
-
-	aText := text glamourValue: self treeNode value.
-	aContainer addChild: (BrColumnCellLabelStencil new text: aText) asElement in: #expander.
-
+	self buildLabelIn: aContainer.
 	^ aContainer
+]
+
+{ #category : #private }
+BrSimpleTreeRowStencilBuilder >> buildLabel [
+	| aText |
+	aText := text glamourValue: self treeNode value.
+	^ (BrColumnCellLabelStencil new text: aText) asElement.
+]
+
+{ #category : #private }
+BrSimpleTreeRowStencilBuilder >> buildLabelIn: aContainer [
+	aContainer
+		addChild: self buildLabel
+		in: #expander
 ]
 
 { #category : #accessing }
@@ -38,12 +48,16 @@ BrSimpleTreeRowStencilBuilder >> cellSpacing: aNumber [
 ]
 
 { #category : #initialization }
+BrSimpleTreeRowStencilBuilder >> defaultText [
+	^ [ :aNodeValue | aNodeValue gtDisplayString asRopedText ]
+]
+
+{ #category : #initialization }
 BrSimpleTreeRowStencilBuilder >> initialize [
 	super initialize.
-	
 	cellSpacing := 0.
 	padding := BlInsets empty.
-	text := [ :aNodeValue | aNodeValue gtDisplayString asRopedText ]
+	text := self defaultText
 ]
 
 { #category : #accessing }

@@ -41,12 +41,11 @@ BrColumnCellLabelStencil class >> matchParent: aText [
 
 { #category : #'api - instantiation' }
 BrColumnCellLabelStencil >> create [
-	^ BlTextElement new
-		margin: (BlInsets all: 3);
+	^ BrLabel new
+		look: BrGlamorousListLabelLook;
 		text: self text;
-		constraintsDo: [ :c |
-			c horizontal matchParent.
-			c vertical fitContent ]
+		hMatchParent;
+		vFitContent
 ]
 
 { #category : #initialization }
