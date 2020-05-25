@@ -38,7 +38,7 @@ Class {
 		'SuccessBorderColor',
 		'TextHighlightColor'
 	],
-	#category : #'Brick-Glamorous'
+	#category : #'Brick-Glamorous-Colors, Icons, Fonts'
 }
 
 { #category : #accessing }
@@ -89,6 +89,11 @@ BrGlamorousColors class >> defaultHeaderBackgroundColor [
 { #category : #'header - text' }
 BrGlamorousColors class >> defaultHeaderTextColor [
 	^ HeaderTextColor
+]
+
+{ #category : #'list items - background' }
+BrGlamorousColors class >> defaultListItemColor [
+	^ Color transparent
 ]
 
 { #category : #'button - background' }
@@ -258,6 +263,11 @@ BrGlamorousColors class >> focusedEditorBorderColor: anObject [
 	FocusedEditorBorderColor := anObject
 ]
 
+{ #category : #'list items - border' }
+BrGlamorousColors class >> focusedListItemBorder [
+	^ self primaryBorderColor
+]
+
 { #category : #'button - border' }
 BrGlamorousColors class >> hoveredButtonBorderColor [
 	^ HoveredButtonBorderColor
@@ -276,6 +286,11 @@ BrGlamorousColors class >> hoveredButtonTextColor [
 { #category : #'button - text' }
 BrGlamorousColors class >> hoveredButtonTextColor: anObject [
 	HoveredButtonTextColor := anObject
+]
+
+{ #category : #'list items - background' }
+BrGlamorousColors class >> hoveredListItemColor [
+	^ self disabledButtonTextColor
 ]
 
 { #category : #initialization }
@@ -377,6 +392,11 @@ BrGlamorousColors class >> pressedButtonTextColor: anObject [
 	PressedButtonTextColor := anObject
 ]
 
+{ #category : #'list items - background' }
+BrGlamorousColors class >> pressedListItemColor [
+	^ self pressedButtonBorderColor
+]
+
 { #category : #accessing }
 BrGlamorousColors class >> primaryBorderColor [
 	^ PrimaryBorderColor
@@ -390,6 +410,11 @@ BrGlamorousColors class >> primaryBorderColor: anObject [
 { #category : #'header - background' }
 BrGlamorousColors class >> secondaryHeaderBackgroundColor [
 	^ SecondaryHeaderBackgroundColor
+]
+
+{ #category : #'list items - background' }
+BrGlamorousColors class >> selectedListItemColor [
+	^ self disabledButtonTextColor
 ]
 
 { #category : #'status - background' }
