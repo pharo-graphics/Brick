@@ -43,6 +43,7 @@ BrColumnCellLabelStencil class >> matchParent: aText [
 BrColumnCellLabelStencil >> create [
 	^ BrLabel new
 		look: BrGlamorousListLabelLook;
+		margin: (BlInsets all: 3);
 		text: self text;
 		hMatchParent;
 		vFitContent
