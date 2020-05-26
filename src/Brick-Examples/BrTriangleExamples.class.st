@@ -27,6 +27,18 @@ BrTriangleExamples >> glamorousInCircleCollapsed [
 	| aTriangle |
 	aTriangle := self glamorousInCircleExpanded.
 	aTriangle collapse.
+	self assert: aTriangle isCollapsed.
+	^ aTriangle
+]
+
+{ #category : #glamorous }
+BrTriangleExamples >> glamorousInCircleDisabled [
+	<gtExample>
+	| aTriangle |
+	aTriangle := self glamorousInCircle.
+	aTriangle look: BrGlamorousTriangleInCircleLook.
+	aTriangle disable.
+	self assert: aTriangle isDisabled.
 	^ aTriangle
 ]
 
@@ -36,6 +48,7 @@ BrTriangleExamples >> glamorousInCircleExpanded [
 	| aTriangle |
 	aTriangle := self glamorousInCircle.
 	aTriangle expand.
+	self assert: aTriangle isExpanded.
 	^ aTriangle
 ]
 

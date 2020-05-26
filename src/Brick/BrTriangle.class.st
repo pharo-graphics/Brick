@@ -1,11 +1,10 @@
 Class {
 	#name : #BrTriangle,
 	#superclass : #BlElement,
+	#traits : 'TBrExpandable + TBrEnableable',
+	#classTraits : 'TBrExpandable classTrait + TBrEnableable classTrait',
 	#instVars : [
-		'buttonModel',
-		'interactiveModel',
-		'enablementModel',
-		'expandableModel'
+		'buttonModel'
 	],
 	#category : #'Brick-Triangle - UI'
 }
@@ -14,36 +13,6 @@ Class {
 BrTriangle >> action: aBlock [
 	"do no handle expand and collapse actions"
 	buttonModel action: aBlock
-]
-
-{ #category : #'api - expandable' }
-BrTriangle >> collapse [
-	expandableModel collapse
-]
-
-{ #category : #'api - activation' }
-BrTriangle >> disable [
-	enablementModel disable
-]
-
-{ #category : #'api - activation' }
-BrTriangle >> disabled: aBoolean [
-	enablementModel disabled: aBoolean.
-]
-
-{ #category : #'api - activation' }
-BrTriangle >> enable [
-	enablementModel enable
-]
-
-{ #category : #'api - expandable' }
-BrTriangle >> expand [
-	expandableModel expand
-]
-
-{ #category : #'api - expandable' }
-BrTriangle >> expanded: aBoolean [
-	expandableModel expanded: aBoolean
 ]
 
 { #category : #'api - visibility' }
@@ -61,33 +30,17 @@ BrTriangle >> hide: aBoolean [
 { #category : #initialization }
 BrTriangle >> initialize [
 	super initialize.
-	self viewModel: (BrWidgetModel new
-		addAll: {
-			(buttonModel := BrButtonModel new action: [ self toggle ]).
-			(interactiveModel := BrInteractiveModel new
-				addStates: {BrHoverModel new. BrPressModel new}).
-			(enablementModel := BrEnablementModel new).
-			(expandableModel := BrExpandableModel new)})
-]
-
-{ #category : #'api - testing' }
-BrTriangle >> isCollapsed [
-	^ expandableModel isCollapsed
-]
-
-{ #category : #'api - testing' }
-BrTriangle >> isExpanded [
-	^ expandableModel isExpanded
+	self viewModel: (buttonModel := BrButtonModel new 
+		action: [ self toggle ];
+		add: (BrInteractiveModel new
+				addStates: {
+					BrExpandableModel new. BrEnablementModel new.
+					BrHoverModel new. BrPressModel new. }))
 ]
 
 { #category : #'api - visibility' }
 BrTriangle >> show [
 	self visibility: BlVisibility visible
-]
-
-{ #category : #'api - expandable' }
-BrTriangle >> toggle [
-	expandableModel toggle
 ]
 
 { #category : #'api - actions' }
