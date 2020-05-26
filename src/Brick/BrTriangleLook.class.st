@@ -2,58 +2,88 @@ Class {
 	#name : #BrTriangleLook,
 	#superclass : #BrInteractiveCommonLook,
 	#instVars : [
-		'triangle',
-		'backgroundColor'
+		'isExpanded',
+		'collapsedStencil',
+		'expandedStencil',
+		'collapsedTriangle',
+		'expandedTriangle'
 	],
 	#category : #'Brick-Triangle - Look'
 }
 
-{ #category : #accessing }
-BrTriangleLook >> backgroundColor [
-	^ backgroundColor
+{ #category : #'api - expandable' }
+BrTriangleLook >> collapse [
+	self isExpanded ifFalse: [ ^ self ].
+	isExpanded := false.
+	self updateVisibleTriangle.
 ]
 
 { #category : #accessing }
-BrTriangleLook >> backgroundColor: anObject [
-	backgroundColor := anObject
+BrTriangleLook >> collapsedStencil [
+	^ collapsedStencil
 ]
 
-{ #category : #'api - configuration' }
-BrTriangleLook >> beCollapsed [
-	triangle 
-		relocate: 3@2;
-		geometry: (BlPolygon vertices: { 2@2 . 10@6 . 2@10 })
+{ #category : #accessing }
+BrTriangleLook >> collapsedStencil: anObject [
+	collapsedStencil := anObject
 ]
 
-{ #category : #'api - configuration' }
-BrTriangleLook >> beExpanded [
-	triangle 
-		relocate: 2@3;
-		geometry: (BlPolygon vertices: { 2@2 . 10@2 . 6@10 })
+{ #category : #accessing }
+BrTriangleLook >> collapsedTriangle [
+	collapsedTriangle ifNil: [ 
+		collapsedTriangle := self collapsedStencil asElement.
+		self initializeTriangle: collapsedTriangle ].
+	^ collapsedTriangle.
 ]
 
 { #category : #defaults }
-BrTriangleLook >> defaultTriangleBackgroundColor [
-	^ Color gray
+BrTriangleLook >> defaultCollapsedStencil [
+	^ BrCollapsedTriangleStencil new
+]
+
+{ #category : #defaults }
+BrTriangleLook >> defaultExpandedStencil [
+	^ BrExpandedTriangleStencil new
+]
+
+{ #category : #'api - expandable' }
+BrTriangleLook >> expand [
+	self isExpanded ifTrue: [ ^ self ].
+	isExpanded := true.
+	self updateVisibleTriangle.
+]
+
+{ #category : #accessing }
+BrTriangleLook >> expandedStencil [
+	^ expandedStencil
+]
+
+{ #category : #accessing }
+BrTriangleLook >> expandedStencil: anObject [
+	expandedStencil := anObject
+]
+
+{ #category : #accessing }
+BrTriangleLook >> expandedTriangle [
+	expandedTriangle ifNil: [ 
+		expandedTriangle := self expandedStencil asElement.
+		self initializeTriangle: expandedTriangle ].
+	^ expandedTriangle.
 ]
 
 { #category : #initialization }
 BrTriangleLook >> initialize [
 	super initialize.
-	self initializeColors.
-	self initializeTriangle.
+	isExpanded := false.
+	self initializeStencils.
 	self initializeWidget.
-]
-
-{ #category : #initialization }
-BrTriangleLook >> initializeColors [
-	backgroundColor := self defaultTriangleBackgroundColor.
 ]
 
 { #category : #initialization }
 BrTriangleLook >> initializeListeners [
 	super initializeListeners.
 	
+	self when: BrTriangleStencilsChanged do: [ :anEvent | self onStencilsChanged: anEvent ].
 	self when: BrExpansionChanged do: [ :anEvent | self onExpansionChanged: anEvent expanded ].
 ]
 
@@ -61,26 +91,61 @@ BrTriangleLook >> initializeListeners [
 BrTriangleLook >> initializeRequests [
 	super initializeRequests.
 	
+	self request: BrTriangleStencilsRequest new.
 	self request: BrExpansionStateRequest new.
+
 ]
 
 { #category : #initialization }
-BrTriangleLook >> initializeTriangle [
-	triangle := BlElement new.
-	triangle size: 12@12.
-	triangle background: self backgroundColor.
-	self beCollapsed.
+BrTriangleLook >> initializeStencils [
+	collapsedStencil := self defaultCollapsedStencil.
+	expandedStencil := self defaultExpandedStencil.
+]
+
+{ #category : #initialization }
+BrTriangleLook >> initializeTriangle: aTriangle [
+	"subclasses may configure collapsed and expanded triangle elements"
 ]
 
 { #category : #initialization }
 BrTriangleLook >> initializeWidget [
 	self 
-		addChangeAddChildAs: #(content triangle) with: [ triangle ].
+		addChangeAddChildAs: #(content triangle) 
+		with: [ self triangle ].
+]
+
+{ #category : #'api - testing' }
+BrTriangleLook >> isExpanded [
+	<return: #Boolean>
+	^ isExpanded
 ]
 
 { #category : #hooks }
 BrTriangleLook >> onExpansionChanged: aBoolean [
 	aBoolean 
-		ifTrue: [ self beExpanded ] 
-		ifFalse: [ self beCollapsed ]
+		ifTrue: [ self expand ] 
+		ifFalse: [ self collapse ]
+]
+
+{ #category : #hooks }
+BrTriangleLook >> onStencilsChanged: anEvent [
+	self collapsedStencil: anEvent collapsedStencil.
+	self expandedStencil: anEvent expandedStencil.
+]
+
+{ #category : #accessing }
+BrTriangleLook >> triangle [
+	^ self isExpanded 
+		ifTrue: [ self expandedTriangle ]
+		ifFalse: [ self collapsedTriangle ] 
+]
+
+{ #category : #'private - ui' }
+BrTriangleLook >> updateVisibleTriangle [
+	self widgetDo: [ :aWidget |
+		self collapsedTriangle removeFromParent.
+		self expandedTriangle removeFromParent.
+		self isExpanded 
+			ifTrue: [ self widgetContent addChild: self expandedTriangle as: #triangle ]
+			ifFalse: [ self widgetContent addChild: self collapsedTriangle as: #triangle ] ]
 ]
