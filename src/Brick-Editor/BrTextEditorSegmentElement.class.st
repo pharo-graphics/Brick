@@ -12,3 +12,8 @@ Class {
 	#classTraits : 'TBlDrawingCache classTrait',
 	#category : #'Brick-Editor-UI'
 }
+
+{ #category : #'as yet unclassified' }
+BrTextEditorSegmentElement >> wantsCompositionLayer [
+	^ true
+]
