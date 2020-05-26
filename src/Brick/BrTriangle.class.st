@@ -41,6 +41,11 @@ BrTriangle >> expand [
 	expandableModel expand
 ]
 
+{ #category : #'api - expandable' }
+BrTriangle >> expanded: aBoolean [
+	expandableModel expanded: aBoolean
+]
+
 { #category : #'api - visibility' }
 BrTriangle >> hide [
 	self visibility: BlVisibility hidden
