@@ -1,8 +1,8 @@
 Class {
 	#name : #BrTriangle,
 	#superclass : #BlElement,
-	#traits : 'TBrExpandable + TBrEnableable',
-	#classTraits : 'TBrExpandable classTrait + TBrEnableable classTrait',
+	#traits : 'TBrExpandable + TBrEnableable + TBrSizeAdjustable',
+	#classTraits : 'TBrExpandable classTrait + TBrEnableable classTrait + TBrSizeAdjustable classTrait',
 	#instVars : [
 		'buttonModel'
 	],
@@ -35,6 +35,7 @@ BrTriangle >> initialize [
 		add: (BrInteractiveModel new
 				addStates: {
 					BrExpandableModel new. BrEnablementModel new.
+					BrSizeAdjustmentModel new.
 					BrHoverModel new. BrPressModel new. }))
 ]
 

@@ -5,6 +5,19 @@ Class {
 }
 
 { #category : #initialization }
+BrGlamorousTriangleInCircleLook >> initialize [
+	super initialize.
+	
+	self add: (BrSizeAdjustmentLook new
+		huge: [ :aWidget | aWidget transformDo: [ :t | t scaleBy: 1.5 ] ];
+		large: [ :aWidget | aWidget transformDo: [ :t | t scaleBy: 1.25 ] ];
+		default: [ :aWidget | aWidget transformDo: [ :t | t scaleBy: 1 ] ];
+		small: [ :aWidget | aWidget transformDo: [ :t | t scaleBy: 0.91 ] ];
+		tiny: [ :aWidget | aWidget transformDo: [ :t | t scaleBy: 0.83 ] ];
+		mini: [ :aWidget | aWidget transformDo: [ :t | t scaleBy: 0.75 ] ])
+]
+
+{ #category : #initialization }
 BrGlamorousTriangleInCircleLook >> initializeTriangle: aTriangle [
 	"configure collapsed and expanded triangle elements"
 	aTriangle 

@@ -13,7 +13,7 @@ Class {
 BrSimpleTreeRowStencilBuilder >> buildDefault [
 	<return: #BrStencil or: #BlElement>
 	| aContainer |
-	aContainer := (BrColumnedTreeRowStencilBuilder new
+	aContainer := (self defaultColumnedTreeRowStencilBuilder
 		treeNode: self treeNode;
 		rowIndex: self rowIndex;
 		treeElement: self treeElement;
@@ -25,9 +25,8 @@ BrSimpleTreeRowStencilBuilder >> buildDefault [
 
 { #category : #private }
 BrSimpleTreeRowStencilBuilder >> buildLabel [
-	| aText |
-	aText := text glamourValue: self treeNode value.
-	^ (BrColumnCellLabelStencil new text: aText) asElement.
+	<return: #BrLabel>
+	^ (BrColumnCellLabelStencil new text: self buildText) asElement
 ]
 
 { #category : #private }
@@ -35,6 +34,12 @@ BrSimpleTreeRowStencilBuilder >> buildLabelIn: aContainer [
 	aContainer
 		addChild: self buildLabel
 		in: #expander
+]
+
+{ #category : #private }
+BrSimpleTreeRowStencilBuilder >> buildText [
+	<return: #BlRopedText>
+	^ (text glamourValue: self treeNode value) asRopedText
 ]
 
 { #category : #accessing }
@@ -45,6 +50,11 @@ BrSimpleTreeRowStencilBuilder >> cellSpacing [
 { #category : #accessing }
 BrSimpleTreeRowStencilBuilder >> cellSpacing: aNumber [
 	cellSpacing := aNumber
+]
+
+{ #category : #initialization }
+BrSimpleTreeRowStencilBuilder >> defaultColumnedTreeRowStencilBuilder [
+	^ BrColumnedTreeRowStencilBuilder new
 ]
 
 { #category : #initialization }
