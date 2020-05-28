@@ -16,5 +16,6 @@ BrSimpleTreeItemHolder >> rowValue: aTreeNode at: aRowIndex [
 		rowIndex: aRowIndex;
 		build.
 
-	itemElement := aStencil asElement
+	itemElement := aStencil asElement.
+	itemElement wantCompositionLayer
 ]

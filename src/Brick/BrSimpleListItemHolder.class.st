@@ -16,5 +16,6 @@ BrSimpleListItemHolder >> rowValue: anObject at: aRowIndex [
 		listElement: self listElement;
 		build.
 
-	itemElement := aStencil asElement
+	itemElement := aStencil asElement.
+	itemElement wantCompositionLayer
 ]

@@ -56,5 +56,7 @@ BrColumnedTreeItemHolder >> rowValue: aTreeNode at: aRowIndex [
 
 	self columns first width applyOn: aRowContentElement.
 	aRowContentElement addChild: theCellElements first.
-	itemElement addChildren: theCellElements allButFirst
+
+	itemElement addChildren: theCellElements allButFirst.
+	itemElement wantCompositionLayer
 ]

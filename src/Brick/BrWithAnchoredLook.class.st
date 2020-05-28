@@ -182,6 +182,8 @@ BrWithAnchoredLook >> relocateWish [
 BrWithAnchoredLook >> show [
 	self assert: [ self canShow ].
 	container := stencil asElement.
+	container wantCompositionLayer.
+
 	self flag: 'TODO get rid of having to set anchor'.
 	container anchor: widget.
 	widget topMostParent addChild: container.
