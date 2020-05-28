@@ -10,6 +10,7 @@ BrColumnedTreeRowStencilBuilder >> createExpandCollapseElementFor: aNode [
 		look: BrGlamorousTriangleInCircleLook;
 		action: [ aNode toggle ];
 		hide: aNode isEmpty;
+		expanded: aNode isExpanded;
 		disabled: aNode isEmpty.
 ]
 

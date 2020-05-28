@@ -52,7 +52,7 @@ BrButtonModel >> clickEvent: anEvent [
 	anEvent consumed: true.
 
 	(self request: BrEnablementRequest oneWay) isEnabled
-		ifTrue: [ self action glamourValueWithArgs: { self widget .  self . anEvent } ]
+		ifTrue: [ self action glamourValueWithArgs: { self widget . self . anEvent } ]
 ]
 
 { #category : #'gt-extension' }

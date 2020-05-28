@@ -12,6 +12,11 @@ TBrEnableable >> disable [
 ]
 
 { #category : #'api - enablement' }
+TBrEnableable >> disabled: aBoolean [
+	self enabled: aBoolean not
+]
+
+{ #category : #'api - enablement' }
 TBrEnableable >> enable [
 	self dispatchEvent: (BrEnablementWish enabled: true)
 ]

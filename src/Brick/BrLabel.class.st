@@ -1,8 +1,8 @@
 Class {
 	#name : #BrLabel,
 	#superclass : #BlElement,
-	#traits : 'TBrLayoutResizable + TBrLayoutAlignable',
-	#classTraits : 'TBrLayoutResizable classTrait + TBrLayoutAlignable classTrait',
+	#traits : 'TBrLayoutResizable + TBrLayoutAlignable + TBrSizeAdjustable',
+	#classTraits : 'TBrLayoutResizable classTrait + TBrLayoutAlignable classTrait + TBrSizeAdjustable classTrait',
 	#category : #'Brick-Label - UI'
 }
 
@@ -20,6 +20,7 @@ BrLabel >> initialize [
 		BrLayoutHorizontalResizerModel fitContent.
 		BrLayoutVerticalResizerModel fitContent.
 		BrLayoutAlignmentModel new centerLeft.
+		BrSizeAdjustmentModel new.
 		BrHoverModel new
 	}))
 ]

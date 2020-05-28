@@ -18,14 +18,25 @@ BrTriangleLook >> collapse [
 	self updateVisibleTriangle.
 ]
 
+{ #category : #'private - ui' }
+BrTriangleLook >> collapseWidget: aWidget [
+	self collapsedTriangle removeFromParent.
+	self expandedTriangle removeFromParent.
+	self widgetContent addChild: self collapsedTriangle as: #triangle.
+	isExpanded := false.
+]
+
 { #category : #accessing }
 BrTriangleLook >> collapsedStencil [
 	^ collapsedStencil
 ]
 
 { #category : #accessing }
-BrTriangleLook >> collapsedStencil: anObject [
-	collapsedStencil := anObject
+BrTriangleLook >> collapsedStencil: aStencil [
+	collapsedStencil := aStencil.
+	collapsedTriangle ifNotNil: [ :aTriangle | aTriangle removeFromParent ].
+	collapsedTriangle := nil.
+	self updateVisibleTriangle.
 ]
 
 { #category : #accessing }
@@ -53,14 +64,25 @@ BrTriangleLook >> expand [
 	self updateVisibleTriangle.
 ]
 
+{ #category : #'private - ui' }
+BrTriangleLook >> expandWidget: aWidget [
+	self collapsedTriangle removeFromParent.
+	self expandedTriangle removeFromParent.
+	self widgetContent addChild: self expandedTriangle as: #triangle.
+	isExpanded := true.
+]
+
 { #category : #accessing }
 BrTriangleLook >> expandedStencil [
 	^ expandedStencil
 ]
 
 { #category : #accessing }
-BrTriangleLook >> expandedStencil: anObject [
-	expandedStencil := anObject
+BrTriangleLook >> expandedStencil: aStencil [
+	expandedStencil := aStencil.
+	expandedTriangle ifNotNil: [ :aTriangle | aTriangle removeFromParent ].
+	expandedTriangle := nil.
+	self updateVisibleTriangle.
 ]
 
 { #category : #accessing }
@@ -84,7 +106,6 @@ BrTriangleLook >> initializeListeners [
 	super initializeListeners.
 	
 	self when: BrTriangleStencilsChanged do: [ :anEvent | self onStencilsChanged: anEvent ].
-	self when: BrExpansionChanged do: [ :anEvent | self onExpansionChanged: anEvent expanded ].
 ]
 
 { #category : #initialization }
@@ -92,8 +113,6 @@ BrTriangleLook >> initializeRequests [
 	super initializeRequests.
 	
 	self request: BrTriangleStencilsRequest new.
-	self request: BrExpansionStateRequest new.
-
 ]
 
 { #category : #initialization }
@@ -111,26 +130,28 @@ BrTriangleLook >> initializeTriangle: aTriangle [
 BrTriangleLook >> initializeWidget [
 	self 
 		addChangeAddChildAs: #(content triangle) 
-		with: [ self triangle ].
+		with: [ self triangle ];
+	default: [ :aWidget | self collapseWidget: aWidget ];
+	expanded: [ :aWidget | self expandWidget: aWidget ];
+	collapsed: [ :aWidget | self collapseWidget: aWidget ]
 ]
 
-{ #category : #'api - testing' }
+{ #category : #'api - expandable' }
 BrTriangleLook >> isExpanded [
 	<return: #Boolean>
 	^ isExpanded
 ]
 
 { #category : #hooks }
-BrTriangleLook >> onExpansionChanged: aBoolean [
-	aBoolean 
-		ifTrue: [ self expand ] 
-		ifFalse: [ self collapse ]
-]
-
-{ #category : #hooks }
 BrTriangleLook >> onStencilsChanged: anEvent [
 	self collapsedStencil: anEvent collapsedStencil.
 	self expandedStencil: anEvent expandedStencil.
+]
+
+{ #category : #'api - expandable' }
+BrTriangleLook >> toggle [
+	isExpanded := isExpanded not.
+	self updateVisibleTriangle.
 ]
 
 { #category : #accessing }
@@ -143,9 +164,7 @@ BrTriangleLook >> triangle [
 { #category : #'private - ui' }
 BrTriangleLook >> updateVisibleTriangle [
 	self widgetDo: [ :aWidget |
-		self collapsedTriangle removeFromParent.
-		self expandedTriangle removeFromParent.
 		self isExpanded 
-			ifTrue: [ self widgetContent addChild: self expandedTriangle as: #triangle ]
-			ifFalse: [ self widgetContent addChild: self collapsedTriangle as: #triangle ] ]
+			ifTrue: [ self expandWidget: aWidget ]
+			ifFalse: [ self collapseWidget: aWidget ] ]
 ]

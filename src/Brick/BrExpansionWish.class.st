@@ -23,8 +23,8 @@ BrExpansionWish >> expanded [
 ]
 
 { #category : #accessing }
-BrExpansionWish >> expanded: anObject [
-	expanded := anObject
+BrExpansionWish >> expanded: aBoolean [
+	expanded := aBoolean
 ]
 
 { #category : #initialization }
