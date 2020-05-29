@@ -9,16 +9,16 @@ BrGlamorousListLabelLook >> initialize [
 	super initialize.
 
 	self add: (BrSizeAdjustmentLook new
-		huge: [ :aWidget | aWidget margin: (BlInsets all: 3).
+		huge: [ :aWidget | 
 			labelElement padding: (BlInsets top: 3 bottom: 3) ];
-		large: [ :aWidget | aWidget margin: (BlInsets all: 3).
+		large: [ :aWidget | 
 			labelElement padding: (BlInsets top: 3 bottom: 3) ];
-		default: [ :aWidget | aWidget margin: (BlInsets all: 3).
+		default: [ :aWidget | 
 			labelElement padding: (BlInsets top: 3 bottom: 3) ];
-		small: [ :aWidget | aWidget margin: (BlInsets all: 1).
-			labelElement padding: (BlInsets top: 0 bottom: 0) ];
-		tiny: [ :aWidget | aWidget margin: (BlInsets all: 1).
-			labelElement padding: (BlInsets top: 0 bottom: 0) ];
-		mini: [ :aWidget | aWidget margin: (BlInsets all: 1).
+		small: [ :aWidget | 
+			labelElement padding: (BlInsets top: 1 bottom: 1) ];
+		tiny: [ :aWidget | 
+			labelElement padding: (BlInsets top: 1 bottom: 1) ];
+		mini: [ :aWidget | 
 			labelElement padding: (BlInsets top: 0 bottom: 0) ])
 ]
