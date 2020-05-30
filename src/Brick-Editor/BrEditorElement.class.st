@@ -24,13 +24,8 @@ BrEditorElement >> editor [
 
 { #category : #accessing }
 BrEditorElement >> editor: aBrTextEditor [
-	self dataSource: aBrTextEditor
-]
-
-{ #category : #accessing }
-BrEditorElement >> onAddedToSceneGraph [
+	self dataSource: aBrTextEditor.
 	self dataSource view: self.
-	^ super onAddedToSceneGraph
 ]
 
 { #category : #scrolling }
