@@ -404,3 +404,15 @@ BrGlamorousVectorIcons class >> transcript [
 			viewbox: (0@0 extent: self standardSize));
 		background: Color black ] asStencil
 ]
+
+{ #category : #icons }
+BrGlamorousVectorIcons class >> upwardsDownwards [
+	<script: 'self upwardsDownwards inspect'>
+
+	^ [ BlElement new
+		size: 8@10;
+		geometry: (BlSvgPath new
+			svg: 'M 12 9 L 4 9 L 8 13 Z M 12 7 L 8 3 L 4 7 Z'
+			viewbox: (4@3 extent: 8@10));
+		background: Color black ] asStencil
+]
