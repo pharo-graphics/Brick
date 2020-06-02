@@ -44,5 +44,5 @@ BrColumnedListItemHolder >> rowValue: anObject at: aRowIndex [
 			aListColumn width applyOn: aCellElement.
 			aCellElement ].
 	itemElement addChildren: theCellElements.
-	itemElement wantCompositionLayer
+	itemElement beInSeparateCompositionLayer
 ]

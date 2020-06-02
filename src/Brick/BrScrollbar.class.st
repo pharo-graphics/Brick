@@ -20,7 +20,9 @@ BrScrollbar >> initialize [
 	
 	self viewModel: (BrScrollbarModel new add: (BrInteractiveModel withAll: {
 		BrScrollbarOrientationModel new beVertical
-	}))
+	})).
+	
+	self beInSeparateCompositionLayer
 ]
 
 { #category : #'api - scrollbar' }
