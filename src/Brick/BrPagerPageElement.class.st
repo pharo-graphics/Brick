@@ -17,7 +17,7 @@ BrPagerPageElement >> initialize [
 	super initialize.
 	
 	self viewModel: BrPagerPageModel new.
-	self wantCompositionLayer.
+	self beInSeparateCompositionLayer.
 	weight := 0.5
 ]
 
