@@ -13,7 +13,7 @@ BrGlamorousTextLabelLook >> fontSize: aNumber [
 	super fontSize: aNumber.
 ]
 
-{ #category : #'as yet unclassified' }
+{ #category : #private }
 BrGlamorousTextLabelLook >> fontSizeBy: aShift [
 	| aNumber |
 	aNumber := normalFontSize + aShift max: 1.
