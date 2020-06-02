@@ -142,6 +142,18 @@ BrGlamorousVectorIcons class >> debug [
 ]
 
 { #category : #icons }
+BrGlamorousVectorIcons class >> downwards [
+	<script: 'self downwards inspect'>
+
+	^ [ BlElement new
+		size: 16@16;
+		geometry: (BlSvgPath new
+			svg: 'M 12 9 L 8 13 L 4 9 Z'
+			viewbox: (4@9 extent: 8@4));
+		background: Color black ] asStencil
+]
+
+{ #category : #icons }
 BrGlamorousVectorIcons class >> eg [
 	<script: 'self eg inspect'>
 
@@ -406,11 +418,23 @@ BrGlamorousVectorIcons class >> transcript [
 ]
 
 { #category : #icons }
+BrGlamorousVectorIcons class >> upwards [
+	<script: 'self upwards inspect'>
+
+	^ [ BlElement new
+		size: 16@16;
+		geometry: (BlSvgPath new
+			svg: 'M 12 7 L 8 3 L 4 7 Z'
+			viewbox: (4@3 extent: 8@4));
+		background: Color black ] asStencil
+]
+
+{ #category : #icons }
 BrGlamorousVectorIcons class >> upwardsDownwards [
 	<script: 'self upwardsDownwards inspect'>
 
 	^ [ BlElement new
-		size: 8@10;
+		size: 16@16;
 		geometry: (BlSvgPath new
 			svg: 'M 12 9 L 4 9 L 8 13 Z M 12 7 L 8 3 L 4 7 Z'
 			viewbox: (4@3 extent: 8@10));
