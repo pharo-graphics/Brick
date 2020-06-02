@@ -37,7 +37,8 @@ BrTabGroupContentLook >> initializeListeners [
 	super initializeListeners.
 
 	self when: BrTabSelectedEvent do: [ :anEvent | self onTabSelected: anEvent tab ].
-	self when: BrTabDeselectedEvent do: [ :anEvent | self onTabDeselected: anEvent tab ]
+	self when: BrTabDeselectedEvent do: [ :anEvent | self onTabDeselected: anEvent tab ].
+	self when: BrTabRemovedEvent do: [ :anEvent | self onTabRemoved: anEvent tab ]
 ]
 
 { #category : #initialization }
@@ -50,6 +51,11 @@ BrTabGroupContentLook >> initializeRequests [
 { #category : #hooks }
 BrTabGroupContentLook >> onTabDeselected: aTabModel [
 	self widgetContent removeChildren
+]
+
+{ #category : #hooks }
+BrTabGroupContentLook >> onTabRemoved: aTabModel [
+	contentElementsCache removeKey: aTabModel ifAbsent: [  ]
 ]
 
 { #category : #hooks }
