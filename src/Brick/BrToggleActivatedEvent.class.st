@@ -4,8 +4,8 @@ I am sent when switch widget is activated
 Class {
 	#name : #BrToggleActivatedEvent,
 	#superclass : #BrToggleEvent,
-	#traits : 'TBrToggleSourceEvent',
-	#classTraits : 'TBrToggleSourceEvent classTrait',
+	#traits : 'TBrToggleOriginalEvent',
+	#classTraits : 'TBrToggleOriginalEvent classTrait',
 	#category : #'Brick-Toggle - Events'
 }
 

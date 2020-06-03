@@ -109,7 +109,7 @@ BrToggleModel >> notifyToggleActivated [
 
 { #category : #notifying }
 BrToggleModel >> notifyToggleActivatedDueTo: anEvent [
-	self fireEvent: (BrToggleActivatedEvent toggle: self source: anEvent)
+	self fireEvent: (BrToggleActivatedEvent toggle: self originalEvent: anEvent)
 ]
 
 { #category : #notifying }
@@ -119,7 +119,7 @@ BrToggleModel >> notifyToggleDeactivated [
 
 { #category : #notifying }
 BrToggleModel >> notifyToggleDeactivatedDueTo: anEvent [
-	self fireEvent: (BrToggleDeactivatedEvent toggle: self source: anEvent)
+	self fireEvent: (BrToggleDeactivatedEvent toggle: self originalEvent: anEvent)
 ]
 
 { #category : #'api - toggle' }
