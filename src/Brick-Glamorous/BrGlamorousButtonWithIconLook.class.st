@@ -12,5 +12,5 @@ BrGlamorousButtonWithIconLook >> initialize [
 			{BrGlamorousButtonExteriorLook new.
 			BrGlamorousButtonRectangularLook new.
 			BrGlamorousButtonIconLook new.
-			BrGlamorousWithLabelTooltipLook new}
+			BrGlamorousButtonWithLabelTooltipLook new}
 ]
