@@ -148,8 +148,8 @@ BrGlamorousVectorIcons class >> downwards [
 	^ [ BlElement new
 		size: 16@16;
 		geometry: (BlSvgPath new
-			svg: 'M 12 9 L 8 13 L 4 9 Z'
-			viewbox: (4@9 extent: 8@4));
+			svg: 'M 12 6 L 8 10 L 4 6 Z'
+			viewbox: (4@6 extent: 8@4));
 		background: Color black ] asStencil
 ]
 
@@ -424,7 +424,7 @@ BrGlamorousVectorIcons class >> upwards [
 	^ [ BlElement new
 		size: 16@16;
 		geometry: (BlSvgPath new
-			svg: 'M 12 7 L 8 3 L 4 7 Z'
+			svg: 'M 12 10 L 8 6 L 4 10 Z'
 			viewbox: (4@3 extent: 8@4));
 		background: Color black ] asStencil
 ]
