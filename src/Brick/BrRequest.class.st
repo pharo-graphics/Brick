@@ -26,7 +26,8 @@ BrRequest >> initialize [
 	super initialize.
 	
 	response := self responseClass new.
-	isOneWay := false
+	isOneWay := false.
+	self canBePropagated: false
 ]
 
 { #category : #testing }
