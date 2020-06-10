@@ -44,6 +44,16 @@ BrExpander >> initialize [
 		})
 ]
 
+{ #category : #'api - testing' }
+BrExpander >> isCollapsed [
+	^ expandableModel isCollapsed
+]
+
+{ #category : #'api - testing' }
+BrExpander >> isExpanded [
+	^ expandableModel isExpanded
+]
+
 { #category : #'api - expander' }
 BrExpander >> toggle [
 	expandableModel toggle

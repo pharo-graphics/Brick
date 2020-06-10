@@ -79,7 +79,7 @@ BrGlamorousTaggerEditableLook >> newAddTagButton [
 		look:
 			(BrGlamorousButtonRectangularLook new +
 			BrGlamorousButtonIconLook new +
-			BrGlamorousWithLabelTooltipLook new + (BrInteractiveCommonLook new
+			BrGlamorousButtonWithLabelTooltipLook new + (BrInteractiveCommonLook new
 				default: [ :aWidget |
 					aWidget
 						border: BlBorder empty;

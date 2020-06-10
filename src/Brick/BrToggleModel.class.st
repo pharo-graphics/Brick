@@ -10,18 +10,28 @@ Class {
 
 { #category : #'api - toggle' }
 BrToggleModel >> activate [
+	self activateDueTo: nil
+]
+
+{ #category : #'api - toggle' }
+BrToggleModel >> activateDueTo: anEvent [
 	self isActivated
 		ifTrue: [ ^ self ].
 
 	activated := true.
-	self notifyToggleActivated
+	self notifyToggleActivatedDueTo: anEvent
 ]
 
 { #category : #'api - toggle' }
 BrToggleModel >> activated: aBoolean [
+	self activated: aBoolean dueTo: nil
+]
+
+{ #category : #'api - toggle' }
+BrToggleModel >> activated: aBoolean dueTo: anEvent [
 	aBoolean
-		ifTrue: [ self activate ]
-		ifFalse: [ self deactivate ]
+		ifTrue: [ self activateDueTo: anEvent ]
+		ifFalse: [ self deactivateDueTo: anEvent ]
 ]
 
 { #category : #'api - toggle' }
@@ -38,16 +48,23 @@ BrToggleModel >> clickEvent: anEvent [
 	anEvent consumed: true.
 	
 	(self request: BrEnablementRequest oneWay) isEnabled
-		ifTrue: [ self activated: (oneWay or: [ self isActivated not ]) ]
+		ifTrue: [ self 
+				activated: (self isOneWay or: [ self isActivated not ]) 
+				dueTo: anEvent ]
 ]
 
 { #category : #'api - toggle' }
 BrToggleModel >> deactivate [
+	self deactivateDueTo: nil
+]
+
+{ #category : #'api - toggle' }
+BrToggleModel >> deactivateDueTo: anEvent [
 	self isActivated
 		ifFalse: [ ^ self ].
 
 	activated := false.
-	self notifyToggleDeactivated
+	self notifyToggleDeactivatedDueTo: anEvent
 ]
 
 { #category : #initialization }
@@ -87,12 +104,22 @@ BrToggleModel >> isOneWay [
 
 { #category : #notifying }
 BrToggleModel >> notifyToggleActivated [
-	self fireEvent: (BrToggleActivatedEvent toggle: self)
+	self notifyToggleActivatedDueTo: nil
+]
+
+{ #category : #notifying }
+BrToggleModel >> notifyToggleActivatedDueTo: anEvent [
+	self fireEvent: (BrToggleActivatedEvent toggle: self originalEvent: anEvent)
 ]
 
 { #category : #notifying }
 BrToggleModel >> notifyToggleDeactivated [
-	self fireEvent: (BrToggleDeactivatedEvent toggle: self)
+	self notifyToggleDeactivatedDueTo: nil
+]
+
+{ #category : #notifying }
+BrToggleModel >> notifyToggleDeactivatedDueTo: anEvent [
+	self fireEvent: (BrToggleDeactivatedEvent toggle: self originalEvent: anEvent)
 ]
 
 { #category : #'api - toggle' }

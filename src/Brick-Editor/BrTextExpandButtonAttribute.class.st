@@ -26,7 +26,7 @@ BrTextExpandButtonAttribute >> affect: aTBrTextEditorTextualPiece in: anEditorEl
 	^ BrToggle new
 		look: BrGlamorousButtonLayoutLook new + 
 			BrGlamorousButtonIconLook new + 
-			BrGlamorousWithLabelTooltipLook new + (BrInteractiveCommonLook new
+			BrGlamorousButtonWithLabelTooltipLook new + (BrInteractiveCommonLook new
 				default: [ anIcon background: (BrGlamorousColors defaultButtonBorderColor) ];
 				hovered: [ anIcon background: (BrGlamorousColors hoveredButtonBorderColor) ]);
 		icon: anIcon;

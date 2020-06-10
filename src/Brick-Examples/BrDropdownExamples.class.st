@@ -113,7 +113,7 @@ BrDropdownExamples >> coloredDropdown [
 						border:
 							(BlBorder
 								paint: BrGlamorousColors defaultButtonBackgroundColor
-								width: 3) ]) + BrGlamorousWithLabelTooltipLook
+								width: 3) ]) + BrGlamorousButtonWithLabelTooltipLook
 				+
 					(BrGlamorousWithContextMenuLook
 						content: [ BrGlamorousSimpleContextMenuContent new
