@@ -224,6 +224,10 @@ BrTabGroupModel >> removeTab: aBrTabModel [
 
 	aSelectedTab := (self hasSelectedTab and: [ wasSelected not ])
 		ifTrue: [ self selectedTab ].
+		
+	self 
+		assert: [ aSelectedTab ~= aBrTabModel ]
+		description: [ 'Selected cannot be the removed tab' ].
 
 	aTabIndex := self tabs indexOf: aBrTabModel.
 	self tabs remove: aBrTabModel.
