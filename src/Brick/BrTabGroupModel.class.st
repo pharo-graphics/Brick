@@ -227,7 +227,7 @@ BrTabGroupModel >> removeTab: aBrTabModel [
 		
 	self 
 		assert: [ aSelectedTab ~= aBrTabModel ]
-		description: [ 'Selected cannot be the removed tab' ].
+		description: [ 'Selected tab cannot be the removed tab' ].
 
 	aTabIndex := self tabs indexOf: aBrTabModel.
 	self tabs remove: aBrTabModel.
