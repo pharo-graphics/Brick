@@ -60,6 +60,9 @@ BrTabGroupHeaderLook >> initializeListeners [
 		when: BrTabAddedEvent
 		do: [ :anEvent | self onTabAdded: anEvent tab at: anEvent position ].
 	self
+		when: BrTabMovedEvent
+		do: [ :anEvent | self onTabMoved: anEvent tab from: anEvent oldPosition to: anEvent newPosition ].
+	self
 		when: BrTabRemovedEvent
 		do: [ :anEvent | self onTabRemoved: anEvent tab ].
 	self
@@ -111,6 +114,27 @@ BrTabGroupHeaderLook >> onTabAdded: aBrTabModel at: anIndex [
 { #category : #hooks }
 BrTabGroupHeaderLook >> onTabDeselected: aBrTabModel [ 
 	self toolbar removeChildren
+]
+
+{ #category : #hooks }
+BrTabGroupHeaderLook >> onTabMoved: aBrTabModel from: anOldIndex to: aNewIndex [
+	| anAssoc |
+	self
+		assert: [ self isAttachedToWidget ]
+		description: [ 'I can not receive the tab moved event without being attached to a widget' ].
+
+	anAssoc := self tabs at: anOldIndex.
+	self
+		assert: [ anAssoc key == aBrTabModel ]
+		description: [ 'The moved tab at the old position must be identical to the local tab model at the same position' ].
+	
+	self tabs remove: anAssoc.
+	self tabs add: anAssoc beforeIndex: aNewIndex.
+
+	aBrTabModel whenAttachedDo: [ :aTabElement |
+		self tabbar removeChildren: self tabElements.
+		anAssoc value: aTabElement.
+		self tabbar addChildren: self tabElements ]
 ]
 
 { #category : #hooks }

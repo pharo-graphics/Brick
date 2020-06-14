@@ -49,6 +49,11 @@ BrTabGroup >> initialize [
 ]
 
 { #category : #'api - adding / removing' }
+BrTabGroup >> moveTab: anElement at: anInteger [
+	self viewModel moveTab: anElement viewModel at: anInteger
+]
+
+{ #category : #'api - adding / removing' }
 BrTabGroup >> removeTab: anElement [
 	self viewModel removeTab: anElement viewModel
 ]

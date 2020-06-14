@@ -65,7 +65,8 @@ BrTabGroupModel >> hasTab: aBrTabModel [
 
 { #category : #'api - tabs' }
 BrTabGroupModel >> indexOf: aTab [
-	<return: #Boolean>
+	"It returns 0 if a tab is not present"
+	<return: #Number>
 
 	^ self tabs indexOf: aTab
 ]
@@ -119,6 +120,19 @@ BrTabGroupModel >> maxSelectionIndex [
 	^ self tabs size
 ]
 
+{ #category : #'api - tabs' }
+BrTabGroupModel >> moveTab: aBrTabModel at: aNewIndex [
+	| aCurrentIndex |
+	aCurrentIndex := self indexOf: aBrTabModel.
+	self 
+		assert: [ aCurrentIndex isZero not ]
+		description: [ 'Only an existing tab can be moved' ].
+	aCurrentIndex = aNewIndex ifTrue: [ ^ self ].
+	self tabs remove: aBrTabModel.
+	self tabs add: aBrTabModel beforeIndex: aNewIndex.
+	self onTabMoved: aBrTabModel from: aCurrentIndex to: aNewIndex
+]
+
 { #category : #notifying }
 BrTabGroupModel >> notifyActionbarChanged: aStencil [
 	self dispatchEvent: (BrTabGroupActionbarChangedEvent new stencil: aStencil)
@@ -132,6 +146,13 @@ BrTabGroupModel >> notifyTabAdded: aBrTabModel at: anIndex [
 { #category : #notifying }
 BrTabGroupModel >> notifyTabDeselected: aBrTabModel [
 	self dispatchEvent: (BrTabDeselectedEvent tab: aBrTabModel)
+]
+
+{ #category : #notifying }
+BrTabGroupModel >> notifyTabMoved: aBrTabModel from: anOldIndex to: aNewIndex [
+	self dispatchEvent: ((BrTabMovedEvent tab: aBrTabModel) 
+		oldPosition: anOldIndex;
+		newPosition: aNewIndex)
 ]
 
 { #category : #notifying }
@@ -171,6 +192,11 @@ BrTabGroupModel >> onTabDeselected: aBrTabModel [
 		description: [ 'A tab must exist' ].
 
 	self deselectOne: (self indexOf: aBrTabModel)
+]
+
+{ #category : #hooks }
+BrTabGroupModel >> onTabMoved: aBrTabModel from: anOldIndex to: aNewIndex [
+	self notifyTabMoved: aBrTabModel from: anOldIndex to: aNewIndex.
 ]
 
 { #category : #hooks }
