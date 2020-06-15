@@ -6,6 +6,20 @@ TBlDevScripterTarget >> onBrButtonName: aButtonLabel [
 ]
 
 { #category : #'*Brick-DevTool' }
+TBlDevScripterTarget >> onBrPagerFirstPane [
+	self 
+		onChildOfClass: BrInfinitePagerElement;
+		onChildAt: 1
+]
+
+{ #category : #'*Brick-DevTool' }
+TBlDevScripterTarget >> onBrPagerSecondPane [
+	self 
+		onChildOfClass: BrInfinitePagerElement;
+		onChildAt: 2
+]
+
+{ #category : #'*Brick-DevTool' }
 TBlDevScripterTarget >> onBrTextEditor [
 	self onChildFromMessage: #editor
 ]
@@ -13,4 +27,63 @@ TBlDevScripterTarget >> onBrTextEditor [
 { #category : #'*Brick-DevTool' }
 TBlDevScripterTarget >> onBrTextEditorText [
 	self onChildFromMessage: #text
+]
+
+{ #category : #'*Brick-DevTool' }
+TBlDevScripterTarget >> onGtPagerFirstPaneContent [
+	self 
+		onBrPagerFirstPane;
+		onGtPagerWrappedPaneContent
+]
+
+{ #category : #'*Brick-DevTool' }
+TBlDevScripterTarget >> onGtPagerPaneCloseButton [
+	self 
+		onChildOfClass: BrPagerPageContentElement;
+		onChildAt: 2
+]
+
+{ #category : #'*Brick-DevTool' }
+TBlDevScripterTarget >> onGtPagerSecondPaneContent [
+	self 
+		onBrPagerSecondPane;
+		onGtPagerWrappedPaneContent
+]
+
+{ #category : #'*Brick-DevTool' }
+TBlDevScripterTarget >> onGtPagerWrappedPaneContent [
+	self 
+		onChildOfClass: BrPagerPageContentElement;
+		onChildOfClass: GtPagerWrapperElement;
+		onChildNamed: #toolArea;
+		onChildNamed: #tool
+]
+
+{ #category : #'*Brick-DevTool' }
+TBlDevScripterTarget >> onGtPharoSnippetEditor [
+	self 
+		onChildOfClass: GtExpandableCoderElement;
+		onChildNamed: #content;
+		onChildOfClass: GtCoderContentElement;
+		onChildNamed: #editor
+]
+
+{ #category : #'*Brick-DevTool' }
+TBlDevScripterTarget >> onGtPlaygroundFirstSnippet [
+	self 
+		onChildNamed: #pages; "BrTabGroup"
+		onChildNamed: #content;
+		onChildOfClass: GtPageElement;
+		onChildOfClass: GtPageSnippetsElement; "Infinite element"
+		onChildAt: 1 "First element in the infinite element"
+]
+
+{ #category : #'*Brick-DevTool' }
+TBlDevScripterTarget >> onGtPlaygroundPlayAllButton [
+	self 
+		onChildNamed: #pages; "BrTabGroup"
+		onChildNamed: #header;
+		onChildNamed: #toolbar;
+		onChildOfClass: BrToolbar;
+		onChildAt: 2 "replace with a button id"
 ]
