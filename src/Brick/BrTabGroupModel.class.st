@@ -65,7 +65,8 @@ BrTabGroupModel >> hasTab: aBrTabModel [
 
 { #category : #'api - tabs' }
 BrTabGroupModel >> indexOf: aTab [
-	<return: #Boolean>
+	"It returns 0 if a tab is not present"
+	<return: #Number>
 
 	^ self tabs indexOf: aTab
 ]
@@ -119,6 +120,30 @@ BrTabGroupModel >> maxSelectionIndex [
 	^ self tabs size
 ]
 
+{ #category : #'api - tabs' }
+BrTabGroupModel >> moveTab: aBrTabModel at: aNewIndex [
+	| aCurrentIndex wasSelected |
+	aCurrentIndex := self indexOf: aBrTabModel.
+	self 
+		assert: [ aCurrentIndex isZero not ]
+		description: [ 'Only an existing tab can be moved' ].
+	aCurrentIndex = aNewIndex ifTrue: [ ^ self ].
+
+	"we have to deselect moved tab and select it again before sending tab moved event
+	otherwise selection event will not bubble"
+	wasSelected := aBrTabModel isSelected.
+	wasSelected ifTrue: [ aBrTabModel deselect ].
+
+	self tabs remove: aBrTabModel.
+	self tabs add: aBrTabModel beforeIndex: aNewIndex.
+	
+	wasSelected ifTrue: [ 
+		aBrTabModel select.
+		self selectOne: (self indexOf: aBrTabModel) ].
+	
+	self onTabMoved: aBrTabModel from: aCurrentIndex to: aNewIndex
+]
+
 { #category : #notifying }
 BrTabGroupModel >> notifyActionbarChanged: aStencil [
 	self dispatchEvent: (BrTabGroupActionbarChangedEvent new stencil: aStencil)
@@ -132,6 +157,13 @@ BrTabGroupModel >> notifyTabAdded: aBrTabModel at: anIndex [
 { #category : #notifying }
 BrTabGroupModel >> notifyTabDeselected: aBrTabModel [
 	self dispatchEvent: (BrTabDeselectedEvent tab: aBrTabModel)
+]
+
+{ #category : #notifying }
+BrTabGroupModel >> notifyTabMoved: aBrTabModel from: anOldIndex to: aNewIndex [
+	self dispatchEvent: ((BrTabMovedEvent tab: aBrTabModel) 
+		oldPosition: anOldIndex;
+		newPosition: aNewIndex)
 ]
 
 { #category : #notifying }
@@ -174,6 +206,11 @@ BrTabGroupModel >> onTabDeselected: aBrTabModel [
 ]
 
 { #category : #hooks }
+BrTabGroupModel >> onTabMoved: aBrTabModel from: anOldIndex to: aNewIndex [
+	self notifyTabMoved: aBrTabModel from: anOldIndex to: aNewIndex.
+]
+
+{ #category : #hooks }
 BrTabGroupModel >> onTabRemoved: aBrTabModel at: anIndex [
 	self notifyTabRemoved: aBrTabModel
 ]
@@ -198,6 +235,10 @@ BrTabGroupModel >> removeTab: aBrTabModel [
 
 	aSelectedTab := (self hasSelectedTab and: [ wasSelected not ])
 		ifTrue: [ self selectedTab ].
+		
+	self 
+		assert: [ aSelectedTab ~= aBrTabModel ]
+		description: [ 'Selected tab cannot be the removed tab' ].
 
 	aTabIndex := self tabs indexOf: aBrTabModel.
 	self tabs remove: aBrTabModel.

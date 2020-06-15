@@ -4,18 +4,6 @@ Class {
 	#category : #'Brick-Glamorous-Tabs - Support'
 }
 
-{ #category : #accessing }
-BrGlamorousTabGroupHeaderLook >> gtTabsFor: aView [
-	<gtView>
-	^ aView columnedList
-		title: 'Tabs';
-		items: [ self tabs ];
-		column: 'Model' do: [ :aColumn | 
-			aColumn 
-				item: [ :anAssoc | anAssoc key ];
-				matchParent ]
-]
-
 { #category : #initialization }
 BrGlamorousTabGroupHeaderLook >> initialize [
 	super initialize.
