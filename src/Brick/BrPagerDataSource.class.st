@@ -4,7 +4,7 @@ Class {
 	#instVars : [
 		'pageElements'
 	],
-	#category : 'Brick-Pager - Support'
+	#category : #'Brick-Pager - Support'
 }
 
 { #category : #initialization }
@@ -27,6 +27,13 @@ BrPagerDataSource >> onBindHolder: anElementHolder at: aPosition [
 { #category : #'instance creation' }
 BrPagerDataSource >> onCreateHolder: anInfiniteElement type: anItemType [
 	^ BrPagerPageHolder new
+]
+
+{ #category : #hooks }
+BrPagerDataSource >> onElementRecycled: anElementHolder [
+	super onElementRecycled: anElementHolder.
+	
+	anElementHolder onRecycled
 ]
 
 { #category : #accessing }
