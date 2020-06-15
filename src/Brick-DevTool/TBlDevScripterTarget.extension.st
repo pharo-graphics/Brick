@@ -69,12 +69,21 @@ TBlDevScripterTarget >> onGtPharoSnippetEditor [
 ]
 
 { #category : #'*Brick-DevTool' }
+TBlDevScripterTarget >> onGtPharoSnippetInspectButton [
+	self 
+		onChildOfClass: GtExpandableCoderElement;
+		onChildNamed: #content;
+		onChildOfClass: GtCoderContentElement;
+		onChildNamed: #actions;
+		onChildAt: 1; "BrToolbar"
+		"onChildOfClass: BrToolbar;"
+		onChildAt: 2
+]
+
+{ #category : #'*Brick-DevTool' }
 TBlDevScripterTarget >> onGtPlaygroundFirstSnippet [
 	self 
-		onChildNamed: #pages; "BrTabGroup"
-		onChildNamed: #content;
-		onChildOfClass: GtPageElement;
-		onChildOfClass: GtPageSnippetsElement; "Infinite element"
+		onGtPlaygroundSnippetsElement; "Infinite element"
 		onChildAt: 1 "First element in the infinite element"
 ]
 
@@ -86,4 +95,20 @@ TBlDevScripterTarget >> onGtPlaygroundPlayAllButton [
 		onChildNamed: #toolbar;
 		onChildOfClass: BrToolbar;
 		onChildAt: 2 "replace with a button id"
+]
+
+{ #category : #'*Brick-DevTool' }
+TBlDevScripterTarget >> onGtPlaygroundSecondSnippet [
+	self 
+		onGtPlaygroundSnippetsElement; "Infinite element"
+		onChildAt: 2 
+]
+
+{ #category : #'*Brick-DevTool' }
+TBlDevScripterTarget >> onGtPlaygroundSnippetsElement [
+	self 
+		onChildNamed: #pages; "BrTabGroup"
+		onChildNamed: #content;
+		onChildOfClass: GtPageElement;
+		onChildOfClass: GtPageSnippetsElement
 ]
