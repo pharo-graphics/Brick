@@ -24,6 +24,12 @@ BrTextStylerTaskItStrategy >> commandNameFromText: aBrText [
 		ifFalse: [ (aBrText from: 1 to: (aBrText size min: 20)) printString ]
 ]
 
+{ #category : #accessing }
+BrTextStylerTaskItStrategy >> doStyle: aBrText afterDo: aBlock [
+	super doStyle: aBrText afterDo: aBlock.
+	command := nil.
+]
+
 { #category : #'instance creation' }
 BrTextStylerTaskItStrategy >> newStylingCommandFor: aBlText afterDo: aBlock [
 	<return: #BlTktTerminableCommand>
