@@ -776,7 +776,9 @@ BrTextEditor >> onTextsDeleted: aBlTextsDeleted [
 				in: self ].
 
 	history
-		deletedTexts: aBlTextsDeleted texts
+		"text attributes may reference objects such as computation results in the editor and therefore we
+		should remove such attributes"
+		deletedTexts: (aBlTextsDeleted texts collect: [ :eachText | eachText copyWithoutExternalReferences ])
 		undo: (aBlTextsDeleted finalIntervals collect: #first)
 		redo: (aBlTextsDeleted requestedIntervals collect: #first).
 
