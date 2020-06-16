@@ -186,7 +186,12 @@ BrTextEditorSegmentCollector >> cachedSegmentIndexAt: aTextIndex [
 
 { #category : #'cache - computation' }
 BrTextEditorSegmentCollector >> computeBackwardAt: anIndex [
-	self shouldBeImplemented
+	"Currently a brain-dead implementation: Start from the beginning and search forward."
+
+	segmentsInterval := 0 to: 0.
+	segments := OrderedCollection new.
+	subText := BlSubText text: '' asRopedText from: 1 to: 0.
+	self computeForwardAt: anIndex.
 ]
 
 { #category : #'cache - computation' }
@@ -211,7 +216,7 @@ BrTextEditorSegmentCollector >> computeForwardAt: anIndex [
 	forwardText := self forwardText.
 	stream := BrEditorSegmentStream new.
 	stream skip: skip.
-	stream limit: self cacheLimit - skip.
+	stream limit: self cacheLimit - segments size.
 	builder := self editor segmentBuilder.
 	
 	builder
@@ -220,7 +225,7 @@ BrTextEditorSegmentCollector >> computeForwardAt: anIndex [
 		offset: ((forwardText start - text textOffset - 1) max: 0).
 	
 	segments addAll: stream collection.
-	segmentsInterval := cachedInterval first to: cachedInterval first + stream size - 1.
+	segmentsInterval := cachedInterval first to: cachedInterval first + segments size - 1.
 	
 	self computeSegmentIndices.
 	self computeSubText
@@ -246,7 +251,7 @@ BrTextEditorSegmentCollector >> computeSegmentAt: anIndex [
 		assert: [ (self isCachedAt: anIndex) not ]
 		description: [ 'Computing of already cached segment is wasteful' ].
 
-	anIndex > self end
+	anIndex > self lastIndex
 		ifTrue: [ self computeForwardAt: anIndex ]
 		ifFalse: [ self computeBackwardAt: anIndex ].
 
@@ -277,14 +282,17 @@ BrTextEditorSegmentCollector >> computeSegmentIndices [
 { #category : #'private - computing' }
 BrTextEditorSegmentCollector >> computeSubText [
 	"Recompute subtext according to currently cached segments"
-	
+	| subTextStart subTextEnd |
+
 	self
 		assert: [ self hasCached ]
 		description: [ 'There must be cached segments in order to compute sub text' ].
-	
-	subText := text
-		from: (segments first textStart + 1)
-		to: segments last textEnd
+
+	subTextStart := segments first textStart + 1.
+	subTextEnd := segments last textEnd + 1.
+	"Allow for the fact that the last line in the string may not have a line-end character"
+	subTextEnd > text size ifTrue: [ subTextEnd := subTextEnd - 1 ].
+	subText := text from: subTextStart to: subTextEnd.
 ]
 
 { #category : #'cache - accessing' }
@@ -296,7 +304,7 @@ BrTextEditorSegmentCollector >> computedSegmentsCount [
 	self hasCached
 		ifFalse: [ self computeForwardAt: 1 ].
 		
-	^ self segments size
+	^ self lastIndex
 ]
 
 { #category : #accessing }
@@ -340,9 +348,11 @@ BrTextEditorSegmentCollector >> forwardSegments: aNewCachedInterval [
 	"Create and return a collection which will be used to collect segments for a given new cached interval.
 	If existing cached interval overlaps with the new one, we should copy already cached segments to reduce amount of work"
 	<return: #SequenceableCollection of: #BrEditorSegment>
-	
+	| startIndex |
+
+	startIndex := aNewCachedInterval first - segmentsInterval first + 1.
 	^ (self isCachedAt: aNewCachedInterval first)
-		ifTrue: [ segments copyFrom: aNewCachedInterval first to: self lastIndex ]
+		ifTrue: [ segments copyFrom: startIndex to: segments size ]
 		ifFalse: [ self newSegments ]
 ]
 
@@ -375,8 +385,7 @@ BrTextEditorSegmentCollector >> initialize [
 	
 	segmentsInterval := 0 to: 0.
 	segments := OrderedCollection new.
-	self flag: 'This limit has to be rethought, once the lazy loading of new segments is implemented'.
-	limit := SmallInteger maxVal.
+	limit := 100.
 	subText := BlSubText text: '' asRopedText from: 1 to: 0
 ]
 

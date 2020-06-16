@@ -639,13 +639,23 @@ BrTextEditor >> onAttached: anEditorElement [
 
 { #category : #'instance creation' }
 BrTextEditor >> onBindHolder: aSegmentHolder at: aPosition [
-	"I bind a segment at a given position to provided segment holder"
-	| aSegment |
+	"I bind a segment at a given position to the provided segment holder"
+	| aSegment previousLastIndex |
 
 	"First we want to acquire a segment for a given position"
 	aSegment := segmentCollector segmentAt: aPosition.
 	"and than bind it to the holder"
-	aSegmentHolder segment: aSegment
+	aSegmentHolder segment: aSegment.
+
+	"If the last cached segment was requested, load more so that the editor knows there are more lines"
+	(aPosition = segmentCollector lastIndex and: [ segmentCollector end < segmentCollector text size ])
+		ifTrue: [
+			previousLastIndex := segmentCollector lastIndex.
+			segmentCollector computeForwardAt: aPosition+1.
+			self notifyInserted: (segmentCollector lastIndex - previousLastIndex) at: aPosition + 1 ].
+
+
+
 ]
 
 { #category : #'instance creation' }
