@@ -153,7 +153,16 @@ BrTabGroupHeaderLook >> onTabSelected: aTabModel [
 	self toolbar removeChildren.
 
 	aTabModel toolbarStencilBuilder
-		ifNotNil: [ self toolbar addChild: aTabModel toolbarStencilBuilder asElement ]
+		ifNotNil: [ :aStencil |
+			| aToolbarElement |
+			
+			aToolbarElement := aStencil
+				tabModel: aTabModel;
+				asElement.
+			
+			aStencil tabModel: nil.
+			
+			self toolbar addChild: aToolbarElement ]
 ]
 
 { #category : #hooks }

@@ -74,3 +74,13 @@ BrButton >> label [
 BrButton >> label: aStringOrBrText [
 	labelModel text: aStringOrBrText
 ]
+
+{ #category : #'api - widget' }
+BrButton >> model [
+	^ self viewModel model
+]
+
+{ #category : #'api - widget' }
+BrButton >> model: anObject [
+	self viewModel model: anObject
+]
