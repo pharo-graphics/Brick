@@ -75,6 +75,16 @@ BrTab >> label: aStringOrText [
 	labelModel text: aStringOrText
 ]
 
+{ #category : #'api - accessing' }
+BrTab >> model [
+	^ self viewModel model
+]
+
+{ #category : #'api - accessing' }
+BrTab >> model: anObject [
+	self viewModel model: anObject
+]
+
 { #category : #accessing }
 BrTab >> parentTabGroup [
 	^ self 

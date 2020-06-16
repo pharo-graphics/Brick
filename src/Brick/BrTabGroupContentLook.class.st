@@ -66,7 +66,15 @@ BrTabGroupContentLook >> onTabSelected: aTabModel [
 
 	aContentElement := contentElementsCache
 		at: aTabModel
-		ifAbsentPut: [ aTabModel contentStencilBuilder asElement ].
+		ifAbsentPut: [
+			| aStencilBuilder aTabContentElement |
+			
+			aStencilBuilder := aTabModel contentStencilBuilder.
+			aTabContentElement := aStencilBuilder
+				tabModel: aTabModel;
+				asElement.
+			aStencilBuilder tabModel: nil.
+			aTabContentElement ].
 
 	self widgetContent addChild: aContentElement
 ]

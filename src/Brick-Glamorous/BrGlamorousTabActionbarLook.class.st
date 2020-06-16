@@ -24,7 +24,7 @@ BrGlamorousTabActionbarLook >> initialize [
 BrGlamorousTabActionbarLook >> initializeListeners [
 	super initializeListeners.
 	
-	self when: BrTabActionbarChangedEvent do: [ :anEvent | self updateActionbar: anEvent stencil ]
+	self when: BrTabActionbarChangedEvent do: [ :anEvent | self updateActionbar: anEvent stencil tab: anEvent tab ]
 ]
 
 { #category : #initialization }
@@ -35,8 +35,16 @@ BrGlamorousTabActionbarLook >> initializeRequests [
 ]
 
 { #category : #private }
-BrGlamorousTabActionbarLook >> updateActionbar: aStencil [
+BrGlamorousTabActionbarLook >> updateActionbar: aStencil tab: aBrTabModel [
 	actionbarContainer removeChildren.
 	aStencil
-		ifNotNil: [ actionbarContainer addChild: aStencil asElement ]
+		ifNotNil: [
+			| anActionbarElement |
+			
+			anActionbarElement := aStencil
+				tabModel: aBrTabModel;
+				asElement.
+			aStencil tabModel: nil.
+
+			actionbarContainer addChild: anActionbarElement ]
 ]

@@ -15,7 +15,7 @@ BrTabModel >> actionbarStencil: anActionbarStencilBuilder [
 	"Set a stencil to be used to create an action bar for this tab.
 	An action bar is usually located inside of the tab itself, for example a close button"
 
-	actionbarStencilBuilder := anActionbarStencilBuilder asStencilBuilder.
+	actionbarStencilBuilder := anActionbarStencilBuilder asStencilBuilder: BrTabStencilBuilder.
 	self notifyActionbarChanged: actionbarStencilBuilder
 ]
 
@@ -87,12 +87,12 @@ BrTabModel >> isSelected [
 
 { #category : #notifying }
 BrTabModel >> notifyActionbarChanged: aStencil [
-	self dispatchEvent: (BrTabActionbarChangedEvent new stencil: aStencil)
+	self dispatchEvent: (BrTabActionbarChangedEvent new tab: self; stencil: aStencil)
 ]
 
 { #category : #notifying }
 BrTabModel >> notifyToolbarChanged: aStencil [
-	self dispatchEvent: (BrTabToolbarChangedEvent new stencil: aStencil)
+	self dispatchEvent: (BrTabToolbarChangedEvent new tab: self; stencil: aStencil)
 ]
 
 { #category : #'api - selection' }
@@ -113,7 +113,7 @@ BrTabModel >> stencil: aStencilBuilder [
 	"Set a stencil to be used to create a content of a tab.
 	It should be computed lazily by the Tab widget on demand"
 
-	contentStencilBuilder := aStencilBuilder asStencilBuilder
+	contentStencilBuilder := aStencilBuilder asStencilBuilder: BrTabStencilBuilder
 ]
 
 { #category : #'api - tab' }
@@ -122,7 +122,7 @@ BrTabModel >> toolbarStencil: aToolbarStencilBuilder [
 	A toolbar is usually located on the right side of a tab group header and changes depending
 	on the currently selected tab"
 
-	toolbarStencilBuilder := aToolbarStencilBuilder asStencilBuilder.
+	toolbarStencilBuilder := aToolbarStencilBuilder asStencilBuilder: BrTabStencilBuilder.
 	self notifyToolbarChanged: toolbarStencilBuilder
 ]
 
