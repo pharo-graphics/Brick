@@ -43,6 +43,7 @@ BrTextEditorLineSegmentHolder >> createSegmentElement [
 	<return: #BlElement>
 
 	^ BrTextEditorSegmentElement new
+		beInSeparateCompositionLayer;
 		layout: self class defaultSegmentLayout;
 		focusability: BlFocusability after;
 		addEventHandler: BrTextEditorMouseDownHandler uniqueInstance;
