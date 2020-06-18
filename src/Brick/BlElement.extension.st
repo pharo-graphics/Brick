@@ -92,11 +92,6 @@ BlElement >> gtInspectorPaintModelLookIn: aMondrianView [
 ]
 
 { #category : #'*Brick' }
-BlElement >> isVerticallyResizeableElement [
-	^ false
-]
-
-{ #category : #'*Brick' }
 BlElement >> look [
 	^ self userData at: #brickLook ifAbsent: nil
 ]
