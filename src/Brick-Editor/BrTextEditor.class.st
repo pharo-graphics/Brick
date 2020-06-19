@@ -407,7 +407,8 @@ BrTextEditor >> initializeMacInteractions [
 BrTextEditor >> initializeText: aBrText [
 	aBrText when: BlTextStringsInserted send: #onStringsInserted: to: self.
 	aBrText when: BlTextsDeleted send: #onTextsDeleted: to: self.
-	aBrText when: BlTextAttributeAdded send: #onTextAttributeAdded: to: self
+	aBrText when: BlTextAttributeAdded send: #onTextAttributeAdded: to: self.
+	aBrText when: BlTextAttributesRemoved send: #onTextAttributesRemoved: to: self.
 ]
 
 { #category : #'api - filter' }
@@ -768,6 +769,15 @@ BrTextEditor >> onTextAttributeAdded: aBlTextAttributeAdded [
 		addedAttribute: aBlTextAttributeAdded attribute
 		from: aBlTextAttributeAdded fromIndex
 		to: aBlTextAttributeAdded toIndex
+		in: self
+]
+
+{ #category : #'hooks - text modifications' }
+BrTextEditor >> onTextAttributesRemoved: aBlTextAttributesRemoved [
+
+	self segmentBuilder
+		removedAttributesFrom: aBlTextAttributesRemoved fromIndex
+		to: aBlTextAttributesRemoved toIndex
 		in: self
 ]
 

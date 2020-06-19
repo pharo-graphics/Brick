@@ -61,6 +61,13 @@ BrTextEditorSegmentBuilder >> insertedString: aString at: aTextIndex in: aBrText
 	self subclassResponsibility
 ]
 
+{ #category : #'text - modifications' }
+BrTextEditorSegmentBuilder >> removedAttributesFrom: aFromIndex to: aToIndex in: aBrTextEditor [
+	"Is sent after an attributes were removed in provided text editor"
+
+	self subclassResponsibility
+]
+
 { #category : #splitting }
 BrTextEditorSegmentBuilder >> split: aBrText in: aStream [
 	self splitter split: aBrText in: aStream

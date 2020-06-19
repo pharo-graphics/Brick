@@ -32,7 +32,7 @@ BrTextEditorLineSegmentBuilder >> addedAttribute: anAttribute from: aFromIndex t
 		ifFound: [ :aSegment | aToSegment := aSegment ]
 		ifNotFound: [ ].
 
-	"we add attribute something completely outside of the cached segments, just ignore it"
+	"we add attribute to something completely outside of the cached segments, just ignore it"
 	(aFromSegment isNil or: [ aToSegment isNil ])	
 		ifTrue: [
 			self flag: #TODO.
@@ -186,6 +186,37 @@ BrTextEditorLineSegmentBuilder >> lineStencil: aLineStencilBuilder [
 { #category : #accessing }
 BrTextEditorLineSegmentBuilder >> lineStencilBuilder [
 	^ lineStencilBuilder
+]
+
+{ #category : #'text - modifications' }
+BrTextEditorLineSegmentBuilder >> removedAttributesFrom: aFromIndex to: aToIndex in: aBrTextEditor [
+	"Is sent after an attributes were removed in provided text editor"
+
+	| aFromSegment aToSegment |
+
+	self
+		assert: [ aFromIndex <= (aToIndex + 1) ]
+		description: [ '`From` index must be less or equal to `to` index' ].
+
+	aBrTextEditor segmentCollector
+		cachedSegmentAt: aFromIndex
+		ifFound: [ :aSegment | aFromSegment := aSegment ]
+		ifNotFound: [ ].
+
+	aBrTextEditor segmentCollector
+		cachedSegmentAt: aToIndex
+		ifFound: [ :aSegment | aToSegment := aSegment ]
+		ifNotFound: [ ].
+
+	"we remove attributes from something completely outside of the cached segments, just ignore it"
+	(aFromSegment isNil or: [ aToSegment isNil ])	
+		ifTrue: [
+			self flag: #TODO.
+			^ self ].
+
+	aBrTextEditor updater
+		from: aFromSegment textStart to: aToSegment textEnd;
+		update
 ]
 
 { #category : #'private - deletion' }

@@ -54,7 +54,8 @@ BrTextEditorLineSegment >> initializeWith: aBrText from: aTextStart to: aTextEnd
 	super initializeWith: aBrText from: aTextStart to: aTextEnd.
 
 	theParagraphAttributes := aBrText iterator selectAttributes: #isParagraphAttribute.
-	theParagraphAttributes do: [ :aParagraphAttribute | aParagraphAttribute applyOn: self ]
+	theParagraphAttributes do: [ :aParagraphAttribute |
+		aParagraphAttribute applyOn: self ]
 ]
 
 { #category : #testing }

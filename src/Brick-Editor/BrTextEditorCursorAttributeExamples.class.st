@@ -14,9 +14,7 @@ BrTextEditorCursorAttributeExamples >> changingForeground [
 
 	(text from: 13 to: 24) attribute: (BrTextCursorAttribute new
 		enterAction: [ :aTextEditor | (aTextEditor text from: 13 to: 24) foreground: Color blue ];
-		leaveAction: [ :aTextEditor |
-			(aTextEditor text from: 13 to: 24) foreground: Color black.
-			aTextEditor updater from: 13 to: 24; update ]).
+		leaveAction: [ :aTextEditor | (aTextEditor text from: 13 to: 24) foreground: Color black ]).
 
 	^ text
 ]

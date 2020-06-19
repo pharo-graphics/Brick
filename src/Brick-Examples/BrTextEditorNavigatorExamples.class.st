@@ -154,6 +154,41 @@ BrTextEditorNavigatorExamples >> cursor_add_at_1_and_0_in_empty [
 	^ anEditor
 ]
 
+{ #category : #'examples - performance' }
+BrTextEditorNavigatorExamples >> cursor_add_at_1_does_not_rebuild_editor [
+	<gtExample>
+	| anEditor thePreviousSegments theNewSegments thePreviousTextPieces theNewTextPieces |
+	
+	anEditor := self editorOnMultilineText.
+
+	thePreviousSegments := anEditor children
+		select: [ :eachChild | eachChild isKindOf: BrTextEditorSegmentElement ].	
+	self assert: thePreviousSegments size equals: 11.
+	
+	thePreviousTextPieces := thePreviousSegments flatCollect: [ :eachSegment | eachSegment children asArray ].
+	self assert: thePreviousTextPieces size equals: 63.
+
+	anEditor navigator
+		addAt: 1;
+		apply.
+
+	anEditor forceLayout.
+
+	self assert: anEditor cursors allCursors equals: { BrTextEditorSingleCursor new position: 1 }.
+	
+	theNewSegments := anEditor children
+		select: [ :eachChild | eachChild isKindOf: BrTextEditorSegmentElement ].	
+	self assert: theNewSegments size equals: 11.
+	
+	theNewTextPieces := theNewSegments flatCollect: [ :eachSegment | eachSegment children asArray ].
+	self assert: theNewTextPieces size equals: 63.
+	
+	self assert: thePreviousSegments equals: theNewSegments.
+	self assert: thePreviousTextPieces equals: theNewTextPieces.
+	
+	^ anEditor
+]
+
 { #category : #'examples - add' }
 BrTextEditorNavigatorExamples >> cursor_add_at_1_in_cursors_at_0 [
 	<gtExample>
@@ -1148,6 +1183,41 @@ BrTextEditorNavigatorExamples >> cursor_moveTo_67_in_cursors_at_68 [
 	self assert: addedCursorElements first textPosition equals: 6.
 	self assert: removedCursorElements size equals: 1.
 	self assert: removedCursorElements first textPosition equals: 0.
+	
+	^ anEditor
+]
+
+{ #category : #'examples - performance' }
+BrTextEditorNavigatorExamples >> cursor_move_from_1_to_2_does_not_rebuild_editor [
+	<gtExample>
+	| anEditor thePreviousSegments theNewSegments thePreviousTextPieces theNewTextPieces |
+
+	anEditor := self cursor_add_at_1_does_not_rebuild_editor.
+
+	thePreviousSegments := anEditor children
+		select: [ :eachChild | eachChild isKindOf: BrTextEditorSegmentElement ].	
+	self assert: thePreviousSegments size equals: 11.
+
+	thePreviousTextPieces := thePreviousSegments flatCollect: [ :eachSegment | eachSegment children asArray ].
+	self assert: thePreviousTextPieces size equals: 63.
+
+	anEditor navigator
+		moveTo: 2;
+		apply.
+
+	anEditor forceLayout.
+
+	self assert: anEditor cursors allCursors equals: { BrTextEditorSingleCursor new position: 2 }.
+	
+	theNewSegments := anEditor children
+		select: [ :eachChild | eachChild isKindOf: BrTextEditorSegmentElement ].	
+	self assert: theNewSegments size equals: 11.
+	
+	theNewTextPieces := theNewSegments flatCollect: [ :eachSegment | eachSegment children asArray ].
+	self assert: theNewTextPieces size equals: 63.
+	
+	self assert: thePreviousSegments equals: theNewSegments.
+	self assert: thePreviousTextPieces equals: theNewTextPieces.
 	
 	^ anEditor
 ]
