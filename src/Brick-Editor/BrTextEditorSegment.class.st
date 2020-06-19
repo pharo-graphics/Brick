@@ -30,7 +30,8 @@ BrTextEditorSegment >> initializeWith: aBrText from: aTextStart to: aTextEnd [
 	textStart := aTextStart.
 	textEnd := aTextEnd.
 
-	self clearCache
+	self clearCache.
+	self updateSegmentProperties
 ]
 
 { #category : #'api - operations' }
@@ -88,4 +89,17 @@ BrTextEditorSegment >> moveTextPiecesBy: aNumber at: aTextIndex [
 { #category : #printing }
 BrTextEditorSegment >> printOn: aStream [
 	self text printOn: aStream
+]
+
+{ #category : #accessing }
+BrTextEditorSegment >> segmentType [
+	"Return a type of this segment responsible for creation
+	of segment holder and also used as a key for caching purposes"
+	<return: #BrEditorSegmentType>
+	
+	^ self subclassResponsibility
+]
+
+{ #category : #'text - modifications' }
+BrTextEditorSegment >> updateSegmentProperties [
 ]

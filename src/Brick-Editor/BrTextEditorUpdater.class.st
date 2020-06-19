@@ -38,8 +38,6 @@ BrTextEditorUpdater >> redrawOnly [
 
 { #category : #'api - processing' }
 BrTextEditorUpdater >> update [
-	ContextStackSignal emit.
-
 	intervals do: [ :eachInterval |
 		(shouldRecreate not and: [ shouldRedraw ])
 			ifTrue: [

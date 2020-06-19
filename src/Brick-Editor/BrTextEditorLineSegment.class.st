@@ -43,19 +43,12 @@ BrTextEditorLineSegment >> hasPieces [
 BrTextEditorLineSegment >> initialize [
 	super initialize.
 
-	lineSpacing := 0.
-	wordPadding := BlInsets empty.
-	paragraphMargin := BlInsets empty
+	self resetProperties
 ]
 
 { #category : #initialization }
 BrTextEditorLineSegment >> initializeWith: aBrText from: aTextStart to: aTextEnd [
-	| theParagraphAttributes |
 	super initializeWith: aBrText from: aTextStart to: aTextEnd.
-
-	theParagraphAttributes := aBrText iterator selectAttributes: #isParagraphAttribute.
-	theParagraphAttributes do: [ :aParagraphAttribute |
-		aParagraphAttribute applyOn: self ]
 ]
 
 { #category : #testing }
@@ -161,6 +154,13 @@ BrTextEditorLineSegment >> pieces [
 		ifFalse: [ pieces := self computedPieces ]
 ]
 
+{ #category : #initialization }
+BrTextEditorLineSegment >> resetProperties [
+	lineSpacing := 0.
+	wordPadding := BlInsets empty.
+	paragraphMargin := BlInsets empty.
+]
+
 { #category : #accessing }
 BrTextEditorLineSegment >> segmentType [
 	"Return a type of this segment responsible for creation
@@ -168,6 +168,17 @@ BrTextEditorLineSegment >> segmentType [
 	<return: #BrEditorSegmentType>
 	
 	^ BrTextEditorLineSegmentType uniqueInstance
+]
+
+{ #category : #'text - modifications' }
+BrTextEditorLineSegment >> updateSegmentProperties [
+	| theParagraphAttributes |
+	
+	self resetProperties.
+	
+	theParagraphAttributes := text iterator selectAttributes: #isParagraphAttribute.
+	theParagraphAttributes do: [ :aParagraphAttribute |
+		aParagraphAttribute applyOn: self ]
 ]
 
 { #category : #'attributes - paragraph' }

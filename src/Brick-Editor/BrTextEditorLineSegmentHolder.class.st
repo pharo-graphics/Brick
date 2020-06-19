@@ -193,6 +193,7 @@ BrTextEditorLineSegmentHolder >> screenToCursor: aTransformation [
 { #category : #accessing }
 BrTextEditorLineSegmentHolder >> segment: anEditorSegment [
 	| newPieceElements |
+	
 	segment == anEditorSegment
 		ifTrue: [ ^ self updateSegment: anEditorSegment ].
 
@@ -226,6 +227,7 @@ BrTextEditorLineSegmentHolder >> updateSegment: anEditorSegment [
 		description: [ 'Can only update the same segment!' ].
 
 	segment := anEditorSegment.
+	segment updateSegmentProperties.
 	
 	newPieceMap := OrderedCollection new.
 	newPieceElements := OrderedCollection new.
