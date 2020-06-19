@@ -12,7 +12,8 @@ Class {
 		'segments',
 		'limit',
 		'editor',
-		'segmentsInterval'
+		'segmentsInterval',
+		'map'
 	],
 	#category : #'Brick-Editor-Model - Segment-Text'
 }
@@ -187,11 +188,33 @@ BrTextEditorSegmentCollector >> cachedSegmentIndexAt: aTextIndex [
 { #category : #'cache - computation' }
 BrTextEditorSegmentCollector >> computeBackwardAt: anIndex [
 	"Currently a brain-dead implementation: Start from the beginning and search forward."
+	| mapEntry cachedInterval stream builder newSubText newSegments overlap streamLimit |
 
-	segmentsInterval := 0 to: 0.
-	segments := OrderedCollection new.
-	subText := BlSubText text: '' asRopedText from: 1 to: 0.
-	self computeForwardAt: anIndex.
+	mapEntry := map mapEntryFor: anIndex.
+	cachedInterval := self computeInterval: anIndex.
+	newSubText := text from: mapEntry value to: text size.
+	newSegments := OrderedCollection new.
+
+	overlap := cachedInterval last - segmentsInterval first.
+	streamLimit := overlap > 0
+		ifTrue: [ overlap ]
+		ifFalse: [ self cacheLimit ].
+	stream := BrEditorSegmentStream new.
+	stream limit: streamLimit.
+	builder := self editor segmentBuilder.
+	
+	builder
+		split: newSubText
+		in: stream
+		offset: ((newSubText start - text textOffset - 1) max: 0).
+	
+	newSegments addAll: stream collection.
+	overlap > 0 ifTrue:
+		[ newSegments addAll: (segments copyFrom: 1 to: overlap) ].
+	segmentsInterval := cachedInterval first to: cachedInterval first + newSegments size - 1.
+	segments := newSegments.
+
+	self computeSegmentIndices.
 ]
 
 { #category : #'cache - computation' }
@@ -207,13 +230,12 @@ BrTextEditorSegmentCollector >> computeForwardAt: anIndex [
 	"new cached interval may overlap with existing cache, take it into account
 	by computing an actual cache start index of a segment"
 	actualStart := cachedInterval first max: (intervalEnd + 1).
+	skip := actualStart - (intervalEnd + 1).
+	forwardText := self forwardText.
 	
-	"a collection in which we will cache segments"
+	"the collection in which we will cache segments"
 	segments := self forwardSegments: cachedInterval.
 
-	skip := actualStart - (intervalEnd + 1).
-
-	forwardText := self forwardText.
 	stream := BrEditorSegmentStream new.
 	stream skip: skip.
 	stream limit: self cacheLimit - segments size.
@@ -228,7 +250,8 @@ BrTextEditorSegmentCollector >> computeForwardAt: anIndex [
 	segmentsInterval := cachedInterval first to: cachedInterval first + segments size - 1.
 	
 	self computeSegmentIndices.
-	self computeSubText
+	self computeSubText.
+	map addLine: segmentsInterval first offset: subText start.
 ]
 
 { #category : #'cache - computation' }
@@ -385,8 +408,10 @@ BrTextEditorSegmentCollector >> initialize [
 	
 	segmentsInterval := 0 to: 0.
 	segments := OrderedCollection new.
-	limit := 100.
-	subText := BlSubText text: '' asRopedText from: 1 to: 0
+	limit := 500.
+	subText := BlSubText text: '' asRopedText from: 1 to: 0.
+	map := BrTextLineMap new.
+	map cacheLimit: limit.
 ]
 
 { #category : #testing }

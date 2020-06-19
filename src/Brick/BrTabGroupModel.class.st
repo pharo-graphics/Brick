@@ -122,7 +122,7 @@ BrTabGroupModel >> maxSelectionIndex [
 
 { #category : #'api - tabs' }
 BrTabGroupModel >> moveTab: aBrTabModel at: aNewIndex [
-	| aCurrentIndex wasSelected |
+	| aCurrentIndex wasSelected aSelectedTab |
 	aCurrentIndex := self indexOf: aBrTabModel.
 	self 
 		assert: [ aCurrentIndex isZero not ]
@@ -134,8 +134,18 @@ BrTabGroupModel >> moveTab: aBrTabModel at: aNewIndex [
 	wasSelected := aBrTabModel isSelected.
 	wasSelected ifTrue: [ aBrTabModel deselect ].
 
+	aSelectedTab := (self hasSelectedTab and: [ wasSelected not ])
+		ifTrue: [ self selectedTab ].
+
 	self tabs remove: aBrTabModel.
 	self tabs add: aBrTabModel beforeIndex: aNewIndex.
+	
+	self 
+		assert: [ (self indexOf: aBrTabModel) = aNewIndex ]
+		description: [ 'Moved tab should be now at the expected position' ].
+
+	aSelectedTab
+		ifNotNil: [ self selectOne: (self indexOf: aSelectedTab) ].
 	
 	wasSelected ifTrue: [ 
 		aBrTabModel select.

@@ -146,6 +146,60 @@ BrTabExamples >> groupTabLook [
 ]
 
 { #category : #'examples - tab group model' }
+BrTabExamples >> moveNotSelectedTabInGroupWithTwoTabs_FromOne_ToTwo [
+	<gtExample>
+	| aTabGroup aSelectedTab aNotSelectedTab |
+
+	aTabGroup := self tabGroupWithTwoTabsSelectedAfterAdding.
+
+	aSelectedTab := aTabGroup selectedTab.
+	self assert: aSelectedTab equals: aTabGroup tabs second.
+	aNotSelectedTab := aTabGroup tabs first.
+	aTabGroup moveTab: aNotSelectedTab at: 2.
+
+	self assert: aTabGroup tabs size equals: 2.
+	self assert: aTabGroup tabs first equals: aSelectedTab.
+	self assert: aTabGroup tabs second equals: aNotSelectedTab.
+	
+	self assert: aTabGroup isNotEmpty.
+	self assert: aTabGroup hasSelectedTab.
+	self assert: aTabGroup selectedIndices first equals: 1.
+	self assert: aTabGroup selectedTab equals: aSelectedTab.
+	self assert: aTabGroup selectedTab equals: aTabGroup tabs first.
+	self assert: aTabGroup tabs first isSelected.
+	self assert: aTabGroup tabs second isSelected not.
+
+	^ aTabGroup
+]
+
+{ #category : #'examples - tab group model' }
+BrTabExamples >> moveSelectedTabInGroupWithTwoTabs_FromTwo_ToOne [
+	<gtExample>
+	| aTabGroup aSelectedTab aNotSelectedTab |
+
+	aTabGroup := self tabGroupWithTwoTabsSelectedAfterAdding.
+
+	aSelectedTab := aTabGroup selectedTab.
+	self assert: aSelectedTab equals: aTabGroup tabs second.
+	aNotSelectedTab := aTabGroup tabs first.
+	aTabGroup moveTab: aSelectedTab at: 1.
+
+	self assert: aTabGroup tabs size equals: 2.
+	self assert: aTabGroup tabs first equals: aSelectedTab.
+	self assert: aTabGroup tabs second equals: aNotSelectedTab.
+	
+	self assert: aTabGroup isNotEmpty.
+	self assert: aTabGroup hasSelectedTab.
+	self assert: aTabGroup selectedIndices first equals: 1.
+	self assert: aTabGroup selectedTab equals: aSelectedTab.
+	self assert: aTabGroup selectedTab equals: aTabGroup tabs first.
+	self assert: aTabGroup tabs first isSelected.
+	self assert: aTabGroup tabs second isSelected not.
+
+	^ aTabGroup
+]
+
+{ #category : #'examples - tab group model' }
 BrTabExamples >> removeNotSelectedTabFromGroupWithTwoTabs [
 	<gtExample>
 	| aTabGroup |
