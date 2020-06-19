@@ -13,7 +13,7 @@ BrTextWordPieceScreenToCursorHandler >> eventClass [
 BrTextWordPieceScreenToCursorHandler >> explicitScreenToCursor: aTransformation for: anEvent [
 	| aLocalPosition aLocalTextIndex aGobaltextIndex |
 		
-	aLocalPosition := (anEvent currentTarget globalBoundsToMine: (BlBounds origin: aTransformation screenPosition extent: 0@0) fromParent: anEvent editorElement) center.
+	aLocalPosition := (anEvent currentTarget globalBoundsToMine: (BlBounds origin: aTransformation screenPosition extent: 0.0@0.0) fromParent: anEvent editorElement) center.
 	
 	aLocalTextIndex := anEvent currentTarget indexAtScreenPosition: aLocalPosition.
 	aGobaltextIndex := self localTextIndexToGlobal: aLocalTextIndex in: anEvent currentTarget.
@@ -42,7 +42,7 @@ BrTextWordPieceScreenToCursorHandler >> relativeScreenToCursor: aTransformation 
 	aLocalTextPositionOfThisCursor := aCursor position - aTextElement segmentPiece textStart.
 	aLocalositionOfThisCursor := aTextElement screenPositionAt: aLocalTextPositionOfThisCursor.
 
-	aDesiredBounds := anEvent editorElement localBoundsToMine: (BlBounds origin: aLocalositionOfThisCursor extent: 0@0) fromChild: aTextElement.
+	aDesiredBounds := anEvent editorElement localBoundsToMine: (BlBounds origin: aLocalositionOfThisCursor extent: 0.0@0.0) fromChild: aTextElement.
 	aScreenPositionOfThisCursor := aDesiredBounds center.
 	
 	aCursor hasDesiredCoordinate

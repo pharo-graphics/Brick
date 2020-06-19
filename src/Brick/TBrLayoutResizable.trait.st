@@ -26,7 +26,7 @@ TBrLayoutResizable >> fitContentLimited [
 
 { #category : #'api - layout resizeable' }
 TBrLayoutResizable >> hExact: aNumber [
-	self dispatchEvent: (BrLayoutHorizontalResizerWish exact: aNumber)
+	self dispatchEvent: (BrLayoutHorizontalResizerWish exact: aNumber asFloat)
 ]
 
 { #category : #'api - layout resizeable' }
@@ -52,7 +52,7 @@ TBrLayoutResizable >> matchParent [
 
 { #category : #'api - layout resizeable' }
 TBrLayoutResizable >> vExact: aNumber [
-	self dispatchEvent: (BrLayoutVerticalResizerWish exact: aNumber)
+	self dispatchEvent: (BrLayoutVerticalResizerWish exact: aNumber asFloat)
 ]
 
 { #category : #'api - layout resizeable' }

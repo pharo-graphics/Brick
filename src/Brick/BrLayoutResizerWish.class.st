@@ -9,6 +9,9 @@ Class {
 
 { #category : #'instance creation' }
 BrLayoutResizerWish class >> exact: aNumber [
+	<argument: #aNumber satisfies: #isBlocFiniteFloat>
+	<argument: #aNumber satisfies: #isBlocPositiveFloat>
+
 	^ self resizer: (BlLayoutResizer exact: aNumber)
 ]
 

@@ -15,10 +15,10 @@ BrGlamorousResizerRightBarLook >> initialize [
 		with: [ BlRectangle cornerRadius: 2 ].
 	self
 		addChangeProperty: #(widget constraints vertical resizer)
-		with: [ BlLayoutResizer exact: 70 ].
+		with: [ BlLayoutResizer exact: 70.0 ].
 	self
 		addChangeProperty: #(widget constraints horizontal resizer)
-		with: [ BlLayoutResizer exact: 4 ].
+		with: [ BlLayoutResizer exact: 4.0 ].
 	self addChangeProperty: #(widget margin) with: [ BlInsets right: 4 ].
 	self
 		addChange:

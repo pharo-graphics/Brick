@@ -14,11 +14,14 @@ BrLayoutResizerState class >> any [
 
 { #category : #'instance creation' }
 BrLayoutResizerState class >> exact [
-	^ self resizer: (BlLayoutResizer exact: 0)
+	^ self resizer: (BlLayoutResizer exact: 0.0)
 ]
 
 { #category : #'instance creation' }
 BrLayoutResizerState class >> exact: aNumber [
+	<argument: #aNumber satisfies: #isBlocFiniteFloat>
+	<argument: #aNumber satisfies: #isBlocPositiveFloat>
+
 	^ self resizer: (BlLayoutResizer exact: aNumber)
 ]
 

@@ -38,7 +38,7 @@ BrTextEditorMouseDownHandler >> handleEvent: anEvent [
 		ifNone: [ ^ self ].
 	
 	anEvent consumed: true.
-	aScreenPosition := (anEditorElement localBoundsToMine: (BlBounds origin: anEvent localPosition extent: 0@0) fromChild: anEvent currentTarget) center.
+	aScreenPosition := (anEditorElement localBoundsToMine: (BlBounds origin: anEvent localPosition extent: 0.0@0.0) fromChild: anEvent currentTarget) center.
 	
 	anEditorElement editor deselecter all deselect.
 	anEditorElement requestFocus.

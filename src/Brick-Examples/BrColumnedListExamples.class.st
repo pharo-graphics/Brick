@@ -93,7 +93,7 @@ BrColumnedListExamples >> columnedListModel [
 	aColumnedListModel := BrListModel new.
 	aColumnedListModel add: BrColumnedModel new.
 	aColumnedListModel add: (BrInteractiveModel withAll: {
-		BrLayoutHorizontalResizerModel exact: 400.
+		BrLayoutHorizontalResizerModel exact: 400.0.
 		BrLayoutVerticalResizerModel matchParent
 	}).
 	

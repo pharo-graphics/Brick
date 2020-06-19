@@ -29,6 +29,9 @@ BrLayoutResizerModel class >> matchParent [
 
 { #category : #'instance creation' }
 BrLayoutResizerModel >> exact: aNumber [
+	<argument: #aNumber satisfies: #isBlocFiniteFloat>
+	<argument: #aNumber satisfies: #isBlocPositiveFloat>
+
 	self resizer: (BlLayoutResizer exact: aNumber)
 ]
 
@@ -46,7 +49,7 @@ BrLayoutResizerModel >> fitContentLimited [
 BrLayoutResizerModel >> initialize [
 	super initialize.
 
-	resizer := BlLayoutResizer exact: 50
+	resizer := BlLayoutResizer exact: 50.0
 ]
 
 { #category : #'instance creation' }

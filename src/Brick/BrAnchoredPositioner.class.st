@@ -52,7 +52,7 @@ BrAnchoredPositioner >> anchorBoundsInTarget: anObject [
 { #category : #'as yet unclassified' }
 BrAnchoredPositioner >> maxBoundsBottomLeftInTarget [
 	^ BlBounds
-		origin: 0 @ self anchorBoundsInTarget bottom
+		origin: 0.0 @ self anchorBoundsInTarget bottom
 		corner: self anchorBoundsInTarget right @ target size y
 ]
 
@@ -108,13 +108,13 @@ BrAnchoredPositioner >> maxBoundsPreferredInTarget: anExtent [
 
 { #category : #'as yet unclassified' }
 BrAnchoredPositioner >> maxBoundsTopLeftInTarget [
-	^ BlBounds origin: 0 @ 0 corner: self anchorBoundsInTarget topRight
+	^ BlBounds origin: 0.0 @ 0.0 corner: self anchorBoundsInTarget topRight
 ]
 
 { #category : #'as yet unclassified' }
 BrAnchoredPositioner >> maxBoundsTopRightInTarget [
 	^ BlBounds
-		origin: self anchorBoundsInTarget left @ 0
+		origin: self anchorBoundsInTarget left @ 0.0
 		corner: target bounds width @ self anchorBoundsInTarget top
 ]
 

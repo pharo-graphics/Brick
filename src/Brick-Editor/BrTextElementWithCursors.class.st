@@ -111,17 +111,17 @@ BrTextElementWithCursors >> measureCursors: anExtentMeasurementSpec [
 		| aCursorPosition aTextPositionX aMaxTextPositionX aMinTextPositionX aTextPosition |
 		
 		"we make sure that the cursor is within text bounds (we allow to add a cursor outside of the text bounds)"
-		aCursorPosition := aCursorElement textPosition min: self text size max: 0.
+		aCursorPosition := aCursorElement textPosition min: self text size max: 0.0.
 		
-		aMaxTextPositionX := ((self measuredWidth - (aCursorElement measuredWidth))) max: 0.
-		aMinTextPositionX := 0.
+		aMaxTextPositionX := ((self measuredWidth - (aCursorElement measuredWidth))) max: 0.0.
+		aMinTextPositionX := 0.0.
 		
 		aTextPositionX := (self screenPositionAt: aCursorPosition) x.
 		aTextPositionX := ((aTextPositionX - (aCursorElement measuredWidth // 2)) min: aMaxTextPositionX) max: aMinTextPositionX.
 		aTextPosition := aTextPositionX @ self padding top.
 		
 		aCursorElement measuredBounds
-			extent: aCursorElement measuredWidth @ ((self measuredHeight - self padding height) max: 0);
+			extent: aCursorElement measuredWidth @ ((self measuredHeight - self padding height) max: 0.0);
 			position: aTextPosition ]
 ]
 

@@ -12,7 +12,7 @@ BrWidgetContainer >> initialize [
 	
 	self viewModel: (BrInteractiveModel new addStates: {
 		BrLayoutAlignmentModel new.
-		BrLayoutHorizontalResizerModel exact: 50.
-		BrLayoutVerticalResizerModel exact: 50.
+		BrLayoutHorizontalResizerModel exact: 50.0.
+		BrLayoutVerticalResizerModel exact: 50.0.
 	})
 ]

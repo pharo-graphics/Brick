@@ -54,9 +54,9 @@ BrGlamorousTriangleInCircleLook >> initializeWidget [
 		addChangeProperty: #(widget geometry)
 			with: [ BlEllipse new ];
 		addChangeProperty: #(widget constraints vertical resizer)
-			with: [ BlLayoutResizer exact: 16 ];
+			with: [ BlLayoutResizer exact: 16.0 ];
 		addChangeProperty: #(widget constraints horizontal resizer)
-			with: [ BlLayoutResizer exact: 16 ];
+			with: [ BlLayoutResizer exact: 16.0 ];
 		default: [ :aWidget | aWidget background: BrGlamorousColors deselectedtListItemColor ];
 		hovered: [ :aWidget | aWidget background: BrGlamorousColors hoveredListItemColor ];
 		pressed: [ :aWidget | aWidget background: BrGlamorousColors pressedListItemColor ]

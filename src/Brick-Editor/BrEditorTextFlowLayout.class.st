@@ -135,7 +135,7 @@ BrEditorTextFlowLayout >> measure: anElement with: anExtentSpec [
 			(theElements last isKindOf: BrTextElementWithCursors)
 				ifTrue: [
 					theElements last measure: (BlExtentMeasurementSpec exact:
-						theElements last measuredExtent + (((anElement measuredWidth - aLine width) max: 0) @ theElements last padding height negated)) ] ] ].
+						theElements last measuredExtent + (((anElement measuredWidth - aLine width) max: 0.0) @ theElements last padding height negated)) ] ] ].
 			
 	self measureIgnored: anElement with: anExtentSpec
 ]

@@ -43,7 +43,7 @@ BrAnchoredCompositeStrategy >> invalidate: anElement forPreferredExtent: aPoint 
 { #category : #'as yet unclassified' }
 BrAnchoredCompositeStrategy >> strategyIn: aReferenceElement forPreferredExtent: aPoint [
 	| preferredRectangle maxAreaBounds maxAreaStrategy |
-	preferredRectangle := Rectangle origin: 0 @ 0 extent: aPoint.
+	preferredRectangle := Rectangle origin: 0.0@0.0 extent: aPoint.
 	maxAreaBounds := nil.
 	^ strategies
 		detect: [ :e | 
@@ -51,7 +51,7 @@ BrAnchoredCompositeStrategy >> strategyIn: aReferenceElement forPreferredExtent:
 			bounds := e
 				availableBoundsIn: aReferenceElement
 				forPreferredExtent: aPoint.
-			rectangle := Rectangle origin: 0 @ 0 extent: bounds extent.
+			rectangle := Rectangle origin: 0.0@0.0 extent: bounds extent.
 			(maxAreaBounds isNil
 				or: [ rectangle area > maxAreaBounds asRectangle area ])
 				ifTrue: [ maxAreaBounds := bounds.

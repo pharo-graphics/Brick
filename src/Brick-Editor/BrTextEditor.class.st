@@ -651,11 +651,8 @@ BrTextEditor >> onBindHolder: aSegmentHolder at: aPosition [
 	(aPosition = segmentCollector lastIndex and: [ segmentCollector end < segmentCollector text size ])
 		ifTrue: [
 			previousLastIndex := segmentCollector lastIndex.
-			segmentCollector computeForwardAt: aPosition+1.
-			self notifyInserted: (segmentCollector lastIndex - previousLastIndex) at: aPosition + 1 ].
-
-
-
+			segmentCollector computeForwardAt: aPosition + 1.
+			self notifyItemsInserted: (aPosition + 1 to: aPosition + segmentCollector lastIndex - previousLastIndex) ]
 ]
 
 { #category : #'instance creation' }

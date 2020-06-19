@@ -77,7 +77,7 @@ BrTextEditorLineSegmentHolder >> explicitScreenToCursor: aTransformation [
 	(aTransformedScreenPosition y between: aBoundsInEditor top and: aBoundsInEditor bottom)
 		ifFalse: [  ^ self ].
 			
-	aPositionInSegment := (itemElement globalBoundsToMine: (BlBounds origin: aTransformation screenPosition extent: 0@0) fromParent: self infiniteElement) center.	
+	aPositionInSegment := (itemElement globalBoundsToMine: (BlBounds origin: aTransformation screenPosition extent: 0.0@0.0) fromParent: self infiniteElement) center.	
 	segment hasPieces
 		ifFalse: [ ^ self ].
 	

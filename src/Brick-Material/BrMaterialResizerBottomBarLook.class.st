@@ -1,7 +1,7 @@
 Class {
 	#name : #BrMaterialResizerBottomBarLook,
 	#superclass : #BrLook,
-	#category : 'Brick-Material-Collection'
+	#category : #'Brick-Material-Collection'
 }
 
 { #category : #accessing }
@@ -15,10 +15,10 @@ BrMaterialResizerBottomBarLook >> initialize [
 		with: [ BlRectangle cornerRadius: 2 ].
 	self
 		addChangeProperty: #(widget constraints vertical resizer)
-		with: [ BlLayoutResizer exact: 4 ].
+		with: [ BlLayoutResizer exact: 4.0 ].
 	self
 		addChangeProperty: #(widget constraints vertical resizer)
-		with: [ BlLayoutResizer exact: 70 ].
+		with: [ BlLayoutResizer exact: 70.0 ].
 	self addChangeProperty: #(widget margin) with: [ BlInsets bottom: 4 ].
 	self
 		addChange:

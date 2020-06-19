@@ -20,9 +20,9 @@ BrColumnFixedWidthExamples >> applyOnElement [
 	
 	aColumnWidth applyOn: anElement.
 	
-	self assert: anElement constraints horizontal resizer equals: (BlLayoutResizer exact: 300).
-	self assert: anElement constraints vertical resizer equals: (BlLayoutResizer exact: 50).
-	self assert: aHorizontalResizer equals: (BlLayoutResizer exact: 300).
+	self assert: anElement constraints horizontal resizer equals: (BlLayoutResizer exact: 300.0).
+	self assert: anElement constraints vertical resizer equals: (BlLayoutResizer exact: 50.0).
+	self assert: aHorizontalResizer equals: (BlLayoutResizer exact: 300.0).
 	
 	^ anElement
 ]
