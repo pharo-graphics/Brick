@@ -198,6 +198,7 @@ BrTextEditorLineSegmentHolder >> segment: anEditorSegment [
 		ifTrue: [ ^ self updateSegment: anEditorSegment ].
 
 	segment := anEditorSegment.
+	segment updateSegmentProperties.
 
 	pieceElements := OrderedCollection new.
 	newPieceElements := OrderedCollection new.
