@@ -19,20 +19,6 @@ BrEditorLook >> attributesBuilder [
 	^ attributesBuilder
 ]
 
-{ #category : #accessing }
-BrEditorLook >> attributesBuilder: aBlTextAttributesBuilder [
-
-	self 
-		assert: [ aBlTextAttributesBuilder isNotNil ] 
-		description: [ 'Attributes builder must be non-nil' ].
-	
-	aBlTextAttributesBuilder beNotOverwritableByStyler.
-	aBlTextAttributesBuilder whenAdded: [  ].
-	aBlTextAttributesBuilder attributesTarget: text.
-	
-	attributesBuilder := aBlTextAttributesBuilder.
-]
-
 { #category : #initialization }
 BrEditorLook >> initialize [
 	super initialize.
@@ -41,7 +27,9 @@ BrEditorLook >> initialize [
 	text := '' asRopedText.
 	mode := BrTextEditorNullMode new.
 	
-	self attributesBuilder: BlTextDelegatedAttributesBuilder new.
+	attributesBuilder := BlTextDelegatedAttributesBuilder new attributesTarget: text.
+	attributesBuilder beNotOverwritableByStyler.
+	attributesBuilder whenAdded: [  ].
 	
 	self add: BrLayoutResizerLook inherit
 ]
