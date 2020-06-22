@@ -3,7 +3,7 @@ Class {
 	#superclass : #Object,
 	#traits : 'TBrTextEditorFixedMeasurerExamples',
 	#classTraits : 'TBrTextEditorFixedMeasurerExamples classTrait',
-	#category : #'Brick-Examples-Editor'
+	#category : #'Brick-Editor-Examples-Operators'
 }
 
 { #category : #'focus - examples' }
@@ -453,6 +453,13 @@ Creep eastward.
 In the moonlight,
 The color and scent of the wisteria
 Seems far away.' asRopedText
+]
+
+{ #category : #'private - utility' }
+BrTextEditorOperatorExamples >> piecesWithCursorIn: anEditorElement [
+	^ anEditorElement withAllChildrenBreadthFirst
+		select: [ :eachChild | eachChild isKindOf: BrCursorElement ]
+		thenCollect: [ :eachCursor | eachCursor parent ]
 ]
 
 { #category : #'private - events' }

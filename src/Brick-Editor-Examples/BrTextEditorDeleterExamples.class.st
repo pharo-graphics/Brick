@@ -1,7 +1,7 @@
 Class {
 	#name : #BrTextEditorDeleterExamples,
 	#superclass : #BrTextEditorOperatorExamples,
-	#category : #'Brick-Examples-Editor'
+	#category : #'Brick-Editor-Examples-Operators'
 }
 
 { #category : #'examples - deletion' }

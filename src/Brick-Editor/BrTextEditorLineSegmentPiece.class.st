@@ -36,6 +36,11 @@ BrTextEditorLineSegmentPiece >> currentCursors [
 ]
 
 { #category : #'api - cursor' }
+BrTextEditorLineSegmentPiece >> currentCursors: aSetOfCursors [	
+	currentCursors := aSetOfCursors asSet
+]
+
+{ #category : #'api - cursor' }
 BrTextEditorLineSegmentPiece >> findAddedCursors: theUpdatedCursors to: theCurrentCursors [
 	"Find which cursors are new relative to the set of current cursors"
 	<return: #Set of: #BrTextEditorSingleCursor>

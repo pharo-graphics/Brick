@@ -3,7 +3,7 @@ I add utility methods related to fixed text measurer
 "
 Trait {
 	#name : #TBrTextEditorFixedMeasurerExamples,
-	#category : #'Brick-Examples-Editor'
+	#category : #'Brick-Editor-Examples'
 }
 
 { #category : #'private - font metrics' }

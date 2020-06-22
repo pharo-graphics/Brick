@@ -32,6 +32,7 @@ BaselineOfBrick >> baseline: spec [
 			package: #'Brick-DevTool' with: [
 				spec requires: #('Brick' ). ];
 			package: #'Brick-Examples' with: [
-				spec requires: #('Brick' 'Brick-Material' 'Brick-Glamorous' 'Brick-Hydra' 'Brick-DevTool' ). ]. ].
-
+				spec requires: #('Brick' 'Brick-Material' 'Brick-Glamorous' 'Brick-Hydra' 'Brick-DevTool' ). ];
+			package: #'Brick-Editor-Examples' with: [
+				spec requires: #('Brick-Editor' 'Brick-Examples'). ]. ].
 ]

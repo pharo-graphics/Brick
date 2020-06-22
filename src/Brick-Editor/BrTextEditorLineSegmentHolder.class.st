@@ -241,10 +241,17 @@ BrTextEditorLineSegmentHolder >> updateSegment: anEditorSegment [
 				| eachPiece theSegmentElements |
 				theSegmentElements := eachAssociation value.
 				eachPiece := eachAssociation key.
+				
+				"We should transfer the knowledge of the cursors to the new segment piece,
+				otherwise cursors may not be removed from the corresponding elements
+				https://github.com/feenkcom/gtoolkit/issues/892"
+				eachSegmentPiece currentCursors: eachPiece currentCursors.
+				
 				theSegmentElements do: [ :eachSegmentElement |
 					eachPiece updateText: eachSegmentElement of: segment in: self infiniteElement ].
 				theSegmentElements ]
 			ifNone: [ (eachSegmentPiece createElement: self infiniteElement) asOrderedCollection ].
+	
 		newPieceElements addAll: thePieceElements.
 		newPieceMap add: (eachSegmentPiece -> thePieceElements) ].
 

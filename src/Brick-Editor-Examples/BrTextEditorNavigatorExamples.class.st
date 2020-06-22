@@ -1,7 +1,7 @@
 Class {
 	#name : #BrTextEditorNavigatorExamples,
 	#superclass : #BrTextEditorOperatorExamples,
-	#category : #'Brick-Examples-Editor'
+	#category : #'Brick-Editor-Examples-Operators'
 }
 
 { #category : #'examples - add' }
@@ -310,6 +310,105 @@ BrTextEditorNavigatorExamples >> cursor_add_at_68_in_empty [
 	self assert: addedCursorElements size equals: 1.
 	self assert: addedCursorElements first textPosition equals: 0.
 	self assert: removedCursorElements isEmpty.
+	
+	^ anEditor
+]
+
+{ #category : #'examples - no duplication' }
+BrTextEditorNavigatorExamples >> cursor_is_not_duplicated [
+	<gtExample>
+	| anEditor thePiecesWithCursor |
+	
+	anEditor := self editorFor: 'Hello World'.
+	
+	anEditor navigator
+		moveTo: 5;
+		apply.
+	anEditor forceLayout.
+	
+	thePiecesWithCursor := self piecesWithCursorIn: anEditor.
+	self assert: thePiecesWithCursor size equals: 1.
+	self assert: thePiecesWithCursor first text asString equals: ' '.
+	
+	anEditor deleter
+		oneBeforeCursor;
+		delete.		
+	anEditor forceLayout.
+	
+	thePiecesWithCursor := self piecesWithCursorIn: anEditor.
+	self assert: thePiecesWithCursor size equals: 1.
+	self assert: thePiecesWithCursor first text asString equals: ' '.
+	
+	anEditor inserter
+		atCursor;
+		string: 'O';
+		insert.
+	anEditor forceLayout.
+	
+	thePiecesWithCursor := self piecesWithCursorIn: anEditor.
+	self assert: thePiecesWithCursor size equals: 1.
+	self assert: thePiecesWithCursor first text asString equals: ' '.
+	
+	^ anEditor
+]
+
+{ #category : #'examples - no duplication' }
+BrTextEditorNavigatorExamples >> cursor_is_not_duplicated_bulk [
+	<gtExample>
+	| anEditor thePiecesWithCursor |
+	
+	anEditor := self editorFor: 'Hello World'.
+	
+	anEditor navigator
+		moveTo: 5;
+		apply.
+	
+	anEditor deleter
+		oneBeforeCursor;
+		delete.		
+	anEditor forceLayout.
+	
+	thePiecesWithCursor := self piecesWithCursorIn: anEditor.
+	self assert: thePiecesWithCursor size equals: 1.
+	self assert: thePiecesWithCursor first text asString equals: ' '.
+	
+	anEditor inserter
+		atCursor;
+		string: 'O';
+		insert.
+	anEditor forceLayout.
+	
+	thePiecesWithCursor := self piecesWithCursorIn: anEditor.
+	self assert: thePiecesWithCursor size equals: 1.
+	self assert: thePiecesWithCursor first text asString equals: ' '.
+	
+	^ anEditor
+]
+
+{ #category : #'examples - no duplication' }
+BrTextEditorNavigatorExamples >> cursor_is_not_duplicated_bulk_full [
+	<gtExample>
+	| anEditor thePiecesWithCursor |
+	
+	anEditor := self editorFor: 'Hello World'.
+	
+	anEditor navigator
+		moveTo: 5;
+		apply.
+	
+	anEditor deleter
+		oneBeforeCursor;
+		delete.		
+
+	anEditor inserter
+		atCursor;
+		string: 'O';
+		insert.
+	anEditor forceLayout.
+	
+	thePiecesWithCursor := self piecesWithCursorIn: anEditor.
+	self assert: thePiecesWithCursor size equals: 1.
+	self assert: thePiecesWithCursor first text asString equals: ' '.
 	
 	^ anEditor
 ]
