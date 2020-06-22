@@ -9,6 +9,13 @@ TBrCheckable >> check [
 ]
 
 { #category : #'api - checkbox' }
+TBrCheckable >> checked: aBoolean [
+	aBoolean
+		ifTrue: [ self check ]
+		ifFalse: [ self uncheck ]
+]
+
+{ #category : #'api - checkbox' }
 TBrCheckable >> indeterminate [
 	self dispatchEvent: BrCheckboxWish indeterminate
 ]

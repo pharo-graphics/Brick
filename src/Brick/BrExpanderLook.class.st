@@ -141,7 +141,11 @@ BrExpanderLook >> onCollapsed [
 { #category : #hooks }
 BrExpanderLook >> onExpanded [
 	shouldReplaceHeader
-		ifTrue: [ headerElement ifNotNil: #removeFromParent ].
+		ifTrue: [ headerElement ifNotNil: #removeFromParent ]
+		ifFalse: [
+			headerElement ifNil: [ self initializeHeaderElement ].
+			headerElement hasParent
+				ifFalse: [ self addHeaderElement: headerElement ] ].
 	
 	contentElement ifNil: [ self initializeContentElement ].
 	contentElement hasParent

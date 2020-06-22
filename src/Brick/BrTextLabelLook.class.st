@@ -74,6 +74,11 @@ BrTextLabelLook >> labelDo: aBlock [
 	aBlock value: self label
 ]
 
+{ #category : #initialization }
+BrTextLabelLook >> labelMeasurement [
+	labelElement labelMeasurement
+]
+
 { #category : #accessing }
 BrTextLabelLook >> padding: aBlInsets [
 	self label padding: aBlInsets
@@ -96,4 +101,9 @@ BrTextLabelLook >> text: aTextOrString [
 { #category : #accessing }
 BrTextLabelLook >> textDo: aBlock [
 	self label textDo: aBlock
+]
+
+{ #category : #initialization }
+BrTextLabelLook >> tightMeasurement [
+	labelElement tightMeasurement
 ]

@@ -34,6 +34,7 @@ BrGlamorousTaggerLook >> assignTag: aTaggerTag toElement: aTagElement [
 BrGlamorousTaggerLook >> defaultTagLabelStencil [
 	^ [ :aTag |
 		BrEditor new
+			beReadOnlyWithoutSelection;
 			look: BrGlamorousEditableLabelLook new glamorousRegularFontAndSize;
 			fitContent;
 			text: aTag name ] asStencilBuilder: BrTaggerTagStencilBuilder

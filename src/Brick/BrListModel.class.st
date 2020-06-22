@@ -51,8 +51,8 @@ BrListModel >> items [
 ]
 
 { #category : #'api - accessing' }
-BrListModel >> items: aCollectionOfBrWidgetModel [
+BrListModel >> items: aCollectionOfObjects [
 
-	items := aCollectionOfBrWidgetModel.
+	items := aCollectionOfObjects.
 	self dispatchEvent: (BrListItemsChangedEvent items: self items)
 ]
