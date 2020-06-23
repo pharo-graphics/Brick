@@ -1055,7 +1055,7 @@ BrTextEditorLineSegmentExamples >> insert_NewLineCrLf_in_HACrBA_At_3 [
 
 	aTextEditor insertString: String cr, String lf at: 3.
 
-	self assert: aTextEditor text asArray equals: { $H. $A .  BlTextLineEndingMacClassic new . BlTextLineEndingWindows new . $B . $A }.
+	self assert: aTextEditor text asArray equals: { $H. $A.  Character cr. Character nel. $B. $A. }.
 
 	self assert: aTextEditor segmentCollector computedSegmentsCount equals: 3.
 	self assert: aTextEditor segmentCollector segments first textInterval equals: (0 to: 2).
