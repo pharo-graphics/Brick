@@ -68,51 +68,18 @@ BrTextEditor >> addInteractions: aCollectionOfBrTextEditorInteraction [
 ]
 
 { #category : #asserting }
-BrTextEditor >> assertIndex: aFromIndex to: aToIndex [
-	self
-		assert: [ aFromIndex >= 0 ]
-		description: [ '"from" index must not be negative' ].
-		
-	self
-		assert: [ aToIndex >= 0 ]
-		description: [ '"to" index must not be negative' ].
-		
-	self
-		assert: [ aFromIndex <= self text size ]
-		description: [ '"from" index must be smaller or equal to text size' ].
-		
-	self
-		assert: [ aToIndex <= self text size ]
-		description: [ '"to" index must be smaller or equal to text size' ].
-		
-	self
-		assert: [ aFromIndex <= aToIndex ]
-		description: [ '"from" index must be smaller or equal to "to" index' ].
-]
-
-{ #category : #asserting }
 BrTextEditor >> assertUIProcess [
 	"I check if the current process is a UI process of all attached editor elements"
-	| aCurrentProcess theElementGroupedByProcess allUIProcesses |
+	| aCurrentProcess allUIProcesses |
 	
-	aCurrentProcess := Processor activeProcess.
-
-	theElementGroupedByProcess := attachedElements groupedBy: [ :eachElement |
-		| eachSpace eachUIProcess |
-		eachSpace := eachElement isAttachedToSceneGraph
-			ifTrue: [ eachElement space ]
-			ifFalse: [ nil ].
-		eachUIProcess := nil.
-		eachSpace ifNotNil: [ eachSpace host uiProcessDo: [ :aProcess | eachUIProcess := aProcess ] ].
-		eachUIProcess ].
-	
-	allUIProcesses := theElementGroupedByProcess keys reject: #isNil.
+	aCurrentProcess := Processor activeProcess.	
+	allUIProcesses := self uiProcesses.
 	
 	(allUIProcesses size <= 1)
 		ifFalse: [ BrEditorWrongThreadError signal: 'The editor is attached to multiple elements from different UI processes' ].
 		
-	"(allUIProcesses isEmpty or: [ allUIProcesses anyOne == aCurrentProcess ])
-		ifFalse: [ BrEditorWrongThreadError signal: 'I am running from a non-UI process' ]."
+	(allUIProcesses isEmpty or: [ allUIProcesses anyOne == aCurrentProcess ])
+		ifFalse: [ BrEditorWrongThreadError signal: 'I am running from a non-UI process' ].
 ]
 
 { #category : #'api - mode' }
@@ -736,6 +703,7 @@ BrTextEditor >> onLostFocus [
 { #category : #'hooks - text modifications' }
 BrTextEditor >> onStringsInserted: aBlTextStringsInserted [
 	"Is sent after a few strings (or one) are inserted in a text model"
+	self assertUIProcess.
 	
 	aBlTextStringsInserted strings
 		with: aBlTextStringsInserted finalIndices
@@ -764,6 +732,7 @@ BrTextEditor >> onStringsInserted: aBlTextStringsInserted [
 
 { #category : #'hooks - text modifications' }
 BrTextEditor >> onTextAttributeAdded: aBlTextAttributeAdded [
+	self assertUIProcess.
 
 	self segmentBuilder
 		addedAttribute: aBlTextAttributeAdded attribute
@@ -774,6 +743,7 @@ BrTextEditor >> onTextAttributeAdded: aBlTextAttributeAdded [
 
 { #category : #'hooks - text modifications' }
 BrTextEditor >> onTextAttributesRemoved: aBlTextAttributesRemoved [
+	self assertUIProcess.
 
 	self segmentBuilder
 		removedAttributesFrom: aBlTextAttributesRemoved fromIndex
@@ -784,6 +754,7 @@ BrTextEditor >> onTextAttributesRemoved: aBlTextAttributesRemoved [
 { #category : #'hooks - text modifications' }
 BrTextEditor >> onTextsDeleted: aBlTextsDeleted [
 	"Is sent after a piece of text was deleted in a text model"
+	self assertUIProcess.
 
 	aBlTextsDeleted finalIntervals
 		do: [ :eachInterval |
@@ -1095,6 +1066,24 @@ BrTextEditor >> textSnapshot [
 	<return: #BlText>
 
 	^ text copy
+]
+
+{ #category : #asserting }
+BrTextEditor >> uiProcesses [
+	| theElementGroupedByProcess allUIProcesses |
+
+	theElementGroupedByProcess := attachedElements groupedBy: [ :eachElement |
+		| eachSpace eachUIProcess |
+		eachSpace := eachElement isAttachedToSceneGraph
+			ifTrue: [ eachElement space ]
+			ifFalse: [ nil ].
+		eachUIProcess := nil.
+		eachSpace ifNotNil: [ eachSpace host uiProcessDo: [ :aProcess | eachUIProcess := aProcess ] ].
+		eachUIProcess ].
+	
+	allUIProcesses := theElementGroupedByProcess keys reject: #isNil.
+
+	^ allUIProcesses
 ]
 
 { #category : #'text - undo/redo' }
