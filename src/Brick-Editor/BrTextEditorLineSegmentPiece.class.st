@@ -74,7 +74,7 @@ BrTextEditorLineSegmentPiece >> globalTextIndexToLocal: aTextIndex [
 	This convertion is necessary due to the fact that text elements that represent every segment piece work with text in their own local system"
 	<return: #Number>
 
-	^ self text isEmpty
+	^ self isEmpty
 		ifTrue: [ 0 ]
 		ifFalse: [ aTextIndex - self textStart ]
 ]
@@ -210,7 +210,7 @@ BrTextEditorLineSegmentPiece >> updateSelection: aTextElement of: aLineSegment i
 	aTextElement dispatchEvent: (BrTextEditorDeselectRequest new
 		editorElement: anEditorElement;
 		fromIndex: 0;
-		toIndex: self text size).
+		toIndex: self textLength).
 
 	(aTextEditor selection + aTextEditor selectionRecorder selection) do: [ :aSelection |
 		| aSelectionInterval textInterval |
@@ -220,7 +220,7 @@ BrTextEditorLineSegmentPiece >> updateSelection: aTextElement of: aLineSegment i
 			ifTrue: [
 				| localFrom localTo |
 				localFrom := (aSelectionInterval first - self textStart) max: 0.
-				localTo := (aSelectionInterval last - self textStart) min: self text size + 1.
+				localTo := (aSelectionInterval last - self textStart) min: self textLength + 1.
 
 				aTextElement dispatchEvent: (BrTextEditorSelectRequest new
 					editorElement: anEditorElement;
