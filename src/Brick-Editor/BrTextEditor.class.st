@@ -79,7 +79,8 @@ BrTextEditor >> assertUIProcess [
 		ifFalse: [ BrEditorWrongThreadError signal: 'The editor is attached to multiple elements from different UI processes' ].
 		
 	(allUIProcesses isEmpty or: [ allUIProcesses anyOne == aCurrentProcess ])
-		ifFalse: [ BrEditorWrongThreadError signal: 'I am running from a non-UI process' ].
+		ifFalse: [ BrEditorWrongThreadError signal: ('I am running from a non-UI process ({1}) expected ({2})'
+				format: { aCurrentProcess asString . allUIProcesses anyOne asString }) ].
 ]
 
 { #category : #'api - mode' }
