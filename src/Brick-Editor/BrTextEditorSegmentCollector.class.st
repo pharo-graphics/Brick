@@ -1,5 +1,22 @@
 "
-I collect and cache text segment for fast access by index. Amount of segment that I store at a time is limited by #cacheLimit.
+I collect and cache text line segments for fast access by index.
+
+!!Internal Representation and Key Implementation Points.
+
+!!!Instance Variables
+
+	editor 				<BrTextEditor>	The editor that owns this cache
+	limit 					<Integer> The maximum number of segments held in the cache
+	map 					<BrTextLineMap> 	The line number to character index map
+	segments 	<OrderedCollection of BrTextEditorLineSegment>		The cached segments
+	segmentsInterval 	<Interval> 	The interval of line numbers cached in segments
+	subText 				<BlSubText>
+	text      			<BlText>		The text being edited
+
+!!!Implementation Points
+
+To facilitate jumping backwards quickly the the manager builds a map of line number to charcter offset of the string being edited.  When the target line number is earlier than the cache start the map can be used as a known point to start parsing forward from.
+
 "
 Class {
 	#name : #BrTextEditorSegmentCollector,
@@ -179,17 +196,16 @@ BrTextEditorSegmentCollector >> cachedSegmentIndexAt: aTextIndex [
 					aTextIndex < aSegment textStart
 						ifTrue: [ -1 ]
 						ifFalse: [ 1 ] ] ]
-		ifNone: [ :leftIndex :rightIndex |
-			(leftIndex isNil and: [ rightIndex isNil ])
-				ifTrue: [ 0 ]
-				ifFalse: [ leftIndex ] ]
+		ifNone: [ 0 ]
 ]
 
 { #category : #'cache - computation' }
 BrTextEditorSegmentCollector >> computeBackwardAt: anIndex [
-	"Currently a brain-dead implementation: Start from the beginning and search forward."
+	"Populate the cache at anIndex, which is prior to the start of the currently cached segments."
 	| mapEntry cachedInterval stream builder newSubText newSegments overlap streamLimit |
 
+	"Look for the map entry just earlier than anIndex
+	(removing the need to parse the text from the beginning of the string to the found mapEntry"
 	mapEntry := map mapEntryFor: anIndex.
 	cachedInterval := self computeInterval: anIndex.
 	newSubText := text from: mapEntry value to: text size.
@@ -404,14 +420,12 @@ BrTextEditorSegmentCollector >> hasCached [
 
 { #category : #initialization }
 BrTextEditorSegmentCollector >> initialize [
-	super initialize.
-	
-	segmentsInterval := 0 to: 0.
-	segments := OrderedCollection new.
+
+	super initialize.	
 	limit := 500.
 	subText := BlSubText text: '' asRopedText from: 1 to: 0.
-	map := BrTextLineMap new.
-	map cacheLimit: limit.
+	self resetCache.
+
 ]
 
 { #category : #testing }
@@ -503,6 +517,15 @@ BrTextEditorSegmentCollector >> removeSegmentInterval: anInterval [
 	segmentsInterval := (segments first index to: segments last index).
 
 	self editor notifyItemsRemoved: anInterval
+]
+
+{ #category : #initialization }
+BrTextEditorSegmentCollector >> resetCache [
+
+	segmentsInterval := 0 to: 0.
+	segments := OrderedCollection new.
+	map := BrTextLineMap new.
+	map cacheLimit: limit.
 ]
 
 { #category : #accessing }
