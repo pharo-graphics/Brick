@@ -1,10 +1,30 @@
+"
+BrTextLineMap keeps a map of line number to character index for a BrTextEditorSegmentCollector. 
+
+Public API and Key Messages
+
+- addLine:offset: 	Add the supplied line number to character offset mapping
+- mapEntryFor: 		Answer the map entry for the supplied line number
+ 
+!!Internal Representation and Key Implementation Points.
+
+!!!Instance Variables
+
+	map:					<SortedCollection>
+	minEntrySpacing:	<Integer>
+
+
+!!!Implementation Points
+
+As part of initialisation the text editor provides the map with its cacheLimit.  This is used to determine the minimum spacing between map entries to avoid growing the map unreasonably.
+
+"
 Class {
 	#name : #BrTextLineMap,
 	#superclass : #Object,
 	#instVars : [
 		'map',
-		'minEntrySpacing',
-		'cacheLimit'
+		'minEntrySpacing'
 	],
 	#category : #'Brick-Editor-Model - Segment-Text'
 }

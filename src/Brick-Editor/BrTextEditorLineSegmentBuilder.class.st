@@ -90,7 +90,7 @@ BrTextEditorLineSegmentBuilder >> deleteFrom: aFromIndex segment: aFromSegment t
 				ifTrue: [ aFromSegment index ]
 				ifFalse: [ (aFromSegment index + 1) min: aToSegment index ].
 			removeSegmentEnd := aToSegment index.
-			
+
 			aBrTextEditor segmentCollector removeSegmentInterval: (removeSegmentStart to: removeSegmentEnd) ].
 	
 	aTargetSegment moveTextPiecesBy: removedLength negated at: aFromIndex.
@@ -119,10 +119,13 @@ BrTextEditorLineSegmentBuilder >> deletedFrom: aFromIndex to: aToIndex in: aBrTe
 		ifFound: [ :aSegment | aToSegment := aSegment ]
 		ifNotFound: [ ].
 
-	"we delete something completely outside of the cached segments, just ignore it"
-	(aFromSegment isNil or: [ aToSegment isNil ])	
-		ifTrue: [
-			self flag: #TODO.
+	(aFromSegment isNil or: [ aToSegment isNil ])	ifTrue: [ | interval |
+			"Either aFromIndex or aToIndex are outside the segment collector's cache.
+			It looks like the text editor's text has already been updated, 
+			simply reset the cache and notify the editor"
+			interval := aBrTextEditor segmentCollector cachedInterval.
+			aBrTextEditor segmentCollector resetCache.
+			aBrTextEditor notifyItemsRemoved: interval.
 			^ self ].
 
 	aTargetSegment := self deleteFrom: aFromIndex segment: aFromSegment to: aToIndex segment: aToSegment in: aBrTextEditor.
