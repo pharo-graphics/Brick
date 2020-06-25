@@ -89,8 +89,7 @@ BrEditorTextFlowLayout >> layout: anElement in: aRectangle [
 		aLeft := anOffsetX.
 		aTop := aTop + aLine height + lineSpacing ].
 	
-	self layoutIgnored: anElement.
-	self resetLines
+	self layoutIgnored: anElement
 ]
 
 { #category : #accessing }
@@ -144,6 +143,11 @@ BrEditorTextFlowLayout >> measure: anElement with: anExtentSpec [
 						theElements last measuredExtent + (((anElement measuredWidth - aLine width) max: 0.0) @ theElements last padding height negated)) ] ] ].
 			
 	self measureIgnored: anElement with: anExtentSpec
+]
+
+{ #category : #'hooks - layout' }
+BrEditorTextFlowLayout >> onCleanUp: anElement [
+	self resetLines
 ]
 
 { #category : #initialization }
