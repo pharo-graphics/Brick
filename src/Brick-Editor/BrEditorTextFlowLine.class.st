@@ -143,14 +143,7 @@ BrEditorTextFlowLine >> height [
 BrEditorTextFlowLine >> initialize [
 	super initialize.
 	
-	maxWidth := Float infinity.
-	width := 0.
-	height := 0.
-	origin := 0@0.
-	baseline := 0.
-	availableWidth := maxWidth.
-	elements := OrderedCollection new.
-	pushedQueue := LinkedList new
+	self reset
 ]
 
 { #category : #testing }
@@ -223,6 +216,21 @@ BrEditorTextFlowLine >> pushedQueue [
 { #category : #accessing }
 BrEditorTextFlowLine >> pushedQueue: aQueue [
 	pushedQueue := aQueue
+]
+
+{ #category : #initialization }
+BrEditorTextFlowLine >> reset [
+	maxWidth := Float infinity.
+	width := 0.
+	height := 0.
+	origin := 0@0.
+	baseline := 0.
+	availableWidth := maxWidth.
+	elements := OrderedCollection new.
+	pushedQueue := LinkedList new.
+	
+	nextLine ifNotNil: [ :aNextLine | aNextLine reset ].
+	nextLine := nil
 ]
 
 { #category : #geometry }
