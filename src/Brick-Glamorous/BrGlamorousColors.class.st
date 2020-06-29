@@ -411,6 +411,11 @@ BrGlamorousColors class >> neutralBackgroundColor [
 	^ NeutralBackgroundColor
 ]
 
+{ #category : #accessing }
+BrGlamorousColors class >> newsBackgroundColor [
+	^ NewsBackgroundColor
+]
+
 { #category : #'button - border' }
 BrGlamorousColors class >> pressedButtonBorderColor [
 	^ PressedButtonBorderColor
@@ -489,9 +494,4 @@ BrGlamorousColors class >> textHighlightColor [
 { #category : #'button - border' }
 BrGlamorousColors class >> textHighlightColor: anObject [
 	TextHighlightColor := anObject
-]
-
-{ #category : #accessing }
-BrGlamorousColors >> newsBackgroundColor [
-	^ NewsBackgroundColor
 ]
