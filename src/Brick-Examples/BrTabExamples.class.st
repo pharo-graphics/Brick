@@ -37,7 +37,7 @@ BrTabExamples >> deselectTabModel [
 BrTabExamples >> groupHeaderLook [
 	<gtExample>
 
-	^ BrTabGroupHeaderLook asLook
+	^ BrTabGroupHeaderWithToolbarLook asLook
 ]
 
 { #category : #'examples - ui header' }

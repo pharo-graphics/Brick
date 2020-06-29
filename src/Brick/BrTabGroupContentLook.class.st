@@ -24,7 +24,9 @@ BrTabGroupContentLook >> contentDo: aBlock [
 BrTabGroupContentLook >> initialize [
 	super initialize.
 
-	content := BlElement new layout: BlLinearLayout horizontal.
+	content := BlElement new 
+		layout: BlLinearLayout horizontal;
+		labeled: 'Content'.
 	
 	self add: (BrLayoutResizerLook new inherit: content).
 

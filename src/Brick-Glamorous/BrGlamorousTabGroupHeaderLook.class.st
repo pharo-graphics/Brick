@@ -1,6 +1,6 @@
 Class {
 	#name : #BrGlamorousTabGroupHeaderLook,
-	#superclass : #BrTabGroupHeaderLook,
+	#superclass : #BrTabGroupHeaderWithToolbarLook,
 	#category : #'Brick-Glamorous-Tabs - Support'
 }
 
