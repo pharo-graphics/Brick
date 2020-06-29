@@ -33,6 +33,7 @@ Class {
 		'LinkColor',
 		'LinkWithErrorColor',
 		'NeutralBackgroundColor',
+		'NewsBackgroundColor',
 		'PressedButtonBorderColor',
 		'PressedButtonTextColor',
 		'PressedListItemBackgroundColor',
@@ -340,7 +341,7 @@ BrGlamorousColors class >> initialize [
 	SuccessBorderColor := Color fromHexString: #'389e0d' "green-7".
 	ErrorBorderColor := Color fromHexString: #'cf1322' "red-7".
 	FailureBorderColor := Color fromHexString: #'d48806' "gold-7".
-	
+
 	"buttons - background"
 	ButtonBackgroundColor := Color white.
 	DisabledButtonBackgroundColor := Color fromHexString: #f5f5f5 "grey-3".
@@ -350,7 +351,8 @@ BrGlamorousColors class >> initialize [
 	SuccessBackgroundColor := Color fromHexString: #'95de64' "green-4".
 	FailureBackgroundColor := Color fromHexString: #ffd666 "gold-4".
 	NeutralBackgroundColor := Color fromHexString: #'f0f0f0' "gray-4".
-
+	NewsBackgroundColor := Color fromHexString: #'fff1b8' "gold-2".
+	
 	"buttons - text"
 	ButtonTextColor := Color black alpha: 0.65.
 	HoveredButtonTextColor := PrimaryBorderColor.
@@ -487,4 +489,9 @@ BrGlamorousColors class >> textHighlightColor [
 { #category : #'button - border' }
 BrGlamorousColors class >> textHighlightColor: anObject [
 	TextHighlightColor := anObject
+]
+
+{ #category : #accessing }
+BrGlamorousColors >> newsBackgroundColor [
+	^ NewsBackgroundColor
 ]
