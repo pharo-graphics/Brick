@@ -12,15 +12,29 @@ BrGlamorousTabGroupSwitcherLook >> headerBackground: aBackground [
 	headerLook headerDo: [ :aHeaderElement | aHeaderElement background: aBackground ]
 ]
 
+{ #category : #accessing }
+BrGlamorousTabGroupSwitcherLook >> headerLook [
+	<return: #BrGlamorousTabGroupSwitcherHeaderLook>
+	^ headerLook
+]
+
 { #category : #initialization }
 BrGlamorousTabGroupSwitcherLook >> initialize [
 	super initialize.
 
 	self addAll: {
-		headerLook := BrGlamorousTabGroupSwitcherHeaderLook new.
-		BrTabGroupSplitterLook new.
 		BrTabGroupContentLook new.
+		headerLook := BrGlamorousTabGroupSwitcherHeaderLook new.
 		BrLayoutResizerLook inherit }.
 	
-	self addChangeProperty: #(widget layout) with: [ BlLinearLayout vertical ]
+	headerLook headerDo: [ :aHeader | 
+		aHeader 
+			constraintsDo: [ :c | 
+				"c margin: (BlInsets all: -10)."
+				c ignoreByLayout.
+				c ignored horizontal alignCenter.
+				c ignored vertical "alignTop" alignCenterAt: 0 ] ].
+	
+	self addChangeProperty: #(widget clipChildren) with: [ false ].
+	self addChangeProperty: #(widget layout) with: [ BlLinearLayout vertical ].
 ]

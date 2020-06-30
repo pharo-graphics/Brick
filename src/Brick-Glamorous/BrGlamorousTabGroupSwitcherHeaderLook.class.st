@@ -15,17 +15,16 @@ BrGlamorousTabGroupSwitcherHeaderLook >> initialize [
 		- scrollable
 			- tabbar
 	"
-
-	self add: BrShadowLook.
 	
-	"self addChangeProperty: #(widget geometry) with: [ BlRectangle cornerRadius: 8 ]."
-
-	self header layout: BlLinearLayout horizontal alignCenterLeft.
-	self tabbar layout: BlLinearLayout horizontal.
+	self addChangeProperty: #(header border) with: [ BlBorder paint: Color black width: 1 ].
+	self addChangeProperty: #(header geometry) with: [ BlStadium new ].
+	self addChangeProperty: #(header background) with: [ Color white ]. 
+	self addChangeProperty: #(header layout) with: [ BlLinearLayout horizontal alignCenter ]. 
+	
+	self addChangeProperty: #(tabbar layout) with: [ BlLinearLayout horizontal ].
 
 	self add: (BrLayoutResizerLook new
-		vAnyToFitContent: self header;
-		hInherit: self header;
+		anyToFitContent: self header;
 		vAnyToFitContent: self scrollTabbar;
 		hInherit: self scrollTabbar;
 		anyToFitContent: self tabbar)
