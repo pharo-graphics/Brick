@@ -18,7 +18,7 @@ MorphicUIManager >> gtDebugProcess: process context: context label: title fullVi
 			"schedule debugger in deferred UI message to address
 			redraw problems after opening a debugger e.g. from
 			the testrunner."
-		[ GtMoldableDebuggerElement openInspectorOn: debugSession.
+		[ GtMoldableDebugger openInspectorOn: debugSession.
 		] on: Error do: [ :ex | 	debugSession signalDebuggerError: ex] 
 	].
 
