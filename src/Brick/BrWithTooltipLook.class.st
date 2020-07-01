@@ -20,13 +20,13 @@ BrWithTooltipLook class >> anchoredLookClass [
 
 { #category : #accessing }
 BrWithTooltipLook >> cancelHideLater [
-	hideLaterTask ifNotNil: #dequeue.
+	hideLaterTask ifNotNil: [ :aTask | aTask stop ].
 	hideLaterTask := nil
 ]
 
 { #category : #accessing }
 BrWithTooltipLook >> cancelShowLater [
-	showLaterTask ifNotNil: #dequeue.
+	showLaterTask ifNotNil: [ :aTask | aTask stop ].
 	showLaterTask := nil
 ]
 

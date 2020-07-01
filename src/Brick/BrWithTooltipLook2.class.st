@@ -52,13 +52,13 @@ BrWithTooltipLook2 class >> handle: anObject content: anotherObject [
 
 { #category : #accessing }
 BrWithTooltipLook2 >> cancelHideLater [
-	hideLaterTask ifNotNil: #dequeue.
+	hideLaterTask ifNotNil: [ :aTask | aTask stop ].
 	hideLaterTask := nil
 ]
 
 { #category : #accessing }
 BrWithTooltipLook2 >> cancelShowLater [
-	showLaterTask ifNotNil: #dequeue.
+	showLaterTask ifNotNil: [ :aTask | aTask stop ].
 	showLaterTask := nil
 ]
 
