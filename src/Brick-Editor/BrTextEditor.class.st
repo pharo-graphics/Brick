@@ -427,17 +427,6 @@ BrTextEditor >> invalidate: aFromTextIndex to: aToTextIndex [
 		update
 ]
 
-{ #category : #'private - updating' }
-BrTextEditor >> invalidateAll [
-	"Invalidate the rendering (request the redraw, don't create new segments or words)"
-	self deprecated: 'Invalidation is deprecated and merged with updater'.
-
-	self updater
-		all;
-		redrawOnly;
-		update
-]
-
 { #category : #accessing }
 BrTextEditor >> itemCount [
 	^ segmentCollector computedSegmentsCount
@@ -1100,17 +1089,6 @@ BrTextEditor >> update: aFromTextIndex to: aToTextIndex [
 	
 	self updater
 		from: aFromTextIndex to: aToTextIndex;
-		update
-]
-
-{ #category : #'private - updating' }
-BrTextEditor >> updateAll [
-	"Reset segments cache and recreate new words"
-
-	self deprecated: 'Use editor updater unstead'.
-
-	self updater
-		all;
 		update
 ]
 
