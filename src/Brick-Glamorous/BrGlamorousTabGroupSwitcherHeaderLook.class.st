@@ -21,15 +21,14 @@ BrGlamorousTabGroupSwitcherHeaderLook >> initialize [
 			- tabbar
 	"
 	
-	self addChangeProperty: #(header border) with: [ 
-		BlBorder paint: BrGlamorousColors defaultButtonBorderColor width: 1 ].
-	self addChangeProperty: #(header padding) with: [ BlInsets top: 1 left: 1 bottom: 1 right: 2 ].
+	self header addLook: BrGlamorousFocusableShadowLook.
+
 	self addChangeProperty: #(header geometry) with: [ BlStadium new ].
 	self addChangeProperty: #(header background) with: [ Color white ]. 
 	self addChangeProperty: #(header layout) with: [ BlLinearLayout horizontal alignCenter ].
 	
 	self addChangeProperty: #(tabbar layout) with: [ 
-		BlLinearLayout horizontal alignCenter cellSpacing: 1 ].
+		BlLinearLayout horizontal alignCenter cellSpacing: 0 ].
 
 	self add: (BrLayoutResizerLook new
 		anyToFitContent: self header;

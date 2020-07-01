@@ -16,4 +16,12 @@ BrGlamorousTabSwitcherLook >> initialize [
 
 	self add: BrLayoutResizerLook new inherit.
 	self add: (BrLayoutAlignmentLook forHorizontalLinearLayout).
+
+	self addChangeProperty: #(widget padding) with: [ BlInsets top: 2 left: 2 bottom: 2 right: 2 ].
+
+	self add: (BrInteractiveLook new
+		style: [ :aStyler | 
+			aStyler 
+				default: 	[ :aWidget | aWidget background: Color white ];
+		hovered: [ :aWidget | aWidget background: Color veryVeryLightGray lighter ] ])
 ]
