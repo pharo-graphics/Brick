@@ -1,7 +1,12 @@
+"
+I am a tab switcher look that position tabs header at top-center part of container.
+I am used by ${class:BrGlamorousTabGroupSwitcherLook}$ where you can find examples.
+
+"
 Class {
 	#name : #BrGlamorousTabGroupSwitcherHeaderLook,
 	#superclass : #BrTabGroupHeaderLook,
-	#category : #'Brick-Glamorous-Tabs - Support'
+	#category : #'Brick-Glamorous-Tabs - Switcher'
 }
 
 { #category : #initialization }
@@ -16,45 +21,19 @@ BrGlamorousTabGroupSwitcherHeaderLook >> initialize [
 			- tabbar
 	"
 	
-	self addChangeProperty: #(header border) with: [ BlBorder paint: Color black width: 1 ].
+	self addChangeProperty: #(header border) with: [ 
+		BlBorder paint: BrGlamorousColors defaultButtonBorderColor width: 1 ].
+	self addChangeProperty: #(header padding) with: [ BlInsets top: 1 left: 1 bottom: 1 right: 2 ].
 	self addChangeProperty: #(header geometry) with: [ BlStadium new ].
 	self addChangeProperty: #(header background) with: [ Color white ]. 
-	self addChangeProperty: #(header layout) with: [ BlLinearLayout horizontal alignCenter ]. 
+	self addChangeProperty: #(header layout) with: [ BlLinearLayout horizontal alignCenter ].
 	
-	self addChangeProperty: #(tabbar layout) with: [ BlLinearLayout horizontal ].
+	self addChangeProperty: #(tabbar layout) with: [ 
+		BlLinearLayout horizontal alignCenter cellSpacing: 1 ].
 
 	self add: (BrLayoutResizerLook new
 		anyToFitContent: self header;
 		vAnyToFitContent: self scrollTabbar;
 		hInherit: self scrollTabbar;
 		anyToFitContent: self tabbar)
-]
-
-{ #category : #hooks }
-BrGlamorousTabGroupSwitcherHeaderLook >> onTabDeselected: aBrTabModel [ 
-	| anAssoc |
-	super onTabDeselected: aBrTabModel.
-
-	anAssoc := self tabs
-		detect: [ :eachAssoc | eachAssoc key = aBrTabModel ]
-		ifNone: [ self error: 'Tab model association must exist' ].
-
-	aBrTabModel widgetDo: [ :aTabElement |
-		self tabbar removeChildren: self tabElements.
-		anAssoc value: aTabElement.
-		self tabbar addChildren: self tabElements ].
-]
-
-{ #category : #hooks }
-BrGlamorousTabGroupSwitcherHeaderLook >> onTabSelected: aTabModel [
-	| anAssoc |
-	super onTabSelected: aTabModel.
-
-	anAssoc := self tabs
-		detect: [ :eachAssoc | eachAssoc key = aTabModel ]
-		ifNone: [ self error: 'Tab model association must exist' ].
-	
-	aTabModel widgetDo: [ :aTabElement |
-		anAssoc value: nil.
-		self tabbar removeChild: aTabElement ]
 ]

@@ -1,11 +1,11 @@
 Class {
-	#name : #BrGlamorousTabWithoutBarLook,
+	#name : #BrGlamorousTabWithoutBarWithLabelLook,
 	#superclass : #BrTabLook,
 	#category : #'Brick-Glamorous-Tabs'
 }
 
 { #category : #initialization }
-BrGlamorousTabWithoutBarLook >> initialize [
+BrGlamorousTabWithoutBarWithLabelLook >> initialize [
 	super initialize.
 
 	self add: (BrGlamorousTextLabelLook new foreground: Color black).

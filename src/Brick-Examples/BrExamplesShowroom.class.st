@@ -340,6 +340,138 @@ BrExamplesShowroom >> glamorousTabs [
 	^ aTabGroup
 ]
 
+{ #category : #tabs }
+BrExamplesShowroom >> glamorousTabsSwitcherWithHiddenSelectedTabsWithIcons [
+	<gtExample>
+	<description: 'Tabs with glamorous switcher look'>
+	| aTabGroup |
+
+	aTabGroup := BrTabGroup new.
+	aTabGroup look: BrGlamorousTabGroupSwitcherWithHiddenSelectedTabLook new.
+
+	aTabGroup addTab: (BrTab new
+		look: BrGlamorousTabSwitcherWithIconLook new;
+		label: 'Tab 1';
+		icon: BrGlamorousVectorIcons add;
+		stencil: [ BlElement new
+			constraintsDo: [ :c |
+				c horizontal exact: 300.
+				c vertical matchParent ];
+			margin: (BlInsets all: 10);
+			background: (Color red alpha: 0.2) ]).
+
+	aTabGroup addTab: (BrTab new
+		look: BrGlamorousTabSwitcherWithIconLook new;
+		label: 'Tab 2';
+		icon: BrGlamorousVectorIcons remove;
+		stencil: [ BlElement new
+			margin: (BlInsets all: 10);
+			constraintsDo: [ :c |
+				c horizontal matchParent.
+				c vertical matchParent ];
+			background: (Color blue alpha: 0.2) ]).
+	
+	^ aTabGroup
+]
+
+{ #category : #tabs }
+BrExamplesShowroom >> glamorousTabsSwitcherWithHiddenSelectedTabsWithLabels [
+	<gtExample>
+	<description: 'Tabs with glamorous switcher look'>
+	| aTabGroup |
+
+	aTabGroup := BrTabGroup new.
+	aTabGroup look: BrGlamorousTabGroupSwitcherWithHiddenSelectedTabLook new.
+
+	aTabGroup addTab: (BrTab new
+		look: BrGlamorousTabSwitcherWithLabelLook new;
+		label: 'Tab 1';
+		stencil: [ BlElement new
+			constraintsDo: [ :c |
+				c horizontal exact: 300.
+				c vertical matchParent ];
+			margin: (BlInsets all: 10);
+			background: (Color red alpha: 0.2) ]).
+
+	aTabGroup addTab: (BrTab new
+		look: BrGlamorousTabSwitcherWithLabelLook new;
+		label: 'Tab 2';
+		stencil: [ BlElement new
+			margin: (BlInsets all: 10);
+			constraintsDo: [ :c |
+				c horizontal matchParent.
+				c vertical matchParent ];
+			background: (Color blue alpha: 0.2) ]).
+	
+	^ aTabGroup
+]
+
+{ #category : #tabs }
+BrExamplesShowroom >> glamorousTabsSwitcherWithIcons [
+	<gtExample>
+	<description: 'Tabs with glamorous switcher look'>
+	| aTabGroup |
+
+	aTabGroup := BrTabGroup new.
+	aTabGroup look: BrGlamorousTabGroupSwitcherLook new.
+
+	aTabGroup addTab: (BrTab new
+		look: BrGlamorousTabSwitcherWithIconLook new;
+		label: 'Tab 1';
+		icon: BrGlamorousVectorIcons add;
+		stencil: [ BlElement new
+			constraintsDo: [ :c |
+				c horizontal exact: 300.
+				c vertical matchParent ];
+			margin: (BlInsets all: 10);
+			background: (Color red alpha: 0.2) ]).
+
+	aTabGroup addTab: (BrTab new
+		look: BrGlamorousTabSwitcherWithIconLook new;
+		label: 'Tab 2';
+		icon: BrGlamorousVectorIcons remove;
+		stencil: [ BlElement new
+			margin: (BlInsets all: 10);
+			constraintsDo: [ :c |
+				c horizontal matchParent.
+				c vertical matchParent ];
+			background: (Color blue alpha: 0.2) ]).
+	
+	^ aTabGroup
+]
+
+{ #category : #tabs }
+BrExamplesShowroom >> glamorousTabsSwitcherWithLabels [
+	<gtExample>
+	<description: 'Tabs with glamorous switcher look'>
+	| aTabGroup |
+
+	aTabGroup := BrTabGroup new.
+	aTabGroup look: BrGlamorousTabGroupSwitcherLook new.
+
+	aTabGroup addTab: (BrTab new
+		look: BrGlamorousTabSwitcherWithLabelLook new;
+		label: 'Tab 1';
+		stencil: [ BlElement new
+			constraintsDo: [ :c |
+				c horizontal exact: 300.
+				c vertical matchParent ];
+			margin: (BlInsets all: 10);
+			background: (Color red alpha: 0.2) ]).
+
+	aTabGroup addTab: (BrTab new
+		look: BrGlamorousTabSwitcherWithLabelLook new;
+		label: 'Tab 2';
+		stencil: [ BlElement new
+			margin: (BlInsets all: 10);
+			constraintsDo: [ :c |
+				c horizontal matchParent.
+				c vertical matchParent ];
+			background: (Color blue alpha: 0.2) ]).
+	
+	^ aTabGroup
+]
+
 { #category : #buttons }
 BrExamplesShowroom >> glamorousTinyButton [
 	<gtExample>
