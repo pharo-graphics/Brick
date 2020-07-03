@@ -227,6 +227,19 @@ BrGlamorousVectorIcons class >> largeGt [
 ]
 
 { #category : #icons }
+BrGlamorousVectorIcons class >> largePerformance [
+	<script: 'self largePerformance inspect'>
+
+	^ [ BlElement new
+		size: 64@64;
+		geometry: (BlSvgPath new
+			svg: 'M 29.550972 28.111004 L 20.402698 60.24932 L 43.661156 36.25752 Z M 48.16244 51.22281 L 44.964286 54.4944 L 51.3738 60.90392 L 54.62742 57.687786 C 67.124194 45.19101 67.124194 24.92973 54.62742 12.432952 C 42.13064 -.06382534 21.86936 -.06382534 9.372583 12.432952 C -3.121018 24.926553 -3.1241935 45.18071 9.363057 57.678256 L 12.612604 60.93963 L 19.067361 54.484873 L 15.83756 51.22281 C 6.91129 42.29654 6.91129 27.824198 15.83756 18.897928 C 24.76383 9.971659 39.23617 9.971659 48.16244 18.897928 C 57.08871 27.824198 57.08871 42.29654 48.16244 51.22281 Z'
+			viewbox: (0@0 extent: 64@64));
+		background: Color black;
+		outskirts: (BlOutskirts centered) ] asStencil
+]
+
+{ #category : #icons }
 BrGlamorousVectorIcons class >> largePlay [
 	<script: 'self largePlay inspect'>
 
