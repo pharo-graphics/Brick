@@ -32,12 +32,7 @@ BrTextEditorEditableMode >> initialize [
 				delete
 		].
 	
-		BlKeyCombination return -> [ :aTextEditor |
-			aTextEditor inserter
-				inputFilter: aTextEditor inputFilter;
-				atCursor;
-				lineEndingWithWhitespace;
-				insert ].
+		self returnKeyAndAction.
 			
 		BlKeyCombination tab -> [ :aTextEditor |
 			aTextEditor selection isEmpty
@@ -152,4 +147,14 @@ BrTextEditorEditableMode >> installOnEditor: aTextEditor [
 { #category : #testing }
 BrTextEditorEditableMode >> isEditable [
 	^ true
+]
+
+{ #category : #defaults }
+BrTextEditorEditableMode >> returnKeyAndAction [
+	^ BlKeyCombination return -> [ :aTextEditor |
+			aTextEditor inserter
+				inputFilter: aTextEditor inputFilter;
+				atCursor;
+				lineEndingWithWhitespace;
+				insert ].
 ]
