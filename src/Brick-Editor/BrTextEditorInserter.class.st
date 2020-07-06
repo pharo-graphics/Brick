@@ -87,6 +87,16 @@ BrTextEditorInserter >> computeSelection: aSelection afterInserted: aText at: an
 		to: aSelection to + aText size
 ]
 
+{ #category : #'api - configuration' }
+BrTextEditorInserter >> crLineEndingWithWhitespace [
+	"Insert a Cr line ending
+	additionally adding a whitespace from the previous line according to a cursor"
+
+	self text: (self cursor isEmpty
+		ifTrue: [ String cr ]
+		ifFalse: [ String cr, (self findWhitespaceOfLineBefore: self cursor first position) ])
+]
+
 { #category : #private }
 BrTextEditorInserter >> deleteSelectedText [
 	| aDeleter newInsertionIndices |

@@ -89,6 +89,11 @@ BrTextEditor >> beEditable [
 ]
 
 { #category : #'api - mode' }
+BrTextEditor >> beEditableCode [
+	self editorMode: BrTextEditorEditableCodeMode new
+]
+
+{ #category : #'api - mode' }
 BrTextEditor >> beReadOnlyWithSelection [
 	self editorMode: BrTextEditorReadonlyWithSelectionMode new
 ]
