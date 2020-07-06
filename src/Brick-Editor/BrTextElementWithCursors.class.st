@@ -190,13 +190,24 @@ BrTextElementWithCursors >> segmentPiece [
 
 { #category : #accessing }
 BrTextElementWithCursors >> segmentPiece: aSegmentPiece [
-	
+	| isTextSame |
 	segmentPiece := aSegmentPiece.
-	(self text equals: aSegmentPiece text)
+	
+	self telemetry
+		timeSync: [ 'Compare text `{1}` with `{2}`' format: { self text . aSegmentPiece text } ]
+		during: [ isTextSame := self text equals: aSegmentPiece text ].
+
+	isTextSame
 		ifFalse: [
-			"('text changed {1}' format: { aSegmentPiece text }) traceCr."
-			self text: (aSegmentPiece text copyFrom: 1 to: aSegmentPiece text size) ]
-		ifTrue: [ "('text same {1}' format: { aSegmentPiece text }) traceCr. " ]
+			| aTextCopy |
+			
+			self telemetry
+				timeSync: [ 'Copy text `{1}`' format: { aSegmentPiece text } ]
+				during: [ aTextCopy := aSegmentPiece text copyFrom: 1 to: aSegmentPiece text size ].
+
+			self telemetry
+				timeSync: [ 'Set text `{1}`' format: { aTextCopy } ]
+				during: [ self text: aTextCopy ] ]
 ]
 
 { #category : #'cursor - management' }

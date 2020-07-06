@@ -8,6 +8,11 @@ Class {
 	#category : #'Brick-Editor-Model - Operators'
 }
 
+{ #category : #'private - asserting' }
+BrTextEditorOperator >> assertUIProcess [
+	self editor assertUIProcess
+]
+
 { #category : #accessing }
 BrTextEditorOperator >> cursor [
 	^ self cursors

@@ -15,6 +15,7 @@ Class {
 { #category : #'api - configuration' }
 BrTextEditorSelecter >> all [
 	"Select the whole text"
+	self assertUIProcess.
 	
 	self
 		from: 0
@@ -36,6 +37,8 @@ BrTextEditorSelecter >> characterType: aCharacter [
 
 { #category : #'api - configuration' }
 BrTextEditorSelecter >> from: aFromIndex to: aToIndex [
+	self assertUIProcess.
+
 	aFromIndex = aToIndex
 		ifTrue: [ ^ self ].
 
@@ -62,6 +65,7 @@ BrTextEditorSelecter >> isWordChar: aCharacter [
 BrTextEditorSelecter >> moveOneDown [
 	"Select and move a cursor one line down"
 	| theNewCursorPositions theCursorsOnTheLeft theCursorsOnTheRight theCursorsOutside |
+	self assertUIProcess.
 
 	theNewCursorPositions := (self cursors collect: [ :aCursor |
 		aCursor -> (self
@@ -70,20 +74,18 @@ BrTextEditorSelecter >> moveOneDown [
 
 	theCursorsOnTheLeft := self cursors
 		select: [ :aCursor | self selection anySatisfy: [ :aSelection | aCursor position = aSelection from ] ].
-		
+
 	theCursorsOnTheRight := self cursors
 		select: [ :aCursor | self selection anySatisfy: [ :aSelection | aCursor position = aSelection to ] ].
-	
+
 	theCursorsOutside := self cursors
 		select: [ :aCursor | (self selection anySatisfy: [ :aSelection | aCursor position between: aSelection from and: aSelection to ]) not ].
 
-	"the cursor is on the left side of the selection, we should deselect left most character"
 	theCursorsOnTheLeft do: [ :aCursor |
 		self editor deselecter
 			from: aCursor position to: (theNewCursorPositions at: aCursor);
 			deselect ].
-	
-	"the cursor is on the right side of the selection or is not inside any selection, we should extend it by one character to the right"
+
 	theCursorsOnTheRight, theCursorsOutside do: [ :aCursor | 
 		self from: aCursor position to: ((theNewCursorPositions at: aCursor) min: self text size) ].
 ]
@@ -92,6 +94,7 @@ BrTextEditorSelecter >> moveOneDown [
 BrTextEditorSelecter >> moveOneToLeft [
 	"Select and move a cursor one character to the left"
 	| theCursorsOnTheLeft theCursorsOnTheRight theCursorsOutside |
+	self assertUIProcess.
 	
 	theCursorsOnTheLeft := self cursors
 		select: [ :aCursor | self selection anySatisfy: [ :aSelection | aCursor position = aSelection from ] ].
@@ -117,6 +120,7 @@ BrTextEditorSelecter >> moveOneToLeft [
 BrTextEditorSelecter >> moveOneToRight [
 	"Select and move a cursor one character to the right"
 	| theCursorsOnTheLeft theCursorsOnTheRight theCursorsOutside |
+	self assertUIProcess.
 	
 	theCursorsOnTheLeft := self cursors
 		select: [ :aCursor | self selection anySatisfy: [ :aSelection | aCursor position = aSelection from ] ].
@@ -142,6 +146,7 @@ BrTextEditorSelecter >> moveOneToRight [
 BrTextEditorSelecter >> moveOneUp [
 	"Select and move a cursor one line up"
 	| theNewCursorPositions theCursorsOnTheLeft theCursorsOnTheRight theCursorsOutside |
+	self assertUIProcess.
 
 	theNewCursorPositions := (self cursors collect: [ :aCursor |
 		aCursor -> (self
@@ -208,6 +213,7 @@ BrTextEditorSelecter >> privateSelect: aFromTextIndex to: aToTextIndex [
 { #category : #'api - processing' }
 BrTextEditorSelecter >> select [
 	| toBeSelected |
+	self assertUIProcess.
 
 	selection isEmpty
 		ifTrue: [ ^ self ].
@@ -251,6 +257,7 @@ BrTextEditorSelecter >> withoutCursorUpdate [
 BrTextEditorSelecter >> wordAt: aTextIndex [
 	"Select a word or a whitespace at a given text index"
 	| aTextIterator hasWordToTheLeft hasWordToTheRight shouldBeWord aWordStart aWordEnd aDesiredType |
+	self assertUIProcess.
 	
 	aTextIterator := self text iterator skip: aTextIndex.
 	
