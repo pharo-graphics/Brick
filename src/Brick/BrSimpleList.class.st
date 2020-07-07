@@ -12,8 +12,50 @@ BrSimpleList >> initialize [
 ]
 
 { #category : #'api - scripting' }
-BrSimpleList >> stencil: aBrListRowStencilBuilder [
-	"A stencil builder can be a valuable of the form [ :aRowValue :anIndex :aListWidget | ]"
+BrSimpleList >> itemDataBinder: aBrListItemDataBinderOrBlock [
+	"An item type stencil can be a #value-able of the form [ :anItemElement anItemObject :anItemIndex | ]"
 
-	self look itemStencilBuilder: aBrListRowStencilBuilder
+	self viewModel itemDataBinder: aBrListItemDataBinderOrBlock
+]
+
+{ #category : #'api - scripting' }
+BrSimpleList >> itemStencil: aBrListItemElementStencilBuilderOrBlock [
+	"An item element stencil can be a #value-able of the form [ :anItemType :aListWidget | ]"
+
+	self viewModel itemElementStencil: aBrListItemElementStencilBuilderOrBlock
+]
+
+{ #category : #'api - scripting' }
+BrSimpleList >> itemType: aBrListItemTypeStencilBuilderOrBlock [
+	"An item type stencil can be a #value-able of the form [ :anItemTypeFactory :anItemObject :anItemIndex | ].
+	anItemTypeFactory is a ${class:BrListItemType class}$ "
+	
+	self viewModel itemTypeStencil: aBrListItemTypeStencilBuilderOrBlock
+]
+
+{ #category : #'api - scripting' }
+BrSimpleList >> stencil: aBrListRowStencilBuilder [
+	"I am a part of the `toy` api. It is inefficient to use me because I always create a new
+	element for each new row which may be expensive. It is much better to split it in two (or three)
+	steps:
+		- item element creation using #itemStencil: (the items are reused when they go out of the viewport)
+		- data binding using #itemDataBinder: (to update just a part of the reused item element)
+	A stencil builder can be a value-able of the form [ :aRowValue :anIndex :aListWidget | ]"
+	| listRowStencil |
+	
+	self viewModel itemTypeStencil: (BrListItemTypeStencilBuilder new).
+	
+	listRowStencil := aBrListRowStencilBuilder asStencilBuilder: BrListRowStencilBuilder.
+	self viewModel itemDataBinder: [ :anItemElement :anItemObject :anItemPosition |
+		| aRowStencil |
+
+		aRowStencil := listRowStencil
+			listElement: self;
+			rowValue: anItemObject;
+			rowIndex: anItemPosition;
+			build.
+		
+		listRowStencil reset.
+		
+		aRowStencil ]
 ]

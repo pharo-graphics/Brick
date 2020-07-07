@@ -2,7 +2,10 @@ Class {
 	#name : #BrColumnedListItemHolder,
 	#superclass : #BrListItemHolder,
 	#instVars : [
-		'columns'
+		'columns',
+		'rowStencilBuilder',
+		'listElement',
+		'rowValue'
 	],
 	#category : #'Brick-List - Support'
 }
@@ -21,7 +24,41 @@ BrColumnedListItemHolder >> columns: aCollectionOfBrListColumn [
 BrColumnedListItemHolder >> initialize [
 	super initialize.
 	
+	"must be set by the data source"
+	rowStencilBuilder := nil.
+
 	columns := #()
+]
+
+{ #category : #accessing }
+BrColumnedListItemHolder >> listElement [
+	^ listElement
+]
+
+{ #category : #accessing }
+BrColumnedListItemHolder >> listElement: aListWidgetElement [
+	self 
+		assert: [ aListWidgetElement isNotNil ]
+		description: [ 'List must not be nil' ].
+
+	listElement := aListWidgetElement
+]
+
+{ #category : #accessing }
+BrColumnedListItemHolder >> rowStencilBuilder [
+	<return: #BrListRowStencilBuilder>
+
+	^ rowStencilBuilder
+]
+
+{ #category : #accessing }
+BrColumnedListItemHolder >> rowStencilBuilder: aBrListRowStencil [
+	rowStencilBuilder := aBrListRowStencil
+]
+
+{ #category : #accessing }
+BrColumnedListItemHolder >> rowValue [
+	^ rowValue
 ]
 
 { #category : #'api - binding' }

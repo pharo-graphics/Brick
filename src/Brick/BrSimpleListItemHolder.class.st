@@ -1,12 +1,25 @@
 Class {
 	#name : #BrSimpleListItemHolder,
 	#superclass : #BrListItemHolder,
+	#instVars : [
+		'rowValue'
+	],
 	#category : #'Brick-List - Support'
 }
 
+{ #category : #accessing }
+BrSimpleListItemHolder >> rowValue [
+	^ rowValue
+]
+
+{ #category : #accessing }
+BrSimpleListItemHolder >> rowValue: anObject [
+	rowValue := anObject
+]
+
 { #category : #'api - binding' }
 BrSimpleListItemHolder >> rowValue: anObject at: aRowIndex [
-	| aStencil |
+	"| aStencil |
 	
 	rowValue := anObject.
 	
@@ -17,5 +30,5 @@ BrSimpleListItemHolder >> rowValue: anObject at: aRowIndex [
 		build.
 
 	itemElement := aStencil asElement.
-	itemElement beInSeparateCompositionLayer
+	itemElement beInSeparateCompositionLayer"
 ]

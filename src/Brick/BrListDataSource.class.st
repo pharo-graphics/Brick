@@ -4,8 +4,10 @@ Class {
 	#instVars : [
 		'rowValues',
 		'selection',
-		'rowStencil',
-		'listElement'
+		'listElement',
+		'itemTypeStencil',
+		'itemElementStencil',
+		'itemDataBinder'
 	],
 	#category : #'Brick-List - Support'
 }
@@ -15,13 +17,30 @@ BrListDataSource >> initialize [
 	super initialize.
 	
 	rowValues := #().
-	rowStencil := [ :anObject :anElement | anElement ].
 	selection := BlCompositeSelection new
 ]
 
 { #category : #accessing }
 BrListDataSource >> itemCount [
 	^ self rowValues size
+]
+
+{ #category : #'accessing - stencils' }
+BrListDataSource >> itemDataBinder: aBrListItemDataBinderBuilder [
+	itemDataBinder := aBrListItemDataBinderBuilder.
+	self notifyChanged
+]
+
+{ #category : #'accessing - stencils' }
+BrListDataSource >> itemElementStencil: aBrListItemElementStencilBuilder [
+	itemElementStencil := aBrListItemElementStencilBuilder.
+	self notifyChanged
+]
+
+{ #category : #'accessing - stencils' }
+BrListDataSource >> itemTypeStencil: aBrListItemTypeStencilBuilder [
+	itemTypeStencil := aBrListItemTypeStencilBuilder.
+	self notifyChanged
 ]
 
 { #category : #accessing }
@@ -32,19 +51,6 @@ BrListDataSource >> listElement [
 { #category : #accessing }
 BrListDataSource >> listElement: anObject [
 	listElement := anObject
-]
-
-{ #category : #'instance creation' }
-BrListDataSource >> onBindHolder: anElementHolder at: aPosition [
-	anElementHolder rowValue: (self rowValues at: aPosition) at: aPosition.
-
-	(self selection containsIndex: aPosition)
-		ifTrue: [
-			anElementHolder itemElement effect: (BlOverlayAboveEffect new paint: (Color gray alpha: 0.15)).
-			anElementHolder itemElement dispatchEvent: (BrSelectedWish selected: true) ]
-		ifFalse: [
-			anElementHolder itemElement effect: BlNullEffect new.
-			anElementHolder itemElement dispatchEvent: (BrSelectedWish selected: false) ]
 ]
 
 { #category : #hooks }
@@ -73,13 +79,6 @@ BrListDataSource >> onElementDetached: anElementHolder [
 		self listElement dispatchEvent: (BrListItemElementDetached new
 			rowIndex: anItemPosition;
 			rowValue: anItemValue) ])
-]
-
-{ #category : #accessing }
-BrListDataSource >> rowStencilBuilder: aStencil [
-
-	rowStencil := aStencil.
-	self notifyChanged
 ]
 
 { #category : #accessing }

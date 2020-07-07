@@ -6,7 +6,7 @@ Class {
 		'rowValue',
 		'listElement'
 	],
-	#category : 'Brick-List - Stencil'
+	#category : #'Brick-List - Stencil'
 }
 
 { #category : #accessing }
@@ -26,6 +26,13 @@ BrListRowStencilBuilder >> paramsOn: aStencilExecutor [
 		push: self rowValue;
 		push: self rowIndex;
 		push: self listElement
+]
+
+{ #category : #initialization }
+BrListRowStencilBuilder >> reset [
+	listElement := nil.
+	rowValue := nil.
+	rowIndex := nil
 ]
 
 { #category : #accessing }
