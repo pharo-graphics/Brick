@@ -1,3 +1,8 @@
+"
+I am a simple list that displays a large amount of items in a vertical orientation.
+
+
+"
 Class {
 	#name : #BrSimpleList,
 	#superclass : #BrList,
@@ -42,9 +47,9 @@ BrSimpleList >> stencil: aBrListRowStencilBuilder [
 		- data binding using #itemDataBinder: (to update just a part of the reused item element)
 	A stencil builder can be a value-able of the form [ :aRowValue :anIndex :aListWidget | ]"
 	| listRowStencil |
-	
+
 	self viewModel itemTypeStencil: (BrListItemTypeStencilBuilder new).
-	
+
 	listRowStencil := aBrListRowStencilBuilder asStencilBuilder: BrListRowStencilBuilder.
 	self viewModel itemDataBinder: [ :anItemElement :anItemObject :anItemPosition |
 		| aRowStencil |

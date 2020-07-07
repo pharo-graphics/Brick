@@ -10,15 +10,18 @@ BrSimpleListExamples >> exampleWithSelection [
 	| aList |
 	aList := BrSimpleList new.
 	aList
-		stencil: [ :each :index | 
+		itemStencil: [
 			BlTextElement new
-				text: each key asRopedText;
 				constraintsDo: [ :c | c horizontal matchParent ];
 				padding: (BlInsets all: 5);
 				when: BlClickEvent
 					do: [ :anEvent | 
-					anEvent consumed: true.
-					aList selectOne: index ] ];
+						anEvent consumed: true.
+						aList selectOne: (anEvent currentTarget userData at: #rowIndex) ] ];
+		itemDataBinder: [ :eachElement :eachItem :eachIndex | 
+			eachElement text: eachItem key asRopedText.
+			eachElement userData at: #rowIndex put: eachIndex.
+			eachElement ];
 		items: Smalltalk ui icons icons associations;
 		when: BrSelectionChanged
 			do: [ :anEvent | 
