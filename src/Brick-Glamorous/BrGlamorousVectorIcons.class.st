@@ -390,6 +390,18 @@ BrGlamorousVectorIcons class >> remove [
 ]
 
 { #category : #icons }
+BrGlamorousVectorIcons class >> repair [
+	<script: 'self repair inspect'>
+
+	^ [ (BlElement new
+		size: 64@64;
+		geometry: (BlSvgPath new
+			svg: 'M47.7048 33.8576L47.5933 34.1583L47.8201 34.385L60.319 46.884L46.884 60.319L34.385 47.8201L34.1583 47.5933L33.8576 47.7048C25.5105 50.8002 15.7596 48.9936 9.05377 42.2878C3.12518 36.3592 1.02589 28.0508 2.75806 20.4357L16.8319 34.5096L17.1855 34.8632L17.539 34.5096L34.5096 17.539L34.8632 17.1855L34.5096 16.8319L20.4357 2.75806C28.0508 1.02589 36.3592 3.12518 42.2878 9.05377C48.9936 15.7596 50.8002 25.5105 47.7048 33.8576Z'
+			viewbox: (0@0 extent: 64@64));
+		background: Color black) asScalableElement size: 16@16 ] asStencil
+]
+
+{ #category : #icons }
 BrGlamorousVectorIcons class >> rightSide [
 	<script: 'self rightSide inspect'>
 
