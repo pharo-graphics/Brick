@@ -1,21 +1,20 @@
 Class {
 	#name : #BrSimpleTreeItemHolder,
 	#superclass : #BrTreeItemHolder,
+	#instVars : [
+		'nodeElement'
+	],
 	#category : #'Brick-Tree - Support'
 }
 
-{ #category : #'api - binding' }
-BrSimpleTreeItemHolder >> rowValue: aTreeNode at: aRowIndex [
-	| aStencil |
+{ #category : #accessing }
+BrSimpleTreeItemHolder >> nodeElement [
+	<return: #BlElement>
 
-	rowValue := aTreeNode.
+	^ nodeElement
+]
 
-	aStencil := self rowStencilBuilder
-		treeElement: treeElement;
-		treeNode: aTreeNode;
-		rowIndex: aRowIndex;
-		build.
-
-	itemElement := aStencil asElement.
-	itemElement beInSeparateCompositionLayer
+{ #category : #accessing }
+BrSimpleTreeItemHolder >> nodeElement: anElement [
+	nodeElement := anElement
 ]

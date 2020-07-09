@@ -2,53 +2,26 @@ Class {
 	#name : #BrTreeItemHolder,
 	#superclass : #BlInfiniteHolder,
 	#instVars : [
-		'rowStencilBuilder',
 		'rowValue',
-		'treeElement'
+		'rowNode'
 	],
 	#category : #'Brick-Tree - Support'
 }
 
-{ #category : #initialization }
-BrTreeItemHolder >> initialize [
-	super initialize.
-	
-	"must be set by the data source"
-	rowStencilBuilder := nil.
+{ #category : #accessing }
+BrTreeItemHolder >> itemElement: anElement [
+	itemElement := anElement.
+	itemElement beInSeparateCompositionLayer
 ]
 
 { #category : #accessing }
-BrTreeItemHolder >> rowStencilBuilder [
-	<return: #BrTreeRowStencilBuilder>
+BrTreeItemHolder >> rowNode [
+	<return: #BrTreeNode>
 
-	^ rowStencilBuilder
+	^ rowNode
 ]
 
 { #category : #accessing }
-BrTreeItemHolder >> rowStencilBuilder: aBrTreeRowStencilBuilder [
-	rowStencilBuilder := aBrTreeRowStencilBuilder
-]
-
-{ #category : #accessing }
-BrTreeItemHolder >> rowValue [
-	^ rowValue
-]
-
-{ #category : #'api - binding' }
-BrTreeItemHolder >> rowValue: aTreeNode at: aRowIndex [
-	self subclassResponsibility
-]
-
-{ #category : #accessing }
-BrTreeItemHolder >> treeElement [
-	^ treeElement
-]
-
-{ #category : #accessing }
-BrTreeItemHolder >> treeElement: aTreeWidgetElement [
-	self 
-		assert: [ aTreeWidgetElement isNotNil ]
-		description: [ 'Tree must not be nil' ].
-
-	treeElement := aTreeWidgetElement
+BrTreeItemHolder >> rowNode: aBrTreeNode [
+	rowNode := aBrTreeNode
 ]

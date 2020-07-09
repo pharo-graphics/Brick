@@ -9,21 +9,23 @@ BrColumnedTreeLook >> initialize [
 	super initialize.
 
 	treeElement dataSource: BrColumnedTreeDataSource new.
-	self rowStencilBuilder: BrColumnedTreeRowStencilBuilder new
+	treeElement dataSource
+		rowElementStencil: BrColumnedTreeRowElementStencilBuilder new;
+		rowDataBinder: BrDefaultTreeRowDataBinder new
 ]
 
 { #category : #initialization }
 BrColumnedTreeLook >> initializeListeners [
 	super initializeListeners.
 
-	self when: BrColumnsChanged do: [ :anEvent | self onColumnsChanged: anEvent columns ]
+	self when: BrColumnsChanged do: [ :anEvent | self onColumnsChanged: anEvent columns ].
 ]
 
 { #category : #initialization }
 BrColumnedTreeLook >> initializeRequests [
 	super initializeRequests.
 
-	self request: BrColumnsRequest new
+	self request: BrColumnsRequest new.
 ]
 
 { #category : #hooks }

@@ -15,6 +15,11 @@ BrColumnedTree >> column [
 ]
 
 { #category : #initialization }
+BrColumnedTree >> defaultListModel [
+	^ BrColumnedTreeModel new
+]
+
+{ #category : #initialization }
 BrColumnedTree >> initialize [
 	super initialize.
 
@@ -24,8 +29,9 @@ BrColumnedTree >> initialize [
 ]
 
 { #category : #'api - scripting' }
-BrColumnedTree >> rowStencil: aRowStencil [
-	"A row stencil builder can be a valuable of the form [ :aTreeNode :anIndex :aTreeWidget | ]"
-
-	self look rowStencilBuilder: aRowStencil
+BrColumnedTree >> nodeType: aBrTreeNodeTypeStencilBuilderOrBlock [
+	"An item type stencil can be a #value-able of the form [ :anItemTypeFactory :aTreeNode :aNodeIndex | ].
+	anItemTypeFactory is a ${class:BrListItemType class}$ "
+	
+	self viewModel nodeTypeStencil: aBrTreeNodeTypeStencilBuilderOrBlock
 ]

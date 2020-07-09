@@ -16,6 +16,11 @@ BrTree >> collapseAt: aLevelIndex [
 	self viewModel collapseAt: aLevelIndex
 ]
 
+{ #category : #initialization }
+BrTree >> defaultListModel [
+	^ BrAbstractTreeModel new
+]
+
 { #category : #'api - tree' }
 BrTree >> expandAll [
 	self viewModel expandAll
@@ -30,7 +35,7 @@ BrTree >> expandUpTo: aLevelIndex [
 BrTree >> initialize [
 	super initialize.
 
-	self viewModel: (BrTreeModel new
+	self viewModel: (self defaultListModel
 		add: (selectionModel := BrSelectionModel new);
 		add: (BrInteractiveModel withAll: {
 			BrLayoutHorizontalResizerModel matchParent.

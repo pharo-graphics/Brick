@@ -3,18 +3,26 @@ Class {
 	#superclass : #BlInfiniteDataSource,
 	#instVars : [
 		'rootNode',
-		'rowStencil',
 		'treeElement',
-		'selection'
+		'selection',
+		'nodeTypeStencil',
+		'clickToSelectHandler'
 	],
 	#category : #'Brick-Tree - Support'
 }
+
+{ #category : #private }
+BrTreeDataSource >> assignRowIndex: aPosition to: anElementHolder [
+	anElementHolder itemElement
+		userData at: #treeRowIndex put: aPosition
+]
 
 { #category : #initialization }
 BrTreeDataSource >> initialize [
 	super initialize.
 
-	selection := BlCompositeSelection new
+	selection := BlCompositeSelection new.
+	clickToSelectHandler := BrTreeClickToSelectHandler new
 ]
 
 { #category : #accessing }
@@ -23,6 +31,28 @@ BrTreeDataSource >> itemCount [
 	<return: #Number>
 
 	^ rootNode size
+]
+
+{ #category : #accessing }
+BrTreeDataSource >> itemTypeAt: anItemPosition [
+	| anItemNode anItemType |
+	
+	anItemNode := rootNode at: anItemPosition.
+
+	anItemType := nodeTypeStencil
+		itemPosition: anItemPosition;
+		itemNode: anItemNode;
+		build.
+
+	nodeTypeStencil reset.
+
+	^ anItemType
+]
+
+{ #category : #'accessing - stencils' }
+BrTreeDataSource >> nodeTypeStencil: aBrTreeNodeTypeStencilBuilder [
+	nodeTypeStencil := aBrTreeNodeTypeStencilBuilder asStencilBuilder: BrTreeNodeTypeStencilBuilder.
+	self notifyChanged
 ]
 
 { #category : #'instance creation' }
@@ -56,12 +86,6 @@ BrTreeDataSource >> rootNode: aTreeNode [
 ]
 
 { #category : #accessing }
-BrTreeDataSource >> rowStencilBuilder: aStencil [
-	rowStencil := aStencil asStencilBuilder: BrTreeRowStencilBuilder.
-	self notifyChanged
-]
-
-{ #category : #accessing }
 BrTreeDataSource >> selection [
 	<return: #BlSelection>
 	
@@ -81,5 +105,6 @@ BrTreeDataSource >> treeElement [
 
 { #category : #accessing }
 BrTreeDataSource >> treeElement: anObject [
-	treeElement := anObject
+	treeElement := anObject.
+	clickToSelectHandler treeWidget: treeElement
 ]

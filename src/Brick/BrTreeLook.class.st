@@ -32,7 +32,8 @@ BrTreeLook >> initializeListeners [
 	super initializeListeners.
 	
 	self when: BrTreeChildrenChanged do: [ :anEvent | self root: anEvent root ].
-	self when: BrSelectionChanged do: [ :anEvent | self onSelectionChanged: anEvent indices ]
+	self when: BrSelectionChanged do: [ :anEvent | self onSelectionChanged: anEvent indices ].
+	self when: BrTreeNodeTypeStencilChangedEvent do: [ :anEvent | self onNodeTypeStencilChanged: anEvent nodeTypeStencil ].
 ]
 
 { #category : #initialization }
@@ -40,7 +41,13 @@ BrTreeLook >> initializeRequests [
 	super initializeRequests.
 	
 	self request: BrTreeChildrenRequest new.
-	self request: BrSelectionRequest new
+	self request: BrSelectionRequest new.
+	self request: BrTreeNodeTypeStencilRequest new.
+]
+
+{ #category : #hooks }
+BrTreeLook >> onNodeTypeStencilChanged: aBrTreeNodeTypeStencilBuilder [
+	treeElement dataSource nodeTypeStencil: aBrTreeNodeTypeStencilBuilder
 ]
 
 { #category : #hooks }
@@ -51,13 +58,4 @@ BrTreeLook >> onSelectionChanged: aCollectionOfIndices [
 { #category : #initialization }
 BrTreeLook >> root: aTreeNode [
 	treeElement dataSource rootNode: aTreeNode
-]
-
-{ #category : #initialization }
-BrTreeLook >> rowStencilBuilder: aStencilBuilder [
-	| aRowStencilBuilder |
-	"aStencilBuilder is expected to be a subclass of BrTreeRowStencilBuilder or a valuable"
-	aRowStencilBuilder := aStencilBuilder asStencilBuilder: BrTreeRowStencilBuilder.
-
-	treeElement dataSource rowStencilBuilder: aRowStencilBuilder
 ]
