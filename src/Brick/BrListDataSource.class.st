@@ -4,20 +4,27 @@ Class {
 	#instVars : [
 		'rowValues',
 		'selection',
-		'listElement',
 		'itemTypeStencil',
 		'itemElementStencil',
-		'itemDataBinder'
+		'clickToSelectHandler',
+		'listWidget'
 	],
 	#category : #'Brick-List - Support'
 }
+
+{ #category : #private }
+BrListDataSource >> assignRowIndex: aPosition to: anElementHolder [
+	anElementHolder itemElement
+		userData at: #listRowIndex put: aPosition
+]
 
 { #category : #initialization }
 BrListDataSource >> initialize [
 	super initialize.
 	
 	rowValues := #().
-	selection := BlCompositeSelection new
+	selection := BlCompositeSelection new.
+	clickToSelectHandler := BrListClickToSelectHandler new
 ]
 
 { #category : #accessing }
@@ -26,15 +33,25 @@ BrListDataSource >> itemCount [
 ]
 
 { #category : #'accessing - stencils' }
-BrListDataSource >> itemDataBinder: aBrListItemDataBinderBuilder [
-	itemDataBinder := aBrListItemDataBinderBuilder.
-	self notifyChanged
-]
-
-{ #category : #'accessing - stencils' }
 BrListDataSource >> itemElementStencil: aBrListItemElementStencilBuilder [
 	itemElementStencil := aBrListItemElementStencilBuilder.
 	self notifyChanged
+]
+
+{ #category : #accessing }
+BrListDataSource >> itemTypeAt: anItemPosition [
+	| anItemObject anItemType |
+
+	anItemObject := self rowValues at: anItemPosition.
+
+	anItemType := itemTypeStencil
+		itemPosition: anItemPosition;
+		itemObject: anItemObject;
+		build.
+
+	itemTypeStencil reset.
+
+	^ anItemType
 ]
 
 { #category : #'accessing - stencils' }
@@ -45,12 +62,13 @@ BrListDataSource >> itemTypeStencil: aBrListItemTypeStencilBuilder [
 
 { #category : #accessing }
 BrListDataSource >> listElement [
-	^ listElement
+	^ listWidget
 ]
 
 { #category : #accessing }
-BrListDataSource >> listElement: anObject [
-	listElement := anObject
+BrListDataSource >> listElement: aBrList [
+	listWidget := aBrList.
+	clickToSelectHandler listWidget: aBrList
 ]
 
 { #category : #hooks }

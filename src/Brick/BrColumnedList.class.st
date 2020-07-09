@@ -11,17 +11,19 @@ Class {
 BrColumnedList >> column [
 	<return: #BrColumn>
 
-	^ columnedModel column
+	^ self viewModel column
+]
+
+{ #category : #initialization }
+BrColumnedList >> defaultListModel [
+	^ BrColumnedListModel new
 ]
 
 { #category : #initialization }
 BrColumnedList >> initialize [
 	super initialize.
 
-	self viewModel add: (columnedModel := BrColumnedModel new).
-
-	self look: BrColumnedListLook new.
-	self rowStencil: BrListClickableRowStencilBuilder new
+	self look: BrColumnedListLook new
 ]
 
 { #category : #'api - scripting' }

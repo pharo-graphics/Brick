@@ -41,7 +41,8 @@ BrColumnedListLook >> initializeListeners [
 	
 	self when: BrListItemsChangedEvent do: [ :anEvent | self onItemsChanged: anEvent items ].
 	self when: BrColumnsChanged do: [ :anEvent | self onColumnsChanged: anEvent columns ].
-	self when: BrSelectionChanged do: [ :anEvent | self onSelectionChanged: anEvent indices ]
+	self when: BrSelectionChanged do: [ :anEvent | self onSelectionChanged: anEvent indices ].
+	self when: BrListItemTypeStencilChangedEvent do: [ :anEvent | self onItemTypeStencilChanged: anEvent itemTypeStencil ].
 ]
 
 { #category : #initialization }
@@ -50,12 +51,18 @@ BrColumnedListLook >> initializeRequests [
 	
 	self request: BrListItemsRequest new.
 	self request: BrColumnsRequest new.
-	self request: BrSelectionRequest new
+	self request: BrSelectionRequest new.
+	self request: BrListItemTypeStencilRequest new.
 ]
 
 { #category : #hooks }
 BrColumnedListLook >> onColumnsChanged: aCollectionOfBrListColumns [
 	listElement dataSource columns: aCollectionOfBrListColumns
+]
+
+{ #category : #hooks }
+BrColumnedListLook >> onItemTypeStencilChanged: aBrListItemTypeStencilBuilder [
+	listElement dataSource itemTypeStencil: aBrListItemTypeStencilBuilder
 ]
 
 { #category : #hooks }

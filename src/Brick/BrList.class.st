@@ -6,6 +6,11 @@ Class {
 	#category : #'Brick-List - UI'
 }
 
+{ #category : #initialization }
+BrList >> defaultListModel [
+	^ BrAbstractListModel new
+]
+
 { #category : #'api - scripting' }
 BrList >> display: aCollectionOfValues [
 	self
@@ -21,7 +26,7 @@ BrList >> display: aCollectionOfValues [
 BrList >> initialize [
 	super initialize.
 	
-	self viewModel: (BrListModel new
+	self viewModel: (self defaultListModel
 		add: (selectionModel := BrSelectionModel new);
 		add: (BrInteractiveModel withAll: {
 			BrLayoutHorizontalResizerModel matchParent.

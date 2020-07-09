@@ -10,6 +10,11 @@ Class {
 }
 
 { #category : #initialization }
+BrSimpleList >> defaultListModel [
+	^ BrSimpleListModel new
+]
+
+{ #category : #initialization }
 BrSimpleList >> initialize [
 	super initialize.
 

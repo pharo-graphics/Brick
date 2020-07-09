@@ -1,23 +1,16 @@
 Class {
 	#name : #BrSimpleListDataSource,
 	#superclass : #BrListDataSource,
+	#instVars : [
+		'itemDataBinder'
+	],
 	#category : #'Brick-List - Support'
 }
 
-{ #category : #accessing }
-BrSimpleListDataSource >> itemTypeAt: anItemPosition [
-	| anItemObject anItemType |
-	
-	anItemObject := self rowValues at: anItemPosition.
-
-	anItemType := itemTypeStencil
-		itemPosition: anItemPosition;
-		itemObject: anItemObject;
-		build.
-
-	itemTypeStencil reset.
-
-	^ anItemType
+{ #category : #'accessing - stencils' }
+BrSimpleListDataSource >> itemDataBinder: aBrListItemDataBinderBuilder [
+	itemDataBinder := aBrListItemDataBinderBuilder.
+	self notifyChanged
 ]
 
 { #category : #'instance creation' }
@@ -31,12 +24,12 @@ BrSimpleListDataSource >> onBindHolder: anElementHolder at: aPosition [
 		itemObject: anItemObject;
 		itemPosition: aPosition;
 		asElement.
-
-	itemDataBinder reset.
 	
 	anElementHolder
 		itemElement: anItemElementWithBindedData;
 		rowValue: anItemObject.
+
+	self assignRowIndex: aPosition to: anElementHolder.
 
 	(self selection containsIndex: aPosition)
 		ifTrue: [
@@ -53,10 +46,9 @@ BrSimpleListDataSource >> onCreateHolder: anInfiniteElement type: anItemType [
 	
 	anItemElement := itemElementStencil
 		itemType: anItemType;
-		listElement: self listElement;
 		asElement.
 
-	itemElementStencil reset.
+	anItemElement addEventHandler: clickToSelectHandler.
 
 	^ BrSimpleListItemHolder new
 		itemElement: anItemElement

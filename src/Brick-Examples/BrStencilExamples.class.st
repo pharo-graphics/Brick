@@ -41,16 +41,6 @@ BrStencilExamples >> createMaterialSimpleListUsingBlock [
 	^ aList
 ]
 
-{ #category : #'examples - list' }
-BrStencilExamples >> createMaterialSimpleListUsingStencil [
-	<gtExample>
-	| aStencil aList |
-	aStencil := self materialSimpleListStencil.
-	aList := aStencil create.
-	aList items: (1 to: 100).
-	^ aList
-]
-
 { #category : #'examples - colored element stencil' }
 BrStencilExamples >> customizedColoredElementUsingStencil [
 	<gtExample>
@@ -124,11 +114,4 @@ BrStencilExamples >> elementToStencilBuilder [
 	self assert: (aStencilBuilder isKindOf: BrStencilBuilder).
 	self assert: aSecondElement == anElement.
 	^ aStencilBuilder
-]
-
-{ #category : #'examples - instance creation' }
-BrStencilExamples >> materialSimpleListStencil [
-	<gtExample>
-	
-	^ BrMaterialSimpleListStencil new
 ]

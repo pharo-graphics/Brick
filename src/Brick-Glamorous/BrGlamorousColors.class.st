@@ -99,11 +99,11 @@ BrGlamorousColors class >> defaultHeaderTextColor [
 
 { #category : #'list and tree items - background' }
 BrGlamorousColors class >> defaultListItemColor [
-	^ self deselectedtListItemColor
+	^ self deselectedListItemColor
 ]
 
 { #category : #'list and tree items - background' }
-BrGlamorousColors class >> deselectedtListItemColor [
+BrGlamorousColors class >> deselectedListItemColor [
 	^ DeselectedListItemBackgroundColor
 ]
 

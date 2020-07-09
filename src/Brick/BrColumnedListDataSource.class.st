@@ -2,8 +2,7 @@ Class {
 	#name : #BrColumnedListDataSource,
 	#superclass : #BrListDataSource,
 	#instVars : [
-		'columns',
-		'rowStencil'
+		'columns'
 	],
 	#category : #'Brick-List - Support'
 }
@@ -25,13 +24,32 @@ BrColumnedListDataSource >> columns: aCollectionOfBrListColumn [
 BrColumnedListDataSource >> initialize [
 	super initialize.
 	
-	rowStencil := [ :anObject :anElement | anElement ].
+	itemElementStencil := BrColumnedListRowElementStencilBuilder new.
 	columns := #()
 ]
 
 { #category : #'instance creation' }
 BrColumnedListDataSource >> onBindHolder: anElementHolder at: aPosition [
-	anElementHolder rowValue: (self rowValues at: aPosition) at: aPosition.
+	| anItemObject eachColumnIndex |
+
+	anItemObject := self rowValues at: aPosition.
+	
+	eachColumnIndex := 0.
+	anElementHolder columns
+		with: anElementHolder columnElements
+		do: [ :eachColumn :eachCellElement |
+			eachColumnIndex := eachColumnIndex + 1.
+			
+			eachColumn dataBinder
+				cellElement: eachCellElement;
+				rowObject: anItemObject;
+				rowIndex: aPosition;
+				rowHolder: anElementHolder;
+				columnIndex: eachColumnIndex;
+				build ].
+	
+	anElementHolder rowValue: anItemObject.	
+	self assignRowIndex: aPosition to: anElementHolder.
 
 	(self selection containsIndex: aPosition)
 		ifTrue: [
@@ -44,15 +62,34 @@ BrColumnedListDataSource >> onBindHolder: anElementHolder at: aPosition [
 
 { #category : #'instance creation' }
 BrColumnedListDataSource >> onCreateHolder: anInfiniteElement type: anItemType [
+	| aRowElement theColumnElements |
+
+	aRowElement := itemElementStencil
+		itemType: anItemType;
+		asElement.
+
+	theColumnElements := self columns withIndexCollect: [ :eachColumn :eachIndex |
+		| eachColumnElement |
+		
+		eachColumnElement := eachColumn cellStencil
+			itemType: anItemType;
+			column: eachColumn;
+			columnIndex: eachIndex;
+			asElement.
+
+		eachColumn width applyOn: eachColumnElement.
+		
+		eachColumnElement ].
+	
+	aRowElement addChildren: theColumnElements.
+	aRowElement addEventHandler: clickToSelectHandler.
+	
 	^ BrColumnedListItemHolder new
-		listElement: self listElement;
-		rowStencilBuilder: rowStencil;
-		columns: columns
+		itemElement: aRowElement;
+		columns: self columns;
+		columnElements: theColumnElements
 ]
 
 { #category : #'accessing - stencils' }
 BrColumnedListDataSource >> rowStencilBuilder: aStencil [
-
-	rowStencil := aStencil.
-	self notifyChanged
 ]

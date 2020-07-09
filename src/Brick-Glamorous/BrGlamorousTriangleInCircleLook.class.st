@@ -11,27 +11,27 @@ BrGlamorousTriangleInCircleLook >> initialize [
 	self add: (BrSizeAdjustmentLook new
 		huge: [ :aWidget | 
 			aWidget 
-				margin: (BlInsets all: 2);
+				padding: (BlInsets all: 2);
 				transformDo: [ :t | t scaleBy: 1.5 ] ];
 		large: [ :aWidget | 
 			aWidget 
-				margin: (BlInsets all: 2);
+				padding: (BlInsets all: 2);
 				transformDo: [ :t | t scaleBy: 1.25 ] ];
 		default: [ :aWidget | 
 			aWidget 
-				margin: (BlInsets all: 2);
+				padding: (BlInsets all: 2);
 				transformDo: [ :t | t scaleBy: 1 ] ];
 		small: [ :aWidget | 
 			aWidget 
-				margin: (BlInsets all: 1);
+				padding: (BlInsets all: 1);
 				transformDo: [ :t | t scaleBy: 0.91 ] ];
 		tiny: [ :aWidget | 
 			aWidget 
-				margin: (BlInsets all: 1);
+				padding: (BlInsets all: 1);
 				transformDo: [ :t | t scaleBy: 0.83 ] ];
 		mini: [ :aWidget | 
 			aWidget 
-				margin: (BlInsets all: 1);
+				padding: (BlInsets all: 1);
 				transformDo: [ :t | t scaleBy: 0.75 ] ])
 ]
 
@@ -57,7 +57,7 @@ BrGlamorousTriangleInCircleLook >> initializeWidget [
 			with: [ BlLayoutResizer exact: 16.0 ];
 		addChangeProperty: #(widget constraints horizontal resizer)
 			with: [ BlLayoutResizer exact: 16.0 ];
-		default: [ :aWidget | aWidget background: BrGlamorousColors deselectedtListItemColor ];
+		default: [ :aWidget | aWidget background: BrGlamorousColors deselectedListItemColor ];
 		hovered: [ :aWidget | aWidget background: BrGlamorousColors hoveredListItemColor ];
 		pressed: [ :aWidget | aWidget background: BrGlamorousColors pressedListItemColor ]
 ]

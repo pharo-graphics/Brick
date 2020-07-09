@@ -1,3 +1,6 @@
+"
+I define the api of an object that should bind the actual item data to the reused item elements
+"
 Class {
 	#name : #BrListItemDataBinder,
 	#superclass : #BrStencilBuilder,

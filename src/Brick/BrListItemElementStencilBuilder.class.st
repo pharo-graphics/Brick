@@ -1,9 +1,11 @@
+"
+I am responsible for creating an item element for a given item type
+"
 Class {
 	#name : #BrListItemElementStencilBuilder,
 	#superclass : #BrStencilBuilder,
 	#instVars : [
-		'itemType',
-		'listElement'
+		'itemType'
 	],
 	#category : #'Brick-List - Stencil'
 }
@@ -25,25 +27,13 @@ BrListItemElementStencilBuilder >> itemType: anObject [
 	itemType := anObject
 ]
 
-{ #category : #accessing }
-BrListItemElementStencilBuilder >> listElement [
-	^ listElement
-]
-
-{ #category : #accessing }
-BrListItemElementStencilBuilder >> listElement: anObject [
-	listElement := anObject
-]
-
 { #category : #'api - instantiation' }
 BrListItemElementStencilBuilder >> paramsOn: aStencilExecutor [
 	aStencilExecutor
-		push: self itemType;
-		push: self listElement
+		push: self itemType
 ]
 
 { #category : #initialization }
 BrListItemElementStencilBuilder >> reset [
-	itemType := nil.
-	listElement := nil
+	itemType := nil
 ]

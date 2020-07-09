@@ -9,7 +9,7 @@ BrGlamorousListItemLook >> initialize [
 	super initialize.
 
 	self
-			default: [ :aWidget | aWidget background: BrGlamorousColors deselectedtListItemColor ];
+			default: [ :aWidget | aWidget background: BrGlamorousColors deselectedListItemColor ];
 			selected: [ :aWidget | aWidget background: BrGlamorousColors selectedListItemColor ];
 			pressed: [ :aWidget | aWidget background: BrGlamorousColors pressedListItemColor ];
 			focused: [ :aWidget | aWidget border: (BlBorder paint: BrGlamorousColors focusedListItemBorder width: 1) ].

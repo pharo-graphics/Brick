@@ -1,3 +1,6 @@
+"
+I am a stencil builder that defines a general api of the object that should compute the type of an item in the list.
+"
 Class {
 	#name : #BrListItemTypeStencilBuilder,
 	#superclass : #BrStencilBuilder,
@@ -12,7 +15,7 @@ Class {
 BrListItemTypeStencilBuilder >> buildDefault [
 	<return: #BrStencil or: #BlElement>
 
-	^ BlInfiniteItemType invalid
+	^ BrListItemType invalid
 ]
 
 { #category : #accessing }
