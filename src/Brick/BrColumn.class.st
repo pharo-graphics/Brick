@@ -16,6 +16,8 @@ aColumn
 Class {
 	#name : #BrColumn,
 	#superclass : #Object,
+	#traits : 'TBlDebug',
+	#classTraits : 'TBlDebug classTrait',
 	#instVars : [
 		'title',
 		'width',
@@ -35,6 +37,14 @@ BrColumn >> cellStencil [
 { #category : #accessing }
 BrColumn >> cellStencil: aStencil [
 	cellStencil := aStencil asStencilBuilder: BrColumnCellStencilBuilder
+]
+
+{ #category : #accessing }
+BrColumn >> cellWidth: aBrColumnWidth [
+	self 
+		assert: [ aBrColumnWidth isNotNil ]
+		description: [ 'Cell width must be non-nil' ].
+	width := aBrColumnWidth
 ]
 
 { #category : #accessing }
