@@ -55,24 +55,29 @@ BrColumnedListLook >> initializeRequests [
 	self request: BrListItemTypeStencilRequest new.
 ]
 
+{ #category : #accessing }
+BrColumnedListLook >> listElement [
+	^ listElement
+]
+
 { #category : #hooks }
 BrColumnedListLook >> onColumnsChanged: aCollectionOfBrListColumns [
-	listElement dataSource columns: aCollectionOfBrListColumns
+	self listElement dataSource columns: aCollectionOfBrListColumns
 ]
 
 { #category : #hooks }
 BrColumnedListLook >> onItemTypeStencilChanged: aBrListItemTypeStencilBuilder [
-	listElement dataSource itemTypeStencil: aBrListItemTypeStencilBuilder
+	self listElement dataSource itemTypeStencil: aBrListItemTypeStencilBuilder
 ]
 
 { #category : #hooks }
 BrColumnedListLook >> onItemsChanged: aCollectionOfBrWidgetModels [
-	listElement dataSource rowValues: aCollectionOfBrWidgetModels
+	self listElement dataSource rowValues: aCollectionOfBrWidgetModels
 ]
 
 { #category : #hooks }
 BrColumnedListLook >> onSelectionChanged: aCollectionOfIndices [
-	listElement dataSource selection: (BlCompositeSelection fromIndices: aCollectionOfIndices)
+	self listElement dataSource selection: (BlCompositeSelection fromIndices: aCollectionOfIndices)
 ]
 
 { #category : #accessing }
@@ -80,5 +85,5 @@ BrColumnedListLook >> rowStencilBuilder: aStencil [
 	"aStencil is expected to be a subclass of BrListRowStencilBuilder or a valuable"
 	rowStencil := aStencil asStencilBuilder: BrListRowStencilBuilder.
 
-	listElement dataSource rowStencilBuilder: rowStencil
+	self listElement dataSource rowStencilBuilder: rowStencil
 ]
