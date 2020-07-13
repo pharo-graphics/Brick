@@ -23,7 +23,7 @@ BrSimpleList >> initialize [
 
 { #category : #'api - scripting' }
 BrSimpleList >> itemDataBinder: aBrListItemDataBinderOrBlock [
-	"An item type stencil can be a #value-able of the form [ :anItemElement anItemObject :anItemIndex | ]"
+	"An item type stencil can be a #value-able of the form [ :anItemElement :anItemObject :anItemIndex | ]"
 
 	self viewModel itemDataBinder: aBrListItemDataBinderOrBlock
 ]
