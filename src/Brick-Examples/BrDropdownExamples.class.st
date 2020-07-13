@@ -204,7 +204,7 @@ BrDropdownExamples >> compact [
 BrDropdownExamples >> popupList [
 	<gtExample>
 	
-	^ BrSimpleListExamples new exampleWithSelection
+	^ BrSimpleListExamples new allClasses
 		lookDo: [ :aLook | aLook listElement constraintsDo: [ :c | c maxHeight: 200 ] ];
 		layout: BlLinearLayout vertical;
 		padding: (BlInsets all: 5);
@@ -272,7 +272,7 @@ BrDropdownExamples >> suggesterBadgeDropdownList [
 BrDropdownExamples >> toggleButton [
 	<gtExample>
 	^ BrButton new
-		label: 'instance';
+		label: 'Classes';
 		icon:
 			(BlElement new
 				size: 8 @ 8;
