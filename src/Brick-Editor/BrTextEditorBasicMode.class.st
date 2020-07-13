@@ -9,20 +9,32 @@ Class {
 }
 
 { #category : #initialization }
-BrTextEditorBasicMode >> buildInteractions: aCollectionOfAssociations [
-	<return: #Collection of: #BrTextEditorInteraction>
+BrTextEditorBasicMode >> buildEditorShortcuts: aCollectionOfAssociations [
+	<return: #Collection of: #BrTextEditorShortcut>
 
-	^ aCollectionOfAssociations collect: [ :eachInteractionDescritpion |
-		(BrTextEditorInteraction new
-			combination: eachInteractionDescritpion key;
-			action: eachInteractionDescritpion value) ]
+	^ aCollectionOfAssociations collect: [ :eachShortcutDescription |
+		(BrTextEditorShortcut new
+			combination: eachShortcutDescription key;
+			action: eachShortcutDescription value) ]
+]
+
+{ #category : #initialization }
+BrTextEditorBasicMode >> createEventHandlers [
+	^ #()
+]
+
+{ #category : #initialization }
+BrTextEditorBasicMode >> eventHandlers [
+	^ eventHandlers ifNil: [ eventHandlers := self createEventHandlers ]
 ]
 
 { #category : #initialization }
 BrTextEditorBasicMode >> initialize [
 	super initialize.
 	
-	eventHandlers := {	}.
+	"initialized lazily"
+	eventHandlers := nil.
+
 	interactions := {}
 ]
 
@@ -31,15 +43,22 @@ BrTextEditorBasicMode >> installOnEditor: aTextEditor [
 	super installOnEditor: aTextEditor.
 	
 	interactions do: [ :eachInteraction |
-		aTextEditor addInteraction: eachInteraction ]
+		aTextEditor addEditorShortcut: eachInteraction ]
 ]
 
 { #category : #'api - hooks' }
 BrTextEditorBasicMode >> installOnEditorElement: anEditorElement [
 	super installOnEditorElement: anEditorElement.
 
-	eventHandlers do: [ :eachEventHandler |
+	self eventHandlers do: [ :eachEventHandler |
 		anEditorElement addEventHandler: eachEventHandler ]
+]
+
+{ #category : #copying }
+BrTextEditorBasicMode >> postCopy [
+	"they will be initialized lazily later"
+	eventHandlers := nil.
+	interactions := interactions copy
 ]
 
 { #category : #'api - hooks' }
@@ -47,18 +66,18 @@ BrTextEditorBasicMode >> uninstallFromEditor: aTextEditor [
 	super uninstallFromEditor: aTextEditor.
 	
 	interactions do: [ :eachInteraction |
-		aTextEditor removeInteraction: eachInteraction ]
+		aTextEditor removeEditorShortcut: eachInteraction ]
 ]
 
 { #category : #'api - hooks' }
 BrTextEditorBasicMode >> uninstallFromEditorElement: anEditorElement [
 	super uninstallFromEditorElement: anEditorElement.
 
-	eventHandlers do: [ :eachEventHandler |
+	self eventHandlers do: [ :eachEventHandler |
 		anEditorElement removeEventHandler: eachEventHandler ]
 ]
 
 { #category : #initialization }
 BrTextEditorBasicMode >> withInteractions: aCollectionOfDefinitions [
-	interactions := interactions, (self buildInteractions: aCollectionOfDefinitions)
+	interactions := interactions, (self buildEditorShortcuts: aCollectionOfDefinitions)
 ]

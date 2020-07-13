@@ -5,20 +5,22 @@ Class {
 }
 
 { #category : #initialization }
-BrTextEditorReadonlyWithSelectionMode >> initialize [
-	super initialize.
-	
-	eventHandlers := eventHandlers,
-	{
+BrTextEditorReadonlyWithSelectionMode >> createEventHandlers [
+	^ super createEventHandlers, {
 		BrTextEditorMouseDownHandler uniqueInstance.
 		BrTextEditorSelectionHandler new.
 		BrTextEditorCursorIconHandler uniqueInstance.
-	}.
+	}
+]
+
+{ #category : #initialization }
+BrTextEditorReadonlyWithSelectionMode >> initialize [
+	super initialize.
 	
-	interactions := self buildInteractions: { 
-		BlKeyCombination primaryA -> [ :aTextEditor | aTextEditor selecter all select ].
-		BlKeyCombination primaryC -> [ :aTextEditor | aTextEditor copySelected ].
-		BlKeyCombination escape -> [ :aTextEditor | aTextEditor selectNone ]
+	interactions := self buildEditorShortcuts: { 
+		BlKeyCombination primaryA -> [ :aShortcutEvent :aShortcut :aTextEditor | aTextEditor selecter all select ].
+		BlKeyCombination primaryC -> [ :aShortcutEvent :aShortcut :aTextEditor | aTextEditor copySelected ].
+		BlKeyCombination escape -> [ :aShortcutEvent :aShortcut :aTextEditor | aTextEditor selectNone ]
 	}
 ]
 

@@ -139,10 +139,12 @@ BrGlamorousTaggerEditableLook >> newTagElementFor: aTaggerTag [
 				requestRenameTag: aTaggerTag
 				to: aWish text asString
 				from: aWish currentTarget ];
-		whenKey: BlKeyCombination backspace labelDo: [ :anEditor :anEvent |
-			self
-				requestRemoveTag: aTaggerTag
-				from: anEvent currentTarget ]
+		whenKey: BlKeyCombination backspace
+			labelDo: [ :aShortcutEvent :aShortcut :aTextEditor :theOptions |
+				theOptions first
+					requestRemoveTag: theOptions second
+					from: aShortcutEvent currentTarget ]
+			with: { self . aTaggerTag }
 ]
 
 { #category : #private }

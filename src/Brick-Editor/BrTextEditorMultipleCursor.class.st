@@ -7,7 +7,7 @@ Class {
 	#instVars : [
 		'cursors'
 	],
-	#category : 'Brick-Editor-Model - Cursor'
+	#category : #'Brick-Editor-Model - Cursor'
 }
 
 { #category : #comparing }
@@ -54,6 +54,11 @@ BrTextEditorMultipleCursor >> initialize [
 	super initialize.
 
 	cursors := OrderedCollection new
+]
+
+{ #category : #copying }
+BrTextEditorMultipleCursor >> postCopy [
+	cursors := cursors copy
 ]
 
 { #category : #printing }

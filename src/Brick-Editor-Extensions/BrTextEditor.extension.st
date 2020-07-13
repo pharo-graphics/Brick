@@ -22,7 +22,8 @@ BrTextEditor >> gtLiveFor: aView [
 				padding: (BlInsets all: 10);
 				constraintsDo: [ :c | 
 					c horizontal matchParent.
-					c vertical matchParent ] ]
+					c vertical matchParent ];
+				requestFocus ]
 ]
 
 { #category : #'*Brick-Editor-Extensions' }

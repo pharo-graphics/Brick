@@ -86,7 +86,8 @@ BrExpanderLook >> initialize [
 		inherit; "for myself"
 		matchParentToMatchParentIn: [ :aBlock | self resizableElementsDo: aBlock ];
 		exactToMatchParentIn: [ :aBlock | self resizableElementsDo: aBlock ];
-		fitContentToFitContentIn: [ :aBlock | self resizableElementsDo: aBlock ])
+		fitContentToFitContentIn: [ :aBlock | self resizableElementsDo: aBlock ];
+		fitContentLimitedToFitContentLimitedIn: [ :aBlock | self resizableElementsDo: aBlock ])
 ]
 
 { #category : #initialization }

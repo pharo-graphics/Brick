@@ -10,8 +10,8 @@ Class {
 }
 
 { #category : #'api - editor' }
-BrEditor >> addInteraction: aBrTextEditorInteraction [
-	self editor addInteraction: aBrTextEditorInteraction
+BrEditor >> addEditorShortcut: aBrTextEditorInteraction [
+	self editor addEditorShortcut: aBrTextEditorInteraction
 ]
 
 { #category : #'api - editor' }

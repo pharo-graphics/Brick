@@ -293,15 +293,24 @@ BrLayoutResizerLook >> hMatchParentToMatchParentIn: aBlock [
 	self hMatchParent: [ aBlock value: [ :anElement | self makeMatchParentHorizontally: anElement ] ]
 ]
 
-{ #category : #'api - style' }
+{ #category : #'api - inherit' }
 BrLayoutResizerLook >> inherit [
+
 	self
 		when: self state horizontal any
-		style: [ :aWidget | aWidget constraintsDo: [ :c | c horizontal resizer: (self request: BrLayoutHorizontalResizerRequest new oneWay) resizer ] ].
+		style: [ :aWidget |
+			| aResizer |
+			aResizer := (self request: BrLayoutHorizontalResizerRequest new oneWay) resizer.
+			aWidget constraints horizontal resizer = aResizer
+				ifFalse: [ aWidget constraintsDo: [ :c | c horizontal resizer: aResizer ] ] ].
 
 	self
 		when: self state vertical any
-		style: [ :aWidget | aWidget constraintsDo: [ :c | c vertical resizer: (self request: BrLayoutVerticalResizerRequest new oneWay) resizer ] ].
+		style: [ :aWidget |
+			| aResizer |
+			aResizer := (self request: BrLayoutVerticalResizerRequest new oneWay) resizer.
+			aWidget constraints vertical resizer = aResizer
+				ifFalse: [ aWidget constraintsDo: [ :c | c vertical resizer: aResizer ] ] ]
 ]
 
 { #category : #'api - inherit' }

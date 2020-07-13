@@ -20,11 +20,11 @@ Class {
 		'styler',
 		'stylerStrategy',
 		'stylerEventHandler',
-		'interactions',
 		'cursors',
 		'attachedElements',
 		'history',
-		'filter'
+		'filter',
+		'shortcuts'
 	],
 	#classInstVars : [
 		'isDebug'
@@ -49,22 +49,22 @@ BrTextEditor class >> isDebug: aBoolean [
 	isDebug := aBoolean
 ]
 
-{ #category : #'api - interactions' }
-BrTextEditor >> addInteraction: aBrTextEditorInteraction [
+{ #category : #'api - shortcuts' }
+BrTextEditor >> addEditorShortcut: aBrTextEditorShortcut [
 
-	(aBrTextEditorInteraction isKindOf: BrTextEditorInteraction)
-		ifFalse: [ self error: ('Interaction should be an instance of {1} but was {2}' format: { BrTextEditorInteraction . aBrTextEditorInteraction class }) ].
+	(aBrTextEditorShortcut isKindOf: BrTextEditorShortcut)
+		ifFalse: [ self error: ('Shortcut should be an instance of {1} but was {2}' format: { BrTextEditorShortcut . aBrTextEditorShortcut class }) ].
 
-	self interactions
-		add: aBrTextEditorInteraction
-		ifAdded: [ :aNewInteraction | self onInteractionAdded: aNewInteraction ]
-		ifReplaced: [ :aPreviousInteraction | self onInteractionRemoved: aPreviousInteraction ]
+	self editorShortcuts
+		add: aBrTextEditorShortcut
+		ifAdded: [ :aNewEditorShortcut | self onShortcutAdded: aNewEditorShortcut ]
+		ifReplaced: [ :aPreviousEditorShortcut | self onShortcutRemoved: aPreviousEditorShortcut ]
 ]
 
-{ #category : #'api - interactions' }
-BrTextEditor >> addInteractions: aCollectionOfBrTextEditorInteraction [
-	aCollectionOfBrTextEditorInteraction
-		do: [ :eachInteraction | self addInteraction: eachInteraction ]
+{ #category : #'api - shortcuts' }
+BrTextEditor >> addEditorShortcuts: aCollectionOfBrTextEditorShortcut [
+	aCollectionOfBrTextEditorShortcut
+		do: [ :eachShortcut | self addEditorShortcut: eachShortcut ]
 ]
 
 { #category : #asserting }
@@ -288,6 +288,13 @@ BrTextEditor >> editorMode: aBrTextEditorMode [
 	self notifyChanged
 ]
 
+{ #category : #'api - shortcuts' }
+BrTextEditor >> editorShortcuts [
+	<return: #BrTextEditorShortcuts>
+
+	^ shortcuts
+]
+
 { #category : #'commands - processing' }
 BrTextEditor >> enqueueCommand: aBrTextEditorCommand [
 	(BrTextEditorCommandSignal textEditor: self)
@@ -357,23 +364,10 @@ BrTextEditor >> initialize [
 	stylerEventHandler := self defaultStylerEventHandler.	
 	self useDefaultStylerStrategy.
 	
-	interactions := BrTextEditorInteractions new.
+	shortcuts := BrTextEditorShortcuts new.
 	history := BrTextEditorHistory new.
 
 	self beEditable
-]
-
-{ #category : #'api - interactions' }
-BrTextEditor >> initializeMacInteractions [
-	"Add and override key definitions which are Mac specific"
-
-	self addInteraction: (BlShortcut new
-		combination: (BlKeyCombination builder primary arrowLeft build);
-		action: [ self moveCursorToLineStart ]).
-
-	self addInteraction: (BlShortcut new
-		combination: (BlKeyCombination builder primary arrowRight build);
-		action: [ self moveCursorToLineEnd ])
 ]
 
 { #category : #initialization }
@@ -411,13 +405,6 @@ BrTextEditor >> insertString: aString at: aTextIndex [
 { #category : #'api - modification' }
 BrTextEditor >> inserter [
 	^ BrTextEditorInserter new editor: self
-]
-
-{ #category : #'api - interactions' }
-BrTextEditor >> interactions [
-	<return: #BrTextEditorInteractions>
-
-	^ interactions
 ]
 
 { #category : #'private - updating' }
@@ -590,7 +577,7 @@ BrTextEditor >> onAttached: anEditorElement [
 	attachedElements := attachedElements copyWith: anEditorElement.
 
  	mode installOnEditorElement: anEditorElement.
-	interactions do: [ :eachInteraction | self onInteractionAdded: eachInteraction to: anEditorElement ].
+	shortcuts do: [ :eachInteraction | self onInteractionAdded: eachInteraction to: anEditorElement ].
 
 	anEditorElement when: BlMouseUpEvent do: [ :anEvent | anEvent consumed: true ].
 	anEditorElement when: BlClickEvent do: [ :anEvent | anEvent consumed: true ].
@@ -649,7 +636,7 @@ BrTextEditor >> onDetached: anEditorElement [
 	attachedElements := attachedElements copyWithout: anEditorElement.
 
 	mode uninstallFromEditorElement: anEditorElement.
-	interactions do: [ :eachInteraction | self onInteractionRemoved: eachInteraction from: anEditorElement ].
+	shortcuts do: [ :eachInteraction | self onInteractionRemoved: eachInteraction from: anEditorElement ].
 
 	anEditorElement
 		removeEventHandlersSuchThat: [ :aHandler | (aHandler isKindOf: BlEventHandler)
@@ -673,21 +660,9 @@ BrTextEditor >> onGotFocus [
 ]
 
 { #category : #hooks }
-BrTextEditor >> onInteractionAdded: anInteraction [
-	attachedElements do: [ :eachElement | self onInteractionAdded: anInteraction to: eachElement ].
-	self notifyInteractionAdded: anInteraction
-]
-
-{ #category : #hooks }
 BrTextEditor >> onInteractionAdded: anInteraction to: anEditorElement [
 	anEditorElement removeShortcutsWithCombination: anInteraction combination.
 	anEditorElement addShortcut: anInteraction asShortcut
-]
-
-{ #category : #hooks }
-BrTextEditor >> onInteractionRemoved: anInteraction [
-	attachedElements do: [ :eachElement | self onInteractionRemoved: anInteraction from: eachElement ].
-	self notifyInteractionRemoved: anInteraction
 ]
 
 { #category : #hooks }
@@ -698,6 +673,18 @@ BrTextEditor >> onInteractionRemoved: anInteraction from: anEditorElement [
 { #category : #'private - focus' }
 BrTextEditor >> onLostFocus [
 	self enqueueCommand: (self newFocusChangedCommand hasFocus: false)
+]
+
+{ #category : #hooks }
+BrTextEditor >> onShortcutAdded: anInteraction [
+	attachedElements do: [ :eachElement | self onInteractionAdded: anInteraction to: eachElement ].
+	self notifyInteractionAdded: anInteraction
+]
+
+{ #category : #hooks }
+BrTextEditor >> onShortcutRemoved: anInteraction [
+	attachedElements do: [ :eachElement | self onInteractionRemoved: anInteraction from: eachElement ].
+	self notifyInteractionRemoved: anInteraction
 ]
 
 { #category : #'hooks - text modifications' }
@@ -827,20 +814,67 @@ BrTextEditor >> redo [
 	history redoOn: self
 ]
 
-{ #category : #'api - interactions' }
-BrTextEditor >> removeInteraction: aBrTextEditorInteraction [
-
-	(aBrTextEditorInteraction isKindOf: BrTextEditorInteraction)
-		ifFalse: [ self error: ('Interaction should be an instance of {1} but was {2}' format: { BrTextEditorInteraction . aBrTextEditorInteraction class }) ].
-
-	self interactions
-		remove: aBrTextEditorInteraction
-		ifFound: [ :aPreviousInteraction | self onInteractionRemoved: aPreviousInteraction ]
+{ #category : #'api - shortcuts' }
+BrTextEditor >> removeAllEditorShortcuts [
+	self editorShortcuts
+		removeAllShortcutsAndDo: [ :aPreviousShortcut | self onShortcutRemoved: aPreviousShortcut ]
 ]
 
-{ #category : #'api - interactions' }
-BrTextEditor >> removeInteractions: aCollectionOfBrTextEditorInteractions [
-	aCollectionOfBrTextEditorInteractions do: [ :eachInteraction | self removeInteraction: eachInteraction ]
+{ #category : #'api - shortcuts' }
+BrTextEditor >> removeEditorShortcut: aBrTextEditorShortcut [
+
+	(aBrTextEditorShortcut isKindOf: BrTextEditorShortcut)
+		ifFalse: [ self error: ('Shortcut should be an instance of {1} but was {2}' format: { BrTextEditorShortcut . aBrTextEditorShortcut class }) ].
+
+	self editorShortcuts
+		remove: aBrTextEditorShortcut
+		ifFound: [ :aPreviousShortcut | self onShortcutRemoved: aPreviousShortcut ]
+]
+
+{ #category : #'api - shortcuts' }
+BrTextEditor >> removeEditorShortcuts: aCollectionOfBrTextEditorShortcut [
+	aCollectionOfBrTextEditorShortcut do: [ :eachShortcut | self removeEditorShortcut: eachShortcut ]
+]
+
+{ #category : #'api - save state' }
+BrTextEditor >> restoreState: aBrTextEditorMemento [
+	| aSelecter aNavigator |
+	self assertUIProcess.
+	
+	self setEditorShortcuts: aBrTextEditorMemento shortcuts.
+	self editorMode: aBrTextEditorMemento mode.
+	history := aBrTextEditorMemento history.
+	styler := aBrTextEditorMemento styler.
+	filter := aBrTextEditorMemento filter.
+	
+	self text: aBrTextEditorMemento text copy.
+	
+	self deselecter all deselect.
+	aSelecter := self selecter withoutCursorUpdate.
+	aBrTextEditorMemento selection
+		do: [ :eachMonotoneSelection | aSelecter from: eachMonotoneSelection from to: eachMonotoneSelection to ].
+	aSelecter select.
+	
+	aNavigator := self navigator removeAll.
+	aNavigator withoutResettingDesiredCoordinate.
+	aBrTextEditorMemento cursor do: [ :eachCursor | aNavigator add: eachCursor ].
+	aNavigator apply
+]
+
+{ #category : #'api - save state' }
+BrTextEditor >> saveState [
+	<return: #BrTextEditorMemento>
+	self assertUIProcess.
+	
+	^ BrTextEditorMemento new
+		text: text copy;
+		cursor: cursors copy;
+		selection: selection copy;
+		styler: styler copy;
+		filter: filter copy;
+		history: history copy;
+		shortcuts: shortcuts copy;
+		mode: mode copy
 ]
 
 { #category : #accessing }
@@ -942,6 +976,18 @@ BrTextEditor >> selectionRecorder [
 	^ selectionRecorder
 ]
 
+{ #category : #'api - shortcuts' }
+BrTextEditor >> setEditorShortcuts: aBrTextEditorShortcuts [
+	self
+		assert: [ aBrTextEditorShortcuts isKindOf: BrTextEditorShortcuts ]
+		description: [ 'Must be an editor shortcuts object' ].
+	
+	self removeAllEditorShortcuts.
+	
+	shortcuts := aBrTextEditorShortcuts.
+	shortcuts do: [ :aNewEditorShortcut | self onShortcutAdded: aNewEditorShortcut ]
+]
+
 { #category : #'text - styling' }
 BrTextEditor >> styleText [
 	"I request styler to re-style my current text"
@@ -994,7 +1040,7 @@ BrTextEditor >> stylerStrategy: aBrTextStylerStrategy [
 	stylerStrategy := aBrTextStylerStrategy
 ]
 
-{ #category : #'api - interactions' }
+{ #category : #'api - shortcuts' }
 BrTextEditor >> surroundMap [
 	"When inserting some special symbols a text editor should surround a cursor or selection with that symbol"
 

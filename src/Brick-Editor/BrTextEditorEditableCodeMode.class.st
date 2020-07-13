@@ -11,7 +11,7 @@ Class {
 
 { #category : #defaults }
 BrTextEditorEditableCodeMode >> returnKeyAndAction [
-	^ BlKeyCombination return -> [ :aTextEditor |
+	^ BlKeyCombination return -> [ :aShortcutEvent :aShortcut :aTextEditor |
 			aTextEditor inserter
 				inputFilter: aTextEditor inputFilter;
 				atCursor;

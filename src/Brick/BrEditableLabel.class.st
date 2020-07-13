@@ -132,19 +132,28 @@ BrEditableLabel >> whenKey: aCombination editorDo: anAction [
 	editorInteractions := editorInteractions copyWith: (aCombination -> anAction).
 	
 	self isEditable
-		ifTrue: [ self addInteraction: (BrTextEditorInteraction new
+		ifTrue: [ self addEditorShortcut: (BrTextEditorShortcut new
 			combination: aCombination;
 			action: anAction) ]
 ]
 
 { #category : #'api - interactions' }
 BrEditableLabel >> whenKey: aCombination labelDo: anAction [
+	self
+		whenKey: aCombination
+		labelDo: anAction
+		with: nil
+]
+
+{ #category : #'api - interactions' }
+BrEditableLabel >> whenKey: aCombination labelDo: anAction with: theOptions [
 	"Add a new label mode interaction defined by a key combination and action"
 
 	labelInteractions := labelInteractions copyWith: (aCombination -> anAction).
 	
 	self isReadOnly
-		ifTrue: [ self addInteraction: (BrTextEditorInteraction new
+		ifTrue: [ self addEditorShortcut: (BrTextEditorShortcut new
 			combination: aCombination;
-			action: anAction) ]
+			action: anAction;
+			options: theOptions) ]
 ]

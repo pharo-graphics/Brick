@@ -5,26 +5,28 @@ Class {
 }
 
 { #category : #initialization }
-BrTextEditorEditableMode >> initialize [
-	super initialize.
-	
-	eventHandlers := eventHandlers,
-	{
+BrTextEditorEditableMode >> createEventHandlers [
+	^ super createEventHandlers, {
 		BrTextEditorMouseDownHandler uniqueInstance.
 		BrTextEditorSelectionHandler new.
 		BrTextEditorInsertionHandler new.
 		BrTextEditorCursorIconHandler uniqueInstance.
-	}.
+	}
+]
+
+{ #category : #initialization }
+BrTextEditorEditableMode >> initialize [
+	super initialize.
 	
-	interactions := interactions, (self buildInteractions: { 
+	interactions := interactions, (self buildEditorShortcuts: { 
 	
-		BlKeyCombination delete -> [ :aTextEditor |
+		BlKeyCombination delete -> [ :aShortcutEvent :aShortcut :aTextEditor |
 				aTextEditor deleter
 					selected;
 					oneAfterCursor;
 					delete ].
 		
-		BlKeyCombination backspace -> [ :aTextEditor |
+		BlKeyCombination backspace -> [ :aShortcutEvent :aShortcut :aTextEditor |
 			aTextEditor deleter
 				selected;
 				oneBeforeCursor;
@@ -34,7 +36,7 @@ BrTextEditorEditableMode >> initialize [
 	
 		self returnKeyAndAction.
 			
-		BlKeyCombination tab -> [ :aTextEditor |
+		BlKeyCombination tab -> [ :aShortcutEvent :aShortcut :aTextEditor |
 			aTextEditor selection isEmpty
 				ifTrue: [
 					aTextEditor inserter
@@ -48,22 +50,22 @@ BrTextEditorEditableMode >> initialize [
 						withoutSelectionDelete;
 						insert ] ].
 		
-		BlKeyCombination primaryX -> [ :aTextEditor | aTextEditor cutSelected ].
-		BlKeyCombination primaryA -> [ :aTextEditor | aTextEditor selecter all select ].
-		BlKeyCombination primaryC -> [ :aTextEditor | aTextEditor copySelected ].
-		BlKeyCombination escape -> [ :aTextEditor | aTextEditor selectNone ].
+		BlKeyCombination primaryX -> [ :aShortcutEvent :aShortcut :aTextEditor | aTextEditor cutSelected ].
+		BlKeyCombination primaryA -> [ :aShortcutEvent :aShortcut :aTextEditor | aTextEditor selecter all select ].
+		BlKeyCombination primaryC -> [ :aShortcutEvent :aShortcut :aTextEditor | aTextEditor copySelected ].
+		BlKeyCombination escape -> [ :aShortcutEvent :aShortcut :aTextEditor | aTextEditor selectNone ].
 		"Paste a text from the clipboard at the current cursor position.
 		I delete any currently selected text and update cursor position"
-		BlKeyCombination primaryV -> [ :aTextEditor |
+		BlKeyCombination primaryV -> [ :aShortcutEvent :aShortcut :aTextEditor |
 			aTextEditor paster
 				inputFilter: aTextEditor inputFilter;
 				fromClipboard;
 				atCursor;
 				paste ].
-		BlKeyCombination primaryZ -> [ :aTextEditor | aTextEditor undo ].
-		BlKeyCombination primaryShiftZ -> [ :aTextEditor | aTextEditor redo ].
+		BlKeyCombination primaryZ -> [ :aShortcutEvent :aShortcut :aTextEditor | aTextEditor undo ].
+		BlKeyCombination primaryShiftZ -> [ :aShortcutEvent :aShortcut :aTextEditor | aTextEditor redo ].
 		
-		BlKeyCombination shiftArrowLeft -> [ :aTextEditor |
+		BlKeyCombination shiftArrowLeft -> [ :aShortcutEvent :aShortcut :aTextEditor |
 			aTextEditor selecter
 				withoutCursorUpdate;
 				moveOneToLeft;
@@ -71,7 +73,7 @@ BrTextEditorEditableMode >> initialize [
 			aTextEditor navigator
 				moveLeft;
 				apply ].
-		BlKeyCombination shiftArrowRight -> [ :aTextEditor |
+		BlKeyCombination shiftArrowRight -> [ :aShortcutEvent :aShortcut :aTextEditor |
 			aTextEditor selecter
 				withoutCursorUpdate;
 				moveOneToRight;
@@ -80,7 +82,7 @@ BrTextEditorEditableMode >> initialize [
 				moveRight;
 				apply ].
 		
-		BlKeyCombination shiftArrowUp -> [ :aTextEditor |
+		BlKeyCombination shiftArrowUp -> [ :aShortcutEvent :aShortcut :aTextEditor |
 			aTextEditor selecter
 				withoutCursorUpdate;
 				moveOneUp;
@@ -90,7 +92,7 @@ BrTextEditorEditableMode >> initialize [
 				withoutResettingDesiredCoordinate;
 				apply ].
 			
-		BlKeyCombination shiftArrowDown -> [ :aTextEditor |
+		BlKeyCombination shiftArrowDown -> [ :aShortcutEvent :aShortcut :aTextEditor |
 			aTextEditor selecter
 				withoutCursorUpdate;
 				moveOneDown;
@@ -101,21 +103,21 @@ BrTextEditorEditableMode >> initialize [
 				apply ].
 		
 		"left-arrow => move cursor left and deselect everything"
-		BlKeyCombination arrowLeft -> [ :aTextEditor |
+		BlKeyCombination arrowLeft -> [ :aShortcutEvent :aShortcut :aTextEditor |
 			aTextEditor deselecter all deselect.
 			aTextEditor navigator
 				moveLeft;
 				apply ].
 		
 		"right-arrow => move cursor right and deselect everything"
-		BlKeyCombination arrowRight -> [ :aTextEditor |
+		BlKeyCombination arrowRight -> [ :aShortcutEvent :aShortcut :aTextEditor |
 			aTextEditor deselecter all deselect.
 			aTextEditor navigator
 				moveRight;
 				apply ].
 		
 		"up-arrow => move cursor up"
-		BlKeyCombination arrowUp -> [ :aTextEditor |
+		BlKeyCombination arrowUp -> [ :aShortcutEvent :aShortcut :aTextEditor |
 			aTextEditor deselecter all deselect.
 			aTextEditor navigator
 				moveUp;
@@ -123,17 +125,17 @@ BrTextEditorEditableMode >> initialize [
 				apply ].
 		
 		"down-arrow => move cursor down"
-		BlKeyCombination arrowDown -> [ :aTextEditor |
+		BlKeyCombination arrowDown -> [ :aShortcutEvent :aShortcut :aTextEditor |
 			aTextEditor deselecter all deselect.
 			aTextEditor navigator
 				moveDown;
 				withoutResettingDesiredCoordinate;
 				apply ].
 		
-		BlKeyCombination primaryArrowLeft -> [ :aTextEditor |  aTextEditor moveCursorToStartPreviousWord ].
-		BlKeyCombination primaryArrowRight -> [ :aTextEditor |  aTextEditor moveCursorToEndNextWord ].
-		BlKeyCombination home -> [ :aTextEditor |  aTextEditor moveCursorToLineStart ].
-		BlKeyCombination end -> [ :aTextEditor |  aTextEditor moveCursorToLineEnd ].
+		BlKeyCombination primaryArrowLeft -> [ :aShortcutEvent :aShortcut :aTextEditor |  aTextEditor moveCursorToStartPreviousWord ].
+		BlKeyCombination primaryArrowRight -> [ :aShortcutEvent :aShortcut :aTextEditor |  aTextEditor moveCursorToEndNextWord ].
+		BlKeyCombination home -> [ :aShortcutEvent :aShortcut :aTextEditor |  aTextEditor moveCursorToLineStart ].
+		BlKeyCombination end -> [ :aShortcutEvent :aShortcut :aTextEditor |  aTextEditor moveCursorToLineEnd ].
 	})
 ]
 
@@ -151,7 +153,7 @@ BrTextEditorEditableMode >> isEditable [
 
 { #category : #defaults }
 BrTextEditorEditableMode >> returnKeyAndAction [
-	^ BlKeyCombination return -> [ :aTextEditor |
+	^ BlKeyCombination return -> [ :aShortcutEvent :aShortcut :aTextEditor |
 			aTextEditor inserter
 				inputFilter: aTextEditor inputFilter;
 				atCursor;

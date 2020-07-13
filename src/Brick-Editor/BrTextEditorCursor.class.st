@@ -1,7 +1,7 @@
 Class {
 	#name : #BrTextEditorCursor,
 	#superclass : #Object,
-	#category : 'Brick-Editor-Model - Cursor'
+	#category : #'Brick-Editor-Model - Cursor'
 }
 
 { #category : #'instance creation' }
@@ -145,6 +145,14 @@ BrTextEditorCursor >> isNotEmpty [
 	<return: #Boolean>
 
 	^ self isEmpty not
+]
+
+{ #category : #testing }
+BrTextEditorCursor >> isSingle [
+	"Return true if there is exactly *one* cursor"
+	<return: #Boolean>
+
+	^ self cursorsCount = 1
 ]
 
 { #category : #enumerating }
