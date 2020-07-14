@@ -25,6 +25,11 @@ BrExpander >> expand [
 	expandableModel expand
 ]
 
+{ #category : #'api - expander' }
+BrExpander >> expanded: aBoolean [
+	expandableModel expanded: aBoolean
+]
+
 { #category : #accessing }
 BrExpander >> header: aStencil [
 	accordionModel headerStencil: aStencil
