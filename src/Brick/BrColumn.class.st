@@ -36,6 +36,8 @@ BrColumn >> cellStencil [
 
 { #category : #accessing }
 BrColumn >> cellStencil: aStencil [
+	"A cell element stencil can be a #value-able of the form [ :anItemType :aBrColumn :anItemIndex | ]"
+	
 	cellStencil := aStencil asStencilBuilder: BrColumnCellStencilBuilder
 ]
 
@@ -54,6 +56,9 @@ BrColumn >> dataBinder [
 
 { #category : #accessing }
 BrColumn >> dataBinder: aStencil [
+	"A cell data binder stencil can be a #value-able of the form 
+	[ :anItemElement :anItemObject :anItemIndex :aRowHolder :aColumnIndex | ]"
+	
 	dataBinder := aStencil asStencilBuilder: BrColumnCellDataBinder
 ]
 
