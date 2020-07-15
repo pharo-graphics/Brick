@@ -9,6 +9,7 @@ Class {
 		'action',
 		'shortcut',
 		'options',
+		'repeatable',
 		'isOverwritableByMode'
 	],
 	#category : #'Brick-Editor-Model'
@@ -61,6 +62,7 @@ BrTextEditorShortcut >> asShortcut [
 	^ shortcut ifNil: [
 		shortcut := BlShortcut new
 			combination: self combination;
+			repeatable: self repeatable;
 			action: [ :aShortcutEvent :aShortcut | self action
 				cull: aShortcutEvent
 				cull: aShortcut
@@ -100,6 +102,7 @@ BrTextEditorShortcut >> initialize [
 	super initialize.
 	
 	isOverwritableByMode := true.
+	repeatable := true.
 	action := [ :aShortcutEvent :aShortcut :aTextEditor :theOptions | ]
 ]
 
@@ -124,6 +127,16 @@ BrTextEditorShortcut >> options: anObject [
 BrTextEditorShortcut >> postCopy [
 	combination := combination copy.
 	action := action cleanCopy
+]
+
+{ #category : #accessing }
+BrTextEditorShortcut >> repeatable [
+	^ repeatable
+]
+
+{ #category : #accessing }
+BrTextEditorShortcut >> repeatable: aBoolean [
+	repeatable := aBoolean
 ]
 
 { #category : #printing }
