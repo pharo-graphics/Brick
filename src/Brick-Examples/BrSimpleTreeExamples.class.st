@@ -21,6 +21,23 @@ BrSimpleTreeExamples >> subclassesOfCollection [
 ]
 
 { #category : #examples }
+BrSimpleTreeExamples >> subclassesOfCollection_InefficientUse [
+	<gtExample>
+	| aTree |
+
+	aTree := BrSimpleTree new
+		stencil: [ :eachClass :eachIndex |
+			BrLabel new
+				look: BrGlamorousLabelLook;
+				text: eachClass name;
+				fitContent ];
+		items: { Collection }
+		children: [ :eachClass | eachClass subclasses ].
+
+	^ aTree
+]
+
+{ #category : #examples }
 BrSimpleTreeExamples >> subropesTree [
 	<gtExample>
 	| aRope aTree |

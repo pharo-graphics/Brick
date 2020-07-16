@@ -39,8 +39,26 @@ BrSimpleTree >> nodeType: aBrTreeNodeTypeStencilBuilderOrBlock [
 ]
 
 { #category : #accessing }
-BrSimpleTree >> stencil: aTreeRowStencilBuilder [
-	"A stencil builder can be a valuable of the form [ :aTreeNode :anIndex :aTreeWidget | ]"
+BrSimpleTree >> stencil: aBlock [
+	"I am a part of the `toy` api. It is inefficient to use me because I always create a new
+	element for each new row which may be expensive. It is much better to split it in two (or three)
+	steps:
+		- item element creation using #nodeStencil: (the items are reused when they go out of the viewport)
+		- data binding using #nodeDataBinder: (to update just a part of the reused item element)
+	A stencil builder can be a value-able of the form [ :aRowValue :anIndex | ]"
+	
+	self nodeStencil: [ :aNodeType | 
+		BlElement new
+			labeled: 'Wrapper';
+			layout: BlLinearLayout horizontal;
+			constraintsDo: [ :c |
+				c horizontal matchParent.
+				c vertical fitContent ] ].
 
-	self look rowStencilBuilder: aTreeRowStencilBuilder
+	self nodeDataBinder: [ :aWrapperElement :anItemObject :anItemPosition |
+		| aNodeStencil |
+		aNodeStencil := aBlock glamourValueWithArgs: { anItemObject. anItemPosition }.
+		aWrapperElement
+			removeChildren;
+			addChild: aNodeStencil asElement ]
 ]
