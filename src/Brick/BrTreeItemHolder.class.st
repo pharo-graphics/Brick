@@ -11,7 +11,8 @@ Class {
 { #category : #accessing }
 BrTreeItemHolder >> itemElement: anElement [
 	itemElement := anElement.
-	itemElement beInSeparateCompositionLayer
+	itemElement compositingMode wantsCompositionLayer
+		ifFalse: [ itemElement beInSeparateCompositionLayer ]
 ]
 
 { #category : #accessing }

@@ -37,18 +37,18 @@ BrEditableLabel >> cancelEdition [
 { #category : #initialization }
 BrEditableLabel >> defaultEditorInteractions [
 	^ {
-		BlKeyCombination return -> [ :anEditor :anEvent | anEvent currentTarget acceptEdition ].
-		BlKeyCombination escape -> [ :anEditor :anEvent | anEvent currentTarget cancelEdition ]
+		BlKeyCombination return -> [ :aShortcutEvent | aShortcutEvent currentTarget acceptEdition ].
+		BlKeyCombination escape -> [ :aShortcutEvent | aShortcutEvent currentTarget cancelEdition ]
 	}
 ]
 
 { #category : #initialization }
 BrEditableLabel >> defaultLabelInteractions [
 	^ {
-		BlKeyCombination escape -> [ :anEditor :anEvent | anEvent currentTarget looseFocus ].
-		BlKeyCombination arrowLeft -> [ :anEditor :anEvent | anEvent currentTarget focusPrevious ].
-		BlKeyCombination arrowRight -> [ :anEditor :anEvent | anEvent currentTarget focusNext ].
-		BlKeyCombination return -> [ :anEditor :anEvent | anEvent currentTarget switchToEditor ]
+		BlKeyCombination escape -> [ :aShortcutEvent | aShortcutEvent currentTarget looseFocus ].
+		BlKeyCombination arrowLeft -> [ :aShortcutEvent | aShortcutEvent currentTarget focusPrevious ].
+		BlKeyCombination arrowRight -> [ :aShortcutEvent | aShortcutEvent currentTarget focusNext ].
+		BlKeyCombination return -> [ :aShortcutEvent | aShortcutEvent currentTarget switchToEditor ]
 	}
 ]
 
