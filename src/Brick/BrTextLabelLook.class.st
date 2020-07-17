@@ -34,6 +34,11 @@ BrTextLabelLook >> attributesBuilder [
 ]
 
 { #category : #initialization }
+BrTextLabelLook >> editorMeasurement [
+	labelElement editorMeasurement
+]
+
+{ #category : #initialization }
 BrTextLabelLook >> initialize [
 	super initialize.
 	self addChangeAddChildAs: #(content label) with: [ self label ].

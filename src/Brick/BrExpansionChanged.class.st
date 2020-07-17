@@ -46,8 +46,8 @@ BrExpansionChanged >> isExpanded [
 ]
 
 { #category : #accessing }
-BrExpansionChanged >> state: anObject [
+BrExpansionChanged >> state: aBoolean [
 	"Override me to properly set the given state"
 
-	self expanded: anObject
+	self expanded: aBoolean
 ]
