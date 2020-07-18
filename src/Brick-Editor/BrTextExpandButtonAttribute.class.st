@@ -72,7 +72,7 @@ BrTextExpandButtonAttribute >> doAffect: aTBrTextEditorTextualPiece in: anEditor
 		padding: (BlInsets all: 2);
 		margin: (BlInsets top: 2);
 		mouseCursor: BlCursor default;
-		label: 'Expand';
+		label: (self isExpanded ifTrue: [ 'Collapse' ] ifFalse: [ 'Expand' ]);
 		activated: self isExpanded;
 		when: BrToggleActivatedEvent do: [ :anEvent |
 			anEvent currentTarget label: 'Collapse'.
