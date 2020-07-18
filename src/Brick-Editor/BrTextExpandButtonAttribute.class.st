@@ -18,7 +18,7 @@ BrTextExpandButtonAttribute >> affect: aTBrTextEditorTextualPiece in: anEditorEl
 
 	anIcon := BlElement new.
 	anIcon size: 8 @ 8.
-	anIcon viewModel: (BrInteractiveModel withAll: { BrExpandableModel new }).
+	anIcon viewModel: (BrInteractiveModel withAll: { BrExpandableModel new expanded: self isExpanded }).
 	anIcon look: (BrInteractiveCommonLook new
 		expanded: [ :e | e geometry: self expandedGeometry ];
 		collapsed: [ :e | e geometry: self collapsedGeometry ]).
@@ -35,6 +35,7 @@ BrTextExpandButtonAttribute >> affect: aTBrTextEditorTextualPiece in: anEditorEl
 		margin: (BlInsets top: 2);
 		mouseCursor: BlCursor default;
 		label: 'Expand';
+		activated: self isExpanded;
 		when: BrToggleActivatedEvent do: [ :anEvent |
 			anEvent currentTarget label: 'Collapse'.
 			anIcon dispatchEvent: BrExpansionWish expand ];
