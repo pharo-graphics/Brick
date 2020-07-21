@@ -12,6 +12,18 @@ Class {
 	#category : #'Brick-Editor-Text-Attributes'
 }
 
+{ #category : #private }
+BrTextExpandButtonAttribute >> applyExpandedOrCollapsedAttributesOn: aTBrTextEditorTextualPiece in: aTextEditor [
+	"Add attributes if expanded and remove if collapsed"
+	| aBrText |
+	
+	aBrText := aTBrTextEditorTextualPiece text.
+
+	isExpanded
+		ifTrue: [ self createAttributesAffect: aBrText in: aTextEditor ]
+		ifFalse: [ aBrText clearAttributes: [ :aTextAttribute | self createdAttributes includes: aTextAttribute ] ]
+]
+
 { #category : #accessing }
 BrTextExpandButtonAttribute >> attributesCreatingBlock [
 	^ attributesCreatingBlock
@@ -60,6 +72,10 @@ BrTextExpandButtonAttribute >> doAffect: aTBrTextEditorTextualPiece in: anEditor
 	anIcon look: (BrInteractiveCommonLook new
 		expanded: [ :e | e geometry: self expandedGeometry ];
 		collapsed: [ :e | e geometry: self collapsedGeometry ]).
+		
+	self
+		applyExpandedOrCollapsedAttributesOn: aTBrTextEditorTextualPiece
+		in: anEditorElement editor.
 
 	^ BrToggle new
 		look: BrGlamorousButtonLayoutLook new + 
@@ -82,7 +98,7 @@ BrTextExpandButtonAttribute >> doAffect: aTBrTextEditorTextualPiece in: anEditor
 			anIcon dispatchEvent: BrExpansionWish collapse ];
 		when: BlClickEvent do: [ :anEvent | 
 			self
-				handleEventAffect: aTBrTextEditorTextualPiece
+				toggleExpandedOrCollapsedAttributesOn: aTBrTextEditorTextualPiece
 				in: anEditorElement editor ]
 ]
 
@@ -94,19 +110,6 @@ BrTextExpandButtonAttribute >> expandedGeometry [
 			(8 @ 0).
 			(4 @ 8)
 		}
-]
-
-{ #category : #private }
-BrTextExpandButtonAttribute >> handleEventAffect: aTBrTextEditorTextualPiece in: aTextEditor [
-	| aBrText |
-	
-	aBrText := aTBrTextEditorTextualPiece text.
-
-	isExpanded
-		ifTrue: [ aBrText clearAttributes: [ :aTextAttribute | self createdAttributes includes: aTextAttribute ] ]
-		ifFalse: [ self createAttributesAffect: aBrText in: aTextEditor ].
-
-	self isExpanded: isExpanded not
 ]
 
 { #category : #initialization }
@@ -128,4 +131,10 @@ BrTextExpandButtonAttribute >> isExpanded [
 { #category : #accessing }
 BrTextExpandButtonAttribute >> isExpanded: aBoolean [
 	isExpanded := aBoolean
+]
+
+{ #category : #private }
+BrTextExpandButtonAttribute >> toggleExpandedOrCollapsedAttributesOn: aTBrTextEditorTextualPiece in: aTextEditor [
+	self isExpanded: isExpanded not.
+	self applyExpandedOrCollapsedAttributesOn: aTBrTextEditorTextualPiece in: aTextEditor
 ]
