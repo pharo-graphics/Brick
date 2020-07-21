@@ -21,6 +21,7 @@ BrGlamorousWithVerticalScrollbarLook >> initialize [
 		track: (BrScrollbarTrack new look: BrGlamorousScrollbarTrackLook new);
 		constraintsDo: [ :c |
 			c ignoreByLayout.
+			c margin: (BlInsets right: 2).
 			c ignored horizontal alignRight ].
 
 	self addChangeAddChildAs: #(content verticalScrollbar) with: [ scrollbar scrollable: (self widget childNamed: #scrollable) ]
