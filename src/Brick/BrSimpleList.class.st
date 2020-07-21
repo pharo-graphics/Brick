@@ -18,7 +18,7 @@ BrSimpleList >> defaultListModel [
 BrSimpleList >> initialize [
 	super initialize.
 
-	self look: BrSimpleListLook new
+	self look: BrSimpleListLook + BrGlamorousWithVerticalScrollbarLook
 ]
 
 { #category : #'api - scripting' }

@@ -2,8 +2,7 @@ Class {
 	#name : #BrSimpleListLook,
 	#superclass : #BrLook,
 	#instVars : [
-		'listElement',
-		'scrollbar'
+		'listElement'
 	],
 	#category : #'Brick-List - Look'
 }
@@ -14,10 +13,7 @@ BrSimpleListLook >> initialize [
 
 	listElement := BrInfiniteListElement new.	
 	self add: (BrLayoutResizerLook inherit inherit: listElement).
-	self addChangeAddChildAs: #(content list) with: [ listElement ].
-	
-	scrollbar := (BrGlamorousVerticalScrollbarStencil new scrollable: listElement) asElement.
-	self addChangeAddChildAs: #(content scrollbar) with: [ scrollbar ].
+	self addChangeAddChildAs: #(content scrollable) with: [ listElement ].
 
 	self
 		addChangeProperty: #(widgetContent layout)

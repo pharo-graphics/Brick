@@ -2,8 +2,7 @@ Class {
 	#name : #BrTreeLook,
 	#superclass : #BrLook,
 	#instVars : [
-		'treeElement',
-		'scrollbar'
+		'treeElement'
 	],
 	#category : #'Brick-Tree - Look'
 }
@@ -13,9 +12,8 @@ BrTreeLook >> initialize [
 	super initialize.
 	treeElement := BrInfiniteTreeElement new.
 	self add: (BrLayoutResizerLook inherit inherit: treeElement).
-	self addChangeAddChildAs: #(content tree) with: [ treeElement ].
-	scrollbar := (BrGlamorousVerticalScrollbarStencil new scrollable: treeElement) asElement.
-	self addChangeAddChildAs: #(content scrollbar) with: [ scrollbar ].
+	self addChangeAddChildAs: #(content scrollable) with: [ treeElement ].
+	
 	self
 		addChangeProperty: #(widgetContent layout)
 		with: [ BlLinearLayout vertical ].

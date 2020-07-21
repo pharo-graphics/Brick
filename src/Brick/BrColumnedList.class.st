@@ -23,7 +23,7 @@ BrColumnedList >> defaultListModel [
 BrColumnedList >> initialize [
 	super initialize.
 
-	self look: BrColumnedListLook new
+	self look: BrColumnedListLook + BrGlamorousWithVerticalScrollbarLook
 ]
 
 { #category : #'api - scripting' }

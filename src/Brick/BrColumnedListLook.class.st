@@ -3,8 +3,7 @@ Class {
 	#superclass : #BrLook,
 	#instVars : [
 		'listElement',
-		'rowStencil',
-		'scrollbar'
+		'rowStencil'
 	],
 	#category : #'Brick-List - Look'
 }
@@ -18,21 +17,19 @@ BrColumnedListLook >> initialize [
 	self rowStencilBuilder: BrColumnedListRowStencilBuilder new.
 	
 	self add: (BrLayoutResizerLook inherit inherit: listElement).
-	
+				
+	self addChangeAddChildAs: #(content scrollable) with: [ listElement ].
+
+	self
+		addChangeProperty: #(widgetContent layout)
+		with: [ BlLinearLayout vertical ].
+		
 	self
 		addChange:
 			(BrLookChange new
 				up: [ :e | listElement dataSource listElement: self widgetContent ];
 				down: [ :e |  ];
 				yourself).
-				
-	self addChangeAddChildAs: #(content list) with: [ listElement ].
-	scrollbar := (BrGlamorousVerticalScrollbarStencil new scrollable: listElement) asElement.
-	self addChangeAddChildAs: #(content scrollbar) with: [ scrollbar ].
-
-	self
-		addChangeProperty: #(widgetContent layout)
-		with: [ BlLinearLayout vertical ]
 ]
 
 { #category : #initialization }

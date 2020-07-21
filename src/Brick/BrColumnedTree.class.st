@@ -25,7 +25,7 @@ BrColumnedTree >> initialize [
 
 	self viewModel add: (columnedModel := BrColumnedModel new).
 
-	self look: BrColumnedTreeLook new
+	self look: BrColumnedTreeLook + BrGlamorousWithVerticalScrollbarLook
 ]
 
 { #category : #'api - scripting' }
