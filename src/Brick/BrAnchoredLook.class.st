@@ -47,16 +47,6 @@ BrAnchoredLook >> content: anElement [
 		ifTrue: [ self relocate ]
 ]
 
-{ #category : #'as yet unclassified' }
-BrAnchoredLook >> contentChangedClass [
-	self subclassResponsibility
-]
-
-{ #category : #'as yet unclassified' }
-BrAnchoredLook >> contentRequest [
-	self subclassResponsibility
-]
-
 { #category : #accessing }
 BrAnchoredLook >> handle [
 	^ handle
@@ -79,16 +69,6 @@ BrAnchoredLook >> handle: anElement [
 		ifTrue: [ self relocate ]
 ]
 
-{ #category : #'as yet unclassified' }
-BrAnchoredLook >> handleChangedClass [
-	self subclassResponsibility
-]
-
-{ #category : #'as yet unclassified' }
-BrAnchoredLook >> handleRequest [
-	self subclassResponsibility
-]
-
 { #category : #accessing }
 BrAnchoredLook >> hide [
 	widget anchor
@@ -108,18 +88,16 @@ BrAnchoredLook >> hideWish [
 { #category : #initialization }
 BrAnchoredLook >> initialize [
 	super initialize.
+
 	handle := BlElement new
 		size: 10 @ 10;
 		padding: (BlInsets all: 5);
 		yourself.
+
 	content := BlElement new.
+
 	scrollableContent := content asScrollableElement.
-	relocateEventHandler := BlEventHandler
-		on: self relocateWishClass
-		do: [ :e | 
-			relocation := e asRelocation.
-			(e anchor = widget anchor and: [ self canRelocate ])
-				ifTrue: [ self relocate ] ].
+
 	self
 		addChangeProperty: #(widget layout)
 			with: [ BlLinearLayout vertical ];
@@ -132,28 +110,15 @@ BrAnchoredLook >> initialize [
 		addChangeProperty: #(widget outskirts)
 			with: [ BlOutskirts outside ];
 		addChangeAddChildAs: #(handle) with: [ handle ];
-		addChangeAddChildAs: #(content) with: [ scrollableContent ];
-		addChange:
-			(BrLookChange new
-				up: [ :e | widget addEventHandler: relocateEventHandler ];
-				down: [ :e | widget removeEventHandler: relocateEventHandler ];
-				yourself)
+		addChangeAddChildAs: #(content) with: [ scrollableContent ]
 ]
 
-{ #category : #initialization }
-BrAnchoredLook >> initializeListeners [
-	super initializeListeners.
-	self
-		when: self handleChangedClass do: [ :e | self handle: e handle ];
-		when: self contentChangedClass do: [ :e | self content: e content ]
-]
+{ #category : #'private - event handling' }
+BrAnchoredLook >> onRelocateWish: aBrAnchoredRelocateWish [
+	relocation := aBrAnchoredRelocateWish asRelocation.
 
-{ #category : #initialization }
-BrAnchoredLook >> initializeRequests [
-	super initializeRequests.
-	self
-		request: self handleRequest;
-		request: self contentRequest
+	(aBrAnchoredRelocateWish anchor = widget anchor and: [ self canRelocate ])
+		ifTrue: [ self relocate ]
 ]
 
 { #category : #'as yet unclassified' }
@@ -184,9 +149,4 @@ BrAnchoredLook >> relocateTo: aPoint handleAtTop: aBoolean atLeft: anotherBoolea
 				origin: BlAffineTransformationTopLeftOrigin new;
 				scaleBy: widget anchor globalScale;
 				translateBy: aPoint ]
-]
-
-{ #category : #'as yet unclassified' }
-BrAnchoredLook >> relocateWishClass [
-	self subclassResponsibility
 ]

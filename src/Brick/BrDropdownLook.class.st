@@ -7,31 +7,11 @@ Class {
 	#category : #'Brick-Dropdown - Look'
 }
 
-{ #category : #'as yet unclassified' }
-BrDropdownLook >> contentChangedClass [
-	^ BrDropdownContentChanged
-]
-
-{ #category : #'as yet unclassified' }
-BrDropdownLook >> contentRequest [
-	^ BrDropdownContentRequest new
-]
-
 { #category : #accessing }
 BrDropdownLook >> handle: anElement [
 	handle removeEventFilter: clickEventHandler.
 	super handle: anElement.
 	handle addEventFilter: clickEventHandler
-]
-
-{ #category : #'as yet unclassified' }
-BrDropdownLook >> handleChangedClass [
-	^ BrDropdownHandleChanged
-]
-
-{ #category : #'as yet unclassified' }
-BrDropdownLook >> handleRequest [
-	^ BrDropdownHandleRequest new
 ]
 
 { #category : #'as yet unclassified' }
@@ -51,6 +31,23 @@ BrDropdownLook >> initialize [
 				up: [ :e | handle addEventFilter: clickEventHandler ];
 				down: [ :e | handle removeEventFilter: clickEventHandler ];
 				yourself)
+]
+
+{ #category : #initialization }
+BrDropdownLook >> initializeListeners [
+	super initializeListeners.
+
+	self when: BrDropdownHandleChanged do: [ :anEvent | self handle: anEvent handle ].
+	self when: BrDropdownContentChanged do: [ :anEvent | self content: anEvent content ].
+	self when: BrDropdownRelocateWish do: [ :aWish | self onRelocateWish: aWish ]
+]
+
+{ #category : #initialization }
+BrDropdownLook >> initializeRequests [
+	super initializeRequests.
+
+	self request: BrDropdownHandleRequest new.
+	self request: BrDropdownContentRequest new
 ]
 
 { #category : #'as yet unclassified' }
@@ -84,9 +81,4 @@ BrDropdownLook >> relocate [
 		relocateTo: position
 		handleAtTop: positioner positionPreferredIsTop
 		atLeft: positioner positionPreferredIsLeft
-]
-
-{ #category : #'as yet unclassified' }
-BrDropdownLook >> relocateWishClass [
-	^ BrDropdownRelocateWish
 ]

@@ -23,21 +23,19 @@ BrWithContextMenuLook >> hideWishClass [
 BrWithContextMenuLook >> initialize [
 	super initialize.
 	mouseButton := BlMouseButton secondary.
+]
+
+{ #category : #accessing }
+BrWithContextMenuLook >> initializeListeners [
+	super initializeListeners.
 	
-	clickEventHandler := BlEventHandler
-		on: BlMouseUpEvent
-		do: [ :e | 
-			e button = mouseButton
-				ifTrue: [ self canHide
-						ifTrue: [ self hide ].
-					position := e localPosition.
-					self show ] ].
-	self
-		addChange:
-			(BrLookChange new
-				up: [ :e | widget addEventHandler: clickEventHandler ];
-				down: [ :e | widget removeEventHandler: clickEventHandler ];
-				yourself)
+	self when: BlClickEvent do: [ :anEvent |
+		anEvent button = mouseButton
+			ifTrue: [
+				self canHide
+					ifTrue: [ self hide ].
+				position := anEvent localPosition.
+				self show ] ]
 ]
 
 { #category : #'as yet unclassified' }

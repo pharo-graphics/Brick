@@ -5,28 +5,25 @@ Class {
 }
 
 { #category : #'as yet unclassified' }
-BrContextMenuLook >> contentChangedClass [
-	^ BrContextMenuContentChanged
-]
-
-{ #category : #'as yet unclassified' }
-BrContextMenuLook >> contentRequest [
-	^ BrContextMenuContentRequest new
-]
-
-{ #category : #'as yet unclassified' }
-BrContextMenuLook >> handleChangedClass [
-	^ BrContextMenuHandleChanged
-]
-
-{ #category : #'as yet unclassified' }
-BrContextMenuLook >> handleRequest [
-	^ BrContextMenuHandleRequest new
-]
-
-{ #category : #'as yet unclassified' }
 BrContextMenuLook >> hideWish [
 	^ BrContextMenuHideWish new
+]
+
+{ #category : #initialization }
+BrContextMenuLook >> initializeListeners [
+	super initializeListeners.
+
+	self when: BrContextMenuHandleChanged do: [ :anEvent | self handle: anEvent handle ].
+	self when: BrContextMenuContentChanged do: [ :anEvent | self content: anEvent content ].
+	self when: BrContextMenuRelocateWish do: [ :aWish | self onRelocateWish: aWish ]
+]
+
+{ #category : #initialization }
+BrContextMenuLook >> initializeRequests [
+	super initializeRequests.
+
+	self request: BrContextMenuHandleRequest new.
+	self request: BrContextMenuContentRequest new
 ]
 
 { #category : #'as yet unclassified' }
@@ -62,9 +59,4 @@ BrContextMenuLook >> relocate [
 		relocateTo: position
 		handleAtTop: positioner positionPreferredIsTop
 		atLeft: positioner positionPreferredIsLeft
-]
-
-{ #category : #'as yet unclassified' }
-BrContextMenuLook >> relocateWishClass [
-	^ BrContextMenuRelocateWish
 ]

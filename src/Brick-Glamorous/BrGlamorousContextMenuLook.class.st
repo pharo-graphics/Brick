@@ -7,5 +7,6 @@ Class {
 { #category : #'instance creation' }
 BrGlamorousContextMenuLook >> initialize [
 	super initialize.
+
 	self add: BrGlamorousAnchoredLook
 ]

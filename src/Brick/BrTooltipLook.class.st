@@ -5,28 +5,25 @@ Class {
 }
 
 { #category : #'as yet unclassified' }
-BrTooltipLook >> contentChangedClass [
-	^ BrTooltipContentChanged
-]
-
-{ #category : #'as yet unclassified' }
-BrTooltipLook >> contentRequest [
-	^ BrTooltipContentRequest new
-]
-
-{ #category : #'as yet unclassified' }
-BrTooltipLook >> handleChangedClass [
-	^ BrTooltipHandleChanged
-]
-
-{ #category : #'as yet unclassified' }
-BrTooltipLook >> handleRequest [
-	^ BrTooltipHandleRequest new
-]
-
-{ #category : #'as yet unclassified' }
 BrTooltipLook >> hideWish [
 	^ BrTooltipHideWish new
+]
+
+{ #category : #initialization }
+BrTooltipLook >> initializeListeners [
+	super initializeListeners.
+
+	self when: BrTooltipHandleChanged do: [ :anEvent | self handle: anEvent handle ].
+	self when: BrTooltipContentChanged do: [ :anEvent | self content: anEvent content ].
+	self when: BrTooltipRelocateWish do: [ :aWish | self onRelocateWish: aWish ]
+]
+
+{ #category : #initialization }
+BrTooltipLook >> initializeRequests [
+	super initializeRequests.
+
+	self request: BrTooltipHandleRequest new.
+	self request: BrTooltipContentRequest new
 ]
 
 { #category : #'as yet unclassified' }
@@ -62,9 +59,4 @@ BrTooltipLook >> relocate [
 		relocateTo: position
 		handleAtTop: positioner positionPreferredIsTop
 		atLeft: positioner positionPreferredIsLeft
-]
-
-{ #category : #'as yet unclassified' }
-BrTooltipLook >> relocateWishClass [
-	^ BrTooltipRelocateWish
 ]
