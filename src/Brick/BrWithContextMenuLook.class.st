@@ -8,12 +8,12 @@ Class {
 	#category : #'Brick-Context Menu - Look'
 }
 
-{ #category : #'as yet unclassified' }
+{ #category : #'instance creation' }
 BrWithContextMenuLook class >> anchoredLook [
 	^ self anchoredLookClass new
 ]
 
-{ #category : #'as yet unclassified' }
+{ #category : #accessing }
 BrWithContextMenuLook class >> anchoredLookClass [
 	^ BrContextMenuLook
 ]
@@ -31,7 +31,7 @@ BrWithContextMenuLook class >> content: anObject [
 				yourself ]
 ]
 
-{ #category : #'as yet unclassified' }
+{ #category : #'instance creation' }
 BrWithContextMenuLook class >> handle: anObject content: anotherObject [
 	| instance |
 	^ instance := self
@@ -147,4 +147,9 @@ BrWithContextMenuLook >> initializeRequests [
 { #category : #'api - context menu' }
 BrWithContextMenuLook >> usePrimaryMouseButton [
 	mouseButton := BlMouseButton primary
+]
+
+{ #category : #'api - context menu' }
+BrWithContextMenuLook >> useSecondaryMouseButton [
+	mouseButton := BlMouseButton secondary
 ]

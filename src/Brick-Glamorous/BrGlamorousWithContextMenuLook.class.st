@@ -4,7 +4,7 @@ Class {
 	#category : #'Brick-Glamorous-Context Menu'
 }
 
-{ #category : #'as yet unclassified' }
+{ #category : #accessing }
 BrGlamorousWithContextMenuLook class >> anchoredLookClass [
 	^ BrGlamorousContextMenuLook
 ]

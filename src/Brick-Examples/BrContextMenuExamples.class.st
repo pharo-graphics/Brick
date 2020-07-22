@@ -9,15 +9,15 @@ BrContextMenuExamples >> compact [
 	<gtExample>
 	| element |
 	element := self element.
-	element
-		look:
-			(BrGlamorousWithContextMenuLook
-				content: [ BrGlamorousSimpleContextMenuContent new
-						items:
-							{('Change to blue' -> [ :e | e background: Color blue ]).
-							('Change to red' -> [ :e | e background: Color red ]).
-							('Change to green' -> [ :e | e background: Color green ])};
-						yourself ]);
+	element look:
+		(BrGlamorousWithContextMenuLook
+			content: [
+				BrGlamorousSimpleContextMenuContent new
+					items:
+						{('Change to blue' -> [ :e | e background: Color blue ]).
+						('Change to red' -> [ :e | e background: Color red ]).
+						('Change to green' -> [ :e | e background: Color green ])};
+					yourself ]);
 		yourself.
 	^ element
 ]
