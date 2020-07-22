@@ -120,6 +120,7 @@ BrListDataSource >> selection [
 
 { #category : #accessing }
 BrListDataSource >> selection: aBlSelection [
+	selection do: [ :eachMonotoneSelection | self notifyItemsChanged: eachMonotoneSelection indices ].
 	selection := aBlSelection.
-	self notifyChanged
+	selection do: [ :eachMonotoneSelection | self notifyItemsChanged: eachMonotoneSelection indices ]
 ]

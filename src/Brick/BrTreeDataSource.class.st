@@ -55,15 +55,6 @@ BrTreeDataSource >> nodeTypeStencil: aBrTreeNodeTypeStencilBuilder [
 	self notifyChanged
 ]
 
-{ #category : #'instance creation' }
-BrTreeDataSource >> onBindHolder: anElementHolder at: aPosition [
-	anElementHolder rowValue: (rootNode at: aPosition) at: aPosition.
-
-	(self selection containsIndex: aPosition)
-		ifTrue: [ anElementHolder itemElement dispatchEvent: (BrSelectedWish new selected: true) ]
-		ifFalse: [ anElementHolder itemElement dispatchEvent: (BrSelectedWish new selected: false) ]
-]
-
 { #category : #hooks }
 BrTreeDataSource >> onCollapsed: anAnnouncement [
 	"self notifyItemsRemoved: (anAnnouncement from to: anAnnouncement to)."
@@ -94,8 +85,9 @@ BrTreeDataSource >> selection [
 
 { #category : #accessing }
 BrTreeDataSource >> selection: aBlSelection [
+	selection do: [ :eachMonotoneSelection | self notifyItemsChanged: eachMonotoneSelection indices ].
 	selection := aBlSelection.
-	self notifyChanged
+	selection do: [ :eachMonotoneSelection | self notifyItemsChanged: eachMonotoneSelection indices ]
 ]
 
 { #category : #accessing }
