@@ -1,6 +1,6 @@
 Class {
 	#name : #BrGlamorousWithContextMenuLook,
-	#superclass : #BrWithContextMenuLook2,
+	#superclass : #BrWithContextMenuLook,
 	#category : #'Brick-Glamorous-Context Menu'
 }
 
