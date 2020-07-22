@@ -3,7 +3,6 @@ Class {
 	#superclass : #BrWithAnchoredLook2,
 	#instVars : [
 		'position',
-		'clickEventHandler',
 		'mouseButton'
 	],
 	#category : #'Brick-Context Menu - Look'
@@ -46,15 +45,13 @@ BrWithContextMenuLook2 class >> handle: anObject content: anotherObject [
 				yourself ]
 ]
 
-{ #category : #'as yet unclassified' }
-BrWithContextMenuLook2 >> hideWishClass [
-	^ BrContextMenuHideWish
-]
-
 { #category : #initialization }
 BrWithContextMenuLook2 >> initialize [
 	super initialize.
+	
 	preferredExtent := 200 @ 400.
+	mouseButton := BlMouseButton secondary.
+	
 	strategy := BrAnchoredCompositeStrategy builder
 		single: [ :e | 
 			e
@@ -101,54 +98,53 @@ BrWithContextMenuLook2 >> initialize [
 						remove: BrContextMenuTopRightLook;
 						add: BrContextMenuTopLeftLook ] ];
 		build.
-	mouseButton := BlMouseButton secondary.
-	clickEventHandler := BlEventHandler
-		on: BlMouseUpEvent
-		do: [ :e | 
-			e button = mouseButton
-				ifTrue: [ self canHide
-						ifTrue: [ self hide ].
-					position := self root globalPointToLocal: e position.
-					self show ] ].
+]
+
+{ #category : #initialization }
+BrWithContextMenuLook2 >> initializeListeners [
+	super initializeListeners.
+
 	self
-		addChange:
-			(BrLookChange new
-				up: [ :e | widget addEventHandler: clickEventHandler ];
-				down: [ :e | widget removeEventHandler: clickEventHandler ];
-				yourself)
+		when: BrContextMenuStencilChanged
+		do: [ :anEvent | self stencil: anEvent stencil ].
+
+	self
+		when: BrContextMenuVisibleChanged
+		do: [ :anEvent | self visible: anEvent visible ].
+
+	self
+		when: BrContextMenuRelocateWish
+		do: [ :aWish | self onRelocateWish: aWish ].
+		
+	self
+		when: BrContextMenuShowWish
+		do: [ :aWish | self onShowWish: aWish ].
+		
+	self
+		when: BrContextMenuHideWish
+		do: [ :aWish | self onHideWish: aWish ].
+
+	self
+		when: BlMouseUpEvent
+		do: [ :anEvent | 
+			anEvent button = mouseButton
+				ifTrue: [
+					anEvent consumed: true.
+					self canHide
+						ifTrue: [ self hide ].
+					position := self root globalPointToLocal: anEvent position.
+					self show ] ]
 ]
 
-{ #category : #'as yet unclassified' }
-BrWithContextMenuLook2 >> relocateWishClass [
-	^ BrContextMenuRelocateWish
+{ #category : #initialization }
+BrWithContextMenuLook2 >> initializeRequests [
+	super initializeRequests.
+
+	self request: BrContextMenuStencilRequest new.
+	self request: BrContextMenuVisibleRequest new
 ]
 
-{ #category : #'as yet unclassified' }
-BrWithContextMenuLook2 >> showWishClass [
-	^ BrContextMenuShowWish
-]
-
-{ #category : #'as yet unclassified' }
-BrWithContextMenuLook2 >> stencilChangedClass [
-	^ BrContextMenuStencilChanged
-]
-
-{ #category : #'as yet unclassified' }
-BrWithContextMenuLook2 >> stencilRequest [
-	^ BrContextMenuStencilRequest new
-]
-
-{ #category : #'as yet unclassified' }
+{ #category : #'api - context menu' }
 BrWithContextMenuLook2 >> usePrimaryMouseButton [
 	mouseButton := BlMouseButton primary
-]
-
-{ #category : #'as yet unclassified' }
-BrWithContextMenuLook2 >> visibleChangedClass [
-	^ BrContextMenuVisibleChanged
-]
-
-{ #category : #'as yet unclassified' }
-BrWithContextMenuLook2 >> visibleRequest [
-	^ BrContextMenuVisibleRequest new
 ]

@@ -67,11 +67,6 @@ BrWithAnchoredLook2 >> hide [
 	innerContainer := nil
 ]
 
-{ #category : #'as yet unclassified' }
-BrWithAnchoredLook2 >> hideWishClass [
-	self subclassResponsibility
-]
-
 { #category : #initialization }
 BrWithAnchoredLook2 >> initialize [
 	super initialize.
@@ -103,28 +98,13 @@ BrWithAnchoredLook2 >> initialize [
 			"relocate when extent changes"
 			self visible
 				ifTrue: [ self relocate ] ].
+
 	positionInSpaceChangedEventHandler := BlEventHandler
 		on: BlElementPositionInSpaceChangedEvent
 		do: [ "relocate when position in space changes"
 			self visible
 				ifTrue: [ self relocate ] ].
-	relocateEventHandler := BlEventHandler
-		on: self relocateWishClass
-		do: [ :e | 
-			(e anchor = widget and: [ self canRelocate ])
-				ifTrue: [ self relocate: e ] ].
-	showEventHandler := BlEventHandler
-		on: self showWishClass
-		do: [ :e | 
-			"show on wish"
-			(e anchor = widget and: [ self canShow ])
-				ifTrue: [ self show ] ].
-	hideEventHandler := BlEventHandler
-		on: self hideWishClass
-		do: [ :e | 
-			"hide on wish"
-			(e anchor = widget and: [ self canHide ])
-				ifTrue: [ self hide ] ].
+
 	self
 		addChange:
 			(BrLookChange new
@@ -132,38 +112,27 @@ BrWithAnchoredLook2 >> initialize [
 				down: [ :e | 
 					self canHide
 						ifTrue: [ self hide ] ];
-				yourself);
-		addChange:
-			(BrLookChange new
-				up: [ :e | 
-					widget
-						addEventHandler: relocateEventHandler;
-						addEventHandler: showEventHandler;
-						addEventHandler: hideEventHandler ];
-				down: [ :e | 
-					widget
-						removeEventHandler: relocateEventHandler;
-						removeEventHandler: showEventHandler;
-						removeEventHandler: hideEventHandler ];
 				yourself)
 ]
 
-{ #category : #initialization }
-BrWithAnchoredLook2 >> initializeListeners [
-	super initializeListeners.
-	self
-		when: self stencilChangedClass
-		do: [ :e | self stencil: e stencil ].
-	self
-		when: self visibleChangedClass
-		do: [ :e | self visible: e visible ]
+{ #category : #'private - event handling' }
+BrWithAnchoredLook2 >> onHideWish: aWish [
+	"hide on wish"
+	
+	(aWish anchor = widget and: [ self canHide ])
+		ifTrue: [ self hide ]
 ]
 
-{ #category : #initialization }
-BrWithAnchoredLook2 >> initializeRequests [
-	super initializeRequests.
-	self request: self stencilRequest.
-	self request: self visibleRequest
+{ #category : #'private - event handling' }
+BrWithAnchoredLook2 >> onRelocateWish: aWish [
+	(aWish anchor = widget and: [ self canRelocate ])
+		ifTrue: [ self relocate: aWish ]
+]
+
+{ #category : #'private - event handling' }
+BrWithAnchoredLook2 >> onShowWish: aWish [
+	(aWish anchor = widget and: [ self canShow ])
+		ifTrue: [ self show ]
 ]
 
 { #category : #accessing }
@@ -193,11 +162,6 @@ BrWithAnchoredLook2 >> relocate: aRelocateEvent [
 		forPreferredExtent: preferredExtent
 ]
 
-{ #category : #'as yet unclassified' }
-BrWithAnchoredLook2 >> relocateWishClass [
-	self subclassResponsibility
-]
-
 { #category : #accessing }
 BrWithAnchoredLook2 >> root [
 	^ root ifNil: [ root := widget topMostParent ]
@@ -223,6 +187,10 @@ BrWithAnchoredLook2 >> show [
 		enqueueTask: watchDog;
 		addEventHandler: extentChangedEventHandler;
 		yourself.
+	
+	self flag: 'TODO get rid of having to set anchor'.
+	innerContainer anchor: widget.	
+	
 	outerContainer := BrAnchoredOuterContainer new
 		addChild: innerContainer;
 		yourself.
@@ -234,11 +202,6 @@ BrWithAnchoredLook2 >> show [
 		addEventHandler: extentChangedEventHandler;
 		addEventHandler: positionInSpaceChangedEventHandler.
 	self relocate
-]
-
-{ #category : #'as yet unclassified' }
-BrWithAnchoredLook2 >> showWishClass [
-	self subclassResponsibility
 ]
 
 { #category : #accessing }
@@ -255,16 +218,6 @@ BrWithAnchoredLook2 >> stencil: anObject [
 		ifTrue: [ self
 				hide;
 				show ]
-]
-
-{ #category : #'as yet unclassified' }
-BrWithAnchoredLook2 >> stencilChangedClass [
-	self subclassResponsibility
-]
-
-{ #category : #'as yet unclassified' }
-BrWithAnchoredLook2 >> stencilRequest [
-	self subclassResponsibility
 ]
 
 { #category : #accessing }
@@ -293,14 +246,4 @@ BrWithAnchoredLook2 >> visible: aBoolean [
 				ifTrue: [ self show ] ]
 		ifFalse: [ self canHide
 				ifTrue: [ self hide ] ]
-]
-
-{ #category : #'as yet unclassified' }
-BrWithAnchoredLook2 >> visibleChangedClass [
-	self subclassResponsibility
-]
-
-{ #category : #'as yet unclassified' }
-BrWithAnchoredLook2 >> visibleRequest [
-	self subclassResponsibility
 ]

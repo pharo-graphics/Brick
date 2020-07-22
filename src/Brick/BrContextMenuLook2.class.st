@@ -4,22 +4,18 @@ Class {
 	#category : #'Brick-Context Menu - Look'
 }
 
-{ #category : #'as yet unclassified' }
-BrContextMenuLook2 >> contentChangedClass [
-	^ BrContextMenuContentChanged
+{ #category : #initialization }
+BrContextMenuLook2 >> initializeListeners [
+	super initializeListeners.
+
+	self when: BrContextMenuHandleChanged do: [ :anEvent | self handle: anEvent handle ].
+	self when: BrContextMenuContentChanged do: [ :anEvent | self content: anEvent content ]
 ]
 
-{ #category : #'as yet unclassified' }
-BrContextMenuLook2 >> contentRequest [
-	^ BrContextMenuContentRequest new
-]
+{ #category : #initialization }
+BrContextMenuLook2 >> initializeRequests [
+	super initializeRequests.
 
-{ #category : #'as yet unclassified' }
-BrContextMenuLook2 >> handleChangedClass [
-	^ BrContextMenuHandleChanged
-]
-
-{ #category : #'as yet unclassified' }
-BrContextMenuLook2 >> handleRequest [
-	^ BrContextMenuHandleRequest new
+	self request: BrContextMenuHandleRequest new.
+	self request: BrContextMenuContentRequest new
 ]

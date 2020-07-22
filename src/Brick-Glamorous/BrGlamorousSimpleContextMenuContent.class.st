@@ -24,13 +24,14 @@ BrGlamorousSimpleContextMenuContent >> initialize [
 					c horizontal matchParent.
 					c vertical fitContent ];
 				padding: (BlInsets all: 5);
-				addEventHandlerOn: BlClickEvent
-					do: [ e value cull: self anchor.
-					self anchor
-						dispatchEvent:
-							(BrContextMenuHideWish new
-								anchor: self anchor;
-								yourself) ];
+				when: BlClickEvent
+					do: [
+						e value cull: self anchor.
+						self anchor
+							dispatchEvent:
+								(BrContextMenuHideWish new
+									anchor: self anchor;
+									yourself) ];
 				addChild:
 					(BrLabel new
 						look: BrGlamorousLabelLook;

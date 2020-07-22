@@ -7,31 +7,11 @@ Class {
 	#category : #'Brick-Dropdown - Look'
 }
 
-{ #category : #'as yet unclassified' }
-BrDropdownLook2 >> contentChangedClass [
-	^ BrDropdownContentChanged
-]
-
-{ #category : #'as yet unclassified' }
-BrDropdownLook2 >> contentRequest [
-	^ BrDropdownContentRequest new
-]
-
 { #category : #accessing }
 BrDropdownLook2 >> handle: anElement [
 	handle removeEventFilter: clickEventHandler.
 	super handle: anElement.
 	handle addEventFilter: clickEventHandler
-]
-
-{ #category : #'as yet unclassified' }
-BrDropdownLook2 >> handleChangedClass [
-	^ BrDropdownHandleChanged
-]
-
-{ #category : #'as yet unclassified' }
-BrDropdownLook2 >> handleRequest [
-	^ BrDropdownHandleRequest new
 ]
 
 { #category : #initialization }
@@ -48,4 +28,20 @@ BrDropdownLook2 >> initialize [
 				up: [ :e | handle addEventFilter: clickEventHandler ];
 				down: [ :e | handle removeEventFilter: clickEventHandler ];
 				yourself)
+]
+
+{ #category : #initialization }
+BrDropdownLook2 >> initializeListeners [
+	super initializeListeners.
+
+	self when: BrDropdownHandleChanged do: [ :anEvent | self handle: anEvent handle ].
+	self when: BrDropdownContentChanged do: [ :anEvent | self content: anEvent content ]
+]
+
+{ #category : #initialization }
+BrDropdownLook2 >> initializeRequests [
+	super initializeRequests.
+
+	self request: BrDropdownHandleRequest new.
+	self request: BrDropdownContentRequest new
 ]

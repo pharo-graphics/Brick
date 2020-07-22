@@ -35,7 +35,7 @@ BrAnchoredExamples >> contextMenu [
 				scaleBy: 0.5 ];
 		yourself.
 	anchor := BlElement new
-		look: (BrGlamorousWithContextMenuLook2 handle: handle content: content);
+		look: (BrGlamorousWithContextMenuLook handle: handle content: content);
 		background: Color red;
 		size: 40 @ 80;
 		addEventHandler: BlPullHandler new;

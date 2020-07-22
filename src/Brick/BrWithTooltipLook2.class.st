@@ -103,11 +103,6 @@ BrWithTooltipLook2 >> hideLater [
 	innerContainer enqueueTask: hideLaterTask
 ]
 
-{ #category : #'as yet unclassified' }
-BrWithTooltipLook2 >> hideWishClass [
-	^ BrTooltipHideWish
-]
-
 { #category : #initialization }
 BrWithTooltipLook2 >> initialize [
 	super initialize.
@@ -281,9 +276,37 @@ BrWithTooltipLook2 >> initialize [
 	self hideDelay: 300 milliSeconds
 ]
 
-{ #category : #'as yet unclassified' }
-BrWithTooltipLook2 >> relocateWishClass [
-	^ BrTooltipRelocateWish
+{ #category : #initialization }
+BrWithTooltipLook2 >> initializeListeners [
+	super initializeListeners.
+
+	self
+		when: BrTooltipStencilChanged
+		do: [ :anEvent | self stencil: anEvent stencil ].
+
+	self
+		when: BrTooltipVisibleChanged
+		do: [ :anEvent | self visible: anEvent visible ].
+
+	self
+		when: BrTooltipRelocateWish
+		do: [ :aWish | self onRelocateWish: aWish ].
+		
+	self
+		when: BrTooltipShowWish
+		do: [ :aWish | self onShowWish: aWish ].
+		
+	self
+		when: BrTooltipHideWish
+		do: [ :aWish | self onHideWish: aWish ]
+]
+
+{ #category : #initialization }
+BrWithTooltipLook2 >> initializeRequests [
+	super initializeRequests.
+
+	self request: BrTooltipStencilRequest new.
+	self request: BrTooltipVisibleRequest new
 ]
 
 { #category : #'host space - displaying' }
@@ -321,37 +344,12 @@ BrWithTooltipLook2 >> showLater [
 	widget enqueueTask: showLaterTask
 ]
 
-{ #category : #'as yet unclassified' }
-BrWithTooltipLook2 >> showWishClass [
-	^ BrTooltipShowWish
-]
-
-{ #category : #'as yet unclassified' }
-BrWithTooltipLook2 >> stencilChangedClass [
-	^ BrTooltipStencilChanged
-]
-
-{ #category : #'as yet unclassified' }
-BrWithTooltipLook2 >> stencilRequest [
-	^ BrTooltipStencilRequest new
-]
-
-{ #category : #'as yet unclassified' }
-BrWithTooltipLook2 >> visibleChangedClass [
-	^ BrTooltipVisibleChanged
-]
-
-{ #category : #'as yet unclassified' }
-BrWithTooltipLook2 >> visibleRequest [
-	^ BrTooltipVisibleRequest new
-]
-
-{ #category : #'as yet unclassified' }
+{ #category : #testing }
 BrWithTooltipLook2 >> willHideLater [
 	^ hideLaterTask isNotNil
 ]
 
-{ #category : #'as yet unclassified' }
+{ #category : #testing }
 BrWithTooltipLook2 >> willShowLater [
 	^ showLaterTask isNotNil
 ]

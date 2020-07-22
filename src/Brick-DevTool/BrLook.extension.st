@@ -25,11 +25,28 @@ BrLook class >> allRelatedViewModelsAndTheirRequests [
 ]
 
 { #category : #'*Brick-DevTool' }
+BrLook class >> gtCoderLookHierarchyFor: aView context: aDictionary [
+	<gtClassView>
+
+	^ aView tree
+		priority: 32;
+		title: 'Look hierarchy';
+		itemText: [ :anItem |
+			anItem rootClass = self
+				ifTrue: [ anItem rootClass name asRopedText bold ]
+				ifFalse: [ anItem rootClass name ] ];
+		items: (GtCoderClassesHierarchyTree fromClasses: self withAllSuperclassAndSubclassLooks) sortByClassName subclassTrees;
+		children: [ :anItem | anItem subclassTrees ];
+		send: [ :anItem | GtClassCoderTool forClass: anItem rootClass ];
+		expandAll
+]
+
+{ #category : #'*Brick-DevTool' }
 BrLook class >> gtCoderLookOverviewFor: aView context: aDictionary [
 	<gtClassView>
 
 	^ aView explicit
-		priority: 29;
+		priority: 31;
 		title: 'Look overview';
 		stencil: [ BrDevLookOverview new lookClass: self ]
 ]

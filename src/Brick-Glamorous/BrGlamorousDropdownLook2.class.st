@@ -7,5 +7,6 @@ Class {
 { #category : #'instance creation' }
 BrGlamorousDropdownLook2 >> initialize [
 	super initialize.
+
 	self add: BrGlamorousAnchoredLook
 ]

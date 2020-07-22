@@ -13,7 +13,7 @@ BrContextMenuExamples >> compact [
 		look:
 			(BrGlamorousWithContextMenuLook
 				content: [ BrGlamorousSimpleContextMenuContent new
-						display:
+						items:
 							{('Change to blue' -> [ :e | e background: Color blue ]).
 							('Change to red' -> [ :e | e background: Color red ]).
 							('Change to green' -> [ :e | e background: Color green ])};

@@ -4,22 +4,18 @@ Class {
 	#category : #'Brick-Tooltip - Look'
 }
 
-{ #category : #'as yet unclassified' }
-BrTooltipLook2 >> contentChangedClass [
-	^ BrTooltipContentChanged
+{ #category : #initialization }
+BrTooltipLook2 >> initializeListeners [
+	super initializeListeners.
+
+	self when: BrTooltipHandleChanged do: [ :anEvent | self handle: anEvent handle ].
+	self when: BrTooltipContentChanged do: [ :anEvent | self content: anEvent content ]
 ]
 
-{ #category : #'as yet unclassified' }
-BrTooltipLook2 >> contentRequest [
-	^ BrTooltipContentRequest new
-]
+{ #category : #initialization }
+BrTooltipLook2 >> initializeRequests [
+	super initializeRequests.
 
-{ #category : #'as yet unclassified' }
-BrTooltipLook2 >> handleChangedClass [
-	^ BrTooltipHandleChanged
-]
-
-{ #category : #'as yet unclassified' }
-BrTooltipLook2 >> handleRequest [
-	^ BrTooltipHandleRequest new
+	self request: BrTooltipHandleRequest new.
+	self request: BrTooltipContentRequest new
 ]

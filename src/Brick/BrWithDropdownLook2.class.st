@@ -1,9 +1,6 @@
 Class {
 	#name : #BrWithDropdownLook2,
 	#superclass : #BrWithAnchoredLook2,
-	#instVars : [
-		'clickEventHandler'
-	],
 	#category : #'Brick-Dropdown - Look'
 }
 
@@ -44,15 +41,10 @@ BrWithDropdownLook2 class >> handle: anObject content: anotherObject [
 				yourself ]
 ]
 
-{ #category : #'host space - displaying' }
+{ #category : #'api - displaying' }
 BrWithDropdownLook2 >> hide [
 	super hide.
 	widget visibility: BlVisibility visible
-]
-
-{ #category : #'as yet unclassified' }
-BrWithDropdownLook2 >> hideWishClass [
-	^ BrDropdownHideWish
 ]
 
 { #category : #initialization }
@@ -101,49 +93,47 @@ BrWithDropdownLook2 >> initialize [
 						remove: BrDropdownTopRightLook;
 						add: BrDropdownTopLeftLook ] ];
 		build.
-	clickEventHandler := BlEventHandler
-		on: BlClickEvent
-		do: [ :e | self show ].
+]
+
+{ #category : #initialization }
+BrWithDropdownLook2 >> initializeListeners [
+	super initializeListeners.
+
 	self
-		addChange:
-			(BrLookChange new
-				up: [ :e | widget addEventFilter: clickEventHandler ];
-				down: [ :e | widget removeEventFilter: clickEventHandler ];
-				yourself)
+		when: BrDropdownStencilChanged
+		do: [ :anEvent | self stencil: anEvent stencil ].
+
+	self
+		when: BrDropdownVisibleChanged
+		do: [ :anEvent | self visible: anEvent visible ].
+
+	self
+		when: BrDropdownRelocateWish
+		do: [ :aWish | self onRelocateWish: aWish ].
+		
+	self
+		when: BrDropdownShowWish
+		do: [ :aWish | self onShowWish: aWish ].
+		
+	self
+		when: BrDropdownHideWish
+		do: [ :aWish | self onHideWish: aWish ].
+	
+	self
+		when: BlClickEvent
+		do: [ self show ]
 ]
 
-{ #category : #'as yet unclassified' }
-BrWithDropdownLook2 >> relocateWishClass [
-	^ BrDropdownRelocateWish
+{ #category : #initialization }
+BrWithDropdownLook2 >> initializeRequests [
+	super initializeRequests.
+
+	self request: BrDropdownStencilRequest new.
+	self request: BrDropdownVisibleRequest new
 ]
 
-{ #category : #'host space - displaying' }
+{ #category : #'api - displaying' }
 BrWithDropdownLook2 >> show [
 	super show.
 	widget visibility: BlVisibility hidden
-]
-
-{ #category : #'as yet unclassified' }
-BrWithDropdownLook2 >> showWishClass [
-	^ BrDropdownShowWish
-]
-
-{ #category : #'as yet unclassified' }
-BrWithDropdownLook2 >> stencilChangedClass [
-	^ BrDropdownStencilChanged
-]
-
-{ #category : #'as yet unclassified' }
-BrWithDropdownLook2 >> stencilRequest [
-	^ BrDropdownStencilRequest new
-]
-
-{ #category : #'as yet unclassified' }
-BrWithDropdownLook2 >> visibleChangedClass [
-	^ BrDropdownVisibleChanged
-]
-
-{ #category : #'as yet unclassified' }
-BrWithDropdownLook2 >> visibleRequest [
-	^ BrDropdownVisibleRequest new
 ]

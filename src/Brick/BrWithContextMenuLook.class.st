@@ -29,12 +29,13 @@ BrWithContextMenuLook >> initialize [
 BrWithContextMenuLook >> initializeListeners [
 	super initializeListeners.
 	
-	self when: BlClickEvent do: [ :anEvent |
+	self when: BlMouseUpEvent do: [ :anEvent |
 		anEvent button = mouseButton
 			ifTrue: [
+				anEvent consumed: true.
 				self canHide
 					ifTrue: [ self hide ].
-				position := anEvent localPosition.
+				self widgetDo: [ :aWidget | position := aWidget globalPointToLocal: anEvent position ].
 				self show ] ]
 ]
 
