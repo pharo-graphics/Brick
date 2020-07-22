@@ -6,5 +6,5 @@ Class {
 
 { #category : #'as yet unclassified' }
 BrGlamorousWithContextMenuLook class >> anchoredLookClass [
-	^ BrGlamorousContextMenuLook2
+	^ BrGlamorousContextMenuLook
 ]

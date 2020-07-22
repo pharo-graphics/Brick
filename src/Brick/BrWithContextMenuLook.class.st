@@ -15,7 +15,7 @@ BrWithContextMenuLook class >> anchoredLook [
 
 { #category : #'as yet unclassified' }
 BrWithContextMenuLook class >> anchoredLookClass [
-	^ BrContextMenuLook2
+	^ BrContextMenuLook
 ]
 
 { #category : #accessing }
