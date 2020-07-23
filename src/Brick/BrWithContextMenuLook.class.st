@@ -3,7 +3,8 @@ Class {
 	#superclass : #BrWithAnchoredLook2,
 	#instVars : [
 		'position',
-		'mouseButton'
+		'mouseButton',
+		'modifiersMatcher'
 	],
 	#category : #'Brick-Context Menu - Look'
 }
@@ -50,7 +51,9 @@ BrWithContextMenuLook >> initialize [
 	super initialize.
 	
 	preferredExtent := 200 @ 400.
+	
 	mouseButton := BlMouseButton secondary.
+	modifiersMatcher := [ :aBlKeyModifiers | true ].
 	
 	strategy := BrAnchoredCompositeStrategy builder
 		single: [ :e | 
@@ -126,14 +129,7 @@ BrWithContextMenuLook >> initializeListeners [
 
 	self
 		when: BlMouseUpEvent
-		do: [ :anEvent | 
-			anEvent button = mouseButton
-				ifTrue: [
-					anEvent consumed: true.
-					self canHide
-						ifTrue: [ self hide ].
-					position := self root globalPointToLocal: anEvent position.
-					self show ] ]
+		do: [ :anEvent |  self onMouseUp: anEvent ]
 ]
 
 { #category : #initialization }
@@ -142,6 +138,31 @@ BrWithContextMenuLook >> initializeRequests [
 
 	self request: BrContextMenuStencilRequest new.
 	self request: BrContextMenuVisibleRequest new
+]
+
+{ #category : #'api - context menu' }
+BrWithContextMenuLook >> modifiersMatcher: aBlockOrSymbol [
+	"Customize the modifiers matcher in a form of [ :aBlKeyModifiers | true ] that is used
+	to test whether the context menu should be opened"
+
+	modifiersMatcher := aBlockOrSymbol
+]
+
+{ #category : #'event handling' }
+BrWithContextMenuLook >> onMouseUp: anEvent [
+	anEvent button = mouseButton
+		ifFalse: [ ^ self ].
+	
+	(modifiersMatcher value: anEvent modifiers)
+		ifFalse: [ ^ self ].
+
+	anEvent consumed: true.
+
+	self canHide
+		ifTrue: [ self hide ].
+
+	position := self root globalPointToLocal: anEvent position.
+	self show
 ]
 
 { #category : #'api - context menu' }
