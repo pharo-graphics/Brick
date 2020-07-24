@@ -70,7 +70,10 @@ BrTextEditorSelecter >> moveOneDown [
 	theNewCursorPositions := (self cursors collect: [ :aCursor |
 		aCursor -> (self
 			findTextIndexBelowCursor: aCursor
-			ifAbsent: [ aCursor position ]) ]) as: OrderedIdentityDictionary.
+			ifAbsent: [
+				(self isCursorOnTheLastLine: aCursor)
+					ifTrue: [ self text size ]
+					ifFalse: [ aCursor position ] ]) ]) as: OrderedIdentityDictionary.
 
 	theCursorsOnTheLeft := self cursors
 		select: [ :aCursor | self selection anySatisfy: [ :aSelection | aCursor position = aSelection from ] ].
@@ -151,7 +154,10 @@ BrTextEditorSelecter >> moveOneUp [
 	theNewCursorPositions := (self cursors collect: [ :aCursor |
 		aCursor -> (self
 			findTextIndexAboveCursor: aCursor
-			ifAbsent: [ aCursor position ]) ]) as: OrderedIdentityDictionary.
+			ifAbsent: [
+				(self isCursorOnTheFirstLine: aCursor)
+					ifTrue: [ 0 ]
+					ifFalse: [ aCursor position ] ]) ]) as: OrderedIdentityDictionary.
 
 	theCursorsOnTheLeft := self cursors
 		select: [ :aCursor | self selection anySatisfy: [ :aSelection | aCursor position = aSelection from ] ].

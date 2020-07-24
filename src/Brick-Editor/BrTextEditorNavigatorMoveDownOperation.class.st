@@ -12,7 +12,7 @@ BrTextEditorNavigatorMoveDownOperation >> performOn: aNavigator [
 		findTextIndexBelowCursor: self cursor
 		ifAbsent: [
 			"a cursor position is not found, maybe we are at the last line?"
-			(aNavigator findLineEndAfter: (self cursor position max: aNavigator text isNotEmpty asBit)) = aNavigator text size
+			(aNavigator isCursorOnTheLastLine: self cursor)
 				ifFalse: [ ^ self ]
 				ifTrue: [
 					| anEvent |

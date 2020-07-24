@@ -278,6 +278,20 @@ BrTextEditorOperator >> initialize [
 ]
 
 { #category : #testing }
+BrTextEditorOperator >> isCursorOnTheFirstLine: aCursor [
+	<return: #Boolean>
+
+	^ (self findLineStartBefore: (aCursor position max: self text isNotEmpty asBit)) isZero
+]
+
+{ #category : #testing }
+BrTextEditorOperator >> isCursorOnTheLastLine: aCursor [
+	<return: #Boolean>
+
+	^ (self findLineEndAfter: (aCursor position max: self text isNotEmpty asBit)) = self text size
+]
+
+{ #category : #testing }
 BrTextEditorOperator >> isDeleter [
 	^ false
 ]

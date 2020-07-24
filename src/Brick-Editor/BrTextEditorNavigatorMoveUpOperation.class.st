@@ -12,7 +12,7 @@ BrTextEditorNavigatorMoveUpOperation >> performOn: aNavigator [
 		findTextIndexAboveCursor: self cursor
 		ifAbsent: [
 			"a cursor position is not found, maybe we are at the first line?"
-			(aNavigator findLineStartBefore: (self cursor position max: aNavigator text isNotEmpty asBit)) isZero
+			(aNavigator isCursorOnTheFirstLine: self cursor)
 				ifFalse: [ ^ self ]
 				ifTrue: [
 					| anEvent |
