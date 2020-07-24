@@ -25,11 +25,21 @@ BrLook class >> allRelatedViewModelsAndTheirRequests [
 ]
 
 { #category : #'*Brick-DevTool' }
+BrLook class >> gtCoderLookGraphOverviewFor: aView context: aDictionary [
+	<gtClassView>
+
+	^ aView explicit
+		priority: 32;
+		title: 'Look graph';
+		stencil: [ BrDevLookGraphOverview new lookClass: self ]
+]
+
+{ #category : #'*Brick-DevTool' }
 BrLook class >> gtCoderLookHierarchyFor: aView context: aDictionary [
 	<gtClassView>
 
 	^ aView tree
-		priority: 32;
+		priority: 33;
 		title: 'Look hierarchy';
 		itemText: [ :anItem |
 			anItem rootClass = self
@@ -56,6 +66,15 @@ BrLook class >> withAllSuperclassAndSubclassLooks [
 	^ self withAllSuperclassLooks
 		addAll: self withAllSubclasses;
 		yourself
+]
+
+{ #category : #'*Brick-DevTool' }
+BrLook class >> withAllSuperclassChangeEvents [
+	<return: #Set of: #'BrChangeEvent class'>
+
+	^ ((self withAllSuperclassLooks
+		flatCollect: [ :eachLookClass | eachLookClass referencedClasses
+			select: [ :eachReferencedClass | eachReferencedClass isKindOf: BrChangeEvent class ] ]) as: Set) asArray
 ]
 
 { #category : #'*Brick-DevTool' }
