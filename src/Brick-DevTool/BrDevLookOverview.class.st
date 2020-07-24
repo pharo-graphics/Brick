@@ -48,7 +48,6 @@ BrDevLookOverview >> buildCoderArtifactReferenceList: aListOfWishReferences [
 			
 			(GtMethodCoder forMethod: eachReferenceGroup key)
 				highlighter: aHighlighter;
-				withHeader;
 				asElement ].
 
 	^ aList
