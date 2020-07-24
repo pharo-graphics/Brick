@@ -132,8 +132,14 @@ BrTextEditorEditableMode >> initialize [
 				withoutResettingDesiredCoordinate;
 				apply ].
 		
-		BlKeyCombination primaryArrowLeft -> [ :aShortcutEvent :aShortcut :aTextEditor |  aTextEditor moveCursorToStartPreviousWord ].
-		BlKeyCombination primaryArrowRight -> [ :aShortcutEvent :aShortcut :aTextEditor |  aTextEditor moveCursorToEndNextWord ].
+		BlKeyCombination primaryArrowLeft -> [ :aShortcutEvent :aShortcut :aTextEditor |
+			aTextEditor navigator
+				moveToStartPreviousWord;
+				apply ].
+		BlKeyCombination primaryArrowRight -> [ :aShortcutEvent :aShortcut :aTextEditor | 
+			aTextEditor navigator
+				moveToEndNextWord;
+				apply ].
 		BlKeyCombination home -> [ :aShortcutEvent :aShortcut :aTextEditor |  aTextEditor moveCursorToLineStart ].
 		BlKeyCombination end -> [ :aShortcutEvent :aShortcut :aTextEditor |  aTextEditor moveCursorToLineEnd ].
 	})

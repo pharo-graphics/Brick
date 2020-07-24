@@ -448,22 +448,6 @@ BrTextEditor >> moveCursorTo: aTextIndex [
 ]
 
 { #category : #'text - cursor' }
-BrTextEditor >> moveCursorToEndNextWord [
-	| textIterator newPosition |
-	"Moves cursor to the end of the next word"
-
-	newPosition := self cursor first position.
-	textIterator := self text iterator: (newPosition max: 1) to: self text size.
-	[ textIterator hasNext and: [ newPosition = self cursor first position ] ] whileTrue: [
-		| skip |
-		skip := textIterator peek isSeparator.
-		textIterator nextWord.
-		skip ifFalse: [ newPosition := textIterator position ] ].
-
-	self moveCursorTo: newPosition
-]
-
-{ #category : #'text - cursor' }
 BrTextEditor >> moveCursorToLineEnd [
 	"Moves cursors to the end if their corresponding lines.
 	Note:
@@ -485,21 +469,6 @@ BrTextEditor >> moveCursorToLineStart [
 	self navigator
 		moveToLineStart;
 		apply
-]
-
-{ #category : #'text - cursor' }
-BrTextEditor >> moveCursorToStartPreviousWord [
-	| newPosition |
-	"Moves cursor to the left by one character"
-
-	newPosition := self cursor first position - 1.
-	newPosition := newPosition max: 0.
-	[ newPosition > 0 and: [ (self text at: newPosition) isSeparator ] ] whileTrue:
-		[ newPosition := newPosition - 1 ].
-	[ newPosition = 0 or: [ (self text at: newPosition) isSeparator ] ] whileFalse:
-		[ newPosition := newPosition - 1 ].
-
-	self moveCursorTo: newPosition
 ]
 
 { #category : #'api - modification' }

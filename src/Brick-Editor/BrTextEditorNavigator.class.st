@@ -171,6 +171,13 @@ BrTextEditorNavigator >> moveTo: aTextPosition [
 ]
 
 { #category : #'api - configuration' }
+BrTextEditorNavigator >> moveToEndNextWord [
+	"Move all cursors to the end of the next word"
+
+	self cursor do: [ :aCursor | operations add: (BrTextEditorNavigatorMoveToEndNextWordOperation cursor: aCursor) ]
+]
+
+{ #category : #'api - configuration' }
 BrTextEditorNavigator >> moveToLineEnd [
 	"Move all cursors to the end of their corresponding lines"
 
@@ -195,6 +202,13 @@ BrTextEditorNavigator >> moveToScreenPosition: aScreenPosition [
 	allCursors
 		ifEmpty: [ operations add: ((BrTextEditorNavigatorAddAtScreenPositionOperation cursor: (self privateNewCursorAt: 0)) screenPosition: aScreenPosition) ]
 		ifNotEmpty: [ operations add: ((BrTextEditorNavigatorMoveAtScreenPositionOperation cursor: allCursors first) screenPosition: aScreenPosition) ].
+]
+
+{ #category : #'api - configuration' }
+BrTextEditorNavigator >> moveToStartPreviousWord [
+	"Move all cursors to the start of the previous word"
+
+	self cursor do: [ :aCursor | operations add: (BrTextEditorNavigatorMoveToStartPreviousWordOperation cursor: aCursor) ]
 ]
 
 { #category : #'api - configuration' }
