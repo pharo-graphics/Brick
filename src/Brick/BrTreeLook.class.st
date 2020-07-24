@@ -32,6 +32,14 @@ BrTreeLook >> initializeListeners [
 	self when: BrTreeChildrenChanged do: [ :anEvent | self root: anEvent root ].
 	self when: BrSelectionChanged do: [ :anEvent | self onSelectionChanged: anEvent indices ].
 	self when: BrTreeNodeTypeStencilChangedEvent do: [ :anEvent | self onNodeTypeStencilChanged: anEvent nodeTypeStencil ].
+	
+	self
+		when: BrScrollByWish
+		do: [ :aWish | self onScrollBy: aWish ].
+
+	self
+		when: BrScrollToItemWish
+		do: [ :aWish | self onScrollToItem: aWish ]
 ]
 
 { #category : #initialization }
@@ -46,6 +54,20 @@ BrTreeLook >> initializeRequests [
 { #category : #hooks }
 BrTreeLook >> onNodeTypeStencilChanged: aBrTreeNodeTypeStencilBuilder [
 	treeElement dataSource nodeTypeStencil: aBrTreeNodeTypeStencilBuilder
+]
+
+{ #category : #hooks }
+BrTreeLook >> onScrollBy: aWish [
+	aWish smooth
+		ifTrue: [ treeElement smoothScrollBy: aWish delta ]
+		ifFalse: [ treeElement scrollBy: aWish delta ]
+]
+
+{ #category : #hooks }
+BrTreeLook >> onScrollToItem: aWish [
+	aWish smooth
+		ifTrue: [ treeElement smoothScrollToPosition: aWish index ]
+		ifFalse: [ treeElement scrollToPosition: aWish index ]
 ]
 
 { #category : #hooks }

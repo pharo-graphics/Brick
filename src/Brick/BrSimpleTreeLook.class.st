@@ -18,8 +18,14 @@ BrSimpleTreeLook >> initialize [
 BrSimpleTreeLook >> initializeListeners [
 	super initializeListeners.
 	
-	self when: BrTreeNodeElementStencilChangedEvent do: [ :anEvent | self onNodeElementStencilChanged: anEvent nodeElementStencil ].
-	self when: BrTreeNodeDataBinderChangedEvent do: [ :anEvent | self onNodeDataBinderChanged: anEvent nodeDataBinder ].
+	self
+		when: BrTreeNodeElementStencilChangedEvent
+		do: [ :anEvent | self onNodeElementStencilChanged: anEvent nodeElementStencil ].
+
+	self
+		when: BrTreeNodeDataBinderChangedEvent
+		do: [ :anEvent | self onNodeDataBinderChanged: anEvent nodeDataBinder ]
+
 ]
 
 { #category : #initialization }

@@ -1,8 +1,8 @@
 Class {
 	#name : #BrTree,
 	#superclass : #BlElement,
-	#traits : 'TBrLayoutResizable + TBrSelectable',
-	#classTraits : 'TBrLayoutResizable classTrait + TBrSelectable classTrait',
+	#traits : 'TBrLayoutResizable + TBrSelectable + TBrScrollable',
+	#classTraits : 'TBrLayoutResizable classTrait + TBrSelectable classTrait + TBrScrollable classTrait',
 	#category : #'Brick-Tree - UI'
 }
 
@@ -81,9 +81,10 @@ BrTree >> maxSelectionIndex [
 { #category : #scripting }
 BrTree >> scrollTo: anIndex [
 	self
-		childNamed: #tree
-		ifFound: [ :aScrollableTree | aScrollableTree scrollToPosition: anIndex ]
-		ifNone: [  ]
+		deprecated: 'Use scrollToIndex: instead'
+		transformWith: '`@receiver scrollTo: `@arg' -> '`@receiver scrollToIndex: `@arg'.
+		
+	self scrollToIndex: anIndex
 ]
 
 { #category : #scripting }
@@ -95,8 +96,7 @@ BrTree >> selectAndScrollTo: anObject [
 				ifTrue: [ treeNode withAllParentNodesDo: [ :node | node expand ].
 					(self isSelectedAt: treeNode globalIndexInTree)
 						ifFalse: [ self selectOne: treeNode globalIndexInTree ].
-					(self childNamed: #tree)
-						scrollToPosition: treeNode globalIndexInTree ] ]
+					self scrollToIndex: treeNode globalIndexInTree ] ]
 ]
 
 { #category : #'api - selection' }
