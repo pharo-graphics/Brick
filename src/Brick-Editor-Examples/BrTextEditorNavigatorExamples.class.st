@@ -413,6 +413,43 @@ BrTextEditorNavigatorExamples >> cursor_is_not_duplicated_bulk_full [
 	^ anEditor
 ]
 
+{ #category : #'examples - move down' }
+BrTextEditorNavigatorExamples >> cursor_moveDown_in_cursors_at_190 [
+	<gtExample>
+	| anEditor theAddedEvents theMovedEvents theRemovedEvents theReachBoudnaryEvents |
+	
+	anEditor := self cursor_moveTo_190_in_empty.
+	
+	theAddedEvents := OrderedCollection new.
+	theMovedEvents := OrderedCollection new.
+	theRemovedEvents := OrderedCollection new.
+	theReachBoudnaryEvents := OrderedCollection new.
+
+	anEditor navigator
+		whenAdded: [ :anEvent | theAddedEvents add: anEvent ];
+		whenMoved: [ :anEvent | theMovedEvents add: anEvent ];
+		whenRemoved: [ :anEvent | theRemovedEvents add: anEvent ];
+		whenReachedBoundary: [ :anEvent | theReachBoudnaryEvents add: anEvent ];
+		moveDown;
+		apply;
+		unsubscribe.
+
+	self assert: anEditor cursors isNotEmpty.
+	self assert: anEditor cursors allCursors equals: { BrTextEditorSingleCursor new position: 202 }.
+	
+	self assert: theAddedEvents isEmpty.
+	self assert: theMovedEvents size equals: 1.
+	self assert: theMovedEvents first cursor equals: (BrTextEditorSingleCursor new position: 202).
+	self assert: theMovedEvents first oldIndex equals: 190.
+	self assert: theMovedEvents first newIndex equals: 202.
+	self assert: theRemovedEvents isEmpty.
+	self assert: theReachBoudnaryEvents size equals: 1.
+	self assert: theReachBoudnaryEvents first cursor equals: (BrTextEditorSingleCursor new position: 202).
+	self assert: theReachBoudnaryEvents first isBottom.
+	
+	^ anEditor
+]
+
 { #category : #'examples - move to line end' }
 BrTextEditorNavigatorExamples >> cursor_moveToLineEnd_in_cursors_at_0 [
 	<gtExample>
@@ -1173,6 +1210,38 @@ BrTextEditorNavigatorExamples >> cursor_moveTo_0_in_empty [
 ]
 
 { #category : #'examples - move to' }
+BrTextEditorNavigatorExamples >> cursor_moveTo_190_in_empty [
+	<gtExample>
+	| anEditor theAddedEvents theMovedEvents theRemovedEvents |
+	
+	anEditor := self editorOnMultilineText.
+	
+	theAddedEvents := OrderedCollection new.
+	theMovedEvents := OrderedCollection new.
+	theRemovedEvents := OrderedCollection new.
+
+	anEditor navigator
+		whenAdded: [ :anEvent | theAddedEvents add: anEvent ];
+		whenMoved: [ :anEvent | theMovedEvents add: anEvent ];
+		whenRemoved: [ :anEvent | theRemovedEvents add: anEvent ];
+		moveTo: 190;
+		apply;
+		unsubscribe.
+		
+	self assert: anEditor cursors isNotEmpty.
+	self assert: anEditor cursors allCursors equals: { BrTextEditorSingleCursor new position: 190 }.
+	
+	self assert: theAddedEvents size equals: 1.
+	self assert: (theAddedEvents collect: #cursor) asArray equals: {
+		BrTextEditorSingleCursor new position: 190.
+	}.
+	self assert: theMovedEvents isEmpty.
+	self assert: theRemovedEvents isEmpty.
+	
+	^ anEditor
+]
+
+{ #category : #'examples - move to' }
 BrTextEditorNavigatorExamples >> cursor_moveTo_1_in_cursors_at_0 [
 	<gtExample>
 	| anEditor theAddedEvents theMovedEvents theRemovedEvents |
@@ -1282,6 +1351,43 @@ BrTextEditorNavigatorExamples >> cursor_moveTo_67_in_cursors_at_68 [
 	self assert: addedCursorElements first textPosition equals: 6.
 	self assert: removedCursorElements size equals: 1.
 	self assert: removedCursorElements first textPosition equals: 0.
+	
+	^ anEditor
+]
+
+{ #category : #'examples - move up' }
+BrTextEditorNavigatorExamples >> cursor_moveUp_in_cursors_at_1 [
+	<gtExample>
+	| anEditor theAddedEvents theMovedEvents theRemovedEvents theReachBoudnaryEvents |
+	
+	anEditor := self cursor_add_at_1_in_empty.
+	
+	theAddedEvents := OrderedCollection new.
+	theMovedEvents := OrderedCollection new.
+	theRemovedEvents := OrderedCollection new.
+	theReachBoudnaryEvents := OrderedCollection new.
+
+	anEditor navigator
+		whenAdded: [ :anEvent | theAddedEvents add: anEvent ];
+		whenMoved: [ :anEvent | theMovedEvents add: anEvent ];
+		whenRemoved: [ :anEvent | theRemovedEvents add: anEvent ];
+		whenReachedBoundary: [ :anEvent | theReachBoudnaryEvents add: anEvent ];
+		moveUp;
+		apply;
+		unsubscribe.
+
+	self assert: anEditor cursors isNotEmpty.
+	self assert: anEditor cursors allCursors equals: { BrTextEditorSingleCursor new position: 0 }.
+	
+	self assert: theAddedEvents isEmpty.
+	self assert: theMovedEvents size equals: 1.
+	self assert: theMovedEvents first cursor equals: (BrTextEditorSingleCursor new position: 0).
+	self assert: theMovedEvents first oldIndex equals: 1.
+	self assert: theMovedEvents first newIndex equals: 0.
+	self assert: theRemovedEvents isEmpty.
+	self assert: theReachBoudnaryEvents size equals: 1.
+	self assert: theReachBoudnaryEvents first cursor equals: (BrTextEditorSingleCursor new position: 0).
+	self assert: theReachBoudnaryEvents first isTop.
 	
 	^ anEditor
 ]

@@ -417,6 +417,13 @@ BrTextEditorNavigator >> whenMoved: aBlock [
 ]
 
 { #category : #'api - events' }
+BrTextEditorNavigator >> whenReachedBoundary: aBlock [
+	"Subscribe to the cursor reached boundary event and return an event handler"
+
+	^ self when: BrTextEditorCursorReachedBoundaryEvent do: aBlock
+]
+
+{ #category : #'api - events' }
 BrTextEditorNavigator >> whenRemoved: aBlock [
 	"Subscribe to the cursor removed event and return an event handler"
 
