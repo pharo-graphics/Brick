@@ -96,7 +96,7 @@ BrDropdownExamples >> coloredDropdown [
 	<gtExample>
 	^ BrButton new
 		size: 20 @ 20;
-		geometry: (BlRectangle cornerRadius: 10);
+		geometry: (BlRoundedRectangleGeometry cornerRadius: 10);
 		label: 'howdy';
 		look:
 			(BrInteractiveCommonLook new
@@ -130,7 +130,7 @@ BrDropdownExamples >> coloredDropdown [
 										handle:
 											(BrButton new
 												size: 20 @ 20;
-												geometry: (BlRectangle cornerRadius: 10);
+												geometry: (BlRoundedRectangleGeometry cornerRadius: 10);
 												look:
 													(BrInteractiveCommonLook new
 														default: [ :e | 

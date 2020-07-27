@@ -36,7 +36,7 @@ BrGlamorousLinkButtonExteriorLook >> initialize [
 		with: [ BlLinearLayout horizontal alignCenter ].
 	self
 		addChangeProperty: #(widgetContent geometry)
-		with: [ BlRectangle cornerRadius: 4 ].
+		with: [ BlRoundedRectangleGeometry cornerRadius: 4 ].
 	self
 		addChangeProperty: #(widgetContent constraints vertical resizer)
 		with: BlLayoutResizer fitContent.

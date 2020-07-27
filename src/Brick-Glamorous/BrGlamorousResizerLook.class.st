@@ -69,7 +69,7 @@ BrGlamorousResizerLook >> initialize [
 		with: [ Color gray alpha: 0.4 ].
 	self
 		addChangeProperty: #(widget geometry)
-		with: [ BlRectangle cornerRadius: 2 ]
+		with: [ BlRoundedRectangleGeometry cornerRadius: 2 ]
 ]
 
 { #category : #accessing }

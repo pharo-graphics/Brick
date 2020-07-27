@@ -29,10 +29,10 @@ BrMaterialRoundedLook >> initialize [
 	cornerRadius := 2.
 	self
 		addChangeProperty: #(widget geometry)
-		with: [ BlRectangle cornerRadius: self cornerRadius ]
+		with: [ BlRoundedRectangleGeometry cornerRadius: self cornerRadius ]
 ]
 
 { #category : #updating }
 BrMaterialRoundedLook >> updateCornerRadius [
-	self widgetDo: [ :anElement | anElement geometry: (BlRectangle cornerRadius: self cornerRadius) ]
+	self widgetDo: [ :anElement | anElement geometry: (BlRoundedRectangleGeometry cornerRadius: self cornerRadius) ]
 ]

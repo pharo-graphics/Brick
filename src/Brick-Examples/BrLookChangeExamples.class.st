@@ -42,7 +42,7 @@ BrLookChangeExamples >> buttonLookPropertyChange [
 		yourself.
 	pointy := BrLookPropertyChange new
 		path: #(widget geometry);
-		value: [ BlRectangle new ];
+		value: [ BlRoundedRectangleGeometry new ];
 		yourself.
 	round := BrLookPropertyChange new
 		path: #(widget geometry);
@@ -50,7 +50,7 @@ BrLookChangeExamples >> buttonLookPropertyChange [
 		yourself.
 	roundish := BrLookPropertyChange new
 		path: #(widget geometry);
-		value: [ BlRectangle cornerRadius: 10 ];
+		value: [ BlRoundedRectangleGeometry cornerRadius: 10 ];
 		yourself.
 	changes := {(#blue -> blue).
 	(#wide -> wide).
@@ -62,7 +62,7 @@ BrLookChangeExamples >> buttonLookPropertyChange [
 	label := BrLabel new
 		border: (BlBorder paint: Color black width: 1);
 		padding: (BlInsets all: 25);
-		geometry: (BlRectangle cornerRadius: 20);
+		geometry: (BlRoundedRectangleGeometry cornerRadius: 20);
 		look: BrGlamorousLabelLook;
 		text: 'Click me to change!' asRopedText;
 		yourself.

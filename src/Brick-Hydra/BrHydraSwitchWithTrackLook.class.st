@@ -6,7 +6,7 @@ Class {
 		'thumb',
 		'cornerRadius'
 	],
-	#category : 'Brick-Hydra'
+	#category : #'Brick-Hydra'
 }
 
 { #category : #accessing }
@@ -31,7 +31,7 @@ BrHydraSwitchWithTrackLook >> initialize [
 	self
 		addChangeProperty: #(widget border)
 		with: [ :e | e copyWithWidth: 1 ].
-	self addChangeProperty: #(widget geometry) with: [ BlRectangle new ].
+	self addChangeProperty: #(widget geometry) with: [ BlRoundedRectangleGeometry new ].
 	self addChangeProperty: #(widget size) with: [ 48 @ 18 ].
 	self addChangeAddChildAs: #(track) with: [ track ].
 	self addChangeAddChildAs: #(thumb) with: [ thumb ].
@@ -82,5 +82,5 @@ BrHydraSwitchWithTrackLook >> updateColor [
 
 { #category : #updating }
 BrHydraSwitchWithTrackLook >> updateCornerRadius [
-	widget geometry: (BlRectangle cornerRadius: self cornerRadius)
+	widget geometry: (BlRoundedRectangleGeometry cornerRadius: self cornerRadius)
 ]

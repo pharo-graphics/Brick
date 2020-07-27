@@ -22,7 +22,7 @@ BrGlamorousSpaceTabBasicLook >> initialize [
 
 	self
 		addChangeProperty: #(widget geometry)
-		with: [ BlRectangle cornerRadii: (BlCornerRadii new
+		with: [ BlRoundedRectangleGeometry cornerRadii: (BlCornerRadii new
 			topLeft: 8;
 			topRight: 8;
 			bottomLeft: 0;

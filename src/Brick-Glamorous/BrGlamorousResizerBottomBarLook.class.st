@@ -12,7 +12,7 @@ BrGlamorousResizerBottomBarLook >> initialize [
 		with: [ BrGlamorousColors editorBorderColor alpha: 0.5 ].
 	self
 		addChangeProperty: #(widget geometry)
-		with: [ BlRectangle cornerRadius: 2 ].
+		with: [ BlRoundedRectangleGeometry cornerRadius: 2 ].
 	self
 		addChangeProperty: #(widget constraints vertical resizer)
 		with: [ BlLayoutResizer exact: 4.0 ].

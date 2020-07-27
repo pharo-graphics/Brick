@@ -4,7 +4,7 @@ Class {
 	#instVars : [
 		'thumb'
 	],
-	#category : 'Brick-Hydra'
+	#category : #'Brick-Hydra'
 }
 
 { #category : #accessing }
@@ -23,7 +23,7 @@ BrHydraSwitchWithoutTrackLook >> initialize [
 		with: [ :e | e copyWithWidth: 1 ].
 	self
 		addChangeProperty: #(widget geometry)
-		with: [ BlRectangle cornerRadius: 8 ].
+		with: [ BlRoundedRectangleGeometry cornerRadius: 8 ].
 	self addChangeAddChildAs: #(content thumb) with: [ thumb ].
 	self addChangeProperty: #(widget size) with: [ 36 @ 20 ].
 	self

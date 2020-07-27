@@ -13,7 +13,7 @@ BrGlamorousButtonRectangularLook >> initialize [
 
 	self
 		addChangeProperty: #(widgetContent geometry)
-		with: (BlRectangle cornerRadius: 4).
+		with: (BlRoundedRectangleGeometry cornerRadius: 4).
 		
 	self add: BrGlamorousButtonLayoutLook new.
 	

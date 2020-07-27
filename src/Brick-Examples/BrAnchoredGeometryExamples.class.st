@@ -17,7 +17,7 @@ BrAnchoredGeometryExamples >> movingCorner [
 		addChild:
 			(BlElement new
 				background: BrGlamorousColors hoveredButtonBorderColor;
-				geometry: (BlRectangle cornerRadius: 25);
+				geometry: (BlRoundedRectangleGeometry cornerRadius: 25);
 				border: (BlBorder paint: Color transparent asBlPaint width: 12.5);
 				size: 50 @ 50;
 				relocate: 0 @ 0;

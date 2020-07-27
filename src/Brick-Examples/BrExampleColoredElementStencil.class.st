@@ -36,7 +36,7 @@ BrExampleColoredElementStencil >> create [
 	^ BlElement new
 		size: 300@300;
 		background: self color;
-		geometry: (BlRectangle cornerRadius: self cornerRadius)
+		geometry: (BlRoundedRectangleGeometry cornerRadius: self cornerRadius)
 ]
 
 { #category : #initialization }

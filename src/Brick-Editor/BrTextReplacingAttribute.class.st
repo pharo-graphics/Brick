@@ -53,7 +53,7 @@ BrTextReplacingAttribute >> embellishment: anObject [
 BrTextReplacingAttribute >> glamorousRoundedBackground [
 	self embellishment: [ :anElement |
 		anElement background: BrGlamorousColors neutralBackgroundColor.
-		anElement geometry: (BlRectangle cornerRadius: 4) ].
+		anElement geometry: (BlRoundedRectangleGeometry cornerRadius: 4) ].
 	self padding: (BlInsets all: 3).
 	self margin: (BlInsets top: 3 bottom: 3)
 ]

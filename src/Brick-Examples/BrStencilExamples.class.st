@@ -20,7 +20,7 @@ BrStencilExamples >> coloredElementUsingBlock [
 		BlElement new
 			size: 200@200;
 			background: aColor;
-			geometry: (BlRectangle cornerRadius: aCornerRadius) ] asStencil.
+			geometry: (BlRoundedRectangleGeometry cornerRadius: aCornerRadius) ] asStencil.
 	aStencil arguments: { (Color blue alpha: 0.5) . 50 }.
 
 	anElement := aStencil create.
@@ -81,7 +81,7 @@ BrStencilExamples >> defaultElementUsingBlock [
 		BlElement new
 			size: 200@200;
 			background: Color gray;
-			geometry: (BlRectangle cornerRadius: 20) ] asStencil.
+			geometry: (BlRoundedRectangleGeometry cornerRadius: 20) ] asStencil.
 
 	anElement := aStencil create.
 

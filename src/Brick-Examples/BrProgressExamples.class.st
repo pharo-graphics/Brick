@@ -77,11 +77,11 @@ BrProgressExamples >> animatedBarLook [
 			beGradientAnimationBaseColor: Color white highlightColor: Color blue muchLighter;
 			barDo: [ :aBar | 
 				aBar background: Color blue.
-				aBar geometry: (BlRectangle cornerRadius: 8).
+				aBar geometry: (BlRoundedRectangleGeometry cornerRadius: 8).
 				aBar constraintsDo: [ :c | 
 					c vertical exact: 20 ] ];
 			containerDo: [ :aBarContainer | 
-				aBarContainer geometry: (BlRectangle cornerRadius: 8) ]
+				aBarContainer geometry: (BlRoundedRectangleGeometry cornerRadius: 8) ]
 ]
 
 { #category : #'examples - text formats' }
@@ -164,12 +164,12 @@ BrProgressExamples >> barLook [
 	^ BrProgressBarLook new
 			barDo: [ :aBar | 
 				aBar background: Color blue.
-				aBar geometry: (BlRectangle cornerRadius: 8).
+				aBar geometry: (BlRoundedRectangleGeometry cornerRadius: 8).
 				aBar constraintsDo: [ :c | 
 					c vertical exact: 20 ] ];
 			containerDo: [ :aBarContainer | 
 				aBarContainer background: Color blue muchLighter.
-				aBarContainer geometry: (BlRectangle cornerRadius: 8) ]
+				aBarContainer geometry: (BlRoundedRectangleGeometry cornerRadius: 8) ]
 ]
 
 { #category : #'examples - bar and text compositions' }

@@ -9,5 +9,5 @@ BrGlamorousBadgeCircularLook >> initialize [
 	super initialize.
 
 	self default: [ :aWidget | aWidget geometry: BlEllipse new ].
-	self expanded: [ :aWidget | aWidget geometry: BlRectangle new ]
+	self expanded: [ :aWidget | aWidget geometry: BlRoundedRectangleGeometry new ]
 ]

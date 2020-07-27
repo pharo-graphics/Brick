@@ -74,7 +74,7 @@ BrTextEmbellishmentAttribute >> padding: anObject [
 BrTextEmbellishmentAttribute >> roundedBackground: aPaint [
 	self embellishment: [ :anElement |
 		anElement background: aPaint.
-		anElement geometry: (BlRectangle cornerRadius: 4) ].
+		anElement geometry: (BlRoundedRectangleGeometry cornerRadius: 4) ].
 	self padding: (BlInsets all: 3).
 	self margin: (BlInsets top: 3 bottom: 3)
 ]

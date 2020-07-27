@@ -104,7 +104,7 @@ BrGlamorousVectorIcons class >> close [
 
 { #category : #'private - geometry' }
 BrGlamorousVectorIcons class >> crossGeometry: aThickness extent: anExtent origin: anOrigin [
-	<return: #BlGeometry>
+	<return: #BlElementVectorGeometry>
 	| cathetus w h halfW halfH |
 	
 	cathetus := (2 sqrt / 2.0) * aThickness.

@@ -74,7 +74,7 @@ BrGlamorousExpanderLook >> initialize [
 		with: [ BlLinearLayout horizontal ].
 	self
 		addChangeProperty: #(widget geometry)
-		with: [ BlRectangle cornerRadius: 3 ].
+		with: [ BlRoundedRectangleGeometry cornerRadius: 3 ].
 	self addChangeAddChildAs: #(content sidebar) with: [ sidebar ]
 ]
 

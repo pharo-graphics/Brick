@@ -20,7 +20,7 @@ BrGlamorousCheckboxLook >> initialize [
 	self add: (BrCheckboxLook new
 		default: [ :aWidget |
 			aWidget
-				geometry: (BlRectangle cornerRadius: 2);
+				geometry: (BlRoundedRectangleGeometry cornerRadius: 2);
 				background: Color white;
 				border: (BlBorder paint: BrGlamorousColors defaultButtonBorderColor width: 1) ];
 		hovered: [ :aWidget | aWidget border: (BlBorder paint: BrGlamorousColors darkBorderColor width: 1) ];

@@ -38,7 +38,7 @@ BrGlamorousEditableLabelLook >> initialize [
 	self
 		add: (BrInteractiveCommonLook new
 			default: [ :aWidget |
-				aWidget geometry: (BlRectangle cornerRadius: 4).
+				aWidget geometry: (BlRoundedRectangleGeometry cornerRadius: 4).
 				aWidget background: self defaultBackground.
 				aWidget border: BlBorder empty.
 				self foreground: self defaultForeground ];

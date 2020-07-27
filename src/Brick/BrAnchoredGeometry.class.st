@@ -1,6 +1,6 @@
 Class {
 	#name : #BrAnchoredGeometry,
-	#superclass : #BlGeometry,
+	#superclass : #BlElementVectorGeometry,
 	#instVars : [
 		'element',
 		'cornerRadius'
@@ -155,7 +155,7 @@ BrAnchoredGeometry >> matchExtent: aPoint [
 ]
 
 { #category : #geometry }
-BrAnchoredGeometry >> pathOnSpartaCanvas: aCanvas [
+BrAnchoredGeometry >> pathOnSpartaCanvas: aCanvas of: aBlElement [
 	^ self buildPathOnSpartaCanvas: aCanvas
 ]
 
