@@ -31,7 +31,7 @@ BrHydraSwitchWithTrackLook >> initialize [
 	self
 		addChangeProperty: #(widget border)
 		with: [ :e | e copyWithWidth: 1 ].
-	self addChangeProperty: #(widget geometry) with: [ BlRoundedRectangleGeometry new ].
+	self addChangeProperty: #(widget geometry) with: [ BlRectangleGeometry new ].
 	self addChangeProperty: #(widget size) with: [ 48 @ 18 ].
 	self addChangeAddChildAs: #(track) with: [ track ].
 	self addChangeAddChildAs: #(thumb) with: [ thumb ].
