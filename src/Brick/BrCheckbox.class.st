@@ -6,21 +6,40 @@ Class {
 	#category : #'Brick-Checkbox - UI'
 }
 
+{ #category : #'api - button' }
+BrCheckbox >> action [
+	^ self viewModel action
+]
+
+{ #category : #'api - button' }
+BrCheckbox >> action: aBlockClosure [
+	"An action can be a block with two optional parameters:
+	 - a UI element of the widget
+	 - a button model
+	[ :aCheckboxElement :aButtonModel :anEvent |  ].
+
+	Checkbox action must not be nil"
+
+	self viewModel action: aBlockClosure
+]
+
 { #category : #initialization }
 BrCheckbox >> initialize [
 	super initialize.
 
 	self viewModel: (
-		(BrInteractiveModel new
-			addStates: {
-				BrCheckboxModel new.
-				BrEnablementModel new.
-				BrPressModel new.
-				BrHoverModel new.
-				BrFocusModel new.
-				BrSizeAdjustmentModel new.
-				BrLayoutAlignmentModel center.
-				BrLayoutHorizontalResizerModel fitContent.
-				BrLayoutVerticalResizerModel fitContent
-			}))
+		BrButtonModel new
+			addAll: {
+				(BrInteractiveModel new
+					addStates: {
+						BrCheckboxModel new.
+						BrEnablementModel new.
+						BrPressModel new.
+						BrHoverModel new.
+						BrFocusModel new.
+						BrSizeAdjustmentModel new.
+						BrLayoutAlignmentModel center.
+						BrLayoutHorizontalResizerModel fitContent.
+						BrLayoutVerticalResizerModel fitContent
+					}) } )
 ]
