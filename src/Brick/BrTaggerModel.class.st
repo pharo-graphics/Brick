@@ -35,7 +35,7 @@ BrTaggerModel >> initializeListeners [
 	self when: BrTaggerTagsRequest reply: [ :aResponse | aResponse tags: self tags ].
 	self when: BrTaggerAddTagWish do: [ :aWish | self addTag: aWish tag ].
 	self when: BrTaggerRemoveTagWish do: [ :aWish | self removeTag: aWish tag ].
-	self when: BrTaggerRemoveTagWish do: [ :aWish | self renameTag: aWish tag to: aWish newName ]
+	self when: BrTaggerRenameTagWish do: [ :aWish | self renameTag: aWish tag to: aWish newName ]
 ]
 
 { #category : #'api - tags' }
