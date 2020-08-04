@@ -49,6 +49,15 @@ BrWidgetModel >> addAll: aCollectionOfWidgetModels [
 ]
 
 { #category : #'api - composition' }
+BrWidgetModel >> addInteractiveModelState: aState [
+	self allActorsBreadthFirstDo: [ :eachModel | 
+		(eachModel isKindOf: BrInteractiveModel) ifTrue: [ 
+			eachModel addState: aState.
+			^ self ] ].
+	self add: (BrInteractiveModel new with: aState).
+]
+
+{ #category : #'api - composition' }
 BrWidgetModel >> asModel [
 	^ self
 ]

@@ -8,6 +8,13 @@ BlElement >> actors [
 ]
 
 { #category : #'*Brick' }
+BlElement >> addInteractiveModelState: aState [
+	self viewModel
+		ifNil: [ self viewModel: (BrInteractiveModel new with: aState) ]
+		ifNotNil: [ self viewModel addInteractiveModelState: aState ].
+]
+
+{ #category : #'*Brick' }
 BlElement >> addLook: aLook [
 	self look
 		ifNil: [ self look: aLook ]
