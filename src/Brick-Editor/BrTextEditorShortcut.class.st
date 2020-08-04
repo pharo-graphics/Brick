@@ -90,6 +90,12 @@ BrTextEditorShortcut >> combination: anObject [
 	combination := anObject
 ]
 
+{ #category : #accessing }
+BrTextEditorShortcut >> gtSourceCodeFor: aView [
+	<gtView>
+	^ self action gtSourceCodeFor: aView
+]
+
 { #category : #comparing }
 BrTextEditorShortcut >> hash [
 	"Answer an integer value that is related to the identity of the receiver."
