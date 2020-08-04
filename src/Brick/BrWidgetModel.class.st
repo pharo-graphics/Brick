@@ -145,8 +145,10 @@ BrWidgetModel >> when: aRequestClass reply: aBlock [
 			ifTrue: [ aRequest response: aReplyEvent ].
 
 		aReplyEvent source: self.
-		aRequest isOneWay
-			ifFalse: [ aRequest source dispatchEvent: aReplyEvent ] ]
+		
+		aRequest isConsumed ifTrue: [ 
+			aRequest isOneWay ifFalse: [ 
+				aRequest source dispatchEvent: aReplyEvent ] ] ]
 ]
 
 { #category : #'event management' }
