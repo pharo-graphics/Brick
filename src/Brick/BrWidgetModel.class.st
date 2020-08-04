@@ -54,7 +54,7 @@ BrWidgetModel >> addInteractiveModelState: aState [
 		(eachModel isKindOf: BrInteractiveModel) ifTrue: [ 
 			eachModel addState: aState.
 			^ self ] ].
-	self add: (BrInteractiveModel new with: aState).
+	self add: (BrInteractiveModel with: aState).
 ]
 
 { #category : #'api - composition' }

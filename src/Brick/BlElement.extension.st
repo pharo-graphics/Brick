@@ -10,7 +10,7 @@ BlElement >> actors [
 { #category : #'*Brick' }
 BlElement >> addInteractiveModelState: aState [
 	self viewModel
-		ifNil: [ self viewModel: (BrInteractiveModel new with: aState) ]
+		ifNil: [ self viewModel: (BrInteractiveModel with: aState) ]
 		ifNotNil: [ self viewModel addInteractiveModelState: aState ].
 ]
 
