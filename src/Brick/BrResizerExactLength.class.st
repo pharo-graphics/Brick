@@ -10,13 +10,15 @@ Class {
 { #category : #'api - size' }
 BrResizerExactLength >> adjustHeightFor: anElement [
 	"Set element height"
-	anElement height: self length
+	anElement height: self length.
+	anElement dispatchEvent: (BrLayoutVerticalResizerWish exact: self length).
 ]
 
 { #category : #'api - size' }
 BrResizerExactLength >> adjustWidthFor: anElement [
 	"Set element width"
-	anElement width: self length
+	anElement width: self length.
+	anElement dispatchEvent: (BrLayoutHorizontalResizerWish exact: self length).
 ]
 
 { #category : #asserting }
