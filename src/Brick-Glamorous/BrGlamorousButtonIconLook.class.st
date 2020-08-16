@@ -13,6 +13,6 @@ BrGlamorousButtonIconLook >> initialize [
 		large: [ self icon transformDo: [ :t | t scaleBy: 1.5] ];
 		default: [ self icon transformDo: [ :t | t scaleBy: 1 ] ];
 		small: [ self icon transformDo: [ :t | t scaleBy: 0.75] ];
-		tiny: [ self icon transformDo: [ :t | t scaleBy: 0.5] ];
-		mini: [ self icon transformDo: [ :t | t scaleBy: 0.4] ])
+		tiny: [ self icon transformDo: [ :t | t scaleBy: 0.75] ];
+		mini: [ self icon transformDo: [ :t | t scaleBy: 0.5] ])
 ]
