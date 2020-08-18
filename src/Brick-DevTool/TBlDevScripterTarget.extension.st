@@ -30,6 +30,34 @@ TBlDevScripterTarget >> onBrTextEditorText [
 ]
 
 { #category : #'*Brick-DevTool' }
+TBlDevScripterTarget >> onGtInspectorViewsTabBar [
+	self
+		onGtInspectorViewsTabGroup
+		onChildNamed: #header;
+		onChildNamed: #scrolltabbar;
+		onChildNamed: #tabbar
+]
+
+{ #category : #'*Brick-DevTool' }
+TBlDevScripterTarget >> onGtInspectorViewsTabGroup [
+	self
+		onChildOfClass: BrTabGroup;
+		onChildNamed: #content;
+		onChildAt: 1;
+		onChildOfClass: BrTabGroup
+]
+
+{ #category : #'*Brick-DevTool' }
+TBlDevScripterTarget >> onGtMaximizedPagerContent [
+	self
+		onChildOfClass: BlOverlayElement;
+		onChildAt: 1;
+		onChildOfClass: GtPagerWrapperElement;
+		onChildNamed: #toolArea;
+		onChildNamed: #tool
+]
+
+{ #category : #'*Brick-DevTool' }
 TBlDevScripterTarget >> onGtPagerFirstPaneContent [
 	self 
 		onBrPagerFirstPane;
