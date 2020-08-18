@@ -1,0 +1,231 @@
+"
+BrFileSelector provides a widget for executing a custom action on the selected file.
+
+The list of files displayed, button label and selection action can all be specified, see key messages below.
+
+While the default label of the accept button is 'OK', this should be changed to indicate the actual action that will be taken, e.g. 'Load file'.
+
+!!Public API and Key Messages
+
+- fileFilterBlock: 	A one-parameter block that is passed in as the argument to the #select: for filtering the displayed files.  Default = display all files.
+- folder: 	The initial directory to display.  Default = working directory. 
+- buttonLabel: 	The label to display on the load / select button.  Default = 'OK'.
+- loadAction: 	A one-parameter block that is called with the selected file reference when the button is pressed.
+
+   One simple example is simply gorgeous.
+ 
+!!Internal Representation and Key Implementation Points.
+
+!!!Instance Variables
+
+	breadcrumb:			<BrBreadcrumb>
+	fileFilterBlock:	<BlockClosure>
+	folder:				<FileReference>
+	items:					<OrderedCollection>
+	okAction:				<BlockClosure>
+	okButton:				<BrButton>
+	table:					<BrColumnedList>
+
+
+!!!Implementation Points
+"
+Class {
+	#name : #BrFileSelector,
+	#superclass : #BrVerticalPane,
+	#instVars : [
+		'folder',
+		'items',
+		'table',
+		'breadcrumb',
+		'fileFilterBlock',
+		'okButton',
+		'okAction'
+	],
+	#category : #'Brick-File - UI'
+}
+
+{ #category : #accessing }
+BrFileSelector >> buttonLabel: aString [
+	"Set the button's label"
+
+	okButton label: aString
+]
+
+{ #category : #private }
+BrFileSelector >> computeFolderItems [
+	"Determine the items to display in the file list.
+	Directories are always displayed.
+	Files are filtered by the fileFilterBlock"
+	| entries |
+
+	entries := folder directories sorted: [:a :b | a basename < b basename ].
+	entries := entries, ((folder files select: fileFilterBlock) sorted: [:a :b | a basename < b basename ]).
+	entries := folder isRoot
+		ifTrue: [ entries ]
+		ifFalse: [ entries asOrderedCollection
+				addFirst: folder parent;
+				yourself ].
+	^ entries
+]
+
+{ #category : #private }
+BrFileSelector >> computeFolderParents [
+	^ folder withParents
+]
+
+{ #category : #private }
+BrFileSelector >> createBreadcrumb [
+	^ BrBreadcrumb new
+		fitContent;
+		look: (BrGlamorousBreadcrumbLook new separator: [
+			BrLabel new
+				look: (BrGlamorousLabelLook new thin foreground: Color gray);
+				text: '/';
+				margin: (BlInsets left: 5 right: 5) ]).
+]
+
+{ #category : #private }
+BrFileSelector >> createOkButton [
+
+	^ BrButton new 
+			look: BrGlamorousButtonWithLabelLook new;
+			label: 'OK';
+			action: [ self executeAction ];
+			disable;
+			yourself
+]
+
+{ #category : #private }
+BrFileSelector >> createTable [
+	| aTable |
+	aTable := BrColumnedList new.
+	aTable matchParent.
+
+	"icon column"
+	aTable column
+		title: 'Icon' translated;
+		width: 40;
+		stencil: [ :each | 
+			each isDirectory
+				ifTrue: [ BrGlamorousIcons folder ]
+				ifFalse: [ BrGlamorousIcons file ] ].
+	aTable column
+		title: 'Name' translated;
+		cellStencil: [ :each | BrLabel new look: BrGlamorousLabelLook new ];
+		dataBinder: [ :aLabel :eachItem | 
+			aLabel
+				text:
+					((folder isChildOf: eachItem)
+						ifTrue: [ '..' ]
+						ifFalse: [ eachItem basename asString ]) ].
+	aTable
+		when: BrSelectionDoubleClicked
+		do: [ :anEvent | 
+			anEvent selection
+				ifNotEmpty: [ :theIndices | 
+					| aWidgetElement selectedObject |
+					aWidgetElement := anEvent currentTarget.
+					selectedObject := aWidgetElement viewModel
+						itemAt: theIndices first.
+					self folder: selectedObject ] ].
+	aTable
+		when: BrSelectionChanged 
+		do: [ :anEvent | okButton enable ].
+
+	^ aTable
+]
+
+{ #category : #private }
+BrFileSelector >> executeAction [ 
+	"Execute the receiver's load action"
+	| selectedIndices |
+
+	selectedIndices := table selectedIndices.
+	selectedIndices ifEmpty: [ ^ self ].
+	^ self okAction 
+				cull: (items at: selectedIndices first)
+				cull: okButton.
+]
+
+{ #category : #accessing }
+BrFileSelector >> fileFilterBlock [
+	^ fileFilterBlock
+]
+
+{ #category : #accessing }
+BrFileSelector >> fileFilterBlock: aBlockClosure [
+
+	fileFilterBlock := aBlockClosure.
+	self updateDisplay.
+]
+
+{ #category : #accessing }
+BrFileSelector >> folder [
+	^ folder
+]
+
+{ #category : #accessing }
+BrFileSelector >> folder: aFileReference [
+
+	(folder = aFileReference or: [ aFileReference isDirectory not ])
+		ifTrue: [ ^ self ].
+
+	folder := aFileReference asAbsolute canonicalize.
+
+	self updateDisplay.
+]
+
+{ #category : #initialization }
+BrFileSelector >> initialize [
+	| alignedButton |
+
+	super initialize.
+
+	fileFilterBlock := [ :entry | true ].
+	okAction := [ :anElement | ].
+	breadcrumb := self createBreadcrumb.
+	table := self createTable.
+	okButton := self createOkButton.
+	alignedButton := BlElement new 
+		layout: BlLinearLayout horizontal alignTopRight;
+		constraintsDo: [ :c |
+			c horizontal matchParent.
+			c vertical exact: 40 ];
+		addChild: okButton.	
+	self folder: '.' asFileReference.
+	
+	self matchParent.
+	self addChildren: {
+		BrScrollPane new
+			look: BrScrollPaneLook;
+			hMatchParent;
+			vFitContent;
+			content: breadcrumb.
+		table.
+		alignedButton. }.
+
+]
+
+{ #category : #accessing }
+BrFileSelector >> okAction [
+	^ okAction
+]
+
+{ #category : #accessing }
+BrFileSelector >> okAction: anObject [
+	okAction := anObject
+]
+
+{ #category : #accessing }
+BrFileSelector >> updateDisplay [
+
+	table items: (items := self computeFolderItems).
+
+	breadcrumb removeAllItems.
+	self computeFolderParents do: [ :eachSegment |
+		breadcrumb addItem: (BrButton new
+			look: BrGlamorousLinkSquaredButtonWithLabelLook;
+			geometry: (BlRoundedRectangleGeometry cornerRadius: 4);
+			label: eachSegment basename;
+			action: [ self folder: eachSegment ]) ].
+]
