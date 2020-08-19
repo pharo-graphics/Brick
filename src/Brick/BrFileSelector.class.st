@@ -100,7 +100,7 @@ BrFileSelector >> createTable [
 	| aTable |
 	aTable := BrColumnedList new.
 	aTable 
-		padding: (BlInsets top: 15);
+		padding: (BlInsets top: 5);
 		matchParent.
 
 	"icon column"
@@ -152,6 +152,7 @@ BrFileSelector >> createTable [
 	aTable
 		when: BrSelectionChanged 
 		do: [ :anEvent | okButton enable ].
+	aTable addLook: BrColumnedListHeaderLook.
 
 	^ aTable
 ]
@@ -209,6 +210,7 @@ BrFileSelector >> initialize [
 	okButton := self createOkButton.
 	alignedButton := BlElement new 
 		layout: BlLinearLayout horizontal alignTopRight;
+		padding: (BlInsets top: 15);
 		constraintsDo: [ :c |
 			c horizontal matchParent.
 			c vertical exact: 40 ];
