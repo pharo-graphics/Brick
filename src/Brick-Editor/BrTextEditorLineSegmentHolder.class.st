@@ -33,27 +33,59 @@ BrTextEditorLineSegmentHolder class >> defaultSegmentLayout: aBlock [
 
 { #category : #'private - segment' }
 BrTextEditorLineSegmentHolder >> buildSegment: anEditorSegment [
-	| newPieceElements |
+	| newPieceElements thePieces |
 
 	segment := anEditorSegment.
-	segment updateSegmentProperties.
+	
+	self infiniteElement telemetry
+		timeSync: [ 'Update segment properties' ]
+		during: [ segment updateSegmentProperties ].
 
 	pieceElements := self newPiecesMap.
 	newPieceElements := OrderedCollection new.
-	segment pieces do: [ :aPiece | 
-		| thePieceElements |
-		thePieceElements := (aPiece createElement: self infiniteElement) asOrderedCollection.
-		newPieceElements addAll: thePieceElements.
-		pieceElements atPiece: aPiece putElements: thePieceElements ].
+	
+	thePieces := self infiniteElement telemetry
+		timeSync: [ 'Get pieces' ]
+		during: [ segment pieces ].
+	
+	self infiniteElement telemetry
+		timeSync: [ 'Create piece elements' ]
+		during: [
+			thePieces withIndexDo: [ :aPiece :eachIndex | 
+				| thePieceElements |
+				
+				thePieceElements := self infiniteElement telemetry
+					timeSync: [ 'Create piece elements at {1}' format: { eachIndex } ]
+					during: [ (aPiece createElement: self infiniteElement) asOrderedCollection ].
+				
+				newPieceElements addAll: thePieceElements.
+				pieceElements atPiece: aPiece putElements: thePieceElements ] ].
 
-	pieceElements piecesAndTheirElementsDo: [ :aPiece :aPieceElement |
-		aPiece setCursor: aPieceElement of: anEditorSegment in: self infiniteElement.
-		aPiece updateSelection: aPieceElement of: anEditorSegment in: self infiniteElement.
-		aPiece updateFocus: self infiniteElement hasFocus of: aPieceElement in: self infiniteElement ].
+	self infiniteElement telemetry
+		timeSync: [ 'Set cursor, selection, focus' ]
+		during: [
+			pieceElements piecesAndTheirElementsDo: [ :aPiece :aPieceElement |
+				self infiniteElement telemetry
+					timeSync: [ 'Set cursor' ]
+					during: [ aPiece setCursor: aPieceElement of: anEditorSegment in: self infiniteElement ].
+
+				self infiniteElement telemetry
+					timeSync: [ 'Set selection' ]
+					during: [ aPiece updateSelection: aPieceElement of: anEditorSegment in: self infiniteElement ].
+
+				self infiniteElement telemetry
+					timeSync: [ 'Set focus' ]
+					during: [ aPiece updateFocus: self infiniteElement hasFocus of: aPieceElement in: self infiniteElement ] ] ].
+
+	self infiniteElement telemetry
+		timeSync: [ 'Remove segment children' ]
+		during: [ itemElement removeChildren ].
+
+	self infiniteElement telemetry
+		timeSync: [ 'Add segment children' ]
+		during: [ itemElement addChildren: newPieceElements ].
 
 	itemElement
-		removeChildren;
-		addChildren: newPieceElements;
 		constraintsDo: [ :c | c horizontal resizer: infiniteElement constraints horizontal resizer ];
 		padding: anEditorSegment paragraphMargin
 ]
