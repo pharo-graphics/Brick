@@ -239,7 +239,7 @@ BrFileSelector >> okAction: anObject [
 	okAction := anObject
 ]
 
-{ #category : #accessing }
+{ #category : #private }
 BrFileSelector >> updateDisplay [
 
 	table items: (items := self computeFolderItems).
@@ -249,6 +249,6 @@ BrFileSelector >> updateDisplay [
 		breadcrumb addItem: (BrButton new
 			look: BrGlamorousLinkSquaredButtonWithLabelLook new glamorousRegularFont;
 			geometry: (BlRoundedRectangleGeometry cornerRadius: 4);
-			label: eachSegment basename asRopedText glamorousRegularFont;
+			label: eachSegment basename;
 			action: [ self folder: eachSegment ]) ].
 ]
