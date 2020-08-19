@@ -47,7 +47,7 @@ BrTabModel >> clickEvent: anEvent [
 
 { #category : #accessing }
 BrTabModel >> contentStencilBuilder [
-	<return: #BrStencilBuilder>
+	<return: #BrTabStencilBuilder>
 	
 	^ contentStencilBuilder
 ]
