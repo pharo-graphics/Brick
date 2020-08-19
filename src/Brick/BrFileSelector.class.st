@@ -99,7 +99,9 @@ BrFileSelector >> createOkButton [
 BrFileSelector >> createTable [
 	| aTable |
 	aTable := BrColumnedList new.
-	aTable matchParent.
+	aTable 
+		padding: (BlInsets top: 15);
+		matchParent.
 
 	"icon column"
 	aTable column
@@ -111,6 +113,7 @@ BrFileSelector >> createTable [
 				ifFalse: [ BrGlamorousIcons file ] ].
 	aTable column
 		title: 'Name' translated;
+		width: 200;
 		cellStencil: [ :each | BrLabel new look: BrGlamorousLabelLook new ];
 		dataBinder: [ :aLabel :eachItem | 
 			aLabel
@@ -118,6 +121,24 @@ BrFileSelector >> createTable [
 					((folder isChildOf: eachItem)
 						ifTrue: [ '..' ]
 						ifFalse: [ eachItem basename asString ]) ].
+	aTable column 
+		title: 'Size' translated;
+		width: 100;
+		cellStencil: [ :each | BrLabel new look: BrGlamorousLabelLook new ];
+		dataBinder: [ :aLabel :eachItem |
+			aLabel text: (eachItem isDirectory
+				ifTrue: [ eachItem children size asString ]
+				ifFalse: [ eachItem humanReadableSize ])].
+	aTable column 
+		title: 'Modified' translated;
+		cellStencil: [ :each | BrLabel new look: BrGlamorousLabelLook new ];
+		dataBinder: [ :aLabel :eachItem |
+			aLabel text: (String
+					streamContents: [ :s | 
+						eachItem creationTime printYMDOn: s.
+						s nextPut: Character space.
+						eachItem creationTime printHMSOn: s ]) ].
+
 	aTable
 		when: BrSelectionDoubleClicked
 		do: [ :anEvent | 
