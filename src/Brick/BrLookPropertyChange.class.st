@@ -51,6 +51,7 @@ BrLookPropertyChange >> printOn: aStream [
 
 { #category : #initialization }
 BrLookPropertyChange >> readOn: aLook [
+
 	^ path inject: aLook into: [ :e :f | e perform: f ]
 ]
 

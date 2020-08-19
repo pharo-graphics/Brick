@@ -12,6 +12,12 @@ BrColumnedListModel >> column [
 	^ columns column
 ]
 
+{ #category : #enumerating }
+BrColumnedListModel >> columnsDo: aBlock [ 
+
+	columns columnsDo: aBlock
+]
+
 { #category : #initialization }
 BrColumnedListModel >> initialize [
 	super initialize.
