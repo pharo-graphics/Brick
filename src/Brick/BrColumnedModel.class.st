@@ -43,6 +43,12 @@ BrColumnedModel >> columns [
 	^ columns
 ]
 
+{ #category : #enumerating }
+BrColumnedModel >> columnsDo: aBlock [ 
+
+	columns do: aBlock
+]
+
 { #category : #'gt-inspector-extension' }
 BrColumnedModel >> gtInspectorColumnsIn: aComposite [
 	<gtInspectorPresentationOrder: 2>

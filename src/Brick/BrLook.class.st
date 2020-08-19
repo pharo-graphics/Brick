@@ -88,6 +88,17 @@ BrLook >> addChangeAddChildAs: aCollection with: aBlock [
 ]
 
 { #category : #'api - changes' }
+BrLook >> addChangeAddChildFirst: aCollection with: aBlock [
+	"Add the supplied change, which will add an element as the first child of the target element"
+	self
+		addChange:
+			(BrLookAddChildFirstChange new
+				path: aCollection;
+				value: aBlock;
+				yourself)
+]
+
+{ #category : #'api - changes' }
 BrLook >> addChangeProperty: aCollection with: aBlock [
 	self
 		addChange:
