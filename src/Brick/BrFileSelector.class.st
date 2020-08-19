@@ -247,8 +247,8 @@ BrFileSelector >> updateDisplay [
 	breadcrumb removeAllItems.
 	self computeFolderParents do: [ :eachSegment |
 		breadcrumb addItem: (BrButton new
-			look: BrGlamorousLinkSquaredButtonWithLabelLook;
+			look: BrGlamorousLinkSquaredButtonWithLabelLook new glamorousRegularFont;
 			geometry: (BlRoundedRectangleGeometry cornerRadius: 4);
-			label: eachSegment basename;
+			label: eachSegment basename asRopedText glamorousRegularFont;
 			action: [ self folder: eachSegment ]) ].
 ]
