@@ -174,6 +174,8 @@ BrExamplesShowroom >> columnedList [
 	| aList |
 	aList := BrColumnedList new.
 	aList column
+		width: 50;
+		title: 'Index';
 		stencil: [ :aColor :aRowIndex | 
 			BrLabel new
 				look:
@@ -181,10 +183,10 @@ BrExamplesShowroom >> columnedList [
 						foreground: aColor contrastingBlackAndWhiteColor);
 				text: aRowIndex asString;
 				background: aColor;
-				padding: (BlInsets all: 12);
-				hExact: 50;
-				vMatchParent ].
+				padding: (BlInsets all: 12) ].
 	aList column
+		matchParent;
+		title: 'Color';
 		stencil: [ :aColor | 
 			BrLabel new
 				look:
@@ -192,9 +194,7 @@ BrExamplesShowroom >> columnedList [
 						foreground: aColor contrastingBlackAndWhiteColor);
 				text: aColor asString;
 				background: aColor;
-				padding: (BlInsets all: 12);
-				hMatchParent;
-				vMatchParent ].
+				padding: (BlInsets all: 12) ].
 	aList items: Color indexedColors.
 	^ aList
 ]
