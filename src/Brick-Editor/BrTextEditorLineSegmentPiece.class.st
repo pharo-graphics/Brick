@@ -155,7 +155,7 @@ BrTextEditorLineSegmentPiece >> segment: anObject [
 
 { #category : #updating }
 BrTextEditorLineSegmentPiece >> setCursor: aPieceElement of: aLineSegment in: anEditorElement [
-	| theUpdatedCursors |
+	| theUpdatedCursors aFocusRequest |
 	"select text editor cursors that are currently within this segment piece and convert them to local ones"
 	theUpdatedCursors := (anEditorElement editor cursor allCursors
 		select: [ :aCursor | aCursor insideSubText: self of: aLineSegment ]
@@ -165,7 +165,13 @@ BrTextEditorLineSegmentPiece >> setCursor: aPieceElement of: aLineSegment in: an
 	currentCursors := theUpdatedCursors.
 	
 	"tell to add new cursors"
-	theUpdatedCursors do: [ :aCursor | self onCursorAdded: aCursor to: aPieceElement in: anEditorElement ]
+	theUpdatedCursors do: [ :aCursor | self onCursorAdded: aCursor to: aPieceElement in: anEditorElement ].
+
+	aFocusRequest := anEditorElement hasFocus
+		ifTrue: [ BrTextEditorFocusRequest new ]
+		ifFalse: [ BrTextEditorBlurRequest new ].
+
+	aPieceElement dispatchEvent: (aFocusRequest editorElement: anEditorElement)
 ]
 
 { #category : #updating }

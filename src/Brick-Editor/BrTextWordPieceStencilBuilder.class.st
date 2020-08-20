@@ -64,6 +64,7 @@ BrTextWordPieceStencilBuilder >> pool [
 BrTextWordPieceStencilBuilder >> recycle: aPieceElement [
 	aPieceElement removeFromParent.
 	aPieceElement removeCursors.
+	aPieceElement selectNone.
 
 	"otherwise attributes may not be garbage collected
 	see https://github.com/feenkcom/gtoolkit/issues/537"

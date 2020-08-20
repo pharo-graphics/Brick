@@ -64,6 +64,14 @@ BrTextEditorSingleCursor >> initialize [
 ]
 
 { #category : #testing }
+BrTextEditorSingleCursor >> insideSegment: aSegment [
+	"Return true if I am inside of a given segment"
+	<return: #Boolean>
+
+	^ self position between: aSegment textStart and: aSegment textEnd
+]
+
+{ #category : #testing }
 BrTextEditorSingleCursor >> insideSubText: aBrTextEditorSegmentPiece of: aSegment [
 	"Return true if I am inside a given subtext, false otherwise"
 	<return: #Boolean>

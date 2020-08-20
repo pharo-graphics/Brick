@@ -33,9 +33,12 @@ BrTextEditorLineSegmentHolder class >> defaultSegmentLayout: aBlock [
 
 { #category : #'private - segment' }
 BrTextEditorLineSegmentHolder >> buildSegment: anEditorSegment [
-	| newPieceElements thePieces |
+	| newPieceElements thePieces hasSelection hasCursor |
 
 	segment := anEditorSegment.
+
+	hasSelection := self hasSelection.
+	hasCursor := self hasCursor.
 	
 	self infiniteElement telemetry
 		timeSync: [ 'Update segment properties' ]
@@ -43,7 +46,7 @@ BrTextEditorLineSegmentHolder >> buildSegment: anEditorSegment [
 
 	pieceElements := self newPiecesMap.
 	newPieceElements := OrderedCollection new.
-	
+
 	thePieces := self infiniteElement telemetry
 		timeSync: [ 'Get pieces' ]
 		during: [ segment pieces ].
@@ -61,21 +64,23 @@ BrTextEditorLineSegmentHolder >> buildSegment: anEditorSegment [
 				newPieceElements addAll: thePieceElements.
 				pieceElements atPiece: aPiece putElements: thePieceElements ] ].
 
-	self infiniteElement telemetry
-		timeSync: [ 'Set cursor, selection, focus' ]
-		during: [
-			pieceElements piecesAndTheirElementsDo: [ :aPiece :aPieceElement |
-				self infiniteElement telemetry
-					timeSync: [ 'Set cursor' ]
-					during: [ aPiece setCursor: aPieceElement of: anEditorSegment in: self infiniteElement ].
-
-				self infiniteElement telemetry
-					timeSync: [ 'Set selection' ]
-					during: [ aPiece updateSelection: aPieceElement of: anEditorSegment in: self infiniteElement ].
-
-				self infiniteElement telemetry
-					timeSync: [ 'Set focus' ]
-					during: [ aPiece updateFocus: self infiniteElement hasFocus of: aPieceElement in: self infiniteElement ] ] ].
+	(hasCursor or: [ hasSelection ])
+		ifTrue: [
+			self infiniteElement telemetry
+				timeSync: [ 'Set cursor, selection' ]
+				during: [
+					pieceElements piecesAndTheirElementsDo: [ :aPiece :aPieceElement |
+						hasCursor
+							ifTrue: [
+								self infiniteElement telemetry
+									timeSync: [ 'Set cursor' ]
+									during: [ aPiece setCursor: aPieceElement of: anEditorSegment in: self infiniteElement ] ].
+						
+						hasSelection
+							ifTrue: [
+								self infiniteElement telemetry
+									timeSync: [ 'Set selection' ]
+									during: [ aPiece updateSelection: aPieceElement of: anEditorSegment in: self infiniteElement ] ] ] ] ].
 
 	self infiniteElement telemetry
 		timeSync: [ 'Remove segment children' ]
@@ -153,6 +158,32 @@ BrTextEditorLineSegmentHolder >> explicitScreenToCursor: aTransformation [
 		ifAbsent: [ ^ self ].
 		
 	aClosestPiece screenToCursor: aTransformation of: self infiniteElement in: aClosestPieceElement
+]
+
+{ #category : #'private - testing' }
+BrTextEditorLineSegmentHolder >> hasCursor [
+	| aTextEditor |
+
+	aTextEditor := self infiniteElement editor.
+	aTextEditor cursor do: [ :aCursor |
+		(aCursor insideSegment: segment)
+			ifTrue: [ ^ true ] ].
+
+	^ false
+]
+
+{ #category : #'private - testing' }
+BrTextEditorLineSegmentHolder >> hasSelection [
+	| aTextEditor textInterval |
+
+	aTextEditor := self infiniteElement editor.
+	textInterval := BlSelection from: (segment textStart + 1 min: segment textEnd) to: segment textEnd.
+	
+	(aTextEditor selection + aTextEditor selectionRecorder selection) do: [ :aSelection |
+		(aSelection overlaps: textInterval)
+			ifTrue: [ ^ true ] ].
+
+	^ false
 ]
 
 { #category : #'private - segment' }
