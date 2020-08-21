@@ -92,7 +92,7 @@ TBlDevScripterTarget >> onGtPharoSnippetEditor [
 	self 
 		onChildOfClass: GtExpandableCoderElement;
 		onChildNamed: #content;
-		onChildOfClass: GtSourceCoderContentElement;
+		onChildOfClass: GtSourceCoderExpandedContentElement;
 		onChildNamed: #editor
 ]
 
@@ -101,7 +101,7 @@ TBlDevScripterTarget >> onGtPharoSnippetInspectButton [
 	self 
 		onChildOfClass: GtExpandableCoderElement;
 		onChildNamed: #content;
-		onChildOfClass: GtSourceCoderContentElement;
+		onChildOfClass: GtSourceCoderExpandedContentElement;
 		onChildNamed: #actions;
 		onChildAt: 1; "BrToolbar"
 		"onChildOfClass: BrToolbar;"
