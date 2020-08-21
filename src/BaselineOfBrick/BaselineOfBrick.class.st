@@ -1,13 +1,11 @@
 "
-!Brick and glamorous widgets
-==Brick== provides higher level graphical widgets, such as buttons, lists, tree views, etc. (as opposed to Bloc, which provides low level graphical elements).
-
-New Brick widgets are typically created by composing existing Brick widgets.
+!Glamorous UI widgets
+==Brick== provides higher level graphical widgets, such as buttons, lists, tree views, etc. (as opposed to ${class:BaselineOfBloc|label=Bloc}$, which provides low level graphical elements).
 !!Widgets
-Buttons ${class:BrGlamorousComponentsButtons}$
-
-Lists ${class:BrGlamorousComponentsLists}$
+${class:BrGlamorousComponentsButtons|label=Buttons}$, ${class:BrGlamorousComponentsCheckboxes|label=Checkboxes}$, ${class:BrGlamorousComponentsBreadcrumbs|label=Breadcrumb}$, ${class:BrGlamorousComponentsLists|label=Lists}$
 !!Architecture
+New Brick widgets are typically created by composing existing Brick widgets.
+
 There are several architectural features of Brick that facilitate flexibility and reuse:
 
 - Stencils (subclass of BrStencil) are used to create widgets when lazy creation is required, or when the widget to be created depends on the data being displayed.
