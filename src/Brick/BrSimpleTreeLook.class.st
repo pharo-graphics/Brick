@@ -45,3 +45,18 @@ BrSimpleTreeLook >> onNodeDataBinderChanged: aBrTreeNodeDataBinder [
 BrSimpleTreeLook >> onNodeElementStencilChanged: aBrTreeNodeElementStencilBuilder [
 	treeElement dataSource nodeElementStencil: aBrTreeNodeElementStencilBuilder
 ]
+
+{ #category : #enumerating }
+BrSimpleTreeLook >> whenAttachedDo: aBlock [
+	treeElement dataSource attachedBlock: aBlock
+]
+
+{ #category : #enumerating }
+BrSimpleTreeLook >> whenDetachedDo: aBlock [
+	treeElement dataSource detachedBlock: aBlock
+]
+
+{ #category : #enumerating }
+BrSimpleTreeLook >> whenRecycledDo: aBlock [
+	treeElement dataSource recycledBlock: aBlock
+]

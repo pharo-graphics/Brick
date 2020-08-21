@@ -1,13 +1,18 @@
 "
-Brick provides higher level graphical widgets, such as buttons, lists, tree views, etc. (as opposed to Bloc, which provides low level graphical elements).
+!Brick and glamorous widgets
+==Brick== provides higher level graphical widgets, such as buttons, lists, tree views, etc. (as opposed to Bloc, which provides low level graphical elements).
 
 New Brick widgets are typically created by composing existing Brick widgets.
+!!Widgets
+Buttons ${class:BrGlamorousComponentsButtons}$
 
+Lists ${class:BrGlamorousComponentsLists}$
+!!Architecture
 There are several architectural features of Brick that facilitate flexibility and reuse:
 
 - Stencils (subclass of BrStencil) are used to create widgets when lazy creation is required, or when the widget to be created depends on the data being displayed.
-- Looks (subclass of BrLook) provide the ability to modify the element to which they are attached.  A typical example is the look of a Button, whether it has a border or not, a label or not, an icon or not, etc.  Looks should only be created when the underlying widget is used in many places, e.g. buttons, and should not affect the API of the widget.
-
+- Looks (subclass of ${class:BrLook}$ provide the ability to modify the element to which they are attached.  A typical example is the look of a Button, whether it has a border or not, a label or not, an icon or not, etc.  Looks should only be created when the underlying widget is used in many places, e.g. buttons, and should not affect the API of the widget.
+!!Related
 Functionality that is related, but not directly part of Brick:
 
 - Brick is built on top of Bloc elements.  If you feel you need to create a Bloc element, ask first, you probably don't.
