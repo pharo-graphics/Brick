@@ -11,7 +11,7 @@ ${example:BrGlamorousComponentsBreadcrumbs>>#breadcrumbWithoutSeparator|previewS
 Class {
 	#name : #BrGlamorousComponentsBreadcrumbs,
 	#superclass : #BrGlamorousComponents,
-	#category : #'Brick-Examples-! Glamorous'
+	#category : #'Brick-Examples-! Glamorous components'
 }
 
 { #category : #breacrumb }

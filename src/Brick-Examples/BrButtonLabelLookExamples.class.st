@@ -1,6 +1,5 @@
 "
 !! Playing with Label Looks for Buttons
-
 When using a label look, the label look embeds the label element directly in the widget element as a child. In the example below, the look is added directly to the button element:
 ${example:name=BrButtonLabelLookExamples>>#buttonWithDirectlyEmbeddedLabel|expanded=true|expandedPreview=true}$
 
@@ -24,9 +23,6 @@ ${example:name=BrButtonLabelLookExamples>>#buttonWithOnlyModelAndChangedModelLab
 
 When attaching a label look and a button model to a button widget the order in which they are attached does not matter.  If the model is set first then the text value set in the label look is not used; the model has priority  over the label look
 ${example:name=BrButtonLabelLookExamples>>#buttonWithModelFirstThenLook|expanded=true|expandedPreview=true}$
-
-If the label look is set first, and the button widget does not have a model the the text value defined in the label look is used. If the button widget  is then assigned a button model, then the value defined in the model is used:
-${example:name=BrButtonLabelLookExamples>>#buttonWithLookFirstThenModel|expanded=true|expandedPreview=true}$
 "
 Class {
 	#name : #BrButtonLabelLookExamples,

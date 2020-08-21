@@ -13,7 +13,7 @@ ${example:BrGlamorousComponentsLists>>#columnedListOfColors|previewShow=#gtLiveF
 Class {
 	#name : #BrGlamorousComponentsLists,
 	#superclass : #BrGlamorousComponents,
-	#category : #'Brick-Examples-! Glamorous'
+	#category : #'Brick-Examples-! Glamorous components'
 }
 
 { #category : #examples }
