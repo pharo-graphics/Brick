@@ -17,7 +17,7 @@ BrEditorExamples >> editableEditorWithGlamorousRegularLook [
 { #category : #'examples - input filter' }
 BrEditorExamples >> editorWithAlphaNumericFilter [
 	<gtExample>
-	
+
 	^ BrEditor new
 		look: BrGlamorousRegularEditorLook + BrGlamorousEditorSpacingLook;
 		inputFilter: BrTextEditorAlphaNumericInputFilter new;
