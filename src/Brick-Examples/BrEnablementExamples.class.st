@@ -28,7 +28,7 @@ BrEnablementExamples >> buttonModelWithoutEnablement [
 { #category : #'instance creation' }
 BrEnablementExamples >> childWithEnablementLook [
 	<gtExample>
-	
+
 	^ BlElement new
 		size: 100@70;
 		look: (BrInteractiveCommonLook new

@@ -2,7 +2,7 @@
 !Glamorous UI widgets
 ==Brick== provides higher level graphical widgets, such as buttons, lists, tree views, etc. (as opposed to ${class:BaselineOfBloc|label=Bloc}$, which provides low level graphical elements).
 !!Widgets
-${class:BrGlamorousComponentsButtons|label=Buttons}$, ${class:BrGlamorousComponentsCheckboxes|label=Checkboxes}$, ${class:BrGlamorousComponentsBreadcrumbs|label=Breadcrumb}$, ${class:BrGlamorousComponentsLists|label=Lists}$
+${class:BrGlamorousComponentsButtons|label=Buttons}$, ${class:BrGlamorousComponentsCheckboxes|label=Checkboxes}$, ${class:BrGlamorousComponentsLists|label=Lists}$, ${class:BrGlamorousComponentsTabs|label=Tabs}$, ${class:BrGlamorousComponentsAccordions|label=Accordions}$, ${class:BrGlamorousComponentsBreadcrumbs|label=Breadcrumb}$
 !!Architecture
 New Brick widgets are typically created by composing existing Brick widgets.
 
