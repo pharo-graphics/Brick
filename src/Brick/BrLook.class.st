@@ -1,5 +1,10 @@
 "
-I define how widgets look. In addition to the BrViewModel I listen to UI events and update decoration (non meaningful) elements of the widgets
+I define how widgets look. In addition to the BrViewModel I listen to UI events and update decoration (non meaningful) elements of the widgets.
+
+Looks install themselves on Brick graphical widgets, and are able to modify the Bloc element tree of the widget.  As such, they are very powerful, but should not be used as a hammer for all situations, in particular:
+
+- They should never affect the API of the widget.
+- They should not be used to add or remove content in the widget.  Element composition is a better solution for this.
 "
 Class {
 	#name : #BrLook,

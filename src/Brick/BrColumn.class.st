@@ -75,6 +75,13 @@ BrColumn >> initialize [
 ]
 
 { #category : #accessing }
+BrColumn >> matchParent [
+	"Make a column match parent with a given proportion as a number (usually between 0 and 1)"
+
+	self weight: 1
+]
+
+{ #category : #accessing }
 BrColumn >> stencil: aStencil [
 	"aStencil is a BlockClosure of type [ :aRowObject :aRowIndex :aCellIndex ]"
 
@@ -87,9 +94,13 @@ BrColumn >> stencil: aStencil [
 				c horizontal matchParent ].
 		aCellWrapper ].
 	self dataBinder: [ :_ :aRowObject :aRowIndex :aRowHolder :aColumnIndex |
+		| aCellChild |
+		aCellChild := (aStencil cull: aRowObject cull: aRowIndex cull: aColumnIndex) asElement.
+		width applyOn: aCellChild.
+		
 		(aRowHolder columnElements at: aColumnIndex)
 			removeChildren
-			addChild: (aStencil cull: aRowObject cull: aRowIndex cull: aColumnIndex) asElement ]
+			addChild: aCellChild ]
 ]
 
 { #category : #accessing }

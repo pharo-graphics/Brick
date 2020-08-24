@@ -1,16 +1,12 @@
 "
+! Progress bar
 I exemplify ${class:BrProgress}$ with glamorous looks.
-
 !! Progress Bar Only 
-
 ${example:BrGlamorousProgressExamples>>#barOnly_MainUsage|codeExpanded=false|previewExpanded=true|previewHeight=180}$
-
 !! Progress Bar With Text Above 
-
 ${example:BrGlamorousProgressExamples>>#barAndTextAbove_MainUsage|codeExpanded=false|previewExpanded=true|previewHeight=180}$
 
 !! Progress Bar With Text Below 
-
 ${example:BrGlamorousProgressExamples>>#barAndTextBelow_MainUsage|codeExpanded=false|previewExpanded=true|previewHeight=180}$
 
 "
@@ -20,7 +16,7 @@ Class {
 	#instVars : [
 		'progressExamples'
 	],
-	#category : #'Brick-Glamorous-Progress'
+	#category : #'Brick-Examples-Progress'
 }
 
 { #category : #'examples - basic compositions' }

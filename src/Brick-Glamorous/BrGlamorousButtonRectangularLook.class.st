@@ -18,6 +18,10 @@ BrGlamorousButtonRectangularLook >> initialize [
 	self add: BrGlamorousButtonLayoutLook new.
 	
 	self add: (BrSizeAdjustmentLook new
+		mini: [ :aWidget |
+			aWidget
+				vExact: 12;
+				padding: (BlInsets left: 4 right: 4) ];
 		tiny: [ :aWidget |
 			aWidget
 				vExact: 16;

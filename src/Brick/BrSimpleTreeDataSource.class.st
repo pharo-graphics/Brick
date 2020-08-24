@@ -5,10 +5,23 @@ Class {
 		'nodeElementStencil',
 		'nodeDataBinder',
 		'rowElementStencil',
-		'rowDataBinder'
+		'rowDataBinder',
+		'attachedBlock',
+		'detachedBlock',
+		'recycledBlock'
 	],
 	#category : #'Brick-Tree - Support'
 }
+
+{ #category : #'accessing - stencils' }
+BrSimpleTreeDataSource >> attachedBlock: aBlock [
+	attachedBlock := aBlock
+]
+
+{ #category : #'accessing - stencils' }
+BrSimpleTreeDataSource >> detachedBlock: aBlock [
+	detachedBlock := aBlock
+]
 
 { #category : #'accessing - stencils' }
 BrSimpleTreeDataSource >> nodeDataBinder: aBrTreeNodeDataBinder [
@@ -79,6 +92,41 @@ BrSimpleTreeDataSource >> onCreateHolder: anInfiniteElement type: anItemType [
 	^ BrSimpleTreeItemHolder new
 		itemElement: aRowElement;
 		nodeElement: aNodeElement
+]
+
+{ #category : #hooks }
+BrSimpleTreeDataSource >> onElementAttached: anElementHolder [
+	attachedBlock
+		ifNil: [ ^ self ].
+
+	attachedBlock
+		cull: anElementHolder nodeElement
+		cull: (rootNode at: (self getRowIndex: anElementHolder))
+]
+
+{ #category : #hooks }
+BrSimpleTreeDataSource >> onElementDetached: anElementHolder [
+	detachedBlock
+		ifNil: [ ^ self ].
+
+	detachedBlock
+		cull: anElementHolder nodeElement
+		cull: (rootNode at: (self getRowIndex: anElementHolder))
+]
+
+{ #category : #hooks }
+BrSimpleTreeDataSource >> onElementRecycled: anElementHolder [
+	recycledBlock
+		ifNil: [ ^ self ].
+
+	recycledBlock
+		cull: anElementHolder nodeElement
+		cull: (rootNode at: (self getRowIndex: anElementHolder))
+]
+
+{ #category : #'accessing - stencils' }
+BrSimpleTreeDataSource >> recycledBlock: aBlock [
+	recycledBlock := aBlock
 ]
 
 { #category : #'accessing - stencils' }

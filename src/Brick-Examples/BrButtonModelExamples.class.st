@@ -24,7 +24,7 @@ Class {
 	#superclass : #Object,
 	#traits : 'TBrExamplesUtility',
 	#classTraits : 'TBrExamplesUtility classTrait',
-	#category : #'Brick-Examples-! Model - Button'
+	#category : #'Brick-Examples-Button'
 }
 
 { #category : #'examples - model' }

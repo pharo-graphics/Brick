@@ -25,7 +25,8 @@ BrGlamorousButtonLabelLook >> initialize [
 		huge: [ self fontSize: 20 ];
 		large: [ self fontSize: 16 ];
 		small: [ self fontSize: 12 ];
-		tiny: [ self fontSize: 10 ]).
+		tiny: [ self fontSize: 10 ];
+		mini: [ self fontSize: 8 ]).
 
 	self add: (BrInteractiveCommonLook new
 		default: [ self foreground: BrGlamorousColors defaultButtonTextColor ];

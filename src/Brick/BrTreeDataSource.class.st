@@ -17,6 +17,13 @@ BrTreeDataSource >> assignRowIndex: aPosition to: anElementHolder [
 		userData at: #treeRowIndex put: aPosition
 ]
 
+{ #category : #private }
+BrTreeDataSource >> getRowIndex: anElementHolder [
+	^ anElementHolder itemElement userData
+		at: #treeRowIndex
+		ifAbsent: [ 0 ]
+]
+
 { #category : #initialization }
 BrTreeDataSource >> initialize [
 	super initialize.

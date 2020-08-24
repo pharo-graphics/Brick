@@ -135,7 +135,6 @@ BrExamplesShowroom >> accordion [
 			look: BrGlamorousAccordionHeaderLook new;
 			label: 'Click to expand/collapse';
 			action: [ accordion toggle ] ].
-
 	^ accordion
 ]
 
@@ -174,6 +173,8 @@ BrExamplesShowroom >> columnedList [
 	| aList |
 	aList := BrColumnedList new.
 	aList column
+		width: 50;
+		title: 'Index';
 		stencil: [ :aColor :aRowIndex | 
 			BrLabel new
 				look:
@@ -181,10 +182,10 @@ BrExamplesShowroom >> columnedList [
 						foreground: aColor contrastingBlackAndWhiteColor);
 				text: aRowIndex asString;
 				background: aColor;
-				padding: (BlInsets all: 12);
-				hExact: 50;
-				vMatchParent ].
+				padding: (BlInsets all: 12) ].
 	aList column
+		matchParent;
+		title: 'Color';
 		stencil: [ :aColor | 
 			BrLabel new
 				look:
@@ -192,9 +193,7 @@ BrExamplesShowroom >> columnedList [
 						foreground: aColor contrastingBlackAndWhiteColor);
 				text: aColor asString;
 				background: aColor;
-				padding: (BlInsets all: 12);
-				hMatchParent;
-				vMatchParent ].
+				padding: (BlInsets all: 12) ].
 	aList items: Color indexedColors.
 	^ aList
 ]
@@ -313,7 +312,7 @@ BrExamplesShowroom >> glamorousTabs [
 		stencil: [ BlElement new
 			constraintsDo: [ :c |
 				c horizontal exact: 300.
-				c vertical matchParent ];
+				c vertical exact: 150 ];
 			margin: (BlInsets all: 10);
 			background: (Color red alpha: 0.2) ]).
 
@@ -324,16 +323,16 @@ BrExamplesShowroom >> glamorousTabs [
 			margin: (BlInsets all: 10);
 			constraintsDo: [ :c |
 				c horizontal matchParent.
-				c vertical matchParent ];
+				c vertical exact: 50 ];
 			background: (Color blue alpha: 0.2) ]).
-		
+
 	aTabGroup addTab: (BrTab new
 		look: BrGlamorousTabLook new;
 		label: 'Tab 3';
 		stencil: [ BlElement new
 			constraintsDo: [ :c |
 				c horizontal matchParent.
-				c vertical exact: 300 ];
+				c vertical exact: 100 ];
 			margin: (BlInsets all: 10);
 			background: (Color orange alpha: 0.2) ]).
 
