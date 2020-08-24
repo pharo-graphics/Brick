@@ -20,6 +20,11 @@ BrInteractiveModel class >> withAll: aCollecitonOfStateModels [
 	^ self new addStates: aCollecitonOfStateModels
 ]
 
+{ #category : #'api - composition' }
+BrInteractiveModel >> addInteractiveModelState: aState [
+	self addState: aState.
+]
+
 { #category : #'api - states' }
 BrInteractiveModel >> addState: aStateModel [
 	"Add a given state model as my sub-model and register corresponding update events"
