@@ -6,7 +6,7 @@ ${example:name=BrButtonLabelLookExamples>>#buttonWithDirectlyEmbeddedLabel|expan
 If the button has a more complex structure, this behaviour can cause problems. In the example below, the button defines a content element in which the label should be added. However, because the look is added to the button element, the label will be emdedd in the button element instead of the content element:
 ${example:name=BrButtonLabelLookExamples>>#buttonWithModelAndWrongContentPlacement|expanded=true|expandedPreview=true}$
 
-To change this behavior, the label look  provides more control over where the label is inserted into the button element: to identify the element in the button element where the label should be placed, the look looks for an element marked with ==#content==. There shoud be only one element marked with  ==#content==.  To fix the problem from the above example,  we can mark the ==aContent== element with ==#content== when adding it to the button element:
+To change this behavior, the label look  provides more control over where the label is inserted into the button element: to identify the element in the button element where the label should be placed, the look looks for an element named ==#content==. There shoud be only one element named  ==#content== within the button.  To fix the problem from the above example,  we can name the ==aContent== element with ==#content== when adding it to the button element:
 ${example:name=BrButtonLabelLookExamples>>#buttonWithModelAndLookWithoutConstraints|expanded=true|expandedPreview=true}$
 
 The label look can directly change properties of the label element. This can be usefull when one wants to change layout properties or update graphical properties of the label:

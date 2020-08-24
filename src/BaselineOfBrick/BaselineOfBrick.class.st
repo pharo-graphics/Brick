@@ -9,7 +9,8 @@ New Brick widgets are typically created by composing existing Brick widgets.
 There are several architectural features of Brick that facilitate flexibility and reuse:
 
 - Stencils (subclass of BrStencil) are used to create widgets when lazy creation is required, or when the widget to be created depends on the data being displayed.
-- Looks (subclass of ${class:BrLook}$ provide the ability to modify the element to which they are attached.  A typical example is the look of a Button, whether it has a border or not, a label or not, an icon or not, etc.  Looks should only be created when the underlying widget is used in many places, e.g. buttons, and should not affect the API of the widget.
+- Looks (subclass of ${class:BrLook}$) provide the ability to modify the element to which they are attached.  A typical example is the look of a Button, whether it has a border or not, a label or not, an icon or not, etc.  Looks should only be created when the underlying widget is used in many places, e.g. buttons, and should not affect the API of the widget.
+- View Models are used to maintain the state of a Brick widget, e.g. pressed, focused, hovered, and, like Looks, can be composed by adding multiple models together.  Like Looks, models also receive events.
 !!Related
 Functionality that is related, but not directly part of Brick:
 
