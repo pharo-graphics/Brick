@@ -93,6 +93,16 @@ BrTextEditor >> beEditableCode [
 	self editorMode: BrTextEditorEditableCodeMode new
 ]
 
+{ #category : #accessing }
+BrTextEditor >> beLineBased [
+	segmentBuilder := BrTextEditorLineSegmentBuilder new splitter: BrTextEditorLineSplitter new
+]
+
+{ #category : #accessing }
+BrTextEditor >> beParagraphBased [
+	segmentBuilder := BrTextEditorLineSegmentBuilder new splitter: BrTextEditorParagraphSplitter new
+]
+
 { #category : #'api - mode' }
 BrTextEditor >> beReadOnlyWithSelection [
 	self editorMode: BrTextEditorReadonlyWithSelectionMode new

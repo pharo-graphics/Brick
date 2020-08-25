@@ -1,6 +1,6 @@
 Class {
-	#name : #BrTextEditorFlowSegmentElement,
-	#superclass : #BrTextEditorSegmentElement,
+	#name : #BrTextEditorParagraphElement,
+	#superclass : #BlElement,
 	#instVars : [
 		'paragraph'
 	],
@@ -8,7 +8,7 @@ Class {
 }
 
 { #category : #'hooks - children' }
-BrTextEditorFlowSegmentElement >> buildParagraph [
+BrTextEditorParagraphElement >> buildParagraph [
 	| aBuilder |
 	aBuilder := SkiaParagraphBuilder
 		style: (SkiaParagraphStyle new textStyle: (SkiaParagraphTextStyle new color: Color black))
@@ -23,7 +23,7 @@ BrTextEditorFlowSegmentElement >> buildParagraph [
 ]
 
 { #category : #drawing }
-BrTextEditorFlowSegmentElement >> drawChildrenOnSpartaCanvas: aCanvas [
+BrTextEditorParagraphElement >> drawChildrenOnSpartaCanvas: aCanvas [
 	aCanvas clip
 		when: [ self clipChildren ]
 		by: [ self geometry pathOnSpartaCanvas: aCanvas of: self ]
@@ -36,14 +36,14 @@ BrTextEditorFlowSegmentElement >> drawChildrenOnSpartaCanvas: aCanvas [
 ]
 
 { #category : #'hooks - children' }
-BrTextEditorFlowSegmentElement >> onChildAdded: anElement [
+BrTextEditorParagraphElement >> onChildAdded: anElement [
 	super onChildAdded: anElement.
 	
 	paragraph := nil
 ]
 
 { #category : #'hooks - children' }
-BrTextEditorFlowSegmentElement >> onLayout: aBounds [
+BrTextEditorParagraphElement >> onLayout: aBounds [
 	| placeholders |
 	
 	placeholders := self children reject: [ :each | each isKindOf: BlTextElement ].
@@ -52,7 +52,7 @@ BrTextEditorFlowSegmentElement >> onLayout: aBounds [
 ]
 
 { #category : #'hooks - children' }
-BrTextEditorFlowSegmentElement >> onMeasure: anExtentMeasurementSpec [
+BrTextEditorParagraphElement >> onMeasure: anExtentMeasurementSpec [
 	self childrenDo: [ :eachElement |
 		(eachElement isKindOf: BlTextElement)
 			ifFalse: [ self layout measureChildWithMargins: eachElement parentSpec: anExtentMeasurementSpec ] ].
@@ -64,7 +64,7 @@ BrTextEditorFlowSegmentElement >> onMeasure: anExtentMeasurementSpec [
 ]
 
 { #category : #drawing }
-BrTextEditorFlowSegmentElement >> paintChildrenOn: aCompositorPainter offset: anOffset [
+BrTextEditorParagraphElement >> paintChildrenOn: aCompositorPainter offset: anOffset [
 	paragraph paintOn: aCompositorPainter canvas at: anOffset.
 
 	aCompositorPainter

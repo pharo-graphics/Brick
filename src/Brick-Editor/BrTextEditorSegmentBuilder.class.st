@@ -11,7 +11,7 @@ Class {
 	#traits : 'TBlDebug',
 	#classTraits : 'TBlDebug classTrait',
 	#instVars : [
-		'splitter'
+		'lineSplitter'
 	],
 	#category : #'Brick-Editor-Model - Segment-Text'
 }
@@ -51,7 +51,7 @@ BrTextEditorSegmentBuilder >> deletedFrom: aFromIndex to: aToIndex in: aBrTextEd
 BrTextEditorSegmentBuilder >> initialize [
 	super initialize.
 
-	splitter := self defaultSplitter
+	lineSplitter := self defaultSplitter
 ]
 
 { #category : #'text - modifications' }
@@ -82,7 +82,7 @@ BrTextEditorSegmentBuilder >> split: aBrText in: aBrEditorSegmentStream offset: 
 BrTextEditorSegmentBuilder >> splitter [
 	<return: #BrTextEditorSplitter>
 
-	^ splitter
+	^ lineSplitter
 ]
 
 { #category : #accessing }
@@ -91,5 +91,5 @@ BrTextEditorSegmentBuilder >> splitter: aBrTextEditorSplitter [
 		assert: [ aBrTextEditorSplitter isNotNil ]
 		description: [ 'Splitter must not be nil' ].
 
-	splitter := aBrTextEditorSplitter
+	lineSplitter := aBrTextEditorSplitter
 ]
