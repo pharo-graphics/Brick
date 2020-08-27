@@ -59,7 +59,7 @@ BrEditor >> deselecter [
 BrEditor >> initialize [
 	super initialize.
 	
-	self editor: BrTextEditor new.
+	self editor: BrTextEditor new "beParagraphBased".
 	self padding: (BlInsets all: 5).
 	
 	self viewModel: (editorModel := BrEditorModel new

@@ -36,6 +36,7 @@ BrTextEditorParagraphSegmentHolder >> buildSegment: anEditorSegment [
 
 	hasSelection := self hasSelection.
 	hasCursor := self hasCursor.
+	itemElement text: segment text.
 	
 	self infiniteElement telemetry
 		timeSync: [ 'Update segment properties' ]
@@ -61,24 +62,6 @@ BrTextEditorParagraphSegmentHolder >> buildSegment: anEditorSegment [
 				newPieceElements addAll: thePieceElements.
 				pieceElements atPiece: aPiece putElements: thePieceElements ] ].
 
-	(hasCursor or: [ hasSelection ])
-		ifTrue: [
-			self infiniteElement telemetry
-				timeSync: [ 'Set cursor, selection' ]
-				during: [
-					pieceElements piecesAndTheirElementsDo: [ :aPiece :aPieceElement |
-						hasCursor
-							ifTrue: [
-								self infiniteElement telemetry
-									timeSync: [ 'Set cursor' ]
-									during: [ aPiece setCursor: aPieceElement of: anEditorSegment in: self infiniteElement ] ].
-						
-						hasSelection
-							ifTrue: [
-								self infiniteElement telemetry
-									timeSync: [ 'Set selection' ]
-									during: [ aPiece updateSelection: aPieceElement of: anEditorSegment in: self infiniteElement ] ] ] ] ].
-
 	self infiniteElement telemetry
 		timeSync: [ 'Remove segment children' ]
 		during: [ itemElement removeChildren ].
@@ -86,6 +69,23 @@ BrTextEditorParagraphSegmentHolder >> buildSegment: anEditorSegment [
 	self infiniteElement telemetry
 		timeSync: [ 'Add segment children' ]
 		during: [ itemElement addChildren: newPieceElements ].
+		
+	(hasCursor or: [ hasSelection ])
+		ifTrue: [
+			self infiniteElement telemetry
+				timeSync: [ 'Set cursor, selection' ]
+				during: [
+						hasCursor
+							ifTrue: [
+								self infiniteElement telemetry
+									timeSync: [ 'Set cursor' ]
+									during: [ self onCursorChanged ].
+						
+						hasSelection
+							ifTrue: [
+								self infiniteElement telemetry
+									timeSync: [ 'Set selection' ]
+									during: [ self onSelectionChanged ] ] ] ] ].
 
 	itemElement
 		constraintsDo: [ :c | c horizontal resizer: infiniteElement constraints horizontal resizer ];
@@ -120,7 +120,7 @@ BrTextEditorParagraphSegmentHolder >> createSegmentElement [
 
 { #category : #cursor }
 BrTextEditorParagraphSegmentHolder >> explicitScreenToCursor: aTransformation [
-	| aBoundsInEditor aPositionInSegment aClosestPieceElement aClosestPiece aTransformedScreenPosition |
+	| aBoundsInEditor aPositionInSegment aTransformedScreenPosition |
 	
 	aTransformedScreenPosition := aTransformation screenPosition.
 	aBoundsInEditor := (itemElement bounds inParent: self infiniteElement) bounds.
@@ -140,20 +140,8 @@ BrTextEditorParagraphSegmentHolder >> explicitScreenToCursor: aTransformation [
 	aPositionInSegment := (itemElement globalBoundsToMine: (BlBounds origin: aTransformation screenPosition extent: 0.0@0.0) fromParent: self infiniteElement) center.	
 	segment hasPieces
 		ifFalse: [ ^ self ].
-	
-	"trying to find a segment that actually contains a given position"
-	pieceElements piecesAndTheirElementsDo: [ :aPiece :aPieceElement |
-		(aPieceElement bounds inParent bounds containsPoint: aPositionInSegment)
-			ifTrue: [ ^ aPiece screenToCursor: aTransformation of: self infiniteElement in: aPieceElement ] ].
 		
-	"clicked outside of a segment piece, should find the closest element"
-	
-	aClosestPieceElement := itemElement layout findClosestChildOf: itemElement to: aPositionInSegment.
-	aClosestPiece := pieceElements 
-		pieceForElement: aClosestPieceElement
-		ifAbsent: [ ^ self ].
-		
-	aClosestPiece screenToCursor: aTransformation of: self infiniteElement in: aClosestPieceElement
+	itemElement screenToCursor: aTransformation at: aPositionInSegment in: segment
 ]
 
 { #category : #'private - testing' }
@@ -191,13 +179,20 @@ BrTextEditorParagraphSegmentHolder >> newPiecesMap [
 BrTextEditorParagraphSegmentHolder >> onCursorChanged [
 	"Is sent when text editor's cursor changes.
 	Segment holder should update text elements accordingly"
+	| theCursors |
 
 	self
 		assert: [ segment isNotNil ]
 		description: [ 'Segment must be bound!' ].
+		
+	theCursors := (self infiniteElement editor cursor allCursors
+		select: [ :aCursor | aCursor insideSegment: segment ]
+		thenCollect: [ :aCursor | aCursor position - segment textStart ]) asSet.
 
-	pieceElements piecesAndTheirElementsDo: [ :aPiece :aPieceElement |
-		aPiece updateCursor: aPieceElement of: segment in: self infiniteElement ]
+	itemElement setCursors: theCursors.
+	
+	(theCursors isNotEmpty and: [ self infiniteElement hasFocus ])
+		ifTrue: [ itemElement showCursors ]
 ]
 
 { #category : #updating }
@@ -231,8 +226,7 @@ BrTextEditorParagraphSegmentHolder >> onSelectionChanged [
 		assert: [ segment isNotNil ]
 		description: [ 'Segment must be bound!' ].
 
-	pieceElements piecesAndTheirElementsDo: [ :aPiece :aPieceElement |
-		aPiece updateSelection: aPieceElement of: segment in: self infiniteElement ]
+	itemElement selection: (self selectionIn: self infiniteElement editor)
 ]
 
 { #category : #updating }
@@ -245,7 +239,9 @@ BrTextEditorParagraphSegmentHolder >> onTextChanged [
 		description: [ 'Segment must be bound!' ].
 
 	pieceElements piecesAndTheirElementsDo: [ :aPiece :aPieceElement |
-		aPiece updateText: aPieceElement of: segment in: self infiniteElement ]
+		aPiece updateText: aPieceElement of: segment in: self infiniteElement ].
+	
+	itemElement text: segment text
 ]
 
 { #category : #cursor }
@@ -267,4 +263,25 @@ BrTextEditorParagraphSegmentHolder >> segment: anEditorSegment [
 	self infiniteElement telemetry
 		timeSync: [ 'Build segment at {1}' format: { anEditorSegment index } ]
 		during: [ self buildSegment: anEditorSegment ]
+]
+
+{ #category : #'private - accessing' }
+BrTextEditorParagraphSegmentHolder >> selectionIn: aTextEditor [
+	| theLocalSelection |
+	
+	theLocalSelection := BlCompositeSelection new.
+	
+	(aTextEditor selection + aTextEditor selectionRecorder selection) do: [ :aSelection |
+		| aSelectionInterval textInterval |
+		aSelectionInterval := aSelection interval.
+		textInterval := BlSelection from: (segment textStart + 1 min: segment textEnd) to: segment textEnd.
+		(aSelection overlaps: textInterval)
+			ifTrue: [
+				| localFrom localTo |
+				localFrom := (aSelectionInterval first - segment textStart) max: 0.
+				localTo := (aSelectionInterval last - segment textStart) min: segment textLength + 1.
+				
+				theLocalSelection select: localFrom to: localTo ] ].
+		
+	^ theLocalSelection
 ]
