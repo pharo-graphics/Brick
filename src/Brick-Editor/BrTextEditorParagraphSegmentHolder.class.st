@@ -92,13 +92,6 @@ BrTextEditorParagraphSegmentHolder >> buildSegment: anEditorSegment [
 		padding: anEditorSegment paragraphMargin
 ]
 
-{ #category : #'private - accessing' }
-BrTextEditorParagraphSegmentHolder >> cachedPieces [
-	<return: #Collection of: #BrTextEditorLineSegmentPiece>
-	
-	^ pieceElements allPieces
-]
-
 { #category : #initialization }
 BrTextEditorParagraphSegmentHolder >> createSegmentElement [
 	<return: #BlElement>
@@ -245,12 +238,10 @@ BrTextEditorParagraphSegmentHolder >> onTextChanged [
 ]
 
 { #category : #cursor }
-BrTextEditorParagraphSegmentHolder >> relativeScreenToCursor: aTransformation [	
+BrTextEditorParagraphSegmentHolder >> relativeScreenToCursor: aTransformation [
 	"trying to find a segment that actually contains a given position"
-
-	pieceElements piecesAndTheirElementsDo: [ :aPiece :aPieceElement |
-		(aTransformation cursor insideSubText: aPiece of: segment)
-			ifTrue: [ ^ aPiece screenToCursor: aTransformation of: self infiniteElement in: aPieceElement ] ]
+		
+	itemElement relativeScreenToCursor: aTransformation in: segment of: self infiniteElement
 ]
 
 { #category : #cursor }

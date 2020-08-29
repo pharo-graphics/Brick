@@ -191,28 +191,18 @@ BrTextEditorParagraphElement >> initialize [
 { #category : #layout }
 BrTextEditorParagraphElement >> measureCursors: aCollectionOfCursorElements [
 	aCollectionOfCursorElements do: [ :eachCursor |
-		| aTextPosition theRectangles aCharInterval |
+		| aTextPosition eachCursorRectangle |
 		
 		aTextPosition := eachCursor textPosition.
 		
-		aCharInterval := (aTextPosition - 1 max: 0)
-			to: ((aTextPosition max: 1) min: self text size).
+		eachCursorRectangle := paragraph cursorRectangleForCharacter: aTextPosition.
+		eachCursorRectangle := eachCursorRectangle expandBy: 0.5@0.
+		eachCursorRectangle := eachCursorRectangle translateBy: ((eachCursorRectangle left min: 0) abs @ 0).
+		eachCursorRectangle := eachCursorRectangle translateBy: ((self measuredWidth - eachCursorRectangle right) min: 0) @ 0.
 
-		theRectangles := paragraph
-			rectanglesForChars: aCharInterval
-			width: SkiaParagraphRectWidthStyle Tight
-			height: SkiaParagraphRectHeightStyle Max.
-
-		theRectangles ifNotEmpty: [
-			| thePosition |
-			
-			thePosition := aTextPosition isZero
-				ifTrue: [ theRectangles first topLeft ]
-				ifFalse: [ theRectangles first topRight ].
-			
-			eachCursor measuredBounds
-				extent: (eachCursor measuredWidth max: 1) @ (theRectangles first height max: 10);
-				position: thePosition + self padding topLeft ] ]
+		eachCursor measuredBounds
+			extent: eachCursorRectangle extent;
+			position: eachCursorRectangle origin + self padding topLeft ]
 ]
 
 { #category : #private }
@@ -250,7 +240,14 @@ BrTextEditorParagraphElement >> onMeasure: anExtentMeasurementSpec [
 		self layout measureChildWithMargins: eachElement parentSpec: anExtentMeasurementSpec ].
 
 	paragraph := self buildParagraph.
-	paragraph layoutWithWidth: anExtentMeasurementSpec widthSpec size.
+	paragraph layoutWithWidth: anExtentMeasurementSpec widthSpec size - self padding width.
+	"paragraph print.
+	NonInteractiveTranscript stdout
+		nextPutAll: 'lineCount:'; space;
+		nextPutAll: paragraph lineCount asString; cr.
+	NonInteractiveTranscript stdout
+		nextPutAll: 'height:'; space;
+		nextPutAll: paragraph height asString; cr."
 
 	self measuredExtent: (anExtentMeasurementSpec sizeFor: paragraph longestLine @ paragraph height) + self padding extent.
 	self cursorElements ifNotEmpty: [ :theCursors | self measureCursors: theCursors ]
@@ -291,6 +288,27 @@ BrTextEditorParagraphElement >> placeholderElements [
 ]
 
 { #category : #'api - cursor' }
+BrTextEditorParagraphElement >> relativeScreenToCursor: aTransformation in: aSegment of: anEditorElement [
+	"trying to find a segment that actually contains a given position"
+	
+	paragraph
+		ifNil: [ ^ self ].
+
+	aTransformation isUp
+		ifTrue: [
+			paragraph
+				charOffsetAbove: aTransformation cursor position - aSegment textStart
+				ifFound: [ :aNewCursorPosition | aTransformation transformed: aSegment textStart + aNewCursorPosition ]
+				ifNone: [  ] ]
+		ifFalse: [ 
+			paragraph
+				charOffsetBelow: aTransformation cursor position - aSegment textStart
+				ifFound: [ :aNewCursorPosition | aTransformation transformed: aSegment textStart + aNewCursorPosition ]
+				ifNone: [  ]	
+		]
+]
+
+{ #category : #'api - cursor' }
 BrTextEditorParagraphElement >> removeCursorAt: aTextIndex [
 	"Remove cursor at a goven position"
 
@@ -316,7 +334,7 @@ BrTextEditorParagraphElement >> screenToCursor: aTransformation at: aPositionInS
 	paragraph
 		ifNil: [ ^ self ].
 
-	aTransformation transformed: (aSegment textStart + (paragraph charPositionAt: aPositionInSegment - self padding topLeft))
+	aTransformation transformed: (aSegment textStart + (paragraph charOffsetAt: aPositionInSegment - self padding topLeft))
 ]
 
 { #category : #accessing }
