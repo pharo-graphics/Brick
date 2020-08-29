@@ -6,7 +6,8 @@ Class {
 		'text',
 		'cursorElements',
 		'cursorStencil',
-		'selection'
+		'selection',
+		'segment'
 	],
 	#classInstVars : [
 		'aCompositorPainter'
@@ -87,7 +88,7 @@ BrTextEditorParagraphElement >> buildParagraph [
 			ifTrue: [ self addText: eachElement text toBuilder: aBuilder ]
 			ifFalse: [
 				(eachElement isKindOf: BrCursorElement)
-					ifFalse: [ aBuilder addPlaceholder: (SkiaParagraphPlaceholderStyle new alignTop extent: eachElement measuredExtent) ] ] ].
+					ifFalse: [ aBuilder addPlaceholder: (SkiaParagraphPlaceholderStyle new alignMiddle extent: eachElement measuredExtent) ] ] ].
 
 	^ aBuilder build
 ]
@@ -239,18 +240,20 @@ BrTextEditorParagraphElement >> onMeasure: anExtentMeasurementSpec [
 	self placeholderAndCursorElements do:  [ :eachElement |
 		self layout measureChildWithMargins: eachElement parentSpec: anExtentMeasurementSpec ].
 
-	paragraph := self buildParagraph.
-	paragraph layoutWithWidth: anExtentMeasurementSpec widthSpec size - self padding width.
-	"paragraph print.
-	NonInteractiveTranscript stdout
-		nextPutAll: 'lineCount:'; space;
-		nextPutAll: paragraph lineCount asString; cr.
-	NonInteractiveTranscript stdout
-		nextPutAll: 'height:'; space;
-		nextPutAll: paragraph height asString; cr."
+	(paragraph isNil or: [ paragraph isNull ])
+		ifTrue: [ self telemetry
+				timeSync: 'Build paragraph'
+				during: [ paragraph := self buildParagraph ] ].
+
+	self telemetry
+		timeSync: 'Layout paragraph'
+		during: [ paragraph layoutWithWidth: anExtentMeasurementSpec widthSpec size - self padding width. ].
 
 	self measuredExtent: (anExtentMeasurementSpec sizeFor: paragraph longestLine @ paragraph height) + self padding extent.
-	self cursorElements ifNotEmpty: [ :theCursors | self measureCursors: theCursors ]
+	
+	self telemetry
+		timeSync: 'Measure cursors'
+		during: [ self cursorElements ifNotEmpty: [ :theCursors | self measureCursors: theCursors ] ]
 ]
 
 { #category : #drawing }
@@ -288,24 +291,49 @@ BrTextEditorParagraphElement >> placeholderElements [
 ]
 
 { #category : #'api - cursor' }
-BrTextEditorParagraphElement >> relativeScreenToCursor: aTransformation in: aSegment of: anEditorElement [
+BrTextEditorParagraphElement >> relativeScreenToCursor: aTransformation of: anEditorElement [
 	"trying to find a segment that actually contains a given position"
-	
+	| aCursor aFocusFinder aDirection aLocalTextPositionOfThisCursor aLocalPositionOfThisCursor aDesiredBounds aScreenPositionOfThisCursor |
+
 	paragraph
 		ifNil: [ ^ self ].
+
+	aCursor := aTransformation cursor.
+	aLocalTextPositionOfThisCursor := aCursor position - self segment textStart.
 
 	aTransformation isUp
 		ifTrue: [
 			paragraph
-				charOffsetAbove: aTransformation cursor position - aSegment textStart
-				ifFound: [ :aNewCursorPosition | aTransformation transformed: aSegment textStart + aNewCursorPosition ]
+				charOffsetAbove: aLocalTextPositionOfThisCursor
+				ifFound: [ :aNewCursorPosition | ^ aTransformation transformed: self segment textStart + aNewCursorPosition ]
 				ifNone: [  ] ]
 		ifFalse: [ 
 			paragraph
-				charOffsetBelow: aTransformation cursor position - aSegment textStart
-				ifFound: [ :aNewCursorPosition | aTransformation transformed: aSegment textStart + aNewCursorPosition ]
-				ifNone: [  ]	
-		]
+				charOffsetBelow: aLocalTextPositionOfThisCursor
+				ifFound: [ :aNewCursorPosition | ^ aTransformation transformed: self segment textStart + aNewCursorPosition ]
+				ifNone: [  ]	 ].
+	
+	aDirection := aTransformation isUp
+		ifTrue: [ BlFocusSearchDirectionUp new ]
+		ifFalse: [ BlFocusSearchDirectionDown new ].
+
+	aLocalPositionOfThisCursor := (paragraph cursorRectangleForCharacter: aLocalTextPositionOfThisCursor) center + self padding topLeft.
+
+	aDesiredBounds := anEditorElement localBoundsToMine: (BlBounds origin: aLocalPositionOfThisCursor extent: 0.0@0.0) fromChild: self.
+	aScreenPositionOfThisCursor := aDesiredBounds center.
+
+	aCursor hasDesiredCoordinate
+		ifTrue: [ aDesiredBounds translateX: (aCursor desiredCoordinate - aScreenPositionOfThisCursor x) Y: 0 ]
+		ifFalse: [ aCursor desiredCoordinate: aScreenPositionOfThisCursor x ].
+
+	aFocusFinder := BlFocusFinder new.
+	(aFocusFinder
+		root: anEditorElement;
+		referenceArea: aDesiredBounds;
+		direction: aDirection)
+			nextFocusDo: [ :aReceiverElement |
+				(aReceiverElement isKindOf: self class)
+					ifTrue: [ aReceiverElement screenToCursor: aTransformation of: anEditorElement at: aDesiredBounds center ] ]
 ]
 
 { #category : #'api - cursor' }
@@ -330,11 +358,31 @@ BrTextEditorParagraphElement >> removeCursors [
 ]
 
 { #category : #'api - cursor' }
-BrTextEditorParagraphElement >> screenToCursor: aTransformation at: aPositionInSegment in: aSegment [
+BrTextEditorParagraphElement >> screenToCursor: aTransformation of: anEditorElement at: aCursorInEditorPosition [
+	"trying to find a segment that actually contains a given position"
+	| theBoundsInLocal aCharOffsetInParagraph |
+
 	paragraph
 		ifNil: [ ^ self ].
 
-	aTransformation transformed: (aSegment textStart + (paragraph charOffsetAt: aPositionInSegment - self padding topLeft))
+	theBoundsInLocal := self
+		globalBoundsToMine: (BlBounds origin: aCursorInEditorPosition extent: 0@0)
+		fromParent: anEditorElement.
+		
+	aCharOffsetInParagraph := paragraph
+		charOffsetAt: theBoundsInLocal center - self padding topLeft.
+
+	aTransformation transformed: aCharOffsetInParagraph + self segment textStart
+]
+
+{ #category : #accessing }
+BrTextEditorParagraphElement >> segment [
+	^ segment
+]
+
+{ #category : #accessing }
+BrTextEditorParagraphElement >> segment: anObject [
+	segment := anObject
 ]
 
 { #category : #accessing }

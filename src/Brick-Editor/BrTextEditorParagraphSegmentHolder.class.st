@@ -33,6 +33,7 @@ BrTextEditorParagraphSegmentHolder >> buildSegment: anEditorSegment [
 	| newPieceElements thePieces hasSelection hasCursor |
 
 	segment := anEditorSegment.
+	itemElement segment: segment.
 
 	hasSelection := self hasSelection.
 	hasCursor := self hasCursor.
@@ -98,7 +99,7 @@ BrTextEditorParagraphSegmentHolder >> createSegmentElement [
 
 	^ BrTextEditorParagraphElement new
 		beInSeparateCompositionLayer;
-		focusability: BlFocusability after;
+		focusability: BlFocusability block;
 		addEventHandler: BrTextEditorMouseDownHandler uniqueInstance;
 		constraintsDo: [ :c |
 			c horizontal matchParent.
@@ -113,7 +114,7 @@ BrTextEditorParagraphSegmentHolder >> createSegmentElement [
 
 { #category : #cursor }
 BrTextEditorParagraphSegmentHolder >> explicitScreenToCursor: aTransformation [
-	| aBoundsInEditor aPositionInSegment aTransformedScreenPosition |
+	| aBoundsInEditor aTransformedScreenPosition |
 	
 	aTransformedScreenPosition := aTransformation screenPosition.
 	aBoundsInEditor := (itemElement bounds inParent: self infiniteElement) bounds.
@@ -129,12 +130,14 @@ BrTextEditorParagraphSegmentHolder >> explicitScreenToCursor: aTransformation [
 	"not in this segment, ignoring"
 	(aTransformedScreenPosition y between: aBoundsInEditor top and: aBoundsInEditor bottom)
 		ifFalse: [  ^ self ].
-			
-	aPositionInSegment := (itemElement globalBoundsToMine: (BlBounds origin: aTransformation screenPosition extent: 0.0@0.0) fromParent: self infiniteElement) center.	
+
 	segment hasPieces
 		ifFalse: [ ^ self ].
-		
-	itemElement screenToCursor: aTransformation at: aPositionInSegment in: segment
+
+	itemElement
+		screenToCursor: aTransformation
+		of: self infiniteElement
+		at: aTransformation screenPosition
 ]
 
 { #category : #'private - testing' }
@@ -241,7 +244,7 @@ BrTextEditorParagraphSegmentHolder >> onTextChanged [
 BrTextEditorParagraphSegmentHolder >> relativeScreenToCursor: aTransformation [
 	"trying to find a segment that actually contains a given position"
 		
-	itemElement relativeScreenToCursor: aTransformation in: segment of: self infiniteElement
+	itemElement relativeScreenToCursor: aTransformation of: self infiniteElement
 ]
 
 { #category : #cursor }
