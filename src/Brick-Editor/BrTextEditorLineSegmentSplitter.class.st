@@ -34,8 +34,8 @@ BrTextEditorLineSegmentSplitter >> itemValueType: anObject [
 ]
 
 { #category : #'private - pieces computation' }
-BrTextEditorLineSegmentSplitter >> processAdornmentAttribute: anAdornmentAttribute of: aText in: aStream from: aTextStart to: aTextEnd [
-	aStream nextPut: (self adornmentPiece: aText with: anAdornmentAttribute from: aTextStart to: aTextEnd)
+BrTextEditorLineSegmentSplitter >> processAdornmentAttribute: anAdornmentAttribute of: aText in: aStream from: aTextStart to: aTextEnd virtual: isVirtual [
+	aStream nextPut: ((self adornmentPiece: aText with: anAdornmentAttribute from: aTextStart to: aTextEnd) virtual: isVirtual)
 ]
 
 { #category : #'private - pieces computation' }
@@ -88,7 +88,7 @@ BrTextEditorLineSegmentSplitter >> processWithReplacements: aTextIterator in: aS
 				ifEmpty: [ aTextIterator attributes
 					select: [ :eachAttribute | eachAttribute isAdornment and: [ eachAttribute shouldReplace ] ] ].
 			
-			theAttributes do: [ :eachAttribute |
+			theAttributes withIndexDo: [ :eachAttribute :eachIndex |
 				| anAdornmentSpan aTextStart aTextEnd |
 				
 				aTextStart := ((aStart - 1) max: 0) + anOffset.
@@ -105,7 +105,8 @@ BrTextEditorLineSegmentSplitter >> processWithReplacements: aTextIterator in: aS
 					of: anAdornmentSpan
 					in: aStream
 					from: aTextStart
-					to: aTextEnd ] ]
+					to: aTextEnd
+					virtual: eachIndex > 1 ] ]
 ]
 
 { #category : #'private - pieces computation' }
@@ -169,7 +170,8 @@ BrTextEditorLineSegmentSplitter >> processWithoutReplacements: aTextIterator in:
 										of: anAttributeSpan
 										in: aStream
 										from: aTextStart
-										to: aTextEnd ]	] ] ] ]
+										to: aTextEnd
+										virtual: true ]	] ] ] ]
 ]
 
 { #category : #splitting }

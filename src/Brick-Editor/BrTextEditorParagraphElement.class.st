@@ -62,7 +62,13 @@ BrTextEditorParagraphElement >> addText: aBlText toBuilder: aParagraphBuilder [
 				aStyleBuilder hasCustomColor
 					ifTrue: [ aTextStyle color: aStyleBuilder color ]
 					ifFalse: [ aTextStyle color: self defaultTextColor ].
-			
+					
+				aStyleBuilder hasCustomDecoration
+					ifTrue: [
+						SkiaTextDecoration newDuring: [ :aSkiaDecoration |
+							aStyleBuilder decoration applyOnSkiaDecoration: aSkiaDecoration.
+							aTextStyle decoration: aSkiaDecoration ] ].
+
 				aParagraphBuilder
 					pushStyle: aTextStyle;
 					addString: eachSpan asString;
@@ -81,14 +87,18 @@ BrTextEditorParagraphElement >> buildParagraph [
 
 	aBuilder := SkiaParagraphBuilder
 		style: (SkiaParagraphStyle new textStyle: (SkiaParagraphTextStyle new color: Color black; fontSize: self defaultFontSize))
-		fontCollection: (SkiaFontCollection new defaultFontManager: SkiaFontManager default).
-	
+		fontCollection: (SkiaFontCollection new defaultFontManager: SkiaFontManager default)
+		tabSize: 4.
+
 	self childrenDo: [ :eachElement |
 		(eachElement isKindOf: BlTextElement)
 			ifTrue: [ self addText: eachElement text toBuilder: aBuilder ]
 			ifFalse: [
 				(eachElement isKindOf: BrCursorElement)
-					ifFalse: [ aBuilder addPlaceholder: (SkiaParagraphPlaceholderStyle new alignMiddle extent: eachElement measuredExtent) ] ] ].
+					ifFalse: [
+						aBuilder
+							addPlaceholder: (SkiaParagraphPlaceholderStyle new alignMiddle extent: eachElement measuredExtent)
+							charLength: (eachElement userData at: #brickEditorCharLength ifAbsent: [ 0 ]) ] ] ].
 
 	^ aBuilder build
 ]

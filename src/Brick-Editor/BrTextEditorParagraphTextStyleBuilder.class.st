@@ -6,7 +6,8 @@ Class {
 	#instVars : [
 		'fontSize',
 		'familyName',
-		'color'
+		'color',
+		'decoration'
 	],
 	#category : #'Brick-Editor-UI'
 }
@@ -28,6 +29,16 @@ BrTextEditorParagraphTextStyleBuilder >> color [
 { #category : #accessing }
 BrTextEditorParagraphTextStyleBuilder >> color: anObject [
 	color := anObject
+]
+
+{ #category : #accessing }
+BrTextEditorParagraphTextStyleBuilder >> decoration [
+	^ decoration
+]
+
+{ #category : #accessing }
+BrTextEditorParagraphTextStyleBuilder >> decoration: aTextDecoration [
+	decoration := aTextDecoration
 ]
 
 { #category : #accessing }
@@ -53,6 +64,11 @@ BrTextEditorParagraphTextStyleBuilder >> fontSize: anObject [
 { #category : #testing }
 BrTextEditorParagraphTextStyleBuilder >> hasCustomColor [
 	^ color notNil
+]
+
+{ #category : #testing }
+BrTextEditorParagraphTextStyleBuilder >> hasCustomDecoration [
+	^ decoration notNil
 ]
 
 { #category : #testing }
