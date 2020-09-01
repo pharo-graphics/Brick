@@ -99,7 +99,6 @@ BrTextEditorParagraphElement >> buildParagraph [
 						aBuilder
 							addPlaceholder: (SkiaParagraphPlaceholderStyle new alignMiddle extent: eachElement measuredExtent)
 							charLength: (eachElement userData at: #brickEditorCharLength ifAbsent: [ 0 ]) ] ] ].
-
 	^ aBuilder build
 ]
 
@@ -150,7 +149,8 @@ BrTextEditorParagraphElement >> drawChildrenOnSpartaCanvas: aCanvas [
 		when: [ self clipChildren ]
 		by: [ self geometry pathOnSpartaCanvas: aCanvas of: self ]
 		during: [
-			paragraph paintOn: aCanvas at: self padding topLeft.
+			paragraph
+				ifNotNil: [ :aParagraph | aParagraph paintOn: aCanvas at: self padding topLeft ].
 			self children sortedByElevation
 				do: [ :anElement |
 					(anElement isKindOf: BlTextElement)
@@ -247,7 +247,8 @@ BrTextEditorParagraphElement >> onLayout: aBounds [
 
 { #category : #layout }
 BrTextEditorParagraphElement >> onMeasure: anExtentMeasurementSpec [
-	self placeholderAndCursorElements do:  [ :eachElement |
+	| aParagraphLayoutWidth |
+	self placeholderElements do:  [ :eachElement |
 		self layout measureChildWithMargins: eachElement parentSpec: anExtentMeasurementSpec ].
 
 	(paragraph isNil or: [ paragraph isNull ])
@@ -255,11 +256,15 @@ BrTextEditorParagraphElement >> onMeasure: anExtentMeasurementSpec [
 				timeSync: 'Build paragraph'
 				during: [ paragraph := self buildParagraph ] ].
 
+	aParagraphLayoutWidth := anExtentMeasurementSpec widthSpec isUnspecified
+		ifTrue: [ SmallInteger maxVal ]
+		ifFalse: [ ((anExtentMeasurementSpec widthSpec size - self padding width) max: 0) ].
+
 	self telemetry
 		timeSync: 'Layout paragraph'
-		during: [ paragraph layoutWithWidth: anExtentMeasurementSpec widthSpec size - self padding width. ].
+		during: [ paragraph layoutWithWidth: aParagraphLayoutWidth ].
 
-	self measuredExtent: (anExtentMeasurementSpec sizeFor: paragraph longestLine @ paragraph height) + self padding extent.
+	self measuredExtent: (anExtentMeasurementSpec sizeFor: (paragraph longestLine @ paragraph height) + self padding extent).
 	
 	self telemetry
 		timeSync: 'Measure cursors'
@@ -268,9 +273,12 @@ BrTextEditorParagraphElement >> onMeasure: anExtentMeasurementSpec [
 
 { #category : #drawing }
 BrTextEditorParagraphElement >> paintChildrenOn: aCompositorPainter offset: anOffset [
-	paragraph paintOn: aCompositorPainter canvas at: anOffset + self padding topLeft.
-	self paintSelectionOn: aCompositorPainter offset: anOffset + self padding topLeft.
-	
+
+	paragraph
+		ifNotNil: [ :aParagraph |
+			aParagraph paintOn: aCompositorPainter canvas at: anOffset + self padding topLeft.
+			self paintSelectionOn: aCompositorPainter offset: anOffset + self padding topLeft ].
+
 	aCompositorPainter
 		pushChildren: self children sortedByElevation
 		offset: anOffset

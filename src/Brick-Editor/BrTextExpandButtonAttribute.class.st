@@ -18,10 +18,11 @@ BrTextExpandButtonAttribute >> applyExpandedOrCollapsedAttributesOn: aTBrTextEdi
 	| aBrText |
 	
 	aBrText := aTBrTextEditorTextualPiece text.
-
+	"we should not forget to remove already created attributes"
+	aBrText clearAttributes: [ :aTextAttribute | self createdAttributes includes: aTextAttribute ].
+	
 	isExpanded
 		ifTrue: [ self createAttributesAffect: aBrText in: aTextEditor ]
-		ifFalse: [ aBrText clearAttributes: [ :aTextAttribute | self createdAttributes includes: aTextAttribute ] ]
 ]
 
 { #category : #accessing }

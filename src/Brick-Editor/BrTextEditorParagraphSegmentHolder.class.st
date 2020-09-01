@@ -254,9 +254,17 @@ BrTextEditorParagraphSegmentHolder >> screenToCursor: aTransformation [
 
 { #category : #accessing }
 BrTextEditorParagraphSegmentHolder >> segment: anEditorSegment [
-	self infiniteElement telemetry
-		timeSync: [ 'Build segment at {1}' format: { anEditorSegment index } ]
-		during: [ self buildSegment: anEditorSegment ]
+	segment == anEditorSegment
+		ifTrue: [
+			self infiniteElement telemetry
+				timeSync: [ 'Update segment at {1}' format: { anEditorSegment index } ]
+				during: [ self updateSegment: anEditorSegment ] ]
+		ifFalse: [
+			self infiniteElement telemetry
+				timeSync: [ 'Build segment at {1}' format: { anEditorSegment index } ]
+				during: [
+					"self infiniteElement layout
+						ignoreRequestLayoutDuring: [ "self buildSegment: anEditorSegment "]" ] ]
 ]
 
 { #category : #'private - accessing' }
@@ -278,4 +286,80 @@ BrTextEditorParagraphSegmentHolder >> selectionIn: aTextEditor [
 				theLocalSelection select: localFrom to: localTo ] ].
 		
 	^ theLocalSelection
+]
+
+{ #category : #'private - segment' }
+BrTextEditorParagraphSegmentHolder >> updateSegment: anEditorSegment [
+	| newPieceElements newPieceMap hasCursor hasSelection |
+	self
+		assert: [ segment == anEditorSegment ]
+		description: [ 'Can only update the same segment!' ].
+
+	hasSelection := self hasSelection.
+	hasCursor := self hasCursor.
+
+	segment := anEditorSegment.
+	segment updateSegmentProperties.
+	
+	newPieceMap := self newPiecesMap.
+	newPieceElements := OrderedCollection new.
+	
+	self infiniteElement telemetry
+		timeSync: [ 'Update piece elements' ]
+		during: [
+			| thePieces |
+			self infiniteElement telemetry
+				timeSync: [ 'Compute pieces' ]
+				during: [ thePieces := segment pieces ].
+			
+			thePieces do: [ :eachSegmentPiece | 
+				| thePieceElements |
+				
+				thePieceElements := pieceElements
+					at: eachSegmentPiece
+					pieceAndElementsDo: [ :eachPiece :theSegmentElements |
+						
+						theSegmentElements do: [ :eachSegmentElement |
+							self infiniteElement telemetry
+								timeSync: [ 'Update text of `{1}`' format: { eachPiece } ]
+								during: [ eachPiece updateText: eachSegmentElement of: segment in: self infiniteElement ] ].
+						theSegmentElements ]
+					ifAbsent: [ 
+							self infiniteElement telemetry
+								timeSync: [ 'Create element for `{1}`' format: { eachSegmentPiece } ]
+								during: [ (eachSegmentPiece createElement: self infiniteElement) asOrderedCollection ] ].
+			
+				newPieceElements addAll: thePieceElements.
+				newPieceMap atPiece: eachSegmentPiece putElements: thePieceElements ] ].
+
+	pieceElements := newPieceMap.
+
+	self infiniteElement telemetry
+		timeSync: [ 'Remove children' ]
+		during: [ itemElement removeChildren ].
+
+	self infiniteElement telemetry
+		timeSync: [ 'Add piece elements' ]
+		during: [ itemElement addChildren: newPieceElements ].
+		
+	(hasCursor or: [ hasSelection ])
+		ifTrue: [
+			self infiniteElement telemetry
+				timeSync: [ 'Set cursor, selection' ]
+				during: [
+						hasCursor
+							ifTrue: [
+								self infiniteElement telemetry
+									timeSync: [ 'Set cursor' ]
+									during: [ self onCursorChanged ].
+						
+						hasSelection
+							ifTrue: [
+								self infiniteElement telemetry
+									timeSync: [ 'Set selection' ]
+									during: [ self onSelectionChanged ] ] ] ] ].
+
+	itemElement
+		constraintsDo: [ :c | c horizontal resizer: infiniteElement constraints horizontal resizer ];
+		padding: anEditorSegment paragraphMargin
 ]
