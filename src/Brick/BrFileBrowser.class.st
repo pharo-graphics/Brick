@@ -101,7 +101,7 @@ BrFileBrowser >> createTable [
 		cellStencil: [ :each | BrLabel new look: BrGlamorousLabelLook new ];
 		dataBinder: [ :aLabel :eachItem |
 			aLabel text: (eachItem isDirectory
-				ifTrue: [ eachItem children size asString ]
+				ifTrue: [ '-' ]
 				ifFalse: [ eachItem humanReadableSize ])].
 	aTable column 
 		title: 'Modified' translated;
