@@ -47,6 +47,11 @@ BrTextEditorParagraphSegmentAdornmentPiece >> createElement: anEditorElement [
 		eachElement mouseCursor ifNil: [ eachElement mouseCursor: BlCursor default ].
 		eachElement focusability: BlFocusabilityNone new ].
 	
+	self assert: [ self isVirtual or: [
+			"only replacement attribute can be non-virtual"
+			self isVirtual not and: [ self adornmentAttribute shouldReplace ] ] ]
+		description: [ 'Only replacement attribute can be non-virtual' ].
+	
 	theAdornmentElements withIndexDo: [ :eachAdornmentElement :eachIndex |
 		| aCharLength |
 		
@@ -82,5 +87,11 @@ BrTextEditorParagraphSegmentAdornmentPiece >> isVirtual [
 
 { #category : #accessing }
 BrTextEditorParagraphSegmentAdornmentPiece >> virtual: aBoolean [
+	self
+		assert: [ aBoolean or: [
+			"only replacement attribute can be non-virtual"
+			aBoolean not and: [ self adornmentAttribute shouldReplace ] ] ]
+		description: [ 'Only replacement attribute can be non-virtual' ].
+
 	isVirtual := aBoolean
 ]

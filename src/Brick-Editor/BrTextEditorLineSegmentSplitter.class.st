@@ -114,7 +114,7 @@ BrTextEditorLineSegmentSplitter >> processWithReplacements: aTextIterator in: aS
 					in: aStream
 					from: aTextStart
 					to: aTextEnd
-					virtual: eachIndex > 1 ] ]
+					virtual: (eachAttribute shouldAppend or: [ eachIndex > 1 ]) ] ]
 ]
 
 { #category : #'private - pieces computation' }

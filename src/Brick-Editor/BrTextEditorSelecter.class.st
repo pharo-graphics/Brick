@@ -209,6 +209,13 @@ BrTextEditorSelecter >> privateSelect: aFromTextIndex to: aToTextIndex [
 	self
 		assert: [ aFromTextIndex < aToTextIndex ]
 		description: [ 'Must select at least one character' ].
+
+	self
+		assert: [ aFromTextIndex between: 0 and: self text size ]
+		description: [ 'Selection start index ({1}) must be within text bounds {2}' format: { aFromTextIndex . 0 to: self text size } ].
+	self
+		assert: [ aToTextIndex between: 0 and: self text size ]
+		description: [ 'Selection end index ({1}) must be within text bounds {2}' format: { aToTextIndex . 0 to: self text size } ].
 	
 	aCommand := BrTextEditorSelectCommand new
 		fromIndex: aFromTextIndex;
