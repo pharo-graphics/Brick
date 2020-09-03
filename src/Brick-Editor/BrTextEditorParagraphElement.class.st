@@ -7,7 +7,8 @@ Class {
 		'cursorElements',
 		'cursorStencil',
 		'selection',
-		'segment'
+		'segment',
+		'pieces'
 	],
 	#classInstVars : [
 		'aCompositorPainter'
@@ -216,6 +217,18 @@ BrTextEditorParagraphElement >> measureCursors: aCollectionOfCursorElements [
 			position: eachCursorRectangle origin + self padding topLeft ]
 ]
 
+{ #category : #'api - cursor' }
+BrTextEditorParagraphElement >> moveCursorAt: aTextIndex to: aNewPosition [
+	"Move a cursor at a given position to a new position"
+
+	^ self
+		cursorAt: aTextIndex
+		ifFound: [ :aCursorElement |
+			aCursorElement textPosition: aNewPosition.
+			self requestLayout ]
+		ifNone: [ self error: 'Cursor at ', aTextIndex asString, ' does not exist' ]
+]
+
 { #category : #private }
 BrTextEditorParagraphElement >> newCursor [
 	"Create and return a new instance of a cursor element"
@@ -296,6 +309,11 @@ BrTextEditorParagraphElement >> paintSelectionOn: aCompositorPainter offset: anO
 	aCompositorPainter canvas transform
 		by: [ :t | t translateBy: anOffset ]
 		during: [ self drawSelectionOnSpartaCanvas: aCompositorPainter canvas ]
+]
+
+{ #category : #accessing }
+BrTextEditorParagraphElement >> pieces: aCollectionOfPieces [
+	pieces := aCollectionOfPieces.
 ]
 
 { #category : #private }
@@ -425,14 +443,19 @@ BrTextEditorParagraphElement >> selection: anObject [
 { #category : #'api - cursor' }
 BrTextEditorParagraphElement >> setCursors: aCollectionOfCursorPositions [
 	<return: #BrCursorElement>
-	| theExistingCursors theAddedCursors theRemovedCursors |
+	| theExistingCursors theAddedCursors theRemovedCursors theMovedCursors |
 	
 	theExistingCursors := self cursorElements collect: [ :eachElement | eachElement textPosition ].
-	theAddedCursors := aCollectionOfCursorPositions difference: theExistingCursors.
-	theRemovedCursors := theExistingCursors difference: aCollectionOfCursorPositions.
+	theAddedCursors := (aCollectionOfCursorPositions difference: theExistingCursors) as: Stack.
+	theRemovedCursors := (theExistingCursors difference: aCollectionOfCursorPositions) as: Stack.
+	theMovedCursors := OrderedCollection new.
 	
+	1 to: (theRemovedCursors size min: theAddedCursors size) do: [ :eachIndex |
+		theMovedCursors add: (theRemovedCursors pop -> theAddedCursors pop) ].
+
 	theRemovedCursors do: [ :eachToRemove | self removeCursorAt: eachToRemove ].
-	theAddedCursors do: [ :eachToAdd | self addCursorAt: eachToAdd ]
+	theAddedCursors do: [ :eachToAdd | self addCursorAt: eachToAdd ].
+	theMovedCursors do: [ :eachAssoc | self moveCursorAt: eachAssoc key to: eachAssoc value ]
 ]
 
 { #category : #'api - cursor' }

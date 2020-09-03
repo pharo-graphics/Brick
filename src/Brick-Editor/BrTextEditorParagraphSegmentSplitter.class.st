@@ -4,6 +4,11 @@ Class {
 	#category : #'Brick-Editor-Model - Segment-Text-Paragraph'
 }
 
+{ #category : #accessing }
+BrTextEditorParagraphSegmentSplitter >> adornmentPieceClass [
+	^ BrTextEditorParagraphSegmentAdornmentPiece
+]
+
 { #category : #'private - pieces computation' }
 BrTextEditorParagraphSegmentSplitter >> itemValueType: anObject [
 	"Return a type of an item within a segment.
@@ -12,4 +17,9 @@ BrTextEditorParagraphSegmentSplitter >> itemValueType: anObject [
 	<return: #Symbol>
 	
 	^ #char
+]
+
+{ #category : #accessing }
+BrTextEditorParagraphSegmentSplitter >> textPieceClass [
+	^ BrTextEditorParagraphSegmentTextPiece
 ]

@@ -8,6 +8,22 @@ Trait {
 	#category : #'Brick-Editor-Model - Segment-Text'
 }
 
+{ #category : #'text - copying' }
+TBrTextEditorTextualPiece >> copyWithText: aBlText [
+	^ self copy
+		initializeWith: aBlText
+		from: self textStart
+		to: self textEnd
+]
+
+{ #category : #initialization }
+TBrTextEditorTextualPiece >> initializeWith: aBlText from: aTextStart to: aTextEnd [
+	text := aBlText.
+	
+	textStart := aTextStart.
+	textEnd := aTextEnd
+]
+
 { #category : #'text - testing' }
 TBrTextEditorTextualPiece >> isEmpty [
 	"Return true if my text is empty, false otherwise"

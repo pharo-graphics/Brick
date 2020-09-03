@@ -3,7 +3,8 @@ Class {
 	#superclass : #Object,
 	#instVars : [
 		'editor',
-		'subscriptions'
+		'subscriptions',
+		'context'
 	],
 	#category : #'Brick-Editor-Model - Operators'
 }
@@ -11,6 +12,17 @@ Class {
 { #category : #'private - asserting' }
 BrTextEditorOperator >> assertUIProcess [
 	self editor assertUIProcess
+]
+
+{ #category : #accessing }
+BrTextEditorOperator >> context [
+	^ context
+]
+
+{ #category : #accessing }
+BrTextEditorOperator >> context: anObject [
+	"An object that understands #telemetry message"
+	context := anObject
 ]
 
 { #category : #accessing }
@@ -311,6 +323,15 @@ BrTextEditorOperator >> subscribe: anEventHandler [
 	self editor addEventHandler: anEventHandler.
 	subscriptions add: anEventHandler.
 	^ anEventHandler
+]
+
+{ #category : #accessing }
+BrTextEditorOperator >> telemetry [
+	<return: #BlTelemetry>
+
+	^ self context
+		ifNil: [ BlNullTelemetry uniqueInstance ]
+		ifNotNil: [ :aContext | aContext telemetry ]
 ]
 
 { #category : #accessing }

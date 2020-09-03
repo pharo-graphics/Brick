@@ -91,14 +91,6 @@ BrTextEditorLineSegmentPiece >> initialize [
 	currentCursors := Set new
 ]
 
-{ #category : #initialization }
-BrTextEditorLineSegmentPiece >> initializeWith: aBlText from: aTextStart to: aTextEnd [
-	text := aBlText.
-	
-	textStart := aTextStart.
-	textEnd := aTextEnd
-]
-
 { #category : #testing }
 BrTextEditorLineSegmentPiece >> isText [
 	^ false

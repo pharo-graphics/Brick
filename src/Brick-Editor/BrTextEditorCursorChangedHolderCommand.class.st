@@ -9,5 +9,7 @@ Class {
 
 { #category : #executing }
 BrTextEditorCursorChangedHolderCommand >> executeOn: aSegmentHolder [
-	aSegmentHolder onCursorChanged
+	self telemetry
+		timeSync: [ 'Segment holder onCursorChanged' ]
+		during: [ aSegmentHolder onCursorChanged ]
 ]

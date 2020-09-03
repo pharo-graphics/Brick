@@ -8,12 +8,13 @@ Class {
 }
 
 { #category : #'api - insertion' }
-BrTextEditorInsertionHandler >> insert: aString atCursorIn: anEditor [
+BrTextEditorInsertionHandler >> insert: aString atCursorIn: anEditor context: anElement [
 
 	anEditor surroundMap
 		closingFor: aString asSymbol
 		ifPresent: [ :aSurroundSymbol |
 			anEditor inserter
+				context: anElement;
 				inputFilter: anEditor inputFilter;
 				atCursor;
 				string: aString;
@@ -22,6 +23,7 @@ BrTextEditorInsertionHandler >> insert: aString atCursorIn: anEditor [
 				insert ]
 		ifAbsent: [
 			anEditor inserter
+				context: anElement;
 				inputFilter: anEditor inputFilter;
 				atCursor;
 				string: aString;
@@ -43,7 +45,11 @@ BrTextEditorInsertionHandler >> textInputEvent: anEvent [
 
     anEvent consumed: true.
 
-    self
-        insert: anEvent text asString
-        atCursorIn: anEvent currentTarget editor
+	anEvent currentTarget telemetry
+		timeSync: [ 'Insert {1} at cursor' format: { anEvent text asString } ]
+		during: [
+			self
+        		insert: anEvent text asString
+        		atCursorIn: anEvent currentTarget editor
+				context: anEvent currentTarget ]
 ]

@@ -28,20 +28,25 @@ BrTextEditorCursorChangeCommand >> cursor: anObject [
 { #category : #executing }
 BrTextEditorCursorChangeCommand >> executeOn: aTextEditor [
 	
-	self processAttributesOn: aTextEditor.
+	self telemetry
+		timeSync: [ 'Process attributes' ]
+		during: [ self processAttributesOn: aTextEditor ].
 
 	aTextEditor segmentCollector
 		cachedSegmentAt: self position
 		ifFound: [ :aSegment |
-			aTextEditor
-				enqueueHolderCommand: self newHolderCommand
-				interval: (aSegment index to: aSegment index) ]
+			self telemetry
+				timeSync: [ 'Enqueue cursor changed holder command {1}' format: { aSegment index to: aSegment index } ]
+				during: [
+					aTextEditor
+						enqueueHolderCommand: self newHolderCommand
+						interval: (aSegment index to: aSegment index) ] ]
 		ifNotFound: [  ].
 ]
 
 { #category : #'instance creation' }
 BrTextEditorCursorChangeCommand >> newHolderCommand [
-	^ BrTextEditorCursorChangedHolderCommand new
+	^ BrTextEditorCursorChangedHolderCommand new context: self context
 ]
 
 { #category : #accessing }

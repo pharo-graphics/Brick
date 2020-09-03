@@ -84,9 +84,15 @@ BrTextEditorNavigator >> apply [
 			cursorsMovedFrom: (theRemovedCursors collect: #position), (theMovedCursors collect: [ :anAssociation | anAssociation key position ])
 			to: (theAddedCursors collect: #position), (theMovedCursors collect: [ :anAssociation | anAssociation value position ]) ].
 
-	theRemovedCursors do: [ :aCursor | self privateRemoveCursor: aCursor ].
-	theAddedCursors do: [ :aCursor | self privateAddCursor: aCursor ].
-	theMovedCursors do: [ :anAssociation | self privateMoveCursor: anAssociation key to: anAssociation value position ].
+	self telemetry
+		timeSync: [ 'Remove cursors {1}' format: { theRemovedCursors } ]
+		during: [ theRemovedCursors do: [ :aCursor | self privateRemoveCursor: aCursor ] ].
+	self telemetry
+		timeSync: [ 'Add cursors {1}' format: { theRemovedCursors } ]
+		during: [ theAddedCursors do: [ :aCursor | self privateAddCursor: aCursor ] ].
+	self telemetry
+		timeSync: [ 'Move cursors {1}' format: { theRemovedCursors } ]
+		during: [ theMovedCursors do: [ :anAssociation | self privateMoveCursor: anAssociation key to: anAssociation value position ] ].
 	
 	dueTo := nil
 ]
@@ -240,6 +246,7 @@ BrTextEditorNavigator >> notifyCursorChanged: aCursor [
 	| aCommand |
 
 	aCommand := BrTextEditorCursorChangeCommand new
+		context: self context;
 		cursor: aCursor;
 		position: aCursor position.
 	self editor enqueueCommand: aCommand
@@ -301,9 +308,17 @@ BrTextEditorNavigator >> privateMoveCursor: aCursor to: aTextIndex [
 	aCursor position: aTextIndex.
 	self privateUpdateDesiredCoordinate: aCursor.
 
-	self notifyCursorChanged: anOldCursor.
-	self notifyCursorChanged: aCursor.
-	self notifyCursorMoved: aCursor from: anOldCursor position to: aTextIndex
+	self telemetry
+		timeSync: [ 'Notify cursor changed {1}' format: { anOldCursor position } ]
+		during: [ self notifyCursorChanged: anOldCursor ].
+		
+	self telemetry
+		timeSync: [ 'Notify cursor changed {1}' format: { aCursor position } ]
+		during: [ self notifyCursorChanged: aCursor ].
+		
+	self telemetry
+		timeSync: [ 'Notify cursor moved from {1} to {2}' format: { anOldCursor position . aTextIndex } ]
+		during: [ self notifyCursorMoved: aCursor from: anOldCursor position to: aTextIndex ].
 ]
 
 { #category : #'private - operations' }

@@ -38,7 +38,7 @@ BrTextEditorParagraphSegmentHolder >> buildSegment: anEditorSegment [
 	hasSelection := self hasSelection.
 	hasCursor := self hasCursor.
 	itemElement text: segment text.
-	
+
 	self infiniteElement telemetry
 		timeSync: [ 'Update segment properties' ]
 		during: [ segment updateSegmentProperties ].
@@ -181,14 +181,22 @@ BrTextEditorParagraphSegmentHolder >> onCursorChanged [
 		assert: [ segment isNotNil ]
 		description: [ 'Segment must be bound!' ].
 		
-	theCursors := (self infiniteElement editor cursor allCursors
-		select: [ :aCursor | aCursor insideSegment: segment ]
-		thenCollect: [ :aCursor | aCursor position - segment textStart ]) asSet.
+	theCursors := itemElement telemetry
+		timeSync: [ 'Compute segment cursors' ]
+		during: [
+			(self infiniteElement editor cursor allCursors
+				select: [ :aCursor | aCursor insideSegment: segment ]
+				thenCollect: [ :aCursor | aCursor position - segment textStart ]) asSet ].
 
-	itemElement setCursors: theCursors.
+	itemElement telemetry
+		timeSync: [ 'Set segment cursors {1}' format: { theCursors } ]
+		during: [ itemElement setCursors: theCursors ].
 	
 	(theCursors isNotEmpty and: [ self infiniteElement hasFocus ])
-		ifTrue: [ itemElement showCursors ]
+		ifTrue: [
+			itemElement telemetry
+				timeSync: [ 'Show segment cursors' ]
+				during: [ itemElement showCursors ] ]
 ]
 
 { #category : #updating }
@@ -258,13 +266,15 @@ BrTextEditorParagraphSegmentHolder >> segment: anEditorSegment [
 		ifTrue: [
 			self infiniteElement telemetry
 				timeSync: [ 'Update segment at {1}' format: { anEditorSegment index } ]
-				during: [ self updateSegment: anEditorSegment ] ]
+				during: [
+					self infiniteElement layout
+						ignoreRequestLayoutDuring: [ self updateSegment: anEditorSegment ] ] ]
 		ifFalse: [
 			self infiniteElement telemetry
 				timeSync: [ 'Build segment at {1}' format: { anEditorSegment index } ]
 				during: [
-					"self infiniteElement layout
-						ignoreRequestLayoutDuring: [ "self buildSegment: anEditorSegment "]" ] ]
+					self infiniteElement layout
+						ignoreRequestLayoutDuring: [ self buildSegment: anEditorSegment ] ] ]
 ]
 
 { #category : #'private - accessing' }
