@@ -377,7 +377,8 @@ BrTextEditor >> initialize [
 	shortcuts := BrTextEditorShortcuts new.
 	history := BrTextEditorHistory new.
 
-	self beEditable
+	self beEditable.
+	self beParagraphBased
 ]
 
 { #category : #initialization }
