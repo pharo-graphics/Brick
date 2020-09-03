@@ -375,6 +375,14 @@ BrTextEditorParagraphElement >> removeCursors [
 	self cursorElements removeAll
 ]
 
+{ #category : #layout }
+BrTextEditorParagraphElement >> requestLayout: anElement [
+	super requestLayout: anElement.
+	
+	anElement == self
+		ifFalse: [ paragraph := nil ].
+]
+
 { #category : #'api - cursor' }
 BrTextEditorParagraphElement >> screenToCursor: aTransformation of: anEditorElement at: aCursorInEditorPosition [
 	"trying to find a segment that actually contains a given position"
