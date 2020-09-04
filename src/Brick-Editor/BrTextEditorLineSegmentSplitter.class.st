@@ -90,11 +90,13 @@ BrTextEditorLineSegmentSplitter >> processWithReplacements: aTextIterator in: aS
 	aTextIterator
 		nextAttributedEnd: [ :eachAttribute | eachAttribute isAdornment ]
 		indicesDo: [ :aStart :anEnd :theAdornmentAttributes |
-			| theAttributes |
+			| theAttributes replacementFound |
 			
 			theAttributes := theAdornmentAttributes
 				ifEmpty: [ aTextIterator attributes
 					select: [ :eachAttribute | eachAttribute isAdornment and: [ eachAttribute shouldReplace ] ] ].
+			
+			replacementFound := false.
 			
 			theAttributes withIndexDo: [ :eachAttribute :eachIndex |
 				| anAdornmentSpan aTextStart aTextEnd |
@@ -114,7 +116,8 @@ BrTextEditorLineSegmentSplitter >> processWithReplacements: aTextIterator in: aS
 					in: aStream
 					from: aTextStart
 					to: aTextEnd
-					virtual: (eachAttribute shouldAppend or: [ eachIndex > 1 ]) ] ]
+					virtual: (eachAttribute shouldAppend or: [ replacementFound ]).
+				replacementFound := replacementFound or: [ eachAttribute shouldReplace ]  ] ]
 ]
 
 { #category : #'private - pieces computation' }

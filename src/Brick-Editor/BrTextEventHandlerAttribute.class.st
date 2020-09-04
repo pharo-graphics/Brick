@@ -1,5 +1,6 @@
 "
-I am an attribute with the ability to handle events received by a visual text element 
+!Event handler attribute
+Is the superclass of all attributes with the ability to handle some text events received by the visual text elements.
 "
 Class {
 	#name : #BrTextEventHandlerAttribute,

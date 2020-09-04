@@ -1,3 +1,8 @@
+"
+!Cursor attribute
+Allows users to react to the cursor movement within the editor. 
+${example:BrTextCursorAttributeExamples>>#changingForeground|previewExpanded=true|previewShow=#gtTextFor:|previewHeight=100}$
+"
 Class {
 	#name : #BrTextCursorAttribute,
 	#superclass : #BrTextEventHandlerAttribute,
@@ -15,8 +20,13 @@ BrTextCursorAttribute >> enterAction [
 ]
 
 { #category : #accessing }
-BrTextCursorAttribute >> enterAction: anObject [
-	enterAction := anObject
+BrTextCursorAttribute >> enterAction: aBlock [
+	"A Block in a form [ :aTextEditor :anEvent :aTextStart :aTextEnd | ]"
+	self 
+		assert: [ aBlock notNil ] 
+		description: [ 'Leave action should be initialized' ].
+	
+	enterAction := aBlock
 ]
 
 { #category : #events }
@@ -34,9 +44,9 @@ BrTextCursorAttribute >> handleEvent: anEvent in: aTextEditor on: aTBrTextEditor
 BrTextCursorAttribute >> initialize [
 	super initialize.
 
-	enterAction := [ :aTextEditor :anEvent | ].
-	leaveAction := [ :aTextEditor :anEvent | ].
-	isInside := false
+	enterAction := [ :aTextEditor :anEvent :aTextStart :aTextEnd | ].
+	leaveAction := [ :aTextEditor :anEvent :aTextStart :aTextEnd | ].
+	isInside := nil
 ]
 
 { #category : #accessing }
@@ -46,6 +56,7 @@ BrTextCursorAttribute >> leaveAction [
 
 { #category : #accessing }
 BrTextCursorAttribute >> leaveAction: aBlock [
+	"A Block in a form [ :aTextEditor :anEvent :aTextStart :aTextEnd | ]"
 	self 
 		assert: [ aBlock notNil ] 
 		description: [ 'Leave action should be initialized' ].
@@ -55,30 +66,40 @@ BrTextCursorAttribute >> leaveAction: aBlock [
 
 { #category : #private }
 BrTextCursorAttribute >> performEnterAction: anEvent in: aTextEditor [
-
-	isInside
+	isInside = true
 		ifTrue: [ ^ self ].
-		
-	isInside := true.
 
-	self enterAction glamourValueWithArgs: {
-		aTextEditor. "then the whole editor element"
-		anEvent "the event itself"
-	}
+	isInside := true.
+	
+	aTextEditor text
+		findAttribute: self
+		indicesDo: [ :aStart :anEnd |
+			self enterAction glamourValueWithArgs: {
+				aTextEditor. "then the whole editor element"
+				anEvent. "the event itself"
+				aStart.
+				anEnd
+			}
+		].
 ]
 
 { #category : #private }
 BrTextCursorAttribute >> performLeaveAction: anEvent in: aTextEditor [
-	
-	isInside
-		ifFalse: [ ^ self ].
-		
+	isInside = false
+		ifTrue: [ ^ self ].
+
 	isInside := false.
 
-	self leaveAction glamourValueWithArgs: {
-		aTextEditor. "then the whole editor element"
-		anEvent "the event itself"
-	}
+	aTextEditor text
+		findAttribute: self
+		indicesDo: [ :aStart :anEnd |
+			self leaveAction glamourValueWithArgs: {
+				aTextEditor. "then the whole editor element"
+				anEvent. "the event itself"
+				aStart.
+				anEnd
+			}
+		]
 ]
 
 { #category : #events }

@@ -7,5 +7,5 @@ ${example:BrTextAttributesHowToGuide>>#linkInText|previewExpanded}$
 Class {
 	#name : #BrTextAttributesHowToGuide,
 	#superclass : #Object,
-	#category : #'Brick-Editor-Documentation'
+	#category : #'Brick-Editor-Examples-Documentation'
 }

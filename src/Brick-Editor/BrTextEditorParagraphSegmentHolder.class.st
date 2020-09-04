@@ -143,12 +143,11 @@ BrTextEditorParagraphSegmentHolder >> explicitScreenToCursor: aTransformation [
 { #category : #'private - testing' }
 BrTextEditorParagraphSegmentHolder >> hasCursor [
 	| aTextEditor |
-
 	aTextEditor := self infiniteElement editor.
-	aTextEditor cursor do: [ :aCursor |
-		(aCursor insideSegment: segment)
-			ifTrue: [ ^ true ] ].
-
+	aTextEditor cursors
+		do: [ :aCursor | 
+			(aCursor insideSegment: segment)
+				ifTrue: [ ^ true ] ].
 	^ false
 ]
 
@@ -175,26 +174,22 @@ BrTextEditorParagraphSegmentHolder >> newPiecesMap [
 BrTextEditorParagraphSegmentHolder >> onCursorChanged [
 	"Is sent when text editor's cursor changes.
 	Segment holder should update text elements accordingly"
-	| theCursors |
 
+	| theCursors |
 	self
 		assert: [ segment isNotNil ]
 		description: [ 'Segment must be bound!' ].
-		
 	theCursors := itemElement telemetry
 		timeSync: [ 'Compute segment cursors' ]
-		during: [
-			(self infiniteElement editor cursor allCursors
+		during: [ (self infiniteElement editor cursors allCursors
 				select: [ :aCursor | aCursor insideSegment: segment ]
-				thenCollect: [ :aCursor | aCursor position - segment textStart ]) asSet ].
-
+				thenCollect: [ :aCursor | aCursor position - segment textStart ])
+				asSet ].
 	itemElement telemetry
-		timeSync: [ 'Set segment cursors {1}' format: { theCursors } ]
+		timeSync: [ 'Set segment cursors {1}' format: {theCursors} ]
 		during: [ itemElement setCursors: theCursors ].
-	
 	(theCursors isNotEmpty and: [ self infiniteElement hasFocus ])
-		ifTrue: [
-			itemElement telemetry
+		ifTrue: [ itemElement telemetry
 				timeSync: [ 'Show segment cursors' ]
 				during: [ itemElement showCursors ] ]
 ]

@@ -139,11 +139,19 @@ BrTextEditor >> copySelected [
 
 { #category : #accessing }
 BrTextEditor >> cursor [
+	<return: #BrTextEditorCursor>
+
+	self
+		deprecated: 'Use #cursors instead.'
+		transformWith: '`@receiver cursor' -> '`@receiver cursors'.
+
 	^ cursors
 ]
 
 { #category : #accessing }
 BrTextEditor >> cursors [
+	<return: #BrTextEditorCursor>
+
 	^ cursors
 ]
 
@@ -210,18 +218,9 @@ BrTextEditor >> defaultStyler [
 
 { #category : #initialization }
 BrTextEditor >> defaultStylerEventHandler [
-	^ BlEventHandler on: BlTextStyledEvent do: [ :anEvent |		
-		(anEvent text previousGeneration == self text generation)
-			ifTrue: [
-				self text rope: anEvent text text rope.
-				anEvent afterAction cull: self text cull: self.
-				self updater
-					all;
-					update ]
-			ifFalse: [
-				Bloc debugModeEnabled
-					ifTrue: [ Error signal: 'Wrong generation!' ].
-				self styleTextAndAfterDo: anEvent afterAction ] ]
+	^ BlEventHandler
+		on: BlTextStyledEvent
+		do: [ :anEvent | self onTextStyled: anEvent ]
 ]
 
 { #category : #initialization }
@@ -418,18 +417,6 @@ BrTextEditor >> inserter [
 	^ BrTextEditorInserter new editor: self
 ]
 
-{ #category : #'private - updating' }
-BrTextEditor >> invalidate: aFromTextIndex to: aToTextIndex [
-	"Update text rendering within an interval defined by provided from and to indices."
-	
-	self deprecated: 'Invalidation is deprecated and merged with updater'.
-
-	self updater
-		from: aFromTextIndex to: aToTextIndex;
-		redrawOnly;
-		update
-]
-
 { #category : #accessing }
 BrTextEditor >> itemCount [
 	^ segmentCollector computedSegmentsCount
@@ -510,6 +497,39 @@ BrTextEditor >> newSelectionUpdateCommand [
 { #category : #'commands - creation' }
 BrTextEditor >> newUpdateCommand [
 	^ BrTextEditorUpdateCommand new
+]
+
+{ #category : #'private - cursor' }
+BrTextEditor >> notifyAttributesOutsideCursor: aCollectionOfAttributes [
+	"I notify the cursor attributes that they are not anymore within the current cursors"
+	| theEventHandlingAttributes anEvent |
+	
+	theEventHandlingAttributes := (aCollectionOfAttributes select: [ :eachAttribute | eachAttribute isEventHandler ]) asSet.
+	
+	anEvent := BrTextEditorCursorRemovedEvent cursor: self cursors.
+	
+	theEventHandlingAttributes do: [ :eachAttribute |
+		(eachAttribute wantsEvent: anEvent in: self)
+				ifTrue: [ eachAttribute handleEvent: anEvent in: self on: nil ] ]
+]
+
+{ #category : #'private - cursor' }
+BrTextEditor >> notifyAttributesWithinCursor: aCollectionOfAttributes [
+	"I select and notify those attributes in the given collection that are within any of the cursors"
+	| theEventHandlingAttributes anEvent |
+	
+	anEvent := BrTextEditorCursorAddedEvent cursor: self cursors.
+	
+	theEventHandlingAttributes := (aCollectionOfAttributes select: [ :eachAttribute | eachAttribute isEventHandler ]) asSet.
+	theEventHandlingAttributes do: [ :eachAttribute |
+		self text
+			findAttribute: eachAttribute
+			indicesDo: [ :aStart :anEnd |
+				(self cursors anySatisfy: [ :eachCursor |
+					eachCursor position between: ((aStart - 1) max: 0) and: anEnd ])
+						ifTrue: [
+							(eachAttribute wantsEvent: anEvent in: self)
+								ifTrue: [ eachAttribute handleEvent: anEvent in: self on: nil ] ] ] ]
 ]
 
 { #category : #'event firing' }
@@ -705,7 +725,9 @@ BrTextEditor >> onTextAttributeAdded: aBlTextAttributeAdded [
 		addedAttribute: aBlTextAttributeAdded attribute
 		from: aBlTextAttributeAdded fromIndex
 		to: aBlTextAttributeAdded toIndex
-		in: self
+		in: self.
+
+	self notifyAttributesWithinCursor: { aBlTextAttributeAdded attribute }
 ]
 
 { #category : #'hooks - text modifications' }
@@ -715,7 +737,33 @@ BrTextEditor >> onTextAttributesRemoved: aBlTextAttributesRemoved [
 	self segmentBuilder
 		removedAttributesFrom: aBlTextAttributesRemoved fromIndex
 		to: aBlTextAttributesRemoved toIndex
-		in: self
+		in: self.
+]
+
+{ #category : #'hooks - text modifications' }
+BrTextEditor >> onTextReplaced [
+	"Is sent after a text instance is replaced with a new one"
+	self assertUIProcess.
+		
+	self processCursorAttributes
+]
+
+{ #category : #'hooks - text modifications' }
+BrTextEditor >> onTextStyled: aBlTextStyledEvent [
+	self assertUIProcess.
+
+	(aBlTextStyledEvent text previousGeneration == self text generation)
+		ifTrue: [
+			self text rope: aBlTextStyledEvent text text rope.
+			aBlTextStyledEvent afterAction cull: self text cull: self.
+			
+			"notify the event handling attributes that they are within the cursors"
+			self processCursorAttributes.
+			
+			self updater
+				all;
+				update ]
+		ifFalse: [ self styleTextAndAfterDo: aBlTextStyledEvent afterAction ]
 ]
 
 { #category : #'hooks - text modifications' }
@@ -767,6 +815,39 @@ BrTextEditor >> paster [
 { #category : #'private - selection' }
 BrTextEditor >> prepareSelection [
 	self selectionRecorder prepare: self
+]
+
+{ #category : #'private - cursor' }
+BrTextEditor >> processCursorAttributes [
+	"I search for the attributes that are within any of the cursors and notify them about it"
+
+	self processCursorAttributesFrom: (1 min: self text size) to: self text size
+]
+
+{ #category : #'private - cursor' }
+BrTextEditor >> processCursorAttributesFrom: aFromIndex to: aToIndex [
+	"I search for the attributes that are within any of the cursors and notify them about it"
+	| anIterator anEnteredEvent aLeavedEvent |
+	
+	anEnteredEvent := BrTextEditorCursorAddedEvent cursor: self cursors.
+	aLeavedEvent := BrTextEditorCursorRemovedEvent cursor: self cursors.
+
+	anIterator := self text iterator: aFromIndex to: aToIndex.
+	[ anIterator hasNext ]
+		whileTrue: [
+			anIterator
+				nextAttributedEnd: [ :eachAttribute | eachAttribute isEventHandler ]
+				indicesDo: [ :aStart :anEnd :theEndedAttributes |
+					theEndedAttributes do: [ :eachAttribute |
+						self text
+							findAttribute: eachAttribute
+							indicesDo: [ :eachStart :eachEnd |
+								| anEvent |
+								anEvent := (self cursors anySatisfy: [ :eachCursor | eachCursor position between: (aStart - 1 max: 0) and: anEnd ])
+									ifTrue: [ anEnteredEvent ]
+									ifFalse: [ aLeavedEvent ].
+								(eachAttribute wantsEvent: anEvent in: self)
+									ifTrue: [ eachAttribute handleEvent: anEvent in: self on: nil ] ] ] ] ].
 ]
 
 { #category : #'private - selection' }
@@ -1077,6 +1158,8 @@ BrTextEditor >> text: aBrText [
 	segmentCollector editor: self.
 	segmentCollector text: text.
 
+	self onTextReplaced.
+
 	"notify UI about structural update"
 	self notifyChanged.
 
@@ -1115,17 +1198,6 @@ BrTextEditor >> uiProcesses [
 { #category : #'text - undo/redo' }
 BrTextEditor >> undo [
 	history undoOn: self
-]
-
-{ #category : #'private - updating' }
-BrTextEditor >> update: aFromTextIndex to: aToTextIndex [
-	"Invalidate segments (reset their internal cache) within text interval specified by from and to indices"
-	
-	self deprecated: 'Use editor updater unstead'.
-	
-	self updater
-		from: aFromTextIndex to: aToTextIndex;
-		update
 ]
 
 { #category : #'private - updating' }

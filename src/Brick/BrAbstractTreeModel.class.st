@@ -90,7 +90,7 @@ BrAbstractTreeModel >> indexOfSuchThat: aBlock do: aFoundBlock [
 BrAbstractTreeModel >> initialize [
 	super initialize.
 
-	rootNode := BrTreeNode on: nil computed: [ :eachChild | #() ].
+	rootNode := BrLazyTreeNode on: nil computed: [ :eachChild | #() ].
 	nodeTypeStencil := BrTreeDefaultItemTypeStencilBuilder new
 ]
 
@@ -104,7 +104,7 @@ BrAbstractTreeModel >> initializeListeners [
 
 { #category : #'api - accessing' }
 BrAbstractTreeModel >> itemAt: anIndex [
-	<return: #BrTreeNode>
+	<return: #BrLazyTreeNode>
 
 	^ self root at: anIndex
 ]
@@ -119,7 +119,7 @@ BrAbstractTreeModel >> itemCount [
 { #category : #'api - accessing' }
 BrAbstractTreeModel >> items: aCollectionOfItems children: aBlockOrValuable [
 
-	rootNode := BrTreeNode on: aCollectionOfItems computed: #value.
+	rootNode := BrLazyTreeNode on: aCollectionOfItems computed: #value.
 	rootNode children: aCollectionOfItems computed: aBlockOrValuable.
 	rootNode hide.
 	rootNode expand.
@@ -150,7 +150,7 @@ BrAbstractTreeModel >> notifyChildrenChanged [
 
 { #category : #'api - accessing' }
 BrAbstractTreeModel >> root [
-	<return: #BrTreeNode>
+	<return: #BrLazyTreeNode>
 
 	^ rootNode
 ]

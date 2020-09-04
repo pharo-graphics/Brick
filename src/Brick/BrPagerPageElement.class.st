@@ -4,8 +4,6 @@ I am the wrapper around the contents of one page, resizer and next button.
 Class {
 	#name : #BrPagerPageElement,
 	#superclass : #BlElement,
-	#traits : 'TBlDrawingCache',
-	#classTraits : 'TBlDrawingCache classTrait',
 	#instVars : [
 		'weight'
 	],
@@ -18,7 +16,11 @@ BrPagerPageElement >> initialize [
 	
 	self viewModel: BrPagerPageModel new.
 	self beInSeparateCompositionLayer.
-	weight := 0.5
+	weight := 0.5.
+	
+	self constraintsDo: [ :c |
+		c horizontal matchParent.
+		c vertical matchParent ]
 ]
 
 { #category : #layout }

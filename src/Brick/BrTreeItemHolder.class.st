@@ -17,7 +17,7 @@ BrTreeItemHolder >> itemElement: anElement [
 
 { #category : #accessing }
 BrTreeItemHolder >> rowNode [
-	<return: #BrTreeNode>
+	<return: #BrLazyTreeNode>
 
 	^ rowNode
 ]

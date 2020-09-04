@@ -38,7 +38,7 @@ BrTreeNodeExamples >> depth_1 [
 		left: (BlCollectionRope collection: 'Hello')
 		right: (BlCollectionRope collection: 'World').
 
-	aNode := BrTreeNode on: aRope computed: [ :eachRope | eachRope children ].
+	aNode := BrLazyTreeNode on: aRope computed: [ :eachRope | eachRope children ].
 
 	self assert: aNode isExpanded not.
 	self assert: aNode children equals: { aRope left . aRope right }.

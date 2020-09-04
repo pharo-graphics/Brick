@@ -9,7 +9,7 @@ Class {
 
 { #category : #accessing }
 BrTreeChildrenChanged >> root [
-	<return: #BrTreeNode>
+	<return: #BrLazyTreeNode>
 
 	^ root
 ]
