@@ -166,6 +166,18 @@ BrGlamorousVectorIcons class >> eg [
 ]
 
 { #category : #icons }
+BrGlamorousVectorIcons class >> filter [
+	<script: 'self filter inspect'>
+
+	^ [ BlElement new
+		size: 16@16;
+		geometry: (BlSvgPath new
+			svg: 'M 6 7 L 6 14 L 10 12.4 L 10 7 L 14 2 L 2 2 Z'
+			viewbox: (0@0 extent: 16@16));
+		background: Color black ] asStencil
+]
+
+{ #category : #icons }
 BrGlamorousVectorIcons class >> gt [
 	<script: 'self gt inspect'>
 
