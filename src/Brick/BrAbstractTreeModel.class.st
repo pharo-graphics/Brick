@@ -27,7 +27,7 @@ BrAbstractTreeModel >> expandAll [
 
 { #category : #'expanding-collapsing' }
 BrAbstractTreeModel >> expandUpTo: aLevelIndex [
-	self upToDepth: aLevelIndex do: [ :eachNode | eachNode expand ].
+	self root expandUpTo: aLevelIndex
 ]
 
 { #category : #'api - accessing' }
@@ -35,9 +35,9 @@ BrAbstractTreeModel >> indexOf: anObject [
 	<return: #Number>
 	| anIndex |
 	
-	anIndex := self root isHidden
-		ifTrue: [ -1 ]
-		ifFalse: [ 0 ].
+	anIndex := self root isAccountedForSelf
+		ifTrue: [ 1 ]
+		ifFalse: [ -1 ].
 
 	self root withAllChildrenNodesLinearDo: [ :eachTreeNode |
 		anIndex := anIndex + 1.
@@ -69,9 +69,9 @@ BrAbstractTreeModel >> indexOfSuchThat: aBlock [
 		(aBlock value: eachTreeNode value)
 			ifTrue: [ ^ anIndex ] ].
 
-	self root isHidden
-		ifTrue: [ self root allChildrenNodesLinearDo: aCheckBlock ]
-		ifFalse: [ self root withAllChildrenNodesLinearDo: aCheckBlock ].
+	self root isAccountedForSelf
+		ifTrue: [ self root withAllChildrenNodesLinearDo: aCheckBlock ]
+		ifFalse: [ self root allChildrenNodesLinearDo: aCheckBlock ].
 
 	^ 0
 ]
@@ -90,7 +90,7 @@ BrAbstractTreeModel >> indexOfSuchThat: aBlock do: aFoundBlock [
 BrAbstractTreeModel >> initialize [
 	super initialize.
 
-	rootNode := BrLazyTreeNode on: nil computed: [ :eachChild | #() ].
+	rootNode := BrRootTreeNode onMany: #() computed: [ :eachChild | #() ].
 	nodeTypeStencil := BrTreeDefaultItemTypeStencilBuilder new
 ]
 
@@ -104,7 +104,7 @@ BrAbstractTreeModel >> initializeListeners [
 
 { #category : #'api - accessing' }
 BrAbstractTreeModel >> itemAt: anIndex [
-	<return: #BrLazyTreeNode>
+	<return: #BrTreeNode>
 
 	^ self root at: anIndex
 ]
@@ -118,11 +118,8 @@ BrAbstractTreeModel >> itemCount [
 
 { #category : #'api - accessing' }
 BrAbstractTreeModel >> items: aCollectionOfItems children: aBlockOrValuable [
-
-	rootNode := BrLazyTreeNode on: aCollectionOfItems computed: #value.
-	rootNode children: aCollectionOfItems computed: aBlockOrValuable.
-	rootNode hide.
-	rootNode expand.
+	rootNode := BrRootTreeNode onMany: aCollectionOfItems computed: aBlockOrValuable.
+	rootNode expandUpTo: 2.
 
 	self notifyChildrenChanged
 ]
@@ -150,17 +147,12 @@ BrAbstractTreeModel >> notifyChildrenChanged [
 
 { #category : #'api - accessing' }
 BrAbstractTreeModel >> root [
-	<return: #BrLazyTreeNode>
+	<return: #BrRootTreeNode>
 
 	^ rootNode
 ]
 
 { #category : #'expanding-collapsing' }
 BrAbstractTreeModel >> upToDepth: aMaxDepthLevel do: anOneArgBlock [
-	self 
-		assert: [ aMaxDepthLevel isInteger and: [ aMaxDepthLevel > 0 ] ] 
-		description: [ 'Level index must be a natural number' ].
-	self root withAllChildrenNodesBreadthFirstDo: [ :eachNode | 
-		eachNode depth >= aMaxDepthLevel ifTrue: [ ^ self ].
-		anOneArgBlock cull: eachNode ].
+	self root upToDepth: aMaxDepthLevel do: anOneArgBlock
 ]

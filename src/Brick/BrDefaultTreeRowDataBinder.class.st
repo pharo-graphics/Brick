@@ -10,15 +10,13 @@ Class {
 { #category : #'api - instantiation' }
 BrDefaultTreeRowDataBinder >> buildDefault [
 	<return: #BrStencil or: #BlElement>
-	
 	self rowElement
 		childNamed: #toggle
-		ifFound: [ :aToggleElement |
+		ifFound: [ :aToggleElement | 
 			aToggleElement viewModel model: self itemNode.
 			aToggleElement
-				hide: self itemNode isEmpty;
+				hide: self itemNode canBeExpanded not;
 				expanded: self itemNode isExpanded;
-				disabled: self itemNode isEmpty.
-				
+				disabled: self itemNode canBeExpanded not.
 			aToggleElement margin: (BlInsets left: self itemNode depth * 15) ]
 ]

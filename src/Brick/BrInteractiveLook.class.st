@@ -64,7 +64,10 @@ BrInteractiveLook >> initializeRequests [
 
 { #category : #initialization }
 BrInteractiveLook >> requestStates [
-	self widgetDo: [ self statesChanged: (self request: (BrInteractionRequest oneWay forceUpdate: true)) ]
+	self widgetDo: [ :aWidget |
+		aWidget telemetry
+			timeSync: [ 'Request states for interactive look {1}' format: { aWidget } ]
+			during: [ self statesChanged: (self request: (BrInteractionRequest oneWay forceUpdate: true)) ] ]
 ]
 
 { #category : #accessing }
