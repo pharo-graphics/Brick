@@ -1,6 +1,6 @@
 Class {
 	#name : #BrTextEditorParagraphElement,
-	#superclass : #BlElement,
+	#superclass : #BrTextEditorSegmentElement,
 	#instVars : [
 		'paragraph',
 		'text',
