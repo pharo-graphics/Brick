@@ -46,7 +46,7 @@ BrSimpleTreeExamples >> subclassesOfCollection_immediate [
 				alignCenterLeft;
 				cellSpacing: 5;
 				addChild: (BrLabel new look: BrGlamorousLabelLook) as: #label;
-				addChild: (BrButton new beTiny; look: BrGlamorousButtonWithLabelLook new; label: 'Add') as: #button ];
+				addChild: (BrButton new beTiny; look: BrGlamorousButtonWithLabelLook new; label: 'Add child') as: #button ];
 		nodeDataBinder: [ :aNodeElement :aClass :aTreeNode :thePayloads |
 			NonInteractiveTranscript stdout nextPutAll: thePayloads asString, ' for ', aTreeNode value asString; cr.
 			(aNodeElement childNamed: #label) text: aClass printString.

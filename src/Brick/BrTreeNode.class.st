@@ -325,6 +325,7 @@ BrTreeNode >> initialize [
 
 { #category : #'api - adding / removing' }
 BrTreeNode >> insert: anObject atChildIndex: aChildIndex withPayload: aPayloadObject [
+	"aPayloadObject will be sent to the node in which the given object will be added"
 	| aNewNode |
 
 	"If children values are not computed we should not insert anything because values will be properly computed lazily later"
@@ -365,12 +366,7 @@ BrTreeNode >> insert: anObject atChildIndex: aChildIndex withPayload: aPayloadOb
 
 	self onNodeChanged: self payload: aPayloadObject.
 	self isExpanded
-		ifTrue: [
-			self
-				onChildInserted: self
-				from: aNewNode
-				size: aNewNode size
-				withPayload: aPayloadObject ]
+		ifTrue: [ self onChildInserted: self from: aNewNode size: aNewNode size ]
 ]
 
 { #category : #testing }
@@ -439,15 +435,10 @@ BrTreeNode >> onChildExpanded: aChildNode from: anOriginNode size: anAmount [
 ]
 
 { #category : #hooks }
-BrTreeNode >> onChildInserted: aChildNode from: anOriginNode size: anAmount withPayload: aPayloadObject [
+BrTreeNode >> onChildInserted: aChildNode from: anOriginNode size: anAmount [
 	self hasParent
 		ifFalse: [ ^ self ].
-
-	self parent
-		onChildInserted: self
-		from: anOriginNode
-		size: anAmount
-		withPayload: aPayloadObject
+	self parent onChildInserted: self from: anOriginNode size: anAmount
 ]
 
 { #category : #hooks }

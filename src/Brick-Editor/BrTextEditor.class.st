@@ -377,7 +377,7 @@ BrTextEditor >> initialize [
 	history := BrTextEditorHistory new.
 
 	self beEditable.
-	self beParagraphBased
+	"self beParagraphBased"
 ]
 
 { #category : #initialization }

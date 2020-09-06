@@ -116,13 +116,13 @@ BrRootTreeNode >> onChildExpanded: aChildNode from: anOriginNode size: anAmount 
 ]
 
 { #category : #hooks }
-BrRootTreeNode >> onChildInserted: aChildNode from: anOriginNode size: anAmount withPayload: aPayloadObject [
-	super onChildInserted: aChildNode from: anOriginNode size: anAmount withPayload: aPayloadObject.
-
-	self announcer announce: (BrTreeNodeInserted new
-		index: anOriginNode indexInTree;
-		node: anOriginNode;
-		payload: aPayloadObject)
+BrRootTreeNode >> onChildInserted: aChildNode from: anOriginNode size: anAmount [
+	super onChildInserted: aChildNode from: anOriginNode size: anAmount.
+	self announcer
+		announce:
+			(BrTreeNodeInserted new
+				index: anOriginNode indexInTree;
+				node: anOriginNode)
 ]
 
 { #category : #hooks }
