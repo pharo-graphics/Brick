@@ -115,7 +115,7 @@ BrTreeNode >> childrenNodes [
 
 { #category : #enumeration }
 BrTreeNode >> childrenNodesDo: aBlock [
-	self childrenNodes do: [ :eachNode | eachNode ifNotNil: aBlock ]
+	self childrenNodes do: aBlock
 ]
 
 { #category : #accessing }
@@ -190,7 +190,7 @@ BrTreeNode >> ensureChildrenNodes [
 			aStream nextPut: ((self newSubNode: eachValue computation: self computation)
 				parent: self;
 				indexInChildren: eachIndex;
-				indexInTree: indexInTree + eachIndex) ] ]
+				shiftIndexInTreeBy: indexInTree + eachIndex - 1) ] ]
 ]
 
 { #category : #private }
@@ -213,12 +213,16 @@ BrTreeNode >> expand [
 
 	self ensureChildrenNodes.
 	aChildrenSize := self computeChildrenSize.
+
 	size := size + aChildrenSize.
 	self
 		assert: [ size >= 0 ]
 		description: [ 'Size can not be negative' ].
 
 	isExpanded := true.
+	
+	self hasParent
+		ifTrue: [ self parent onNodesAppearedAfter: self amount: aChildrenSize ].
 	
 	self
 		onChildExpanded: self
@@ -251,6 +255,20 @@ BrTreeNode >> gtNodesFor: aView [
 		priority: 1;
 		items: [ { self } ];
 		children: [ :anItem | anItem childrenNodes ];
+		expandAll;
+		column: 'Item' item: [ :anItem | anItem ];
+		column: 'Index' item: [ :anItem | anItem indexInTree ] width: 80
+]
+
+{ #category : #'gt-extension' }
+BrTreeNode >> gtRawNodesFor: aView [
+	<gtView>
+	
+	^ aView columnedTree
+		title: 'Raw Nodes';
+		priority: 2;
+		items: [ { self } ];
+		children: [ :anItem | (anItem instVarNamed: #childrenNodes) ifNil: [ #() ] ];
 		expandAll;
 		column: 'Item' item: [ :anItem | anItem ];
 		column: 'Index' item: [ :anItem | anItem indexInTree ] width: 80
@@ -305,6 +323,56 @@ BrTreeNode >> initialize [
 	computation := [ #() ]
 ]
 
+{ #category : #'api - adding / removing' }
+BrTreeNode >> insert: anObject atChildIndex: aChildIndex withPayload: aPayloadObject [
+	| aNewNode |
+
+	"If children values are not computed we should not insert anything because values will be properly computed lazily later"
+	childrenValues
+		ifNil: [ ^ self onNodeChanged: self payload: aPayloadObject ].
+
+	childrenValues := childrenValues
+		copyReplaceFrom: aChildIndex
+		to: aChildIndex - 1
+		with: {anObject}.
+
+	"there are no children nodes, they will be computed later from updated children values"
+	childrenNodes
+		ifNil: [ ^ self onNodeChanged: self payload: aPayloadObject ].
+
+	aNewNode := self newSubNode: anObject computation: self computation.
+	aNewNode
+		parent: self;
+		indexInChildren: aChildIndex;
+		shiftIndexInTreeBy: self indexInTree + aChildIndex - 1.
+
+	"shift the indices of the rest of my children by 1"
+	aChildIndex to: childrenNodes size do: [ :eachChildIndex | 
+		(childrenNodes at: eachChildIndex)
+			shiftIndexInChildrenBy: 1;
+			shiftIndexInTreeBy: 1 ].
+
+	childrenNodes := childrenNodes
+		copyReplaceFrom: aChildIndex
+		to: aChildIndex - 1
+		with: {aNewNode}.
+
+	"do not update my size if I am not expanded"
+	self isExpanded
+		ifTrue: [ size := size + aNewNode size.
+			self hasParent
+				ifTrue: [ self parent onNodesAppearedAfter: self amount: aNewNode size ] ].
+
+	self onNodeChanged: self payload: aPayloadObject.
+	self isExpanded
+		ifTrue: [
+			self
+				onChildInserted: self
+				from: aNewNode
+				size: aNewNode size
+				withPayload: aPayloadObject ]
+]
+
 { #category : #testing }
 BrTreeNode >> isAccountedForSelf [
 	^ true
@@ -348,7 +416,7 @@ BrTreeNode >> onChildCollapsed: aChildNode from: anOriginNode size: anAmount [
 			childrenNodes ifNotNil: [ :theNodes |
 				aChildNode indexInChildren + 1 to: theNodes size do: [ :eachChildIndex |
 					(theNodes at: eachChildIndex)
-						shiftIndexInParentBy: anAmount negated ] ] ].
+						shiftIndexInTreeBy: anAmount negated ] ] ].
 
 	self hasParent
 		ifFalse: [ ^ self ].
@@ -361,18 +429,6 @@ BrTreeNode >> onChildCollapsed: aChildNode from: anOriginNode size: anAmount [
 
 { #category : #hooks }
 BrTreeNode >> onChildExpanded: aChildNode from: anOriginNode size: anAmount [
-	self == anOriginNode
-		ifFalse: [
-			size := size + anAmount.
-			self
-				assert: [ size >= 0 ]
-				description: [ 'Size can not be negative' ].
-			
-			childrenNodes ifNotNil: [ :theNodes |
-				aChildNode indexInChildren + 1 to: theNodes size do: [ :eachChildIndex |
-					(theNodes at: eachChildIndex)
-						shiftIndexInParentBy: anAmount ] ] ].
-
 	self hasParent
 		ifFalse: [ ^ self ].
 
@@ -380,6 +436,50 @@ BrTreeNode >> onChildExpanded: aChildNode from: anOriginNode size: anAmount [
 		onChildExpanded: self
 		from: anOriginNode
 		size: anAmount
+]
+
+{ #category : #hooks }
+BrTreeNode >> onChildInserted: aChildNode from: anOriginNode size: anAmount withPayload: aPayloadObject [
+	self hasParent
+		ifFalse: [ ^ self ].
+
+	self parent
+		onChildInserted: self
+		from: anOriginNode
+		size: anAmount
+		withPayload: aPayloadObject
+]
+
+{ #category : #hooks }
+BrTreeNode >> onNodeChanged: aTreeNode payload: anObject [
+	self hasParent
+		ifFalse: [ ^ self ].
+	self parent onNodeChanged: aTreeNode payload: anObject
+]
+
+{ #category : #hooks }
+BrTreeNode >> onNodesAppearedAfter: aChildNode amount: anAmount [
+	self
+		assert: [ aChildNode hasParent and: [ self == aChildNode parent ] ]
+		description: [ 'A node should be my child' ].
+
+	self isExpanded
+		ifFalse: [ ^ self ].
+
+	size := size + anAmount.
+	self
+		assert: [ size >= 0 ]
+		description: [ 'Size can not be negative' ].
+	
+	childrenNodes ifNotNil: [ :theNodes |
+		aChildNode indexInChildren + 1 to: theNodes size do: [ :eachChildIndex |
+			(theNodes at: eachChildIndex)
+				shiftIndexInTreeBy: anAmount ] ].
+
+	self hasParent
+		ifFalse: [ ^ self ].
+
+	self parent onNodesAppearedAfter: self amount: anAmount
 ]
 
 { #category : #accessing }
@@ -407,14 +507,22 @@ BrTreeNode >> root [
 ]
 
 { #category : #private }
-BrTreeNode >> shiftIndexInParentBy: aNumber [
+BrTreeNode >> shiftIndexInChildrenBy: aNumber [
+	indexInChildren := indexInChildren + aNumber.
+	self
+		assert: [ indexInChildren >= 0 ]
+		description: [ 'Index can not be negative' ].
+]
+
+{ #category : #private }
+BrTreeNode >> shiftIndexInTreeBy: aNumber [
 	indexInTree := indexInTree + aNumber.
 	self
 		assert: [ indexInTree >= 0 ]
 		description: [ 'Index can not be negative' ].
 
 	childrenNodes
-		ifNotNil: [ :theNodes | theNodes do: [ :eachNode | eachNode shiftIndexInParentBy: aNumber ] ]
+		ifNotNil: [ :theNodes | theNodes do: [ :eachNode | eachNode shiftIndexInTreeBy: aNumber ] ]
 ]
 
 { #category : #accessing }

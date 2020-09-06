@@ -8,15 +8,10 @@ Class {
 BrSimpleTreeExamples >> subclassesOfCollection [
 	<gtExample>
 	| aTree |
-
 	aTree := BrSimpleTree new
-		nodeStencil: [
-			BrLabel new
-				look: BrGlamorousLabelLook ];
+		nodeStencil: [ BrLabel new look: BrGlamorousLabelLook ];
 		nodeDataBinder: [ :aNodeElement :aClass | aNodeElement text: aClass name ];
-		items: { Collection }
-		children: [ :eachClass | eachClass subclasses ].
-
+		items: {Collection} lazy: [ :eachClass | eachClass subclasses ].
 	^ aTree
 ]
 
@@ -38,6 +33,34 @@ BrSimpleTreeExamples >> subclassesOfCollection_InefficientUse [
 ]
 
 { #category : #examples }
+BrSimpleTreeExamples >> subclassesOfCollection_immediate [
+	<gtExample>
+	| aTree |
+
+	aTree := BrSimpleTree new.
+	aTree
+		nodeStencil: [
+			BrHorizontalPane new
+				vFitContent;
+				hMatchParent;
+				alignCenterLeft;
+				cellSpacing: 5;
+				addChild: (BrLabel new look: BrGlamorousLabelLook) as: #label;
+				addChild: (BrButton new beTiny; look: BrGlamorousButtonWithLabelLook new; label: 'Add') as: #button ];
+		nodeDataBinder: [ :aNodeElement :aClass :aTreeNode :thePayloads |
+			NonInteractiveTranscript stdout nextPutAll: thePayloads asString, ' for ', aTreeNode value asString; cr.
+			(aNodeElement childNamed: #label) text: aClass printString.
+			(aNodeElement childNamed: #button)
+				action: [
+					aTreeNode insert: (Smalltalk allClasses atRandom) atChildIndex: 1 withPayload: #hello.
+					aTreeNode expand ] ];
+		items: { Collection }
+			immediate: [ :eachClass | eachClass subclasses ].
+
+	^ aTree
+]
+
+{ #category : #examples }
 BrSimpleTreeExamples >> subropesTree [
 	<gtExample>
 	| aRope aTree |
@@ -47,7 +70,7 @@ BrSimpleTreeExamples >> subropesTree [
 		nodeStencil: [
 			BrLabel new
 				look: BrGlamorousLabelLook ];
-		nodeDataBinder: [ :aNodeElement :eachaRope | aNodeElement text:eachaRope ].
+		nodeDataBinder: [ :aNodeElement :eachaRope | aNodeElement text: eachaRope ].
 
 	aTree
 		items: { aRope }

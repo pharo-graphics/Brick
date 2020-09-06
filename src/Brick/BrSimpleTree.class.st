@@ -18,7 +18,7 @@ BrSimpleTree >> initialize [
 
 { #category : #'api - scripting' }
 BrSimpleTree >> nodeDataBinder: aBrTreeNodeDataBinderOrBlock [
-	"An item type stencil can be a #value-able of the form [ :aNodeElement :aTreeNode :aNodeIndex | ]"
+	"An item type stencil can be a #value-able of the form [ :aNodeElement :anItemObject :aTreeNode :thePayloads | ]"
 
 	self viewModel nodeDataBinder: aBrTreeNodeDataBinderOrBlock
 ]
@@ -55,9 +55,9 @@ BrSimpleTree >> stencil: aBlock [
 				c horizontal matchParent.
 				c vertical fitContent ] ].
 
-	self nodeDataBinder: [ :aWrapperElement :anItemObject :anItemPosition |
+	self nodeDataBinder: [ :aWrapperElement :anItemObject :aTreeNode :thePayload |
 		| aNodeStencil |
-		aNodeStencil := aBlock glamourValueWithArgs: { anItemObject. anItemPosition }.
+		aNodeStencil := aBlock glamourValueWithArgs: { anItemObject. aTreeNode indexInTree }.
 		aWrapperElement
 			removeChildren;
 			addChild: aNodeStencil asElement ]

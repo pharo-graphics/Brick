@@ -1,6 +1,6 @@
 Class {
 	#name : #BrTreeNodeCollapsed,
-	#superclass : #Announcement,
+	#superclass : #BrTreeNodeAnnouncement,
 	#instVars : [
 		'from',
 		'to',

@@ -1,6 +1,6 @@
 Class {
 	#name : #BrTreeNodeExpanded,
-	#superclass : #Announcement,
+	#superclass : #BrTreeNodeAnnouncement,
 	#instVars : [
 		'from',
 		'to',

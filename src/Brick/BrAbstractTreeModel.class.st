@@ -125,6 +125,14 @@ BrAbstractTreeModel >> items: aCollectionOfItems children: aBlockOrValuable [
 ]
 
 { #category : #'api - accessing' }
+BrAbstractTreeModel >> items: aCollectionOfItems immediate: aBlockOrValuable [
+	rootNode := BrRootTreeNode onMany: aCollectionOfItems immediate: aBlockOrValuable.
+	rootNode expandUpTo: 2.
+
+	self notifyChildrenChanged
+]
+
+{ #category : #'api - accessing' }
 BrAbstractTreeModel >> nodeTypeStencil [
 	"Return a stencil that is used to create a node type of a given tree node"
 	<return: #BrTreeNodeTypeStencilBuilder>

@@ -44,7 +44,7 @@ BrSimpleTreeDataSource >> nodeElementStencil: aBrTreeNodeElementStencilBuilder [
 ]
 
 { #category : #'instance creation' }
-BrSimpleTreeDataSource >> onBindHolder: anElementHolder at: aPosition [
+BrSimpleTreeDataSource >> onBindHolder: anElementHolder at: aPosition payloads: aCollectionOfPayloads [
 	| anItemNode |
 
 	anItemNode := rootNode at: aPosition.
@@ -53,7 +53,8 @@ BrSimpleTreeDataSource >> onBindHolder: anElementHolder at: aPosition [
 	nodeDataBinder
 		nodeElement: anElementHolder nodeElement;
 		itemObject: anItemNode value;
-		itemPosition: aPosition;
+		treeNode: anItemNode;
+		payloads: aCollectionOfPayloads;
 		build.
 
 	"Bind node data to the row element"

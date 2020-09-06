@@ -2,7 +2,8 @@ Class {
 	#name : #BrRootTreeNode,
 	#superclass : #BrTreeNode,
 	#instVars : [
-		'announcer'
+		'announcer',
+		'isLazy'
 	],
 	#category : #'Brick-Tree - Model'
 }
@@ -21,9 +22,21 @@ BrRootTreeNode class >> onMany: aCollection computed: aComputationBlock [
 	"Created a root tree node on a collection of items"
 
 	^ self new
+		lazy: true;
 		value: aCollection
 		computation: (BrTreeNodeIdentityComputation new block: aComputationBlock)
 		withSelf: false
+]
+
+{ #category : #'instance creation' }
+BrRootTreeNode class >> onMany: aCollection immediate: aComputationBlock [
+	"Created a root tree node on a collection of items"
+
+	^ (self new
+		lazy: false;
+		value: aCollection
+		computation: (BrTreeNodeIdentityComputation new block: aComputationBlock)
+		withSelf: false) ensureChildrenNodes
 ]
 
 { #category : #'instance creation' }
@@ -31,9 +44,21 @@ BrRootTreeNode class >> onOne: anObject computed: aComputationBlock [
 	"Created a root tree node on a single root item"
 
 	^ self new
+		lazy: true;
 		value: anObject
 		computation: (BrTreeNodeBlockComputation new block: aComputationBlock)
 		withSelf: true
+]
+
+{ #category : #'instance creation' }
+BrRootTreeNode class >> onOne: anObject immediate: aComputationBlock [
+	"Created a root tree node on a single root item"
+
+	^ (self new
+		lazy: false;
+		value: anObject
+		computation: (BrTreeNodeBlockComputation new block: aComputationBlock)
+		withSelf: true) ensureChildrenNodes
 ]
 
 { #category : #accessing }
@@ -41,14 +66,33 @@ BrRootTreeNode >> announcer [
 	^ announcer ifNil: [ announcer := Announcer new ]
 ]
 
+{ #category : #initialization }
+BrRootTreeNode >> initialize [
+	super initialize.
+	
+	isLazy := true
+]
+
 { #category : #testing }
 BrRootTreeNode >> isAccountedForSelf [		
 	^ self indexInTree > 0
 ]
 
+{ #category : #testing }
+BrRootTreeNode >> isLazy [
+	^ isLazy
+]
+
+{ #category : #accessing }
+BrRootTreeNode >> lazy: aBoolean [
+	isLazy := aBoolean
+]
+
 { #category : #initialization }
 BrRootTreeNode >> newSubNode: anObject computation: aComputationBlock [
-	^ BrLazyTreeNode new value: anObject computation: aComputationBlock block
+	^ self isLazy
+		ifTrue: [ BrLazyTreeNode new value: anObject computation: aComputationBlock block ]
+		ifFalse: [ (BrImmediateTreeNode new value: anObject computation: aComputationBlock block) ]
 ]
 
 { #category : #hooks }
@@ -69,4 +113,25 @@ BrRootTreeNode >> onChildExpanded: aChildNode from: anOriginNode size: anAmount 
 		from: anOriginNode indexInTree + 1;
 		to: anOriginNode indexInTree + anAmount;
 		node: anOriginNode)
+]
+
+{ #category : #hooks }
+BrRootTreeNode >> onChildInserted: aChildNode from: anOriginNode size: anAmount withPayload: aPayloadObject [
+	super onChildInserted: aChildNode from: anOriginNode size: anAmount withPayload: aPayloadObject.
+
+	self announcer announce: (BrTreeNodeInserted new
+		index: anOriginNode indexInTree;
+		node: anOriginNode;
+		payload: aPayloadObject)
+]
+
+{ #category : #hooks }
+BrRootTreeNode >> onNodeChanged: aTreeNode payload: anObject [
+	super onNodeChanged: aTreeNode payload: anObject.
+	self announcer
+		announce:
+			(BrTreeNodeChanged new
+				index: aTreeNode indexInTree;
+				node: aTreeNode;
+				payload: anObject)
 ]

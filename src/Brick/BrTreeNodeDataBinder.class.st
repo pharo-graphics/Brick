@@ -7,7 +7,8 @@ Class {
 	#instVars : [
 		'nodeElement',
 		'itemObject',
-		'itemPosition'
+		'treeNode',
+		'payloads'
 	],
 	#category : #'Brick-Tree - Stencil'
 }
@@ -32,18 +33,6 @@ BrTreeNodeDataBinder >> itemObject: anObject [
 ]
 
 { #category : #accessing }
-BrTreeNodeDataBinder >> itemPosition [
-	<return: #Number>
-
-	^ itemPosition
-]
-
-{ #category : #accessing }
-BrTreeNodeDataBinder >> itemPosition: aNumber [
-	itemPosition := aNumber
-]
-
-{ #category : #accessing }
 BrTreeNodeDataBinder >> nodeElement [
 	<return: #BlElement>
 
@@ -60,7 +49,18 @@ BrTreeNodeDataBinder >> paramsOn: aStencilExecutor [
 	aStencilExecutor
 		push: self nodeElement;
 		push: self itemObject;
-		push: self itemPosition
+		push: self treeNode;
+		push: self payloads
+]
+
+{ #category : #accessing }
+BrTreeNodeDataBinder >> payloads [
+	^ payloads
+]
+
+{ #category : #accessing }
+BrTreeNodeDataBinder >> payloads: anObject [
+	payloads := anObject
 ]
 
 { #category : #initialization }
@@ -69,5 +69,17 @@ BrTreeNodeDataBinder >> reset [
 
 	nodeElement := nil.
 	itemObject := nil.
-	itemPosition := nil
+	treeNode := nil
+]
+
+{ #category : #accessing }
+BrTreeNodeDataBinder >> treeNode [
+	<return: #BrTreeNode>
+
+	^ treeNode
+]
+
+{ #category : #accessing }
+BrTreeNodeDataBinder >> treeNode: aBrTreeNode [
+	treeNode := aBrTreeNode
 ]

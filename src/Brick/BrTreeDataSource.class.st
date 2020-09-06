@@ -63,6 +63,11 @@ BrTreeDataSource >> nodeTypeStencil: aBrTreeNodeTypeStencilBuilder [
 ]
 
 { #category : #hooks }
+BrTreeDataSource >> onChanged: anAnnouncement [
+	self notifyItemsChanged: (anAnnouncement index to: anAnnouncement index) payload: anAnnouncement payload
+]
+
+{ #category : #hooks }
 BrTreeDataSource >> onCollapsed: anAnnouncement [
 	self notifyItemsRemoved: (anAnnouncement from to: anAnnouncement to)
 ]
@@ -72,11 +77,18 @@ BrTreeDataSource >> onExpanded: anAnnouncement [
 	self notifyItemsInserted: (anAnnouncement from to: anAnnouncement to)
 ]
 
+{ #category : #hooks }
+BrTreeDataSource >> onInserted: anAnnouncement [
+	self notifyItemsInserted: (anAnnouncement index to: anAnnouncement index)
+]
+
 { #category : #accessing }
 BrTreeDataSource >> rootNode: aTreeNode [
 	rootNode := aTreeNode.
 	rootNode announcer when: BrTreeNodeExpanded send: #onExpanded: to: self.
 	rootNode announcer when: BrTreeNodeCollapsed send: #onCollapsed: to: self.
+	rootNode announcer when: BrTreeNodeInserted send: #onInserted: to: self.
+	rootNode announcer when: BrTreeNodeChanged send: #onChanged: to: self.
 	
 	self notifyChanged
 ]

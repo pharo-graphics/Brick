@@ -66,7 +66,25 @@ BrTree >> initializeEventHandlers [
 
 { #category : #accessing }
 BrTree >> items: aCollectionOfItems children: aBlockOrValuable [
-	"Set the root itemss and a computation block applied on each child recursively"
+	self
+		deprecated: 'Use #items:lazy: instead'
+		transformWith: '`@receiver items: `@statements1 children: `@statements2' -> '`@receiver items: `@statements1 lazy: `@statements2'.
+
+	self viewModel items: aCollectionOfItems children: aBlockOrValuable
+]
+
+{ #category : #'api - tree' }
+BrTree >> items: aCollectionOfItems immediate: aBlockOrValuable [
+	"Set the root items and an immediate computation block applied on each child recursively
+	at the moment of assigning items, as opposed to the lazy version #items:children:"
+
+	self viewModel items: aCollectionOfItems immediate: aBlockOrValuable
+]
+
+{ #category : #'api - tree' }
+BrTree >> items: aCollectionOfItems lazy: aBlockOrValuable [
+	"Set the root items and a lazy computation block that will be applied on each child recursively
+	when a corresponding node is expanded, as opposed to an immediate version #items:immediate:"
 
 	self viewModel items: aCollectionOfItems children: aBlockOrValuable
 ]
@@ -76,6 +94,13 @@ BrTree >> maxSelectionIndex [
 	<return: #Number>
 
 	^ self viewModel root size
+]
+
+{ #category : #'api - tree' }
+BrTree >> nodeAt: aTreeIndex [
+	<return: #BrTreeNode>
+
+	^ self viewModel itemAt: aTreeIndex
 ]
 
 { #category : #scripting }
