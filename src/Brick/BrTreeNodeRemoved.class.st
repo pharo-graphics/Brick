@@ -1,5 +1,5 @@
 Class {
-	#name : #BrTreeNodeInserted,
+	#name : #BrTreeNodeRemoved,
 	#superclass : #BrTreeNodeAnnouncement,
 	#instVars : [
 		'node',
@@ -10,31 +10,31 @@ Class {
 }
 
 { #category : #accessing }
-BrTreeNodeInserted >> from [
+BrTreeNodeRemoved >> from [
 	^ from
 ]
 
 { #category : #accessing }
-BrTreeNodeInserted >> from: anObject [
+BrTreeNodeRemoved >> from: anObject [
 	from := anObject
 ]
 
 { #category : #accessing }
-BrTreeNodeInserted >> node [
+BrTreeNodeRemoved >> node [
 	^ node
 ]
 
 { #category : #accessing }
-BrTreeNodeInserted >> node: anObject [
+BrTreeNodeRemoved >> node: anObject [
 	node := anObject
 ]
 
 { #category : #accessing }
-BrTreeNodeInserted >> to [
+BrTreeNodeRemoved >> to [
 	^ to
 ]
 
 { #category : #accessing }
-BrTreeNodeInserted >> to: anObject [
+BrTreeNodeRemoved >> to: anObject [
 	to := anObject
 ]

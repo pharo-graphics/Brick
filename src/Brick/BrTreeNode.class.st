@@ -149,6 +149,9 @@ BrTreeNode >> collapse [
 
 	isExpanded := false.
 	
+	self hasParent
+		ifTrue: [ self parent onNodesDisappearedAfter: self amount: aChildrenSize ].
+	
 	self
 		onChildCollapsed: self
 		from: self
@@ -324,13 +327,12 @@ BrTreeNode >> initialize [
 ]
 
 { #category : #'api - adding / removing' }
-BrTreeNode >> insert: anObject atChildIndex: aChildIndex withPayload: aPayloadObject [
-	"aPayloadObject will be sent to the node in which the given object will be added"
+BrTreeNode >> insert: anObject atChildIndex: aChildIndex [
 	| aNewNode |
 
 	"If children values are not computed we should not insert anything because values will be properly computed lazily later"
 	childrenValues
-		ifNil: [ ^ self onNodeChanged: self payload: aPayloadObject ].
+		ifNil: [ ^ self onNodeChanged: self ].
 
 	childrenValues := childrenValues
 		copyReplaceFrom: aChildIndex
@@ -339,7 +341,7 @@ BrTreeNode >> insert: anObject atChildIndex: aChildIndex withPayload: aPayloadOb
 
 	"there are no children nodes, they will be computed later from updated children values"
 	childrenNodes
-		ifNil: [ ^ self onNodeChanged: self payload: aPayloadObject ].
+		ifNil: [ ^ self onNodeChanged: self ].
 
 	aNewNode := self newSubNode: anObject computation: self computation.
 	aNewNode
@@ -364,9 +366,9 @@ BrTreeNode >> insert: anObject atChildIndex: aChildIndex withPayload: aPayloadOb
 			self hasParent
 				ifTrue: [ self parent onNodesAppearedAfter: self amount: aNewNode size ] ].
 
-	self onNodeChanged: self payload: aPayloadObject.
+	self onNodeChanged: self.
 	self isExpanded
-		ifTrue: [ self onChildInserted: self from: aNewNode size: aNewNode size ]
+		ifTrue: [ self onChildInserted: aNewNode size: aNewNode size ]
 ]
 
 { #category : #testing }
@@ -402,18 +404,6 @@ BrTreeNode >> newSubNode: anObject computation: aComputationBlock [
 
 { #category : #hooks }
 BrTreeNode >> onChildCollapsed: aChildNode from: anOriginNode size: anAmount [
-	self == anOriginNode
-		ifFalse: [
-			size := size - anAmount.
-			self
-				assert: [ size >= 0 ]
-				description: [ 'Size can not be negative' ].
-
-			childrenNodes ifNotNil: [ :theNodes |
-				aChildNode indexInChildren + 1 to: theNodes size do: [ :eachChildIndex |
-					(theNodes at: eachChildIndex)
-						shiftIndexInTreeBy: anAmount negated ] ] ].
-
 	self hasParent
 		ifFalse: [ ^ self ].
 	
@@ -435,10 +425,22 @@ BrTreeNode >> onChildExpanded: aChildNode from: anOriginNode size: anAmount [
 ]
 
 { #category : #hooks }
-BrTreeNode >> onChildInserted: aChildNode from: anOriginNode size: anAmount [
+BrTreeNode >> onChildInserted: anOriginNode size: anAmount [
 	self hasParent
 		ifFalse: [ ^ self ].
-	self parent onChildInserted: self from: anOriginNode size: anAmount
+	self parent onChildInserted: anOriginNode size: anAmount
+]
+
+{ #category : #hooks }
+BrTreeNode >> onChildRemoved: anOriginNode size: anAmount [
+	self hasParent
+		ifFalse: [ ^ self ].
+	self parent onChildRemoved: anOriginNode size: anAmount
+]
+
+{ #category : #hooks }
+BrTreeNode >> onNodeChanged: aTreeNode [
+	self onNodeChanged: aTreeNode payload: nil
 ]
 
 { #category : #hooks }
@@ -473,6 +475,31 @@ BrTreeNode >> onNodesAppearedAfter: aChildNode amount: anAmount [
 	self parent onNodesAppearedAfter: self amount: anAmount
 ]
 
+{ #category : #hooks }
+BrTreeNode >> onNodesDisappearedAfter: aChildNode amount: anAmount [
+	self
+		assert: [ aChildNode hasParent and: [ self == aChildNode parent ] ]
+		description: [ 'A node should be my child' ].
+
+	self isExpanded
+		ifFalse: [ ^ self ].
+
+	size := size - anAmount.
+	self
+		assert: [ size >= 0 ]
+		description: [ 'Size can not be negative' ].
+	
+	childrenNodes ifNotNil: [ :theNodes |
+		aChildNode indexInChildren + 1 to: theNodes size do: [ :eachChildIndex |
+			(theNodes at: eachChildIndex)
+				shiftIndexInTreeBy: anAmount negated ] ].
+
+	self hasParent
+		ifFalse: [ ^ self ].
+
+	self parent onNodesDisappearedAfter: self amount: anAmount
+]
+
 { #category : #accessing }
 BrTreeNode >> parent [
 	<return: #BrTreeNode>
@@ -488,6 +515,53 @@ BrTreeNode >> parent: aBrTreeNode [
 { #category : #printing }
 BrTreeNode >> printOn: aStream [
 	aStream print: self value
+]
+
+{ #category : #'api - adding / removing' }
+BrTreeNode >> removeChildAt: aChildIndex [
+	"If children values are not computed we should not delete anything because values will be properly computed lazily later"
+	| aRemovedNode |
+	childrenValues
+		ifNil: [ ^ self onNodeChanged: self ].
+	
+	childrenValues := childrenValues
+		copyReplaceFrom: aChildIndex
+		to: aChildIndex
+		with: #().
+
+	"there are no children nodes, they will be computed later from updated children values"
+	childrenNodes
+		ifNil: [ ^ self onNodeChanged: self ].
+	
+	aRemovedNode := childrenNodes at: aChildIndex.
+	
+	"shift the indices of the rest of my children by -1"
+	aChildIndex + 1 to: childrenNodes size do: [ :eachChildIndex | 
+		(childrenNodes at: eachChildIndex)
+			shiftIndexInChildrenBy: -1;
+			shiftIndexInTreeBy: -1 ].
+		
+	childrenNodes := childrenNodes
+		copyReplaceFrom: aChildIndex
+		to: aChildIndex
+		with: #().
+
+	"do not update my size if I am not expanded"
+	self isExpanded
+		ifTrue: [
+			size := size - aRemovedNode size.
+			self hasParent
+				ifTrue: [ self parent onNodesDisappearedAfter: self amount: aRemovedNode size ] ].
+
+	self onNodeChanged: self.
+	self isExpanded
+		ifTrue: [ self onChildRemoved: aRemovedNode size: aRemovedNode size ]
+]
+
+{ #category : #'api - adding / removing' }
+BrTreeNode >> removeFromParent [
+	self hasParent
+		ifTrue: [ self parent removeChildAt: self indexInChildren ]
 ]
 
 { #category : #accessing }
