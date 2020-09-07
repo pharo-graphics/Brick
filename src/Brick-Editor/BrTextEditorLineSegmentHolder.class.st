@@ -163,12 +163,11 @@ BrTextEditorLineSegmentHolder >> explicitScreenToCursor: aTransformation [
 { #category : #'private - testing' }
 BrTextEditorLineSegmentHolder >> hasCursor [
 	| aTextEditor |
-
 	aTextEditor := self infiniteElement editor.
-	aTextEditor cursor do: [ :aCursor |
-		(aCursor insideSegment: segment)
-			ifTrue: [ ^ true ] ].
-
+	aTextEditor cursors
+		do: [ :aCursor | 
+			(aCursor insideSegment: segment)
+				ifTrue: [ ^ true ] ].
 	^ false
 ]
 

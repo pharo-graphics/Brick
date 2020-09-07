@@ -6,6 +6,7 @@ Class {
 
 { #category : #'instance creation' }
 BrTreeNodeExamples >> collapse_depth_1 [
+	<noTest>
 	<gtExample>
 	| aNode aCollapsedSubscription anAnnouncement |
 
@@ -127,6 +128,7 @@ BrTreeNodeExamples >> depth_5_rope [
 
 { #category : #'instance creation' }
 BrTreeNodeExamples >> expand_depth_1 [
+	<noTest>
 	<gtExample>
 	| aNode anExpandedSubscription anAnnouncement |
 
