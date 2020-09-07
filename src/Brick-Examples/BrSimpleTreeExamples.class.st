@@ -19,16 +19,13 @@ BrSimpleTreeExamples >> subclassesOfCollection [
 BrSimpleTreeExamples >> subclassesOfCollection_InefficientUse [
 	<gtExample>
 	| aTree |
-
 	aTree := BrSimpleTree new
-		stencil: [ :eachClass :eachIndex |
+		stencil: [ :eachClass :eachIndex | 
 			BrLabel new
 				look: BrGlamorousLabelLook;
 				text: eachClass name;
 				fitContent ];
-		items: { Collection }
-		children: [ :eachClass | eachClass subclasses ].
-
+		items: {Collection} lazy: [ :eachClass | eachClass subclasses ].
 	^ aTree
 ]
 
@@ -46,13 +43,17 @@ BrSimpleTreeExamples >> subclassesOfCollection_immediate [
 				alignCenterLeft;
 				cellSpacing: 5;
 				addChild: (BrLabel new look: BrGlamorousLabelLook) as: #label;
-				addChild: (BrButton new beTiny; look: BrGlamorousButtonWithLabelLook new; label: 'Add child') as: #button ];
-		nodeDataBinder: [ :aNodeElement :aClass :aTreeNode :thePayloads |
-			NonInteractiveTranscript stdout nextPutAll: thePayloads asString, ' for ', aTreeNode value asString; cr.
+				addChild: (BrButton new beTiny; look: BrGlamorousButtonWithLabelLook new; label: 'Add child') as: #add;
+				addChild: (BrButton new beTiny; look: BrGlamorousButtonWithLabelLook new; label: 'Delete') as: #delete ];
+		nodeDataBinder: [ :aNodeElement :aClass :aTreeNode |
 			(aNodeElement childNamed: #label) text: aClass printString.
-			(aNodeElement childNamed: #button)
+			(aNodeElement childNamed: #delete)
+				action: [ aTreeNode removeFromParent ].
+			(aNodeElement childNamed: #add)
 				action: [
-					aTreeNode insert: (Smalltalk allClasses atRandom) atChildIndex: 1 withPayload: #hello.
+					aTreeNode
+						insert: Smalltalk allClasses atRandom
+						atChildIndex: 1.
 					aTreeNode expand ] ];
 		items: { Collection }
 			immediate: [ :eachClass | eachClass subclasses ].

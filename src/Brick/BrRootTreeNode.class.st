@@ -116,12 +116,24 @@ BrRootTreeNode >> onChildExpanded: aChildNode from: anOriginNode size: anAmount 
 ]
 
 { #category : #hooks }
-BrRootTreeNode >> onChildInserted: aChildNode from: anOriginNode size: anAmount [
-	super onChildInserted: aChildNode from: anOriginNode size: anAmount.
+BrRootTreeNode >> onChildInserted: anOriginNode size: anAmount [
+	super onChildInserted: anOriginNode size: anAmount.
 	self announcer
 		announce:
 			(BrTreeNodeInserted new
-				index: anOriginNode indexInTree;
+				from: anOriginNode indexInTree;
+				to: anOriginNode indexInTree + anAmount - 1;
+				node: anOriginNode)
+]
+
+{ #category : #hooks }
+BrRootTreeNode >> onChildRemoved: anOriginNode size: anAmount [
+	super onChildRemoved: anOriginNode size: anAmount.
+	self announcer
+		announce:
+			(BrTreeNodeRemoved new
+				from: anOriginNode indexInTree;
+				to: anOriginNode indexInTree + anAmount - 1;
 				node: anOriginNode)
 ]
 
