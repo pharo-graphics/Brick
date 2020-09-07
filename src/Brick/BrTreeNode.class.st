@@ -353,7 +353,7 @@ BrTreeNode >> insert: anObject atChildIndex: aChildIndex [
 	aChildIndex to: childrenNodes size do: [ :eachChildIndex | 
 		(childrenNodes at: eachChildIndex)
 			shiftIndexInChildrenBy: 1;
-			shiftIndexInTreeBy: 1 ].
+			shiftIndexInTreeBy: aNewNode size ].
 
 	childrenNodes := childrenNodes
 		copyReplaceFrom: aChildIndex
@@ -539,7 +539,7 @@ BrTreeNode >> removeChildAt: aChildIndex [
 	aChildIndex + 1 to: childrenNodes size do: [ :eachChildIndex | 
 		(childrenNodes at: eachChildIndex)
 			shiftIndexInChildrenBy: -1;
-			shiftIndexInTreeBy: -1 ].
+			shiftIndexInTreeBy: aRemovedNode size negated ].
 		
 	childrenNodes := childrenNodes
 		copyReplaceFrom: aChildIndex

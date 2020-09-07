@@ -4,6 +4,87 @@ Class {
 	#category : #'Brick-Examples-Tree'
 }
 
+{ #category : #'instance creation' }
+BrRootTreeNodeExamples >> collapse_depth_1 [
+	<gtExample>
+	| aNode aCollapsedSubscription anAnnouncement |
+
+	aNode := self expand_depth_1.
+	aCollapsedSubscription := aNode announcer when: BrTreeNodeCollapsed do: [ :ann | anAnnouncement := ann ].
+	
+	aNode collapse.
+	
+	aNode announcer removeSubscription: aCollapsedSubscription.
+	
+	self assert: aNode isExpanded not.
+	self assert: aNode childrenNodes size equals: 0.
+	self assert: aNode size equals: 1.
+	self assert: aNode hasParent not.
+
+	self assert: anAnnouncement isNotNil.
+	self assert: anAnnouncement node == aNode.
+	self assert: anAnnouncement from equals: 2.
+	self assert: anAnnouncement to equals: 3.
+	
+	^ aNode
+]
+
+{ #category : #'instance creation' }
+BrRootTreeNodeExamples >> depth_1 [
+	<gtExample>
+	| aRope aNode |
+
+	aRope := BlConcatenationRope
+		left: (BlCollectionRope collection: 'Hello')
+		right: (BlCollectionRope collection: 'World').
+
+	aNode := BrRootTreeNode onOne: aRope  computed: [ :eachRope | eachRope children ].
+
+	self assert: aNode isExpanded not.
+	self assert: aNode childrenValues equals: #().
+
+	"they have never been expanded, so empty"
+	self assert: aNode childrenNodes equals: #().
+
+	self assert: aNode size equals: 1.
+	self assert: aNode value == aRope.
+	self assert: aNode hasParent not.
+
+	self assert: (aNode at: 1) equals: aNode.
+
+	^ aNode
+]
+
+{ #category : #'instance creation' }
+BrRootTreeNodeExamples >> expand_depth_1 [
+	<gtExample>
+	| aNode anExpandedSubscription anAnnouncement |
+
+	aNode := self depth_1.
+	anExpandedSubscription := aNode announcer when: BrTreeNodeExpanded do: [ :ann | anAnnouncement := ann ].
+
+	aNode expand.
+	
+	aNode announcer removeSubscription: anExpandedSubscription.
+	
+	self assert: aNode isExpanded.
+	self assert: aNode childrenNodes size equals: 2.
+	self assert: aNode size equals: 3.
+	self assert: aNode hasParent not.
+
+	self assert: anAnnouncement isNotNil.
+	self assert: anAnnouncement node == aNode.
+	self assert: anAnnouncement from equals: 2.
+	self assert: anAnnouncement to equals: 3.
+
+	self assert: (aNode at: 1) equals: aNode.
+	self assert: (aNode at: 2) equals: aNode childrenNodes first.
+	self assert: (aNode at: 3) equals: aNode childrenNodes second.
+	
+
+	^ aNode
+]
+
 { #category : #examples }
 BrRootTreeNodeExamples >> onMany [
 	<gtExample>

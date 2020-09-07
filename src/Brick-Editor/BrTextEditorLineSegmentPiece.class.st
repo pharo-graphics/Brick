@@ -169,23 +169,29 @@ BrTextEditorLineSegmentPiece >> setCursor: aPieceElement of: aLineSegment in: an
 { #category : #updating }
 BrTextEditorLineSegmentPiece >> updateCursor: aPieceElement of: aLineSegment in: anEditorElement [
 	| theUpdatedCursors theAddedCursors theRemovedCursors |
-
 	"select text editor cursors that are currently within this segment piece and convert them to local ones"
-	theUpdatedCursors := (anEditorElement editor cursor allCursors
+	theUpdatedCursors := (anEditorElement editor cursors allCursors
 		select: [ :aCursor | aCursor insideSubText: self of: aLineSegment ]
 		thenCollect: [ :aCursor | self globalCursorToLocal: aCursor ]) asSet.
-
-	theAddedCursors := self findAddedCursors: theUpdatedCursors to: self currentCursors.
-	theRemovedCursors := self findRemovedCursors: theUpdatedCursors from: self currentCursors.
+	theAddedCursors := self
+		findAddedCursors: theUpdatedCursors
+		to: self currentCursors.
+	theRemovedCursors := self
+		findRemovedCursors: theUpdatedCursors
+		from: self currentCursors.
 
 	"update current cursors"
 	currentCursors := theUpdatedCursors.
-	
+
 	"tell to remove deleted cursors"
-	theRemovedCursors do: [ :aCursor | self onCursorRemoved: aCursor from: aPieceElement in: anEditorElement ].
-	
+	theRemovedCursors
+		do:
+			[ :aCursor | self onCursorRemoved: aCursor from: aPieceElement in: anEditorElement ].
+
 	"tell to add new cursors"
-	theAddedCursors do: [ :aCursor | self onCursorAdded: aCursor to: aPieceElement in: anEditorElement ]
+	theAddedCursors
+		do:
+			[ :aCursor | self onCursorAdded: aCursor to: aPieceElement in: anEditorElement ]
 ]
 
 { #category : #updating }
