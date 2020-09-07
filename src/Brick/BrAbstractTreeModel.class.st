@@ -133,6 +133,20 @@ BrAbstractTreeModel >> items: aCollectionOfItems immediate: aBlockOrValuable [
 ]
 
 { #category : #'api - accessing' }
+BrAbstractTreeModel >> nodeOf: anObject ifFound: aFoundBlock ifNone: anExceptionBlock [
+	"Find a tree node for a given object, while computing the children nodes thus killing any laziness,
+	Use me with cautious!"
+	self root ensureChildrenNodes.
+
+	self root withAllChildrenNodesLinearDo: [ :eachTreeNode |
+		eachTreeNode ensureChildrenNodes.
+		eachTreeNode value = anObject
+			ifTrue: [ ^ aFoundBlock value: eachTreeNode ] ].
+
+	^ anExceptionBlock value
+]
+
+{ #category : #'api - accessing' }
 BrAbstractTreeModel >> nodeTypeStencil [
 	"Return a stencil that is used to create a node type of a given tree node"
 	<return: #BrTreeNodeTypeStencilBuilder>
