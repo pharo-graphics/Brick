@@ -617,6 +617,23 @@ BrTreeNode >> upToDepth: aMaxDepthLevel do: anOneArgBlock [
 		anOneArgBlock value: eachNode ]
 ]
 
+{ #category : #'api - adding / removing' }
+BrTreeNode >> update [
+	"The whole node have changed"
+
+	self onNodeChanged: self
+]
+
+{ #category : #'api - adding / removing' }
+BrTreeNode >> update: aPayloadObject [
+	"Just a part of the node have changed, the given payload object should represent that partial update"
+	self
+		assert: [ aPayloadObject isNotNil ]
+		description: [ 'Payload must not be nil' ].
+
+	self onNodeChanged: self payload: aPayloadObject
+]
+
 { #category : #accessing }
 BrTreeNode >> value [
 	^ value

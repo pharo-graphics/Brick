@@ -112,16 +112,17 @@ BrTree >> scrollTo: anIndex [
 	self scrollToIndex: anIndex
 ]
 
-{ #category : #scripting }
+{ #category : #'api - selection' }
 BrTree >> selectAndScrollTo: anObject [
 	self viewModel root
 		allChildrenNodesBreadthFirstDo: [ :treeNode | 
-			treeNode ensureChildNodesComputed.
+			treeNode ensureChildrenNodes.
 			anObject = treeNode value
-				ifTrue: [ treeNode withAllParentNodesDo: [ :node | node expand ].
-					(self isSelectedAt: treeNode globalIndexInTree)
-						ifFalse: [ self selectOne: treeNode globalIndexInTree ].
-					self scrollToIndex: treeNode globalIndexInTree ] ]
+				ifTrue: [
+					treeNode withAllParentNodesDo: [ :node | node expand ].
+					(self isSelectedAt: treeNode indexInTree)
+						ifFalse: [ self selectOne: treeNode indexInTree ].
+					self scrollToIndex: treeNode indexInTree ] ]
 ]
 
 { #category : #'api - selection' }
