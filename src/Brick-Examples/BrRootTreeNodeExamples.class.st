@@ -97,7 +97,7 @@ BrRootTreeNodeExamples >> onMany [
 	self assert: aNode childrenNodes size equals: 1.
 	self assert: aNode depth equals: 0.
 
-	aNode expandUpTo: 2.
+	aNode expandUpTo: 1.
 	
 	self assert: aNode size equals: Collection subclasses size + 1.
 	self assert: aNode childrenNodes size equals: 1.
