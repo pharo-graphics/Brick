@@ -83,7 +83,7 @@ BrTextEditorOperatorExamples >> editorOnEmptyText [
 	anEditorElement := self editorFor: '' asRopedText.
 	anEditor := anEditorElement editor.
 	
-	self assert: anEditor cursor isEmpty.	
+	self assert: anEditor cursors isEmpty.
 	self assert: anEditor selection isEmpty.
 	
 	^ anEditorElement
@@ -97,7 +97,7 @@ BrTextEditorOperatorExamples >> editorOnMultilineText [
 	anEditorElement := self editorFor: self multilineText.
 	anEditor := anEditorElement editor.
 	
-	self assert: anEditor cursor isEmpty.	
+	self assert: anEditor cursors isEmpty.
 	self assert: anEditor selection isEmpty.
 	
 	^ anEditorElement
