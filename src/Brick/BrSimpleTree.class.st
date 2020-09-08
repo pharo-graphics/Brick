@@ -38,6 +38,13 @@ BrSimpleTree >> nodeType: aBrTreeNodeTypeStencilBuilderOrBlock [
 	self viewModel nodeTypeStencil: aBrTreeNodeTypeStencilBuilderOrBlock
 ]
 
+{ #category : #'api - scripting' }
+BrSimpleTree >> rowStencil: aBrSimpleTreeRowElementStencilBuilderOrBlock [
+	"A row element stencil can be a #value-able of the form [ :aNodeType :aNodeElement | ]"
+
+	self viewModel rowElementStencil: aBrSimpleTreeRowElementStencilBuilderOrBlock
+]
+
 { #category : #accessing }
 BrSimpleTree >> stencil: aBlock [
 	"I am a part of the `toy` api. It is inefficient to use me because I always create a new

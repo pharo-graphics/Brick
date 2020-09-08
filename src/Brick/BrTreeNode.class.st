@@ -173,8 +173,8 @@ BrTreeNode >> computeChildrenSize [
 { #category : #accessing }
 BrTreeNode >> depth [
 	^ self hasParent
-		ifTrue: [ self parent depth + 1 ]
-		ifFalse: [ self isAccountedForSelf asBit ]
+		ifTrue: [ self parent depth + 1 - self parent isAccountedForSelf not asBit ]
+		ifFalse: [ 0 ]
 ]
 
 { #category : #private }
