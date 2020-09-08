@@ -117,7 +117,7 @@ BrRootTreeNodeExamples >> onManyEmpty_expandUpTo [
 	self assert: aNode childrenNodes size equals: 0.
 	self assert: aNode depth equals: 0.
 
-	aNode expandUpTo: 2.
+	aNode expandUpTo: 1.
 	
 	self assert: aNode size equals: 0.
 	self assert: aNode childrenNodes size equals: 0.
@@ -137,7 +137,7 @@ BrRootTreeNodeExamples >> onMany_expandUpTo [
 	self assert: aNode childrenNodes size equals: 0.
 	self assert: aNode depth equals: 0.
 
-	aNode expandUpTo: 2.
+	aNode expandUpTo: 1.
 	
 	self assert: aNode size equals: Collection subclasses size + 1.
 	self assert: aNode childrenNodes size equals: 1.
@@ -157,7 +157,7 @@ BrRootTreeNodeExamples >> onMany_immediate_expandUpTo [
 	self assert: aNode childrenNodes size equals: 0.
 	self assert: aNode depth equals: 0.
 
-	aNode expandUpTo: 2.
+	aNode expandUpTo: 1.
 	
 	self assert: aNode size equals: Collection subclasses size + 1.
 	self assert: aNode childrenNodes size equals: 1.
@@ -176,13 +176,13 @@ BrRootTreeNodeExamples >> onOne [
 	
 	self assert: aNode size equals: Collection subclasses size + 1.
 	self assert: aNode childrenNodes size equals: Collection subclasses size.
-	self assert: aNode depth equals: 1.
+	self assert: aNode depth equals: 0.
 	
-	aNode expandUpTo: 2.
+	aNode expandUpTo: 1.
 	
 	self assert: aNode size equals: Collection subclasses size + 1.
 	self assert: aNode childrenNodes size equals: Collection subclasses size.
-	self assert: aNode depth equals: 1.
+	self assert: aNode depth equals: 0.
 	
 	^ aNode
 ]

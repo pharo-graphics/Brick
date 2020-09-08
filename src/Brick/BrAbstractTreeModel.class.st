@@ -119,7 +119,7 @@ BrAbstractTreeModel >> itemCount [
 { #category : #'api - accessing' }
 BrAbstractTreeModel >> items: aCollectionOfItems children: aBlockOrValuable [
 	rootNode := BrRootTreeNode onMany: aCollectionOfItems computed: aBlockOrValuable.
-	rootNode expandUpTo: 2.
+	rootNode expand.
 
 	self notifyChildrenChanged
 ]
@@ -127,7 +127,7 @@ BrAbstractTreeModel >> items: aCollectionOfItems children: aBlockOrValuable [
 { #category : #'api - accessing' }
 BrAbstractTreeModel >> items: aCollectionOfItems immediate: aBlockOrValuable [
 	rootNode := BrRootTreeNode onMany: aCollectionOfItems immediate: aBlockOrValuable.
-	rootNode expandUpTo: 2.
+	rootNode expand.
 
 	self notifyChildrenChanged
 ]
