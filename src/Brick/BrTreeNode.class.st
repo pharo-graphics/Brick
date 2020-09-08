@@ -634,6 +634,20 @@ BrTreeNode >> update: aPayloadObject [
 	self onNodeChanged: self payload: aPayloadObject
 ]
 
+{ #category : #private }
+BrTreeNode >> validateIntegrity [
+	| aPreviousIndex |
+	
+	aPreviousIndex := nil.
+	self withAllChildrenNodesLinearDo: [ :eachNode |
+		aPreviousIndex
+			ifNotNil: [
+				self assert: [ (eachNode indexInTree - aPreviousIndex) = 1 ]
+				description: [ 'A set of indices in the tree must be an algebraic series' ] ].
+
+		aPreviousIndex := eachNode indexInTree ]
+]
+
 { #category : #accessing }
 BrTreeNode >> value [
 	^ value

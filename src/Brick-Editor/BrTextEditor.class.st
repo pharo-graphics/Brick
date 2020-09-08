@@ -581,8 +581,8 @@ BrTextEditor >> onAttached: anEditorElement [
 
 	anEditorElement when: BlMouseUpEvent do: [ :anEvent | anEvent consumed: true ].
 	anEditorElement when: BlClickEvent do: [ :anEvent | anEvent consumed: true ].
-	anEditorElement when: BlFocusEvent do: [ self onGotFocus ].
-	anEditorElement when: BlBlurEvent do: [ self onLostFocus ].
+	anEditorElement when: BlFocusInEvent do: [ self onGotFocus ].
+	anEditorElement when: BlFocusOutEvent do: [ self onLostFocus ].
 
 	self notifyChanged
 ]
