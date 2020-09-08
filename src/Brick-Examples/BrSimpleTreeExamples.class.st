@@ -68,14 +68,13 @@ BrSimpleTreeExamples >> subropesTree [
 	aRope := BlConcatenationRopeExamples new attributes_small_2_to_3.
 	
 	aTree := BrSimpleTree new
-		nodeStencil: [
-			BrLabel new
-				look: BrGlamorousLabelLook ];
+		nodeStencil: [ 
+			BrLabel new 
+			look: BrGlamorousLabelLook ];
 		nodeDataBinder: [ :aNodeElement :eachaRope | aNodeElement text: eachaRope ].
-
-	aTree
-		items: { aRope }
-		children: [ :eachRope | eachRope children ].
-
+		
+	aTree 
+		items: {aRope} 
+		lazy: [ :eachRope | eachRope children ].
 	^ aTree
 ]
