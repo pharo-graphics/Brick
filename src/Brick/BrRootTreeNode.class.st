@@ -66,6 +66,11 @@ BrRootTreeNode >> announcer [
 	^ announcer ifNil: [ announcer := Announcer new ]
 ]
 
+{ #category : #accessing }
+BrRootTreeNode >> depth [
+	^ 0
+]
+
 { #category : #initialization }
 BrRootTreeNode >> initialize [
 	super initialize.

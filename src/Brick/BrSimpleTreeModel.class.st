@@ -2,6 +2,7 @@ Class {
 	#name : #BrSimpleTreeModel,
 	#superclass : #BrAbstractTreeModel,
 	#instVars : [
+		'rowElementStencil',
 		'nodeElementStencil',
 		'nodeDataBinder'
 	],
@@ -12,8 +13,9 @@ Class {
 BrSimpleTreeModel >> initialize [
 	super initialize.
 
+	rowElementStencil := BrSimpleTreeRowElementStencilBuilder new.
 	nodeElementStencil := BrTreeNodeElementStencilBuilder new.
-	nodeDataBinder := BrTreeNodeDataBinder new
+	nodeDataBinder := BrTreeNodeDataBinder new.
 ]
 
 { #category : #initialization }
@@ -54,4 +56,19 @@ BrSimpleTreeModel >> nodeElementStencil: aStencil [
 
 	nodeElementStencil := aStencil asStencilBuilder: BrTreeNodeElementStencilBuilder.
 	self dispatchEvent: (BrTreeNodeElementStencilChangedEvent new nodeElementStencil: nodeElementStencil)
+]
+
+{ #category : #accessing }
+BrSimpleTreeModel >> rowElementStencil [	
+	"Return a stencil that is used to create a row element for a given node type and node element.
+	Basically, a stencil that decorates a node element"
+	<return: #BrSimpleTreeRowElementStencilBuilder>
+
+	^ rowElementStencil
+]
+
+{ #category : #accessing }
+BrSimpleTreeModel >> rowElementStencil: aBrSimpleTreeRowElementStencilBuilder [
+	rowElementStencil := aBrSimpleTreeRowElementStencilBuilder.
+	self dispatchEvent: (BrTreeRowElementStencilChangedEvent new rowElementStencil: rowElementStencil)
 ]
