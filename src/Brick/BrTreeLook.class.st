@@ -79,3 +79,8 @@ BrTreeLook >> onSelectionChanged: aCollectionOfIndices [
 BrTreeLook >> root: aTreeNode [
 	treeElement dataSource rootNode: aTreeNode
 ]
+
+{ #category : #initialization }
+BrTreeLook >> treeElement [
+	^ treeElement
+]
