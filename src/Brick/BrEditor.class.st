@@ -37,8 +37,7 @@ BrEditor >> beReadOnlyWithoutSelection [
 { #category : #'editor - accessing' }
 BrEditor >> cursors [
 	<return: #BrTextEditorCursor>
-	
-	^ self editor cursor
+	^ self editor cursors
 ]
 
 { #category : #'editor - operations' }
