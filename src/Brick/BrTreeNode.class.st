@@ -328,8 +328,8 @@ BrTreeNode >> initialize [
 
 { #category : #'api - adding / removing' }
 BrTreeNode >> insert: anObject atChildIndex: aChildIndex [
-	| aNewNode |
-
+	| aNewNode aTreeIndexOfThePreviousNode aSizeOfThePreviousNode |
+	
 	"If children values are not computed we should not insert anything because values will be properly computed lazily later"
 	childrenValues
 		ifNil: [ ^ self onNodeChanged: self ].
@@ -342,12 +342,20 @@ BrTreeNode >> insert: anObject atChildIndex: aChildIndex [
 	"there are no children nodes, they will be computed later from updated children values"
 	childrenNodes
 		ifNil: [ ^ self onNodeChanged: self ].
+		
+	aTreeIndexOfThePreviousNode := (childrenNodes isEmpty or: [ aChildIndex = 1 ])
+		ifTrue: [ self indexInTree ]
+		ifFalse: [ (childrenNodes at: aChildIndex - 1) indexInTree ].
+		
+	aSizeOfThePreviousNode := (childrenNodes isEmpty or: [ aChildIndex = 1 ])
+		ifTrue: [ 1 ]
+		ifFalse: [ (childrenNodes at: aChildIndex - 1) size ].
 
 	aNewNode := self newSubNode: anObject computation: self computation.
 	aNewNode
 		parent: self;
 		indexInChildren: aChildIndex;
-		shiftIndexInTreeBy: self indexInTree + aChildIndex - 1.
+		shiftIndexInTreeBy: aTreeIndexOfThePreviousNode + aSizeOfThePreviousNode - 1.
 
 	"shift the indices of the rest of my children by 1"
 	aChildIndex to: childrenNodes size do: [ :eachChildIndex | 
