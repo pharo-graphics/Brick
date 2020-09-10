@@ -1,14 +1,13 @@
+"
+Use ${class:BrGlamorousLinkSquaredButtonWithLabelAndIconLook}$ instead.
+"
 Class {
 	#name : #BrGlamorousLinkSquaredButtonWithLabelLookAndIcon,
-	#superclass : #BrGlamorousLinkSquaredButtonWithLabelLook,
-	#traits : 'TBlTextStyleable',
-	#classTraits : 'TBlTextStyleable classTrait',
+	#superclass : #BrGlamorousLinkSquaredButtonWithLabelAndIconLook,
 	#category : #'Brick-Glamorous-Buttons'
 }
 
-{ #category : #initialization }
-BrGlamorousLinkSquaredButtonWithLabelLookAndIcon >> initialize [
-
-	super initialize.
-	self addAll: { BrGlamorousButtonIconLook new. }.
+{ #category : #testing }
+BrGlamorousLinkSquaredButtonWithLabelLookAndIcon class >> isDeprecated [
+	^ true
 ]
