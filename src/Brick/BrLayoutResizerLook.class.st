@@ -200,6 +200,13 @@ BrLayoutResizerLook >> hFitContentLimited: aBlock [
 		style: aBlock
 ]
 
+{ #category : #'api - to fit content' }
+BrLayoutResizerLook >> hFitContentLimitedToFitContentLimited [
+	"Inherit fit content limited horizontally if model says so"
+
+	self hFitContentLimited: [ :aWidget | self makeFitContentLimitedHorizontally: aWidget ]
+]
+
 { #category : #'api - to fit content element' }
 BrLayoutResizerLook >> hFitContentLimitedToFitContentLimited: anElement [
 	"Inherit fit content limited horizontally if model says so"
@@ -212,6 +219,13 @@ BrLayoutResizerLook >> hFitContentLimitedToFitContentLimitedIn: aBlock [
 	"Inherit fit content limited horizontally if model says so"
 
 	self hFitContentLimited: [ aBlock value: [ :anElement | self makeFitContentLimitedHorizontally: anElement ] ]
+]
+
+{ #category : #'api - to fit content' }
+BrLayoutResizerLook >> hFitContentToFitContent [
+	"Inherit fit content horizontally if model says so"
+
+	self hFitContent: [ :aWidget | self makeFitContentHorizontally: aWidget ]
 ]
 
 { #category : #'api - to fit content element' }
@@ -233,6 +247,15 @@ BrLayoutResizerLook >> hFitContentToMatchParent [
 	"Match parent if model specifies fit content horizontally"
 
 	self hFitContent: [ :aWidget | self makeMatchParentHorizontally: aWidget ]
+]
+
+{ #category : #'api - inherit' }
+BrLayoutResizerLook >> hInherit [
+	self
+		hExactToMatchParent;
+		hMatchParentToMatchParent;
+		hFitContentToFitContent;
+		hFitContentLimitedToFitContentLimited
 ]
 
 { #category : #'api - inherit' }
@@ -277,6 +300,13 @@ BrLayoutResizerLook >> hMatchParentToFitContentIn: aBlock [
 	"Fit content horizontally if model says match parent"
 		
 	self hMatchParent: [ aBlock value: [ :anElement | self makeFitContentHorizontally: anElement ] ]
+]
+
+{ #category : #'api - style' }
+BrLayoutResizerLook >> hMatchParentToMatchParent [
+	"Inherit match parent horizontally if model says so"
+
+	self hMatchParent: [ :aWidget | self makeMatchParentHorizontally: aWidget ]
 ]
 
 { #category : #'api - to match parent element' }
@@ -420,6 +450,7 @@ BrLayoutResizerLook >> vAnyToFitContent [
 	self
 		vExactToFitContent;
 		vFitContent;
+		vFitContentLimitedToFitContent;
 		vMatchParentToFitContent
 ]
 
@@ -501,6 +532,13 @@ BrLayoutResizerLook >> vFitContentLimited: aBlock [
 	self
 		when: self state vertical fitContentLimited
 		style: aBlock
+]
+
+{ #category : #'api - style' }
+BrLayoutResizerLook >> vFitContentLimitedToFitContent [
+	"Fit content if model specifies fit content limited vertically"
+
+	self vFitContentLimited: [ :aWidget | self makeFitContentVertically: aWidget ]
 ]
 
 { #category : #'api - to fit content element' }
