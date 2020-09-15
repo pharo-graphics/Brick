@@ -184,9 +184,10 @@ BrWithAnchoredLook2 >> show [
 	self assert: [ self canShow ].
 	self flag: 'TODO extentChangedEventHandler really needed on inner container?'.
 	innerContainer := stencil asElement
-		enqueueTask: watchDog;
 		addEventHandler: extentChangedEventHandler;
 		yourself.
+	watchDog isRunning ifFalse:
+		[ innerContainer enqueueTask: watchDog ].
 	
 	self flag: 'TODO get rid of having to set anchor'.
 	innerContainer anchor: widget.	
