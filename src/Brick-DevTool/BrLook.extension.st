@@ -47,7 +47,7 @@ BrLook class >> gtCoderLookHierarchyFor: aView context: aDictionary [
 				ifFalse: [ anItem rootClass name ] ];
 		items: (GtCoderClassesHierarchyTree fromClasses: self withAllSuperclassAndSubclassLooks) sortByClassName subclassTrees;
 		children: [ :anItem | anItem subclassTrees ];
-		send: [ :anItem | GtClassCoderTool forClass: anItem rootClass ];
+		sendTool: [ :anItem | GtClassCoderTool forClass: anItem rootClass ];
 		expandAll
 ]
 
