@@ -238,7 +238,13 @@ BrTextEditorNavigator >> moveWithin: anInterval [
 
 { #category : #notifying }
 BrTextEditorNavigator >> notifyCursorAdded: aCursor [
-	self editor dispatchEvent: (BrTextEditorCursorAddedEvent cursor: aCursor)
+	self editor dispatchEvent: (BrTextEditorCursorAddedEvent cursor: aCursor).
+	self notifyCursorChanged
+]
+
+{ #category : #notifying }
+BrTextEditorNavigator >> notifyCursorChanged [
+	self editor dispatchEvent: (BrTextEditorCursorChangedEvent new cursors: self cursors)
 ]
 
 { #category : #private }
@@ -254,12 +260,14 @@ BrTextEditorNavigator >> notifyCursorChanged: aCursor [
 
 { #category : #notifying }
 BrTextEditorNavigator >> notifyCursorMoved: aCursor from: aFromIndex to: aToIndex [
-	self editor dispatchEvent: (BrTextEditorCursorMovedEvent cursor: aCursor from: aFromIndex to: aToIndex dueTo: (dueTo ifNil: [self]))
+	self editor dispatchEvent: (BrTextEditorCursorMovedEvent cursor: aCursor from: aFromIndex to: aToIndex dueTo: (dueTo ifNil: [self])).
+	self notifyCursorChanged
 ]
 
 { #category : #notifying }
 BrTextEditorNavigator >> notifyCursorRemoved: aCursor [
-	self editor dispatchEvent: (BrTextEditorCursorRemovedEvent cursor: aCursor)
+	self editor dispatchEvent: (BrTextEditorCursorRemovedEvent cursor: aCursor).
+	self notifyCursorChanged
 ]
 
 { #category : #private }

@@ -105,9 +105,7 @@ BrTextEditorParagraphSegmentHolder >> createSegmentElement [
 			c horizontal matchParent.
 			c vertical fitContent ];
 		look: (BrLayoutResizerLook new
-			hExactToMatchParent;
-			hMatchParent;
-			hFitContent;
+			hInherit;
 			vAnyToFitContent);
 		yourself
 ]
