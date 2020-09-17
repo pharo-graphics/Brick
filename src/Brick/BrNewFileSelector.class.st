@@ -9,7 +9,7 @@ Class {
 
 { #category : #accessing }
 BrNewFileSelector >> buildUI [
-	| alignedButton |
+	| alignedButton fileInputFieldLabel |
 	breadcrumb := self createBreadcrumb.
 	table := self createTable.
 	alignedButton := self createOkButton.
@@ -27,7 +27,8 @@ BrNewFileSelector >> buildUI [
 
 { #category : #accessing }
 BrNewFileSelector >> createFileInputField [
-	|label|
+	|label fileInputFieldLabel |
+	fileInputFieldLabel := self createFileInputFieldLabel .
 	label := BrEditableLabel new.
 	label look: BrGlamorousEditableLabelLook.
 	label hMatchParent.
@@ -36,11 +37,25 @@ BrNewFileSelector >> createFileInputField [
 		do: [ :anEvent | 
 				(folder / anEvent text asString) exists
 						ifTrue: [ okButton disable ];
-						ifFalse: [  okButton enable ] ].
+						ifFalse: [  okButton enable ]].
 	label switchToEditor.
-	^ label
+	
+	^ BrHorizontalPane new 
+		hMatchParent; 
+		vFitContent;
+		margin: (BlInsets top: 10); 
+		addChild:fileInputFieldLabel; 
+		addChild:label
 
 	
+]
+
+{ #category : #accessing }
+BrNewFileSelector >> createFileInputFieldLabel [
+	^ BrLabel new text:'New file name:'; 
+		addLook: (BrGlamorousLabelLook new foreground: Color gray);
+		fitContent;
+		margin: (BlInsets right: 5).
 ]
 
 { #category : #accessing }
