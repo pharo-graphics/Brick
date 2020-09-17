@@ -1,5 +1,5 @@
 Class {
-	#name : #BrNewFileSelector,
+	#name : #BrFileSelectOrCreate,
 	#superclass : #BrFileSelector,
 	#instVars : [
 		'fileInputField'
@@ -8,7 +8,7 @@ Class {
 }
 
 { #category : #accessing }
-BrNewFileSelector >> buildUI [
+BrFileSelectOrCreate >> buildUI [
 	| alignedButton fileInputFieldLabel fileInputFieldContainer|
 	breadcrumb := self createBreadcrumb.
 	table := self createTable.
@@ -36,7 +36,7 @@ BrNewFileSelector >> buildUI [
 ]
 
 { #category : #accessing }
-BrNewFileSelector >> createFileInputField [
+BrFileSelectOrCreate >> createFileInputField [
 	|fileInputFieldLabel |
 	fileInputFieldLabel := self createFileInputFieldLabel .
 	fileInputField := BrEditableLabel new.
@@ -60,7 +60,7 @@ BrNewFileSelector >> createFileInputField [
 ]
 
 { #category : #accessing }
-BrNewFileSelector >> createFileInputFieldLabel [
+BrFileSelectOrCreate >> createFileInputFieldLabel [
 	^ BrLabel new text:'New file name:'; 
 		addLook: (BrGlamorousLabelLook new foreground: Color gray);
 		fitContent;
@@ -68,7 +68,7 @@ BrNewFileSelector >> createFileInputFieldLabel [
 ]
 
 { #category : #accessing }
-BrNewFileSelector >> executeAction [ 
+BrFileSelectOrCreate >> executeAction [ 
 	"Execute the receiver's load action"
 	| newFile|
 	newFile := (folder / fileInputField text asString).
