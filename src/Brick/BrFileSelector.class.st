@@ -44,6 +44,23 @@ Class {
 	#category : #'Brick-File - UI'
 }
 
+{ #category : #initialization }
+BrFileSelector >> buildUI [
+	| alignedButton |
+	breadcrumb := self createBreadcrumb.
+	table := self createTable.
+	alignedButton := self createOkButton.
+	self matchParent.
+	self addChildren: {
+		BrScrollPane new
+			look: BrScrollPaneLook;
+			hMatchParent;
+			vFitContent;
+			content: breadcrumb.
+		table.
+		alignedButton. }.
+]
+
 { #category : #accessing }
 BrFileSelector >> buttonLabel: aString [
 	"Set the button's label"
@@ -74,6 +91,22 @@ BrFileSelector >> computeFolderParents [
 ]
 
 { #category : #private }
+BrFileSelector >> createAddFolderButton [
+	|plusButton|
+	plusButton := BrButton new.
+	plusButton look: BrGlamorousButtonIconLook + BrGlamorousButtonRectangularLook.
+	plusButton icon: BrGlamorousIcons add.
+	plusButton action: [self replaceAddFolderWithEditor].
+	^ plusButton
+	
+	
+]
+
+{ #category : #initialization }
+BrFileSelector >> createBasicFileBrowser [
+]
+
+{ #category : #private }
 BrFileSelector >> createBreadcrumb [
 	^ BrBreadcrumb new
 		fitContent;
@@ -86,13 +119,21 @@ BrFileSelector >> createBreadcrumb [
 
 { #category : #private }
 BrFileSelector >> createOkButton [
-
-	^ BrButton new 
+	| alignedButton |
+	okButton := BrButton new 
 			look: BrGlamorousButtonWithLabelLook new;
 			label: 'OK';
 			action: [ self executeAction ];
 			disable;
-			yourself
+			yourself.
+	alignedButton := BlElement new 
+		layout: BlLinearLayout horizontal alignTopRight;
+		padding: (BlInsets top: 15);
+		constraintsDo: [ :c |
+			c horizontal matchParent.
+			c vertical exact: 40 ];
+		addChild: okButton.
+	^ alignedButton
 ]
 
 { #category : #private }
@@ -113,7 +154,8 @@ BrFileSelector >> createTable [
 				ifFalse: [ BrGlamorousIcons file ] ].
 	aTable column
 		title: 'Name' translated;
-		width: 200;
+		matchParent;
+		"width: 200;"
 		cellStencil: [ :each | BrLabel new look: BrGlamorousLabelLook new ];
 		dataBinder: [ :aLabel :eachItem | 
 			aLabel
@@ -202,31 +244,11 @@ BrFileSelector >> initialize [
 	| alignedButton |
 
 	super initialize.
-
 	fileFilterBlock := [ :entry | true ].
 	okAction := [ :anElement | ].
-	breadcrumb := self createBreadcrumb.
-	table := self createTable.
-	okButton := self createOkButton.
-	alignedButton := BlElement new 
-		layout: BlLinearLayout horizontal alignTopRight;
-		padding: (BlInsets top: 15);
-		constraintsDo: [ :c |
-			c horizontal matchParent.
-			c vertical exact: 40 ];
-		addChild: okButton.	
-	self folder: '.' asFileReference.
-	
+	self buildUI. 
 	self matchParent.
-	self addChildren: {
-		BrScrollPane new
-			look: BrScrollPaneLook;
-			hMatchParent;
-			vFitContent;
-			content: breadcrumb.
-		table.
-		alignedButton. }.
-
+	self folder: '.' asFileReference.
 ]
 
 { #category : #accessing }
@@ -237,6 +259,17 @@ BrFileSelector >> okAction [
 { #category : #accessing }
 BrFileSelector >> okAction: anObject [
 	okAction := anObject
+]
+
+{ #category : #private }
+BrFileSelector >> replaceAddFolderWithEditor [
+	|folderCreator|
+	breadcrumb removeItemAt:  breadcrumb numberOfItems.
+	folderCreator := BrFolderCreateWidget new folder: self folder.
+	folderCreator defaultFolderName: ''.
+	folderCreator onFolderCreated: [self updateDisplay].
+	breadcrumb addItem: folderCreator.
+	folderCreator requestLabelFocus.
 ]
 
 { #category : #private }
@@ -251,4 +284,5 @@ BrFileSelector >> updateDisplay [
 			geometry: (BlRoundedRectangleGeometry cornerRadius: 4);
 			label: eachSegment basename;
 			action: [ self folder: eachSegment ]) ].
+	breadcrumb addItem: self createAddFolderButton.
 ]
