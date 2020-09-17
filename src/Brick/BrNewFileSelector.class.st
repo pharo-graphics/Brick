@@ -9,11 +9,21 @@ Class {
 
 { #category : #accessing }
 BrNewFileSelector >> buildUI [
-	| alignedButton fileInputFieldLabel |
+	| alignedButton fileInputFieldLabel fileInputFieldContainer|
 	breadcrumb := self createBreadcrumb.
 	table := self createTable.
+	table
+		when: BrSelectionChanged
+		do: [ :anEvent | 
+			anEvent indices
+				ifNotEmpty: [ :theIndices | 
+					| aWidgetElement selectedObject |
+					aWidgetElement := anEvent currentTarget.
+					selectedObject := aWidgetElement viewModel
+						itemAt: theIndices first.
+					fileInputField text: selectedObject basename ] ].
 	alignedButton := self createOkButton.
-	fileInputField := self createFileInputField.
+	fileInputFieldContainer := self createFileInputField.
 	self addChildren: {
 		BrScrollPane new
 			look: BrScrollPaneLook;
@@ -21,31 +31,30 @@ BrNewFileSelector >> buildUI [
 			vFitContent;
 			content: breadcrumb.
 		table.
-		fileInputField.
+		fileInputFieldContainer.
 		alignedButton. }.
 ]
 
 { #category : #accessing }
 BrNewFileSelector >> createFileInputField [
-	|label fileInputFieldLabel |
+	|fileInputFieldLabel |
 	fileInputFieldLabel := self createFileInputFieldLabel .
-	label := BrEditableLabel new.
-	label look: BrGlamorousEditableLabelLook.
-	label hMatchParent.
-	label editor
+	fileInputField := BrEditableLabel new.
+	fileInputField look: BrGlamorousEditableLabelLook.
+	fileInputField hMatchParent.
+	fileInputField switchToEditor.
+	fileInputField editor
 		when: BrTextEditorModifiedEvent
 		do: [ :anEvent | 
-				(folder / anEvent text asString) exists
-						ifTrue: [ okButton disable ];
-						ifFalse: [  okButton enable ]].
-	label switchToEditor.
-	
+				(anEvent text asString size > 0) 
+						ifTrue: [ okButton enable ];
+						ifFalse: [  okButton disable ]].
 	^ BrHorizontalPane new 
 		hMatchParent; 
 		vFitContent;
 		margin: (BlInsets top: 10); 
 		addChild:fileInputFieldLabel; 
-		addChild:label
+		addChild:fileInputField.
 
 	
 ]
@@ -61,8 +70,9 @@ BrNewFileSelector >> createFileInputFieldLabel [
 { #category : #accessing }
 BrNewFileSelector >> executeAction [ 
 	"Execute the receiver's load action"
-	| selectedIndices newFile|
-	newFile := (folder / fileInputField text asString) ensureCreateFile. 
+	| newFile|
+	newFile := (folder / fileInputField text asString).
+	newFile exists ifFalse: [newFile ensureCreateFile]. 
 	self updateDisplay.
 	fileInputField text:''.
 	^ self okAction 
