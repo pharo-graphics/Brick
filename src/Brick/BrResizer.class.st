@@ -34,7 +34,9 @@ BrResizer >> initialize [
 	
 	self viewModel: (resizerModel := BrResizerModel new
 		add: (BrInteractiveModel withAll: {
-			locationModel := BrResizerLocationModel new
+			locationModel := BrResizerLocationModel new.
+			BrHoverModel new. 
+			BrPressModel new.
 		}))
 ]
 

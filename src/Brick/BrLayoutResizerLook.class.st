@@ -267,6 +267,16 @@ BrLayoutResizerLook >> hInherit: anElement [
 		hFitContentLimitedToFitContentLimited: anElement
 ]
 
+{ #category : #'api - inherit' }
+BrLayoutResizerLook >> hInheritIn: aBlock [
+
+	self
+		hExactToMatchParentIn: aBlock;
+		hMatchParentToMatchParentIn: aBlock;
+		hFitContentToFitContentIn: aBlock;
+		hFitContentLimitedToFitContentLimitedIn: aBlock
+]
+
 { #category : #'api - style' }
 BrLayoutResizerLook >> hMatchParent [
 	"Inherit match parent horizontally if model says so"
@@ -583,6 +593,16 @@ BrLayoutResizerLook >> vInherit: anElement [
 		vMatchParentToMatchParent: anElement;
 		vFitContentToFitContent: anElement;
 		vFitContentLimitedToFitContentLimited: anElement
+]
+
+{ #category : #'api - inherit' }
+BrLayoutResizerLook >> vInheritIn: aBlock [
+
+	self
+		vExactToMatchParentIn: aBlock;
+		vMatchParentToMatchParentIn: aBlock;
+		vFitContentToFitContentIn: aBlock;
+		vFitContentLimitedToFitContentLimitedIn: aBlock
 ]
 
 { #category : #'api - style' }
