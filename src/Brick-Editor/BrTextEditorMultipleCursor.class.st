@@ -58,7 +58,7 @@ BrTextEditorMultipleCursor >> initialize [
 
 { #category : #copying }
 BrTextEditorMultipleCursor >> postCopy [
-	cursors := cursors copy
+	cursors := cursors collect: [ :cursor | cursor copy ]
 ]
 
 { #category : #printing }
