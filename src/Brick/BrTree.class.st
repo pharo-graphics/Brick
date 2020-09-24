@@ -23,6 +23,9 @@ BrTree >> defaultListModel [
 
 { #category : #'api - tree' }
 BrTree >> expandAll [
+	"Expand all items in the receiver.
+	Only items that currently have children will be expanded.  Others will remain collapsed, even if they have children added at a later time"
+
 	self viewModel expandAll
 ]
 
