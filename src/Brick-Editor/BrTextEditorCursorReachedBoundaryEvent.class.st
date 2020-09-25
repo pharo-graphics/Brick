@@ -50,3 +50,14 @@ BrTextEditorCursorReachedBoundaryEvent >> isBottom [
 BrTextEditorCursorReachedBoundaryEvent >> isTop [
 	^ boundary = Top
 ]
+
+{ #category : #printing }
+BrTextEditorCursorReachedBoundaryEvent >> printOn: aStream [
+
+	aStream
+		<< 'ReachedBoundaryEvent(';
+		print: boundary;
+		<< ', ';
+		print: cursor;
+		<< ')'
+]
