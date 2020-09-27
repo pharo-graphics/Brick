@@ -4,7 +4,8 @@ Class {
 	#instVars : [
 		'rowElementStencil',
 		'nodeElementStencil',
-		'nodeDataBinder'
+		'nodeDataBinder',
+		'nodeUnbinder'
 	],
 	#category : #'Brick-Tree - Model'
 }
@@ -16,6 +17,7 @@ BrSimpleTreeModel >> initialize [
 	rowElementStencil := BrSimpleTreeRowElementStencilBuilder new.
 	nodeElementStencil := BrTreeNodeElementStencilBuilder new.
 	nodeDataBinder := BrTreeNodeDataBinder new.
+	nodeUnbinder := [ :anItemElement :anItem :aTreeNode | ]
 ]
 
 { #category : #initialization }
@@ -56,6 +58,18 @@ BrSimpleTreeModel >> nodeElementStencil: aStencil [
 
 	nodeElementStencil := aStencil asStencilBuilder: BrTreeNodeElementStencilBuilder.
 	self dispatchEvent: (BrTreeNodeElementStencilChangedEvent new nodeElementStencil: nodeElementStencil)
+]
+
+{ #category : #accessing }
+BrSimpleTreeModel >> nodeUnbinder [
+	^ nodeUnbinder
+]
+
+{ #category : #accessing }
+BrSimpleTreeModel >> nodeUnbinder: anObject [
+
+	nodeUnbinder := anObject.
+	self dispatchEvent: (BrTreeNodeUnbinderChangedEvent new nodeUnbinder: nodeUnbinder)
 ]
 
 { #category : #accessing }

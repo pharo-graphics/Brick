@@ -4,6 +4,7 @@ Class {
 	#instVars : [
 		'nodeElementStencil',
 		'nodeDataBinder',
+		'nodeUnbinder',
 		'rowElementStencil',
 		'rowDataBinder',
 		'attachedBlock',
@@ -40,6 +41,13 @@ BrSimpleTreeDataSource >> nodeElementStencil: aBrTreeNodeElementStencilBuilder [
 	such as a button to expand the node"
 
 	nodeElementStencil := aBrTreeNodeElementStencilBuilder asStencilBuilder: BrTreeNodeElementStencilBuilder.
+	self notifyChanged
+]
+
+{ #category : #'accessing - stencils' }
+BrSimpleTreeDataSource >> nodeUnbinder: aBlock [
+
+	nodeUnbinder := aBlock.
 	self notifyChanged
 ]
 
@@ -107,19 +115,28 @@ BrSimpleTreeDataSource >> onElementAttached: anElementHolder [
 
 { #category : #hooks }
 BrSimpleTreeDataSource >> onElementDetached: anElementHolder [
+	| node |
+
+	node := rootNode at: (self getRowIndex: anElementHolder).
+	nodeUnbinder
+		value: anElementHolder nodeElement
+		value: node value
+		value: node.
+
 	detachedBlock
 		ifNil: [ ^ self ].
 
 	detachedBlock
 		cull: anElementHolder nodeElement
-		cull: (rootNode at: (self getRowIndex: anElementHolder))
+		cull: node
 ]
 
 { #category : #hooks }
 BrSimpleTreeDataSource >> onElementRecycled: anElementHolder [
+
 	recycledBlock
 		ifNil: [ ^ self ].
-
+self haltOnce.
 	recycledBlock
 		cull: anElementHolder nodeElement
 		cull: (rootNode at: (self getRowIndex: anElementHolder))
