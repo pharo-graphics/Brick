@@ -115,28 +115,22 @@ BrSimpleTreeDataSource >> onElementAttached: anElementHolder [
 
 { #category : #hooks }
 BrSimpleTreeDataSource >> onElementDetached: anElementHolder [
-	| node |
 
-	node := rootNode at: (self getRowIndex: anElementHolder).
-	nodeUnbinder
-		value: anElementHolder nodeElement
-		value: node value
-		value: node.
+	nodeUnbinder value: anElementHolder nodeElement.
 
 	detachedBlock
 		ifNil: [ ^ self ].
 
 	detachedBlock
 		cull: anElementHolder nodeElement
-		cull: node
+		cull: (rootNode at: (self getRowIndex: anElementHolder))
 ]
 
 { #category : #hooks }
 BrSimpleTreeDataSource >> onElementRecycled: anElementHolder [
-
 	recycledBlock
 		ifNil: [ ^ self ].
-self haltOnce.
+
 	recycledBlock
 		cull: anElementHolder nodeElement
 		cull: (rootNode at: (self getRowIndex: anElementHolder))
