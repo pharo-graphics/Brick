@@ -108,12 +108,23 @@ BrAnchoredExamples >> dropdown [
 { #category : #accessing }
 BrAnchoredExamples >> tooltip [
 	<gtExample>
-	| content container anchor anchorContainer |
-	content := BrLabel new
+	| tip |
+	tip := BrLabel new
 		look: (BrGlamorousLabelLook new glamorousRegularFontAndSize);
 		padding: (BlInsets all: 20);
 		text: 'no transformation affects me!';
 		alignCenter.
+	^ BlElement new
+		look: (BrGlamorousWithTooltipLook2 content: tip);
+		background: Color red;
+		size: 80 @ 100;
+		addEventHandler: BlPullHandler new.
+]
+
+{ #category : #accessing }
+BrAnchoredExamples >> tooltipStaysLevel [
+	<gtExample>
+	| container anchorContainer |
 	container := BlElement new
 		background: Color gray muchLighter;
 		layout: BlLinearLayout vertical;
@@ -125,16 +136,12 @@ BrAnchoredExamples >> tooltip [
 				rotateBy: 30;
 				translateBy: 500 @ 100;
 				scaleBy: 0.5 ].
-	anchor := BlElement new
-		look: (BrGlamorousWithTooltipLook2 content: content);
-		background: Color red;
-		size: 80 @ 100;
-		addEventHandler: BlPullHandler new.
+
 	anchorContainer := BlElement new
 		background: Color paleRed;
 		relocate: 100 @ 150;
 		size: 400 @ 200;
 		constraintsDo: [ :c | c ignoreByLayout ];
-		addChild: anchor.
+		addChild: self tooltip.
 	^ container addChild: anchorContainer
 ]
