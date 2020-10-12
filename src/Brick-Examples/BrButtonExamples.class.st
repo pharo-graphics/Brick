@@ -11,10 +11,10 @@ A button widget is composed of multiple view models that add important functiona
 
 ${class:BrLabelModel}$ is responsible for button's label
 ${class:BrIconModel}$ adds support of an icon
-${class:BrActivationModel}$ lets users to enable or disable a button (make it non-interactable)
+${class:BrInteractiveModel}$ lets users to enable or disable a button (make it non-interactable)
 ${class:BrPressModel}$ provides support of handling press state
 ${class:BrHoverModel}$ adds support of mouse hover events
-${class:BrSizeModel}$ is responsible for managing the logical size of a button (tiny, small, large etc)
+${class:BrSizeAdjustmentModel}$ is responsible for managing the logical size of a button (tiny, small, large etc)
 ${class:BrLayoutAlignmentModel}$ lets users to align a button's content within the button itself (center, top-right, etc)
 ${class:BrLayoutHorizontalResizerModel}$ provides support for horizontal resizing strategies (fit content, match parent, exact size)
 ${class:BrLayoutVerticalResizerModel}$ is similar to horizontal resizer but controls a vertical resizing strategy
@@ -33,10 +33,10 @@ ${example:BrButtonExamples>>#buttonWithLabelLookReactingToHover|previewShow=#gtL
 In a similar fashing we can also change the text style on a button press which is managed by ${class:BrPressModel}$:
 ${example:BrButtonExamples>>#buttonWithLabelLookReactingToHoverAndPress|previewShow=#gtLiveFor:|previewHeight=70|previewExpanded=true}$
 
-One more common use-case is to provide a text style for a disabled button which is modelled by ${class:BrActivationModel}$. Please note that disabled button does not react to click and hover events:
+One more common use-case is to provide a text style for a disabled button which is modelled by ${class:BrInteractiveModel}$. Please note that disabled button does not react to click and hover events:
 ${example:BrButtonExamples>>#buttonWithLabelLookReactingToHoverAndPressAndDisabled|previewShow=#gtLiveFor:|previewHeight=70|previewExpanded=true}$
 
-Sometimes users may want to create a look that depends on a logical button size modelled by ${class:BrSizeModel}$. For example a button can be made huge ==beHuge== or tiny ==beTiny==. To style a label based on the logical widget size we can use ${class:BrInteractiveSizeLook}$ which provides a fluent api for variuos sizes. Click on the label to randomly change its logial size:
+Sometimes users may want to create a look that depends on a logical button size modelled by ${class:BrSizeAdjustmentModel}$. For example a button can be made huge ==beHuge== or tiny ==beTiny==. To style a label based on the logical widget size we can use ${class:BrSizeAdjustmentLook}$ which provides a fluent api for variuos sizes. Click on the label to randomly change its logial size:
 ${example:BrButtonExamples>>#buttonWithLabelLookOfDifferentSizes|previewShow=#gtLiveFor:|previewHeight=70|previewExpanded=true}$
 
 Now lets put together the final label look that we will use later to build our custom button:
