@@ -88,9 +88,17 @@ TBlDevScripterTarget >> onGtPagerWrappedPaneContent [
 ]
 
 { #category : #'*Brick-DevTool' }
+TBlDevScripterTarget >> onGtPharoSnippetDestinationButton [
+	self 
+		onChildNamed: #content;
+		onChildOfClass: GtSourceCoderExpandedContentElement;
+		onChildNamed: #switchButton
+]
+
+{ #category : #'*Brick-DevTool' }
 TBlDevScripterTarget >> onGtPharoSnippetEditor [
 	self 
-		onChildOfClass: GtExpandableCoderElement;
+		"onChildOfClass: GtExpandableCoderElement;"
 		onChildNamed: #content;
 		onChildOfClass: GtSourceCoderExpandedContentElement;
 		onChildNamed: #editor
@@ -99,7 +107,7 @@ TBlDevScripterTarget >> onGtPharoSnippetEditor [
 { #category : #'*Brick-DevTool' }
 TBlDevScripterTarget >> onGtPharoSnippetInspectButton [
 	self 
-		onChildOfClass: GtExpandableCoderElement;
+		"onChildOfClass: GtExpandableCoderElement;"
 		onChildNamed: #content;
 		onChildOfClass: GtSourceCoderExpandedContentElement;
 		onChildNamed: #actions;
@@ -109,10 +117,11 @@ TBlDevScripterTarget >> onGtPharoSnippetInspectButton [
 ]
 
 { #category : #'*Brick-DevTool' }
-TBlDevScripterTarget >> onGtPlaygroundFirstSnippet [
+TBlDevScripterTarget >> onGtPlaygroundFirstSnippetCoder [
 	self 
 		onGtPlaygroundSnippetsElement; "Infinite element"
-		onChildAt: 1 "First element in the infinite element"
+		onChildAt: 1; "First element in the infinite element"
+		onChildOfClass: GtExpandableCoderElement "Get the coder from the container"
 ]
 
 { #category : #'*Brick-DevTool' }
@@ -126,10 +135,11 @@ TBlDevScripterTarget >> onGtPlaygroundPlayAllButton [
 ]
 
 { #category : #'*Brick-DevTool' }
-TBlDevScripterTarget >> onGtPlaygroundSecondSnippet [
+TBlDevScripterTarget >> onGtPlaygroundSecondSnippetCoder [
 	self 
 		onGtPlaygroundSnippetsElement; "Infinite element"
-		onChildAt: 2 
+		onChildAt: 2;
+		onChildOfClass: GtExpandableCoderElement "Get the coder from the container"
 ]
 
 { #category : #'*Brick-DevTool' }
