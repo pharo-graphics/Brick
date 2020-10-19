@@ -45,7 +45,7 @@ BrEditableLabel >> defaultEditorInteractions [
 { #category : #initialization }
 BrEditableLabel >> defaultLabelInteractions [
 	^ {
-		BlKeyCombination escape -> [ :aShortcutEvent | aShortcutEvent currentTarget looseFocus ].
+		BlKeyCombination escape -> [ :aShortcutEvent | aShortcutEvent currentTarget loseFocus ].
 		BlKeyCombination arrowLeft -> [ :aShortcutEvent | aShortcutEvent currentTarget focusPrevious ].
 		BlKeyCombination arrowRight -> [ :aShortcutEvent | aShortcutEvent currentTarget focusNext ].
 		BlKeyCombination return -> [ :aShortcutEvent | aShortcutEvent currentTarget switchToEditor ]
