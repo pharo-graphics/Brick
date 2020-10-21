@@ -1,27 +1,27 @@
 Class {
 	#name : #BrAnchoredWithHandleAndContentLook,
-	#superclass : #BrAnchoredLook2,
+	#superclass : #BrAnchoredLook,
 	#instVars : [
 		'handle',
-		'content'
+		'contentWrapper'
 	],
 	#category : #'Brick-Anchored - Look'
 }
 
 { #category : #accessing }
 BrAnchoredWithHandleAndContentLook >> content [
-	^ content
+	<return: #BlElement>
+
+	^ contentWrapper children first
 ]
 
 { #category : #accessing }
 BrAnchoredWithHandleAndContentLook >> content: anElement [
-	content = anElement
+	self content = anElement
 		ifTrue: [ ^ self ].
 
-	content := anElement.
-	content removeFromParent.
-
-	self widgetDo: [ :aWidget | aWidget replaceChild: (widget childNamed: #content) with: content ]
+	contentWrapper removeChildren.
+	contentWrapper addChild: anElement
 ]
 
 { #category : #accessing }
@@ -43,15 +43,20 @@ BrAnchoredWithHandleAndContentLook >> handle: anElement [
 { #category : #initialization }
 BrAnchoredWithHandleAndContentLook >> initialize [
 	super initialize.
+
 	handle := BlElement new
 		size: 8 @ 8;
 		yourself.
-	content := BlElement new.
+	
+	contentWrapper := BlElement new.
+	contentWrapper layout: BlLinearLayout vertical.
+	contentWrapper addChild: BlElement new.
+
 	self
 		addChangeProperty: #(widget layout)
 			with: [ BlLinearLayout vertical ];
 		addChangeProperty: #(widget outskirts)
 			with: [ BlOutskirts outside ];
 		addChangeAddChildAs: #(handle) with: [ handle ];
-		addChangeAddChildAs: #(content) with: [ content ]
+		addChangeAddChildAs: #(content) with: [ contentWrapper ]
 ]

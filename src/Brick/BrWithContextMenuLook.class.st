@@ -1,6 +1,6 @@
 Class {
 	#name : #BrWithContextMenuLook,
-	#superclass : #BrWithAnchoredLook2,
+	#superclass : #BrWithAnchoredLook,
 	#instVars : [
 		'position',
 		'mouseButton',

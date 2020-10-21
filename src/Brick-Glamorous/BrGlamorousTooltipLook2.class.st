@@ -1,11 +1,10 @@
 Class {
 	#name : #BrGlamorousTooltipLook2,
-	#superclass : #BrTooltipLook2,
+	#superclass : #BrGlamorousTooltipLook,
 	#category : #'Brick-Glamorous-Tooltip'
 }
 
-{ #category : #initialization }
-BrGlamorousTooltipLook2 >> initialize [
-	super initialize.
-	self add: BrGlamorousAnchoredLook
+{ #category : #testing }
+BrGlamorousTooltipLook2 class >> isDeprecated [
+	^ true
 ]

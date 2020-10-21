@@ -70,11 +70,11 @@ BrFileSelectOrCreate >> createFileInputFieldLabel [
 { #category : #accessing }
 BrFileSelectOrCreate >> executeAction [ 
 	"Execute the receiver's load action"
-	| newFile|
+	| newFile |
+
 	newFile := (folder / fileInputField text asString).
-	newFile exists ifFalse: [newFile ensureCreateFile]. 
 	self updateDisplay.
-	fileInputField text:''.
+	fileInputField text: ''.
 	^ self okAction 
 				cull: newFile
 				cull: okButton.

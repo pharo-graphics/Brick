@@ -14,8 +14,40 @@ Class {
 }
 
 { #category : #'as yet unclassified' }
+BrWithTooltipLook class >> anchoredLook [
+	^ self anchoredLookClass new
+]
+
+{ #category : #'as yet unclassified' }
 BrWithTooltipLook class >> anchoredLookClass [
 	^ BrTooltipLook
+]
+
+{ #category : #accessing }
+BrWithTooltipLook class >> content: anObject [
+	| instance |
+	^ instance := self
+		stencil: [ BlElement new
+				look:
+					(self anchoredLook
+						withAnchoredLook: instance;
+						content: anObject asStencil asElement;
+						yourself);
+				yourself ]
+]
+
+{ #category : #'as yet unclassified' }
+BrWithTooltipLook class >> handle: anObject content: anotherObject [
+	| instance |
+	^ instance := self
+		stencil: [ BlElement new
+				look:
+					(self anchoredLook
+						withAnchoredLook: instance;
+						handle: anObject asStencil asElement;
+						content: anotherObject asStencil asElement;
+						yourself);
+				yourself ]
 ]
 
 { #category : #accessing }
@@ -28,6 +60,15 @@ BrWithTooltipLook >> cancelHideLater [
 BrWithTooltipLook >> cancelShowLater [
 	showLaterTask ifNotNil: [ :aTask | aTask stop ].
 	showLaterTask := nil
+]
+
+{ #category : #accessing }
+BrWithTooltipLook >> contentStencil: aStencil [
+	self stencil: [ 
+		BlElement new
+			look: (self class anchoredLook
+						withAnchoredLook: self;
+						content: aStencil asStencil asElement) ]
 ]
 
 { #category : #accessing }
@@ -59,17 +100,135 @@ BrWithTooltipLook >> hideLater [
 				ifTrue: [ self hide ].
 			hideLaterTask := nil ];
 		yourself.
-	container enqueueTask: hideLaterTask
-]
-
-{ #category : #'as yet unclassified' }
-BrWithTooltipLook >> hideWishClass [
-	^ BrTooltipHideWish
+	innerContainer enqueueTask: hideLaterTask
 ]
 
 { #category : #initialization }
 BrWithTooltipLook >> initialize [
 	super initialize.
+	preferredExtent := 200 @ 50.
+	strategy := BrAnchoredCompositeStrategy builder
+		single: [ :e | 
+			e
+				anchorBounds: [ :f | widget bounds inParent: f ];
+				referencePoint: BrAnchoredBottomCenterReferencePoint;
+				availableBounds: BrAnchoredBottomCenterAvailableBounds;
+				scaleFactor: BrAnchoredGlobalScaleFactor;
+				apply: [ innerContainer look
+						remove: BrTooltipTopCenterLook;
+						remove: BrTooltipCenterLeftLook;
+						remove: BrTooltipCenterRightLook;
+						remove: BrTooltipBottomLeftLook;
+						remove: BrTooltipBottomRightLook;
+						remove: BrTooltipTopLeftLook;
+						remove: BrTooltipTopRightLook;
+						add: BrTooltipBottomCenterLook ] ];
+		single: [ :e | 
+			e
+				anchorBounds: [ :f | widget bounds inParent: f ];
+				referencePoint: BrAnchoredTopCenterReferencePoint;
+				availableBounds: BrAnchoredTopCenterAvailableBounds;
+				scaleFactor: BrAnchoredGlobalScaleFactor;
+				apply: [ innerContainer look
+						remove: BrTooltipBottomCenterLook;
+						remove: BrTooltipCenterLeftLook;
+						remove: BrTooltipCenterRightLook;
+						remove: BrTooltipBottomLeftLook;
+						remove: BrTooltipBottomRightLook;
+						remove: BrTooltipTopLeftLook;
+						remove: BrTooltipTopRightLook;
+						add: BrTooltipTopCenterLook ] ];
+		single: [ :e | 
+			e
+				anchorBounds: [ :f | widget bounds inParent: f ];
+				referencePoint: BrAnchoredCenterRightReferencePoint;
+				availableBounds: BrAnchoredCenterRightAvailableBounds;
+				scaleFactor: BrAnchoredGlobalScaleFactor;
+				apply: [ innerContainer look
+						remove: BrTooltipBottomCenterLook;
+						remove: BrTooltipTopCenterLook;
+						remove: BrTooltipCenterLeftLook;
+						remove: BrTooltipBottomLeftLook;
+						remove: BrTooltipBottomRightLook;
+						remove: BrTooltipTopLeftLook;
+						remove: BrTooltipTopRightLook;
+						add: BrTooltipCenterRightLook ] ];
+		single: [ :e | 
+			e
+				anchorBounds: [ :f | widget bounds inParent: f ];
+				referencePoint: BrAnchoredCenterLeftReferencePoint;
+				availableBounds: BrAnchoredCenterLeftAvailableBounds;
+				scaleFactor: BrAnchoredGlobalScaleFactor;
+				apply: [ innerContainer look
+						remove: BrTooltipBottomCenterLook;
+						remove: BrTooltipTopCenterLook;
+						remove: BrTooltipCenterRightLook;
+						remove: BrTooltipBottomLeftLook;
+						remove: BrTooltipBottomRightLook;
+						remove: BrTooltipTopLeftLook;
+						remove: BrTooltipTopRightLook;
+						add: BrTooltipCenterLeftLook ] ];
+		single: [ :e | 
+			e
+				anchorBounds: [ :f | widget bounds inParent: f ];
+				referencePoint: BrAnchoredBottomLeftReferencePoint;
+				availableBounds: BrAnchoredBottomLeftAvailableBounds;
+				scaleFactor: BrAnchoredGlobalScaleFactor;
+				apply: [ innerContainer look
+						remove: BrTooltipBottomCenterLook;
+						remove: BrTooltipTopCenterLook;
+						remove: BrTooltipCenterLeftLook;
+						remove: BrTooltipCenterRightLook;
+						remove: BrTooltipBottomRightLook;
+						remove: BrTooltipTopLeftLook;
+						remove: BrTooltipTopRightLook;
+						add: BrTooltipBottomLeftLook ] ];
+		single: [ :e | 
+			e
+				anchorBounds: [ :f | widget bounds inParent: f ];
+				referencePoint: BrAnchoredBottomRightReferencePoint;
+				availableBounds: BrAnchoredBottomRightAvailableBounds;
+				scaleFactor: BrAnchoredGlobalScaleFactor;
+				apply: [ innerContainer look
+						remove: BrTooltipBottomCenterLook;
+						remove: BrTooltipTopCenterLook;
+						remove: BrTooltipCenterLeftLook;
+						remove: BrTooltipCenterRightLook;
+						remove: BrTooltipBottomLeftLook;
+						remove: BrTooltipTopLeftLook;
+						remove: BrTooltipTopRightLook;
+						add: BrTooltipBottomRightLook ] ];
+		single: [ :e | 
+			e
+				anchorBounds: [ :f | widget bounds inParent: f ];
+				referencePoint: BrAnchoredTopLeftReferencePoint;
+				availableBounds: BrAnchoredTopLeftAvailableBounds;
+				scaleFactor: BrAnchoredGlobalScaleFactor;
+				apply: [ innerContainer look
+						remove: BrTooltipBottomCenterLook;
+						remove: BrTooltipTopCenterLook;
+						remove: BrTooltipCenterLeftLook;
+						remove: BrTooltipCenterRightLook;
+						remove: BrTooltipBottomLeftLook;
+						remove: BrTooltipBottomRightLook;
+						remove: BrTooltipTopRightLook;
+						add: BrTooltipTopLeftLook ] ];
+		single: [ :e | 
+			e
+				anchorBounds: [ :f | widget bounds inParent: f ];
+				referencePoint: BrAnchoredTopRightReferencePoint;
+				availableBounds: BrAnchoredTopRightAvailableBounds;
+				scaleFactor: BrAnchoredGlobalScaleFactor;
+				apply: [ innerContainer look
+						remove: BrTooltipBottomCenterLook;
+						remove: BrTooltipTopCenterLook;
+						remove: BrTooltipCenterLeftLook;
+						remove: BrTooltipCenterRightLook;
+						remove: BrTooltipBottomLeftLook;
+						remove: BrTooltipBottomRightLook;
+						remove: BrTooltipTopLeftLook;
+						add: BrTooltipTopRightLook ] ];
+		build.
 	clickEventHandler := BlEventHandler
 		on: BlClickEvent
 		do: [ self willHideLater
@@ -117,9 +276,37 @@ BrWithTooltipLook >> initialize [
 	self hideDelay: 300 milliSeconds
 ]
 
-{ #category : #'as yet unclassified' }
-BrWithTooltipLook >> relocateWish [
-	^ BrTooltipRelocateWish new
+{ #category : #initialization }
+BrWithTooltipLook >> initializeListeners [
+	super initializeListeners.
+
+	self
+		when: BrTooltipStencilChanged
+		do: [ :anEvent | self stencil: anEvent stencil ].
+
+	self
+		when: BrTooltipVisibleChanged
+		do: [ :anEvent | self visible: anEvent visible ].
+
+	self
+		when: BrTooltipRelocateWish
+		do: [ :aWish | self onRelocateWish: aWish ].
+		
+	self
+		when: BrTooltipShowWish
+		do: [ :aWish | self onShowWish: aWish ].
+		
+	self
+		when: BrTooltipHideWish
+		do: [ :aWish | self onHideWish: aWish ]
+]
+
+{ #category : #initialization }
+BrWithTooltipLook >> initializeRequests [
+	super initializeRequests.
+
+	self request: BrTooltipStencilRequest new.
+	self request: BrTooltipVisibleRequest new
 ]
 
 { #category : #'host space - displaying' }
@@ -129,9 +316,9 @@ BrWithTooltipLook >> show [
 		ifTrue: [ self cancelShowLater ].
 	self willHideLater
 		ifTrue: [ self cancelHideLater ].
-	container
-		addEventHandlerOn: BlMouseEnterEvent do: [ self cancelHideLater ];
-		addEventHandlerOn: BlMouseLeaveEvent do: [ self hideLater ]
+	innerContainer
+		addEventFilterOn: BlMouseEnterEvent do: [ :e | self cancelHideLater ];
+		addEventFilterOn: BlMouseLeaveEvent do: [ :e | self hideLater ]
 ]
 
 { #category : #accessing }
@@ -157,37 +344,12 @@ BrWithTooltipLook >> showLater [
 	widget enqueueTask: showLaterTask
 ]
 
-{ #category : #'as yet unclassified' }
-BrWithTooltipLook >> showWishClass [
-	^ BrTooltipShowWish
-]
-
-{ #category : #'as yet unclassified' }
-BrWithTooltipLook >> stencilChangedClass [
-	^ BrTooltipStencilChanged
-]
-
-{ #category : #'as yet unclassified' }
-BrWithTooltipLook >> stencilRequest [
-	^ BrTooltipStencilRequest new
-]
-
-{ #category : #'as yet unclassified' }
-BrWithTooltipLook >> visibleChangedClass [
-	^ BrTooltipVisibleChanged
-]
-
-{ #category : #'as yet unclassified' }
-BrWithTooltipLook >> visibleRequest [
-	^ BrTooltipVisibleRequest new
-]
-
-{ #category : #'as yet unclassified' }
+{ #category : #testing }
 BrWithTooltipLook >> willHideLater [
 	^ hideLaterTask isNotNil
 ]
 
-{ #category : #'as yet unclassified' }
+{ #category : #testing }
 BrWithTooltipLook >> willShowLater [
 	^ showLaterTask isNotNil
 ]
