@@ -68,6 +68,11 @@ BrFileSelector >> buttonLabel: aString [
 	okButton label: aString
 ]
 
+{ #category : #accessing }
+BrFileSelector >> clearSelection [
+	table deselectAll
+]
+
 { #category : #private }
 BrFileSelector >> computeFolderItems [
 	"Determine the items to display in the file list.
@@ -205,7 +210,10 @@ BrFileSelector >> executeAction [
 	| selectedIndices |
 
 	selectedIndices := table selectedIndices.
-	selectedIndices ifEmpty: [ ^ self ].
+	selectedIndices ifEmpty: [ 
+		^ self okAction 
+				cull: folder
+				cull: okButton ].
 	^ self okAction 
 				cull: (items at: selectedIndices first)
 				cull: okButton.
@@ -235,7 +243,7 @@ BrFileSelector >> folder: aFileReference [
 		ifTrue: [ ^ self ].
 
 	folder := aFileReference asAbsolute canonicalize.
-
+	self clearSelection.
 	self updateDisplay.
 ]
 
