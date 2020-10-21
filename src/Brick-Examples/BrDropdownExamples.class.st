@@ -4,7 +4,7 @@ Class {
 	#category : #'Brick-Examples-Dropdown'
 }
 
-{ #category : #'as yet unclassified' }
+{ #category : #examples }
 BrDropdownExamples >> alignedDropdowns [
 	<gtExample>
 	| container topLeft topCenter topRight centerLeft centerCenter centerRight bottomLeft bottomCenter bottomRight |
@@ -91,7 +91,7 @@ BrDropdownExamples >> badgeButton [
 		yourself
 ]
 
-{ #category : #accessing }
+{ #category : #examples }
 BrDropdownExamples >> coloredDropdown [
 	<gtExample>
 	^ BrButton new
@@ -178,25 +178,25 @@ BrDropdownExamples >> coloredDropdown [
 		yourself
 ]
 
-{ #category : #private }
+{ #category : #examples }
 BrDropdownExamples >> compact [
 	<gtExample>
 	| element |
+
 	element := BrButton new
-		look:
-			BrGlamorousButtonWithLabelLook
-				+
-					(BrGlamorousWithDropdownLook
-						handle: [ BrButton new
-								look: BrGlamorousButtonRectangularLook + BrGlamorousButtonLabelLook;
-								label: 'click me';
-								yourself ]
-						content: [ BlElement new
-								background: Color white;
-								size: 100 @ 200;
-								yourself ]);
+		look: BrGlamorousButtonWithLabelLook +
+			(BrGlamorousWithDropdownLook
+				handle: [ BrButton new
+					look: BrGlamorousButtonRectangularLook + BrGlamorousButtonLabelLook;
+					label: 'click me';
+					yourself ]
+				content: [ BlElement new
+					background: Color white;
+					size: 100 @ 200;
+					yourself ]);
 		label: 'click me';
 		yourself.
+
 	^ element
 ]
 
@@ -229,7 +229,7 @@ BrDropdownExamples >> roundedDropdownList [
 		yourself
 ]
 
-{ #category : #'as yet unclassified' }
+{ #category : #examples }
 BrDropdownExamples >> scaledAndAlignedDropdowns [
 	<gtExample>
 	^ self alignedDropdowns

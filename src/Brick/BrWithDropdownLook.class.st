@@ -1,74 +1,161 @@
 Class {
 	#name : #BrWithDropdownLook,
 	#superclass : #BrWithAnchoredLook,
-	#instVars : [
-		'clickEventHandler'
-	],
 	#category : #'Brick-Dropdown - Look'
 }
 
-{ #category : #'as yet unclassified' }
+{ #category : #accessing }
+BrWithDropdownLook class >> anchoredLook [
+	^ self anchoredLookClass new
+]
+
+{ #category : #accessing }
 BrWithDropdownLook class >> anchoredLookClass [
 	^ BrDropdownLook
 ]
 
-{ #category : #'host space - displaying' }
-BrWithDropdownLook >> hide [
-	super hide.
-	widget visibility: BlVisibility visible
+{ #category : #accessing }
+BrWithDropdownLook class >> content: anObject [
+	| instance |
+	
+	instance := nil.
+
+	^ instance := self
+		stencil: [ BlElement new
+				look:
+					(self anchoredLook
+						withAnchoredLook: instance;
+						content: anObject asStencil asElement;
+						yourself);
+				yourself ]
 ]
 
-{ #category : #'as yet unclassified' }
-BrWithDropdownLook >> hideWishClass [
-	^ BrDropdownHideWish
+{ #category : #'instance creation' }
+BrWithDropdownLook class >> handle: anObject content: anotherObject [
+	^ self
+		handle: anObject
+		content: anotherObject
+		lookDo: [ :anAnchoredLook | ]
+]
+
+{ #category : #'instance creation' }
+BrWithDropdownLook class >> handle: anObject content: anotherObject lookDo: aBlock [
+	| instance |
+
+	instance := nil.
+
+	^ instance := self
+		stencil: [
+			| anAnchoredLook |
+			
+			anAnchoredLook := self anchoredLook
+				withAnchoredLook: instance;
+				handle: anObject asStencil asElement;
+				content: anotherObject asStencil asElement;
+				yourself.
+
+			aBlock value: anAnchoredLook.
+			
+			BlElement new
+				look: anAnchoredLook;
+				yourself ]
+]
+
+{ #category : #'api - displaying' }
+BrWithDropdownLook >> hide [
+	super hide.
+
+	self widgetDo: [ :aWidget | aWidget visibility: BlVisibility visible ]
 ]
 
 { #category : #initialization }
 BrWithDropdownLook >> initialize [
 	super initialize.
-	clickEventHandler := BlEventHandler
-		on: BlClickEvent
-		do: [ :e | self show ].
+	preferredExtent := 200 @ 300.
+	strategy := BrAnchoredCompositeStrategy builder
+		single: [ :e | 
+			e
+				anchorBounds: [ :f | widget bounds inParent: f ];
+				referencePoint: BrAnchoredTopLeftReferencePoint;
+				availableBounds: BrAnchoredBottomRightAvailableBounds;
+				apply: [ innerContainer look
+						remove: BrDropdownBottomLeftLook;
+						remove: BrDropdownTopLeftLook;
+						remove: BrDropdownTopRightLook;
+						add: BrDropdownBottomRightLook ] ];
+		single: [ :e | 
+			e
+				anchorBounds: [ :f | widget bounds inParent: f ];
+				referencePoint: BrAnchoredTopRightReferencePoint;
+				availableBounds: BrAnchoredBottomLeftAvailableBounds;
+				apply: [ innerContainer look
+						remove: BrDropdownBottomRightLook;
+						remove: BrDropdownTopLeftLook;
+						remove: BrDropdownTopRightLook;
+						add: BrDropdownBottomLeftLook ] ];
+		single: [ :e | 
+			e
+				anchorBounds: [ :f | widget bounds inParent: f ];
+				referencePoint: BrAnchoredBottomLeftReferencePoint;
+				availableBounds: BrAnchoredTopRightAvailableBounds;
+				apply: [ innerContainer look
+						remove: BrDropdownBottomRightLook;
+						remove: BrDropdownBottomLeftLook;
+						remove: BrDropdownTopLeftLook;
+						add: BrDropdownTopRightLook ] ];
+		single: [ :e | 
+			e
+				anchorBounds: [ :f | widget bounds inParent: f ];
+				referencePoint: BrAnchoredBottomRightReferencePoint;
+				availableBounds: BrAnchoredTopLeftAvailableBounds;
+				apply: [ innerContainer look
+						remove: BrDropdownBottomRightLook;
+						remove: BrDropdownBottomLeftLook;
+						remove: BrDropdownTopRightLook;
+						add: BrDropdownTopLeftLook ] ];
+		build.
+]
+
+{ #category : #initialization }
+BrWithDropdownLook >> initializeListeners [
+	super initializeListeners.
+
 	self
-		addChange:
-			(BrLookChange new
-				up: [ :e | widget addEventFilter: clickEventHandler ];
-				down: [ :e | widget removeEventFilter: clickEventHandler ];
-				yourself)
+		when: BrDropdownStencilChanged
+		do: [ :anEvent | self stencil: anEvent stencil ].
+
+	self
+		when: BrDropdownVisibleChanged
+		do: [ :anEvent | self visible: anEvent visible ].
+
+	self
+		when: BrDropdownRelocateWish
+		do: [ :aWish | self onRelocateWish: aWish ].
+		
+	self
+		when: BrDropdownShowWish
+		do: [ :aWish | self onShowWish: aWish ].
+		
+	self
+		when: BrDropdownHideWish
+		do: [ :aWish | self onHideWish: aWish ].
+	
+	self
+		when: BlClickEvent
+		do: [ self show ]
 ]
 
-{ #category : #'as yet unclassified' }
-BrWithDropdownLook >> relocateWish [
-	^ BrDropdownRelocateWish new
+{ #category : #initialization }
+BrWithDropdownLook >> initializeRequests [
+	super initializeRequests.
+
+	self request: BrDropdownStencilRequest new.
+	self request: BrDropdownVisibleRequest new
 ]
 
-{ #category : #'host space - displaying' }
+{ #category : #'api - displaying' }
 BrWithDropdownLook >> show [
 	super show.
-	widget visibility: BlVisibility hidden
-]
 
-{ #category : #'as yet unclassified' }
-BrWithDropdownLook >> showWishClass [
-	^ BrDropdownShowWish
-]
-
-{ #category : #'as yet unclassified' }
-BrWithDropdownLook >> stencilChangedClass [
-	^ BrDropdownStencilChanged
-]
-
-{ #category : #'as yet unclassified' }
-BrWithDropdownLook >> stencilRequest [
-	^ BrDropdownStencilRequest new
-]
-
-{ #category : #'as yet unclassified' }
-BrWithDropdownLook >> visibleChangedClass [
-	^ BrDropdownVisibleChanged
-]
-
-{ #category : #'as yet unclassified' }
-BrWithDropdownLook >> visibleRequest [
-	^ BrDropdownVisibleRequest new
+	self widgetDo: [ :aWidget | aWidget visibility: BlVisibility hidden ]
 ]

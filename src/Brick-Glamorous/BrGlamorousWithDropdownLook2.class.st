@@ -1,10 +1,10 @@
 Class {
 	#name : #BrGlamorousWithDropdownLook2,
-	#superclass : #BrWithDropdownLook2,
+	#superclass : #BrGlamorousWithDropdownLook,
 	#category : #'Brick-Glamorous-Dropdown'
 }
 
-{ #category : #'as yet unclassified' }
-BrGlamorousWithDropdownLook2 class >> anchoredLookClass [
-	^ BrGlamorousDropdownLook2
+{ #category : #testing }
+BrGlamorousWithDropdownLook2 class >> isDeprecated [
+	^ true
 ]

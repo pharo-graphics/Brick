@@ -85,7 +85,7 @@ BrAnchoredExamples >> dropdown [
 		yourself.
 	anchor := BlElement new
 		look:
-			((BrGlamorousWithDropdownLook2 handle: handle content: content)
+			((BrGlamorousWithDropdownLook handle: handle content: content)
 				root: container;
 				yourself);
 		background: Color red;

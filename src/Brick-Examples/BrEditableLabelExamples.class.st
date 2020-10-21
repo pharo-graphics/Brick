@@ -82,6 +82,66 @@ BrEditableLabelExamples >> editableLabelWithGlamorousLook [
 	^ anEditableLabel
 ]
 
+{ #category : #'examples - scripter' }
+BrEditableLabelExamples >> scripter_01_initial [
+	<gtExample>
+	| aScripter |
+	
+	aScripter := BlDevScripter new.
+	aScripter
+		substep: 'Add editable label'
+		do: [ :aStep | 
+			aStep set
+				label: 'Editable label';
+				element: [ self editableLabelWithGlamorousLook ] ].
+	
+	^ aScripter syncContinue
+]
+
+{ #category : #'examples - scripter' }
+BrEditableLabelExamples >> scripter_02_double_click_to_edit [
+	<gtExample>
+	| aScripter |
+	
+	aScripter := self scripter_01_initial.
+	aScripter
+		substep: 'Switch to the edit mode'
+		do: [ :aStep |
+			aStep doubleClick.
+			
+			aStep check
+				label: 'Check edit mode';
+				satisfies: [ :anEditableLabel | anEditableLabel isEditable ].
+				
+			aStep check
+				label: 'Check has focus';
+				satisfies: [ :anEditableLabel | anEditableLabel isFocused ] ].
+
+	^ aScripter syncContinue
+]
+
+{ #category : #'examples - scripter' }
+BrEditableLabelExamples >> scripter_03_press_esc_to_cancel_changes [
+	<gtExample>
+	| aScripter |
+	
+	aScripter := self scripter_02_double_click_to_edit.
+	aScripter
+		substep: 'Switch back to readonly'
+		do: [ :aStep |
+			aStep keyClick: BlKeyboardKey escape.
+
+			aStep check
+				label: 'Check readonly mode';
+				satisfies: [ :anEditableLabel | anEditableLabel isReadOnly ].
+
+			aStep check
+				label: 'Check still has focus';
+				satisfies: [ :anEditableLabel | anEditableLabel isFocused ] ].
+
+	^ aScripter syncContinue
+]
+
 { #category : #'examples - actions' }
 BrEditableLabelExamples >> switchToEditor [
 	<gtExample>

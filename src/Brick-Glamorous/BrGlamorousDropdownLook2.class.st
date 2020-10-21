@@ -1,12 +1,10 @@
 Class {
 	#name : #BrGlamorousDropdownLook2,
-	#superclass : #BrDropdownLook2,
+	#superclass : #BrGlamorousDropdownLook,
 	#category : #'Brick-Glamorous-Dropdown'
 }
 
-{ #category : #'instance creation' }
-BrGlamorousDropdownLook2 >> initialize [
-	super initialize.
-
-	self add: BrGlamorousAnchoredLook
+{ #category : #testing }
+BrGlamorousDropdownLook2 class >> isDeprecated [
+	^ true
 ]
