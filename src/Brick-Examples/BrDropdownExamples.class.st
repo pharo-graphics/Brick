@@ -138,23 +138,23 @@ BrDropdownExamples >> coloredDropdown [
 { #category : #examples }
 BrDropdownExamples >> compact [
 	<gtExample>
-	| element |
 
-	element := BrButton new
+	^ BrButton new
 		look: BrGlamorousButtonWithLabelLook +
 			(BrGlamorousWithDropdownLook
-				handle: [ BrButton new
-					look: BrGlamorousButtonRectangularLook + BrGlamorousButtonLabelLook;
-					label: 'click me';
-					yourself ]
-				content: [ BlElement new
-					background: Color white;
-					size: 100 @ 200;
-					yourself ]);
+				handle: [
+					BrButton new
+						look: BrGlamorousButtonRectangularLook + BrGlamorousButtonLabelLook;
+						label: 'click me';
+						yourself ]
+				content: [
+					BlElement new
+						background: (Color gray alpha: 0.2);
+						size: 100 @ 100;
+						margin: (BlInsets all: 10);
+						yourself ]);
 		label: 'click me';
-		yourself.
-
-	^ element
+		yourself
 ]
 
 { #category : #'examples - hide' }
@@ -260,17 +260,15 @@ BrDropdownExamples >> popupList [
 { #category : #examples }
 BrDropdownExamples >> roundedDropdownList [
 	<gtExample>
+
 	^ self toggleButton
-		look:
-			BrGlamorousButtonWithLabelAndIconLook
-				+
-					(BrGlamorousWithDropdownLook
-						handle: [ self toggleButton
-								look:
-									BrGlamorousButtonWithLabelAndIconLook - BrGlamorousButtonExteriorLook;
-								yourself ]
-						content: [ self popupList ]);
-		relocate: 200 @ 100;
+		look: BrGlamorousButtonWithLabelAndIconLook +
+			(BrGlamorousWithDropdownLook
+				handle: [
+					self toggleButton
+						look: BrGlamorousButtonWithLabelAndIconLook - BrGlamorousButtonExteriorLook;
+						yourself ]
+				content: [ self popupList ]);
 		yourself
 ]
 

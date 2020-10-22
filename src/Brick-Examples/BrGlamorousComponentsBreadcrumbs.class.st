@@ -1,5 +1,5 @@
 "
-! Breadcrumb
+!Breadcrumb
 Indicate the current location within a navigational hierarchy that automatically adds separators between items.
 !!!!With labels
 ${example:BrGlamorousComponentsBreadcrumbs>>#breadcrumbWithLabels|previewShow=#gtLiveFor:|previewHeight=65|previewExpanded=true|codeExpanded=false}$

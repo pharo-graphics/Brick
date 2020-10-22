@@ -1,10 +1,10 @@
 "
-! Lists
+!Lists
 Use lists to display large datasets.
-!! Simple
-!!!! List of all classes
+!!Simple
+!!!!List of all classes
 ${example:BrGlamorousComponentsLists>>#listOfClasses|previewShow=#gtLiveFor:|previewHeight=250|previewExpanded=true|codeExpanded=false}$
-!!!! List of colors
+!!!!List of colors
 ${example:BrGlamorousComponentsLists>>#listOfColors|previewShow=#gtLiveFor:|previewHeight=250|previewExpanded=true|codeExpanded=false}$
 !!Columned
 !!!! Columned list of colors

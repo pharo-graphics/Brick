@@ -1,5 +1,5 @@
 "
-! Accordion
+!Accordion
 The accordion is a graphical control element that can be ""expanded"" or ""collapsed"" to reveal the content associated with that element. 
 See ${class:BrAccordionExamples|label=Accordion examples}$ for a deeper dive into the api.
 !!!!With editor

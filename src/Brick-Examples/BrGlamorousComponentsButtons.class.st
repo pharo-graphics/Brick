@@ -1,14 +1,14 @@
 "
-! Buttons
+!Buttons
 Use Glamorous buttons for actions in forms, popups or other views with support for multiple styles, sizes, states and more.
-!!! Relevant documents
+!!!Relevant documents
 ${class:BrButtonExamples|label=Building a custom button look}$, ${class:BrButtonModelExamples|label=Learning how button model works}$, ${class:BrButtonLabelLookExamples|label=Playing with button label look}$
-!! With label
-!!!! Default labelled button
+!!With label
+!!!!Default labelled button
 ${example:BrGlamorousComponentsButtons>>#withLabel|previewShow=#gtLiveFor:|previewHeight=65|previewExpanded=true|codeExpanded=false}$
-!!!! Disabled labelled button
+!!!!Disabled labelled button
 ${example:BrGlamorousComponentsButtons>>#withLabelDisabled|previewShow=#gtLiveFor:|previewHeight=65|previewExpanded=true|codeExpanded=false}$
-!!!! Labelled buttons of different size
+!!!!Labelled buttons of different size
 ${example:BrGlamorousComponentsButtons>>#withLabelSizes|previewShow=#gtLiveFor:|previewHeight=85|previewExpanded=true|codeExpanded=false}$
 "
 Class {
