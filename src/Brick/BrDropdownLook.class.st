@@ -20,9 +20,10 @@ BrDropdownLook >> initialize [
 
 	clickEventHandler := BlEventHandler
 		on: BlClickEvent
-		do: [ :e | 
-			withAnchoredLook canHide
-				ifTrue: [ withAnchoredLook hide ] ].
+		do: [ :anEvent |
+			anEvent consumed: true.
+			anEvent currentTarget fireEvent: BrDropdownHideWish new ].
+
 	self
 		addChange:
 			(BrLookChange new

@@ -94,71 +94,27 @@ BrDropdownExamples >> badgeButton [
 { #category : #examples }
 BrDropdownExamples >> coloredDropdown [
 	<gtExample>
-	^ BrButton new
-		size: 20 @ 20;
-		geometry: (BlRoundedRectangleGeometry cornerRadius: 10);
-		label: 'howdy';
-		look:
-			(BrInteractiveCommonLook new
-				default: [ :e | 
-					e
-						background: BrGlamorousColors defaultButtonBorderColor;
-						border:
-							(BlBorder
-								paint: BrGlamorousColors defaultButtonBackgroundColor
-								width: 3) ];
-				hovered: [ :e | 
-					e
-						background: BrGlamorousColors hoveredButtonBorderColor;
-						border:
-							(BlBorder
-								paint: BrGlamorousColors defaultButtonBackgroundColor
-								width: 3) ]) + BrGlamorousButtonWithLabelTooltipLook
-				+
-					(BrGlamorousWithContextMenuLook
-						content: [ BrGlamorousSimpleContextMenuContent new
-								display:
-									{('Change to blue' -> [ :e | e background: Color blue ]).
-									('Change to red' -> [ :e | e background: Color red ]).
-									('Change to green' -> [ :e | e background: Color green ])};
-								yourself ])
-				+
-					(BrGlamorousWithDropdownLook
-						stencil: [ BrAnchoredElement new
-								look:
-									(BrGlamorousDropdownLook new
-										handle:
-											(BrButton new
-												size: 20 @ 20;
-												geometry: (BlRoundedRectangleGeometry cornerRadius: 10);
-												look:
-													(BrInteractiveCommonLook new
-														default: [ :e | 
-															e
-																background: BrGlamorousColors defaultButtonBorderColor;
-																border:
-																	(BlBorder
-																		paint: BrGlamorousColors defaultButtonBackgroundColor
-																		width: 3) ];
-														hovered: [ :e | 
-															e
-																background: BrGlamorousColors hoveredButtonBorderColor;
-																border:
-																	(BlBorder
-																		paint: BrGlamorousColors defaultButtonBackgroundColor
-																		width: 3) ]);
-												yourself);
-										content:
-											(BlElement new
-												layout: BlLinearLayout vertical;
-												constraintsDo: [ :c | 
-													c horizontal fitContent.
-													c vertical fitContent ];
-												addChild:
-													(BrEditor new
-														look: BrGlamorousCodeEditorLook;
-														text:
-															'<content>
+	| aButtonCircularLook aWithDropdownLook |
+	
+	aButtonCircularLook := [ BrInteractiveCommonLook new
+		default: [ :e | e
+			background: BrGlamorousColors defaultButtonBorderColor;
+			border: (BlBorder
+				paint: BrGlamorousColors defaultButtonBackgroundColor
+				width: 3) ];
+		hovered: [ :e | e background: BrGlamorousColors hoveredButtonBorderColor ] ] asStencil.
+
+	aWithDropdownLook := BrGlamorousWithDropdownLook
+		handle: [
+			BrButton new
+				size: 20 @ 20;
+				geometry: (BlRoundedRectangleGeometry cornerRadius: 10);
+				look: aButtonCircularLook create ]
+		content: [ 
+			BrEditor new
+				look: BrGlamorousCodeEditorLook;
+				text:
+					'<content>
 
 
 
@@ -166,15 +122,16 @@ BrDropdownExamples >> coloredDropdown [
 
 
 </content>';
-														padding: (BlInsets all: 10);
-														constraintsDo: [ :c | 
-															c horizontal matchParent.
-															c vertical matchParent ];
-														yourself);
-												yourself);
-										yourself);
-								in: [ :e | e geometry: (BrAnchoredGeometry cornerRadius: 10 element: e) ];
-								yourself ]);
+				padding: (BlInsets all: 10);
+				matchParent;
+				yourself ]
+			lookDo: [ :aDropdownLook | aDropdownLook cornerRadius: 10 ].
+
+	^ BrButton new
+		size: 20 @ 20;
+		geometry: (BlRoundedRectangleGeometry cornerRadius: 10);
+		label: 'howdy';
+		look: aButtonCircularLook create + aWithDropdownLook;
 		yourself
 ]
 
@@ -198,6 +155,94 @@ BrDropdownExamples >> compact [
 		yourself.
 
 	^ element
+]
+
+{ #category : #'examples - hide' }
+BrDropdownExamples >> hideOnClickViaDropdownLook [
+	<gtExample>
+	| aWithDropdownLook |
+	
+	aWithDropdownLook := nil.
+	aWithDropdownLook := BrGlamorousWithDropdownLook
+		handle: [
+			BrButton new
+				look: BrGlamorousButtonRectangularLook + BrGlamorousButtonIconLook;
+				icon: BrGlamorousIcons menu ]
+		content: [ 
+			BrButton new
+				look: BrGlamorousButtonWithLabelLook new;
+				label: 'Close';
+				margin: (BlInsets all: 20);
+				action: [ :aButton | aWithDropdownLook hide ] ].
+
+	^ BrButton new
+		look: BrGlamorousButtonWithIconLook + aWithDropdownLook;
+		icon: BrGlamorousIcons menu;
+		yourself
+]
+
+{ #category : #'examples - hide' }
+BrDropdownExamples >> hideOnClickViaWish [
+	<gtExample>
+	| aWithDropdownLook |
+	
+	aWithDropdownLook := BrGlamorousWithDropdownLook
+		handle: [
+			BrButton new
+				look: BrGlamorousButtonRectangularLook + BrGlamorousButtonIconLook;
+				icon: BrGlamorousIcons menu ]
+		content: [ 
+			BrButton new
+				look: BrGlamorousButtonWithLabelLook new;
+				label: 'Close';
+				margin: (BlInsets all: 20);
+				action: [ :aButton | aButton fireEvent: BrDropdownHideWish new ] ].
+
+	^ BrButton new
+		look: BrGlamorousButtonWithIconLook + aWithDropdownLook;
+		icon: BrGlamorousIcons menu;
+		yourself
+]
+
+{ #category : #'examples - hide' }
+BrDropdownExamples >> hideOnClickViaWishInNestedDropdown [
+	<gtExample>
+	| aWithDropdownLook |
+	
+	aWithDropdownLook := BrGlamorousWithDropdownLook
+		handle: [
+			BrButton new
+				look: BrGlamorousButtonRectangularLook + BrGlamorousButtonIconLook;
+				icon: BrGlamorousIcons menu ]
+		content: [ 
+			BrVerticalPane new
+				fitContent;
+				padding: (BlInsets all: 20);
+				addChildren: { 
+					BrButton new
+						look: BrGlamorousButtonWithLabelLook new;
+						label: 'Close';
+						margin: (BlInsets bottom: 20);
+						action: [ :aButton | aButton fireEvent: BrDropdownHideWish new ].
+					BrButton new
+						look: BrGlamorousButtonWithIconLook + (BrGlamorousWithDropdownLook
+							handle: [
+								BrButton new
+									look: BrGlamorousButtonRectangularLook + BrGlamorousButtonIconLook;
+									icon: BrGlamorousIcons menu ]
+							content: [ 
+								BrButton new
+									look: BrGlamorousButtonWithLabelLook new;
+									margin: (BlInsets all: 20);
+									label: 'Close';
+									action: [ :aButton | aButton fireEvent: BrDropdownHideWish new ] ]);
+						icon: BrGlamorousIcons menu
+					} ].
+
+	^ BrButton new
+		look: BrGlamorousButtonWithIconLook + aWithDropdownLook;
+		icon: BrGlamorousIcons menu;
+		yourself
 ]
 
 { #category : #'instance creation' }
@@ -247,23 +292,21 @@ BrDropdownExamples >> scaledAndAlignedDropdowns [
 { #category : #examples }
 BrDropdownExamples >> suggesterBadgeDropdownList [
 	<gtExample>
+
 	^ self badgeButton
-		look:
-			BrTextLabelLook
-				+
-					(BrWithDropdownLook new
-						stencil: [ BrAnchoredElement new
-								look:
-									(BrDropdownLook new
-										handle:
-											(self badgeButton
-												look: BrTextLabelLook;
-												yourself);
-										content: self popupList;
+		look: BrTextLabelLook +
+			(BrGlamorousWithDropdownLook new
+				stencil: [
+					BrAnchoredElement new
+						look: (BrDropdownLook new
+								handle:
+									(self badgeButton
+										look: BrTextLabelLook;
 										yourself);
-								border: (BlBorder paint: Color orange width: 1);
-								yourself ];
-						yourself);
+								content: (self popupList border: (BlBorder paint: Color orange width: 1));
+								yourself);
+						yourself ];
+				yourself);
 		relocate: 200 @ 100;
 		yourself
 ]

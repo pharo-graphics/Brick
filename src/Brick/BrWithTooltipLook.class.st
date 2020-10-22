@@ -13,41 +13,35 @@ Class {
 	#category : #'Brick-Tooltip - Look'
 }
 
-{ #category : #'as yet unclassified' }
+{ #category : #'instance creation' }
 BrWithTooltipLook class >> anchoredLook [
 	^ self anchoredLookClass new
 ]
 
-{ #category : #'as yet unclassified' }
+{ #category : #accessing }
 BrWithTooltipLook class >> anchoredLookClass [
 	^ BrTooltipLook
 ]
 
-{ #category : #accessing }
+{ #category : #'instance creation' }
 BrWithTooltipLook class >> content: anObject [
-	| instance |
-	^ instance := self
-		stencil: [ BlElement new
-				look:
-					(self anchoredLook
-						withAnchoredLook: instance;
-						content: anObject asStencil asElement;
-						yourself);
-				yourself ]
+	^ self stencil: [
+		BrAnchoredElement new
+			look: (self anchoredLook
+				content: anObject asStencil asElement;
+				yourself);
+			yourself ]
 ]
 
-{ #category : #'as yet unclassified' }
+{ #category : #'instance creation' }
 BrWithTooltipLook class >> handle: anObject content: anotherObject [
-	| instance |
-	^ instance := self
-		stencil: [ BlElement new
-				look:
-					(self anchoredLook
-						withAnchoredLook: instance;
-						handle: anObject asStencil asElement;
-						content: anotherObject asStencil asElement;
-						yourself);
-				yourself ]
+	^ self stencil: [
+		BrAnchoredElement new
+			look: (self anchoredLook
+				handle: anObject asStencil asElement;
+				content: anotherObject asStencil asElement;
+				yourself);
+			yourself ]
 ]
 
 { #category : #accessing }
@@ -65,10 +59,8 @@ BrWithTooltipLook >> cancelShowLater [
 { #category : #accessing }
 BrWithTooltipLook >> contentStencil: aStencil [
 	self stencil: [ 
-		BlElement new
-			look: (self class anchoredLook
-						withAnchoredLook: self;
-						content: aStencil asStencil asElement) ]
+		BrAnchoredElement new
+			look: (self class anchoredLook content: aStencil asStencil asElement) ]
 ]
 
 { #category : #accessing }

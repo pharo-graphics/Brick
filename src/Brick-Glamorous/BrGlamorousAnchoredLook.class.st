@@ -2,7 +2,8 @@ Class {
 	#name : #BrGlamorousAnchoredLook,
 	#superclass : #BrLook,
 	#instVars : [
-		'background'
+		'background',
+		'cornerRadius'
 	],
 	#category : #'Brick-Glamorous-Anchored'
 }
@@ -18,16 +19,31 @@ BrGlamorousAnchoredLook >> background: aBlBackground [
 	self widgetDo: [ :aWidget | aWidget background: background ]
 ]
 
+{ #category : #accessing }
+BrGlamorousAnchoredLook >> cornerRadius [
+	<return: #Number>
+
+	^ cornerRadius
+]
+
+{ #category : #accessing }
+BrGlamorousAnchoredLook >> cornerRadius: aNumber [
+	cornerRadius := aNumber.
+	
+	self widgetDo: [ :aWidget | aWidget geometry: (BrAnchoredGeometry cornerRadius: aNumber element: aWidget) ]
+]
+
 { #category : #'instance creation' }
 BrGlamorousAnchoredLook >> initialize [
 	super initialize.
 	
 	background := Color white.
+	cornerRadius := 4.
 	
 	self
 		add: BrShadowLook new;
 		addChangeProperty: #(widget geometry)
-			with: [ BrAnchoredGeometry cornerRadius: 4 element: widget ];
+			with: [ BrAnchoredGeometry cornerRadius: self cornerRadius element: widget ];
 		addChangeProperty: #(widget background) with: [ self background ];
 		addChangeProperty: #(widget border)
 			with: [ BlBorder

@@ -1,6 +1,9 @@
 Class {
 	#name : #BrWithDropdownLook,
 	#superclass : #BrWithAnchoredLook,
+	#instVars : [
+		'hideWishHandler'
+	],
 	#category : #'Brick-Dropdown - Look'
 }
 
@@ -16,18 +19,12 @@ BrWithDropdownLook class >> anchoredLookClass [
 
 { #category : #accessing }
 BrWithDropdownLook class >> content: anObject [
-	| instance |
-	
-	instance := nil.
-
-	^ instance := self
-		stencil: [ BlElement new
-				look:
-					(self anchoredLook
-						withAnchoredLook: instance;
-						content: anObject asStencil asElement;
-						yourself);
-				yourself ]
+	^ self stencil: [
+		BrAnchoredElement new
+			look: (self anchoredLook
+				content: anObject asStencil asElement;
+				yourself);
+			yourself ]
 ]
 
 { #category : #'instance creation' }
@@ -40,23 +37,18 @@ BrWithDropdownLook class >> handle: anObject content: anotherObject [
 
 { #category : #'instance creation' }
 BrWithDropdownLook class >> handle: anObject content: anotherObject lookDo: aBlock [
-	| instance |
-
-	instance := nil.
-
-	^ instance := self
+	^ self
 		stencil: [
 			| anAnchoredLook |
 			
 			anAnchoredLook := self anchoredLook
-				withAnchoredLook: instance;
 				handle: anObject asStencil asElement;
 				content: anotherObject asStencil asElement;
 				yourself.
 
 			aBlock value: anAnchoredLook.
 			
-			BlElement new
+			BrAnchoredElement new
 				look: anAnchoredLook;
 				yourself ]
 ]
@@ -71,6 +63,11 @@ BrWithDropdownLook >> hide [
 { #category : #initialization }
 BrWithDropdownLook >> initialize [
 	super initialize.
+	
+	hideWishHandler := BlEventHandler
+		on: BrDropdownHideWish
+		do: [ :aWish | self onHideWish: aWish ].
+	
 	preferredExtent := 200 @ 300.
 	strategy := BrAnchoredCompositeStrategy builder
 		single: [ :e | 
@@ -151,6 +148,16 @@ BrWithDropdownLook >> initializeRequests [
 
 	self request: BrDropdownStencilRequest new.
 	self request: BrDropdownVisibleRequest new
+]
+
+{ #category : #'private - hooks' }
+BrWithDropdownLook >> onAnchoredElementCreated: anAnchoredElement [
+	anAnchoredElement addEventHandler: hideWishHandler
+]
+
+{ #category : #'private - hooks' }
+BrWithDropdownLook >> onAnchoredElementRemoved: anAnchoredElement [
+	anAnchoredElement removeEventHandler: hideWishHandler
 ]
 
 { #category : #'api - displaying' }

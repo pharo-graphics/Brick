@@ -21,29 +21,23 @@ BrWithContextMenuLook class >> anchoredLookClass [
 
 { #category : #accessing }
 BrWithContextMenuLook class >> content: anObject [
-	| instance |
-	^ instance := self
-		stencil: [ BlElement new
-				look:
-					(self anchoredLook
-						withAnchoredLook: instance;
-						content: anObject asStencil asElement;
-						yourself);
-				yourself ]
+	^ self stencil: [
+		BrAnchoredElement new
+			look: (self anchoredLook
+				content: anObject asStencil asElement;
+				yourself);
+			yourself ]
 ]
 
 { #category : #'instance creation' }
 BrWithContextMenuLook class >> handle: anObject content: anotherObject [
-	| instance |
-	^ instance := self
-		stencil: [ BlElement new
-				look:
-					(self anchoredLook
-						withAnchoredLook: instance;
-						handle: anObject asStencil asElement;
-						content: anotherObject asStencil asElement;
-						yourself);
-				yourself ]
+	^ self stencil: [
+		BrAnchoredElement new
+			look: (self anchoredLook
+				handle: anObject asStencil asElement;
+				content: anotherObject asStencil asElement;
+				yourself);
+			yourself ]
 ]
 
 { #category : #initialization }

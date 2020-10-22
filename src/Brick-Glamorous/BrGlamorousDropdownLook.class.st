@@ -12,6 +12,11 @@ BrGlamorousDropdownLook >> background: aBlBackground [
 	anchoredLook background: aBlBackground
 ]
 
+{ #category : #'api - text style' }
+BrGlamorousDropdownLook >> cornerRadius: aNumber [
+	anchoredLook cornerRadius: aNumber
+]
+
 { #category : #'instance creation' }
 BrGlamorousDropdownLook >> initialize [
 	super initialize.

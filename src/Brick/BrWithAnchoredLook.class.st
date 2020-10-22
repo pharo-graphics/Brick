@@ -48,9 +48,11 @@ BrWithAnchoredLook >> canShow [
 					[ widget isAttachedToSceneGraph and: [ widget visibility shouldDraw ] ] ]
 ]
 
-{ #category : #accessing }
+{ #category : #'api - displaying' }
 BrWithAnchoredLook >> hide [
-	self assert: [ self canHide ].
+	self canHide
+		ifFalse: [ ^ self ].
+
 	widget
 		removeEventHandler: extentChangedEventHandler;
 		removeEventHandler: positionInSpaceChangedEventHandler.
@@ -64,6 +66,8 @@ BrWithAnchoredLook >> hide [
 	innerContainer
 		dequeueTask: watchDog;
 		removeEventHandler: extentChangedEventHandler.
+	
+	self onAnchoredElementRemoved: innerContainer.	
 	innerContainer := nil
 ]
 
@@ -77,6 +81,7 @@ BrWithAnchoredLook >> initialize [
 			(widget isAttachedToSceneGraph not and: [ self canHide ])
 				ifTrue: [ self hide ] ];
 		yourself.
+	
 	clickOutsideEventHandler := BlEventHandler
 		on: BlMouseUpEvent
 		do: [ :e | 
@@ -115,12 +120,29 @@ BrWithAnchoredLook >> initialize [
 				yourself)
 ]
 
+{ #category : #'private - hooks' }
+BrWithAnchoredLook >> onAnchoredElementCreated: anAnchoredElement [
+]
+
+{ #category : #'private - hooks' }
+BrWithAnchoredLook >> onAnchoredElementRemoved: anAnchoredElement [
+]
+
 { #category : #'private - event handling' }
 BrWithAnchoredLook >> onHideWish: aWish [
 	"hide on wish"
 	
-	(aWish anchor = widget and: [ self canHide ])
-		ifTrue: [ self hide ]
+	"if an anchor is explicitely specified we can hide"
+	(aWish anchor = widget)
+		ifTrue: [
+			aWish consumed: true.
+			^ self hide ].
+	
+	"if anchor is not specify we can check the source of the wish"
+	(aWish anchor isNil and: [ aWish source hasParent: innerContainer ])
+		ifTrue: [ 
+			aWish consumed: true.
+			^ self hide ]
 ]
 
 { #category : #'private - event handling' }
@@ -149,12 +171,12 @@ BrWithAnchoredLook >> preferredExtent: anObject [
 		ifTrue: [ self canRelocate ]
 ]
 
-{ #category : #'host space - displaying' }
+{ #category : #'private - event handling' }
 BrWithAnchoredLook >> relocate [
 	self relocate: nil
 ]
 
-{ #category : #'host space - displaying' }
+{ #category : #'private - event handling' }
 BrWithAnchoredLook >> relocate: aRelocateEvent [
 	self assert: [ self canRelocate ].
 	strategy
@@ -179,13 +201,18 @@ BrWithAnchoredLook >> root: anElement [
 		ifTrue: [ self show ]
 ]
 
-{ #category : #'host space - displaying' }
+{ #category : #'api - displaying' }
 BrWithAnchoredLook >> show [
-	self assert: [ self canShow ].
+	self canShow
+		ifFalse: [ ^ self ].
+	
 	self flag: 'TODO extentChangedEventHandler really needed on inner container?'.
 	innerContainer := stencil asElement
 		addEventHandler: extentChangedEventHandler;
 		yourself.
+	
+	self onAnchoredElementCreated: innerContainer.	
+	
 	watchDog isRunning ifFalse:
 		[ innerContainer enqueueTask: watchDog ].
 	
