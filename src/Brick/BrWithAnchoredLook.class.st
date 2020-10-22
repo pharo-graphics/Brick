@@ -178,7 +178,9 @@ BrWithAnchoredLook >> relocate [
 
 { #category : #'private - event handling' }
 BrWithAnchoredLook >> relocate: aRelocateEvent [
-	self assert: [ self canRelocate ].
+	self canRelocate
+		ifFalse: [ ^ self ].
+	
 	strategy
 		invalidate: outerContainer
 		forPreferredExtent: preferredExtent
