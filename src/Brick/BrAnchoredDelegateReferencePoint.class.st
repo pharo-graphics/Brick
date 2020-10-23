@@ -15,6 +15,11 @@ BrAnchoredDelegateReferencePoint class >> block: aBlock [
 ]
 
 { #category : #accessing }
+BrAnchoredDelegateReferencePoint class >> label [
+	^ 'Delegate'
+]
+
+{ #category : #accessing }
 BrAnchoredDelegateReferencePoint >> block [
 	^ block
 ]
@@ -27,4 +32,11 @@ BrAnchoredDelegateReferencePoint >> block: anObject [
 { #category : #'as yet unclassified' }
 BrAnchoredDelegateReferencePoint >> from: aBounds [
 	^ block cull: aBounds
+]
+
+{ #category : #initialization }
+BrAnchoredDelegateReferencePoint >> initialize [
+	super initialize.
+	
+	block := [ :theBounds | 0@0 ]
 ]
