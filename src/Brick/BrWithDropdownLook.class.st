@@ -75,41 +75,41 @@ BrWithDropdownLook >> initialize [
 				anchorBounds: [ :f | widget bounds inParent: f ];
 				referencePoint: BrAnchoredTopLeftReferencePoint;
 				availableBounds: BrAnchoredBottomRightAvailableBounds;
-				apply: [ innerContainer look
-						remove: BrDropdownBottomLeftLook;
-						remove: BrDropdownTopLeftLook;
-						remove: BrDropdownTopRightLook;
-						add: BrDropdownBottomRightLook ] ];
+				apply: [ innerContainer
+						removeLook: BrDropdownBottomLeftLook;
+						removeLook: BrDropdownTopLeftLook;
+						removeLook: BrDropdownTopRightLook;
+						addLook: BrDropdownBottomRightLook ] ];
 		single: [ :e | 
 			e
 				anchorBounds: [ :f | widget bounds inParent: f ];
 				referencePoint: BrAnchoredTopRightReferencePoint;
 				availableBounds: BrAnchoredBottomLeftAvailableBounds;
-				apply: [ innerContainer look
-						remove: BrDropdownBottomRightLook;
-						remove: BrDropdownTopLeftLook;
-						remove: BrDropdownTopRightLook;
-						add: BrDropdownBottomLeftLook ] ];
+				apply: [ innerContainer
+						removeLook: BrDropdownBottomRightLook;
+						removeLook: BrDropdownTopLeftLook;
+						removeLook: BrDropdownTopRightLook;
+						addLook: BrDropdownBottomLeftLook ] ];
 		single: [ :e | 
 			e
 				anchorBounds: [ :f | widget bounds inParent: f ];
 				referencePoint: BrAnchoredBottomLeftReferencePoint;
 				availableBounds: BrAnchoredTopRightAvailableBounds;
-				apply: [ innerContainer look
-						remove: BrDropdownBottomRightLook;
-						remove: BrDropdownBottomLeftLook;
-						remove: BrDropdownTopLeftLook;
-						add: BrDropdownTopRightLook ] ];
+				apply: [ innerContainer
+						removeLook: BrDropdownBottomRightLook;
+						removeLook: BrDropdownBottomLeftLook;
+						removeLook: BrDropdownTopRightLook;
+						addLook: BrDropdownTopLeftLook ] ];
 		single: [ :e | 
 			e
 				anchorBounds: [ :f | widget bounds inParent: f ];
 				referencePoint: BrAnchoredBottomRightReferencePoint;
 				availableBounds: BrAnchoredTopLeftAvailableBounds;
-				apply: [ innerContainer look
-						remove: BrDropdownBottomRightLook;
-						remove: BrDropdownBottomLeftLook;
-						remove: BrDropdownTopRightLook;
-						add: BrDropdownTopLeftLook ] ];
+				apply: [ innerContainer
+						removeLook: BrDropdownBottomRightLook;
+						removeLook: BrDropdownBottomLeftLook;
+						removeLook: BrDropdownTopLeftLook;
+						addLook: BrDropdownTopRightLook ] ];
 		build.
 ]
 
