@@ -4,6 +4,11 @@ Class {
 	#category : #'Brick-Anchored - Support'
 }
 
+{ #category : #accessing }
+BrAnchoredTopRightAvailableBounds class >> label [
+	^ 'Top right'
+]
+
 { #category : #'as yet unclassified' }
 BrAnchoredTopRightAvailableBounds >> in: aBounds from: aPoint [
 	^ BrAnchoredOuterContainerBounds

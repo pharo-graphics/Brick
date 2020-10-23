@@ -4,6 +4,11 @@ Class {
 	#category : #'Brick-Anchored - Support'
 }
 
+{ #category : #accessing }
+BrAnchoredBottomCenterAvailableBounds class >> label [
+	^ 'Bottom center'
+]
+
 { #category : #'as yet unclassified' }
 BrAnchoredBottomCenterAvailableBounds >> in: aBounds from: aPoint [
 	| width |

@@ -5,6 +5,11 @@ Class {
 }
 
 { #category : #'as yet unclassified' }
+BrAnchoredCenterRightAvailableBounds class >> label [
+	^ 'Center right'
+]
+
+{ #category : #'as yet unclassified' }
 BrAnchoredCenterRightAvailableBounds >> in: aBounds from: aPoint [
 	| height |
 	height := aBounds height - aPoint y min: aPoint y.
