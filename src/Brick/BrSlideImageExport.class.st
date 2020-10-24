@@ -197,10 +197,11 @@ BrSlideImageExport >> createResolutionSection [
 BrSlideImageExport >> executeAction [ 
 	"Execute the receiver's load action"
 	| fileName |
-	fileName := (folder / fileInputField text asString).
+	fileName := fileInputField text asString.
 	self updateDisplay.
 	fileInputField text:''.
 	self okAction 
+		cull: folder
 		cull: fileName.
 ]
 
