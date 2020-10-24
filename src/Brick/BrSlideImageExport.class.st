@@ -131,7 +131,8 @@ BrSlideImageExport >> createEditableField [
 BrSlideImageExport >> createFormatInputSection [
 	| formatLabel |
 	formatLabel := self createLabelWithText: 'Format: '.
-	formatInputField := self createEditableField.
+	formatInputField := self createEditableField
+		text: 'JPEG'.
 	"formatInputField := self createDropdownFieldFor: formatOptionsCollection."
 	
 	^ BlElement new
@@ -178,8 +179,10 @@ BrSlideImageExport >> createResolutionSection [
 	| resolutionLabel separatorLabel |
 	resolutionLabel := self createLabelWithText: 'Resolution: '.
 	separatorLabel := self createLabelWithText: 'x'.
-	heightInputField := self createEditableField.
-	widthInputField := self createEditableField.
+	heightInputField := self createEditableField
+		text: '1080'.
+	widthInputField := self createEditableField
+		text: '1920'.
 	
 	^ BlElement new
 		layout: BlLinearLayout horizontal;
