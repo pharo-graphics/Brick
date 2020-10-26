@@ -374,8 +374,9 @@ BrLayoutResizerLook >> inheritIn: aBlock [
 
 { #category : #'private - resizer' }
 BrLayoutResizerLook >> makeFitContentHorizontally: anElement [
-	anElement constraintsDo: [ :c | c horizontal fitContent ].
-	
+	anElement constraints horizontal resizer isFitContent
+		ifFalse: [ anElement constraintsDo: [ :c | c horizontal fitContent ] ].
+
 	"we try to redirect it to the element's layout resizer model"
 	(self canRedirectTo: anElement)
 		ifTrue: [ anElement dispatchEvent: (BrLayoutHorizontalResizerWish fitContent) ]
@@ -383,7 +384,8 @@ BrLayoutResizerLook >> makeFitContentHorizontally: anElement [
 
 { #category : #'private - resizer' }
 BrLayoutResizerLook >> makeFitContentLimitedHorizontally: anElement [
-	anElement constraintsDo: [ :c | c horizontal fitContentLimited ].
+	anElement constraints horizontal resizer isFitContentLimited
+		ifFalse: [ anElement constraintsDo: [ :c | c horizontal fitContentLimited ] ].
 	
 	"we try to redirect it to the element's layout resizer model"
 	(self canRedirectTo: anElement)
@@ -392,7 +394,8 @@ BrLayoutResizerLook >> makeFitContentLimitedHorizontally: anElement [
 
 { #category : #'private - resizer' }
 BrLayoutResizerLook >> makeFitContentLimitedVertically: anElement [
-	anElement constraintsDo: [ :c | c vertical fitContentLimited ].
+	anElement constraints vertical resizer isFitContentLimited
+		ifFalse: [ anElement constraintsDo: [ :c | c vertical fitContentLimited ] ].
 	
 	"we try to redirect it to the element's layout resizer model"
 	(self canRedirectTo: anElement)
@@ -401,7 +404,8 @@ BrLayoutResizerLook >> makeFitContentLimitedVertically: anElement [
 
 { #category : #'private - resizer' }
 BrLayoutResizerLook >> makeFitContentVertically: anElement [
-	anElement constraintsDo: [ :c | c vertical fitContent ].
+	anElement constraints vertical resizer isFitContent
+		ifFalse: [ anElement constraintsDo: [ :c | c vertical fitContent ] ].
 	
 	"we try to redirect it to the element's layout resizer model"
 	(self canRedirectTo: anElement)
@@ -410,7 +414,8 @@ BrLayoutResizerLook >> makeFitContentVertically: anElement [
 
 { #category : #'private - resizer' }
 BrLayoutResizerLook >> makeMatchParentHorizontally: anElement [
-	anElement constraintsDo: [ :c | c horizontal matchParent ].
+	anElement constraints horizontal resizer isMatchParent
+		ifFalse: [ anElement constraintsDo: [ :c | c horizontal matchParent ] ].
 
 	"we try to redirect it to the element's layout resizer model"
 	(self canRedirectTo: anElement)
@@ -419,7 +424,8 @@ BrLayoutResizerLook >> makeMatchParentHorizontally: anElement [
 
 { #category : #'private - resizer' }
 BrLayoutResizerLook >> makeMatchParentVertically: anElement [
-	anElement constraintsDo: [ :c | c vertical matchParent ].
+	anElement constraints vertical resizer isMatchParent
+		ifFalse: [ anElement constraintsDo: [ :c | c vertical matchParent ] ].
 	
 	"we try to redirect it to the element's layout resizer model"
 	(self canRedirectTo: anElement)
