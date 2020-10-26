@@ -9,8 +9,11 @@ Class {
 
 { #category : #'api - text font' }
 BrGlamorousTextLabelLook >> fontSize: aNumber [
+	normalFontSize = aNumber
+		ifTrue: [ ^ self ].
+	
 	normalFontSize := aNumber.
-	super fontSize: aNumber.
+	super fontSize: aNumber
 ]
 
 { #category : #private }
