@@ -191,6 +191,11 @@ BrTabGroupModel >> notifyTabStencilChanged: anEvent [
 	self dispatchEvent: anEvent
 ]
 
+{ #category : #notifying }
+BrTabGroupModel >> notifyTabToolbarChanged: anEvent [
+	self dispatchEvent: anEvent
+]
+
 { #category : #hooks }
 BrTabGroupModel >> onTabAdded: aBrTabModel at: anIndex [
 	aBrTabModel
@@ -204,6 +209,11 @@ BrTabGroupModel >> onTabAdded: aBrTabModel at: anIndex [
 		when: BrTabStencilChangedEvent 
 		do: [ :anEvent | 
 			self notifyTabStencilChanged: anEvent ].
+
+	aBrTabModel 
+		when: BrTabToolbarChangedEvent 
+		do: [ :anEvent | 
+			self notifyTabToolbarChanged: anEvent ].
 
 	self notifyTabAdded: aBrTabModel at: anIndex.
 		

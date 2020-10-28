@@ -32,6 +32,33 @@ BrTabExamples >> changeStencilTabModel [
 ]
 
 { #category : #'examples - tab model' }
+BrTabExamples >> changeToolbarStencilModel [
+	<gtExample>
+	| aTabModel stencilChangedHander changed changedTabModel changedTabStencil |
+	
+	changed := 0.
+	changedTabModel := nil.
+	changedTabStencil := nil.
+		
+	aTabModel := self tabModel.
+	aTabModel addEventHandler: (stencilChangedHander := BlEventHandler on: BrTabToolbarChangedEvent do: [ :anEvent |
+		changedTabModel := anEvent tab.
+		changedTabStencil := anEvent stencil.
+		changed := changed + 1. ]).
+	
+	aTabModel toolbarStencil: [ BrToolbar new ].
+
+	self assert: changed equals: 1.
+	self assert: changedTabStencil isNotNil.
+	self assert: aTabModel toolbarStencilBuilder equals: changedTabStencil.
+	self assert: changedTabModel equals: aTabModel.
+
+	aTabModel removeEventHandler: stencilChangedHander.
+
+	^ aTabModel
+]
+
+{ #category : #'examples - tab model' }
 BrTabExamples >> deselectTabModel [
 	<gtExample>
 	| aTabModel selected deselected deselectedTab deselectedHandler |
@@ -356,6 +383,40 @@ BrTabExamples >> tabGroupWithOneTabChangingStencil [
 	self assert: changed equals: 1.
 	self assert: changedTabStencil isNotNil.
 	self assert: aTabModel contentStencilBuilder equals: changedTabStencil.
+	self assert: changedTabModel equals: aTabModel.
+
+	aTabModel removeEventHandler: stencilChangedHander.
+
+	self assert: aTabGroupModel isNotEmpty.
+	self assert: aTabGroupModel hasSelectedTab.
+	self assert: aTabGroupModel selectedTab equals: aTabModel.
+
+	^ aTabGroupModel
+]
+
+{ #category : #'examples - tab group model' }
+BrTabExamples >> tabGroupWithOneTabChangingToolbarStencil [
+	<gtExample>
+	| aTabGroupModel aTabModel changed changedTabModel changedTabStencil stencilChangedHander |
+	
+	changed := 0.
+	changedTabModel := nil.
+	changedTabStencil := nil.
+		
+	aTabGroupModel := self tabGroupModel.	
+	aTabGroupModel addEventHandler: (stencilChangedHander := BlEventHandler on: BrTabToolbarChangedEvent do: [ :anEvent |
+		changedTabModel := anEvent tab.
+		changedTabStencil := anEvent stencil.
+		changed := changed + 1. ]).
+	
+	aTabModel := self tabModel.	
+	aTabGroupModel addTab: aTabModel.
+	
+	aTabModel toolbarStencil: [ BrToolbar new ].
+
+	self assert: changed equals: 1.
+	self assert: changedTabStencil isNotNil.
+	self assert: aTabModel toolbarStencilBuilder equals: changedTabStencil.
 	self assert: changedTabModel equals: aTabModel.
 
 	aTabModel removeEventHandler: stencilChangedHander.
