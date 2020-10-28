@@ -76,7 +76,7 @@ BlElement >> gtInspectorPaintModelLookIn: aMondrianView [
 	aMondrianView nodes
 		shape: [ :each |
 			BlElement new
-				geometry: BlEllipse new;
+				geometry: BlEllipseGeometry new;
 				size: 20@20;
 				layout: BlLinearLayout horizontal alignCenter;
 				border: (BlBorder paint: Color lightGray width: 1);

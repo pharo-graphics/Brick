@@ -48,7 +48,7 @@ BrIconLook >> initialize [
 	iconElement := BlElement new.
 	iconElement size: 6 @ 6.
 	iconElement background: Color red.
-	iconElement geometry: BlEllipse new.
+	iconElement geometry: BlEllipseGeometry new.
 	self
 		addChange:
 			(BrLookChange new
