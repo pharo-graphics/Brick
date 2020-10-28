@@ -33,13 +33,13 @@ BrTextEditorReplacingAdornmentsExamples >> singleLineTextWithMultipleOverlapping
 	(aText from: 1 to: 7)
 		replacingAdornment: [
 			BlElement new
-				geometry: BlEllipse new;
+				geometry: BlEllipseGeometry new;
 				size: 20@20;
 				background: Color blue ].
 	(aText from: 5 to: 9)
 		replacingAdornment: [
 			BlElement new
-				geometry: BlEllipse new;
+				geometry: BlEllipseGeometry new;
 				size: 20@20;
 				background: Color red ].
 
@@ -56,12 +56,12 @@ BrTextEditorReplacingAdornmentsExamples >> singleLineTextWithMultipleReplacement
 	(aText from: 5 to: 9)
 		replacingAdornment: [
 			BlElement new
-				geometry: BlEllipse new;
+				geometry: BlEllipseGeometry new;
 				size: 20@20;
 				background: Color red ];
 		replacingAdornment: [
 			BlElement new
-				geometry: BlEllipse new;
+				geometry: BlEllipseGeometry new;
 				size: 20@20;
 				background: Color blue ].
 
@@ -77,7 +77,7 @@ BrTextEditorReplacingAdornmentsExamples >> singleLineTextWithReplacementAll [
 	aText := 'To be replaced' asRopedText
 		replacingAdornment: [
 			BlElement new
-				geometry: BlEllipse new;
+				geometry: BlEllipseGeometry new;
 				size: 20@20;
 				background: Color gray ].
 
@@ -94,7 +94,7 @@ BrTextEditorReplacingAdornmentsExamples >> singleLineTextWithReplacementFirst [
 	(aText from: 1 to: 3)
 		replacingAdornment: [
 			BlElement new
-				geometry: BlEllipse new;
+				geometry: BlEllipseGeometry new;
 				size: 20@20;
 				background: Color blue ].
 			
@@ -111,7 +111,7 @@ BrTextEditorReplacingAdornmentsExamples >> singleLineTextWithReplacementLast [
 	(aText from: 14 to: 18)
 		replacingAdornment: [
 			BlElement new
-				geometry: BlEllipse new;
+				geometry: BlEllipseGeometry new;
 				size: 20@20;
 				background: Color gray ].
 			
@@ -128,7 +128,7 @@ BrTextEditorReplacingAdornmentsExamples >> singleLineTextWithReplacementMiddle [
 	(aText from: 5 to: 9)
 		replacingAdornment: [
 			BlElement new
-				geometry: BlEllipse new;
+				geometry: BlEllipseGeometry new;
 				size: 20@20;
 				background: Color red ].
 

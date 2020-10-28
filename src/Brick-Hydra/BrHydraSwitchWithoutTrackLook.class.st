@@ -37,7 +37,7 @@ BrHydraSwitchWithoutTrackLook >> initialize [
 { #category : #'instance creation' }
 BrHydraSwitchWithoutTrackLook >> newThumbElement [
 	^ BlElement new
-		geometry: (BlEllipse new);
+		geometry: (BlEllipseGeometry new);
 		constraintsDo: [ :c |
 			c horizontal matchParent.
 			c vertical matchParent.

@@ -46,7 +46,7 @@ BrLookChangeExamples >> buttonLookPropertyChange [
 		yourself.
 	round := BrLookPropertyChange new
 		path: #(widget geometry);
-		value: [ BlEllipse new ];
+		value: [ BlEllipseGeometry new ];
 		yourself.
 	roundish := BrLookPropertyChange new
 		path: #(widget geometry);

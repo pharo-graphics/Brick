@@ -52,7 +52,7 @@ BrGlamorousTriangleInCircleLook >> initializeWidget [
 		addChangeProperty: #(widget layout) 
 			with: [ BlFrameLayout new ]; 
 		addChangeProperty: #(widget geometry)
-			with: [ BlEllipse new ];
+			with: [ BlEllipseGeometry new ];
 		addChangeProperty: #(widget constraints vertical resizer)
 			with: [ BlLayoutResizer exact: 16.0 ];
 		addChangeProperty: #(widget constraints horizontal resizer)

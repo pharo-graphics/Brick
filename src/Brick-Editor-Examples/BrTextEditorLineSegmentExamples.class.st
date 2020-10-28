@@ -3040,7 +3040,7 @@ BrTextEditorLineSegmentExamples >> text_Hello_1_WithAppending [
 		BlElement new
 			size: 20@20;
 			background: (Color gray alpha: 0.5);
-			geometry: BlEllipse new ].
+			geometry: BlEllipseGeometry new ].
 
 	^ aText
 ]
@@ -3063,7 +3063,7 @@ BrTextEditorLineSegmentExamples >> text_Hello_Smart_World_WithAppending [
 			BlElement new
 				size: 16@16;
 				background: (Color black alpha: 0.5);
-				geometry: BlEllipse new ].
+				geometry: BlEllipseGeometry new ].
 	
 	(aText from: 7 to: 11)
 		foreground: Color gray;
@@ -3072,7 +3072,7 @@ BrTextEditorLineSegmentExamples >> text_Hello_Smart_World_WithAppending [
 			BlElement new
 				size: 16@16;
 				background: (Color gray alpha: 0.5);
-				geometry: BlEllipse new ].
+				geometry: BlEllipseGeometry new ].
 
 	(aText from: 13 to: 17)
 		foreground: Color lightGray;
@@ -3081,7 +3081,7 @@ BrTextEditorLineSegmentExamples >> text_Hello_Smart_World_WithAppending [
 			BlElement new
 				size: 16@16;
 				background: (Color lightGray alpha: 0.5);
-				geometry: BlEllipse new ].
+				geometry: BlEllipseGeometry new ].
 
 	^ aText
 ]

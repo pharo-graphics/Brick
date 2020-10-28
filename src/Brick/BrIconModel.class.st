@@ -35,7 +35,7 @@ BrIconModel >> initialize [
 	icon := [
 		BlElement new
 			size: 10 @ 10;
-			geometry: BlEllipse new;
+			geometry: BlEllipseGeometry new;
 			background: Color lightGray;
 			border: (BlBorder paint: Color gray width: 1) ] asStencil
 ]

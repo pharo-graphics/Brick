@@ -42,7 +42,7 @@ BrToggleExamples >> changeIconOfThePredefinedToggle [
 	| aToggle anIcon |
 	
 	aToggle := self predefinedToggle.
-	anIcon := ((BlEllipse new) extent: 10@10) asElement.
+	anIcon := ((BlEllipseGeometry new) extent: 10@10) asElement.
 	
 	aToggle icon: anIcon.
 	self assert: aToggle icon equals: anIcon.
@@ -71,7 +71,7 @@ BrToggleExamples >> circleIcon [
 	^ BlElement new
 		size: 6@6;
 		background: Color red;
-		geometry: BlEllipse new;
+		geometry: BlEllipseGeometry new;
 		margin: (BlInsets all: 3)
 ]
 
