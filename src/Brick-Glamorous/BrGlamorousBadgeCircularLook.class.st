@@ -8,6 +8,6 @@ Class {
 BrGlamorousBadgeCircularLook >> initialize [
 	super initialize.
 
-	self default: [ :aWidget | aWidget geometry: BlEllipse new ].
+	self default: [ :aWidget | aWidget geometry: BlEllipseGeometry new ].
 	self expanded: [ :aWidget | aWidget geometry: BlRectangleGeometry new ]
 ]
