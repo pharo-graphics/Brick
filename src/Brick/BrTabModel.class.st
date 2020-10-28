@@ -91,6 +91,11 @@ BrTabModel >> notifyActionbarChanged: aStencil [
 ]
 
 { #category : #notifying }
+BrTabModel >> notifyStencilChanged: aStencil [
+	self dispatchEvent: (BrTabStencilChangedEvent new tab: self; stencil: aStencil)
+]
+
+{ #category : #notifying }
 BrTabModel >> notifyToolbarChanged: aStencil [
 	self dispatchEvent: (BrTabToolbarChangedEvent new tab: self; stencil: aStencil)
 ]
@@ -113,7 +118,8 @@ BrTabModel >> stencil: aStencilBuilder [
 	"Set a stencil to be used to create a content of a tab.
 	It should be computed lazily by the Tab widget on demand"
 
-	contentStencilBuilder := aStencilBuilder asStencilBuilder: BrTabStencilBuilder
+	contentStencilBuilder := aStencilBuilder asStencilBuilder: BrTabStencilBuilder.
+	self notifyStencilChanged: contentStencilBuilder.
 ]
 
 { #category : #'api - tab' }

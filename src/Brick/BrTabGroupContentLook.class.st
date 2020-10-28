@@ -40,7 +40,8 @@ BrTabGroupContentLook >> initializeListeners [
 
 	self when: BrTabSelectedEvent do: [ :anEvent | self onTabSelected: anEvent tab ].
 	self when: BrTabDeselectedEvent do: [ :anEvent | self onTabDeselected: anEvent tab ].
-	self when: BrTabRemovedEvent do: [ :anEvent | self onTabRemoved: anEvent tab ]
+	self when: BrTabRemovedEvent do: [ :anEvent | self onTabRemoved: anEvent tab ].
+	self when: BrTabStencilChangedEvent do: [ :anEvent | self onTabStencilChanged: anEvent tab ].
 ]
 
 { #category : #initialization }
@@ -79,4 +80,11 @@ BrTabGroupContentLook >> onTabSelected: aTabModel [
 			aTabContentElement ].
 
 	self widgetContent addChild: aContentElement
+]
+
+{ #category : #hooks }
+BrTabGroupContentLook >> onTabStencilChanged: aTabModel [
+	self onTabRemoved: aTabModel.	
+	aTabModel isSelected ifTrue: [ 
+		self onTabSelected: aTabModel ]
 ]

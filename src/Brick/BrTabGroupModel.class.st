@@ -186,6 +186,11 @@ BrTabGroupModel >> notifyTabSelected: aBrTabModel [
 	self dispatchEvent: (BrTabSelectedEvent tab: aBrTabModel)
 ]
 
+{ #category : #notifying }
+BrTabGroupModel >> notifyTabStencilChanged: anEvent [
+	self dispatchEvent: anEvent
+]
+
 { #category : #hooks }
 BrTabGroupModel >> onTabAdded: aBrTabModel at: anIndex [
 	aBrTabModel
@@ -194,6 +199,11 @@ BrTabGroupModel >> onTabAdded: aBrTabModel at: anIndex [
 			anEvent selected
 				ifTrue: [ self onTabSelected: anEvent currentTarget ]
 				ifFalse: [ self onTabDeselected: anEvent currentTarget ] ].
+			
+	aBrTabModel 
+		when: BrTabStencilChangedEvent 
+		do: [ :anEvent | 
+			self notifyTabStencilChanged: anEvent ].
 
 	self notifyTabAdded: aBrTabModel at: anIndex.
 		
