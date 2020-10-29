@@ -2,7 +2,8 @@ Class {
 	#name : #BrTaggerModel,
 	#superclass : #BrWidgetModel,
 	#instVars : [
-		'tags'
+		'tags',
+		'allowedTags'
 	],
 	#category : #'Brick-Tagger - Model'
 }
@@ -21,11 +22,21 @@ BrTaggerModel >> addTagNamed: aTagName [
 	self addTag: (BrTaggerTag named: aTagName)
 ]
 
+{ #category : #'api - tags' }
+BrTaggerModel >> allowedTags: aBrTaggerAllowedTags [
+	allowedTags = aBrTaggerAllowedTags
+		ifTrue: [ ^ self ].
+
+	allowedTags := aBrTaggerAllowedTags.
+	self notifyAllowedTagsChanged: allowedTags
+]
+
 { #category : #initialization }
 BrTaggerModel >> initialize [
 	super initialize.
 
-	tags := OrderedCollection new
+	tags := OrderedCollection new.
+	allowedTags := BrTaggerAllowedAnyTags new
 ]
 
 { #category : #initialization }
@@ -41,6 +52,11 @@ BrTaggerModel >> initializeListeners [
 { #category : #'api - tags' }
 BrTaggerModel >> namedTags: aCollectionOfTagNames [
 	self tags: (aCollectionOfTagNames collect: [ :eachName | BrTaggerTag named: eachName ])
+]
+
+{ #category : #notifying }
+BrTaggerModel >> notifyAllowedTagsChanged: aBrTaggerAllowedTags [
+	self dispatchEvent: (BrTaggerAllowedTagsChanged new allowedTags: aBrTaggerAllowedTags)
 ]
 
 { #category : #notifying }
