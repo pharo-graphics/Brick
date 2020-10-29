@@ -5,7 +5,6 @@ Class {
 	#classTraits : 'TBrLayoutResizable classTrait',
 	#instVars : [
 		'labelModel',
-		'iconModel',
 		'activationModel',
 		'dimensionModel'
 	],
@@ -23,7 +22,6 @@ BrBadge >> initialize [
 
 	self viewModel: (BrButtonModel new +
 		(labelModel := BrLabelModel new) +
-		(iconModel := BrIconModel new) + 
 		(BrInteractiveModel withAll: {
 				activationModel := BrEnablementModel new.
 				dimensionModel := BrSizeAdjustmentModel new.
