@@ -41,7 +41,11 @@ BrTabGroupHeaderWithToolbarLook >> initializeListeners [
 	super initializeListeners.
 	self
 		when: BrTabGroupActionbarChangedEvent
-		do: [ :anEvent | self onActionbarChanged: anEvent stencil ]
+		do: [ :anEvent | self onActionbarChanged: anEvent stencil ].
+	self
+		when: BrTabToolbarChangedEvent
+		do: [ :anEvent | self onTabToolbarChanged: anEvent tab ].
+	
 ]
 
 { #category : #initialization }
@@ -69,19 +73,13 @@ BrTabGroupHeaderWithToolbarLook >> onTabDeselected: aBrTabModel [
 { #category : #hooks }
 BrTabGroupHeaderWithToolbarLook >> onTabSelected: aTabModel [
 	super onTabSelected: aTabModel.
-	self toolbar removeChildren.
+	self updateToolbarFrom: aTabModel
+]
 
-	aTabModel toolbarStencilBuilder
-		ifNotNil: [ :aStencil |
-			| aToolbarElement |
-			
-			aToolbarElement := aStencil
-				tabModel: aTabModel;
-				asElement.
-			
-			aStencil tabModel: nil.
-			
-			self toolbar addChild: aToolbarElement ]
+{ #category : #hooks }
+BrTabGroupHeaderWithToolbarLook >> onTabToolbarChanged: aTabModel [
+	aTabModel isSelected ifFalse: [ ^ self ].
+	self updateToolbarFrom: aTabModel.
 ]
 
 { #category : #'api - accessing' }
@@ -94,4 +92,17 @@ BrTabGroupHeaderWithToolbarLook >> toolbar [
 { #category : #'api - accessing' }
 BrTabGroupHeaderWithToolbarLook >> toolbarDo: aBlock [
 	aBlock value: self toolbar
+]
+
+{ #category : #updating }
+BrTabGroupHeaderWithToolbarLook >> updateToolbarFrom: aTabModel [
+	self toolbar removeChildren.
+	aTabModel toolbarStencilBuilder
+		ifNotNil: [ :aStencil | 
+			| aToolbarElement |
+			aToolbarElement := aStencil
+				tabModel: aTabModel;
+				asElement.
+			aStencil tabModel: nil.
+			self toolbar addChild: aToolbarElement ]
 ]

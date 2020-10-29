@@ -147,15 +147,10 @@ BrSlideImageExport >> createFormatInputSection [
 { #category : #accessing }
 BrSlideImageExport >> createLabelWithText: aString [
 	^ BrLabel new
-		look: BrGlamorousLabelLook;
-		text: (aString asRopedText
-			glamorousRegularFont;
-			foreground: Color gray;
-			fontSize: 20);
+		look: (BrGlamorousLabelLook new foreground: Color gray);
+		text: (aString asRopedText glamorousRegularFont);
 		margin: (BlInsets top: 3 right: 5 bottom: 0 left: 0);
-		constraintsDo: [:c |
-			c vertical fitContent.
-			c horizontal fitContent].
+		fitContent.
 ]
 
 { #category : #accessing }
