@@ -16,6 +16,16 @@ BrTagger >> addTagNamed: aTagName [
 	self viewModel addTagNamed: aTagName
 ]
 
+{ #category : #'api - tags' }
+BrTagger >> allowedTags: aBrTaggerAllowedTags [
+	self viewModel allowedTags: aBrTaggerAllowedTags
+]
+
+{ #category : #'api - tags' }
+BrTagger >> explicitAllowedTags: aCollectionOfTags [
+	self viewModel allowedTags: (BrTaggerAllowedExplicitTags new tags: aCollectionOfTags)
+]
+
 { #category : #initialization }
 BrTagger >> initialize [
 	super initialize.
