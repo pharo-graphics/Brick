@@ -197,7 +197,7 @@ BrLook >> widgetContent [
 
 	"if widget does not have explicit #content container, we treat widget as a container itself"
 	^ widget
-		childNamed: #content
+		directChildNamed: #content
 		ifFound: [ :anElement | anElement ]
 		ifNone: [ widget ]
 ]
