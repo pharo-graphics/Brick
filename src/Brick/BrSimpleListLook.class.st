@@ -35,6 +35,7 @@ BrSimpleListLook >> initializeListeners [
 	self when: BrListItemTypeStencilChangedEvent do: [ :anEvent | self onItemTypeStencilChanged: anEvent itemTypeStencil ].
 	self when: BrListItemElementStencilChangedEvent do: [ :anEvent | self onItemElementStencilChanged: anEvent itemElementStencil ].
 	self when: BrListItemDataBinderChangedEvent do: [ :anEvent | self onItemDataBinderChanged: anEvent itemDataBinder ].
+	self when: BrListItemDataUnbinderChangedEvent do: [ :anEvent | self onItemDataUnbinderChanged: anEvent itemDataUnbinder ].
 ]
 
 { #category : #initialization }
@@ -45,7 +46,8 @@ BrSimpleListLook >> initializeRequests [
 	self request: BrSelectionRequest new.
 	self request: BrListItemTypeStencilRequest new.
 	self request: BrListItemElementStencilRequest new.
-	self request: BrListItemDataBinderRequest new
+	self request: BrListItemDataBinderRequest new.
+	self request: BrListItemDataUnbinderRequest new
 ]
 
 { #category : #accessing }
@@ -56,6 +58,11 @@ BrSimpleListLook >> listElement [
 { #category : #hooks }
 BrSimpleListLook >> onItemDataBinderChanged: aBrListItemDataBinder [
 	listElement dataSource itemDataBinder: aBrListItemDataBinder
+]
+
+{ #category : #hooks }
+BrSimpleListLook >> onItemDataUnbinderChanged: aBrListItemDataUnbinder [
+	listElement dataSource itemDataUnbinder: aBrListItemDataUnbinder
 ]
 
 { #category : #hooks }

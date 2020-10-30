@@ -29,6 +29,13 @@ BrSimpleList >> itemDataBinder: aBrListItemDataBinderOrBlock [
 ]
 
 { #category : #'api - scripting' }
+BrSimpleList >> itemDataUnbinder: aBrListItemUnbinderOrBlock [
+	"An item type stencil can be a #value-able of the form [ :anItemElement :anItemObject :anItemIndex | ]"
+
+	self viewModel itemDataUnbinder: aBrListItemUnbinderOrBlock
+]
+
+{ #category : #'api - scripting' }
 BrSimpleList >> itemStencil: aBrListItemElementStencilBuilderOrBlock [
 	"An item element stencil can be a #value-able of the form [ :anItemType :aListWidget | ]"
 

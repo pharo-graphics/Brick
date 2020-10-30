@@ -14,6 +14,19 @@ Class {
 	#category : #'Brick-Editor-Model - Memento'
 }
 
+{ #category : #'instance creation' }
+BrTextEditorMemento class >> default [
+	^ self new
+		text: '' asRopedText;
+		cursor: BrTextEditorMultipleCursor new;
+		selection: BlCompositeSelection new;
+		styler: BlTextNullStyler new;
+		filter: BrTextEditorNoInputFilter new;
+		history: BrTextEditorHistory new;
+		shortcuts: BrTextEditorShortcuts new;
+		mode: BrTextEditorEditableMode new
+]
+
 { #category : #accessing }
 BrTextEditorMemento >> cursor [
 	^ cursor

@@ -33,7 +33,7 @@ BrEditorElement >> editor: aBrTextEditor [
 
 { #category : #'focus testing' }
 BrEditorElement >> hasFocus [
-	^ hasFocus
+	^ hasFocus or: [ self isFocused ]
 ]
 
 { #category : #initialization }

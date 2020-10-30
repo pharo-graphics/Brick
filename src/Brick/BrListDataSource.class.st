@@ -18,6 +18,13 @@ BrListDataSource >> assignRowIndex: aPosition to: anElementHolder [
 		userData at: #listRowIndex put: aPosition
 ]
 
+{ #category : #private }
+BrListDataSource >> getRowIndex: anElementHolder [
+	^ anElementHolder itemElement userData
+		at: #listRowIndex
+		ifAbsent: [ 0 ]
+]
+
 { #category : #initialization }
 BrListDataSource >> initialize [
 	super initialize.

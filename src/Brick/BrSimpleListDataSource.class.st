@@ -2,7 +2,8 @@ Class {
 	#name : #BrSimpleListDataSource,
 	#superclass : #BrListDataSource,
 	#instVars : [
-		'itemDataBinder'
+		'itemDataBinder',
+		'itemDataUnbinder'
 	],
 	#category : #'Brick-List - Support'
 }
@@ -13,7 +14,13 @@ BrSimpleListDataSource >> itemDataBinder: aBrListItemDataBinderBuilder [
 	self notifyChanged
 ]
 
-{ #category : #'instance creation' }
+{ #category : #'accessing - stencils' }
+BrSimpleListDataSource >> itemDataUnbinder: aBrListItemDataUnbinder [
+	itemDataUnbinder := aBrListItemDataUnbinder.
+	self notifyChanged
+]
+
+{ #category : #hooks }
 BrSimpleListDataSource >> onBindHolder: anElementHolder at: aPosition [
 	| anItemElementWithBindedData anItemObject |
 
@@ -40,7 +47,7 @@ BrSimpleListDataSource >> onBindHolder: anElementHolder at: aPosition [
 			anElementHolder itemElement dispatchEvent: (BrSelectedWish selected: false) ]
 ]
 
-{ #category : #'instance creation' }
+{ #category : #hooks }
 BrSimpleListDataSource >> onCreateHolder: anInfiniteElement type: anItemType [
 	| anItemElement |
 	
@@ -52,4 +59,13 @@ BrSimpleListDataSource >> onCreateHolder: anInfiniteElement type: anItemType [
 
 	^ BrSimpleListItemHolder new
 		itemElement: anItemElement
+]
+
+{ #category : #hooks }
+BrSimpleListDataSource >> onElementDetached: anElementHolder [	
+	itemDataUnbinder
+		itemElement: anElementHolder itemElement;
+		itemObject:  anElementHolder rowValue;
+		itemPosition: anElementHolder dataSourcePosition;
+		build
 ]
