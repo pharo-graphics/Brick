@@ -60,3 +60,13 @@ BrTagger >> renameTag: aTaggerTag to: aNewName [
 BrTagger >> renameTagNamed: aTagName to: aNewName [
 	self viewModel renameTagNamed: aTagName to: aNewName
 ]
+
+{ #category : #'api - tags' }
+BrTagger >> tagNames [
+	^ self viewModel tagNames
+]
+
+{ #category : #'api - tags' }
+BrTagger >> tags [
+	^ self viewModel tags
+]
