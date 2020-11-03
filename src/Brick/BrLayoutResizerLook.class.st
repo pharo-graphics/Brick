@@ -27,6 +27,14 @@ BrLayoutResizerLook >> anyToFitContent: anElement [
 		vAnyToFitContent: anElement
 ]
 
+{ #category : #'api - to fit content block' }
+BrLayoutResizerLook >> anyToFitContentIn: aBlock [
+	"Always fit content in both directtions irrelevant from what model says"
+
+	self hAnyToFitContentIn: aBlock.
+	self vAnyToFitContentIn: aBlock.
+]
+
 { #category : #'private - testing' }
 BrLayoutResizerLook >> canRedirectTo: anElement [
 	self widget == anElement
@@ -118,6 +126,15 @@ BrLayoutResizerLook >> hAnyToFitContent: anElement [
 		hExactToFitContent: anElement;
 		hFitContentToFitContent: anElement;
 		hMatchParentToFitContent: anElement
+]
+
+{ #category : #'api - to fit content block' }
+BrLayoutResizerLook >> hAnyToFitContentIn: aBlock [
+	"Always fit content horizontally irrelevant from what model says"
+
+	self hExactToFitContentIn: aBlock.
+	self hFitContentToFitContentIn: aBlock.
+	self hMatchParentToFitContentIn: aBlock.
 ]
 
 { #category : #'api - style' }
@@ -478,6 +495,15 @@ BrLayoutResizerLook >> vAnyToFitContent: anElement [
 		vExactToFitContent: anElement;
 		vFitContentToFitContent: anElement;
 		vMatchParentToFitContent: anElement
+]
+
+{ #category : #'api - to fit content block' }
+BrLayoutResizerLook >> vAnyToFitContentIn: aBlock [
+	"Always fit content vertically irrelevant from what model says"
+
+	self vExactToFitContentIn: aBlock.
+	self vFitContentToFitContentIn: aBlock.
+	self vMatchParentToFitContentIn: aBlock.
 ]
 
 { #category : #'api - style' }
