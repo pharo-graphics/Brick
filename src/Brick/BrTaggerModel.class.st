@@ -127,6 +127,11 @@ BrTaggerModel >> renameTagNamed: aTagName to: aNewName [
 ]
 
 { #category : #accessing }
+BrTaggerModel >> tagNames [
+	^ self tags collect: [ :eachTag | eachTag name ]
+]
+
+{ #category : #accessing }
 BrTaggerModel >> tags [
 	^ tags
 ]
