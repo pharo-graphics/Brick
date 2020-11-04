@@ -57,3 +57,8 @@ BrTabGroup >> moveTab: anElement at: anInteger [
 BrTabGroup >> removeTab: anElement [
 	self viewModel removeTab: anElement viewModel
 ]
+
+{ #category : #accessing }
+BrTabGroup >> tabs [
+	^ self viewModel tabs
+]
