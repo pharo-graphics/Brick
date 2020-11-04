@@ -36,6 +36,10 @@ BrGlamorousEditableLabelLook >> initialize [
 	defaultForeground := Color black.
 
 	self
+		addChangeProperty: #(widget constraints minWidth)
+		with: [ 20 ].
+
+	self
 		add: (BrInteractiveCommonLook new
 			default: [ :aWidget |
 				aWidget geometry: (BlRoundedRectangleGeometry cornerRadius: 4).
