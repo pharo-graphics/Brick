@@ -7,7 +7,8 @@ Class {
 		'itemTypeStencil',
 		'itemElementStencil',
 		'clickToSelectHandler',
-		'listWidget'
+		'listWidget',
+		'itemIdStencil'
 	],
 	#category : #'Brick-List - Support'
 }
@@ -42,6 +43,30 @@ BrListDataSource >> itemCount [
 { #category : #'accessing - stencils' }
 BrListDataSource >> itemElementStencil: aBrListItemElementStencilBuilder [
 	itemElementStencil := aBrListItemElementStencilBuilder.
+	self notifyChanged
+]
+
+{ #category : #accessing }
+BrListDataSource >> itemIdAt: anItemPosition [
+	| anItemObject anItemId |
+
+	itemIdStencil
+		ifNil: [ ^ NoId ].
+
+	anItemObject := self rowValues at: anItemPosition.
+
+	anItemId := itemIdStencil
+		itemPosition: anItemPosition;
+		itemObject: anItemObject;
+		build.
+
+	^ anItemId
+]
+
+{ #category : #'accessing - stencils' }
+BrListDataSource >> itemIdStencil: aBrListItemIdStencilBuilder [
+	itemIdStencil := aBrListItemIdStencilBuilder.
+	hasStableIds := aBrListItemIdStencilBuilder notNil.
 	self notifyChanged
 ]
 

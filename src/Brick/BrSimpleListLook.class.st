@@ -33,6 +33,7 @@ BrSimpleListLook >> initializeListeners [
 	self when: BrListItemsChangedEvent do: [ :anEvent | self onItemsChanged: anEvent items ].
 	self when: BrSelectionChanged do: [ :anEvent | self onSelectionChanged: anEvent indices ].
 	self when: BrListItemTypeStencilChangedEvent do: [ :anEvent | self onItemTypeStencilChanged: anEvent itemTypeStencil ].
+	self when: BrListItemIdStencilChangedEvent do: [ :anEvent | self onItemIdStencilChanged: anEvent itemIdStencil ].
 	self when: BrListItemElementStencilChangedEvent do: [ :anEvent | self onItemElementStencilChanged: anEvent itemElementStencil ].
 	self when: BrListItemDataBinderChangedEvent do: [ :anEvent | self onItemDataBinderChanged: anEvent itemDataBinder ].
 	self when: BrListItemDataUnbinderChangedEvent do: [ :anEvent | self onItemDataUnbinderChanged: anEvent itemDataUnbinder ].
@@ -45,6 +46,7 @@ BrSimpleListLook >> initializeRequests [
 	self request: BrListItemsRequest new.
 	self request: BrSelectionRequest new.
 	self request: BrListItemTypeStencilRequest new.
+	self request: BrListItemIdStencilRequest new.
 	self request: BrListItemElementStencilRequest new.
 	self request: BrListItemDataBinderRequest new.
 	self request: BrListItemDataUnbinderRequest new
@@ -68,6 +70,11 @@ BrSimpleListLook >> onItemDataUnbinderChanged: aBrListItemDataUnbinder [
 { #category : #hooks }
 BrSimpleListLook >> onItemElementStencilChanged: aBrListItemElementStencilBuilder [
 	listElement dataSource itemElementStencil: aBrListItemElementStencilBuilder
+]
+
+{ #category : #hooks }
+BrSimpleListLook >> onItemIdStencilChanged: aBrListItemIdStencilBuilder [
+	listElement dataSource itemIdStencil: aBrListItemIdStencilBuilder
 ]
 
 { #category : #hooks }
