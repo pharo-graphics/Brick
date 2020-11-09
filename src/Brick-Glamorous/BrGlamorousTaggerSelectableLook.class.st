@@ -232,11 +232,10 @@ BrGlamorousTaggerSelectableLook >> newTagElementFor: aTaggerTag [
 				to: aWish text asString
 				from: aWish currentTarget ];
 		whenKey: BlKeyCombination backspace
-			labelDo: [ :aShortcutEvent :aShortcut :aTextEditor :theOptions |
-				theOptions first
-					requestRemoveTag: theOptions second
-					from: aShortcutEvent currentTarget ]
-			with: { self . aTaggerTag }.
+			labelDo: [ :aShortcutEvent :aShortcut |
+				self
+					requestRemoveTag: aTaggerTag
+					from: aShortcutEvent currentTarget ].
 			
 	aNewTagContainer
 		addChild: aTagEditorElement;

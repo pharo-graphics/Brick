@@ -2,8 +2,8 @@ Class {
 	#name : #BrEditableLabel,
 	#superclass : #BrEditor,
 	#instVars : [
-		'labelInteractions',
-		'editorInteractions'
+		'editorShortcuts',
+		'labelShortcuts'
 	],
 	#category : #'Brick-Editor - UI'
 }
@@ -35,20 +35,20 @@ BrEditableLabel >> cancelEdition [
 ]
 
 { #category : #initialization }
-BrEditableLabel >> defaultEditorInteractions [
+BrEditableLabel >> defaultEditorShortcuts [
 	^ {
-		BlKeyCombination return -> [ :aShortcutEvent | aShortcutEvent currentTarget acceptEdition ].
-		BlKeyCombination escape -> [ :aShortcutEvent | aShortcutEvent currentTarget cancelEdition ]
+		BrEditableLabelAcceptShortcut new.
+		BrEditableLabelCancelShortcut new
 	}
 ]
 
 { #category : #initialization }
-BrEditableLabel >> defaultLabelInteractions [
+BrEditableLabel >> defaultLabelShortcuts [
 	^ {
-		BlKeyCombination escape -> [ :aShortcutEvent | aShortcutEvent currentTarget loseFocus ].
-		BlKeyCombination arrowLeft -> [ :aShortcutEvent | aShortcutEvent currentTarget focusPrevious ].
-		BlKeyCombination arrowRight -> [ :aShortcutEvent | aShortcutEvent currentTarget focusNext ].
-		BlKeyCombination return -> [ :aShortcutEvent | aShortcutEvent currentTarget switchToEditor ]
+		BrEditorLoseFocusShortcut new.
+		BrEditorFocusPreviousShortcut new.
+		BrEditorFocusNextShortcut new.
+		BrEditableLabelSwitchToEditorShortcut new
 	}
 ]
 
@@ -70,8 +70,8 @@ BrEditableLabel >> focusPrevious [
 BrEditableLabel >> initialize [
 	super initialize.
 
-	labelInteractions := self defaultLabelInteractions.
-	editorInteractions := self defaultEditorInteractions.
+	labelShortcuts := self defaultLabelShortcuts.
+	editorShortcuts := self defaultEditorShortcuts.
 
 	self fitContent.
 
@@ -111,7 +111,7 @@ BrEditableLabel >> switchToEditor [
 		select.
 		
 	self viewModel model: self text copy.
-	self beMode: (BrTextEditorEditableMode new withInteractions: editorInteractions)
+	self beMode: (BrTextEditorEditableMode new withShortcuts: editorShortcuts)
 ]
 
 { #category : #'api  - mode' }
@@ -122,38 +122,35 @@ BrEditableLabel >> switchToLabel [
 		all;
 		deselect.
 
-	self beMode: (BrTextEditorReadonlyWithoutSelectionMode new withInteractions: labelInteractions)
+	self beMode: (BrTextEditorReadonlyWithoutSelectionMode new withShortcuts: labelShortcuts)
 ]
 
 { #category : #'api - interactions' }
 BrEditableLabel >> whenKey: aCombination editorDo: anAction [
 	"Add a new editor mode interaction defined by a key combination and action"
-
-	editorInteractions := editorInteractions copyWith: (aCombination -> anAction).
+	| aNewShortcut |
+	
+	aNewShortcut := BlShortcutWithAction new
+		combination: aCombination;
+		action: anAction.
+	
+	editorShortcuts := editorShortcuts copyWith: aNewShortcut.
 	
 	self isEditable
-		ifTrue: [ self addEditorShortcut: (BrTextEditorShortcut new
-			combination: aCombination;
-			action: anAction) ]
+		ifTrue: [ self addEditorShortcut: aNewShortcut ]
 ]
 
 { #category : #'api - interactions' }
 BrEditableLabel >> whenKey: aCombination labelDo: anAction [
-	self
-		whenKey: aCombination
-		labelDo: anAction
-		with: nil
-]
-
-{ #category : #'api - interactions' }
-BrEditableLabel >> whenKey: aCombination labelDo: anAction with: theOptions [
 	"Add a new label mode interaction defined by a key combination and action"
+	| aNewShortcut |
+	
+	aNewShortcut := BlShortcutWithAction new
+		combination: aCombination;
+		action: anAction.
 
-	labelInteractions := labelInteractions copyWith: (aCombination -> anAction).
+	labelShortcuts := labelShortcuts copyWith: aNewShortcut.
 	
 	self isReadOnly
-		ifTrue: [ self addEditorShortcut: (BrTextEditorShortcut new
-			combination: aCombination;
-			action: anAction;
-			options: theOptions) ]
+		ifTrue: [ self addEditorShortcut: aNewShortcut ]
 ]

@@ -17,10 +17,10 @@ BrTextEditorReadonlyWithSelectionMode >> createEventHandlers [
 BrTextEditorReadonlyWithSelectionMode >> initialize [
 	super initialize.
 	
-	interactions := self buildEditorShortcuts: { 
-		BlKeyCombination primaryA -> [ :aShortcutEvent :aShortcut :aTextEditor | aTextEditor selecter all select ].
-		BlKeyCombination primaryC -> [ :aShortcutEvent :aShortcut :aTextEditor | aTextEditor copySelected ].
-		BlKeyCombination escape -> [ :aShortcutEvent :aShortcut :aTextEditor | aTextEditor selectNone ]
+	shortcuts := {
+		BrEditorCopyShortcut new.
+		BrEditorSelectAllShortcut new.
+		BrEditorDeselectAllShortcut new.
 	}
 ]
 

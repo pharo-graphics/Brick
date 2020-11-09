@@ -11,10 +11,5 @@ Class {
 
 { #category : #defaults }
 BrTextEditorEditableCodeMode >> returnKeyAndAction [
-	^ BlKeyCombination return -> [ :aShortcutEvent :aShortcut :aTextEditor |
-			aTextEditor inserter
-				inputFilter: aTextEditor inputFilter;
-				atCursor;
-				crLineEndingWithWhitespace;
-				insert ].
+	^ BrEditorCarriageReturnShortcut new
 ]

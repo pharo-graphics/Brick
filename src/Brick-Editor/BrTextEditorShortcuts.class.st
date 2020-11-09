@@ -14,13 +14,9 @@ BrTextEditorShortcuts >> add: aNewEditorShortcut ifAdded: anAddedBlock ifReplace
 	shortcuts
 		at: aNewEditorShortcut combination
 		ifPresent: [ :anExistingEditorShortcut |
-			(anExistingEditorShortcut isOverwritableByMode
-				or: [ aNewEditorShortcut isOverwritableByMode not ])
-					ifTrue: [
-						shortcuts at: aNewEditorShortcut combination put: aNewEditorShortcut.
-						aReplacedBlock value: anExistingEditorShortcut.
-						anAddedBlock value: aNewEditorShortcut.
-					] ]
+			shortcuts at: aNewEditorShortcut combination put: aNewEditorShortcut.
+			aReplacedBlock value: anExistingEditorShortcut.
+			anAddedBlock value: aNewEditorShortcut ]
 		ifAbsent: [
 			shortcuts at: aNewEditorShortcut combination put: aNewEditorShortcut.
 			anAddedBlock value: aNewEditorShortcut ]

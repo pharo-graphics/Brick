@@ -11,6 +11,7 @@ Class {
 	#name : #BrTextEditor,
 	#superclass : #BlInfiniteDataSource,
 	#instVars : [
+		'model',
 		'mode',
 		'text',
 		'selection',
@@ -51,10 +52,6 @@ BrTextEditor class >> isDebug: aBoolean [
 
 { #category : #'api - shortcuts' }
 BrTextEditor >> addEditorShortcut: aBrTextEditorShortcut [
-
-	(aBrTextEditorShortcut isKindOf: BrTextEditorShortcut)
-		ifFalse: [ self error: ('Shortcut should be an instance of {1} but was {2}' format: { BrTextEditorShortcut . aBrTextEditorShortcut class }) ].
-
 	self editorShortcuts
 		add: aBrTextEditorShortcut
 		ifAdded: [ :aNewEditorShortcut | self onShortcutAdded: aNewEditorShortcut ]
@@ -435,6 +432,16 @@ BrTextEditor >> itemTypeAt: aPosition [
 	^ (segmentCollector segmentAt: aPosition) segmentType
 ]
 
+{ #category : #accessing }
+BrTextEditor >> model [
+	^ model
+]
+
+{ #category : #accessing }
+BrTextEditor >> model: anObject [
+	model := anObject
+]
+
 { #category : #'text - cursor' }
 BrTextEditor >> moveCursorTo: aTextIndex [
 	"Moves cursor to a given position without any further action such as cancelling selection"
@@ -442,30 +449,6 @@ BrTextEditor >> moveCursorTo: aTextIndex [
 
 	self navigator
 		moveTo: aTextIndex;
-		apply
-]
-
-{ #category : #'text - cursor' }
-BrTextEditor >> moveCursorToLineEnd [
-	"Moves cursors to the end if their corresponding lines.
-	Note:
-		- I don't change current selection.
-		- I request segments update"
-
-	self navigator
-		moveToLineEnd;
-		apply
-]
-
-{ #category : #'text - cursor' }
-BrTextEditor >> moveCursorToLineStart [
-	"Moves cursors to the start if their corresponding lines.
-	Note:
-		- I don't change current selection.
-		- I request segments update"
-
-	self navigator
-		moveToLineStart;
 		apply
 ]
 
@@ -883,10 +866,6 @@ BrTextEditor >> removeAllEditorShortcuts [
 
 { #category : #'api - shortcuts' }
 BrTextEditor >> removeEditorShortcut: aBrTextEditorShortcut [
-
-	(aBrTextEditorShortcut isKindOf: BrTextEditorShortcut)
-		ifFalse: [ self error: ('Shortcut should be an instance of {1} but was {2}' format: { BrTextEditorShortcut . aBrTextEditorShortcut class }) ].
-
 	self editorShortcuts
 		remove: aBrTextEditorShortcut
 		ifFound: [ :aPreviousShortcut | self onShortcutRemoved: aPreviousShortcut ]

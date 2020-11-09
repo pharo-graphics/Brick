@@ -2,35 +2,39 @@
 The difference between me and ${class:BlShortcut}$ is that I only allow clean ${class:BlockClosure}$ and pass two extra optional parameter: a text editor and a previously provided optional object
 "
 Class {
-	#name : #BrTextEditorShortcut,
+	#name : #BrTextEditorShortcutOld,
 	#superclass : #Object,
 	#instVars : [
 		'combination',
 		'action',
 		'shortcut',
 		'options',
-		'repeatable',
-		'isOverwritableByMode'
+		'repeatable'
 	],
 	#category : #'Brick-Editor-Model'
 }
 
 { #category : #'instance creation' }
-BrTextEditorShortcut class >> fromAssociation: anAssociation [
+BrTextEditorShortcutOld class >> fromAssociation: anAssociation [
 	^ self new
 		combination: anAssociation key;
 		action: anAssociation value
 ]
 
 { #category : #'instance creation' }
-BrTextEditorShortcut class >> fromShortcut: aBlShortcut [
+BrTextEditorShortcutOld class >> fromShortcut: aBlShortcut [
 	^ self new
 		combination: aBlShortcut combination;
 		action: [ :aTextEditor :aShortcutEvent :aShortcut | aShortcut performDueTo: aShortcutEvent ]
 ]
 
+{ #category : #testing }
+BrTextEditorShortcutOld class >> isDeprecated [
+	^ true
+]
+
 { #category : #comparing }
-BrTextEditorShortcut >> = anObject [
+BrTextEditorShortcutOld >> = anObject [
 	"Answer whether the receiver and anObject represent the same object."
 
 	self == anObject
@@ -42,12 +46,12 @@ BrTextEditorShortcut >> = anObject [
 ]
 
 { #category : #accessing }
-BrTextEditorShortcut >> action [
+BrTextEditorShortcutOld >> action [
 	^ action
 ]
 
 { #category : #accessing }
-BrTextEditorShortcut >> action: aBlockClosure [
+BrTextEditorShortcutOld >> action: aBlockClosure [
 	"aBlockClosure is an action in a form [ :aShortcutEvent :aShortcut :aTextEditor :theOptions | ]"
 	<argument: #aBlockClosure satisfies: #isClean>
 	<argument: #aBlockClosure satisfies: #isClosure>
@@ -56,7 +60,7 @@ BrTextEditorShortcut >> action: aBlockClosure [
 ]
 
 { #category : #converting }
-BrTextEditorShortcut >> asShortcut [
+BrTextEditorShortcutOld >> asShortcut [
 	<return: #BlShortcutWithAction>
 
 	^ shortcut ifNil: [
@@ -71,82 +75,64 @@ BrTextEditorShortcut >> asShortcut [
 ]
 
 { #category : #accessing }
-BrTextEditorShortcut >> beNotOverwritableByMode [
-	isOverwritableByMode := false
-]
-
-{ #category : #accessing }
-BrTextEditorShortcut >> beOverwritableByMode [
-	isOverwritableByMode := true
-]
-
-{ #category : #accessing }
-BrTextEditorShortcut >> combination [
+BrTextEditorShortcutOld >> combination [
 	^ combination
 ]
 
 { #category : #accessing }
-BrTextEditorShortcut >> combination: anObject [
+BrTextEditorShortcutOld >> combination: anObject [
 	combination := anObject
 ]
 
 { #category : #accessing }
-BrTextEditorShortcut >> gtSourceCodeFor: aView [
+BrTextEditorShortcutOld >> gtSourceCodeFor: aView [
 	<gtView>
 	^ self action gtSourceCodeFor: aView
 ]
 
 { #category : #comparing }
-BrTextEditorShortcut >> hash [
+BrTextEditorShortcutOld >> hash [
 	"Answer an integer value that is related to the identity of the receiver."
 
 	^ combination hash bitXor: action hash
 ]
 
 { #category : #initialization }
-BrTextEditorShortcut >> initialize [
+BrTextEditorShortcutOld >> initialize [
 	super initialize.
-	
-	isOverwritableByMode := true.
+
 	repeatable := true.
 	action := [ :aShortcutEvent :aShortcut :aTextEditor :theOptions | ]
 ]
 
 { #category : #accessing }
-BrTextEditorShortcut >> isOverwritableByMode [
-	<return: #Boolean>
-
-	^ isOverwritableByMode
-]
-
-{ #category : #accessing }
-BrTextEditorShortcut >> options [
+BrTextEditorShortcutOld >> options [
 	^ options
 ]
 
 { #category : #accessing }
-BrTextEditorShortcut >> options: anObject [
+BrTextEditorShortcutOld >> options: anObject [
 	options := anObject
 ]
 
 { #category : #copying }
-BrTextEditorShortcut >> postCopy [
+BrTextEditorShortcutOld >> postCopy [
 	combination := combination copy.
 	action := action cleanCopy
 ]
 
 { #category : #accessing }
-BrTextEditorShortcut >> repeatable [
+BrTextEditorShortcutOld >> repeatable [
 	^ repeatable
 ]
 
 { #category : #accessing }
-BrTextEditorShortcut >> repeatable: aBoolean [
+BrTextEditorShortcutOld >> repeatable: aBoolean [
 	repeatable := aBoolean
 ]
 
 { #category : #printing }
-BrTextEditorShortcut >> storeOn: aStream [
+BrTextEditorShortcutOld >> storeOn: aStream [
 	aStream
 		nextPut: $(;
 		nextPutAll: self class name; space; nextPutAll: 'new'; space;
