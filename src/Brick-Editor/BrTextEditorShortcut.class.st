@@ -57,10 +57,10 @@ BrTextEditorShortcut >> action: aBlockClosure [
 
 { #category : #converting }
 BrTextEditorShortcut >> asShortcut [
-	<return: #BlShortcut>
+	<return: #BlShortcutWithAction>
 
 	^ shortcut ifNil: [
-		shortcut := BlShortcut new
+		shortcut := BlShortcutWithAction new
 			combination: self combination;
 			repeatable: self repeatable;
 			action: [ :aShortcutEvent :aShortcut | self action

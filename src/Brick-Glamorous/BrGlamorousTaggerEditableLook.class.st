@@ -94,10 +94,10 @@ BrGlamorousTaggerEditableLook >> newAddTagButton [
 		margin: margin;
 		constraintsDo: [ :c | c flow vertical alignCenter ];
 		action: [ :aButton | self addTagCreatorElement ];
-		addShortcut: (BlShortcut new
+		addShortcut: (BlShortcutWithAction new
 			combination: BlKeyCombination arrowLeft;
 			action: [ :anEvent | anEvent currentTarget previousSiblingDo: [ :anElement | anElement requestFocus ] ]);
-		addShortcut: (BlShortcut new
+		addShortcut: (BlShortcutWithAction new
 			combination: BlKeyCombination return;
 			action: [ :anEvent | self addTagCreatorElement ])
 ]

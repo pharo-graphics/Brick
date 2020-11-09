@@ -92,7 +92,7 @@ BrGlamorousTaggerSelectableLook >> newAddAnyTagButton [
 
 	^ self newBasicAddTagButton
 		action: [ :aButton | self addTagCreatorElement: (BrTaggerTag new) ];
-		addShortcut: (BlShortcut new
+		addShortcut: (BlShortcutWithAction new
 			combination: BlKeyCombination return;
 			action: [ :anEvent | self addTagCreatorElement: (BrTaggerTag new) ])
 ]
@@ -162,7 +162,7 @@ BrGlamorousTaggerSelectableLook >> newBasicAddTagButton [
 		hExact: 20;
 		margin: margin;
 		constraintsDo: [ :c | c flow vertical alignCenter ];
-		addShortcut: (BlShortcut new
+		addShortcut: (BlShortcutWithAction new
 			combination: BlKeyCombination arrowLeft;
 			action: [ :anEvent | anEvent currentTarget previousSiblingDo: [ :anElement | anElement requestFocus ] ])
 ]

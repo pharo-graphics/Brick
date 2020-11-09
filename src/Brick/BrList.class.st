@@ -52,10 +52,10 @@ BrList >> initializeEventHandlers [
 				ifTrue: [ self dispatchEvent: (BrListSelectedItemDetached new
 					rowIndex: anEvent rowIndex;
 					rowValue: anEvent rowValue) ] ];
-		addShortcut: (BlShortcut new
+		addShortcut: (BlShortcutWithAction new
 			combination: (BlKeyCombination builder arrowDown build);
 			action: [ self selectNext ] );
-		addShortcut: (BlShortcut new
+		addShortcut: (BlShortcutWithAction new
 			combination: (BlKeyCombination builder arrowUp build);
 			action: [ self selectPrevious ] )
 ]

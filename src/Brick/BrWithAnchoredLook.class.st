@@ -91,7 +91,7 @@ BrWithAnchoredLook >> initialize [
 				and: [ self canHide ])
 				ifTrue: [ self hide ] ].
 
-	pressEscEventHandler := BlShortcut new
+	pressEscEventHandler := BlShortcutWithAction new
 		combination: BlKeyCombination escape;
 		action: [
 			self canHide

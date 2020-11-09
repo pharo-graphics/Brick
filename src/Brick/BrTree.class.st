@@ -53,16 +53,16 @@ BrTree >> initializeEventHandlers [
 	click handler must not be added as a filter"
 	self
 		when: BlClickEvent do: [ :anEvent | anEvent currentTarget requestFocus ];
-		addShortcut: (BlShortcut new
+		addShortcut: (BlShortcutWithAction new
 			combination: (BlKeyCombination arrowDown);
 			action: [ self selectNext ] );
-		addShortcut: (BlShortcut new
+		addShortcut: (BlShortcutWithAction new
 			combination: (BlKeyCombination arrowUp);
 			action: [ self selectPrevious ] );
-		addShortcut: (BlShortcut new
+		addShortcut: (BlShortcutWithAction new
 			combination: (BlKeyCombination arrowLeft);
 			action: [ self selectedNodeDo: #collapse ] );
-		addShortcut: (BlShortcut new
+		addShortcut: (BlShortcutWithAction new
 			combination: (BlKeyCombination arrowRight);
 			action: [ self selectedNodeDo: #expand ] )
 ]
