@@ -279,7 +279,7 @@ BrTextEditor >> editorMode: aBrTextEditorMode [
 	self
 		assert: [ aBrTextEditorMode isNotNil ]
 		description: [ 'Mode must not be nil' ].
-	
+
 	mode = aBrTextEditorMode
 		ifTrue: [ ^ self ].
 
@@ -343,6 +343,11 @@ BrTextEditor >> history [
 	<return: #BrTextEditorHistory>
 	
 	^ history
+]
+
+{ #category : #accessing }
+BrTextEditor >> history: aBrTextEditorHistory [
+	history := aBrTextEditorHistory
 ]
 
 { #category : #initialization }
@@ -878,27 +883,9 @@ BrTextEditor >> removeEditorShortcuts: aCollectionOfBrTextEditorShortcut [
 
 { #category : #'api - save state' }
 BrTextEditor >> restoreState: aBrTextEditorMemento [
-	| aSelecter aNavigator |
 	self assertUIProcess.
-	
-	self setEditorShortcuts: aBrTextEditorMemento shortcuts.
-	self editorMode: aBrTextEditorMemento mode.
-	history := aBrTextEditorMemento history.
-	styler := aBrTextEditorMemento styler.
-	filter := aBrTextEditorMemento filter.
-	
-	self text: aBrTextEditorMemento text copy.
-	
-	self deselecter all deselect.
-	aSelecter := self selecter withoutCursorUpdate.
-	aBrTextEditorMemento selection
-		do: [ :eachMonotoneSelection | aSelecter from: eachMonotoneSelection from to: eachMonotoneSelection to ].
-	aSelecter select.
-	
-	aNavigator := self navigator removeAll.
-	aNavigator withoutResettingDesiredCoordinate.
-	aBrTextEditorMemento cursor do: [ :eachCursor | aNavigator add: eachCursor ].
-	aNavigator apply
+
+	aBrTextEditorMemento restoreStateOf: self
 ]
 
 { #category : #'api - save state' }
@@ -906,15 +893,15 @@ BrTextEditor >> saveState [
 	<return: #BrTextEditorMemento>
 	self assertUIProcess.
 	
-	^ BrTextEditorMemento new
-		text: text copy;
-		cursor: cursors copy;
-		selection: selection copy;
-		styler: styler copy;
-		filter: filter copy;
-		history: history copy;
-		shortcuts: shortcuts copy;
-		mode: mode copy
+	^ (BrTextEditorCompositeMemento new all) saveStateOf: self
+]
+
+{ #category : #'api - save state' }
+BrTextEditor >> saveState: aBrTextEditorMemento [
+	<return: #BrTextEditorMemento>
+	self assertUIProcess.
+	
+	^ aBrTextEditorMemento saveStateOf: self
 ]
 
 { #category : #accessing }
