@@ -28,3 +28,8 @@ BrTextEditorTextMemento >> restoreStateOf: aTextEditor [
 BrTextEditorTextMemento >> saveStateOf: aTextEditor [
 	text := aTextEditor text copy
 ]
+
+{ #category : #accessing }
+BrTextEditorTextMemento >> text [
+	^ text
+]
