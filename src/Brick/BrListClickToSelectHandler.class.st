@@ -11,7 +11,7 @@ Class {
 BrListClickToSelectHandler >> clickEvent: aBlClickEvent [
 	aBlClickEvent consumed: true.
 
-	listWidget selectOne: (aBlClickEvent currentTarget userData at: #listRowIndex) dueTo: aBlClickEvent.
+	listWidget selectOne: (aBlClickEvent currentTarget constraints infinite holder dataSourcePosition) dueTo: aBlClickEvent.
 	listWidget requestFocus
 ]
 
