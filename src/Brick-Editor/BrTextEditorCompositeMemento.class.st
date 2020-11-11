@@ -42,6 +42,11 @@ BrTextEditorCompositeMemento >> inputFilter [
 	mementos add: BrTextEditorInputFilterMemento new
 ]
 
+{ #category : #accessing }
+BrTextEditorCompositeMemento >> mementos [
+	^ mementos 
+]
+
 { #category : #'api - memento' }
 BrTextEditorCompositeMemento >> mode [
 	mementos add: BrTextEditorModeMemento new
