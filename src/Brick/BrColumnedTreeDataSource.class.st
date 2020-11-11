@@ -58,7 +58,6 @@ BrColumnedTreeDataSource >> onBindHolder: anElementHolder at: aPosition [
 		build.
 	
 	anElementHolder rowNode: anItemNode.	
-	self assignRowIndex: aPosition to: anElementHolder.
 
 	(self selection containsIndex: aPosition)
 		ifTrue: [ anElementHolder itemElement dispatchEvent: (BrSelectedWish new selected: true) ]

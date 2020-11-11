@@ -36,8 +36,6 @@ BrSimpleListDataSource >> onBindHolder: anElementHolder at: aPosition [
 		itemElement: anItemElementWithBindedData;
 		rowValue: anItemObject.
 
-	self assignRowIndex: aPosition to: anElementHolder.
-
 	(self selection containsIndex: aPosition)
 		ifTrue: [
 			anElementHolder itemElement effect: (BlOverlayAboveEffect new paint: (Color gray alpha: 0.15)).

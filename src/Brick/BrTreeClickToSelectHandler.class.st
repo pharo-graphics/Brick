@@ -11,7 +11,7 @@ Class {
 BrTreeClickToSelectHandler >> clickEvent: aBlClickEvent [
 	aBlClickEvent consumed: true.
 
-	treeWidget selectOne: (aBlClickEvent currentTarget userData at: #treeRowIndex) dueTo: aBlClickEvent.
+	treeWidget selectOne: (aBlClickEvent currentTarget constraints infinite holder dataSourcePosition) dueTo: aBlClickEvent.
 	treeWidget requestFocus
 ]
 

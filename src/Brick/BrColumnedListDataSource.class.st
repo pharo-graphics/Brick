@@ -49,7 +49,6 @@ BrColumnedListDataSource >> onBindHolder: anElementHolder at: aPosition [
 				build ].
 	
 	anElementHolder rowValue: anItemObject.	
-	self assignRowIndex: aPosition to: anElementHolder.
 
 	(self selection containsIndex: aPosition)
 		ifTrue: [

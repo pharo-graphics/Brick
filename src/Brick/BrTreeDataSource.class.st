@@ -12,16 +12,8 @@ Class {
 }
 
 { #category : #private }
-BrTreeDataSource >> assignRowIndex: aPosition to: anElementHolder [
-	anElementHolder itemElement
-		userData at: #treeRowIndex put: aPosition
-]
-
-{ #category : #private }
 BrTreeDataSource >> getRowIndex: anElementHolder [
-	^ anElementHolder itemElement userData
-		at: #treeRowIndex
-		ifAbsent: [ 0 ]
+	^ anElementHolder dataSourcePosition
 ]
 
 { #category : #initialization }

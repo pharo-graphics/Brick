@@ -74,8 +74,6 @@ BrSimpleTreeDataSource >> onBindHolder: anElementHolder at: aPosition payloads: 
 
 	anElementHolder rowNode: anItemNode.
 
-	self assignRowIndex: aPosition to: anElementHolder.
-
 	(self selection containsIndex: aPosition)
 		ifTrue: [ anElementHolder itemElement dispatchEvent: (BrSelectedWish new selected: true) ]
 		ifFalse: [ anElementHolder itemElement dispatchEvent: (BrSelectedWish new selected: false) ]
