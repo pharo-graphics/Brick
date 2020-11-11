@@ -139,7 +139,8 @@ BrWithDropdownLook >> initializeListeners [
 	
 	self
 		when: BlClickEvent
-		do: [ self show ]
+		do: [ self isWidgetEnabled
+			ifTrue: [ self show ] ]
 ]
 
 { #category : #initialization }
@@ -148,6 +149,11 @@ BrWithDropdownLook >> initializeRequests [
 
 	self request: BrDropdownStencilRequest new.
 	self request: BrDropdownVisibleRequest new
+]
+
+{ #category : #'private - testing' }
+BrWithDropdownLook >> isWidgetEnabled [	
+	^ (self request: BrEnablementRequest oneWay) isEnabled
 ]
 
 { #category : #'private - hooks' }
