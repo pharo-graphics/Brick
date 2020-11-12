@@ -47,14 +47,15 @@ BrTextStylerCommonAsyncStrategy >> initialize [
 
 { #category : #styling }
 BrTextStylerCommonAsyncStrategy >> styleTextInEditor: aBrTextEditor afterDo: aBlock [
-	| aView |
+	| aView aTextToStyle |
 	aView := self view.
 	aView ifNil: [ 
 		"A graphical widget is not available, we therefore do not need to style the text"
 		^ self ].
-	aView enqueueTask: (BlTaskAction new action: [
-		aBrTextEditor text isEmpty ifFalse: [
-			self style: aBrTextEditor text nextGeneration afterDo: aBlock ] ])
+	
+	aTextToStyle := aBrTextEditor textSnapshot nextGeneration.
+	aTextToStyle isEmpty
+		ifFalse: [ self style: aTextToStyle afterDo: aBlock ]
 ]
 
 { #category : #accessing }
