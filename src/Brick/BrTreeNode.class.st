@@ -345,6 +345,10 @@ BrTreeNode >> initialize [
 BrTreeNode >> insert: anObject atChildIndex: aChildIndex [
 	| aNewNode aTreeIndexOfThePreviousNode aSizeOfThePreviousNode |
 	
+	self
+		assert: [ aChildIndex > 0]
+		description: [ 'Insertion index must be positive' ].
+	
 	"If children values are not computed we should not insert anything because values will be properly computed lazily later"
 	childrenValues
 		ifNil: [ ^ self onNodeChanged: self ].
