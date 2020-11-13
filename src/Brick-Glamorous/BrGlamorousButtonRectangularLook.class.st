@@ -4,16 +4,31 @@ I define the rectangular exterior of the button
 Class {
 	#name : #BrGlamorousButtonRectangularLook,
 	#superclass : #BrInteractiveCommonLook,
+	#instVars : [
+		'cornerRadius'
+	],
 	#category : #'Brick-Glamorous-Buttons - Support'
 }
+
+{ #category : #accessing }
+BrGlamorousButtonRectangularLook >> cornerRadius [
+	^ cornerRadius
+]
+
+{ #category : #accessing }
+BrGlamorousButtonRectangularLook >> cornerRadius: anObject [
+	cornerRadius := anObject
+]
 
 { #category : #initialization }
 BrGlamorousButtonRectangularLook >> initialize [
 	super initialize.
 
+	cornerRadius := 4.
+
 	self
 		addChangeProperty: #(widgetContent geometry)
-		with: (BlRoundedRectangleGeometry cornerRadius: 4).
+		with: [ (BlRoundedRectangleGeometry cornerRadius: self cornerRadius) ].
 		
 	self add: BrGlamorousButtonLayoutLook new.
 	

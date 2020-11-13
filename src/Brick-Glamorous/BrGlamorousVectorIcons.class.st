@@ -216,6 +216,18 @@ BrGlamorousVectorIcons class >> gt [
 ]
 
 { #category : #icons }
+BrGlamorousVectorIcons class >> hamburger [
+	<script: 'self hamburger inspect'>
+
+	^ [ BlElement new
+		size: 16@16;
+		geometry: (BlSvgPath new
+			svg: 'M 4 3 L 12 3 L 12 5 L 4 5 Z M 4 7 L 12 7 L 12 9 L 4 9 Z M 4 11 L 12 11 L 12 13 L 4 13 Z'
+			viewbox: (0@0 extent: 16@16));
+		background: Color black ] asStencil
+]
+
+{ #category : #icons }
 BrGlamorousVectorIcons class >> inspect [
 	<script: 'self inspect inspect'>
 
@@ -485,6 +497,11 @@ BrGlamorousVectorIcons class >> search [
 			svg: 'M 8.972855 11.595775 L 11.208238 13.831159 L 13.329559 11.709838 L 11.252205 9.632485 C 12.448393 7.704032 12.209501 5.1384323 10.53553 3.46447 C 8.58291 1.51184 5.41709 1.51184 3.46447 3.46447 C 1.51184 5.41709 1.51184 8.58291 3.46447 10.53553 C 4.953712 12.02478 7.1486665 12.378195 8.972855 11.595775 Z M 9.739856 8.223948 L 8.223948 9.739856 C 7.1216205 10.232024 5.783204 10.025845 4.878682 9.121318 C 3.707104 7.949746 3.707104 6.050254 4.878682 4.878682 C 6.050254 3.707104 7.949746 3.707104 9.121318 4.878682 C 10.025845 5.783204 10.232024 7.1216205 9.739856 8.223948 Z'
 			viewbox: (0@0 extent: 16@16));
 		background: Color black ] asStencil
+]
+
+{ #category : #'private - sizes' }
+BrGlamorousVectorIcons class >> smallSize [
+	^ 12@12
 ]
 
 { #category : #'private - sizes' }
