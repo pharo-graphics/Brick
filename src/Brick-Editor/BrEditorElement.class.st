@@ -22,6 +22,8 @@ BrEditorElement >> defaultLayout [
 
 { #category : #accessing }
 BrEditorElement >> editor [
+	<return: #BrTextEditor>
+
 	^ self dataSource
 ]
 

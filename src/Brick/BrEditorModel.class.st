@@ -41,6 +41,9 @@ BrEditorModel >> styler [
 
 { #category : #accessing }
 BrEditorModel >> styler: aStyler [
+	styler = aStyler
+		ifTrue: [ ^ self ].
+
 	styler := aStyler.
 	self notifyStylerChanged
 ]
@@ -52,6 +55,9 @@ BrEditorModel >> text [
 
 { #category : #accessing }
 BrEditorModel >> text: aText [
+	text == aText
+		ifTrue: [ ^ self ].
+
 	text := aText.
 	self notifyTextChanged
 ]

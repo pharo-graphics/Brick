@@ -370,7 +370,7 @@ BrTextEditor >> initialize [
 	segmentCollector editor: self.
 	segmentCollector text: text.
 	segmentBuilder := self defaultSegmentBuilder.
-	
+
 	styler := self defaultStyler.
 	stylerEventHandler := self defaultStylerEventHandler.	
 	self useDefaultStylerStrategy.
@@ -740,7 +740,7 @@ BrTextEditor >> onTextReplaced [
 BrTextEditor >> onTextStyled: aBlTextStyledEvent [
 	self assertUIProcess.
 
-	(aBlTextStyledEvent text previousGeneration == self text generation)
+	(aBlTextStyledEvent text isNextGenerationOf: self text)
 		ifTrue: [
 			self text rope: aBlTextStyledEvent text text rope.
 			aBlTextStyledEvent afterAction cull: self text cull: self.
@@ -1037,6 +1037,9 @@ BrTextEditor >> styler [
 
 { #category : #accessing }
 BrTextEditor >> styler: aStyler [
+	styler = aStyler
+		ifTrue: [ ^ self ].
+
 	styler removeEventHandler: stylerEventHandler.
 
 	styler := aStyler.

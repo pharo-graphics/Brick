@@ -14,7 +14,8 @@ Class {
 	#superclass : #BrTextStylerStrategy,
 	#instVars : [
 		'view',
-		'monitor'
+		'monitor',
+		'isStylingRequested'
 	],
 	#category : #'Brick-Editor-Styler'
 }
@@ -22,6 +23,11 @@ Class {
 { #category : #testing }
 BrTextStylerCommonAsyncStrategy class >> isAbstract [
 	^ self name = #BrTextStylerCommonAsyncStrategy 
+]
+
+{ #category : #'mutual exclusion' }
+BrTextStylerCommonAsyncStrategy >> critical: aBlock [
+	monitor critical: aBlock
 ]
 
 { #category : #private }
@@ -41,20 +47,49 @@ BrTextStylerCommonAsyncStrategy >> doStyle: aBrText afterDo: aBlock [
 { #category : #initialization }
 BrTextStylerCommonAsyncStrategy >> initialize [
 	super initialize.
+
 	monitor := Monitor new.
-	view := nil.
+	isStylingRequested := false.
+	view := nil
+]
+
+{ #category : #accessing }
+BrTextStylerCommonAsyncStrategy >> isStylingRequested [
+	^ isStylingRequested
+]
+
+{ #category : #accessing }
+BrTextStylerCommonAsyncStrategy >> isStylingRequested: aBoolean [
+	isStylingRequested := aBoolean
 ]
 
 { #category : #styling }
 BrTextStylerCommonAsyncStrategy >> styleTextInEditor: aBrTextEditor afterDo: aBlock [
-	| aView |
+	| aView aTextToStyle |
 	aView := self view.
 	aView ifNil: [ 
 		"A graphical widget is not available, we therefore do not need to style the text"
 		^ self ].
-	aView enqueueTask: (BlTaskAction new action: [
-		aBrTextEditor text isEmpty ifFalse: [
-			self style: aBrTextEditor text nextGeneration afterDo: aBlock ] ])
+	
+	aTextToStyle := aBrTextEditor textSnapshot nextGeneration.
+	aTextToStyle
+		ifEmpty: [ ^ self ].
+
+	monitor critical: [
+		isStylingRequested
+			ifTrue: [ ^ self ].
+
+		aView isAttachedToSceneGraph
+			"if the editor is already attached to the scene graph we can style it directly"
+			ifTrue: [ self style: aTextToStyle afterDo: aBlock ]
+			ifFalse: [
+				self isStylingRequested: true.
+				"othrewise we should defer the styling until some time in the future when the element appears in the scene"
+				aView enqueueTask: (BrTextStylerDeferringTask new
+					stylerAsyncStrategy: self;
+					textToStyle: aTextToStyle;
+					textEditor: aBrTextEditor;
+					afterBlock: aBlock) ] ]
 ]
 
 { #category : #accessing }
