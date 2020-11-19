@@ -60,7 +60,11 @@ BrSimpleListDataSource >> onCreateHolder: anInfiniteElement type: anItemType [
 ]
 
 { #category : #hooks }
-BrSimpleListDataSource >> onElementDetached: anElementHolder [	
+BrSimpleListDataSource >> onElementDetached: anElementHolder [
+]
+
+{ #category : #hooks }
+BrSimpleListDataSource >> onElementRecycled: anElementHolder [
 	itemDataUnbinder
 		itemElement: anElementHolder itemElement;
 		itemObject:  anElementHolder rowValue;
