@@ -331,6 +331,14 @@ BrTextEditor >> gtStringFor: aView [
 ]
 
 { #category : #'text - selection' }
+BrTextEditor >> hasCursors [
+	"Return true of there is at least one cursor, false otherwise"
+	<return: #Boolean>
+	
+	^ self cursors isNotEmpty
+]
+
+{ #category : #'text - selection' }
 BrTextEditor >> hasSelection [
 	"Return true of there is at least one selected character, false otherwise"
 	<return: #Boolean>
