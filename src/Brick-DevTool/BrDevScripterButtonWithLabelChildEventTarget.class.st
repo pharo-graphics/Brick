@@ -29,7 +29,9 @@ BrDevScripterButtonWithLabelChildEventTarget >> buttonLabel: aString [
 { #category : #searching }
 BrDevScripterButtonWithLabelChildEventTarget >> findTargetIn: anElement [
 	<return: #BlElement>
+
 	self assertButtonLabel: self buttonLabel.
+
 	^ BlDevScripterBlockSelectorEventTarget new 
 		block: [ :aChild | aChild class = BrButton and: [ aChild label asString = self buttonLabel ] ];
 		findTargetIn: anElement
