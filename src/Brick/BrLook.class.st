@@ -43,7 +43,8 @@ BrLook >> - aLookClass [
 		description: [ 'It is only possible to remove a look by its type (class) using this API' ].
 
 	toBeRemoved := actors select: [ :eachLook | eachLook class = aLookClass ].
-	toBeRemoved reverseDo: [ :eachLook | self remove: eachLook ]
+	toBeRemoved reverseDo: [ :eachLook | self remove: eachLook ].
+	actors do: [ :eachLook | eachLook - aLookClass ]
 ]
 
 { #category : #'api - composition' }
