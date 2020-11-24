@@ -24,7 +24,7 @@ BrEnablementWish >> activated [
 
 { #category : #accessing }
 BrEnablementWish >> activated: anObject [
-	enabled := anObject
+	self enabled: anObject
 ]
 
 { #category : #accessing }
@@ -34,7 +34,9 @@ BrEnablementWish >> enabled [
 
 { #category : #accessing }
 BrEnablementWish >> enabled: aBoolean [
-	enabled := aBoolean
+	
+	"Ask for value so that we support not just booleans"
+	enabled := aBoolean value
 ]
 
 { #category : #initialization }
