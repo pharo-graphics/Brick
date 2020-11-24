@@ -14,6 +14,11 @@ BrTextEditorModeMemento >> initialize [
 	mode := BrTextEditorEditableMode new
 ]
 
+{ #category : #evaluating }
+BrTextEditorModeMemento >> label [
+	^ 'Mode'
+]
+
 { #category : #accessing }
 BrTextEditorModeMemento >> order [
 	^ 20
@@ -27,4 +32,9 @@ BrTextEditorModeMemento >> restoreStateOf: aTextEditor [
 { #category : #memento }
 BrTextEditorModeMemento >> saveStateOf: aTextEditor [
 	mode := aTextEditor editorMode copy
+]
+
+{ #category : #evaluating }
+BrTextEditorModeMemento >> value [
+	^ mode
 ]

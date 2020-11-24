@@ -14,6 +14,11 @@ BrTextEditorCursorsMemento >> initialize [
 	cursors := BrTextEditorMultipleCursor new
 ]
 
+{ #category : #evaluating }
+BrTextEditorCursorsMemento >> label [
+	^ 'Cursors'
+]
+
 { #category : #accessing }
 BrTextEditorCursorsMemento >> order [
 	^ 80
@@ -32,4 +37,9 @@ BrTextEditorCursorsMemento >> restoreStateOf: aTextEditor [
 { #category : #memento }
 BrTextEditorCursorsMemento >> saveStateOf: aTextEditor [
 	cursors := aTextEditor cursors copy
+]
+
+{ #category : #evaluating }
+BrTextEditorCursorsMemento >> value [
+	^ cursors
 ]

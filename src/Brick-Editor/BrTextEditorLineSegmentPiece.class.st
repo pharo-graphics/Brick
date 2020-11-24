@@ -158,9 +158,8 @@ BrTextEditorLineSegmentPiece >> setCursor: aPieceElement of: aLineSegment in: an
 
 	"tell to add new cursors"
 	theUpdatedCursors
-		do:
-			[ :aCursor | self onCursorAdded: aCursor to: aPieceElement in: anEditorElement ].
-	aFocusRequest := anEditorElement hasFocus
+		do: [ :aCursor | self onCursorAdded: aCursor to: aPieceElement in: anEditorElement ].
+	aFocusRequest := anEditorElement isFocused
 		ifTrue: [ BrTextEditorFocusRequest new ]
 		ifFalse: [ BrTextEditorBlurRequest new ].
 	aPieceElement

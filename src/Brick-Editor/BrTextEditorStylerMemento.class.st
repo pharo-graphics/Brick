@@ -14,6 +14,11 @@ BrTextEditorStylerMemento >> initialize [
 	styler := BlTextNullStyler new
 ]
 
+{ #category : #evaluating }
+BrTextEditorStylerMemento >> label [
+	^ 'Styler'
+]
+
 { #category : #accessing }
 BrTextEditorStylerMemento >> order [
 	^ 40
@@ -27,4 +32,9 @@ BrTextEditorStylerMemento >> restoreStateOf: aTextEditor [
 { #category : #memento }
 BrTextEditorStylerMemento >> saveStateOf: aTextEditor [
 	styler := aTextEditor styler
+]
+
+{ #category : #evaluating }
+BrTextEditorStylerMemento >> value [
+	^ styler
 ]
