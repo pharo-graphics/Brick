@@ -4,7 +4,8 @@ Class {
 	#instVars : [
 		'position',
 		'mouseButton',
-		'modifiersMatcher'
+		'modifiersMatcher',
+		'hideWishHandler'
 	],
 	#category : #'Brick-Context Menu - Look'
 }
@@ -43,6 +44,10 @@ BrWithContextMenuLook class >> handle: anObject content: anotherObject [
 { #category : #initialization }
 BrWithContextMenuLook >> initialize [
 	super initialize.
+	
+	hideWishHandler := BlEventHandler
+		on: BrContextMenuHideWish
+		do: [ :aWish | self onHideWish: aWish ].
 	
 	preferredExtent := 200 @ 400.
 	
@@ -140,6 +145,16 @@ BrWithContextMenuLook >> modifiersMatcher: aBlockOrSymbol [
 	to test whether the context menu should be opened"
 
 	modifiersMatcher := aBlockOrSymbol
+]
+
+{ #category : #'private - hooks' }
+BrWithContextMenuLook >> onAnchoredElementCreated: anAnchoredElement [
+	anAnchoredElement addEventHandler: hideWishHandler
+]
+
+{ #category : #'private - hooks' }
+BrWithContextMenuLook >> onAnchoredElementRemoved: anAnchoredElement [
+	anAnchoredElement removeEventHandler: hideWishHandler
 ]
 
 { #category : #'event handling' }
