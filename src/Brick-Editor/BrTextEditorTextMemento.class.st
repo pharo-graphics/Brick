@@ -14,6 +14,11 @@ BrTextEditorTextMemento >> initialize [
 	text := '' asRopedText
 ]
 
+{ #category : #evaluating }
+BrTextEditorTextMemento >> label [
+	^ 'Text'
+]
+
 { #category : #accessing }
 BrTextEditorTextMemento >> order [
 	^ 60
@@ -32,4 +37,9 @@ BrTextEditorTextMemento >> saveStateOf: aTextEditor [
 { #category : #accessing }
 BrTextEditorTextMemento >> text [
 	^ text
+]
+
+{ #category : #evaluating }
+BrTextEditorTextMemento >> value [
+	^ text copyWithoutExternalReferences
 ]

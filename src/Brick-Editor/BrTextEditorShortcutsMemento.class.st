@@ -14,6 +14,11 @@ BrTextEditorShortcutsMemento >> initialize [
 	shortcuts := BrTextEditorShortcuts new
 ]
 
+{ #category : #evaluating }
+BrTextEditorShortcutsMemento >> label [
+	^ 'Shortcuts'
+]
+
 { #category : #accessing }
 BrTextEditorShortcutsMemento >> order [
 	^ 10
@@ -27,4 +32,9 @@ BrTextEditorShortcutsMemento >> restoreStateOf: aTextEditor [
 { #category : #memento }
 BrTextEditorShortcutsMemento >> saveStateOf: aTextEditor [
 	shortcuts := aTextEditor editorShortcuts copy
+]
+
+{ #category : #evaluating }
+BrTextEditorShortcutsMemento >> value [
+	^ shortcuts
 ]

@@ -14,6 +14,11 @@ BrTextEditorInputFilterMemento >> initialize [
 	inputFilter := BrTextEditorNoInputFilter new
 ]
 
+{ #category : #evaluating }
+BrTextEditorInputFilterMemento >> label [
+	^ 'Input filter'
+]
+
 { #category : #accessing }
 BrTextEditorInputFilterMemento >> order [
 	^ 50
@@ -27,4 +32,9 @@ BrTextEditorInputFilterMemento >> restoreStateOf: aTextEditor [
 { #category : #memento }
 BrTextEditorInputFilterMemento >> saveStateOf: aTextEditor [
 	inputFilter := aTextEditor inputFilter
+]
+
+{ #category : #evaluating }
+BrTextEditorInputFilterMemento >> value [
+	^ inputFilter
 ]

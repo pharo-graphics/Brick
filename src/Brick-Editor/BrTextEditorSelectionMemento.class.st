@@ -14,6 +14,11 @@ BrTextEditorSelectionMemento >> initialize [
 	selection := BlCompositeSelection new
 ]
 
+{ #category : #evaluating }
+BrTextEditorSelectionMemento >> label [
+	^ 'Selection'
+]
+
 { #category : #accessing }
 BrTextEditorSelectionMemento >> order [
 	^ 70
@@ -34,4 +39,14 @@ BrTextEditorSelectionMemento >> restoreStateOf: aTextEditor [
 { #category : #memento }
 BrTextEditorSelectionMemento >> saveStateOf: aTextEditor [
 	selection := aTextEditor selection copy.
+]
+
+{ #category : #accessing }
+BrTextEditorSelectionMemento >> selection [
+	^ selection
+]
+
+{ #category : #evaluating }
+BrTextEditorSelectionMemento >> value [
+	^ selection
 ]

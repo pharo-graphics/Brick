@@ -14,6 +14,11 @@ BrTextEditorHistoryMemento >> initialize [
 	history := BrTextEditorHistory new
 ]
 
+{ #category : #evaluating }
+BrTextEditorHistoryMemento >> label [
+	^ 'History'
+]
+
 { #category : #accessing }
 BrTextEditorHistoryMemento >> order [
 	^ 30
@@ -27,4 +32,9 @@ BrTextEditorHistoryMemento >> restoreStateOf: aTextEditor [
 { #category : #memento }
 BrTextEditorHistoryMemento >> saveStateOf: aTextEditor [
 	history := aTextEditor history
+]
+
+{ #category : #evaluating }
+BrTextEditorHistoryMemento >> value [
+	^ history
 ]
