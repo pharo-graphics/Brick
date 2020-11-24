@@ -76,6 +76,10 @@ BrTextEditorLineSegmentHolder >> buildSegment: anEditorSegment [
 									timeSync: [ 'Set cursor' ]
 									during: [ aPiece setCursor: aPieceElement of: anEditorSegment in: self infiniteElement ] ].
 						
+						self infiniteElement telemetry
+							timeSync: [ 'Set focus' ]
+							during: [ aPiece updateFocus: self infiniteElement isFocused of: aPieceElement in: self infiniteElement ].
+						
 						hasSelection
 							ifTrue: [
 								self infiniteElement telemetry
