@@ -74,6 +74,11 @@ BrTextAdornmentAttribute >> isAdornment [
 ]
 
 { #category : #testing }
+BrTextAdornmentAttribute >> isFocusable [
+	^ false
+]
+
+{ #category : #testing }
 BrTextAdornmentAttribute >> isStyle [
 	^ false
 ]

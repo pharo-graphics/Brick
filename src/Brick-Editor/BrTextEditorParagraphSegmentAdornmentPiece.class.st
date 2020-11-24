@@ -45,8 +45,10 @@ BrTextEditorParagraphSegmentAdornmentPiece >> createElement: anEditorElement [
 		theAdornmentElements := OrderedCollection with: (BlElement new size: 0@0) ]. 
 	theAdornmentElements do: [ :eachElement |
 		eachElement mouseCursor ifNil: [ eachElement mouseCursor: BlCursor default ].
-		eachElement focusability: BlFocusabilityNone new ].
-	
+		
+		self adornmentAttribute isFocusable
+			ifFalse: [ eachElement focusability: BlFocusabilityNone new ] ].
+
 	self assert: [ self isVirtual or: [
 			"only replacement attribute can be non-virtual"
 			self isVirtual not and: [ self adornmentAttribute shouldReplace ] ] ]
