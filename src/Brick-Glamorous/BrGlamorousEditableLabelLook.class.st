@@ -3,7 +3,8 @@ Class {
 	#superclass : #BrGlamorousEditorLook,
 	#instVars : [
 		'defaultBackground',
-		'defaultForeground'
+		'defaultForeground',
+		'minWidth'
 	],
 	#category : #'Brick-Glamorous-Editor'
 }
@@ -34,10 +35,11 @@ BrGlamorousEditableLabelLook >> initialize [
 	
 	defaultBackground := BrGlamorousColors neutralBackgroundColor.
 	defaultForeground := Color black.
+	minWidth := 20.
 
 	self
 		addChangeProperty: #(widget constraints minWidth)
-		with: [ 20 ].
+		with: [ self minWidth ].
 
 	self
 		add: (BrInteractiveCommonLook new
@@ -65,4 +67,14 @@ BrGlamorousEditableLabelLook >> initializeListeners [
 	super initializeListeners.
 	
 	self when: BlClickEvent do: [ :anEvent | anEvent currentTarget dispatchEvent: (BrSelectedWish selected: true) ]
+]
+
+{ #category : #accessing }
+BrGlamorousEditableLabelLook >> minWidth [
+	^ minWidth
+]
+
+{ #category : #accessing }
+BrGlamorousEditableLabelLook >> minWidth: anObject [
+	minWidth := anObject
 ]
