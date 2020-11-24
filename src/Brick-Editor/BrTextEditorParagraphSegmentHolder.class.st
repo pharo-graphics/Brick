@@ -186,7 +186,7 @@ BrTextEditorParagraphSegmentHolder >> onCursorChanged [
 	itemElement telemetry
 		timeSync: [ 'Set segment cursors {1}' format: {theCursors} ]
 		during: [ itemElement setCursors: theCursors ].
-	(theCursors isNotEmpty and: [ self infiniteElement hasFocus ])
+	(theCursors isNotEmpty and: [ self infiniteElement isFocused ])
 		ifTrue: [ itemElement telemetry
 				timeSync: [ 'Show segment cursors' ]
 				during: [ itemElement showCursors ] ]
@@ -361,7 +361,11 @@ BrTextEditorParagraphSegmentHolder >> updateSegment: anEditorSegment [
 								self infiniteElement telemetry
 									timeSync: [ 'Set selection' ]
 									during: [ self onSelectionChanged ] ] ] ] ].
-
+	
+	self infiniteElement telemetry
+		timeSync: [ 'Set cursor' ]
+		during: [ self onFocusChanged: self infiniteElement isFocused ].
+	
 	itemElement
 		constraintsDo: [ :c | c horizontal resizer: infiniteElement constraints horizontal resizer ];
 		padding: anEditorSegment paragraphMargin
