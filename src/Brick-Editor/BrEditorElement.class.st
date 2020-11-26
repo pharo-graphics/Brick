@@ -30,7 +30,7 @@ BrEditorElement >> editor [
 { #category : #accessing }
 BrEditorElement >> editor: aBrTextEditor [
 	self dataSource: aBrTextEditor.
-	self dataSource view: self.
+	self dataSource view: self
 ]
 
 { #category : #'focus testing' }

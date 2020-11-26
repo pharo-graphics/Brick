@@ -561,6 +561,11 @@ BrTextEditor >> notifySelectionChanged: aSelection [
 	self dispatchEvent: (BrTextEditorSelectionChangedEvent new selection: aSelection)
 ]
 
+{ #category : #'event firing' }
+BrTextEditor >> notifyTextReplaced: aText [
+	self dispatchEvent: (BrTextEditorTextReplacedEvent new text: aText)
+]
+
 { #category : #hooks }
 BrTextEditor >> onAttached: anEditorElement [
 	super onAttached: anEditorElement.
@@ -735,8 +740,9 @@ BrTextEditor >> onTextAttributesRemoved: aBlTextAttributesRemoved [
 BrTextEditor >> onTextReplaced [
 	"Is sent after a text instance is replaced with a new one"
 	self assertUIProcess.
-		
-	self processCursorAttributes
+
+	self processCursorAttributes.
+	self notifyTextReplaced: self text
 ]
 
 { #category : #'hooks - text modifications' }

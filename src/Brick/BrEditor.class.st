@@ -4,7 +4,8 @@ Class {
 	#traits : 'TBrLayoutResizable',
 	#classTraits : 'TBrLayoutResizable classTrait',
 	#instVars : [
-		'editorModel'
+		'editorModel',
+		'textReplacedHandler'
 	],
 	#category : #'Brick-Editor - UI'
 }
@@ -54,10 +55,23 @@ BrEditor >> deselecter [
 	^ self editor deselecter
 ]
 
+{ #category : #accessing }
+BrEditor >> editor: aBrTextEditor [
+	self editor removeEventHandler: textReplacedHandler.
+
+	super editor: aBrTextEditor.
+
+	aBrTextEditor addEventHandler: textReplacedHandler
+]
+
 { #category : #initialization }
 BrEditor >> initialize [
 	super initialize.
 	
+	textReplacedHandler := BlEventHandler
+		on: BrTextEditorTextReplacedEvent
+		do: [ :anEvent | self text: anEvent text ].
+
 	self editor: BrTextEditor new.
 	self padding: (BlInsets all: 5).
 	
