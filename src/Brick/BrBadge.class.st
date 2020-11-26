@@ -12,6 +12,11 @@ Class {
 }
 
 { #category : #'api - widget' }
+BrBadge >> action [
+	^ self viewModel action
+]
+
+{ #category : #'api - widget' }
 BrBadge >> action: aValuable [
 	self viewModel action: aValuable
 ]
@@ -29,6 +34,11 @@ BrBadge >> initialize [
 				BrHoverModel new.
 				BrLayoutHorizontalResizerModel new.
 				BrLayoutVerticalResizerModel new }))
+]
+
+{ #category : #'api - widget' }
+BrBadge >> label [
+	^ labelModel text
 ]
 
 { #category : #'api - widget' }
