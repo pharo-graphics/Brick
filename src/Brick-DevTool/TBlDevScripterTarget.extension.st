@@ -88,35 +88,6 @@ TBlDevScripterTarget >> onGtPagerWrappedPaneContent [
 ]
 
 { #category : #'*Brick-DevTool' }
-TBlDevScripterTarget >> onGtPharoSnippetDestinationButton [
-	self 
-		onChildNamed: #content;
-		onChildOfClass: GtSourceCoderExpandedContentElement;
-		onChildNamed: #switchButton
-]
-
-{ #category : #'*Brick-DevTool' }
-TBlDevScripterTarget >> onGtPharoSnippetEditor [
-	self 
-		"onChildOfClass: GtExpandableCoderElement;"
-		onChildNamed: #content;
-		onChildOfClass: GtSourceCoderExpandedContentElement;
-		onChildNamed: #editor
-]
-
-{ #category : #'*Brick-DevTool' }
-TBlDevScripterTarget >> onGtPharoSnippetInspectButton [
-	self 
-		"onChildOfClass: GtExpandableCoderElement;"
-		onChildNamed: #content;
-		onChildOfClass: GtSourceCoderExpandedContentElement;
-		onChildNamed: #actions;
-		onChildAt: 1; "BrToolbar"
-		"onChildOfClass: BrToolbar;"
-		onChildAt: 2
-]
-
-{ #category : #'*Brick-DevTool' }
 TBlDevScripterTarget >> onGtPlaygroundFirstSnippetCoder [
 	self 
 		onGtPlaygroundSnippetsElement; "Infinite element"
