@@ -897,6 +897,30 @@ BrTextEditor >> restoreState: aBrTextEditorMemento [
 	aBrTextEditorMemento restoreStateOf: self
 ]
 
+{ #category : #accessing }
+BrTextEditor >> restoreText: aBrText [
+
+	"before changing the text we must unsubscribe from existing one"	
+	text unsubscribe: self.
+
+	text := aBrText.
+	self initializeText: text.
+
+	"Replacing text instance means that we can not guarantee structural integrity
+	of existing cache and have to rebuild it invalidating the whole underlying model structure"
+	segmentCollector := self defaultSegmentCollector.
+	segmentCollector editor: self.
+	segmentCollector text: text.
+
+	self onTextReplaced.
+
+	"notify UI about structural update"
+	self notifyChanged.
+
+	"text changed, we should style it"
+	self styleText
+]
+
 { #category : #'api - save state' }
 BrTextEditor >> saveState [
 	<return: #BrTextEditorMemento>
@@ -1121,25 +1145,7 @@ BrTextEditor >> text: aBrText [
 				from: aBrText size to: text size;
 				deselect ].
 
-	"before changing the text we must unsubscribe from existing one"	
-	text unsubscribe: self.
-
-	text := aBrText.
-	self initializeText: text.
-
-	"Replacing text instance means that we can not guarantee structural integrity
-	of existing cache and have to rebuild it invalidating the whole underlying model structure"
-	segmentCollector := self defaultSegmentCollector.
-	segmentCollector editor: self.
-	segmentCollector text: text.
-
-	self onTextReplaced.
-
-	"notify UI about structural update"
-	self notifyChanged.
-
-	"text changed, we should style it"
-	self styleText
+	self restoreText: aBrText.
 ]
 
 { #category : #accessing }

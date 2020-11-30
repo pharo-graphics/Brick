@@ -26,7 +26,7 @@ BrTextEditorTextMemento >> order [
 
 { #category : #memento }
 BrTextEditorTextMemento >> restoreStateOf: aTextEditor [
-	aTextEditor text: text copy
+	aTextEditor restoreText: text copy
 ]
 
 { #category : #memento }
