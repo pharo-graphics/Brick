@@ -200,7 +200,7 @@ BrTabGroupModel >> notifyTabToolbarChanged: anEvent [
 BrTabGroupModel >> onTabAdded: aBrTabModel at: anIndex [
 
 	"fix existing selection"
-	self selectedIndices collect: [ :eachNumber | 
+	self selectedIndices do: [ :eachNumber | 
 		eachNumber >= anIndex 
 			ifTrue: [ self selectOne: eachNumber + 1 ] ].
 
