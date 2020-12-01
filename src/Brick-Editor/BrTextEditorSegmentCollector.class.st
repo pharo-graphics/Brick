@@ -167,11 +167,9 @@ BrTextEditorSegmentCollector >> cachedSegmentAt: aTextIndex ifFound: aFoundBlock
 		of the first segment. when it happens we need to move all cached segments"
 		ifTrue: [ ^ aNotFoundBlock cull: self ].
 
-	self
-		"Make sure that returned value makes sense and cache is not broken"
-		assert: [ self isCachedAt: segmentIndex ]
-		description: [ 'Segment must be cached' ].
-		
+	(self isCachedAt: segmentIndex) ifFalse:
+		[ ^ aNotFoundBlock cull: self ].
+
 	segment := self cachedAt: segmentIndex.
 	
 	self
@@ -211,7 +209,7 @@ BrTextEditorSegmentCollector >> computeBackwardAt: anIndex [
 	newSubText := text from: mapEntry value to: text size.
 	newSegments := OrderedCollection new.
 
-	overlap := cachedInterval last - segmentsInterval first.
+	overlap := cachedInterval last - segmentsInterval first + 1.
 	streamLimit := overlap > 0
 		ifTrue: [ overlap ]
 		ifFalse: [ self cacheLimit ].
@@ -231,6 +229,7 @@ BrTextEditorSegmentCollector >> computeBackwardAt: anIndex [
 	segments := newSegments.
 
 	self computeSegmentIndices.
+	self computeSubText.
 ]
 
 { #category : #'cache - computation' }
