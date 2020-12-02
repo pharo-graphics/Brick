@@ -27,7 +27,9 @@ BrDropdownLook >> initialize [
 	self
 		addChange:
 			(BrLookChange new
-				up: [ :e | handle addEventFilter: clickEventHandler ];
+				up: [ :e |
+					(handle hasEventFilter: clickEventHandler)
+						ifFalse: [ handle addEventFilter: clickEventHandler ] ];
 				down: [ :e | handle removeEventFilter: clickEventHandler ];
 				yourself)
 ]

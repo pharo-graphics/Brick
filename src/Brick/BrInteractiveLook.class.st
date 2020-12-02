@@ -42,7 +42,7 @@ BrInteractiveLook >> initialize [
 	self
 		addChange:
 			(BrLookChange new
-				up: [ :e | styles addAllFirst: BrInteractiveCommonStyler new styles ];
+				up: [ :e | styles ];
 				down: [ :e |  ];
 				yourself)
 ]

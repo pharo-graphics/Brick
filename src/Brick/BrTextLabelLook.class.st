@@ -19,9 +19,7 @@ Class {
 	#traits : 'TBlTextStyleable',
 	#classTraits : 'TBlTextStyleable classTrait',
 	#instVars : [
-		'labelElement',
-		'attributesBuilder',
-		'text'
+		'labelElement'
 	],
 	#category : #'Brick-! Core - Looks'
 }
@@ -30,7 +28,7 @@ Class {
 BrTextLabelLook >> attributesBuilder [
 	<return: #BlTextAttributesBuilder>
 	
-	^ attributesBuilder
+	^ labelElement attributesBuilder
 ]
 
 { #category : #initialization }
@@ -41,16 +39,13 @@ BrTextLabelLook >> editorMeasurement [
 { #category : #initialization }
 BrTextLabelLook >> initialize [
 	super initialize.
+
+	labelElement := BlAttributedTextElement new
+		text: 'Label' asRopedText;
+		labelMeasurement;
+		padding: (BlInsets all: 1).
+
 	self addChangeAddChildAs: #(content label) with: [ self label ].
-	text := 'Label' asRopedText.
-	labelElement := BlTextElement new.
-	labelElement text: text.
-	labelElement labelMeasurement.
-	labelElement padding: (BlInsets all: 1).
-	
-	attributesBuilder := BlTextDelegatedAttributesBuilder new.
-	attributesBuilder attributesTarget: text.
-	attributesBuilder whenAdded: [ labelElement textChanged ]
 ]
 
 { #category : #initialization }
@@ -93,14 +88,12 @@ BrTextLabelLook >> padding: aBlInsets [
 BrTextLabelLook >> text [
 	<return: #BlText>
 
-	^ text
+	^ labelElement text
 ]
 
 { #category : #accessing }
 BrTextLabelLook >> text: aTextOrString [
-	text := aTextOrString asRopedText.
-	self attributesBuilder attributesTarget: text.
-	self label text: text
+	self label text: aTextOrString asRopedText
 ]
 
 { #category : #accessing }
