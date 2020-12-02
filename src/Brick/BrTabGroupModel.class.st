@@ -198,6 +198,12 @@ BrTabGroupModel >> notifyTabToolbarChanged: anEvent [
 
 { #category : #hooks }
 BrTabGroupModel >> onTabAdded: aBrTabModel at: anIndex [
+
+	"fix existing selection"
+	self selectedIndices do: [ :eachNumber | 
+		eachNumber >= anIndex 
+			ifTrue: [ self selectOne: eachNumber + 1 ] ].
+
 	aBrTabModel
 		when: BrSelectedWish
 		do: [ :anEvent |

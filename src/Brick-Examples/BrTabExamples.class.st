@@ -429,6 +429,52 @@ BrTabExamples >> tabGroupWithOneTabChangingToolbarStencil [
 ]
 
 { #category : #'examples - tab group model' }
+BrTabExamples >> tabGroupWithSecondSelectedTabAddedAtFirstPosition [
+	<gtExample>
+	| aTabGroup aTab |
+	
+	aTabGroup := self tabGroupWithOneTab.
+	
+	aTab := self tabModel.
+	aTab select.
+
+	aTabGroup addTab: aTab at: 1.
+
+	self assert: aTab isSelected.
+	self assert: aTabGroup isNotEmpty.
+	self assert: aTabGroup hasSelectedTab.
+	self assert: aTabGroup selectedIndices equals: #(1).
+	self assert: aTabGroup selectedTab equals: aTab.
+
+	^ aTabGroup
+]
+
+{ #category : #'examples - tab group model' }
+BrTabExamples >> tabGroupWithSecondTabAddedAtFirstPosition [
+	<gtExample>
+	| aTabGroup aTab theWishes |
+	
+	aTabGroup := self tabGroupWithOneTab.
+	
+	aTab := self tabModel.
+
+	aTabGroup addTab: aTab at: 1.
+
+	theWishes := OrderedCollection new.
+	aTab when: BrSelectedWish do: [ :aWish | theWishes add: aWish ].
+
+	self assert: theWishes isEmpty.
+	self assert: aTab isSelected not.
+	self assert: aTabGroup isNotEmpty.
+	self assert: aTabGroup hasSelectedTab.
+	self assert: aTabGroup selectedIndices equals: #(2).
+	self assert: aTabGroup selectedTab equals: (aTabGroup tabs at: 2).
+	self assert: aTabGroup selectedTab ~= aTab.
+
+	^ aTabGroup
+]
+
+{ #category : #'examples - tab group model' }
 BrTabExamples >> tabGroupWithTabAddedAtFirstPosition [
 	<gtExample>
 	| aTabGroup anExistingTab anAddedTab |
