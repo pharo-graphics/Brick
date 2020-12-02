@@ -6,9 +6,9 @@ I collect and cache text line segments for fast access by index.
 !!!Instance Variables
 
 	editor 				<BrTextEditor>	The editor that owns this cache
-	limit 					<Integer> The maximum number of segments held in the cache
+	limit 					<Integer> The (soft) maximum number of segments in the cache, see below.
 	map 					<BrTextLineMap> 	The line number to character index map
-	segments 	<OrderedCollection of BrTextEditorLineSegment>		The cached segments
+	segments 				<OrderedCollection of BrTextEditorLineSegment>		The cached segments
 	segmentsInterval 	<Interval> 	The interval of line numbers cached in segments
 	subText 				<BlSubText>
 	text      			<BlText>		The text being edited
@@ -17,6 +17,8 @@ I collect and cache text line segments for fast access by index.
 
 To facilitate jumping backwards quickly the the manager builds a map of line number to charcter offset of the string being edited.  When the target line number is earlier than the cache start the map can be used as a known point to start parsing forward from.
 
+
+The limit represents the maximum number of items held by the receiver when an uncached segment is requested (${method:name=BrTextEditorSegmentCollector>>#segmentAt:}$).  If segments are added via ${method:name=BrTextEditorSegmentCollector>>#addSegments:after:}$ or ${method:name=BrTextEditorSegmentCollector>>#addSegments:before:}$ the limit may be safely exceeded.
 "
 Class {
 	#name : #BrTextEditorSegmentCollector,
@@ -37,7 +39,9 @@ Class {
 
 { #category : #'cache - adding / removing' }
 BrTextEditorSegmentCollector >> addSegments: aCollectionOfSegments after: aSegment [
-	
+	"Add the supplied collection of segments to the receiver after aSegment.
+	This may safely cause the number of cached segments to exceed limit."
+
 	self
 		assert: [ aCollectionOfSegments isNotEmpty ]
 		description: [ 'Can not add a collection of empty segments!' ].
@@ -62,9 +66,7 @@ BrTextEditorSegmentCollector >> addSegments: aCollectionOfSegments after: aSegme
 			afterIndex: aSegment index - self firstIndex + anIndex ].
 	
 	self offsetSegmentIndicesBy: aCollectionOfSegments size after: aCollectionOfSegments last index.
-	
-	self editor notifyItemsInserted: (aCollectionOfSegments first index to: aCollectionOfSegments last index).
-	
+
 	self
 		assert: [ self segments size = segmentsInterval size ]
 		description: [ 'Amount of segments must correspond to the interval' ].
@@ -77,11 +79,16 @@ BrTextEditorSegmentCollector >> addSegments: aCollectionOfSegments after: aSegme
 				satisfy := satisfy and: [ eachSegment index = anExpectedIndex ]	].
 			satisfy ]
 		description: [ 'Segment indices must correspond to the interval' ].
+
+	self editor notifyItemsInserted: (aCollectionOfSegments first index to: aCollectionOfSegments last index).
+	
 ]
 
 { #category : #'cache - adding / removing' }
 BrTextEditorSegmentCollector >> addSegments: aCollectionOfSegments before: aSegment [
-	
+	"Add the supplied collection of segments to the receiver before aSegment.
+	This may safely cause the number of cached segments to exceed limit."
+
 	self
 		assert: [ aCollectionOfSegments isNotEmpty ]
 		description: [ 'Can not add a collection of empty segments!' ].
@@ -125,7 +132,8 @@ BrTextEditorSegmentCollector >> addSegments: aCollectionOfSegments before: aSegm
 
 { #category : #accessing }
 BrTextEditorSegmentCollector >> cacheLimit [
-	"I return a maximal number of segments I am allowed to cache"
+	"Answer the maximum number of segments that will be loaded by #segmentAt:.
+	Explicitly adding segments via #addSegments:after: or #addSegments:before: may safely exceed this limit."
 	<return: #Number>
 	
 	^ limit
@@ -133,6 +141,9 @@ BrTextEditorSegmentCollector >> cacheLimit [
 
 { #category : #accessing }
 BrTextEditorSegmentCollector >> cacheLimit: aNumber [
+	"Set the soft maximum number of segments to cache.
+	See the class comments for further information."
+
 	limit := aNumber
 ]
 
@@ -331,6 +342,10 @@ BrTextEditorSegmentCollector >> computeSubText [
 	"Allow for the fact that the last line in the string may not have a line-end character"
 	subTextEnd > text size ifTrue: [ subTextEnd := subTextEnd - 1 ].
 	subText := text from: subTextStart to: subTextEnd.
+
+	"The following assertion should always be true, but is very expensive.
+	Only used if a problem is suspected."
+	"self assert: subText asString lines size <= segments size."
 ]
 
 { #category : #'cache - accessing' }
