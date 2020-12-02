@@ -18,5 +18,5 @@ BrDefaultTreeRowDataBinder >> buildDefault [
 				hide: self itemNode canBeExpanded not;
 				expanded: self itemNode isExpanded;
 				disabled: self itemNode canBeExpanded not.
-			aToggleElement margin: (BlInsets left: self itemNode depth * 15) ]
+			aToggleElement margin: (aToggleElement margin withLeft: self itemNode depth * 15) ]
 ]
