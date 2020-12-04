@@ -5,3 +5,8 @@ Class {
 	#classTraits : 'TBlElementCommonStyles classTrait',
 	#category : #'Brick-! Core - Looks'
 }
+
+{ #category : #accessing }
+BrStyleCommonLook >> state [
+	^ BlElementState
+]

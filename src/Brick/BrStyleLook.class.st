@@ -64,6 +64,11 @@ BrStyleLook >> resolveStyleTargetStartingFrom: aWidgetElement ifFound: aFoundBlo
 	^ aFoundBlock value: aStyleTarget
 ]
 
+{ #category : #accessing }
+BrStyleLook >> state [
+	^ BlElementState
+]
+
 { #category : #'private - adding' }
 BrStyleLook >> styleForState: aState ifFound: aFoundBlock ifNone: aNoneBlock [
 	^ styles
@@ -84,4 +89,12 @@ BrStyleLook >> target: aSelectorPath [
 	target := aSelectorPath isString
 		ifTrue: [ { aSelectorPath } ]
 		ifFalse: [ aSelectorPath asArray ]
+]
+
+{ #category : #'private - adding' }
+BrStyleLook >> when: aStateBlock style: aStyleBlock [
+	| aTargetState |
+	
+	aTargetState := aStateBlock glamourValueWithArgs: { self state }.
+	aStyleBlock value: (self styleFor: aTargetState)
 ]
