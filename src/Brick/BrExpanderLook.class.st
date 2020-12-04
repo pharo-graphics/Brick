@@ -105,12 +105,11 @@ BrExpanderLook >> initializeHeaderElement [
 BrExpanderLook >> initializeListeners [
 	super initializeListeners.
 
-	self when: BrExpansionChanged do: [ :anEvent |
-		anEvent expanded
-			ifTrue: [ self onExpanded ]
-			ifFalse: [ self onCollapsed ] ].
 	self when: BrAccordionContentStencilChanged do: [ :anEvent | self contentStencil: anEvent stencil ].
-	self when: BrAccordionHeaderStencilChanged do: [ :anEvent | self headerStencil: anEvent stencil ]
+	self when: BrAccordionHeaderStencilChanged do: [ :anEvent | self headerStencil: anEvent stencil ].
+		
+	self when: BrExpandedEvent do: [ :anEvent | self onExpanded ].
+	self when: BrCollapsedEvent do: [ :anEvent | self onCollapsed ]
 ]
 
 { #category : #initialization }
@@ -124,6 +123,10 @@ BrExpanderLook >> initializeRequests [
 
 { #category : #hooks }
 BrExpanderLook >> onCollapsed [
+
+	NonInteractiveTranscript stdout
+		nextPutAll: 'collapsed'; cr.
+
 	contentElement ifNotNil: #removeFromParent.
 	
 	shouldRecreateHeader
@@ -138,6 +141,9 @@ BrExpanderLook >> onCollapsed [
 
 { #category : #hooks }
 BrExpanderLook >> onExpanded [
+	NonInteractiveTranscript stdout
+		nextPutAll: 'expanded'; cr.
+
 	shouldReplaceHeader
 		ifTrue: [ headerElement ifNotNil: #removeFromParent ]
 		ifFalse: [

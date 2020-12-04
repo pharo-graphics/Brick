@@ -65,42 +65,24 @@ BrTextExpandButtonAttribute >> createdAttributes: aCollection [
 
 { #category : #accessing }
 BrTextExpandButtonAttribute >> doAffect: aTBrTextEditorTextualPiece in: anEditorElement [
-	| anIcon |
+	| aToggle |
 
-	anIcon := BlElement new.
-	anIcon size: 8 @ 8.
-	anIcon viewModel: (BrInteractiveModel withAll: { BrExpandableModel new expanded: self isExpanded }).
-	anIcon look: (BrInteractiveCommonLook new
-		expanded: [ :e | e geometry: self expandedGeometry ];
-		collapsed: [ :e | e geometry: self collapsedGeometry ]).
+	aToggle := BrTriangle new
+		look: BrGlamorousTriangleInCircleLook;
+		expanded: self isExpanded;
+		padding: (BlInsets all: 2);
+		margin: (BlInsets top: 2);
+		mouseCursor: BlCursor default;
+		toggleAction: [
+			self
+				toggleExpandedOrCollapsedAttributesOn: aTBrTextEditorTextualPiece
+				in: anEditorElement editor ].
 		
 	self
 		applyExpandedOrCollapsedAttributesOn: aTBrTextEditorTextualPiece
 		in: anEditorElement editor.
 
-	^ BrToggle new
-		look: BrGlamorousButtonLayoutLook new + 
-			BrGlamorousButtonIconLook new + 
-			BrGlamorousButtonWithLabelTooltipLook new + (BrInteractiveCommonLook new
-				default: [ anIcon background: (BrGlamorousColors defaultButtonBorderColor) ];
-				hovered: [ anIcon background: (BrGlamorousColors hoveredButtonBorderColor) ]);
-		icon: anIcon;
-		fitContent;
-		padding: (BlInsets all: 2);
-		margin: (BlInsets top: 2);
-		mouseCursor: BlCursor default;
-		label: (self isExpanded ifTrue: [ 'Collapse' ] ifFalse: [ 'Expand' ]);
-		activated: self isExpanded;
-		when: BrToggleActivatedEvent do: [ :anEvent |
-			anEvent currentTarget label: 'Collapse'.
-			anIcon dispatchEvent: BrExpansionWish expand ];
-		when: BrToggleDeactivatedEvent do: [ :anEvent |
-			anEvent currentTarget label: 'Expand'.
-			anIcon dispatchEvent: BrExpansionWish collapse ];
-		when: BlClickEvent do: [ :anEvent | 
-			self
-				toggleExpandedOrCollapsedAttributesOn: aTBrTextEditorTextualPiece
-				in: anEditorElement editor ]
+	^ aToggle
 ]
 
 { #category : #private }

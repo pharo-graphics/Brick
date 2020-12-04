@@ -1,6 +1,6 @@
 Class {
 	#name : #BrTriangleLook,
-	#superclass : #BrInteractiveCommonLook,
+	#superclass : #BrLook,
 	#instVars : [
 		'isExpanded',
 		'collapsedStencil',
@@ -69,7 +69,7 @@ BrTriangleLook >> expandWidget: aWidget [
 	self collapsedTriangle removeFromParent.
 	self expandedTriangle removeFromParent.
 	self widgetContent addChild: self expandedTriangle as: #triangle.
-	isExpanded := true.
+	isExpanded := true
 ]
 
 { #category : #accessing }
@@ -96,9 +96,15 @@ BrTriangleLook >> expandedTriangle [
 { #category : #initialization }
 BrTriangleLook >> initialize [
 	super initialize.
+	
 	isExpanded := false.
-	self initializeStencils.
-	self initializeWidget.
+	
+	collapsedStencil := self defaultCollapsedStencil.
+	expandedStencil := self defaultExpandedStencil.
+	
+	self 
+		addChangeAddChildAs: #(content triangle) 
+		with: [ self triangle ]
 ]
 
 { #category : #initialization }
@@ -106,6 +112,8 @@ BrTriangleLook >> initializeListeners [
 	super initializeListeners.
 	
 	self when: BrTriangleStencilsChanged do: [ :anEvent | self onStencilsChanged: anEvent ].
+	self when: BrExpandedEvent do: [ :anEvent | self expandWidget: self widget ].
+	self when: BrCollapsedEvent do: [ :anEvent | self collapseWidget: self widget ]
 ]
 
 { #category : #initialization }
@@ -116,24 +124,8 @@ BrTriangleLook >> initializeRequests [
 ]
 
 { #category : #initialization }
-BrTriangleLook >> initializeStencils [
-	collapsedStencil := self defaultCollapsedStencil.
-	expandedStencil := self defaultExpandedStencil.
-]
-
-{ #category : #initialization }
 BrTriangleLook >> initializeTriangle: aTriangle [
 	"subclasses may configure collapsed and expanded triangle elements"
-]
-
-{ #category : #initialization }
-BrTriangleLook >> initializeWidget [
-	self 
-		addChangeAddChildAs: #(content triangle) 
-		with: [ self triangle ];
-	default: [ :aWidget | self collapseWidget: aWidget ];
-	expanded: [ :aWidget | self expandWidget: aWidget ];
-	collapsed: [ :aWidget | self collapseWidget: aWidget ]
 ]
 
 { #category : #'api - expandable' }

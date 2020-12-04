@@ -4,7 +4,7 @@ Class {
 	#instVars : [
 		'resizer'
 	],
-	#category : #'Brick-Layout Resizer - Events'
+	#category : #'Brick-! Deprecated'
 }
 
 { #category : #testing }

@@ -4,7 +4,7 @@ Class {
 	#instVars : [
 		'resizer'
 	],
-	#category : #'Brick-Layout Resizer - Model'
+	#category : #'Brick-! Deprecated'
 }
 
 { #category : #'instance creation' }

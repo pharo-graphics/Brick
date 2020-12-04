@@ -4,7 +4,7 @@ Class {
 	#instVars : [
 		'dimension'
 	],
-	#category : #'Brick-! Core - Events'
+	#category : #'Brick-! Deprecated'
 }
 
 { #category : #'instance creation' }

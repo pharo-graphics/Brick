@@ -9,8 +9,13 @@ Class {
 	#instVars : [
 		'expanded'
 	],
-	#category : #'Brick-! Core'
+	#category : #'Brick-! Deprecated'
 }
+
+{ #category : #testing }
+BrExpandableModel class >> isDeprecated [
+	^ true
+]
 
 { #category : #'api - expandable' }
 BrExpandableModel >> collapse [

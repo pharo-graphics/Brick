@@ -141,6 +141,7 @@ BrInteractiveModel >> withEnablement [
 
 { #category : #'api - interactions' }
 BrInteractiveModel >> withExpansion [
+	self deprecated: 'IS deprecated'.
 	self addState: BrExpandableModel new
 ]
 

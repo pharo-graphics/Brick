@@ -8,7 +8,7 @@ Trait {
 
 { #category : #'api - expandable' }
 TBrExpandable >> collapse [
-	self states removeState: BlElementExpandedState uniqueInstance
+	self states addState: BlElementCollapsedState uniqueInstance
 ]
 
 { #category : #'api - expandable' }

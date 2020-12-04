@@ -4,7 +4,7 @@ Class {
 	#instVars : [
 		'dimension'
 	],
-	#category : #'Brick-! Core - States'
+	#category : #'Brick-! Deprecated'
 }
 
 { #category : #'instance creation' }

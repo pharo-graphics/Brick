@@ -8,6 +8,21 @@ Class {
 BrGlamorousTriangleInCircleLook >> initialize [
 	super initialize.
 	
+	self
+		addChangeProperty: #(widget layout) 
+			with: [ BlFrameLayout new ]; 
+		addChangeProperty: #(widget geometry)
+			with: [ BlEllipseGeometry new ];
+		addChangeProperty: #(widget constraints vertical resizer)
+			with: [ BlLayoutResizer exact: 16.0 ];
+		addChangeProperty: #(widget constraints horizontal resizer)
+			with: [ BlLayoutResizer exact: 16.0 ].
+
+	self add: (BrStyleCommonLook new
+		default: [ :aStyle | aStyle background: BrGlamorousColors deselectedListItemColor ];
+		hovered: [ :aStyle | aStyle background: BrGlamorousColors hoveredListItemColor ];
+		pressed: [ :aStyle | aStyle background: BrGlamorousColors pressedListItemColor ]).
+	
 	self add: (BrDeprecatedSizeAdjustmentLook new
 		huge: [ :aWidget | 
 			aWidget 
@@ -38,26 +53,10 @@ BrGlamorousTriangleInCircleLook >> initialize [
 { #category : #initialization }
 BrGlamorousTriangleInCircleLook >> initializeTriangle: aTriangle [
 	"configure collapsed and expanded triangle elements"
+
 	aTriangle 
 		background: BrGlamorousColors expandCollapseTriangleBackgroundColor;
 		constraintsDo: [ :c | 
 			c frame horizontal alignCenter.
 			c frame vertical alignCenter. ].
-]
-
-{ #category : #initialization }
-BrGlamorousTriangleInCircleLook >> initializeWidget [
-	super initializeWidget.
-	self
-		addChangeProperty: #(widget layout) 
-			with: [ BlFrameLayout new ]; 
-		addChangeProperty: #(widget geometry)
-			with: [ BlEllipseGeometry new ];
-		addChangeProperty: #(widget constraints vertical resizer)
-			with: [ BlLayoutResizer exact: 16.0 ];
-		addChangeProperty: #(widget constraints horizontal resizer)
-			with: [ BlLayoutResizer exact: 16.0 ];
-		default: [ :aWidget | aWidget background: BrGlamorousColors deselectedListItemColor ];
-		hovered: [ :aWidget | aWidget background: BrGlamorousColors hoveredListItemColor ];
-		pressed: [ :aWidget | aWidget background: BrGlamorousColors pressedListItemColor ]
 ]

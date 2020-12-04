@@ -1,8 +1,13 @@
 Class {
 	#name : #BrExpandedState,
 	#superclass : #BrInteractionState,
-	#category : #'Brick-! Core - States'
+	#category : #'Brick-! Deprecated'
 }
+
+{ #category : #testing }
+BrExpandedState class >> isDeprecated [
+	^ true
+]
 
 { #category : #printing }
 BrExpandedState >> printOn: aStream [

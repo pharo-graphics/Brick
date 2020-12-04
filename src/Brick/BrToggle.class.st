@@ -1,8 +1,8 @@
 Class {
 	#name : #BrToggle,
 	#superclass : #BlElement,
-	#traits : 'TBrEnableable + TBrLayoutAlignable + TBrLayoutResizable + TBrDeprecatedSizeAdjustable',
-	#classTraits : 'TBrEnableable classTrait + TBrLayoutAlignable classTrait + TBrLayoutResizable classTrait + TBrDeprecatedSizeAdjustable classTrait',
+	#traits : 'TBrEnableable + TBrLayoutAlignable + TBrLayoutResizable + TBrSizeAdjustable',
+	#classTraits : 'TBrEnableable classTrait + TBrLayoutAlignable classTrait + TBrLayoutResizable classTrait + TBrSizeAdjustable classTrait',
 	#instVars : [
 		'labelModel',
 		'iconModel'
@@ -20,36 +20,6 @@ BrToggle >> activate [
 { #category : #'api - toggle' }
 BrToggle >> activated: aBoolean [
 	self viewModel activated: aBoolean
-]
-
-{ #category : #'api - size adjustable' }
-BrToggle >> beHuge [
-	self dispatchEvent: (BrDeprecatedSizeAdjustmentWish beHuge)
-]
-
-{ #category : #'api - size adjustable' }
-BrToggle >> beLarge [
-	self dispatchEvent: (BrDeprecatedSizeAdjustmentWish beLarge)
-]
-
-{ #category : #'api - size adjustable' }
-BrToggle >> beMini [
-	self dispatchEvent: (BrDeprecatedSizeAdjustmentWish beMini)
-]
-
-{ #category : #'api - size adjustable' }
-BrToggle >> beNormal [
-	self dispatchEvent: (BrDeprecatedSizeAdjustmentWish beNormal)
-]
-
-{ #category : #'api - size adjustable' }
-BrToggle >> beSmall [
-	self dispatchEvent: (BrDeprecatedSizeAdjustmentWish beSmall)
-]
-
-{ #category : #'api - size adjustable' }
-BrToggle >> beTiny [
-	self dispatchEvent: (BrDeprecatedSizeAdjustmentWish beTiny)
 ]
 
 { #category : #'api - toggle' }
