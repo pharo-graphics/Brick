@@ -33,20 +33,10 @@ BrGlamorousExpanderLook >> initialize [
 		
 	self add: (BrStyleCommonLook new
 		collapsed: [ :aStyle |
-			aStyle background: Color transparent.
-			aStyle border: (BlBorder paint: Color veryVeryLightGray width: 1).
-			aStyle do: [
-				ContextStackSignal emit.
-				NonInteractiveTranscript stdout nextPutAll: 'remove shadow' ;cr.
-				self remove: aShadowLook ] ];
+			aStyle border: (BlBorder paint: Color veryVeryLightGray width: 1).];
 		expanded: [ :aStyle |
 			aStyle background: Color white.
-			aStyle border: BlBorder empty.
-			aStyle do: [
-				ContextStackSignal emit.
-				NonInteractiveTranscript stdout nextPutAll: 'add shadow' ;cr.
-				self remove: aShadowLook.
-				self add: aShadowLook ] ]).
+			aStyle do: [ self add: aShadowLook ] after: [ self remove: aShadowLook ] ]).
 
 	self addChangeAddChildAs: #(content) with: [ container ].
 	self

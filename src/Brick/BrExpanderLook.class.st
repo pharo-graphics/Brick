@@ -124,9 +124,6 @@ BrExpanderLook >> initializeRequests [
 { #category : #hooks }
 BrExpanderLook >> onCollapsed [
 
-	NonInteractiveTranscript stdout
-		nextPutAll: 'collapsed'; cr.
-
 	contentElement ifNotNil: #removeFromParent.
 	
 	shouldRecreateHeader
@@ -141,8 +138,6 @@ BrExpanderLook >> onCollapsed [
 
 { #category : #hooks }
 BrExpanderLook >> onExpanded [
-	NonInteractiveTranscript stdout
-		nextPutAll: 'expanded'; cr.
 
 	shouldReplaceHeader
 		ifTrue: [ headerElement ifNotNil: #removeFromParent ]
