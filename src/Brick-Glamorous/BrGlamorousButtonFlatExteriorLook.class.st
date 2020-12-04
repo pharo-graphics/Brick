@@ -1,6 +1,6 @@
 Class {
 	#name : #BrGlamorousButtonFlatExteriorLook,
-	#superclass : #BrInteractiveCommonLook,
+	#superclass : #BrStyleCommonLook,
 	#instVars : [
 		'backgroundPaint'
 	],
@@ -34,17 +34,13 @@ BrGlamorousButtonFlatExteriorLook >> initialize [
 	backgroundPaint := Color transparent.
 
 	self
-		addChangeProperty: #(widgetContent background)
-		with: [ self backgroundPaint ].
-
-	self
-		default: [ :aWidget | aWidget
+		default: [ :aStyle | aStyle
 			background: backgroundPaint;
 			border: BlBorder empty  ];
-		focused: [ :aWidget | aWidget border: (BlBorder paint: BrGlamorousColors hoveredButtonBorderColor width: 1) ];
-		hovered: [ :aWidget | aWidget background: self hoveredBackgroundPaint ];
-		pressed: [ :aWidget | aWidget background: self pressedBackgroundPaint ];
-		disabled: [ :aWidget | aWidget background: self disabledBackgroundPaint ]
+		focused: [ :aStyle | aStyle border: (BlBorder paint: BrGlamorousColors hoveredButtonBorderColor width: 1) ];
+		hovered: [ :aStyle | aStyle background: self hoveredBackgroundPaint ];
+		pressed: [ :aStyle | aStyle background: self pressedBackgroundPaint ];
+		disabled: [ :aStyle | aStyle background: self disabledBackgroundPaint ]
 ]
 
 { #category : #accessing }

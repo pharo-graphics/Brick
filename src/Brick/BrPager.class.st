@@ -36,14 +36,7 @@ BrPager >> initializeLook [
 
 { #category : #initialization }
 BrPager >> initializeViewModel [
-	self
-		viewModel:
-			(self newPagerModel
-				add:
-					(BrInteractiveModel
-						withAll:
-							{BrLayoutHorizontalResizerModel matchParent.
-							BrLayoutVerticalResizerModel matchParent}))
+	self viewModel: self newPagerModel
 ]
 
 { #category : #'instance creation' }

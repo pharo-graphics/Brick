@@ -92,10 +92,6 @@ BrColumnedListExamples >> columnedListModel [
 	
 	aColumnedListModel := BrSimpleListModel new.
 	aColumnedListModel add: BrColumnedModel new.
-	aColumnedListModel add: (BrInteractiveModel withAll: {
-		BrLayoutHorizontalResizerModel exact: 400.0.
-		BrLayoutVerticalResizerModel matchParent
-	}).
 	
 	self assert: aColumnedListModel children first columns isEmpty.
 	

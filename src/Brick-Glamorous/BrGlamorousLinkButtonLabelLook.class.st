@@ -33,7 +33,7 @@ BrGlamorousLinkButtonLabelLook >> initialize [
 		weight: 400;
 		glamorousCodeFont.
 		
-	self add: (BrSizeAdjustmentLook new
+	self add: (BrDeprecatedSizeAdjustmentLook new
 		default: [ self fontSize: normalFontSize ];
 		huge: [ self fontSizeBy: 6 ];
 		large: [ self fontSizeBy: 2 ];

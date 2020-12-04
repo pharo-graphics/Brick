@@ -40,7 +40,7 @@ BrTabModel >> actionsStencil: anActionStencilBuilder [
 BrTabModel >> clickEvent: anEvent [
 	(self request: BrEnablementRequest oneWay) isActivated
 		ifFalse: [ ^ self ].
-	
+
 	anEvent consumed: true.
 	self select
 ]

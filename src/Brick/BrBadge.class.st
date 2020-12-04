@@ -26,14 +26,7 @@ BrBadge >> initialize [
 	super initialize.
 
 	self viewModel: (BrButtonModel new +
-		(labelModel := BrLabelModel new) +
-		(BrInteractiveModel withAll: {
-				activationModel := BrEnablementModel new.
-				dimensionModel := BrSizeAdjustmentModel new.
-				BrPressModel new.
-				BrHoverModel new.
-				BrLayoutHorizontalResizerModel new.
-				BrLayoutVerticalResizerModel new }))
+		(labelModel := BrLabelModel new))
 ]
 
 { #category : #'api - widget' }

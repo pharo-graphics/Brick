@@ -6,7 +6,6 @@ Class {
 		'headerStencil',
 		'contentElement',
 		'headerElement',
-		'layoutResizerLook',
 		'shouldRecreateHeader',
 		'shouldReplaceHeader'
 	],
@@ -82,26 +81,24 @@ BrExpanderLook >> initialize [
 	contentStencil := [ BlElement new ] asStencil.
 	headerStencil := [ BlElement new ] asStencil.
 
-	self add: (layoutResizerLook := BrLayoutResizerLook new
+	self add: (BrLayoutResizerLook new
 		inherit; "for myself"
-		matchParentToMatchParentIn: [ :aBlock | self resizableElementsDo: aBlock ];
-		exactToMatchParentIn: [ :aBlock | self resizableElementsDo: aBlock ];
-		fitContentToFitContentIn: [ :aBlock | self resizableElementsDo: aBlock ];
-		fitContentLimitedToFitContentLimitedIn: [ :aBlock | self resizableElementsDo: aBlock ])
+		matchParentToMatchParent: [ :aBlock | self resizableElementsDo: aBlock ];
+		exactToMatchParent: [ :aBlock | self resizableElementsDo: aBlock ];
+		fitContentToFitContent: [ :aBlock | self resizableElementsDo: aBlock ];
+		fitContentLimitedToFitContentLimited: [ :aBlock | self resizableElementsDo: aBlock ])
 ]
 
 { #category : #initialization }
 BrExpanderLook >> initializeContentElement [
 	contentElement := self contentStencil asElement.
-	contentElement removeFromParent.
-	layoutResizerLook requestStates
+	contentElement removeFromParent
 ]
 
 { #category : #initialization }
 BrExpanderLook >> initializeHeaderElement [
 	headerElement := self headerStencil asElement.
-	headerElement removeFromParent.
-	layoutResizerLook requestStates
+	headerElement removeFromParent
 ]
 
 { #category : #initialization }

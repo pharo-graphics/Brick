@@ -5,7 +5,7 @@ I define the rectangular exterior of the link button.
 "
 Class {
 	#name : #BrGlamorousLinkButtonExteriorInnerLook,
-	#superclass : #BrInteractiveCommonLook,
+	#superclass : #BrStyleCommonLook,
 	#instVars : [
 		'backgroundPaint'
 	],
@@ -28,10 +28,10 @@ BrGlamorousLinkButtonExteriorInnerLook >> initialize [
 	backgroundPaint := BrGlamorousColors disabledButtonBackgroundColor.
 
 	self
-		default: [ :aWidget | aWidget background: self backgroundPaint ];
-		hovered: [ :aWidget | aWidget background: BrGlamorousColors hoveredButtonTextColor ];
-		pressed: [ :aWidget | aWidget background: BrGlamorousColors pressedButtonTextColor ];
-		disabled: [ :aWidget | aWidget background: BrGlamorousColors disabledButtonTextColor ].
+		default: [ :aStyle | aStyle background: self backgroundPaint ];
+		hovered: [ :aStyle | aStyle background: BrGlamorousColors hoveredButtonTextColor ];
+		pressed: [ :aStyle | aStyle background: BrGlamorousColors pressedButtonTextColor ];
+		disabled: [ :aStyle | aStyle background: BrGlamorousColors disabledButtonTextColor ].
 
 	self
 		addChangeProperty: #(widgetContent layout)

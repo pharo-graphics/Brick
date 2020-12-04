@@ -8,7 +8,7 @@ Class {
 BrGlamorousTriangleInCircleLook >> initialize [
 	super initialize.
 	
-	self add: (BrSizeAdjustmentLook new
+	self add: (BrDeprecatedSizeAdjustmentLook new
 		huge: [ :aWidget | 
 			aWidget 
 				padding: (BlInsets all: 2);

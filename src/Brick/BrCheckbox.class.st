@@ -23,23 +23,51 @@ BrCheckbox >> action: aBlockClosure [
 	self viewModel action: aBlockClosure
 ]
 
+{ #category : #'api - size adjustable' }
+BrCheckbox >> beHuge [
+	self dispatchEvent: (BrDeprecatedSizeAdjustmentWish beHuge)
+]
+
+{ #category : #'api - size adjustable' }
+BrCheckbox >> beLarge [
+	self dispatchEvent: (BrDeprecatedSizeAdjustmentWish beLarge)
+]
+
+{ #category : #'api - size adjustable' }
+BrCheckbox >> beMini [
+	self dispatchEvent: (BrDeprecatedSizeAdjustmentWish beMini)
+]
+
+{ #category : #'api - size adjustable' }
+BrCheckbox >> beNormal [
+	self dispatchEvent: (BrDeprecatedSizeAdjustmentWish beNormal)
+]
+
+{ #category : #'api - size adjustable' }
+BrCheckbox >> beSmall [
+	self dispatchEvent: (BrDeprecatedSizeAdjustmentWish beSmall)
+]
+
+{ #category : #'api - size adjustable' }
+BrCheckbox >> beTiny [
+	self dispatchEvent: (BrDeprecatedSizeAdjustmentWish beTiny)
+]
+
 { #category : #initialization }
 BrCheckbox >> initialize [
 	super initialize.
 
+	self
+		vLocal;
+		hLocal;
+		beNormalSize.
+
 	self viewModel: (
 		BrButtonModel new
 			addAll: {
+				BrCheckboxModel new.
 				(BrInteractiveModel new
 					addStates: {
-						BrCheckboxModel new.
-						BrEnablementModel new.
-						BrPressModel new.
-						BrHoverModel new.
-						BrFocusModel new.
-						BrSizeAdjustmentModel new.
 						BrLayoutAlignmentModel center.
-						BrLayoutHorizontalResizerModel fitContent.
-						BrLayoutVerticalResizerModel fitContent
 					}) } )
 ]

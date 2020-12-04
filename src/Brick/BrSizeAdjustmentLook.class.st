@@ -1,59 +1,65 @@
 Class {
 	#name : #BrSizeAdjustmentLook,
-	#superclass : #BrInteractiveLook,
-	#category : #'Brick-! Core - Looks'
+	#superclass : #BrStyleLook,
+	#category : #'Brick-! Core - Size Adjustment'
 }
 
-{ #category : #'api - style' }
-BrSizeAdjustmentLook >> default: aStyleBlock [
-	self
-		when: self state default
-		style: aStyleBlock
-]
-
-{ #category : #'api - style' }
-BrSizeAdjustmentLook >> huge: aStyleBlock [
-	self
-		when: self state huge
-		style: aStyleBlock
-]
-
-{ #category : #'api - style' }
-BrSizeAdjustmentLook >> large: aStyleBlock [
-	self
-		when: self state large
-		style: aStyleBlock
-]
-
-{ #category : #'api - style' }
-BrSizeAdjustmentLook >> mini: aStyleBlock [
-	self
-		when: self state mini
-		style: aStyleBlock
-]
-
-{ #category : #'api - style' }
-BrSizeAdjustmentLook >> sized: aNamedSize style: aStyleBlock [
-	self
-		when: (self state sized: aNamedSize)
-		style: aStyleBlock
-]
-
-{ #category : #'api - style' }
-BrSizeAdjustmentLook >> small: aStyleBlock [
-	self
-		when: self state small
-		style: aStyleBlock
+{ #category : #accessing }
+BrSizeAdjustmentLook >> huge [
+	^ self styleFor: BrSizeAdjustmentState huge
 ]
 
 { #category : #accessing }
-BrSizeAdjustmentLook >> state [
-	^ BrSizeAdjustmentState
+BrSizeAdjustmentLook >> huge: aBlock [
+	aBlock value: self huge
 ]
 
-{ #category : #'api - style' }
-BrSizeAdjustmentLook >> tiny: aStyleBlock [
-	self
-		when: self state tiny
-		style: aStyleBlock
+{ #category : #accessing }
+BrSizeAdjustmentLook >> large [
+	^ self styleFor: BrSizeAdjustmentState large
+]
+
+{ #category : #accessing }
+BrSizeAdjustmentLook >> large: aBlock [
+	aBlock value: self large
+]
+
+{ #category : #accessing }
+BrSizeAdjustmentLook >> mini [
+	^ self styleFor: BrSizeAdjustmentState mini
+]
+
+{ #category : #accessing }
+BrSizeAdjustmentLook >> mini: aBlock [
+	aBlock value: self mini
+]
+
+{ #category : #accessing }
+BrSizeAdjustmentLook >> normal [
+	^ self styleFor: BrSizeAdjustmentState normal
+]
+
+{ #category : #accessing }
+BrSizeAdjustmentLook >> normal: aBlock [
+	aBlock value: self normal
+]
+
+{ #category : #accessing }
+BrSizeAdjustmentLook >> small [
+	^ self styleFor: BrSizeAdjustmentState small
+]
+
+{ #category : #accessing }
+BrSizeAdjustmentLook >> small: aBlock [
+	aBlock value: self small
+]
+
+{ #category : #accessing }
+BrSizeAdjustmentLook >> tiny [
+	^ self styleFor: BrSizeAdjustmentState tiny
+]
+
+{ #category : #accessing }
+BrSizeAdjustmentLook >> tiny: aBlock [
+	aBlock value: self tiny
 ]

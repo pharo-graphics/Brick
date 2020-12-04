@@ -25,6 +25,11 @@ BrLayoutResizerWish class >> fitContentLimited [
 	^ self resizer: BlLayoutResizer fitContentLimited
 ]
 
+{ #category : #testing }
+BrLayoutResizerWish class >> isDeprecated [
+	^ true
+]
+
 { #category : #'instance creation' }
 BrLayoutResizerWish class >> matchParent [
 	^ self resizer: BlLayoutResizer matchParent

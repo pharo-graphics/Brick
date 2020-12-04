@@ -11,7 +11,9 @@ Class {
 BrPagerLook >> initialize [
 	super initialize.
 
-	pages := OrderedDictionary new
+	pages := OrderedDictionary new.
+	
+	self add: BrLayoutResizerLook inherit
 ]
 
 { #category : #initialization }

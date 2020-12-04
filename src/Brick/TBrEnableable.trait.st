@@ -8,30 +8,36 @@ Trait {
 
 { #category : #'api - enablement' }
 TBrEnableable >> disable [
-	self dispatchEvent: (BrEnablementWish enabled: false)
+	self states addState: BlElementState disabled
 ]
 
 { #category : #'api - enablement' }
 TBrEnableable >> disabled: aBoolean [
-	self enabled: aBoolean not
+	aBoolean
+		ifTrue: [ self disable ]
+		ifFalse: [ self enable ]
 ]
 
 { #category : #'api - enablement' }
 TBrEnableable >> enable [
-	self dispatchEvent: (BrEnablementWish enabled: true)
+	self states removeState: BlElementState disabled
 ]
 
 { #category : #'api - enablement' }
 TBrEnableable >> enabled: aBoolean [
-	self dispatchEvent: (BrEnablementWish enabled: aBoolean)
+	aBoolean
+		ifTrue: [ self enable ]
+		ifFalse: [ self disable ]
 ]
 
 { #category : #'api - enablement' }
-TBrEnableable >> isDisabled [	
-	^ self isEnabled not
+TBrEnableable >> isDisabled [
+	<return: #Boolean>
+
+	^ self states hasState: BlElementState disabled
 ]
 
 { #category : #'api - enablement' }
 TBrEnableable >> isEnabled [
-	^ (self viewModel request: BrEnablementRequest new oneWay) isEnabled
+	^ self isDisabled not
 ]

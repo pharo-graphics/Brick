@@ -22,7 +22,6 @@ BrLayoutResizerExamples >> layoutResizerWithPropagation [
 			vExactToMatchParent) "when inside of the exact parent, the item should match parent" ].
 
 	widget := BlElement new.
-	widget viewModel: (BrInteractiveModel withAll: { BrLayoutHorizontalResizerModel fitContent. BrLayoutVerticalResizerModel fitContent }).
 	widget look: (BrLayoutResizerLook new inherit).
 	widget background: (Color gray alpha: 0.1).
 	widget padding: (BlInsets left: 10 right: 10).

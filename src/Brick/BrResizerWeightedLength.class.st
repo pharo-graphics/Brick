@@ -15,7 +15,8 @@ BrResizerWeightedLength >> adjustHeightFor: anElement [
 			c vertical matchParent.
 			c frame vertical weight: self weight.
 			c linear weight: self weight. ].
-	anElement dispatchEvent: (BrLayoutVerticalResizerWish matchParent)
+	
+	anElement states addState: BrLayoutVerticalResizerState matchParent.
 ]
 
 { #category : #'api - size' }
@@ -26,7 +27,8 @@ BrResizerWeightedLength >> adjustWidthFor: anElement [
 			c horizontal matchParent.
 			c frame horizontal weight: self weight.
 			c linear weight: self weight. ].
-	anElement dispatchEvent: (BrLayoutHorizontalResizerWish matchParent)
+
+	anElement states addState: BrLayoutHorizontalResizerState matchParent.
 ]
 
 { #category : #asserting }

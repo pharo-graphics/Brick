@@ -47,19 +47,14 @@ BrTab >> icon: anElement [
 { #category : #initialization }
 BrTab >> initialize [
 	super initialize.
+	
+	self fitContent.
 
 	self viewModel: (BrTabModel new + 
 		(labelModel := BrLabelModel new) +
 		(iconModel := BrIconModel new) +
 		(BrInteractiveModel withAll: {
 			BrLayoutAlignmentModel new center.
-			BrEnablementModel new.
-			BrPressModel new.
-			BrHoverModel new.
-			BrSelectModel new.
-			BrSizeAdjustmentModel new.
-			BrLayoutHorizontalResizerModel fitContent.
-			BrLayoutVerticalResizerModel fitContent
 	}))
 ]
 

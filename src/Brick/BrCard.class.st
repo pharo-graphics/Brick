@@ -36,17 +36,15 @@ BrCard >> description: aStringOrBrText [
 BrCard >> initialize [
 	super initialize.
 	
+	self fitContent.
+	
 	self viewModel: (buttonModel := BrButtonModel new +
 		(titleModel := BrLabelModel new) +
 		(pictureModel := BrIconModel new) + 
 		(descriptionModel := BrDescriptionModel new) +
 		(BrInteractiveModel new
 			addStates: {
-				BrPressModel new.
-				BrHoverModel new.
 				BrLayoutAlignmentModel center.
-				BrLayoutHorizontalResizerModel fitContent.
-				BrLayoutVerticalResizerModel fitContent
 			}))
 ]
 

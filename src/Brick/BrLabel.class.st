@@ -15,13 +15,13 @@ BrLabel >> gtDisplayString [
 { #category : #initialization }
 BrLabel >> initialize [
 	super initialize.
+	
+	self
+		fitContent;
+		beNormalSize.
 
 	self viewModel: (BrLabelModel new add: (BrInteractiveModel withAll: {
-		BrLayoutHorizontalResizerModel fitContent.
-		BrLayoutVerticalResizerModel fitContent.
 		BrLayoutAlignmentModel new centerLeft.
-		BrSizeAdjustmentModel new.
-		BrHoverModel new
 	}))
 ]
 

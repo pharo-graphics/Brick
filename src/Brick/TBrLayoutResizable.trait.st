@@ -1,6 +1,6 @@
 Trait {
 	#name : #TBrLayoutResizable,
-	#category : #'Brick-Layout Resizer - UI'
+	#category : #'Brick-! Core - Layout Resizer'
 }
 
 { #category : #'api - layout resizeable' }
@@ -26,22 +26,33 @@ TBrLayoutResizable >> fitContentLimited [
 
 { #category : #'api - layout resizeable' }
 TBrLayoutResizable >> hExact: aNumber [
-	self dispatchEvent: (BrLayoutHorizontalResizerWish exact: aNumber asFloat)
+
+	"we have to set the size in the constraints because the resizer state is stateless and does not propagate the actual size value"
+	(self constraints horizontal resizer isExact
+		and: [ self constraints horizontal resizer size = aNumber ])
+			ifFalse: [ self constraintsDo: [ :c | c horizontal exact: aNumber ] ].
+
+	self states addState: BrLayoutHorizontalResizerState exact
 ]
 
 { #category : #'api - layout resizeable' }
 TBrLayoutResizable >> hFitContent [
-	self dispatchEvent: (BrLayoutHorizontalResizerWish fitContent)
+	self states addState: BrLayoutHorizontalResizerState fitContent
 ]
 
 { #category : #'api - layout resizeable' }
 TBrLayoutResizable >> hFitContentLimited [
-	self dispatchEvent: (BrLayoutHorizontalResizerWish fitContentLimited)
+	self states addState: BrLayoutHorizontalResizerState fitContentLimited
+]
+
+{ #category : #'api - layout resizeable' }
+TBrLayoutResizable >> hLocal [
+	self states addState: BrLayoutHorizontalResizerState local
 ]
 
 { #category : #'api - layout resizeable' }
 TBrLayoutResizable >> hMatchParent [
-	self dispatchEvent: (BrLayoutHorizontalResizerWish matchParent)
+	self states addState: BrLayoutHorizontalResizerState matchParent
 ]
 
 { #category : #'api - layout resizeable' }
@@ -52,20 +63,32 @@ TBrLayoutResizable >> matchParent [
 
 { #category : #'api - layout resizeable' }
 TBrLayoutResizable >> vExact: aNumber [
-	self dispatchEvent: (BrLayoutVerticalResizerWish exact: aNumber asFloat)
+	
+	"we have to set the size in the constraints because the resizer state is stateless and does not propagate the actual size value"
+	(self constraints vertical resizer isExact
+		and: [ self constraints vertical resizer size = aNumber ])
+			ifFalse: [
+				self constraintsDo: [ :c | c vertical exact: aNumber ] ].
+
+	self states addState: BrLayoutVerticalResizerState exact
 ]
 
 { #category : #'api - layout resizeable' }
 TBrLayoutResizable >> vFitContent [
-	self dispatchEvent: (BrLayoutVerticalResizerWish fitContent)
+	self states addState: BrLayoutVerticalResizerState fitContent
 ]
 
 { #category : #'api - layout resizeable' }
 TBrLayoutResizable >> vFitContentLimited [
-	self dispatchEvent: (BrLayoutVerticalResizerWish fitContentLimited)
+	self states addState: BrLayoutVerticalResizerState fitContentLimited
+]
+
+{ #category : #'api - layout resizeable' }
+TBrLayoutResizable >> vLocal [
+	self states addState: BrLayoutVerticalResizerState local
 ]
 
 { #category : #'api - layout resizeable' }
 TBrLayoutResizable >> vMatchParent [
-	self dispatchEvent: (BrLayoutVerticalResizerWish matchParent)
+	self states addState: BrLayoutVerticalResizerState matchParent
 ]

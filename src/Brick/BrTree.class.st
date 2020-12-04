@@ -39,10 +39,7 @@ BrTree >> initialize [
 	super initialize.
 
 	self viewModel: (self defaultListModel
-		add: (selectionModel := BrSelectionModel new);
-		add: (BrInteractiveModel withAll: {
-			BrLayoutHorizontalResizerModel matchParent.
-			BrLayoutVerticalResizerModel matchParent })).
+		add: (selectionModel := BrSelectionModel new)).
 
 	self initializeEventHandlers
 ]

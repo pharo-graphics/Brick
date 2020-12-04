@@ -6,8 +6,7 @@ Class {
 	#instVars : [
 		'labelModel',
 		'iconModel',
-		'interactiveModel',
-		'expandableModel'
+		'interactiveModel'
 	],
 	#category : #'Brick-Button - UI'
 }
@@ -29,12 +28,6 @@ BrButton >> action: aValuable [
 	self viewModel action: aValuable
 ]
 
-{ #category : #'api - size adjustable' }
-BrButton >> beDefault [
-	self deprecated: 'Use #beNormal instead.' transformWith: '`@receiver beDefault' -> '`@receiver beNormal'.
-	self beNormal
-]
-
 { #category : #'api - widget' }
 BrButton >> icon [
 	^ iconModel icon
@@ -49,19 +42,17 @@ BrButton >> icon: anElement [
 BrButton >> initialize [
 	super initialize.
 	
+	self
+		hFitContent;
+		vLocal;
+		beNormalSize.
+	
 	self viewModel: (BrButtonModel new +
 		(labelModel := BrLabelModel new) +
 		(iconModel := BrIconModel new) + 
 		(BrInteractiveModel new
 			addStates: {
-				BrEnablementModel new.
-				BrPressModel new.
-				BrHoverModel new.
-				BrFocusModel new.
-				BrSizeAdjustmentModel new.
 				BrLayoutAlignmentModel center.
-				BrLayoutHorizontalResizerModel fitContent.
-				BrLayoutVerticalResizerModel fitContent
 			}))
 ]
 

@@ -24,7 +24,7 @@ BrColumnProportionalWidth >> applyOn: anElement [
 		c horizontal matchParent.
 		c linear weight: self weight.
 		c frame horizontal weight: self weight ].
-	anElement dispatchEvent: (BrLayoutHorizontalResizerWish matchParent)
+	anElement states addState: (BrLayoutHorizontalResizerState matchParent)
 ]
 
 { #category : #comparing }

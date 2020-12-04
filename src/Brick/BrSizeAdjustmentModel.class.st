@@ -7,6 +7,11 @@ Class {
 	#category : #'Brick-! Core'
 }
 
+{ #category : #testing }
+BrSizeAdjustmentModel class >> isDeprecated [
+	^ true
+]
+
 { #category : #printing }
 BrSizeAdjustmentModel class >> modelName [
 	^ 'Size'
@@ -14,32 +19,32 @@ BrSizeAdjustmentModel class >> modelName [
 
 { #category : #'api - configuration' }
 BrSizeAdjustmentModel >> beDefault [
-	self dimension: BrSizeAdjustmentState defaultName
+	self dimension: BrDeprecatedSizeAdjustmentState defaultName
 ]
 
 { #category : #'api - configuration' }
 BrSizeAdjustmentModel >> beHuge [
-	self dimension: BrSizeAdjustmentState hugeName
+	self dimension: BrDeprecatedSizeAdjustmentState hugeName
 ]
 
 { #category : #'api - configuration' }
 BrSizeAdjustmentModel >> beLarge [
-	self dimension: BrSizeAdjustmentState largeName
+	self dimension: BrDeprecatedSizeAdjustmentState largeName
 ]
 
 { #category : #'api - configuration' }
 BrSizeAdjustmentModel >> beMini [
-	self dimension: BrSizeAdjustmentState miniName
+	self dimension: BrDeprecatedSizeAdjustmentState miniName
 ]
 
 { #category : #'api - configuration' }
 BrSizeAdjustmentModel >> beSmall [
-	self dimension: BrSizeAdjustmentState smallName
+	self dimension: BrDeprecatedSizeAdjustmentState smallName
 ]
 
 { #category : #'api - configuration' }
 BrSizeAdjustmentModel >> beTiny [
-	self dimension: BrSizeAdjustmentState tinyName
+	self dimension: BrDeprecatedSizeAdjustmentState tinyName
 ]
 
 { #category : #accessing }
@@ -62,7 +67,7 @@ BrSizeAdjustmentModel >> initialize [
 	super initialize.
 
 	"we use symbols instead of state object to let users easier define their own custom dimension for customs widgets"
-	dimension := BrSizeAdjustmentState defaultName
+	dimension := BrDeprecatedSizeAdjustmentState defaultName
 ]
 
 { #category : #initialization }
@@ -70,7 +75,7 @@ BrSizeAdjustmentModel >> initializeListeners [
 	super initializeListeners.
 	
 	self when: BrSizeAdjustmentRequest reply: [ :aResponse | aResponse dimension: self dimension ].
-	self when: BrSizeAdjustmentWish do: [ :aWish | self dimension: aWish dimension ]
+	self when: BrDeprecatedSizeAdjustmentWish do: [ :aWish | self dimension: aWish dimension ]
 ]
 
 { #category : #printing }
@@ -89,6 +94,6 @@ BrSizeAdjustmentModel >> stateChangedEventClass [
 { #category : #'state - streaming' }
 BrSizeAdjustmentModel >> streamStateIn: aBrInteractionStatesMapping [
 	aBrInteractionStatesMapping
-		addState: (BrSizeAdjustmentState new dimension: self dimension)
+		addState: (BrDeprecatedSizeAdjustmentState new dimension: self dimension)
 		model: self
 ]

@@ -32,8 +32,6 @@ BrPopup >> initialize [
 	self viewModel: (BrPopupModel new addAll: {
 		BrInteractiveModel withAll: {
 			expandedModel := BrExpandableModel new.
-			BrLayoutHorizontalResizerModel matchParent.
-			BrLayoutVerticalResizerModel matchParent.
 			BrLayoutAlignmentModel new } })
 ]
 

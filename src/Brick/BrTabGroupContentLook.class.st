@@ -27,8 +27,8 @@ BrTabGroupContentLook >> initialize [
 	content := BlElement new 
 		layout: BlLinearLayout horizontal;
 		labeled: 'Content'.
-	
-	self add: (BrLayoutResizerLook new inherit: content).
+
+	content addLook: (BrLayoutResizerLook new inherit).
 
 	contentElementsCache := IdentityDictionary new.
 	self addChangeAddChildAs: #(content) with: [ content ]

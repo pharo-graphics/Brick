@@ -134,7 +134,7 @@ BrExamplesShowroom >> accordion [
 		BrButton new
 			look: BrGlamorousAccordionHeaderLook new;
 			label: 'Click to expand/collapse';
-			action: [ accordion toggle ] ].
+			action: [ accordion toggleExpanded ] ].
 	^ accordion
 ]
 

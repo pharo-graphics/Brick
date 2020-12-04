@@ -26,8 +26,7 @@ BrBreadcrumbLinearLook >> addItemsAndSeparators [
 					self separators
 						at: eachItemElement
 						ifPresent:
-							[ :eachSeparatorElement | self widgetContent addChild: eachSeparatorElement ] ].
-			resizerLook requestStates ]
+							[ :eachSeparatorElement | self widgetContent addChild: eachSeparatorElement ] ] ]
 ]
 
 { #category : #initialization }

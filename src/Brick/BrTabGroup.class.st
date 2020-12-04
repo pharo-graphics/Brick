@@ -42,10 +42,8 @@ BrTabGroup >> hasTab: anElement [
 BrTabGroup >> initialize [
 	super initialize.
 
-	self viewModel: (BrTabGroupModel new +
-		(BrInteractiveModel withAll: {
-			BrLayoutHorizontalResizerModel matchParent.
-			BrLayoutVerticalResizerModel matchParent }))
+	self matchParent.
+	self viewModel: BrTabGroupModel new
 ]
 
 { #category : #'api - adding / removing' }

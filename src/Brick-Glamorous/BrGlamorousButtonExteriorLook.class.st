@@ -1,6 +1,6 @@
 Class {
 	#name : #BrGlamorousButtonExteriorLook,
-	#superclass : #BrInteractiveCommonLook,
+	#superclass : #BrStyleCommonLook,
 	#instVars : [
 		'backgroundPaint',
 		'borderWidth',
@@ -47,26 +47,20 @@ BrGlamorousButtonExteriorLook >> initialize [
 	borderPaint := BrGlamorousColors defaultButtonBorderColor.
 	borderWidth := 1.
 
-	self
-		addChangeProperty: #(widgetContent background)
-		with: [ self backgroundPaint ].
+	self default
+		background: self backgroundPaint;
+		border: (BlBorder paint: borderPaint width: self borderWidth).
 
-	self
-		addChangeProperty: #(widget border)
-		with: (BlBorder paint: borderPaint width: self borderWidth).
+	self focused
+		border: (BlBorder paint: BrGlamorousColors hoveredButtonBorderColor width: self borderWidth).
+		
+	self hovered
+		border: (BlBorder paint: BrGlamorousColors hoveredButtonBorderColor width: self borderWidth).
 
-	self
-		default: [ :aWidget | 
-			aWidget
-				background: backgroundPaint;
-				border: (BlBorder paint: borderPaint width: self borderWidth) ];
-		focused: [ :aWidget | aWidget border: (BlBorder paint: BrGlamorousColors hoveredButtonBorderColor width: self borderWidth) ];
-		hovered: [ :aWidget |
-			aWidget border: (BlBorder paint: BrGlamorousColors hoveredButtonBorderColor width: self borderWidth) ];
-		pressed: [ :aWidget | 
-			aWidget border: (BlBorder paint: BrGlamorousColors pressedButtonBorderColor width: self borderWidth) ];
-		disabled: [ :aWidget | 
-			aWidget
-				background: BrGlamorousColors disabledButtonBackgroundColor;
-				border: (BlBorder paint: BrGlamorousColors disabledButtonBorderColor width: self borderWidth) ]
+	self pressed
+		border: (BlBorder paint: BrGlamorousColors pressedButtonBorderColor width: self borderWidth).
+		
+	self disabled
+		background: BrGlamorousColors disabledButtonBackgroundColor;
+		border: (BlBorder paint: BrGlamorousColors disabledButtonBorderColor width: self borderWidth)
 ]

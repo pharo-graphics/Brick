@@ -15,21 +15,17 @@ Class {
 BrGlamorousComponentsAccordions >> withEditor [
 	<gtExample>
 	| anAccordion |
-
 	anAccordion := BrAccordion new.
 	anAccordion
 		hMatchParent;
 		vFitContent;
 		look: BrGlamorousAccordionLook new;
-		header: [
-			BrButton new
+		header: [ BrButton new
 				look: BrGlamorousAccordionHeaderLook new;
 				label: 'Click to expand/collapse';
-				action: [ anAccordion toggle ] ];
-		content: [
-			BrEditor new
+				action: [ anAccordion toggleExpanded ] ];
+		content: [ BrEditor new
 				look: BrGlamorousEditorLook new;
 				text: (String loremIpsum: 200) trimBoth ].
-
 	^ anAccordion
 ]

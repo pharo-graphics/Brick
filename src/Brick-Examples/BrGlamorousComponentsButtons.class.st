@@ -40,41 +40,37 @@ BrGlamorousComponentsButtons >> withLabelDisabled [
 { #category : #accessing }
 BrGlamorousComponentsButtons >> withLabelHuge [
 	<gtExample>
-	
 	^ BrButton new
 		look: BrGlamorousButtonWithLabelLook new;
 		label: 'Huge';
-		beHuge
+		beHugeSize
 ]
 
 { #category : #accessing }
 BrGlamorousComponentsButtons >> withLabelLarge [
 	<gtExample>
-	
 	^ BrButton new
 		look: BrGlamorousButtonWithLabelLook new;
 		label: 'Large';
-		beLarge
+		beLargeSize
 ]
 
 { #category : #accessing }
 BrGlamorousComponentsButtons >> withLabelMini [
 	<gtExample>
-	
 	^ BrButton new
 		look: BrGlamorousButtonWithLabelLook new;
 		label: 'Mini';
-		beMini
+		beMiniSize
 ]
 
 { #category : #accessing }
 BrGlamorousComponentsButtons >> withLabelNormal [
 	<gtExample>
-	
 	^ BrButton new
 		look: BrGlamorousButtonWithLabelLook new;
 		label: 'Normal';
-		beNormal
+		beNormalSize
 ]
 
 { #category : #accessing }
@@ -96,19 +92,17 @@ BrGlamorousComponentsButtons >> withLabelSizes [
 { #category : #accessing }
 BrGlamorousComponentsButtons >> withLabelSmall [
 	<gtExample>
-	
 	^ BrButton new
 		look: BrGlamorousButtonWithLabelLook new;
 		label: 'Small';
-		beSmall
+		beSmallSize
 ]
 
 { #category : #accessing }
 BrGlamorousComponentsButtons >> withLabelTiny [
 	<gtExample>
-	
 	^ BrButton new
 		look: BrGlamorousButtonWithLabelLook new;
 		label: 'Tiny';
-		beTiny
+		beTinySize
 ]

@@ -7,6 +7,11 @@ Class {
 	#category : #'Brick-Layout Resizer - Events'
 }
 
+{ #category : #testing }
+BrLayoutResizerChanged class >> isDeprecated [
+	^ true
+]
+
 { #category : #accessing }
 BrLayoutResizerChanged >> resizer [
 	^ resizer

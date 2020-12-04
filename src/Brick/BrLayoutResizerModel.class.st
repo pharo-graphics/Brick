@@ -22,6 +22,11 @@ BrLayoutResizerModel class >> fitContentLimited [
 	^ self new fitContentLimited
 ]
 
+{ #category : #testing }
+BrLayoutResizerModel class >> isDeprecated [
+	^ true
+]
+
 { #category : #'instance creation' }
 BrLayoutResizerModel class >> matchParent [
 	^ self new matchParent

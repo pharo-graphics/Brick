@@ -13,7 +13,7 @@ BrGlamorousTabLook >> initialize [
 
 	self add: (BrGlamorousTextLabelLook new foreground: Color black).
 	self add: BrGlamorousTabActionbarLook new.
-	self add: BrLayoutResizerLook new inherit.
+	self add: BrLayoutResizerLook inherit.
 	self add: (BrLayoutAlignmentLook forHorizontalLinearLayout).
 
 	bar := BlElement new.
@@ -24,12 +24,14 @@ BrGlamorousTabLook >> initialize [
 		c ignored vertical alignBottom.
 		c vertical exact: 2.
 		c horizontal matchParent ].
-	
-	self add: (BrInteractiveCommonLook new
-		default: [ :aWidget | aWidget padding: (BlInsets top: 10 left: 12 bottom: 10 right: 12) ];
-		disabled: [  ];
-		deselected: [ bar visibility: BlVisibility hidden ];
-		selected: [ bar visibility: BlVisibility visible ]).
-	
+
+	self add: (BrStyleCommonLook new
+		default: [ :aStyle | aStyle padding: (BlInsets top: 10 left: 12 bottom: 10 right: 12) ]).
+
+	self add: (BrStyleCommonLook new
+		target: bar;
+		deselected: [ :aStyle | aStyle hidden ];
+		selected: [ :aStyle | aStyle visible ]).
+
 	self addChangeAddChildAs: #(content bar) with: [ bar ]
 ]

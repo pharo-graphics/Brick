@@ -4,6 +4,11 @@ Class {
 	#category : #'Brick-Layout Resizer - Events'
 }
 
+{ #category : #testing }
+BrLayoutVerticalResizerRequest class >> isDeprecated [
+	^ true
+]
+
 { #category : #initialization }
 BrLayoutVerticalResizerRequest >> responseClass [
 	^ BrLayoutVerticalResizerChanged

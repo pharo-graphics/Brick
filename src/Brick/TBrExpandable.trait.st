@@ -8,30 +8,49 @@ Trait {
 
 { #category : #'api - expandable' }
 TBrExpandable >> collapse [
-	self dispatchEvent: BrExpansionWish collapse
+	self states removeState: BlElementExpandedState uniqueInstance
 ]
 
 { #category : #'api - expandable' }
 TBrExpandable >> expand [
-	self dispatchEvent: BrExpansionWish expand
+	self states addState: BlElementExpandedState uniqueInstance
 ]
 
 { #category : #'api - expandable' }
 TBrExpandable >> expanded: aBoolean [
-	self dispatchEvent: (BrExpansionWish new expanded: aBoolean)
+	aBoolean
+		ifTrue: [ self expand ]
+		ifFalse: [ self collapse ]
 ]
 
 { #category : #'api - expandable' }
 TBrExpandable >> isCollapsed [
+	"Return true if an widget is collapsed (does not have an expanded state), false otherwise"
+	<return: #Boolean>
+
 	^ self isExpanded not
 ]
 
 { #category : #'api - expandable' }
 TBrExpandable >> isExpanded [
-	^ (self viewModel request: BrExpansionStateRequest new oneWay) isExpanded
+	"Return true if an widget is expanded (has expanded state), false otherwise"
+	<return: #Boolean>
+
+	^ self states hasState: BlElementExpandedState uniqueInstance
 ]
 
 { #category : #'api - expandable' }
 TBrExpandable >> toggle [
-	self dispatchEvent: BrExpansionToggleWish new
+	self
+		deprecated: 'Use #toggleExpanded instead.'
+		transformWith: '`@receiver toggle' -> '`@receiver toggleExpanded'.
+
+	self toggleExpanded
+]
+
+{ #category : #'api - expandable' }
+TBrExpandable >> toggleExpanded [
+	"Toggle the expanded state"
+
+	self expanded: self isExpanded not
 ]

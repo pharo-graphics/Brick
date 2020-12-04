@@ -20,20 +20,21 @@ BrGlamorousButtonLabelLook >> initialize [
 		weight: 400;
 		fontName: 'Source Sans Pro'.
 
-	self add: (BrSizeAdjustmentLook new
-		default: [ self fontSize: 14 ];
-		huge: [ self fontSize: 20 ];
-		large: [ self fontSize: 16 ];
-		small: [ self fontSize: 12 ];
-		tiny: [ self fontSize: 10 ];
-		mini: [ self fontSize: 8 ]).
+	labelElement addLook: (BrSizeAdjustmentLook new
+		normal: [ :aStyle | aStyle fontSize: 14 ];
+		huge: [ :aStyle | aStyle fontSize: 20 ];
+		large: [ :aStyle | aStyle fontSize: 16 ];
+		small: [ :aStyle | aStyle fontSize: 12 ];
+		tiny: [ :aStyle | aStyle fontSize: 10 ];
+		mini: [ :aStyle | aStyle fontSize: 8 ]).
 
-	self add: (BrInteractiveCommonLook new
-		default: [ self foreground: BrGlamorousColors defaultButtonTextColor ];
-		hovered: [ self foreground: BrGlamorousColors hoveredButtonTextColor ];
-		pressed: [ self foreground: BrGlamorousColors pressedButtonTextColor ];
-		disabled: [ self foreground: BrGlamorousColors disabledButtonTextColor ];
-		selected: [ self foreground: selectedColor ])
+	self add: (BrStyleCommonLook new
+		target: labelElement;
+		default: [ :aStyle | aStyle foreground: BrGlamorousColors defaultButtonTextColor ];
+		hovered: [ :aStyle | aStyle foreground: BrGlamorousColors hoveredButtonTextColor ];
+		pressed: [ :aStyle | aStyle foreground: BrGlamorousColors pressedButtonTextColor ];
+		disabled: [ :aStyle | aStyle foreground: BrGlamorousColors disabledButtonTextColor ];
+		selected: [ :aStyle | aStyle foreground: selectedColor ])
 ]
 
 { #category : #accessing }

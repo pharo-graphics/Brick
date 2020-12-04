@@ -27,10 +27,11 @@ BrToolbar >> hasItems [
 { #category : #initialization }
 BrToolbar >> initialize [
 	super initialize.
+	
+	self fitContent.
+	
 	self viewModel: (BrToolbarModel new + (BrInteractiveModel withAll: {
 		BrLayoutAlignmentModel centerLeft.
-		BrLayoutHorizontalResizerModel fitContent.
-		BrLayoutVerticalResizerModel fitContent
 	}))
 ]
 

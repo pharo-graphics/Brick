@@ -77,13 +77,7 @@ BrEditor >> initialize [
 	
 	self viewModel: (editorModel := BrEditorModel new
 			add: (BrInteractiveModel withAll: {
-				BrEditorModeModel editable.
-				BrFocusModel new.
-				BrHoverModel new.
-				BrPressModel new.
-				BrSelectModel new.
-				BrLayoutHorizontalResizerModel matchParent.
-				BrLayoutVerticalResizerModel matchParent }))
+				BrEditorModeModel editable. }))
 ]
 
 { #category : #'api - editor' }

@@ -1,101 +1,69 @@
 Class {
 	#name : #BrSizeAdjustmentState,
-	#superclass : #BrInteractionState,
-	#instVars : [
-		'dimension'
-	],
-	#category : #'Brick-! Core - States'
+	#superclass : #BlElementUniqueState,
+	#category : #'Brick-! Core - Size Adjustment'
 }
 
 { #category : #'instance creation' }
-BrSizeAdjustmentState class >> default [
-	^ self new dimension: self defaultName
-]
-
-{ #category : #accessing }
-BrSizeAdjustmentState class >> defaultName [
-	^ #default
-]
-
-{ #category : #'instance creation' }
 BrSizeAdjustmentState class >> huge [
-	^ self new dimension: self hugeName
-]
-
-{ #category : #accessing }
-BrSizeAdjustmentState class >> hugeName [
-	^ #huge
+	^ BrSizeAdjustmentHugeState uniqueInstance
 ]
 
 { #category : #'instance creation' }
 BrSizeAdjustmentState class >> large [
-	^ self new dimension: self largeName
-]
-
-{ #category : #accessing }
-BrSizeAdjustmentState class >> largeName [
-	^ #large
+	^ BrSizeAdjustmentLargeState uniqueInstance
 ]
 
 { #category : #'instance creation' }
 BrSizeAdjustmentState class >> mini [
-	^ self new dimension: self miniName
-]
-
-{ #category : #accessing }
-BrSizeAdjustmentState class >> miniName [
-	^ #mini
+	^ BrSizeAdjustmentMiniState uniqueInstance
 ]
 
 { #category : #'instance creation' }
-BrSizeAdjustmentState class >> sized: aNamedSize [
-	^ BrSizeAdjustmentState new dimension: aNamedSize
+BrSizeAdjustmentState class >> none [
+	^ BrSizeAdjustmentNoneState uniqueInstance
+]
+
+{ #category : #'instance creation' }
+BrSizeAdjustmentState class >> normal [
+	^ BrSizeAdjustmentNormalState uniqueInstance
 ]
 
 { #category : #'instance creation' }
 BrSizeAdjustmentState class >> small [
-	^ self new dimension: self smallName
-]
-
-{ #category : #accessing }
-BrSizeAdjustmentState class >> smallName [
-	^ #small
+	^ BrSizeAdjustmentSmallState uniqueInstance
 ]
 
 { #category : #'instance creation' }
 BrSizeAdjustmentState class >> tiny [
-	^ self new dimension: self tinyName
+	^ BrSizeAdjustmentTinyState uniqueInstance
+]
+
+{ #category : #testing }
+BrSizeAdjustmentState >> isNone [
+	^ false
+]
+
+{ #category : #printing }
+BrSizeAdjustmentState >> printOn: aStream [
+	aStream nextPutAll: 'size adjustment - '
 ]
 
 { #category : #accessing }
-BrSizeAdjustmentState class >> tinyName [
-	^ #tiny
+BrSizeAdjustmentState >> priority [
+	^ UserPriority
 ]
 
-{ #category : #comparing }
-BrSizeAdjustmentState >> = anotherState [
-	^ anotherState class = self class
-		and: [ anotherState dimension = self dimension ]
-]
-
-{ #category : #accessing }
-BrSizeAdjustmentState >> dimension [
-	^ dimension
+{ #category : #testing }
+BrSizeAdjustmentState >> shouldPropagateToChildren [
+	^ true
 ]
 
 { #category : #accessing }
-BrSizeAdjustmentState >> dimension: anObject [
-	dimension := anObject
-]
+BrSizeAdjustmentState >> type [
+	"Return an object used to compare two states when adding to the collection of states in order to prevent
+	elements from having duplicated states"
+	<return: #Object>
 
-{ #category : #comparing }
-BrSizeAdjustmentState >> hash [
-	^ self class hash bitXor: self dimension hash
-]
-
-{ #category : #initialization }
-BrSizeAdjustmentState >> initialize [
-	super initialize.
-
-	dimension := self class defaultName
+	^ BrSizeAdjustmentState
 ]

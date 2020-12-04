@@ -1,21 +1,27 @@
 Class {
 	#name : #BrCheckboxLook,
-	#superclass : #BrInteractiveCommonLook,
+	#superclass : #BrStyleCommonLook,
 	#category : #'Brick-Checkbox - Look'
 }
 
 { #category : #'api - style' }
+BrCheckboxLook >> checked [
+	^ self styleFor: self state checked
+]
+
+{ #category : #'api - style' }
 BrCheckboxLook >> checked: aBlock [
-	self
-		when: self state checked
-		style: aBlock
+	aBlock value: self checked
+]
+
+{ #category : #'api - style' }
+BrCheckboxLook >> indeterminate [
+	^ self styleFor: self state indeterminate
 ]
 
 { #category : #'api - style' }
 BrCheckboxLook >> indeterminate: aBlock [
-	self
-		when: self state indeterminate
-		style: aBlock
+	aBlock value: self indeterminate
 ]
 
 { #category : #accessing }
@@ -24,8 +30,11 @@ BrCheckboxLook >> state [
 ]
 
 { #category : #'api - style' }
+BrCheckboxLook >> unchecked [
+	^ self styleFor: self state unchecked
+]
+
+{ #category : #'api - style' }
 BrCheckboxLook >> unchecked: aBlock [
-	self
-		when: self state unchecked
-		style: aBlock
+	aBlock value: self unchecked
 ]

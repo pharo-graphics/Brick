@@ -35,7 +35,7 @@ BrPopupLook >> initialize [
 	self collapsed: [ self closePopup ].
 	
 	self add: (resizerLook := BrLayoutResizerLook inherit
-		inheritIn: [ :aBlock | aBlock value: (self isAttachedToWidget
+		inherit: [ :aBlock | aBlock value: (self isAttachedToWidget
 			ifTrue: [ self widgetContent childNamed: #popupContent ifFound: #yourself ifNone: [ BlElement new ] ]
 			ifFalse: [ BlElement new ])])
 ]

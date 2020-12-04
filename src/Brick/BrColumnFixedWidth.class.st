@@ -21,7 +21,7 @@ BrColumnFixedWidth >> = anObject [
 { #category : #hook }
 BrColumnFixedWidth >> applyOn: anElement [
 	anElement width: self width.
-	anElement dispatchEvent: (BrLayoutHorizontalResizerWish exact: self width)
+	anElement states addState: (BrLayoutHorizontalResizerState exact)
 ]
 
 { #category : #comparing }

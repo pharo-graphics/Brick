@@ -1,33 +1,17 @@
 Class {
 	#name : #BrExpander,
 	#superclass : #BlElement,
-	#traits : 'TBrLayoutResizable',
-	#classTraits : 'TBrLayoutResizable classTrait',
+	#traits : 'TBrLayoutResizable + TBrExpandable',
+	#classTraits : 'TBrLayoutResizable classTrait + TBrExpandable classTrait',
 	#instVars : [
-		'expandableModel',
 		'accordionModel'
 	],
 	#category : #'Brick-Expander - UI'
 }
 
-{ #category : #'api - expander' }
-BrExpander >> collapse [
-	expandableModel collapse
-]
-
 { #category : #accessing }
 BrExpander >> content: aStencil [
 	accordionModel contentStencil: aStencil
-]
-
-{ #category : #'api - expander' }
-BrExpander >> expand [
-	expandableModel expand
-]
-
-{ #category : #'api - expander' }
-BrExpander >> expanded: aBoolean [
-	expandableModel expanded: aBoolean
 ]
 
 { #category : #accessing }
@@ -39,27 +23,5 @@ BrExpander >> header: aStencil [
 BrExpander >> initialize [
 	super initialize.
 	
-	self viewModel: (accordionModel := BrAccordionModel new
-		addAll: {
-			BrInteractiveModel new
-				withFocus;
-				addState: (expandableModel := BrExpandableModel new);
-				addState: (BrLayoutHorizontalResizerModel new);
-				addState: (BrLayoutVerticalResizerModel new)
-		})
-]
-
-{ #category : #'api - testing' }
-BrExpander >> isCollapsed [
-	^ expandableModel isCollapsed
-]
-
-{ #category : #'api - testing' }
-BrExpander >> isExpanded [
-	^ expandableModel isExpanded
-]
-
-{ #category : #'api - expander' }
-BrExpander >> toggle [
-	expandableModel toggle
+	self viewModel: (accordionModel := BrAccordionModel new)
 ]

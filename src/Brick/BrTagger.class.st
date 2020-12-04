@@ -30,10 +30,7 @@ BrTagger >> explicitAllowedTags: aCollectionOfTags [
 BrTagger >> initialize [
 	super initialize.
 
-	self viewModel: BrTaggerModel new + (BrInteractiveModel withAll: {
-		BrLayoutHorizontalResizerModel matchParent.
-		BrLayoutVerticalResizerModel fitContent
-	})
+	self viewModel: BrTaggerModel new
 ]
 
 { #category : #'api - tags' }

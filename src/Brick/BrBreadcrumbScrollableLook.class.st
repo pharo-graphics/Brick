@@ -25,8 +25,8 @@ BrBreadcrumbScrollableLook >> initialize [
 	self add: (resizerLook := BrLayoutResizerLook new
 		inherit;
 		inherit: pager;
-		inheritIn: [ :aBlock | self itemElements do: [ :eachItem | aBlock value: (eachItem userData at: #breadcrumbPage) ] ];
-		inheritIn: [ :aBlock | self itemElements do: [ :eachItem | aBlock value: eachItem ] ]).
+		inherit: [ :aBlock | self itemElements do: [ :eachItem | aBlock value: (eachItem userData at: #breadcrumbPage) ] ];
+		inherit: [ :aBlock | self itemElements do: [ :eachItem | aBlock value: eachItem ] ]).
 
 	amountOfVisibleItems := 5
 ]

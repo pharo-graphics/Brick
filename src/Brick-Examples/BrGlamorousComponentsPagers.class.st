@@ -30,26 +30,33 @@ Class {
 BrGlamorousComponentsPagers >> dynamicPager [
 	<gtExample>
 	| aPager |
-	
 	aPager := BrPager new.
 	aPager matchParent.
-	aPager addPage: (BrPagerPageElement new
-		weight: 1.0;
-		layout: BlLinearLayout vertical alignCenter;
-		background: (Color gray alpha: 0.1);
-		addChild: (BrButton new
-			beHuge;
-			look: BrGlamorousButtonWithLabelLook new;
-			label: 'Next';
-			action: [
-				aPager addPage: (BrPagerPageElement new
-					layout: BlLinearLayout vertical alignCenter;
-					background: (Color random alpha: 0.1);
-					weight: 1.0;
-					addChild: (BrLabel new
-						look: (BrGlamorousLabelLook new fontSize: 30; foreground: Color red);
-						text: 'New page')).
-				aPager scrollToLast ])).
+	aPager
+		addPage:
+			(BrPagerPageElement new
+				weight: 1.0;
+				layout: BlLinearLayout vertical alignCenter;
+				background: (Color gray alpha: 0.1);
+				addChild:
+					(BrButton new
+						beHugeSize;
+						look: BrGlamorousButtonWithLabelLook new;
+						label: 'Next';
+						action: [ aPager
+								addPage:
+									(BrPagerPageElement new
+										layout: BlLinearLayout vertical alignCenter;
+										background: (Color random alpha: 0.1);
+										weight: 1.0;
+										addChild:
+											(BrLabel new
+												look:
+													(BrGlamorousLabelLook new
+														fontSize: 30;
+														foreground: Color red);
+												text: 'New page')).
+							aPager scrollToLast ])).
 	^ aPager
 ]
 

@@ -30,60 +30,24 @@ container
 Class {
 	#name : #BrAccordion,
 	#superclass : #BlElement,
-	#traits : 'TBrLayoutResizable',
-	#classTraits : 'TBrLayoutResizable classTrait',
-	#instVars : [
-		'accordionModel',
-		'expandableModel'
-	],
+	#traits : 'TBrLayoutResizable + TBrExpandable',
+	#classTraits : 'TBrLayoutResizable classTrait + TBrExpandable classTrait',
 	#category : #'Brick-Accordion - UI'
 }
 
 { #category : #'api - accordion' }
-BrAccordion >> collapse [
-	expandableModel collapse
-]
-
-{ #category : #'api - accordion' }
 BrAccordion >> content: aStencil [
-	accordionModel contentStencil: aStencil
-]
-
-{ #category : #'api - accordion' }
-BrAccordion >> expand [
-	expandableModel expand
+	self viewModel contentStencil: aStencil
 ]
 
 { #category : #'api - accordion' }
 BrAccordion >> header: aStencil [
-	accordionModel headerStencil: aStencil
+	self viewModel headerStencil: aStencil
 ]
 
 { #category : #initialization }
 BrAccordion >> initialize [
 	super initialize.
 	
-	self viewModel: (accordionModel := BrAccordionModel new
-		addAll: {
-			BrInteractiveModel new
-				withFocus;
-				addStates: {
-					expandableModel := BrExpandableModel new.
-					BrLayoutHorizontalResizerModel matchParent.
-					BrLayoutVerticalResizerModel fitContent } })
-]
-
-{ #category : #'api - testing' }
-BrAccordion >> isCollapsed [
-	^ expandableModel isCollapsed
-]
-
-{ #category : #'api - testing' }
-BrAccordion >> isExpanded [
-	^ expandableModel isExpanded
-]
-
-{ #category : #'api - accordion' }
-BrAccordion >> toggle [
-	expandableModel toggle
+	self viewModel: BrAccordionModel new
 ]

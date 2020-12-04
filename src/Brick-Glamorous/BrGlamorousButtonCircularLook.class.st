@@ -18,7 +18,7 @@ BrGlamorousButtonCircularLook >> initialize [
 		addChangeProperty: #(widgetContent geometry)
 		with: [ BlCircle new ].
 
-	self add: (BrSizeAdjustmentLook new
+	self add: (BrDeprecatedSizeAdjustmentLook new
 		tiny: [ :aWidget | self widgetContent
 				exact: 16;
 				padding: (BlInsets left: 6 right: 6) ];

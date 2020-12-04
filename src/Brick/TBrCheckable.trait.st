@@ -5,7 +5,7 @@ Trait {
 
 { #category : #'api - checkbox' }
 TBrCheckable >> check [
-	self dispatchEvent: BrCheckboxWish checked
+	self states addState: BrCheckboxState checked
 ]
 
 { #category : #'api - checkbox' }
@@ -17,27 +17,27 @@ TBrCheckable >> checked: aBoolean [
 
 { #category : #'api - checkbox' }
 TBrCheckable >> indeterminate [
-	self dispatchEvent: BrCheckboxWish indeterminate
+	self states addState: BrCheckboxState indeterminate
 ]
 
 { #category : #'api - checkbox' }
 TBrCheckable >> isChecked [
-	^ (self viewModel request: BrCheckboxRequest new oneWay) isChecked
+	^ self states hasState: BrCheckboxState checked
 ]
 
 { #category : #'api - checkbox' }
 TBrCheckable >> isIndeterminate [
-	^ (self viewModel request: BrCheckboxRequest new oneWay) isIndeterminate
+	^ self states hasState: BrCheckboxState indeterminate
 ]
 
 { #category : #'api - checkbox' }
 TBrCheckable >> isUnchecked [
-	^ (self viewModel request: BrCheckboxRequest new oneWay) isUnchecked
+	^ self states hasState: BrCheckboxState unchecked
 ]
 
 { #category : #'api - checkbox' }
 TBrCheckable >> uncheck [
-	self dispatchEvent: BrCheckboxWish unchecked
+	self states addState: BrCheckboxState unchecked
 ]
 
 { #category : #'api - checkbox' }
