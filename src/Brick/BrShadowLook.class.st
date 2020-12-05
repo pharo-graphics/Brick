@@ -20,11 +20,15 @@ BrShadowLook >> color: aColor [
 { #category : #initialization }
 BrShadowLook >> initialize [
 	super initialize.
-	self addChangeProperty: #(widget effect) withCopy: [ self shadow ].
+	
 	shadow := BlGaussianShadowEffect
 		color: (Color black alpha: 0.3)
 		width: 2
-		offset: 0 @ 1
+		offset: 0 @ 1.
+		
+	self addChange: (BrLookChange new
+		up: [ :e | e widget effect: shadow ];
+		down: [ :e | e widget effect: BlNullEffect new ]).
 ]
 
 { #category : #accessing }
