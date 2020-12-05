@@ -58,7 +58,14 @@ BrTextEditorOperatorExamples >> editorFor: aText [
 			aTextElement ].
 	
 	anEditor requestFocus.
+	BlSpace doStyle: anEditor.
+	BlSpace new
+		doComputeProperties: anEditor
+		withParentProperties: BlElementPropagatableProperties new
+		withGlobalProperties: BlElementPropagatableProperties new.
 	anEditor forceLayout.
+	
+	self assert: anEditor isFocused.
 
 	^ anEditor
 ]
