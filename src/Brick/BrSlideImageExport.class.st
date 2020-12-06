@@ -68,7 +68,7 @@ BrSlideImageExport >> createDropdownButtonWithLabel: aString [
 		padding: (BlInsets left: 4 right: 2);
 		label: aString;
 		icon: BrGlamorousVectorIcons downwards;
-		beSmall.
+		beSmallSize.
 ]
 
 { #category : #accessing }

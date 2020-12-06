@@ -106,7 +106,7 @@ BrGlamorousTaggerSelectableLook >> newAddExplicitTagButton [
 			BrButton new
 				look: (BrGlamorousButtonRectangularLook new + BrGlamorousButtonIconLook new);
 				icon: BrGlamorousVectorIcons add;
-				beSmall;
+				beSmallSize;
 				hExact: 20 ]
 		content: [ self newAddAllowedTagsChooser: allowedTags tags ].
 	
@@ -158,7 +158,7 @@ BrGlamorousTaggerSelectableLook >> newBasicAddTagButton [
 				focused: [ :aWidget | aWidget border: (BlBorder paint: BrGlamorousColors focusedEditorBorderColor width: 1) ]));
 		icon: BrGlamorousVectorIcons add;
 		label: 'Add';
-		beSmall;
+		beSmallSize;
 		hExact: 20;
 		margin: margin;
 		constraintsDo: [ :c | c flow vertical alignCenter ];
@@ -209,13 +209,13 @@ BrGlamorousTaggerSelectableLook >> newTagElementFor: aTaggerTag [
 	| aNewTagContainer aTagEditorElement aTagPrototypeChangerButton |
 	
 	aTagPrototypeChangerButton := BrButton new
-		beSmall;
+		beSmallSize;
 		look: BrGlamorousButtonWithLabelAndIconLook - BrGlamorousButtonExteriorLook + (BrInteractiveCommonLook new default: [ :w | w background: Color gray ]) + (BrGlamorousWithDropdownLook
 			handle: [
 				BrButton new
 					look: (BrGlamorousButtonRectangularLook new + BrGlamorousButtonLabelLook new + BrGlamorousButtonIconLook);
 					label: aTaggerTag;
-					beSmall ]
+					beSmallSize ]
 				content: [ self newAddAllowedTagsChooser: allowedTags tags ]);
 		label: aTaggerTag;
 		icon: BrGlamorousVectorIcons downwards.

@@ -128,7 +128,7 @@ BrDevLookGraphOverview >> buildNodeForClass: aLookClass [
 		fitContent.
 
 	aContainer addChild: (BrLabel new
-		beSmall;
+		beSmallSize;
 		look: BrGlamorousLabelLook new bold;
 		text: aLookClass name).
 		
@@ -137,7 +137,7 @@ BrDevLookGraphOverview >> buildNodeForClass: aLookClass [
 		in: [ :anElement | anElement graph beChildrenContainer: #requests ];
 		fitContent;
 		addChild: (BrLabel new
-			beSmall;
+			beSmallSize;
 			look: (BrGlamorousLabelLook new foreground: Color gray);
 			text: 'Requests')
 	) as: #requests.
@@ -147,7 +147,7 @@ BrDevLookGraphOverview >> buildNodeForClass: aLookClass [
 		in: [ :anElement | anElement graph beChildrenContainer: #changeEvents ];
 		fitContent;
 		addChild: (BrLabel new
-			beSmall;
+			beSmallSize;
 			look: (BrGlamorousLabelLook new foreground: Color gray);
 			text: 'Change events')
 	) as: #changeEvents.

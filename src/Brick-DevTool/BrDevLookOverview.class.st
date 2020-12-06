@@ -10,7 +10,7 @@ Class {
 { #category : #'private - instance creation' }
 BrDevLookOverview >> buildCategoryLabel: aString [
 	^ BrLabel new
-		beSmall;
+		beSmallSize;
 		look: (BrGlamorousLabelLook new foreground: (BrGlamorousColors defaultButtonTextColor alpha: 0.5));
 		margin: (BlInsets bottom: 5);
 		text: aString
@@ -60,7 +60,7 @@ BrDevLookOverview >> buildEventsList [
 	aList := BrSimpleList new
 		matchParent;
 		items: (self lookClass withAllSuperclassEvents);
-		itemStencil: [ BrLabel new hMatchParent beSmall look: BrGlamorousLabelLook ];
+		itemStencil: [ BrLabel new hMatchParent beSmallSize look: BrGlamorousLabelLook ];
 		itemDataBinder: [ :anItemElement :anItem | anItemElement text: anItem name ].
 
 	^ aList
@@ -113,7 +113,7 @@ BrDevLookOverview >> buildExpandArtifctReferencesAttribute: theWishes [
 BrDevLookOverview >> buildLookHierarchy [
 	^ BrSimpleTree new
 		matchParent;
-		nodeStencil: [ BrLabel new beSmall look: BrGlamorousLabelLook ];
+		nodeStencil: [ BrLabel new beSmallSize look: BrGlamorousLabelLook ];
 		nodeDataBinder: [ :anItemElement :anItem |
 			anItemElement text: (anItem rootClass = self lookClass
 				ifTrue: [ anItem rootClass name asRopedText bold ]
@@ -130,7 +130,7 @@ BrDevLookOverview >> buildRequestsList [
 	aList := BrSimpleList new
 		matchParent;
 		items: (self lookClass withAllSuperclassRequests);
-		itemStencil: [ BrLabel new hMatchParent beSmall look: BrGlamorousLabelLook ];
+		itemStencil: [ BrLabel new hMatchParent beSmallSize look: BrGlamorousLabelLook ];
 		itemDataBinder: [ :anItemElement :anItem | anItemElement text: anItem name ].
 
 	^ aList
@@ -184,7 +184,7 @@ BrDevLookOverview >> buildSmallReferencesList: aListOfLookArtifactReferences [
 		items: aListOfLookArtifactReferences;
 		itemStencil: [ BrLabel new
 			hMatchParent;
-			beSmall;
+			beSmallSize;
 			look: BrGlamorousListLabelLook ];
 		itemDataBinder: [ :anItemElement :anItem | anItemElement text: anItem artifact name ].
 
@@ -198,7 +198,7 @@ BrDevLookOverview >> buildWishesList [
 	aList := BrSimpleList new
 		matchParent;
 		items: (self lookClass withAllSuperclassWishes);
-		itemStencil: [ BrLabel new hMatchParent beSmall look: BrGlamorousLabelLook ];
+		itemStencil: [ BrLabel new hMatchParent beSmallSize look: BrGlamorousLabelLook ];
 		itemDataBinder: [ :anItemElement :anItem | anItemElement text: anItem name ].
 
 	^ aList

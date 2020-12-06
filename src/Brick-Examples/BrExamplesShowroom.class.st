@@ -291,7 +291,7 @@ BrExamplesShowroom >> glamorousSmallButton [
 	<gtExample>
 	
 	^ BrButton new
-		beSmall;
+		beSmallSize;
 		look: BrGlamorousButtonWithLabelLook new;
 		label: 'Button';
 		action: [ self inform: 'Clicked' ]
