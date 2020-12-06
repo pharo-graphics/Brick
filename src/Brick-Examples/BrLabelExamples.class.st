@@ -11,6 +11,8 @@ BrLabelExamples >> glamorousLabel [
 	
 	aLabel := BrLabel new.
 	aLabel look: BrGlamorousLabelLook new.
+
+	aLabel forceLayout.
 	
 	self assert: (aLabel viewModel isKindOf: BrLabelModel).
 	self assert: aLabel viewModel text asString equals: 'Label'.
