@@ -20,7 +20,7 @@ BrEditorModel >> initialize [
 	
 	styler := BlTextNullStyler new.
 	text := '' asRopedText.
-	mode := BrTextEditorNullMode new
+	mode := BrTextEditorEditableMode new
 ]
 
 { #category : #initialization }
