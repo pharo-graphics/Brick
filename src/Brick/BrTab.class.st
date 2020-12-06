@@ -29,7 +29,7 @@ BrTab >> actionsStencil: anActionStencilBuilder [
 
 { #category : #'api - selection' }
 BrTab >> deselect [
-	self dispatchEvent: (BrSelectedWish selected: false)
+	self dispatchEvent: (BlElementSelectedStateWish selected: false)
 ]
 
 { #category : #'api - accessing' }
@@ -90,7 +90,7 @@ BrTab >> parentTabGroup [
 
 { #category : #'api - selection' }
 BrTab >> select [
-	self dispatchEvent: (BrSelectedWish selected: true)
+	self dispatchEvent: (BlElementSelectedStateWish selected: true)
 ]
 
 { #category : #'api - selection' }

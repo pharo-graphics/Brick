@@ -55,7 +55,10 @@ BrTabModel >> contentStencilBuilder [
 { #category : #'api - selection' }
 BrTabModel >> deselect [
 	self isSelected
-		ifTrue: [ self dispatchEvent: (BrSelectedWish selected: false) ]
+		ifFalse: [ ^ self ].
+		
+	selected := false.
+	self dispatchEvent: (BrTabDeselectedEvent new tab: self)
 ]
 
 { #category : #hooks }
@@ -72,10 +75,6 @@ BrTabModel >> initializeListeners [
 	self when: BlClickEvent do: [ :anEvent | self clickEvent: anEvent ].
 	self when: BrTabActionbarRequest reply: [ :aResponse | aResponse stencil: actionbarStencilBuilder ].
 	self when: BrTabToolbarRequest reply: [ :aResponse | aResponse stencil: toolbarStencilBuilder ].
-
-	"I subscribe to selection wish in order to record the selection state so that a tab group
-	could automatically select a newly added tab if it is preselected"
-	self when: BrSelectedWish do: [ :aWish | selected := aWish selected ]
 ]
 
 { #category : #'api - selection' }
@@ -103,7 +102,10 @@ BrTabModel >> notifyToolbarChanged: aStencil [
 { #category : #'api - selection' }
 BrTabModel >> select [
 	self isSelected
-		ifFalse: [ self dispatchEvent: (BrSelectedWish selected: true) ]
+		ifTrue: [ ^ self ].
+		
+	selected := true.
+	self dispatchEvent: (BrTabSelectedEvent new tab: self)
 ]
 
 { #category : #'api - selection' }

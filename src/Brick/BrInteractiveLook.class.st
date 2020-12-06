@@ -16,8 +16,13 @@ Class {
 		'styles',
 		'currentStates'
 	],
-	#category : #'Brick-! Core - Looks'
+	#category : #'Brick-! Deprecated'
 }
+
+{ #category : #testing }
+BrInteractiveLook class >> isDeprecated [
+	^ true
+]
 
 { #category : #'gt-extension' }
 BrInteractiveLook >> gtStylesFor: aView [

@@ -61,19 +61,18 @@ BrTabExamples >> changeToolbarStencilModel [
 { #category : #'examples - tab model' }
 BrTabExamples >> deselectTabModel [
 	<gtExample>
-	| aTabModel selected deselected deselectedTab deselectedHandler |
+	| aTabModel selected deselected deselectedTab selectedHandler deselectedHandler |
 	
 	selected := deselected := 0.
 	deselectedTab := nil.
 	
 	aTabModel := self selectTabModel.
-	
-	aTabModel addEventHandler: (deselectedHandler := BlEventHandler on: BrSelectedWish do: [ :anEvent |
-		anEvent selected
-			ifTrue: [ selected := selected + 1 ]
-			ifFalse: [
-				deselected := deselected + 1.
-				deselectedTab := anEvent currentTarget ] ]).
+	aTabModel addEventHandler: (selectedHandler := BlEventHandler on: BrTabSelectedEvent do: [ :anEvent |
+		selected := selected + 1. ]).
+		
+	aTabModel addEventHandler: (deselectedHandler := BlEventHandler on: BrTabDeselectedEvent do: [ :anEvent |
+		deselected := deselected + 1.
+		deselectedTab := anEvent currentTarget ]).
 	
 	aTabModel deselect.
 
@@ -82,6 +81,7 @@ BrTabExamples >> deselectTabModel [
 	self assert: deselected equals: 1.
 	self assert: deselectedTab equals: aTabModel.
 	
+	aTabModel removeEventHandler: selectedHandler.
 	aTabModel removeEventHandler: deselectedHandler.
 
 	^ aTabModel
@@ -217,7 +217,6 @@ BrTabExamples >> moveNotSelectedTabInGroupWithTwoTabs_FromOne_ToTwo [
 	
 	self assert: aTabGroup isNotEmpty.
 	self assert: aTabGroup hasSelectedTab.
-	self assert: aTabGroup selectedIndices first equals: 1.
 	self assert: aTabGroup selectedTab equals: aSelectedTab.
 	self assert: aTabGroup selectedTab equals: aTabGroup tabs first.
 	self assert: aTabGroup tabs first isSelected.
@@ -244,7 +243,6 @@ BrTabExamples >> moveSelectedTabInGroupWithTwoTabs_FromTwo_ToOne [
 	
 	self assert: aTabGroup isNotEmpty.
 	self assert: aTabGroup hasSelectedTab.
-	self assert: aTabGroup selectedIndices first equals: 1.
 	self assert: aTabGroup selectedTab equals: aSelectedTab.
 	self assert: aTabGroup selectedTab equals: aTabGroup tabs first.
 	self assert: aTabGroup tabs first isSelected.
@@ -292,18 +290,18 @@ BrTabExamples >> removeSelectedTabFromGroupWithTwoTabs [
 { #category : #'examples - tab model' }
 BrTabExamples >> selectTabModel [
 	<gtExample>
-	| aTabModel selected selectedTab deselected selectedHander |
+	| aTabModel selected selectedTab deselected selectedHandler deselectedHandler |
 	
 	selected := deselected := 0.
 	selectedTab := nil.
 	
 	aTabModel := self tabModel.
-	aTabModel addEventHandler: (selectedHander := BlEventHandler on: BrSelectedWish do: [ :anEvent |
-		anEvent selected
-			ifTrue: [
-				selected := selected + 1.
-				selectedTab := anEvent currentTarget ]
-			ifFalse: [ deselected := deselected + 1 ] ]).
+	aTabModel addEventHandler: (selectedHandler := BlEventHandler on: BrTabSelectedEvent do: [ :anEvent |
+		selected := selected + 1.
+		selectedTab := anEvent currentTarget ]).
+		
+	aTabModel addEventHandler: (deselectedHandler := BlEventHandler on: BrTabDeselectedEvent do: [ :anEvent |
+		deselected := deselected + 1 ]).
 	
 	aTabModel select.
 	
@@ -312,7 +310,8 @@ BrTabExamples >> selectTabModel [
 	self assert: deselected equals: 0.
 	self assert: selectedTab equals: aTabModel.
 
-	aTabModel removeEventHandler: selectedHander.
+	aTabModel removeEventHandler: selectedHandler.
+	aTabModel removeEventHandler: deselectedHandler.
 
 	^ aTabModel
 ]
@@ -332,7 +331,7 @@ BrTabExamples >> tabGroupModel [
 { #category : #'examples - tab group model' }
 BrTabExamples >> tabGroupWithOneTab [
 	<gtExample>
-	| aTabGroupModel aTab theWishes |
+	| aTabGroupModel aTab theEvents |
 	
 	aTabGroupModel := self tabGroupModel.
 	self assert: aTabGroupModel isEmpty.
@@ -340,8 +339,8 @@ BrTabExamples >> tabGroupWithOneTab [
 	
 	aTab := self tabModel.
 	
-	theWishes := OrderedCollection new.
-	aTab when: BrSelectedWish do: [ :aWish | theWishes add: aWish ].
+	theEvents := OrderedCollection new.
+	aTab when: BrTabSelectedEvent do: [ :anEvent | theEvents add: anEvent ].
 
 	self assert: aTab isSelected not.
 
@@ -349,9 +348,9 @@ BrTabExamples >> tabGroupWithOneTab [
 
 	self assert: aTab isSelected.
 	"make sure that a tab received a selection wish"
-	self assert: theWishes size equals: 1.
-	self assert: (theWishes first isKindOf: BrSelectedWish).
-	self assert: theWishes first selected.
+	self assert: theEvents size equals: 1.
+	self assert: (theEvents first isKindOf: BrTabSelectedEvent).
+	self assert: theEvents first tab = aTab.
 
 	self assert: aTabGroupModel isNotEmpty.
 	self assert: aTabGroupModel hasSelectedTab.
@@ -363,14 +362,14 @@ BrTabExamples >> tabGroupWithOneTab [
 { #category : #'examples - tab group model' }
 BrTabExamples >> tabGroupWithOneTabChangingStencil [
 	<gtExample>
-	| aTabGroupModel aTabModel changed changedTabModel changedTabStencil stencilChangedHander |
+	| aTabGroupModel aTabModel changed changedTabModel changedTabStencil stencilChangedHandler |
 	
 	changed := 0.
 	changedTabModel := nil.
 	changedTabStencil := nil.
 		
 	aTabGroupModel := self tabGroupModel.	
-	aTabGroupModel addEventHandler: (stencilChangedHander := BlEventHandler on: BrTabStencilChangedEvent do: [ :anEvent |
+	aTabGroupModel addEventHandler: (stencilChangedHandler := BlEventHandler on: BrTabStencilChangedEvent do: [ :anEvent |
 		changedTabModel := anEvent tab.
 		changedTabStencil := anEvent stencil.
 		changed := changed + 1. ]).
@@ -385,7 +384,7 @@ BrTabExamples >> tabGroupWithOneTabChangingStencil [
 	self assert: aTabModel contentStencilBuilder equals: changedTabStencil.
 	self assert: changedTabModel equals: aTabModel.
 
-	aTabModel removeEventHandler: stencilChangedHander.
+	aTabModel removeEventHandler: stencilChangedHandler.
 
 	self assert: aTabGroupModel isNotEmpty.
 	self assert: aTabGroupModel hasSelectedTab.
@@ -397,14 +396,14 @@ BrTabExamples >> tabGroupWithOneTabChangingStencil [
 { #category : #'examples - tab group model' }
 BrTabExamples >> tabGroupWithOneTabChangingToolbarStencil [
 	<gtExample>
-	| aTabGroupModel aTabModel changed changedTabModel changedTabStencil stencilChangedHander |
+	| aTabGroupModel aTabModel changed changedTabModel changedTabStencil stencilChangedHandler |
 	
 	changed := 0.
 	changedTabModel := nil.
 	changedTabStencil := nil.
 		
 	aTabGroupModel := self tabGroupModel.	
-	aTabGroupModel addEventHandler: (stencilChangedHander := BlEventHandler on: BrTabToolbarChangedEvent do: [ :anEvent |
+	aTabGroupModel addEventHandler: (stencilChangedHandler := BlEventHandler on: BrTabToolbarChangedEvent do: [ :anEvent |
 		changedTabModel := anEvent tab.
 		changedTabStencil := anEvent stencil.
 		changed := changed + 1. ]).
@@ -419,7 +418,7 @@ BrTabExamples >> tabGroupWithOneTabChangingToolbarStencil [
 	self assert: aTabModel toolbarStencilBuilder equals: changedTabStencil.
 	self assert: changedTabModel equals: aTabModel.
 
-	aTabModel removeEventHandler: stencilChangedHander.
+	aTabModel removeEventHandler: stencilChangedHandler.
 
 	self assert: aTabGroupModel isNotEmpty.
 	self assert: aTabGroupModel hasSelectedTab.
@@ -443,7 +442,6 @@ BrTabExamples >> tabGroupWithSecondSelectedTabAddedAtFirstPosition [
 	self assert: aTab isSelected.
 	self assert: aTabGroup isNotEmpty.
 	self assert: aTabGroup hasSelectedTab.
-	self assert: aTabGroup selectedIndices equals: #(1).
 	self assert: aTabGroup selectedTab equals: aTab.
 
 	^ aTabGroup
@@ -452,7 +450,7 @@ BrTabExamples >> tabGroupWithSecondSelectedTabAddedAtFirstPosition [
 { #category : #'examples - tab group model' }
 BrTabExamples >> tabGroupWithSecondTabAddedAtFirstPosition [
 	<gtExample>
-	| aTabGroup aTab theWishes |
+	| aTabGroup aTab theEvents |
 	
 	aTabGroup := self tabGroupWithOneTab.
 	
@@ -460,14 +458,13 @@ BrTabExamples >> tabGroupWithSecondTabAddedAtFirstPosition [
 
 	aTabGroup addTab: aTab at: 1.
 
-	theWishes := OrderedCollection new.
-	aTab when: BrSelectedWish do: [ :aWish | theWishes add: aWish ].
+	theEvents := OrderedCollection new.
+	aTab when: BrTabSelectedEvent do: [ :anEvent | theEvents add: anEvent ].
 
-	self assert: theWishes isEmpty.
+	self assert: theEvents isEmpty.
 	self assert: aTab isSelected not.
 	self assert: aTabGroup isNotEmpty.
 	self assert: aTabGroup hasSelectedTab.
-	self assert: aTabGroup selectedIndices equals: #(2).
 	self assert: aTabGroup selectedTab equals: (aTabGroup tabs at: 2).
 	self assert: aTabGroup selectedTab ~= aTab.
 

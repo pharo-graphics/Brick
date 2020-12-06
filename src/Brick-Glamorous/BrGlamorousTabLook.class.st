@@ -16,14 +16,14 @@ BrGlamorousTabLook >> initialize [
 	self add: BrLayoutResizerLook inherit.
 	self add: (BrLayoutAlignmentLook forHorizontalLinearLayout).
 
-	bar := BlElement new.
-	bar visibility: BlVisibility hidden.
-	bar background: BrGlamorousColors primaryBorderColor.
-	bar constraintsDo: [ :c | 
-		c ignoreByLayout.
-		c ignored vertical alignBottom.
-		c vertical exact: 2.
-		c horizontal matchParent ].
+	bar := BlElement new
+		visibility: BlVisibility hidden;
+		background: BrGlamorousColors primaryBorderColor;
+		constraintsDo: [ :c | 
+			c ignoreByLayout.
+			c ignored vertical alignBottom.
+			c vertical exact: 2.
+			c horizontal matchParent ].
 
 	self add: (BrStyleCommonLook new
 		default: [ :aStyle | aStyle padding: (BlInsets top: 10 left: 12 bottom: 10 right: 12) ]).

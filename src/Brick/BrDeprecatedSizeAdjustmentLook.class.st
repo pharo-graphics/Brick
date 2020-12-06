@@ -1,7 +1,7 @@
 Class {
 	#name : #BrDeprecatedSizeAdjustmentLook,
 	#superclass : #BrInteractiveLook,
-	#category : #'Brick-! Core - Looks'
+	#category : #'Brick-! Deprecated'
 }
 
 { #category : #testing }

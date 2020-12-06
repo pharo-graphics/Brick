@@ -66,7 +66,7 @@ BrGlamorousEditableLabelLook >> initialize [
 BrGlamorousEditableLabelLook >> initializeListeners [
 	super initializeListeners.
 	
-	self when: BlClickEvent do: [ :anEvent | anEvent currentTarget dispatchEvent: (BrSelectedWish selected: true) ]
+	self when: BlClickEvent do: [ :anEvent | anEvent currentTarget states addState: BlElementSelectedState uniqueInstance ]
 ]
 
 { #category : #accessing }

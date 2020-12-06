@@ -60,8 +60,8 @@ BrColumnedTreeDataSource >> onBindHolder: anElementHolder at: aPosition [
 	anElementHolder rowNode: anItemNode.	
 
 	(self selection containsIndex: aPosition)
-		ifTrue: [ anElementHolder itemElement dispatchEvent: (BrSelectedWish new selected: true) ]
-		ifFalse: [ anElementHolder itemElement dispatchEvent: (BrSelectedWish new selected: false) ]
+		ifTrue: [ anElementHolder itemElement states addState: BlElementSelectedState uniqueInstance]
+		ifFalse: [ anElementHolder itemElement states removeState: BlElementSelectedState uniqueInstance ]
 ]
 
 { #category : #'instance creation' }

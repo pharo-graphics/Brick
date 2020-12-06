@@ -7,6 +7,11 @@ Class {
 	#category : #'Brick-Tabs - Events'
 }
 
+{ #category : #sending }
+BrTabToolbarChangedEvent >> sendTo: anObject [
+	anObject tabToolbarChanged: self
+]
+
 { #category : #accessing }
 BrTabToolbarChangedEvent >> stencil [
 	^ stencil

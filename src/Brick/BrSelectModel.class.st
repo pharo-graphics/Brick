@@ -4,8 +4,13 @@ Class {
 	#instVars : [
 		'selected'
 	],
-	#category : #'Brick-! Core'
+	#category : #'Brick-! Deprecated'
 }
+
+{ #category : #testing }
+BrSelectModel class >> isDeprecated [
+	^ true
+]
 
 { #category : #printing }
 BrSelectModel class >> modelName [

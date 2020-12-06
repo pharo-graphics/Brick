@@ -129,8 +129,7 @@ BrTabGroupHeaderLook >> onTabRemoved: aBrTabModel [
 BrTabGroupHeaderLook >> onTabSelected: aTabModel [
 	self
 		assert: [ self isAttachedToWidget ]
-		description: [ 'I can not receive the tab selected event without being attached to a widget' ].
-
+		description: [ 'I can not receive the tab selected event without being attached to a widget' ]
 ]
 
 { #category : #hooks }

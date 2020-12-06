@@ -1,8 +1,13 @@
 Class {
 	#name : #BrInteractiveCommonLook,
 	#superclass : #BrInteractiveLook,
-	#category : #'Brick-! Core - Looks'
+	#category : #'Brick-! Deprecated'
 }
+
+{ #category : #testing }
+BrInteractiveCommonLook class >> isDeprecated [
+	^ true
+]
 
 { #category : #'api - style' }
 BrInteractiveCommonLook >> collapsed: aStyleBlock [

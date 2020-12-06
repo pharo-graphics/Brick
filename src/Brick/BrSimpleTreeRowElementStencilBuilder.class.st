@@ -19,7 +19,6 @@ BrSimpleTreeRowElementStencilBuilder >> buildDefault [
 		addChild: (self createExpandCollapseElement
 			toggleAction: [ :aToggleElement :aToggleModel | aToggleModel model toggle ]) as: #toggle;
 		addChild: self nodeElement;
-		viewModel: (BrInteractiveModel new addState: BrSelectModel new);
 		look: (BrInteractiveCommonLook new
 			selected: [ :aWidget | aWidget background: BrGlamorousColors selectedListItemColor ];
 			deselected: [ :aWidget | aWidget background: BrGlamorousColors deselectedListItemColor ])

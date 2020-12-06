@@ -6,3 +6,8 @@ Class {
 	#superclass : #BrTabEvent,
 	#category : #'Brick-Tabs - Events'
 }
+
+{ #category : #sending }
+BrTabSelectedEvent >> sendTo: anObject [
+	anObject tabSelected: self
+]

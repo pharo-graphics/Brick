@@ -53,10 +53,10 @@ BrColumnedListDataSource >> onBindHolder: anElementHolder at: aPosition [
 	(self selection containsIndex: aPosition)
 		ifTrue: [
 			anElementHolder itemElement effect: (BlOverlayAboveEffect new paint: (Color gray alpha: 0.15)).
-			anElementHolder itemElement dispatchEvent: (BrSelectedWish selected: true) ]
+			anElementHolder itemElement states addState: BlElementSelectedState uniqueInstance ]
 		ifFalse: [
 			anElementHolder itemElement effect: BlNullEffect new.
-			anElementHolder itemElement dispatchEvent: (BrSelectedWish selected: false) ]
+			anElementHolder itemElement states removeState: BlElementSelectedState uniqueInstance ]
 ]
 
 { #category : #'instance creation' }
