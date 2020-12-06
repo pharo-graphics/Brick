@@ -13,7 +13,7 @@ TBrEnableable >> disable [
 
 { #category : #'api - enablement' }
 TBrEnableable >> disabled: aBoolean [
-	aBoolean
+	aBoolean value
 		ifTrue: [ self disable ]
 		ifFalse: [ self enable ]
 ]
@@ -25,7 +25,7 @@ TBrEnableable >> enable [
 
 { #category : #'api - enablement' }
 TBrEnableable >> enabled: aBoolean [
-	aBoolean
+	aBoolean value
 		ifTrue: [ self enable ]
 		ifFalse: [ self disable ]
 ]
