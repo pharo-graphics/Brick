@@ -13,12 +13,6 @@ BrScrollbarLook >> initialize [
 		with: [ BlLinearLayout vertical ].
 	
 	self add: (BrScrollbarOrientationLook new
-		horizontal: [ :aWidget | aWidget
-			constraintsDo: [ :c |
-				c vertical fitContent.
-				c horizontal matchParent ] ];
-		vertical: [ :aWidget | aWidget
-			constraintsDo: [ :c |
-				c vertical matchParent.
-				c horizontal fitContent ] ])
+		horizontal: [ :aStyle | aStyle vFitContent; hMatchParent ];
+		vertical: [ :aStyle | aStyle vMatchParent; hFitContent ])
 ]

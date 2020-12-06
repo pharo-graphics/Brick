@@ -7,6 +7,11 @@ Class {
 	#category : #'Brick-! Core - Events'
 }
 
+{ #category : #testing }
+BrSelectedWish class >> isDeprecated [
+	^ true
+]
+
 { #category : #accessing }
 BrSelectedWish class >> selected: aBoolean [
 	^ self new selected: aBoolean

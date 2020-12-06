@@ -1,6 +1,6 @@
 Class {
 	#name : #BrGlamorousScrollbarTrackLook,
-	#superclass : #BrInteractiveCommonLook,
+	#superclass : #BrStyleCommonLook,
 	#category : #'Brick-Glamorous-Scrollbar'
 }
 
@@ -8,17 +8,17 @@ Class {
 BrGlamorousScrollbarTrackLook >> initialize [
 	super initialize.
 	
-	self default: [ :aWidget | aWidget background: (BrGlamorousColors defaultHeaderBackgroundColor) ].
+	self default: [ :aStyle | aStyle background: (BrGlamorousColors defaultHeaderBackgroundColor) ].
 
 	self add: (BrScrollbarOrientationLook new
-		horizontal: [ :aWidget |
-			aWidget constraintsDo: [ :c |
-				c frame vertical alignCenter.
-				c vertical exact: 1.
-				c horizontal matchParent ] ];
-		vertical: [ :aWidget |
-			aWidget constraintsDo: [ :c |
-				c frame horizontal alignCenter.
-				c horizontal exact: 1.
-				c vertical matchParent ] ])
+		horizontal: [ :aStyle |
+			aStyle vExact: 1; hMatchParent.
+			aStyle
+				do: [ :anElement | anElement constraintsDo: [ :c | c frame vertical alignCenter ] ]
+				after: [  ] ];
+		vertical: [ :aStyle |
+			aStyle vMatchParent; hExact: 1.
+			aStyle
+				do: [ :anElement | anElement constraintsDo: [ :c | c frame horizontal alignCenter ] ]
+				after: [  ] ])
 ]

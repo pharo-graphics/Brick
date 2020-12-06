@@ -1,6 +1,6 @@
 Class {
 	#name : #BrScrollbarOrientationState,
-	#superclass : #BrInteractionState,
+	#superclass : #BlElementUniqueState,
 	#classInstVars : [
 		'vertical',
 		'horizontal'
@@ -10,12 +10,12 @@ Class {
 
 { #category : #'instance creation' }
 BrScrollbarOrientationState class >> horizontal [
-	^ horizontal ifNil: [ horizontal := BrScrollbarHorizontalState new ]
+	^ BrScrollbarHorizontalState uniqueInstance
 ]
 
 { #category : #'instance creation' }
 BrScrollbarOrientationState class >> vertical [
-	^ vertical ifNil: [ vertical := BrScrollbarVerticalState new ]
+	^ BrScrollbarVerticalState uniqueInstance
 ]
 
 { #category : #testing }
@@ -26,4 +26,19 @@ BrScrollbarOrientationState >> isHorizontal [
 { #category : #testing }
 BrScrollbarOrientationState >> isVertical [
 	^ self = self class vertical
+]
+
+{ #category : #accessing }
+BrScrollbarOrientationState >> priority [
+	^ UserPriority
+]
+
+{ #category : #accessing }
+BrScrollbarOrientationState >> shouldPropagateToChildren [
+	^ true
+]
+
+{ #category : #accessing }
+BrScrollbarOrientationState >> type [
+	^ BrScrollbarOrientationState
 ]

@@ -1,27 +1,30 @@
 Class {
 	#name : #BrScrollbar,
 	#superclass : #BlElement,
+	#traits : 'TBrLayoutResizable',
+	#classTraits : 'TBrLayoutResizable classTrait',
 	#category : #'Brick-Scrollbar - UI'
 }
 
 { #category : #'api - scrollbar' }
 BrScrollbar >> beHorizontal [
-	self dispatchEvent: (BrScrollbarOrientationWish horizontal)
+	self states addState: BrScrollbarOrientationState horizontal
 ]
 
 { #category : #'api - scrollbar' }
 BrScrollbar >> beVertical [
-	self dispatchEvent: (BrScrollbarOrientationWish vertical)
+	self states addState: BrScrollbarOrientationState vertical
 ]
 
 { #category : #initialization }
 BrScrollbar >> initialize [
 	super initialize.
 	
-	self viewModel: (BrScrollbarModel new add: (BrInteractiveModel withAll: {
-		BrScrollbarOrientationModel new beVertical
-	})).
+	self viewModel: (BrScrollbarModel new).
 	
+	self vLocal; hLocal.
+	
+	self beVertical.
 	self beInSeparateCompositionLayer
 ]
 

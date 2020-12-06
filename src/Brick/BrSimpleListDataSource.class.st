@@ -31,18 +31,14 @@ BrSimpleListDataSource >> onBindHolder: anElementHolder at: aPosition [
 		itemObject: anItemObject;
 		itemPosition: aPosition;
 		asElement.
-	
+
 	anElementHolder
 		itemElement: anItemElementWithBindedData;
 		rowValue: anItemObject.
 
 	(self selection containsIndex: aPosition)
-		ifTrue: [
-			anElementHolder itemElement effect: (BlOverlayAboveEffect new paint: (Color gray alpha: 0.15)).
-			anElementHolder itemElement states addState: BlElementSelectedState uniqueInstance ]
-		ifFalse: [
-			anElementHolder itemElement effect: BlNullEffect new.
-			anElementHolder itemElement states removeState: BlElementSelectedState uniqueInstance ]
+		ifTrue: [ anElementHolder itemElement states addState: BlElementSelectedState uniqueInstance ]
+		ifFalse: [ anElementHolder itemElement states removeState: BlElementSelectedState uniqueInstance ]
 ]
 
 { #category : #hooks }

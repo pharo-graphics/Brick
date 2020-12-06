@@ -33,7 +33,7 @@ BrColumnedListDataSource >> onBindHolder: anElementHolder at: aPosition [
 	| anItemObject eachColumnIndex |
 
 	anItemObject := self rowValues at: aPosition.
-	
+
 	eachColumnIndex := 0.
 	anElementHolder columns
 		with: anElementHolder columnElements
@@ -51,12 +51,8 @@ BrColumnedListDataSource >> onBindHolder: anElementHolder at: aPosition [
 	anElementHolder rowValue: anItemObject.	
 
 	(self selection containsIndex: aPosition)
-		ifTrue: [
-			anElementHolder itemElement effect: (BlOverlayAboveEffect new paint: (Color gray alpha: 0.15)).
-			anElementHolder itemElement states addState: BlElementSelectedState uniqueInstance ]
-		ifFalse: [
-			anElementHolder itemElement effect: BlNullEffect new.
-			anElementHolder itemElement states removeState: BlElementSelectedState uniqueInstance ]
+		ifTrue: [ anElementHolder itemElement states addState: BlElementSelectedState uniqueInstance ]
+		ifFalse: [ anElementHolder itemElement states removeState: BlElementSelectedState uniqueInstance ]
 ]
 
 { #category : #'instance creation' }

@@ -1,6 +1,6 @@
 Class {
 	#name : #BrGlamorousScrollbarThumbLook,
-	#superclass : #BrInteractiveCommonLook,
+	#superclass : #BrStyleCommonLook,
 	#category : #'Brick-Glamorous-Scrollbar'
 }
 
@@ -8,17 +8,11 @@ Class {
 BrGlamorousScrollbarThumbLook >> initialize [
 	super initialize.
 	
-	self default: [ :aWidget |
-		aWidget background: (BrGlamorousColors defaultHeaderBackgroundColor).
-		aWidget geometry: (BlRoundedRectangleGeometry cornerRadius: 3) ].
+	self default: [ :aStyle |
+		aStyle background: (BrGlamorousColors defaultHeaderBackgroundColor).
+		aStyle geometry: (BlRoundedRectangleGeometry cornerRadius: 3) ].
 
 	self add: (BrScrollbarOrientationLook new
-		horizontal: [ :aWidget |
-			aWidget constraintsDo: [ :c |
-				c vertical exact: 6.
-				c horizontal matchParent ] ];
-		vertical: [ :aWidget |
-			aWidget constraintsDo: [ :c |
-				c horizontal exact: 6.
-				c vertical matchParent ] ])
+		horizontal: [ :aStyle | aStyle vExact: 6; hMatchParent ];
+		vertical: [ :aStyle | aStyle hExact: 6; vMatchParent ])
 ]
