@@ -7,7 +7,7 @@ Class {
 { #category : #examples }
 BrColumnProportionalWidthExamples >> applyOnElement [
 	<gtExample>
-	|  anElement aColumnWidth aHorizontalResizer |
+	|  anElement aColumnWidth |
 	
 	aColumnWidth := BrColumnProportionalWidth new weight: 0.5.
 
@@ -15,16 +15,14 @@ BrColumnProportionalWidthExamples >> applyOnElement [
 		background: Color lightGray;
 		border: (BlBorder paint: Color gray width: 2);
 		size: 50 @ 50.
-	
-	anElement when: BrLayoutHorizontalResizerWish do: [ :anEvent | aHorizontalResizer := anEvent resizer ].
-	
+
 	aColumnWidth applyOn: anElement.
 	
+	self assert: (anElement states hasState: BrLayoutHorizontalResizerState matchParent).
 	self assert: anElement constraints horizontal resizer equals: (BlLayoutResizer matchParent).
 	self assert: anElement constraints vertical resizer equals: (BlLayoutResizer exact: 50).
 	self assert: anElement constraints linear weight equals: 0.5.
 	self assert: anElement constraints frame horizontal weight equals: 0.5.
-	self assert: aHorizontalResizer equals: (BlLayoutResizer matchParent).
 	
 	^ anElement
 ]

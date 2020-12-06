@@ -7,7 +7,7 @@ Class {
 { #category : #examples }
 BrColumnFixedWidthExamples >> applyOnElement [
 	<gtExample>
-	|  anElement aColumnWidth aHorizontalResizer |
+	|  anElement aColumnWidth |
 	
 	aColumnWidth := BrColumnFixedWidth new width: 300.
 
@@ -16,13 +16,11 @@ BrColumnFixedWidthExamples >> applyOnElement [
 		border: (BlBorder paint: Color gray width: 2);
 		size: 50 @ 50.
 	
-	anElement when: BrLayoutHorizontalResizerWish do: [ :anEvent | aHorizontalResizer := anEvent resizer ].
-	
 	aColumnWidth applyOn: anElement.
 	
+	self assert: (anElement states hasState: BrLayoutHorizontalResizerState exact).
 	self assert: anElement constraints horizontal resizer equals: (BlLayoutResizer exact: 300.0).
 	self assert: anElement constraints vertical resizer equals: (BlLayoutResizer exact: 50.0).
-	self assert: aHorizontalResizer equals: (BlLayoutResizer exact: 300.0).
 	
 	^ anElement
 ]
