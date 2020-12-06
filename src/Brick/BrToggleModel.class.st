@@ -47,8 +47,8 @@ BrToggleModel >> beOneWay [
 BrToggleModel >> clickEvent: anEvent [
 	anEvent consumed: true.
 	
-	(self request: BrEnablementRequest oneWay) isEnabled
-		ifTrue: [ self 
+	(self widget states hasState: BlElementState disabled)
+		ifFalse: [ self 
 				activated: (self isOneWay or: [ self isActivated not ]) 
 				dueTo: anEvent ]
 ]

@@ -38,8 +38,8 @@ BrTabModel >> actionsStencil: anActionStencilBuilder [
 
 { #category : #'mouse handlers' }
 BrTabModel >> clickEvent: anEvent [
-	(self request: BrEnablementRequest oneWay) isActivated
-		ifFalse: [ ^ self ].
+	(self widget states hasState: BlElementState disabled)
+		ifTrue: [ ^ self ].
 
 	anEvent consumed: true.
 	self select

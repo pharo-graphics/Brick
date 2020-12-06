@@ -153,7 +153,8 @@ BrWithDropdownLook >> initializeRequests [
 
 { #category : #'private - testing' }
 BrWithDropdownLook >> isWidgetEnabled [	
-	^ (self request: BrEnablementRequest oneWay) isEnabled
+	self widgetDo: [ :aWidget | ^ (aWidget states hasState: BlElementState disabled) not ].
+	^ true
 ]
 
 { #category : #'private - hooks' }
