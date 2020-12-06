@@ -4,7 +4,6 @@ Class {
 	#traits : 'TBrLayoutResizable',
 	#classTraits : 'TBrLayoutResizable classTrait',
 	#instVars : [
-		'editorModel',
 		'textReplacedHandler'
 	],
 	#category : #'Brick-Editor - UI'
@@ -17,22 +16,22 @@ BrEditor >> addEditorShortcut: aBrTextEditorInteraction [
 
 { #category : #'api - editor' }
 BrEditor >> beEditable [
-	self dispatchEvent: (BrEditorModeWish editable)
+	self beMode: BrTextEditorEditableMode new
 ]
 
 { #category : #'api - editor' }
 BrEditor >> beMode: aTextEditorMode [
-	self dispatchEvent: (BrEditorModeWish mode: aTextEditorMode)
+	self viewModel mode: aTextEditorMode
 ]
 
 { #category : #'api - editor' }
 BrEditor >> beReadOnlyWithSelection [
-	self dispatchEvent: (BrEditorModeWish readOnlyWithSelection)
+	self beMode: BrTextEditorReadonlyWithSelectionMode new
 ]
 
 { #category : #'api - editor' }
 BrEditor >> beReadOnlyWithoutSelection [
-	self dispatchEvent: (BrEditorModeWish readOnlyWithoutSelection)
+	self beMode: BrTextEditorReadonlyWithoutSelectionMode new
 ]
 
 { #category : #'editor - accessing' }
@@ -75,9 +74,7 @@ BrEditor >> initialize [
 	self editor: BrTextEditor new.
 	self padding: (BlInsets all: 5).
 	
-	self viewModel: (editorModel := BrEditorModel new
-			add: (BrInteractiveModel withAll: {
-				BrEditorModeModel editable. }))
+	self viewModel: BrEditorModel new
 ]
 
 { #category : #'api - editor' }
@@ -95,19 +92,15 @@ BrEditor >> inserter [
 { #category : #'api - editor' }
 BrEditor >> isEditable [
 	<return: #Boolean>
-	| aRequest |
 
-	self dispatchEvent: (aRequest := BrEditorModeRequest new oneWay).
-	^ aRequest response mode isEditable
+	^ self viewModel mode isEditable
 ]
 
 { #category : #'api - editor' }
 BrEditor >> isReadOnly [
 	<return: #Boolean>
-	| aRequest |
 
-	self dispatchEvent: (aRequest := BrEditorModeRequest new oneWay).
-	^ aRequest response mode isReadOnly
+	^ self viewModel mode isReadOnly
 ]
 
 { #category : #'editor - operations' }
@@ -133,12 +126,12 @@ BrEditor >> selection [
 
 { #category : #'editor - accessing' }
 BrEditor >> styler [
-	^ editorModel styler
+	^ self viewModel styler
 ]
 
 { #category : #'editor - accessing' }
 BrEditor >> styler: aStyler [
-	editorModel styler: aStyler
+	self viewModel styler: aStyler
 ]
 
 { #category : #'editor - accessing' }
@@ -146,10 +139,10 @@ BrEditor >> text [
 	"Return a text I work with. All modifications to a text must be done from UI thread"
 	<return: #BlText>
 
-	^ editorModel text
+	^ self viewModel text
 ]
 
 { #category : #'editor - accessing' }
 BrEditor >> text: aBlText [
-	editorModel text: aBlText asRopedText
+	self viewModel text: aBlText asRopedText
 ]

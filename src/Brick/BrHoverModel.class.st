@@ -7,6 +7,11 @@ Class {
 	#category : #'Brick-! Core'
 }
 
+{ #category : #testing }
+BrHoverModel class >> isDeprecated [
+	^ true
+]
+
 { #category : #printing }
 BrHoverModel class >> modelName [
 	^ 'Hover'

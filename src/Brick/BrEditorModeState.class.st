@@ -1,6 +1,6 @@
 Class {
 	#name : #BrEditorModeState,
-	#superclass : #BrInteractionState,
+	#superclass : #BlElementState,
 	#instVars : [
 		'mode'
 	],
@@ -29,7 +29,7 @@ BrEditorModeState class >> readOnlyWithSelection [
 
 { #category : #'instance creation' }
 BrEditorModeState class >> readOnlyWithoutSelection [
-	^ self new mode: BrTextEditorReadonlyWithoutSelectionMode 
+	^ self new mode: BrTextEditorReadonlyWithoutSelectionMode
 ]
 
 { #category : #comparing }
@@ -60,4 +60,18 @@ BrEditorModeState >> mode [
 { #category : #accessing }
 BrEditorModeState >> mode: aModeClass [
 	mode := aModeClass
+]
+
+{ #category : #accessing }
+BrEditorModeState >> priority [
+	^ UserPriority
+]
+
+{ #category : #accessing }
+BrEditorModeState >> type [
+	"Return an object used to compare two states when adding to the collection of states in order to prevent
+	elements from having duplicated states"
+	<return: #Object>
+
+	^ self class
 ]

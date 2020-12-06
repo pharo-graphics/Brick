@@ -6,8 +6,7 @@ Class {
 	#instVars : [
 		'attributesBuilder',
 		'text',
-		'styler',
-		'mode'
+		'styler'
 	],
 	#category : #'Brick-Editor - Look'
 }
@@ -25,7 +24,6 @@ BrEditorLook >> initialize [
 	
 	styler := BlTextNullStyler new.
 	text := '' asRopedText.
-	mode := BrTextEditorNullMode new.
 	
 	attributesBuilder := BlTextDelegatedAttributesBuilder new attributesTarget: text.
 	attributesBuilder beNotOverwritableByStyler.
@@ -53,9 +51,10 @@ BrEditorLook >> initializeRequests [
 ]
 
 { #category : #accessing }
-BrEditorLook >> mode: aTextEditorMode [
-	mode := aTextEditorMode.	
-	self widgetDo: [ :aWidget | aWidget editor editorMode: aTextEditorMode ]
+BrEditorLook >> mode: aTextEditorMode [	
+	self widgetDo: [ :aWidget |
+		aWidget editor editorMode: aTextEditorMode.
+		aWidget states addState: (BrEditorModeState mode: aTextEditorMode class) ]
 ]
 
 { #category : #accessing }

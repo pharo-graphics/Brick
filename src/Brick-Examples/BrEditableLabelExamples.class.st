@@ -107,11 +107,19 @@ BrEditableLabelExamples >> scripter_02_double_click_to_edit [
 	aScripter
 		substep: 'Switch to the edit mode'
 		do: [ :aStep |
+			aStep check
+				label: 'Check read-only state';
+				satisfies: [ :anEditableLabel | anEditableLabel states hasState: BrEditorModeState readOnlyWithoutSelection ].
+			
 			aStep doubleClick.
 			
 			aStep check
 				label: 'Check edit mode';
 				satisfies: [ :anEditableLabel | anEditableLabel isEditable ].
+				
+			aStep check
+				label: 'Check edit state';
+				satisfies: [ :anEditableLabel | anEditableLabel states hasState: BrEditorModeState editable ].
 				
 			aStep check
 				label: 'Check has focus';

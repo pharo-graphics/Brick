@@ -1,6 +1,6 @@
 Class {
 	#name : #BrEditorModeChanged,
-	#superclass : #BrStateChangedEvent,
+	#superclass : #BrEditorChangedEvent,
 	#instVars : [
 		'mode'
 	],
@@ -22,11 +22,4 @@ BrEditorModeChanged >> mode [
 { #category : #accessing }
 BrEditorModeChanged >> mode: anObject [
 	mode := anObject
-]
-
-{ #category : #accessing }
-BrEditorModeChanged >> state: anObject [
-	"Override me to properly set the given state"
-
-	self mode: anObject
 ]

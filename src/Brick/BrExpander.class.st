@@ -20,5 +20,6 @@ BrExpander >> header: aStencil [
 BrExpander >> initialize [
 	super initialize.
 	
-	self viewModel: BrAccordionModel new
+	self viewModel: BrAccordionModel new.
+	self collapse.
 ]

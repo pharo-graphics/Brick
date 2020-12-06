@@ -7,6 +7,11 @@ Class {
 	#category : #'Brick-! Core'
 }
 
+{ #category : #testing }
+BrFocusModel class >> isDeprecated [
+	^ true
+]
+
 { #category : #'focus handlers' }
 BrFocusModel >> focusInEvent: anEvent [	
 		

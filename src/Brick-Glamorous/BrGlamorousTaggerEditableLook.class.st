@@ -77,29 +77,39 @@ BrGlamorousTaggerEditableLook >> initialize [
 BrGlamorousTaggerEditableLook >> newAddTagButton [
 	^ BrButton new
 		look:
-			(BrGlamorousButtonRectangularLook new +
-			BrGlamorousButtonIconLook new +
-			BrGlamorousButtonWithLabelTooltipLook new + (BrInteractiveCommonLook new
-				default: [ :aWidget |
-					aWidget
-						border: BlBorder empty;
-						background: BrGlamorousColors neutralBackgroundColor ];
-				hovered: [ :aWidget | aWidget background: BrGlamorousColors neutralBackgroundColor darker ];
-				pressed: [ :aWidget | aWidget background: BrGlamorousColors neutralBackgroundColor darker darker ];
-				focused: [ :aWidget | aWidget border: (BlBorder paint: BrGlamorousColors focusedEditorBorderColor width: 1) ]));
+			BrGlamorousButtonRectangularLook new + BrGlamorousButtonIconLook new
+				+ BrGlamorousButtonWithLabelTooltipLook new
+				+
+					(BrInteractiveCommonLook new
+						default: [ :aWidget | 
+							aWidget
+								border: BlBorder empty;
+								background: BrGlamorousColors neutralBackgroundColor ];
+						hovered:
+								[ :aWidget | aWidget background: BrGlamorousColors neutralBackgroundColor darker ];
+						pressed: [ :aWidget | 
+							aWidget
+								background: BrGlamorousColors neutralBackgroundColor darker darker ];
+						focused: [ :aWidget | 
+							aWidget
+								border: (BlBorder paint: BrGlamorousColors focusedEditorBorderColor width: 1) ]);
 		icon: BrGlamorousVectorIcons add;
 		label: 'Add';
-		beSmall;
+		beSmallSize;
 		hExact: 20;
 		margin: margin;
 		constraintsDo: [ :c | c flow vertical alignCenter ];
 		action: [ :aButton | self addTagCreatorElement ];
-		addShortcut: (BlShortcutWithAction new
-			combination: BlKeyCombination arrowLeft;
-			action: [ :anEvent | anEvent currentTarget previousSiblingDo: [ :anElement | anElement requestFocus ] ]);
-		addShortcut: (BlShortcutWithAction new
-			combination: BlKeyCombination return;
-			action: [ :anEvent | self addTagCreatorElement ])
+		addShortcut:
+			(BlShortcutWithAction new
+				combination: BlKeyCombination arrowLeft;
+				action: [ :anEvent | 
+					anEvent currentTarget
+						previousSiblingDo: [ :anElement | anElement requestFocus ] ]);
+		addShortcut:
+			(BlShortcutWithAction new
+				combination: BlKeyCombination return;
+				action: [ :anEvent | self addTagCreatorElement ])
 ]
 
 { #category : #'private - instance creation' }

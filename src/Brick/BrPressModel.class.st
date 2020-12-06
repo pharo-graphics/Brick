@@ -7,6 +7,11 @@ Class {
 	#category : #'Brick-! Core'
 }
 
+{ #category : #testing }
+BrPressModel class >> isDeprecated [
+	^ true
+]
+
 { #category : #printing }
 BrPressModel class >> modelName [
 	^ 'Press'

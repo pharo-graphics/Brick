@@ -16,6 +16,11 @@ BrStateModel class >> canPropagateToChildren [
 	^ false
 ]
 
+{ #category : #testing }
+BrStateModel class >> isDeprecated [
+	^ true
+]
+
 { #category : #'state - notifying' }
 BrStateModel >> notifyStateChanged: anObject [
 	self dispatchEvent: (self stateChangedEventClass state: anObject)

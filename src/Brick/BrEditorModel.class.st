@@ -3,17 +3,24 @@ Class {
 	#superclass : #BrWidgetModel,
 	#instVars : [
 		'styler',
-		'text'
+		'text',
+		'mode'
 	],
 	#category : #'Brick-Editor - Model'
 }
+
+{ #category : #accessing }
+BrEditorModel >> beEditable [
+	self mode: BrTextEditorEditableMode new
+]
 
 { #category : #initialization }
 BrEditorModel >> initialize [
 	super initialize.
 	
 	styler := BlTextNullStyler new.
-	text := '' asRopedText
+	text := '' asRopedText.
+	mode := BrTextEditorNullMode new
 ]
 
 { #category : #initialization }
@@ -21,7 +28,29 @@ BrEditorModel >> initializeListeners [
 	super initializeListeners.
 	
 	self when: BrEditorStylerRequest reply: [ :aResponse | aResponse styler: self styler ].
-	self when: BrEditorTextRequest reply: [ :aResponse | aResponse text: self text ]
+	self when: BrEditorTextRequest reply: [ :aResponse | aResponse text: self text ].
+	self when: BrEditorModeRequest reply: [ :aResponse | aResponse mode: self mode ].
+]
+
+{ #category : #accessing }
+BrEditorModel >> mode [
+	<return: #BrTextEditorMode>
+
+	^ mode
+]
+
+{ #category : #accessing }
+BrEditorModel >> mode: aBrTextEditorMode [
+	mode = aBrTextEditorMode
+		ifTrue: [ ^ self ].
+
+	mode := aBrTextEditorMode.
+	self notifyModeChanged
+]
+
+{ #category : #notifying }
+BrEditorModel >> notifyModeChanged [
+	self dispatchEvent: (BrEditorModeChanged new mode: self mode)
 ]
 
 { #category : #notifying }

@@ -17,6 +17,11 @@ BrEnablementModel class >> enabled [
 	^ self new enabled: true
 ]
 
+{ #category : #testing }
+BrEnablementModel class >> isDeprecated [
+	^ true
+]
+
 { #category : #printing }
 BrEnablementModel class >> modelName [
 	^ 'Activation'
