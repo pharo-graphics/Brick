@@ -3,7 +3,7 @@ I define the rectangular exterior of the link button.
 "
 Class {
 	#name : #BrGlamorousLinkButtonExteriorLook,
-	#superclass : #BrInteractiveCommonLook,
+	#superclass : #BrStyleCommonLook,
 	#instVars : [
 		'backgroundPaint'
 	],
@@ -17,7 +17,9 @@ BrGlamorousLinkButtonExteriorLook >> backgroundPaint [
 
 { #category : #accessing }
 BrGlamorousLinkButtonExteriorLook >> backgroundPaint: anObject [
-	backgroundPaint := anObject
+	backgroundPaint := anObject.
+	
+	self default background: self backgroundPaint.
 ]
 
 { #category : #initialization }
@@ -25,11 +27,10 @@ BrGlamorousLinkButtonExteriorLook >> initialize [
 	super initialize.
 	backgroundPaint := BrGlamorousColors disabledButtonBackgroundColor.
 
-	self
-		default: [ :aWidget | aWidget background: self backgroundPaint ];
-		hovered: [ :aWidget | aWidget background: BrGlamorousColors hoveredButtonTextColor ];
-		pressed: [ :aWidget | aWidget background: BrGlamorousColors pressedButtonTextColor ];
-		disabled: [ :aWidget | aWidget background: BrGlamorousColors disabledButtonTextColor ].
+	self default background: self backgroundPaint.
+	self hovered background: BrGlamorousColors hoveredButtonTextColor.
+	self pressed background: BrGlamorousColors pressedButtonTextColor.
+	self disabled background: BrGlamorousColors disabledButtonTextColor.
 
 	self
 		addChangeProperty: #(widgetContent layout)

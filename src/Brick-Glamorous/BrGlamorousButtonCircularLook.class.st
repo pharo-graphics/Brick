@@ -3,7 +3,7 @@ I define the circular exterior of the button. I am designed to be used with an i
 "
 Class {
 	#name : #BrGlamorousButtonCircularLook,
-	#superclass : #BrInteractiveCommonLook,
+	#superclass : #BrLook,
 	#category : #'Brick-Glamorous-Buttons - Support'
 }
 
@@ -18,20 +18,25 @@ BrGlamorousButtonCircularLook >> initialize [
 		addChangeProperty: #(widgetContent geometry)
 		with: [ BlCircle new ].
 
-	self add: (BrDeprecatedSizeAdjustmentLook new
-		tiny: [ :aWidget | self widgetContent
-				exact: 16;
+	self add: (BrSizeAdjustmentLook new
+		tiny: [ :aStyle |
+			aStyle
+				vExact: 16;
 				padding: (BlInsets left: 6 right: 6) ];
-		small: [ :aWidget | self widgetContent
-				exact: 20;
+		small: [ :aStyle |
+			aStyle
+				vExact: 20;
 				padding: (BlInsets left: 8 right: 8) ];
-		default: [ :aWidget | self widgetContent
-				exact: 24;
+		normal: [ :aStyle |
+			aStyle
+				vExact: 24;
 				padding: (BlInsets left: 10 right: 10) ];
-		large: [ :aWidget | self widgetContent
-				exact: 30;
+		large: [ :aStyle |
+			aStyle
+				vExact: 30;
 				padding: (BlInsets left: 10 right: 10) ];
-		huge: [ :aWidget | self widgetContent
-				exact: 48;
+		huge: [ :aStyle |
+			aStyle
+				vExact: 48;
 				padding: (BlInsets left: 16 right: 16) ])
 ]
