@@ -25,10 +25,14 @@ BrGlamorousTabGroupHeaderLook >> initialize [
 
 	self add: (BrLayoutResizerLook new
 		vAnyToFitContent: self header;
-		hInherit: self header;
+		hInherit: self header).
+
+	self header addLook: (BrLayoutResizerLook new
+		hAnyToMatchParent: self scrollTabbar;
 		vAnyToFitContent: self scrollTabbar;
-		hInherit: self scrollTabbar;
-		anyToFitContent: self tabbar;
 		anyToFitContent: self toolbar;
-		anyToFitContent: self actionbar)
+		anyToFitContent: self actionbar).
+
+	self scrollTabbar addLook: (BrLayoutResizerLook new
+		anyToFitContent: self tabbar).
 ]

@@ -41,11 +41,11 @@ BrTriangle >> show [
 BrTriangle >> toggleAction: aBlock [
 	"toggle triangle and then evaluate the block"
 
-	self viewModel action: [ :aWidget :aButtonModel :anEvent | 	
+	self viewModel action: [ :aWidget :aButtonModel :anEvent |
+		self toggleExpanded.
 		aBlock glamourValueWithArgs: {
 			aWidget.
 			aButtonModel.
 			anEvent
-		}.
-		self toggleExpanded ]
+		} ]
 ]

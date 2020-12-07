@@ -10,8 +10,10 @@ Class {
 { #category : #initialization }
 BrTreeLook >> initialize [
 	super initialize.
+
 	treeElement := BrInfiniteTreeElement new.
 	self add: (BrLayoutResizerLook inherit inherit: treeElement).
+
 	self addChangeAddChildAs: #(content scrollable) with: [ treeElement ].
 	
 	self

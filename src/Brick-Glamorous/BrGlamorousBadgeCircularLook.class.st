@@ -1,6 +1,6 @@
 Class {
 	#name : #BrGlamorousBadgeCircularLook,
-	#superclass : #BrInteractiveCommonLook,
+	#superclass : #BrStyleCommonLook,
 	#category : #'Brick-Glamorous-Badge'
 }
 
@@ -8,6 +8,6 @@ Class {
 BrGlamorousBadgeCircularLook >> initialize [
 	super initialize.
 
-	self default: [ :aWidget | aWidget geometry: BlEllipseGeometry new ].
-	self expanded: [ :aWidget | aWidget geometry: BlRectangleGeometry new ]
+	self default: [ :aStyle | aStyle geometry: BlEllipseGeometry new ].
+	self expanded: [ :aStyle | aStyle geometry: BlRectangleGeometry new ]
 ]

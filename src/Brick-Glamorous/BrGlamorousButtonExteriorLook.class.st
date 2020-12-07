@@ -16,7 +16,7 @@ BrGlamorousButtonExteriorLook >> backgroundPaint [
 
 { #category : #accessing }
 BrGlamorousButtonExteriorLook >> backgroundPaint: aPaint [
-	backgroundPaint := aPaint
+	backgroundPaint := aPaint.
 ]
 
 { #category : #accessing }

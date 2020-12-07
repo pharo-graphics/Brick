@@ -12,7 +12,11 @@ BrSimpleListLook >> initialize [
 	super initialize.
 
 	listElement := BrInfiniteListElement new.	
-	self add: (BrLayoutResizerLook inherit inherit: listElement).
+	
+	self add: (BrLayoutResizerLook new
+		inherit;
+		inherit: listElement).
+	
 	self addChangeAddChildAs: #(content scrollable) with: [ listElement ].
 
 	self

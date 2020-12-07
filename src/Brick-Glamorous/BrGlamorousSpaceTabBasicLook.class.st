@@ -9,7 +9,7 @@ BrGlamorousSpaceTabBasicLook >> initialize [
 	super initialize.
 
 	self add: BrGlamorousTabActionbarLook new.
-	self add: BrLayoutResizerLook new inherit.
+	self add: BrLayoutResizerLook inherit.
 	self add: (BrLayoutAlignmentLook forHorizontalLinearLayout).
 
 	self add: (BrStyleCommonLook new

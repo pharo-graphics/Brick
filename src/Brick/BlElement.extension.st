@@ -99,6 +99,13 @@ BlElement >> gtInspectorPaintModelLookIn: aMondrianView [
 ]
 
 { #category : #'*Brick' }
+BlElement >> layoutResizerPropagations [
+	^ self userData
+		at: #brickLayoutResizerPropagations
+		ifAbsentPut: [ BrLayoutResizerElementPropagations new element: self ]
+]
+
+{ #category : #'*Brick' }
 BlElement >> look [
 	^ self userData at: #brickLook ifAbsent: nil
 ]

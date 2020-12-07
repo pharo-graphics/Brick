@@ -10,7 +10,7 @@ BrSimpleListExamples >> allClasses [
 	^ BrSimpleList new
 		itemStencil: [
 			BrLabel new
-				hMatchParent;
+				"hMatchParent;"
 				look: BrGlamorousLabelLook new + (BrStyleCommonLook new
 					selected: [ :aStyle | aStyle background: Color veryVeryLightGray ]);
 				padding: (BlInsets all: 5) ];

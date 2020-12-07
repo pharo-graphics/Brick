@@ -15,8 +15,8 @@ BrListStencilExamples >> createCustomTextListLabel [
 	
 	self assert: anElement text asString equals: 'Custom label'.
 	self assert: anElement margin equals: (BlInsets all: 3).
-	self assert: anElement constraints horizontal resizer isMatchParent.
-	self assert: anElement constraints vertical resizer isFitContent.
+	self assert: (anElement states hasState: BrLayoutHorizontalResizerState matchParent).
+	self assert: (anElement states hasState: BrLayoutVerticalResizerState fitContent).
 	
 	^ anElement
 ]
@@ -31,8 +31,8 @@ BrListStencilExamples >> createDefaultListLabel [
 	
 	self assert: anElement text asString equals: 'Label'.
 	self assert: anElement margin equals: (BlInsets all: 3).
-	self assert: anElement constraints horizontal resizer isMatchParent.
-	self assert: anElement constraints vertical resizer isFitContent.
+	self assert: (anElement states hasState: BrLayoutHorizontalResizerState matchParent).
+	self assert: (anElement states hasState: BrLayoutVerticalResizerState fitContent).
 	
 	^ anElement
 ]

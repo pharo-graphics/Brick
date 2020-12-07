@@ -11,8 +11,9 @@ Class {
 BrScrollPaneLook >> initialize [
 	super initialize.
 
-	scrollable := BlScrollableElement new.	
+	scrollable := BlScrollableElement new.
 	self add: (BrLayoutResizerLook inherit inherit: scrollable).
+
 	self addChangeAddChildAs: #(content scrollable) with: [ scrollable ].
 
 	self
