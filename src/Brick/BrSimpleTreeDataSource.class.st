@@ -73,6 +73,8 @@ BrSimpleTreeDataSource >> onBindHolder: anElementHolder at: aPosition payloads: 
 		build.
 
 	anElementHolder rowNode: anItemNode.
+	
+	anElementHolder itemElement states removeState: BlElementState hovered.
 
 	(self selection containsIndex: aPosition)
 		ifTrue: [ anElementHolder itemElement states addState: BlElementSelectedState uniqueInstance ]

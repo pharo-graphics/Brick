@@ -14,7 +14,6 @@ BrColumnedListLook >> initialize [
 	
 	listElement := BrInfiniteListElement new.
 	listElement dataSource: BrColumnedListDataSource new.
-	self rowStencilBuilder: BrColumnedListRowStencilBuilder new.
 	
 	self add: (BrLayoutResizerLook inherit inherit: listElement).
 				
@@ -82,5 +81,5 @@ BrColumnedListLook >> rowStencilBuilder: aStencil [
 	"aStencil is expected to be a subclass of BrListRowStencilBuilder or a valuable"
 	rowStencil := aStencil asStencilBuilder: BrListRowStencilBuilder.
 
-	self listElement dataSource rowStencilBuilder: rowStencil
+	self listElement dataSource itemElementStencil: rowStencil
 ]

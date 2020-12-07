@@ -35,3 +35,8 @@ BrColumnedTree >> nodeType: aBrTreeNodeTypeStencilBuilderOrBlock [
 	
 	self viewModel nodeTypeStencil: aBrTreeNodeTypeStencilBuilderOrBlock
 ]
+
+{ #category : #'api - scripting' }
+BrColumnedTree >> rowStencil: aRowStencil [
+	self look rowStencilBuilder: aRowStencil
+]

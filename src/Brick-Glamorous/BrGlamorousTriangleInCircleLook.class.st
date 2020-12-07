@@ -23,31 +23,31 @@ BrGlamorousTriangleInCircleLook >> initialize [
 		hovered: [ :aStyle | aStyle background: BrGlamorousColors hoveredListItemColor ];
 		pressed: [ :aStyle | aStyle background: BrGlamorousColors pressedListItemColor ]).
 	
-	self add: (BrDeprecatedSizeAdjustmentLook new
-		huge: [ :aWidget | 
-			aWidget 
+	self add: (BrSizeAdjustmentLook new
+		huge: [ :aStyle | 
+			aStyle 
 				padding: (BlInsets all: 2);
-				transformDo: [ :t | t scaleBy: 1.5 ] ];
-		large: [ :aWidget | 
-			aWidget 
+				scaleBy: 1.5 ];
+		large: [ :aStyle | 
+			aStyle 
 				padding: (BlInsets all: 2);
-				transformDo: [ :t | t scaleBy: 1.25 ] ];
-		default: [ :aWidget | 
-			aWidget 
+				scaleBy: 1.25 ];
+		normal: [ :aStyle | 
+			aStyle 
 				padding: (BlInsets all: 2);
-				transformDo: [ :t | t scaleBy: 1 ] ];
-		small: [ :aWidget | 
-			aWidget 
+				scaleBy: 1 ];
+		small: [ :aStyle | 
+			aStyle 
 				padding: (BlInsets all: 1);
-				transformDo: [ :t | t scaleBy: 0.91 ] ];
-		tiny: [ :aWidget | 
-			aWidget 
+				scaleBy: 0.91 ];
+		tiny: [ :aStyle | 
+			aStyle 
 				padding: (BlInsets all: 1);
-				transformDo: [ :t | t scaleBy: 0.83 ] ];
-		mini: [ :aWidget | 
-			aWidget 
+				scaleBy: 0.83 ];
+		mini: [ :aStyle | 
+			aStyle 
 				padding: (BlInsets all: 1);
-				transformDo: [ :t | t scaleBy: 0.75 ] ])
+				scaleBy: 0.75 ])
 ]
 
 { #category : #initialization }

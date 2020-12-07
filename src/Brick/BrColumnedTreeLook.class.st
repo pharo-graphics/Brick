@@ -32,3 +32,10 @@ BrColumnedTreeLook >> initializeRequests [
 BrColumnedTreeLook >> onColumnsChanged: aCollectionOfBrListColumns [
 	treeElement dataSource columns: aCollectionOfBrListColumns
 ]
+
+{ #category : #'accessing - stencils' }
+BrColumnedTreeLook >> rowStencilBuilder: aStencil [
+	"aStencil is expected to be a subclass of BrColumnedTreeRowElementStencilBuilder or a valuable"
+
+	treeElement dataSource rowElementStencil: aStencil
+]
