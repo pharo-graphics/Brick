@@ -45,7 +45,7 @@ BrLayoutVerticalResizerState class >> matchParent [
 { #category : #printing }
 BrLayoutVerticalResizerState >> printOn: aStream [
 	aStream
-		nextPutAll: 'vertical layout resizer - '
+		nextPutAll: 'vertical resizer - '
 ]
 
 { #category : #accessing }

@@ -31,8 +31,11 @@ BrGlamorousTabGroupSwitcherHeaderLook >> initialize [
 		BlLinearLayout horizontal alignCenter cellSpacing: 0 ].
 
 	self add: (BrLayoutResizerLook new
-		anyToFitContent: self header;
-		vAnyToFitContent: self scrollTabbar;
-		hInherit: self scrollTabbar;
+		anyToFitContent: self header).
+
+	self header addLook: (BrLayoutResizerLook new
+		anyToFitContent: self scrollTabbar).
+
+	self scrollTabbar addLook: (BrLayoutResizerLook new
 		anyToFitContent: self tabbar)
 ]

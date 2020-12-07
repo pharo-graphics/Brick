@@ -45,7 +45,7 @@ BrLayoutHorizontalResizerState class >> matchParent [
 { #category : #printing }
 BrLayoutHorizontalResizerState >> printOn: aStream [
 	aStream
-		nextPutAll: 'horizontal layout resizer - '
+		nextPutAll: 'horizontal resizer - '
 ]
 
 { #category : #accessing }

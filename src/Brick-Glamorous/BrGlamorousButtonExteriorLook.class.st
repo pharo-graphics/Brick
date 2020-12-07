@@ -17,6 +17,9 @@ BrGlamorousButtonExteriorLook >> backgroundPaint [
 { #category : #accessing }
 BrGlamorousButtonExteriorLook >> backgroundPaint: aPaint [
 	backgroundPaint := aPaint.
+	
+	self default
+		background: self backgroundPaint
 ]
 
 { #category : #accessing }
@@ -26,7 +29,10 @@ BrGlamorousButtonExteriorLook >> borderPaint [
 
 { #category : #accessing }
 BrGlamorousButtonExteriorLook >> borderPaint: aColor [
-	borderPaint := aColor
+	borderPaint := aColor.
+	
+	self default
+		border: (BlBorder paint: self borderPaint width: self borderWidth)
 ]
 
 { #category : #accessing }
@@ -49,17 +55,17 @@ BrGlamorousButtonExteriorLook >> initialize [
 
 	self default
 		background: self backgroundPaint;
-		border: (BlBorder paint: borderPaint width: self borderWidth).
+		border: (BlBorder paint: self borderPaint width: self borderWidth).
 
 	self focused
 		border: (BlBorder paint: BrGlamorousColors hoveredButtonBorderColor width: self borderWidth).
-		
+
 	self hovered
 		border: (BlBorder paint: BrGlamorousColors hoveredButtonBorderColor width: self borderWidth).
 
 	self pressed
 		border: (BlBorder paint: BrGlamorousColors pressedButtonBorderColor width: self borderWidth).
-		
+
 	self disabled
 		background: BrGlamorousColors disabledButtonBackgroundColor;
 		border: (BlBorder paint: BrGlamorousColors disabledButtonBorderColor width: self borderWidth)

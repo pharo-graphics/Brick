@@ -11,3 +11,10 @@ BrLayoutHorizontalResizerProperty >> applyOnElement: anElement [
 
 	anElement constraintsDo: [ :c | c horizontal resizer: self resizer ]
 ]
+
+{ #category : #accessing }
+BrLayoutHorizontalResizerProperty >> printOn: aStream [
+	aStream
+		nextPutAll: 'Vertical resizer - ';
+		print: self resizer
+]
