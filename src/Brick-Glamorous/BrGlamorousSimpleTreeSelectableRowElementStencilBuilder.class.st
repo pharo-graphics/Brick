@@ -18,15 +18,10 @@ Class {
 BrGlamorousSimpleTreeSelectableRowElementStencilBuilder class >> simpleTreeExample [
 	<gtExample>
 	
-	^ BrSimpleTree new
+	^ BrSimpleTreeExamples new subclassesOfCollection
 		rowStencil: (BrGlamorousSimpleTreeSelectableRowElementStencilBuilder new
 			"adds a bit of space to the left from the expander triangle"
-			padding: (BlInsets left: 5)); 
-		nodeStencil: [
-			BrLabel new
-				look: BrGlamorousListLabelLook ];
-		nodeDataBinder: [ :eachLabel :eachClass | eachLabel text: eachClass ];
-		items: { SequenceableCollection } lazy: [ :eachClass | eachClass subclasses ];
+			padding: (BlInsets left: 5));
 		expandUpTo: 2
 ]
 
