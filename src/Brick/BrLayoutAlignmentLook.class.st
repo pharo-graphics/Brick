@@ -41,6 +41,12 @@ BrLayoutAlignmentLook class >> forHorizontalFlowLayout [
 ]
 
 { #category : #'instance creation' }
+BrLayoutAlignmentLook class >> forHorizontalGridLayout [
+	^ self new
+		any: [ :aWidget | aWidget layout: BlGridLayout horizontal ]
+]
+
+{ #category : #'instance creation' }
 BrLayoutAlignmentLook class >> forHorizontalLinearLayout [
 	^ self new
 		none: [ :aWidget | aWidget layout: BlLinearLayout horizontal ];
