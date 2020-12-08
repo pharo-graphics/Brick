@@ -69,7 +69,9 @@ BrEditor >> initialize [
 	
 	textReplacedHandler := BlEventHandler
 		on: BrTextEditorTextReplacedEvent
-		do: [ :anEvent | self text: anEvent text ].
+		"we intentionally set text directly to the viewModel
+		to prevent any possible #asRopedText convertion"
+		do: [ :anEvent | self viewModel text: anEvent text ].
 
 	self editor: BrTextEditor new.
 	self padding: (BlInsets all: 5).
