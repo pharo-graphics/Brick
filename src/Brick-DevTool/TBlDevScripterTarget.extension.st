@@ -92,7 +92,7 @@ TBlDevScripterTarget >> onGtPlaygroundFirstSnippetCoder [
 	self 
 		onGtPlaygroundSnippetsElement; "Infinite element"
 		onChildAt: 1; "First element in the infinite element"
-		onChildOfClass: GtExpandableCoderElement "Get the coder from the container"
+		onChildOfClass: GtExpandableSourceCoderElement "Get the coder from the container"
 ]
 
 { #category : #'*Brick-DevTool' }
@@ -110,7 +110,7 @@ TBlDevScripterTarget >> onGtPlaygroundSecondSnippetCoder [
 	self 
 		onGtPlaygroundSnippetsElement; "Infinite element"
 		onChildAt: 2;
-		onChildOfClass: GtExpandableCoderElement "Get the coder from the container"
+		onChildOfClass: GtExpandableSourceCoderElement "Get the coder from the container"
 ]
 
 { #category : #'*Brick-DevTool' }
