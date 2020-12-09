@@ -64,29 +64,28 @@ BrGlamorousComponentsPagers >> dynamicPager [
 BrGlamorousComponentsPagers >> infinitePager [
 	<gtExample>
 	| aPager aPageStencil |
-	
 	aPager := BrPager new.
 	aPager matchParent.
-	
 	aPageStencil := nil.
-	aPageStencil := [
-		BrPagerPageElement new
-			weight: 1.0;
-			layout: BlLinearLayout vertical alignCenter;
-			background: (Color random alpha: 0.1);
-			addChild: (BrLabel new
-				look: (BrGlamorousLabelLook new fontSize: 30; foreground: Color gray);
-				margin: (BlInsets all: 30); 
-				text: ('Page {1}' format: { aPager pages size + 1}));
-			addChild: (BrButton new
+	aPageStencil := [ BrPagerPageElement new
+		weight: 1.0;
+		layout: BlLinearLayout vertical alignCenter;
+		background: (Color random alpha: 0.1);
+		addChild:
+			(BrLabel new
+				look:
+					(BrGlamorousLabelLook new
+						fontSize: 30;
+						foreground: Color gray);
+				margin: (BlInsets all: 30);
+				text: ('Page {1}' format: {(aPager pages size + 1)}));
+		addChild:
+			(BrButton new
 				look: BrGlamorousButtonWithLabelLook new;
-				beHuge;
+				beHugeSize;
 				label: 'Next';
-				action: [
-					aPager addPage: aPageStencil asElement.
-					aPager scrollToLast
-				]) ] asStencil.
-	
+				action: [ aPager addPage: aPageStencil asElement.
+					aPager scrollToLast ]) ] asStencil.
 	aPager addPage: aPageStencil asElement.
 	^ aPager
 ]

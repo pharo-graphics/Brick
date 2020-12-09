@@ -267,9 +267,8 @@ BrExamplesShowroom >> glamorousDisabledButton [
 { #category : #buttons }
 BrExamplesShowroom >> glamorousHugeButton [
 	<gtExample>
-	
 	^ BrButton new
-		beHuge;
+		beHugeSize;
 		look: BrGlamorousButtonWithLabelLook new;
 		label: 'Button';
 		action: [ self inform: 'Clicked' ]
@@ -278,9 +277,8 @@ BrExamplesShowroom >> glamorousHugeButton [
 { #category : #buttons }
 BrExamplesShowroom >> glamorousLargeButton [
 	<gtExample>
-	
 	^ BrButton new
-		beLarge;
+		beLargeSize;
 		look: BrGlamorousButtonWithLabelLook new;
 		label: 'Button';
 		action: [ self inform: 'Clicked' ]
@@ -474,9 +472,8 @@ BrExamplesShowroom >> glamorousTabsSwitcherWithLabels [
 { #category : #buttons }
 BrExamplesShowroom >> glamorousTinyButton [
 	<gtExample>
-	
 	^ BrButton new
-		beTiny;
+		beTinySize;
 		look: BrGlamorousButtonWithLabelLook new;
 		label: 'Button';
 		action: [ self inform: 'Clicked' ]
