@@ -191,19 +191,6 @@ BrActor >> isAttachedToWidget [
 ]
 
 { #category : #'api - hooks' }
-BrActor >> onAttachedTo: anElement [
-	"Is sent when I am added to an element (or to the other actor which is added to the element)"
-
-	self
-		assert: [ widget isNil ]
-		description: [ 'Can not install the same look instance on multiple widgets' ].
-
-	widget := anElement.
-	
-	self transferEventHandlersToWidget
-]
-
-{ #category : #'api - hooks' }
 BrActor >> onInstalledIn: anElement [
 	"Is sent when I am added to an element (or to the other actor which is added to the element)"
 

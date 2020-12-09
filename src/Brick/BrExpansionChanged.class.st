@@ -8,12 +8,17 @@ Class {
 	#instVars : [
 		'expanded'
 	],
-	#category : #'Brick-! Core - Events'
+	#category : #'Brick-! Deprecated'
 }
 
 { #category : #'instance creation' }
 BrExpansionChanged class >> expanded: aBoolean [
 	^ self new expanded: aBoolean
+]
+
+{ #category : #testing }
+BrExpansionChanged class >> isDeprecated [
+	^ true
 ]
 
 { #category : #accessing }

@@ -1,12 +1,12 @@
 Class {
 	#name : #BrExpandedState,
-	#superclass : #BrInteractionState,
-	#category : #'Brick-! Deprecated'
+	#superclass : #BrExpansionState,
+	#category : #'Brick-! Core - Expansion'
 }
 
-{ #category : #testing }
-BrExpandedState class >> isDeprecated [
-	^ true
+{ #category : #enumerating }
+BrExpandedState >> optionalOnAddedTo: anElement [
+	anElement dispatchEvent: BrExpandedEvent new
 ]
 
 { #category : #printing }

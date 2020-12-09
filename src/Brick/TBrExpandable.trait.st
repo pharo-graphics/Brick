@@ -8,12 +8,12 @@ Trait {
 
 { #category : #'api - expandable' }
 TBrExpandable >> collapse [
-	self states addState: BlElementCollapsedState uniqueInstance
+	self states addState: BrCollapsedState uniqueInstance
 ]
 
 { #category : #'api - expandable' }
 TBrExpandable >> expand [
-	self states addState: BlElementExpandedState uniqueInstance
+	self states addState: BrExpandedState uniqueInstance
 ]
 
 { #category : #'api - expandable' }
@@ -36,7 +36,7 @@ TBrExpandable >> isExpanded [
 	"Return true if an widget is expanded (has expanded state), false otherwise"
 	<return: #Boolean>
 
-	^ self states hasState: BlElementExpandedState uniqueInstance
+	^ self states hasState: BrExpandedState uniqueInstance
 ]
 
 { #category : #'api - expandable' }

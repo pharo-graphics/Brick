@@ -12,6 +12,16 @@ BrTriangle >> action: aBlock [
 	self viewModel action: aBlock
 ]
 
+{ #category : #'api - expandable' }
+BrTriangle >> collapse [
+	self states addState: BrCollapsedState uniqueInstance
+]
+
+{ #category : #'api - expandable' }
+BrTriangle >> expand [
+	self states addState: BrExpandedState uniqueInstance
+]
+
 { #category : #'api - visibility' }
 BrTriangle >> hide [
 	self visibility: BlVisibility hidden
@@ -30,6 +40,14 @@ BrTriangle >> initialize [
 	
 	self viewModel: BrButtonModel new.
 	self action: [ self toggleExpanded ]
+]
+
+{ #category : #'api - expandable' }
+BrTriangle >> isExpanded [
+	"Return true if an widget is expanded (has expanded state), false otherwise"
+	<return: #Boolean>
+
+	^ self states hasState: BrExpandedState uniqueInstance
 ]
 
 { #category : #'api - visibility' }

@@ -83,8 +83,8 @@ BrExpandableModel >> stateChangedEventClass [
 BrExpandableModel >> streamStateIn: aBrInteractionStatesMapping [
 	aBrInteractionStatesMapping
 		addState: (self isExpanded 
-			ifTrue: [ BrExpandedState new ]
-			ifFalse: [ BrExpandedState new not ])
+			ifTrue: [ BrDeprecatedExpandedState new ]
+			ifFalse: [ BrDeprecatedExpandedState new not ])
 		model: self
 ]
 

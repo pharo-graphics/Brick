@@ -31,7 +31,7 @@ BrInteractionState class >> enabled [
 
 { #category : #'instance creation' }
 BrInteractionState class >> expanded [
-	^ BrExpandedState new
+	^ BrDeprecatedExpandedState new
 ]
 
 { #category : #'instance creation' }

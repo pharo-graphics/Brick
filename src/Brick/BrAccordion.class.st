@@ -35,9 +35,19 @@ Class {
 	#category : #'Brick-Accordion - UI'
 }
 
+{ #category : #'api - expandable' }
+BrAccordion >> collapse [
+	self states addState: BrCollapsedState uniqueInstance
+]
+
 { #category : #'api - accordion' }
 BrAccordion >> content: aStencil [
 	self viewModel contentStencil: aStencil
+]
+
+{ #category : #'api - expandable' }
+BrAccordion >> expand [
+	self states addState: BrExpandedState uniqueInstance
 ]
 
 { #category : #'api - accordion' }
@@ -50,4 +60,12 @@ BrAccordion >> initialize [
 	super initialize.
 	
 	self viewModel: BrAccordionModel new
+]
+
+{ #category : #'api - expandable' }
+BrAccordion >> isExpanded [
+	"Return true if an widget is expanded (has expanded state), false otherwise"
+	<return: #Boolean>
+
+	^ self states hasState: BrExpandedState uniqueInstance
 ]
