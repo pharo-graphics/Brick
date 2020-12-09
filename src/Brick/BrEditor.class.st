@@ -67,6 +67,8 @@ BrEditor >> editor: aBrTextEditor [
 BrEditor >> initialize [
 	super initialize.
 	
+	self matchParent.
+
 	textReplacedHandler := BlEventHandler
 		on: BrTextEditorTextReplacedEvent
 		"we intentionally set text directly to the viewModel
