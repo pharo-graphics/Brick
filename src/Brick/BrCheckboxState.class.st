@@ -19,6 +19,21 @@ BrCheckboxState class >> unchecked [
 	^ BrCheckboxUncheckedState uniqueInstance
 ]
 
+{ #category : #testing }
+BrCheckboxState >> isChecked [
+	^ false
+]
+
+{ #category : #testing }
+BrCheckboxState >> isIndeterminate [
+	^ false
+]
+
+{ #category : #testing }
+BrCheckboxState >> isUnchecked [
+	^ false
+]
+
 { #category : #enumerating }
 BrCheckboxState >> optionalOnAddedTo: anElement [
 	anElement dispatchEvent: (BrCheckboxChanged new state: self)

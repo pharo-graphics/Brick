@@ -10,6 +10,9 @@ The following example will desplay the preview for about 3 seconds: ${example:Br
 Class {
 	#name : #BrGlamorousAsyncElementProgressPreviewStencil,
 	#superclass : #BlAsyncElementPreviewStencil,
+	#instVars : [
+		'label'
+	],
 	#category : #'Brick-Glamorous-Async Preview'
 }
 
@@ -21,14 +24,31 @@ BrGlamorousAsyncElementProgressPreviewStencil >> create [
 		addChild: self newProgress
 ]
 
+{ #category : #initialization }
+BrGlamorousAsyncElementProgressPreviewStencil >> initialize [
+	super initialize.
+	
+	label := 'Rendering...'
+]
+
+{ #category : #accessing }
+BrGlamorousAsyncElementProgressPreviewStencil >> label [
+	^ label
+]
+
+{ #category : #accessing }
+BrGlamorousAsyncElementProgressPreviewStencil >> label: anObject [
+	label := anObject
+]
+
 { #category : #'api - instantiation' }
 BrGlamorousAsyncElementProgressPreviewStencil >> newProgress [
 	^ BrProgress new 
-		fixedLabel: 'Rendering...' asRopedText;
+		fixedLabel: self label asRopedText;
 		"We intentionally replaced it with just a label, otherwise the always updating progress bar consumes space frames to redraw which slows down the system"
 		look: (BrGlamorousProgressWithLabelLook new foreground: Color gray lighter);
 		constraintsDo: [ :c | 
 			c frame horizontal weight: 0.5.
 			c frame vertical alignCenter.
-			c frame horizontal alignCenter ].
+			c frame horizontal alignCenter ]
 ]

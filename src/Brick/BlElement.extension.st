@@ -134,8 +134,10 @@ BlElement >> removeLook: aLook [
 	self look
 		ifNotNil: [
 			self look = aLook
-				ifTrue: [  ]
-				ifFalse: [ self look remove: aLook ] ].
+				ifTrue: [
+					self look onUninstalledIn: self.
+					self userData at: #brickLook put: nil ]
+				ifFalse: [ self look remove: aLook ] ]
 ]
 
 { #category : #'*Brick' }

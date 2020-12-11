@@ -46,21 +46,28 @@ BrStyleLook >> initialize [
 
 { #category : #'private - adding' }
 BrStyleLook >> resolveStyleTargetStartingFrom: aWidgetElement ifFound: aFoundBlock ifNone: aNoneBlock [
-	"Fidn the target element for the styles starting from an element to which this look is applied"
+	"Find the target element for the styles starting from an element to which this look is applied"
 	<return: #BlElement>
 	| aStyleTarget |
 
 	aStyleTarget := self target
 		inject: aWidgetElement
 		into: [ :aCurrentElement :aCurrentId |
-			aCurrentId isString
+			| potentialId |
+			
+			potentialId := aCurrentId value.
+			(potentialId respondsTo: #asBlocElementId)
 				ifTrue: [
 					aCurrentElement
-						childWithId: aCurrentId
+						childWithId: potentialId
 						ifFound: [ :aNextChild | aNextChild ]
-						ifNone: [ ^ aNoneBlock value ] ]
-				ifFalse: [ aCurrentId ] ].
-
+						ifNone: [ ^ potentialId ] ]
+				ifFalse: [ potentialId ] ].
+		
+	self
+		assert: [ aStyleTarget isKindOf: BlElement ]
+		description: [ 'Target must be an element' ].
+	
 	^ aFoundBlock value: aStyleTarget
 ]
 

@@ -289,6 +289,9 @@ BrLayoutResizerPropagations >> newPropagationFor: aChildOrCollectionOrBlock [
 	aChildOrCollectionOrBlock isCollection
 		ifTrue: [ ^ BrLayoutResizerChildrenPropagation new childrenElements: aChildOrCollectionOrBlock ].
 
+	(aChildOrCollectionOrBlock respondsTo: #asBlocElementId)
+		ifTrue: [ ^ BrLayoutResizerChildByIdPropagation new childId: aChildOrCollectionOrBlock ].
+
 	^ BrLayoutResizerChildPropagation new childElement: aChildOrCollectionOrBlock
 ]
 

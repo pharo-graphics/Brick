@@ -36,5 +36,9 @@ BrGlamorousCheckboxLook >> initialize [
 		normal: [ :aStyle | 
 			aStyle
 				vExact: 16;
-				hExact: 16 ])
+				hExact: 16 ];
+		small: [ :aStyle | 
+			aStyle
+				vExact: 14;
+				hExact: 14 ])
 ]
