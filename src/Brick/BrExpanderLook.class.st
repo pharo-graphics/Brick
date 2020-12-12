@@ -37,10 +37,11 @@ BrExpanderLook >> contentStencil: aBrStencil [
 	contentStencil := aBrStencil asStencil.
 	contentElement ifNotNil: #removeFromParent.
 	contentElement := nil.
-
-	(self request: BrExpansionStateRequest oneWay) isExpanded
-		ifTrue: [ self onExpanded ]
-		ifFalse: [ self onCollapsed ]
+	
+	self widgetDo: [ :aWidget |
+		(aWidget states hasState: BrExpansionState expanded)
+			ifTrue: [ self onExpanded ]
+			ifFalse: [ self onCollapsed ] ]
 ]
 
 { #category : #'api - configuration' }
@@ -66,9 +67,10 @@ BrExpanderLook >> headerStencil: aBrStencil [
 	headerElement ifNotNil: #removeFromParent.
 	headerElement := nil.
 
-	(self request: BrExpansionStateRequest oneWay) isExpanded
-		ifTrue: [ self onExpanded ]
-		ifFalse: [ self onCollapsed ]
+	self widgetDo: [ :aWidget |
+		(aWidget states hasState: BrExpansionState expanded)
+			ifTrue: [ self onExpanded ]
+			ifFalse: [ self onCollapsed ] ]
 ]
 
 { #category : #initialization }
@@ -117,13 +119,11 @@ BrExpanderLook >> initializeRequests [
 	super initializeRequests.
 	
 	self request: BrAccordionContentStencilRequest new.
-	self request: BrAccordionHeaderStencilRequest new.
-	self request: BrExpansionStateRequest new
+	self request: BrAccordionHeaderStencilRequest new
 ]
 
 { #category : #hooks }
 BrExpanderLook >> onCollapsed [
-
 	contentElement ifNotNil: #removeFromParent.
 	
 	shouldRecreateHeader
