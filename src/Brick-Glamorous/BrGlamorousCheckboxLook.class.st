@@ -14,7 +14,7 @@ BrGlamorousCheckboxLook >> initialize [
 	self add: BrLayoutResizerLook inherit.
 	self add: BrLayoutAlignmentLook forHorizontalLinearLayout.
 
-	self add: (iconLook := BrIconLook new icon: (BrGlamorousVectorIcons checkbox asElement
+	self add: (iconLook := BrIconLook new icon: (BlElement new
 		size: 8@8;
 		background: BrGlamorousColors darkBorderColor muchDarker)).
 
@@ -29,8 +29,9 @@ BrGlamorousCheckboxLook >> initialize [
 	
 	self add: (BrCheckboxLook new
 		target: #icon;
-		unchecked: [ :aStyle | aStyle gone ];
-		checked: [ :aStyle | aStyle visible ]).
+		checked: [ :aStyle | aStyle geometry: BrGlamorousVectorIcons checkedCheckboxGeometry ];
+		unchecked: [ :aStyle | aStyle geometry: BrGlamorousVectorIcons uncheckedCheckboxGeometry ];
+		indeterminate: [ :aStyle | aStyle geometry: BrGlamorousVectorIcons indeterminateCheckboxGeometry ]).
 
 	self add: (BrSizeAdjustmentLook new
 		normal: [ :aStyle | 

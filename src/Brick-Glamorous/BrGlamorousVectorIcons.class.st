@@ -83,6 +83,13 @@ BrGlamorousVectorIcons class >> checkbox [
 		background: Color black ] asStencil
 ]
 
+{ #category : #geometry }
+BrGlamorousVectorIcons class >> checkedCheckboxGeometry [
+	<return: #BlElementGeometry>
+
+	^ self crossGeometry: 0.16 extent: 1@1 origin: 0@0
+]
+
 { #category : #icons }
 BrGlamorousVectorIcons class >> clipboard [
 	<script: 'self clipboard inspect'>
@@ -225,6 +232,13 @@ BrGlamorousVectorIcons class >> hamburger [
 			svg: 'M 4 3 L 12 3 L 12 5 L 4 5 Z M 4 7 L 12 7 L 12 9 L 4 9 Z M 4 11 L 12 11 L 12 13 L 4 13 Z'
 			viewbox: (0@0 extent: 16@16));
 		background: Color black ] asStencil
+]
+
+{ #category : #geometry }
+BrGlamorousVectorIcons class >> indeterminateCheckboxGeometry [
+	<return: #BlElementGeometry>
+
+	^ self minusGeometry: 0.16 extent: 1@1 origin: 0@0
 ]
 
 { #category : #icons }
@@ -390,6 +404,27 @@ BrGlamorousVectorIcons class >> leftSide [
 		background: Color black ] asStencil
 ]
 
+{ #category : #'private - geometry' }
+BrGlamorousVectorIcons class >> minusGeometry: aThickness extent: anExtent origin: anOrigin [
+	<return: #BlElementVectorGeometry>
+	| w h halfH halfThickness top bottom |
+	
+	w := anExtent x.
+	h := anExtent y.
+	halfH := h / 2.0.
+	halfThickness := aThickness / 2.0.
+	
+	top := halfH - halfThickness.
+	bottom := halfH + halfThickness.
+	
+	^ BlNormalizedPolygon vertices: ({
+		0 @ top.
+		w @ top.
+		w @ bottom.
+		0 @ bottom
+	} collect: [ :eachVertex | eachVertex + anOrigin ])
+]
+
 { #category : #icons }
 BrGlamorousVectorIcons class >> performance [
 	<script: 'self performance inspect'>
@@ -519,6 +554,13 @@ BrGlamorousVectorIcons class >> transcript [
 			svg: 'M 6.453291 1.8837905 L 9.549366 1.8837905 L 9.549366 2.687707 L 6.453291 2.687707 Z M 4.567742 6.864086 L 4.567742 8.008172 L 11.432258 8.008172 L 11.432258 6.864086 Z M 4.567742 9.152258 L 4.567742 10.296344 L 11.432258 10.296344 L 11.432258 9.152258 Z M 4.567742 11.44043 L 4.567742 12.584516 L 11.432258 12.584516 L 11.432258 11.44043 Z M 4.984516 2.704516 L 2.2877418 2.704516 C 1.8815453 2.704516 1.552258 3.0338033 1.552258 3.44 L 1.552258 14.864516 C 1.552258 15.270713 1.8815453 15.6 2.2877418 15.6 L 13.712258 15.6 C 14.118455 15.6 14.447742 15.270713 14.447742 14.864516 L 14.447742 3.44 C 14.447742 3.0338033 14.118455 2.704516 13.712258 2.704516 L 11.04 2.704516 L 11.04 1.1354838 C 11.04 .7292872 10.710713 .3999999 10.304517 .3999999 L 5.72 .3999999 C 5.3138036 .3999999 4.984516 .7292872 4.984516 1.1354838 Z M 5.5816425 4.16249 C 5.586882 4.1634875 5.592141 4.164429 5.5974194 4.1653147 L 5.5974194 5.389753 C 5.5974194 5.443913 5.6413244 5.487818 5.695484 5.487818 L 10.304516 5.487818 C 10.358676 5.487818 10.402581 5.443913 10.402581 5.389753 L 10.402581 4.169003 C 10.416132 4.1671977 10.429567 4.165023 10.442874 4.16249 L 12.997926 4.16249 L 12.997926 14.13501 L 2.9987097 14.13501 L 2.9987097 4.16249 Z'
 			viewbox: (0@0 extent: self standardSize));
 		background: Color black ] asStencil
+]
+
+{ #category : #geometry }
+BrGlamorousVectorIcons class >> uncheckedCheckboxGeometry [
+	<return: #BlElementGeometry>
+
+	^ BlEmptyGeometry new
 ]
 
 { #category : #icons }

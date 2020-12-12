@@ -41,3 +41,13 @@ BrExpander >> isExpanded [
 
 	^ self states hasState: BrExpandedState uniqueInstance
 ]
+
+{ #category : #'api - events' }
+BrExpander >> whenCollapsedDo: aBlock [
+	self when: BrCollapsedEvent do: [ :anEvent | aBlock cull: anEvent ]
+]
+
+{ #category : #'api - events' }
+BrExpander >> whenExpandedDo: aBlock [
+	self when: BrExpandedEvent do: [ :anEvent | aBlock cull: anEvent ]
+]
