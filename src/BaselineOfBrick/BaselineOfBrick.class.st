@@ -32,13 +32,15 @@ BaselineOfBrick >> baseline: spec [
 				spec repository: 'github://feenkcom/Bloc/src' ];
 			baseline: 'BlocPacFocusFinder' with: [
 				spec repository: 'github://feenkcom/bloc-pac:main/src' ];
+			baseline: 'BlocPacInfinite' with: [
+				spec repository: 'github://feenkcom/bloc-pac:main/src' ];
 			baseline: 'Beacon' with: [
 				spec repository: 'github://feenkcom/pharo-beacon/repository' ].
 		spec 
 			package: #'Brick-Editor' with: [
-				spec requires: #('Bloc' 'Beacon' #'BlocPacFocusFinder') ];
+				spec requires: #('Bloc' 'Beacon' #'BlocPacFocusFinder' 'BlocPacInfinite') ];
 			package: #Brick with: [
-				spec requires: #('Bloc' 'Brick-Editor' 'Beacon'). ];
+				spec requires: #('Bloc' 'Brick-Editor' 'Beacon' 'BlocPacInfinite'). ];
 			package: #'Brick-Editor-Extensions' with: [
 				spec requires: #('Brick'). ];
 			package: #'Brick-Material' with: [
