@@ -155,6 +155,11 @@ BrTextEditorCursor >> isSingle [
 	^ self cursorsCount = 1
 ]
 
+{ #category : #accessing }
+BrTextEditorCursor >> positions [
+	^ self collect: [ :eachCursor | eachCursor position ]
+]
+
 { #category : #enumerating }
 BrTextEditorCursor >> select: aBlock [ 	
 	^ Array streamContents: [ :aStream |
