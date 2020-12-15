@@ -29,7 +29,7 @@ BrGlamorousButtonLabelLook >> initialize [
 		mini: [ :aStyle | aStyle fontSize: 8 ]).
 
 	self add: (BrStyleCommonLook new
-		target: labelElement;
+		@ labelElement;
 		default: [ :aStyle | aStyle foreground: BrGlamorousColors defaultButtonTextColor ];
 		hovered: [ :aStyle | aStyle foreground: BrGlamorousColors hoveredButtonTextColor ];
 		pressed: [ :aStyle | aStyle foreground: BrGlamorousColors pressedButtonTextColor ];

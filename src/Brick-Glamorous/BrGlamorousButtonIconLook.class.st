@@ -9,7 +9,7 @@ BrGlamorousButtonIconLook >> initialize [
 	super initialize.
 			
 	self add: (BrSizeAdjustmentLook new
-		target: [ self icon ];
+		@ [ self icon ];
 		huge: [ :aStyle | aStyle scaleBy: 2 ];
 		large: [ :aStyle | aStyle scaleBy: 1.5 ];
 		normal: [ :aStyle | aStyle scaleBy: 1 ];

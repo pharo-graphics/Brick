@@ -29,7 +29,7 @@ BrGlamorousTabLook >> initialize [
 		default: [ :aStyle | aStyle padding: (BlInsets top: 10 left: 12 bottom: 10 right: 12) ]).
 
 	self add: (BrStyleCommonLook new
-		target: bar;
+		@ bar;
 		deselected: [ :aStyle | aStyle hidden ];
 		selected: [ :aStyle | aStyle visible ]).
 

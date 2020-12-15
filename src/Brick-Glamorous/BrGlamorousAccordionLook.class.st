@@ -66,12 +66,12 @@ BrGlamorousAccordionLook >> initialize [
 	self addChangeAddChildAs: #(content wrapper) with: [ wrapper ].
 	
 	self add: (BrStyleCommonLook new
-		target: headerBar;
+		@ headerBar;
 		default: [ :aStyle | aStyle background: (Color gray alpha: 0.4) ];
 		focused: [ :aStyle | aStyle background: (BrGlamorousColors primaryBorderColor alpha: 0.4) ]).
 		
 	self add: (BrStyleCommonLook new
-		target: contentBar;
+		@ contentBar;
 		default: [ :aStyle | aStyle gone; background: (Color gray alpha: 0.2) ];
 		focused: [ :aStyle | aStyle background: (BrGlamorousColors primaryBorderColor alpha: 0.2) ];
 		expanded: [ :aStyle | aStyle visible ]).
