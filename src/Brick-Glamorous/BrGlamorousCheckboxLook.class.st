@@ -28,7 +28,7 @@ BrGlamorousCheckboxLook >> initialize [
 		checked: [ :aStyle | aStyle border: (BlBorder paint: BrGlamorousColors darkBorderColor width: 1) ]).
 	
 	self add: (BrCheckboxLook new
-		target: #icon;
+		@ [ iconLook icon ];
 		checked: [ :aStyle | aStyle geometry: BrGlamorousVectorIcons checkedCheckboxGeometry ];
 		unchecked: [ :aStyle | aStyle geometry: BrGlamorousVectorIcons uncheckedCheckboxGeometry ];
 		indeterminate: [ :aStyle | aStyle geometry: BrGlamorousVectorIcons indeterminateCheckboxGeometry ]).
