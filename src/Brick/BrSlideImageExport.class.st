@@ -74,48 +74,35 @@ BrSlideImageExport >> createDropdownButtonWithLabel: aString [
 { #category : #accessing }
 BrSlideImageExport >> createDropdownFieldFor: aCollection [
 	| button dropDownLook |
+
 	button := self createDropdownButtonWithLabel: aCollection first asString.
+
 	dropDownLook := BrGlamorousWithDropdownLook
 		handle: [ self createDropdownButtonWithLabel: aCollection first asString ]
-		content: [ BrSimpleList new
+		content: [
+			BrSimpleList new
 				items: aCollection;
+				fitContent;
 				stencil: [ :each | 
-					| element |
-					element := BlElement new.
-					element
-						viewModel:
-							(BrInteractiveModel new
-								withHover;
-								yourself);
-						look:
-							(BrInteractiveCommonLook new
-								default: [ :f | f background: Color transparent ];
-								hovered: [ :f | f background: BrGlamorousColors defaultButtonBorderColor ];
-								yourself);
-						layout: BlLinearLayout horizontal;
-						constraintsDo: [ :c | 
-							c horizontal matchParent.
-							c vertical fitContent ];
+					BrHorizontalPane new
+						hMatchParent;
+						vFitContent;
+						addLook:
+							(BrStyleCommonLook new
+								hovered: [ :aStyle | aStyle background: BrGlamorousColors defaultButtonBorderColor ]);
 						padding: (BlInsets top: 0 right: 5 bottom: 5 left: 5);
-						addEventHandlerOn: BlClickEvent
-							do: [ 
+						addChild: (BrLabel new
+							look: BrGlamorousLabelLook new glamorousRegularFont glamorousCodeSmallSize;
+							text: each);
+						when: BlClickEvent
+							do: [ :anEvent |
 								button label: each.
-								dropDownLook hide.
-								"self applyDescriptor: each" ];
-						addChild:
-							(BrLabel new
-								look: BrGlamorousLabelLook new glamorousRegularFont glamorousCodeSmallSize;
-								text: each;
-								yourself).
-					element ];
-				hFitContent;
-				vFitContent ].
+								anEvent currentTarget fireEvent: (BrDropdownHideWish new) ] ] ].
 	button addLook: dropDownLook.
-	button
-		addLook:
-			(BrInteractiveCommonLook new
-				default: [ button background: BrGlamorousColors neutralBackgroundColor ];
-				hovered: [ button background: BrGlamorousColors neutralBackgroundColor darker ]).
+	button addLook: (BrStyleCommonLook new
+		default: [ :aStyle | aStyle background: BrGlamorousColors neutralBackgroundColor ];
+		hovered: [ :aStyle | aStyle background: BrGlamorousColors neutralBackgroundColor darker ]).
+
 	^ button
 ]
 
