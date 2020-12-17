@@ -4,7 +4,7 @@ Class {
 	#instVars : [
 		'hovered'
 	],
-	#category : #'Brick-! Core'
+	#category : #'Brick-! Deprecated'
 }
 
 { #category : #testing }

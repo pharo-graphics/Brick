@@ -7,8 +7,13 @@ Class {
 	#instVars : [
 		'stateModels'
 	],
-	#category : #'Brick-! Core'
+	#category : #'Brick-! Deprecated'
 }
+
+{ #category : #testing }
+BrInteractiveModel class >> isDeprecated [
+	^ true
+]
 
 { #category : #'instance creation' }
 BrInteractiveModel class >> with: aStateModel [

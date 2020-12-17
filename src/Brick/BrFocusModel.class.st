@@ -4,7 +4,7 @@ Class {
 	#instVars : [
 		'focused'
 	],
-	#category : #'Brick-! Core'
+	#category : #'Brick-! Deprecated'
 }
 
 { #category : #testing }

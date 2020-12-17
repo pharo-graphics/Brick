@@ -97,7 +97,7 @@ BrDevLookOverview >> buildEventsSection [
 
 { #category : #'private - references' }
 BrDevLookOverview >> buildExpandArtifctReferencesAttribute: theWishes [
-	^ BrTextExpandButtonAttribute new 
+	^ BrGlamorousTrangleExpanderTextAttribute new 
 		attributesCreatingBlock: [
 			BrTextAdornmentDynamicAttribute new 	
 				beAppend;

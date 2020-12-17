@@ -4,7 +4,7 @@ I am a super class of all models that have a boolean state, for example enabled/
 Class {
 	#name : #BrStateModel,
 	#superclass : #BrWidgetModel,
-	#category : #'Brick-! Core'
+	#category : #'Brick-! Deprecated'
 }
 
 { #category : #testing }

@@ -7,7 +7,7 @@ Class {
 	#instVars : [
 		'text'
 	],
-	#category : #'Brick-! Core'
+	#category : #'Brick-! Core - Models'
 }
 
 { #category : #printing }

@@ -4,7 +4,7 @@ Class {
 	#instVars : [
 		'selection'
 	],
-	#category : #'Brick-! Core'
+	#category : #'Brick-! Core - Models'
 }
 
 { #category : #printing }

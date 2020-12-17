@@ -112,54 +112,6 @@ BrTextEditorExamples class >> exampleMethodTextOpenEmbedElement [
 	space show.
 ]
 
-{ #category : #'examples - comparison' }
-BrTextEditorExamples class >> exampleOneEditorTwoElements [
-	| space1 editorElement1 space2 editorElement2 editor styler |
-
-	editor := BrTextEditor new.
-
-	styler := BrRBTextStyler new.
-	styler classOrMetaClass: Morph.
-	editor styler: styler.
-	
-	editor text: ((BlRopedText string: (Morph>>#fullDrawOn:) sourceCode) attributes: {
-		(BlFontSizeAttribute size: 14) beNotOverwritableByStyler.
-		BlFontGenericFamilyAttribute monospace beNotOverwritableByStyler
-	}).
-	
-	editorElement1 := BrEditorElement new.
-	editorElement1 constraintsDo: [ :c |
-		c horizontal matchParent.
-		c vertical matchParent ].
-	editorElement1 editor: editor.
-
-	space1 := BlSpace new.
-	space1 extent: self extent.
-	space1 root addChild: editorElement1.
-	
-	editorElement2 := BrEditorElement new.
-	editorElement2 constraintsDo: [ :c |
-		c horizontal matchParent.
-		c vertical matchParent ].
-	editorElement2 editor: editor.
-
-	space2 := BlSpace new.
-	space2 extent: self extent.
-	space2 root addChild: editorElement2.
-	
-	space1 show.
-	space2 show
-]
-
-{ #category : #'examples - comparison' }
-BrTextEditorExamples class >> exampleRubric [
-	RubScrolledTextMorph new 
-		setText: self loremIpsum;
-		extent: self extent;
-		beWrapped;
-		openInWindow
-]
-
 { #category : #examples }
 BrTextEditorExamples class >> exampleTextOpen [
 	| space editorElement |
@@ -211,13 +163,6 @@ BrTextEditorExamples >> adormentDynamicAttribute [
 BrTextEditorExamples >> brickString [
 	<gtExample>
 	^ 'Brick'
-]
-
-{ #category : #'examples - Morph>>#fullDrawOn:' }
-BrTextEditorExamples >> editorOnMorphFullDrawOn [
-	<gtExample>
-
-	^ self newEditor text: self textMorphFullDrawOn
 ]
 
 { #category : #examples }
@@ -337,13 +282,6 @@ BrTextEditorExamples >> elementOnMethodWithSyntaxHighlighting [
 	^ element
 ]
 
-{ #category : #'examples - Morph>>#fullDrawOn:' }
-BrTextEditorExamples >> elementOnMorphFullDrawOn [
-	<gtExample>
-	
-	^ self newElement editor: self editorOnMorphFullDrawOn
-]
-
 { #category : #examples }
 BrTextEditorExamples >> elementWithEditor [
 	<gtExample>
@@ -363,6 +301,36 @@ BrTextEditorExamples >> elementWithMethod [
 	<gtExample>
 	
 	^ self newElement editor: self editorWithMethod
+]
+
+{ #category : #'instance creation' }
+BrTextEditorExamples >> fullDrawOn: aCanvas [
+	"Draw the full Morphic structure on the given Canvas"
+
+	self visible ifFalse: [^ self].
+	(aCanvas isVisible: self fullBounds) ifFalse:[^self].
+	
+	(self hasProperty: #errorOnDraw) ifTrue:[^self drawErrorOn: aCanvas].
+	
+	[
+		"Note: At some point we should generalize this into some sort of 
+		multi-canvas so that we can cross-optimize some drawing operations."
+		"Pass 1: Draw eventual drop-shadow"
+		self hasDropShadow ifTrue: [ self drawDropShadowOn: aCanvas ].
+
+		"Pass 2: Draw receiver itself"
+		
+		aCanvas roundCornersOf: self during:[
+			(aCanvas isVisible: self bounds) ifTrue:[aCanvas drawMorph: self].
+			self drawSubmorphsOn: aCanvas.
+			self drawDropHighlightOn: aCanvas.
+			self drawMouseDownHighlightOn: aCanvas]
+		
+	] on: Error do: [:err |
+		self setProperty: #errorOnDraw toValue: true.
+		self setProperty: #drawError toValue: err freeze.
+		^ self drawErrorOn: aCanvas
+	]
 ]
 
 { #category : #'examples - editing' }
@@ -457,7 +425,7 @@ BrTextEditorExamples >> newElement [
 BrTextEditorExamples >> newMethodText [
 	<gtExample>
 	
-	^ BlRopedText string: (Morph>>#fullDrawOn:) sourceCode
+	^ BlRopedText string: (BrTextEditorExamples>>#fullDrawOn:) sourceCode
 ]
 
 { #category : #'instance creation' }
@@ -472,11 +440,4 @@ BrTextEditorExamples >> newThreeLineText [
 	<gtExample>
 	
 	^ BlRopedText string: 'first', String cr, 'second', String cr, 'third'
-]
-
-{ #category : #'examples - Morph>>#fullDrawOn:' }
-BrTextEditorExamples >> textMorphFullDrawOn [
-	<gtExample>
-	
-	^ (Morph>>#fullDrawOn:) sourceCode asRopedText monospace
 ]

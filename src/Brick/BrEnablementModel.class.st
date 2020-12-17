@@ -4,7 +4,7 @@ Class {
 	#instVars : [
 		'enabled'
 	],
-	#category : #'Brick-! Core'
+	#category : #'Brick-! Deprecated'
 }
 
 { #category : #'instance creation' }

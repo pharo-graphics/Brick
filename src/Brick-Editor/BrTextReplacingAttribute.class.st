@@ -49,15 +49,6 @@ BrTextReplacingAttribute >> embellishment: anObject [
 	embellishment := anObject
 ]
 
-{ #category : #'api - attribute' }
-BrTextReplacingAttribute >> glamorousRoundedBackground [
-	self embellishment: [ :anElement |
-		anElement background: BrGlamorousColors neutralBackgroundColor.
-		anElement geometry: (BlRoundedRectangleGeometry cornerRadius: 4) ].
-	self padding: (BlInsets all: 3).
-	self margin: (BlInsets top: 3 bottom: 3)
-]
-
 { #category : #initialization }
 BrTextReplacingAttribute >> initialize [
 	super initialize.

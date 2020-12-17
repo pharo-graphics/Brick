@@ -1,6 +1,3 @@
-"
-I am a text attribute that adds a small expand button that when clicked may apply further attributes on the text
-"
 Class {
 	#name : #BrTextExpandButtonAttribute,
 	#superclass : #BrTextAdornmentAttribute,
@@ -36,16 +33,6 @@ BrTextExpandButtonAttribute >> attributesCreatingBlock: aBlock [
 ]
 
 { #category : #private }
-BrTextExpandButtonAttribute >> collapsedGeometry [
-	^ BlPolygon
-		vertices: {
-			(0 @ 0).
-			(8 @ 4).
-			(0 @ 8)
-		}
-]
-
-{ #category : #private }
 BrTextExpandButtonAttribute >> createAttributesAffect: aBrText in: aTextEditor [
 	createdAttributes := (attributesCreatingBlock
 		cull: aBrText
@@ -61,38 +48,6 @@ BrTextExpandButtonAttribute >> createdAttributes [
 { #category : #accessing }
 BrTextExpandButtonAttribute >> createdAttributes: aCollection [
 	createdAttributes := aCollection
-]
-
-{ #category : #accessing }
-BrTextExpandButtonAttribute >> doAffect: aTBrTextEditorTextualPiece in: anEditorElement [
-	| aToggle |
-
-	aToggle := BrTriangle new
-		look: BrGlamorousTriangleInCircleLook;
-		expanded: self isExpanded;
-		padding: (BlInsets all: 2);
-		margin: (BlInsets top: 2);
-		mouseCursor: BlCursor default;
-		toggleAction: [
-			self
-				toggleExpandedOrCollapsedAttributesOn: aTBrTextEditorTextualPiece
-				in: anEditorElement editor ].
-		
-	self
-		applyExpandedOrCollapsedAttributesOn: aTBrTextEditorTextualPiece
-		in: anEditorElement editor.
-
-	^ aToggle
-]
-
-{ #category : #private }
-BrTextExpandButtonAttribute >> expandedGeometry [
-	^ BlPolygon
-		vertices: {
-			(0 @ 0).
-			(8 @ 0).
-			(4 @ 8)
-		}
 ]
 
 { #category : #initialization }

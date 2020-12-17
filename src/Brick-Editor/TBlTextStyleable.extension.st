@@ -12,30 +12,6 @@ TBlTextStyleable >> appendingAdornment: aBrTextAdornmentStencilBuilder [
 ]
 
 { #category : #'*Brick-Editor' }
-TBlTextStyleable >> expanded: aBoolean adornment: aBrTextAdornmentStencilBuilder [
-	"Append a visual element defined by a given stencil builder right after a text on which I am applied.
-	A stencil builder can also be a block in the following form:
-	[ :aTBrTextEditorTextualPiece :anEditorElement | ] - where aText represents a piece of text after which an element should be append"
-
-	self attributesBuilder attribute: (
-		BrTextExpandButtonAttribute new 
-			isExpanded: aBoolean;
-			attributesCreatingBlock: [
-				BrTextAdornmentDynamicAttribute new 	
-					beAppend;
-					stencil: aBrTextAdornmentStencilBuilder ])
-]
-
-{ #category : #'*Brick-Editor' }
-TBlTextStyleable >> expandingAdornment: aBrTextAdornmentStencilBuilder [
-	"Append a visual element defined by a given stencil builder right after a text on which I am applied.
-	A stencil builder can also be a block in the following form:
-	[ :aTBrTextEditorTextualPiece :anEditorElement | ] - where aText represents a piece of text after which an element should be append"
-
-	self expanded: false adornment: aBrTextAdornmentStencilBuilder
-]
-
-{ #category : #'*Brick-Editor' }
 TBlTextStyleable >> lineSpacing: aNumber [
 	self attributesBuilder attribute: (BrTextParagraphLineSpacingAttribute lineSpacing: aNumber)
 ]

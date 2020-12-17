@@ -4,7 +4,7 @@ Class {
 	#instVars : [
 		'pressed'
 	],
-	#category : #'Brick-! Core'
+	#category : #'Brick-! Deprecated'
 }
 
 { #category : #testing }
