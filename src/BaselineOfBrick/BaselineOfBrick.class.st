@@ -28,7 +28,10 @@ BaselineOfBrick >> baseline: spec [
 	<baseline>
 	spec for: #'common' do: [
 		spec 
-			baseline: 'PharoBootstrap' with: [ spec loads: 'KernelGroup' ];
+			baseline: 'PharoBootstrap' with: [
+				spec
+					repository: '';
+					loads: 'KernelGroup' ];
 
 			baseline: 'Bloc' with: [
 				spec repository: 'github://feenkcom/Bloc/src' ];
