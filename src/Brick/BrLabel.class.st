@@ -6,6 +6,14 @@ Class {
 	#category : #'Brick-Label - UI'
 }
 
+{ #category : #layout }
+BrLabel >> baselineOffset [
+	^ self
+		childWithId: #label
+		ifFound: [ :aTextElement | aTextElement baselineOffset + self padding top + aTextElement margin top ]
+		ifNone: [ 0 ]
+]
+
 { #category : #printing }
 BrLabel >> gtDisplayString [ 
 

@@ -5,16 +5,43 @@ Class {
 	#name : #BrGlamorousButtonLabelLook,
 	#superclass : #BrTextLabelLook,
 	#instVars : [
-		'selectedColor'
+		'selectedColor',
+		'labelLook',
+		'hoveredColor',
+		'defaultColor'
 	],
 	#category : #'Brick-Glamorous-Buttons - Support'
 }
+
+{ #category : #accessing }
+BrGlamorousButtonLabelLook >> defaultColor [
+	^ defaultColor
+]
+
+{ #category : #accessing }
+BrGlamorousButtonLabelLook >> defaultColor: aPaint [
+	defaultColor := aPaint.
+	labelLook default foreground: selectedColor
+]
+
+{ #category : #accessing }
+BrGlamorousButtonLabelLook >> hoveredColor [
+	^ hoveredColor
+]
+
+{ #category : #accessing }
+BrGlamorousButtonLabelLook >> hoveredColor: aPaint [
+	hoveredColor := aPaint.
+	labelLook hovered foreground: selectedColor
+]
 
 { #category : #initialization }
 BrGlamorousButtonLabelLook >> initialize [
 	super initialize.
 
+	defaultColor := BrGlamorousColors defaultButtonTextColor.
 	selectedColor := BrGlamorousColors hoveredButtonTextColor.
+	hoveredColor := BrGlamorousColors hoveredButtonTextColor.
 
 	self
 		weight: 400;
@@ -28,10 +55,10 @@ BrGlamorousButtonLabelLook >> initialize [
 		tiny: [ :aStyle | aStyle fontSize: 10 ];
 		mini: [ :aStyle | aStyle fontSize: 8 ]).
 
-	self add: (BrStyleCommonLook new
+	self add: (labelLook := BrStyleCommonLook new
 		@ labelElement;
-		default: [ :aStyle | aStyle foreground: BrGlamorousColors defaultButtonTextColor ];
-		hovered: [ :aStyle | aStyle foreground: BrGlamorousColors hoveredButtonTextColor ];
+		default: [ :aStyle | aStyle foreground: defaultColor ];
+		hovered: [ :aStyle | aStyle foreground: hoveredColor ];
 		pressed: [ :aStyle | aStyle foreground: BrGlamorousColors pressedButtonTextColor ];
 		disabled: [ :aStyle | aStyle foreground: BrGlamorousColors disabledButtonTextColor ];
 		selected: [ :aStyle | aStyle foreground: selectedColor ])
@@ -44,5 +71,6 @@ BrGlamorousButtonLabelLook >> selectedColor [
 
 { #category : #accessing }
 BrGlamorousButtonLabelLook >> selectedColor: aPaint [
-	selectedColor := aPaint
+	selectedColor := aPaint.
+	labelLook selected foreground: selectedColor
 ]

@@ -16,8 +16,9 @@ BrGlamorousButtonRectangularLook >> cornerRadius [
 ]
 
 { #category : #accessing }
-BrGlamorousButtonRectangularLook >> cornerRadius: anObject [
-	cornerRadius := anObject
+BrGlamorousButtonRectangularLook >> cornerRadius: aNumber [
+	cornerRadius := aNumber.
+	self default geometry: (BlRoundedRectangleGeometry cornerRadius: self cornerRadius)
 ]
 
 { #category : #initialization }
