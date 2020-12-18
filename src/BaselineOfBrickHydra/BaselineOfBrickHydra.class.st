@@ -17,7 +17,7 @@ BaselineOfBrickHydra >> baseline: spec [
 				spec repository: 'github://feenkcom/Bloc/src' ];
 			
 			baseline: 'BrickCore' with: [
-				spec repository: 'github://feenkcom/BrickCore/src' ];
+				spec repository: 'github://feenkcom/Brick/src' ];
 			baseline: 'Brick' with: [
 				spec repository: 'github://feenkcom/Brick/src' ].
 		
