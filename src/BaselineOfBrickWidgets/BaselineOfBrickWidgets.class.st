@@ -51,12 +51,14 @@ BaselineOfBrickWidgets >> baseline: spec [
 ]
 
 { #category : #'private - baseline' }
-BaselineOfBrickWidgets >> repository [
-	^ self repositoryOf: self class default: nil
-]
+BaselineOfBrickWidgets >> repository: aRepositoryString for: spec [
+	NonInteractiveTranscript stdout
+		nextPutAll: 'detecting repo for: ';
+		print: aRepositoryString;
+		nextPutAll: ' spec root: ';
+		print: spec root className asSymbol;
+		cr.
 
-{ #category : #'private - baseline' }
-BaselineOfBrickWidgets >> repository: aRepositoryString for: spec [	
 	^ self class environment
 		at: spec root className asSymbol
 		ifPresent: [ :aBaselineClass | self repositoryOf: aBaselineClass default: aRepositoryString ]
