@@ -9,7 +9,7 @@ BaselineOfBrickHydra >> baseline: spec [
 	<baseline>
 	spec for: #'common' do: [
 		spec 
-			baseline: 'PharoBootstrap' with: [ spec loads: 'KernelGroup' ];
+			"baseline: 'PharoBootstrap' with: [ spec loads: 'KernelGroup' ];"
 
 			baseline: 'BlocCore' with: [
 				spec repository: 'github://feenkcom/Bloc/src' ];
@@ -23,5 +23,12 @@ BaselineOfBrickHydra >> baseline: spec [
 		
 		spec 
 			package: #'Brick-Hydra' with: [
-				spec requires: #(#'PharoBootstrap' #'BlocCore' #'BlocLayout' #'BrickCore' #'Brick') ]. ].
+				spec requires: #(
+					"#'PharoBootstrap'"
+					
+					#'BlocCore'
+					#'BlocLayout'
+					
+					#'BrickCore'
+					#'Brick') ]. ].
 ]

@@ -9,7 +9,7 @@ BaselineOfBrickExamples >> baseline: spec [
 	<baseline>
 	spec for: #'common' do: [
 		spec
-			baseline: 'PharoBootstrap' with: [ spec loads: #(#'KernelGroup' 'FileSystemGroup') ];
+			"baseline: 'PharoBootstrap' with: [ spec loads: #(#'KernelGroup' 'FileSystemGroup') ];"
 
 			baseline: 'BlocCore' with: [
 				spec repository: 'github://feenkcom/Bloc/src' ];
@@ -46,7 +46,7 @@ BaselineOfBrickExamples >> baseline: spec [
 		spec 
 			package: #'Brick-Editor-Examples' with: [
 				spec requires: #(
-					#'PharoBootstrap'
+					"#'PharoBootstrap'"
 					
 					#'BlocCore'
 					#'BlocText'
@@ -57,7 +57,7 @@ BaselineOfBrickExamples >> baseline: spec [
 					#'BrickEditor' ) ];
 			package: #'Brick-Examples' with: [
 				spec requires: #(
-					#'PharoBootstrap'
+					"#'PharoBootstrap'"
 					
 					#'BlocCore'
 					#'BlocAnimation'

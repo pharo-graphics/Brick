@@ -9,9 +9,9 @@ BaselineOfBrickGlamorous >> baseline: spec [
 	<baseline>
 	spec for: #'common' do: [
 		spec
-			baseline: 'PharoBootstrap' with: [ spec loads: #(#'KernelGroup') ];
+			"baseline: 'PharoBootstrap' with: [ spec loads: #(#'KernelGroup') ];
 			baseline: 'Morphic' with: [ spec loads: #(#'Graphics-Files' ) ];
-			baseline: 'Display' with: [ spec loads: #(#'Graphics-Display Objects' ) ];
+			baseline: 'Display' with: [ spec loads: #(#'Graphics-Display Objects' ) ];"
 
 			baseline: 'BlocCore' with: [
 				spec repository: 'github://feenkcom/Bloc/src' ];
@@ -43,9 +43,9 @@ BaselineOfBrickGlamorous >> baseline: spec [
 		spec 
 			package: #'Brick-Glamorous' with: [
 				spec requires: #(
-					#'PharoBootstrap'
+					"#'PharoBootstrap'
 					#'Morphic'
-					#'Display'
+					#'Display'"
 					
 					#'BlocCore'
 					#'BlocAnimation'

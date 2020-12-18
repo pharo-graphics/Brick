@@ -9,10 +9,10 @@ BaselineOfBrickEditor >> baseline: spec [
 	<baseline>
 	spec for: #'common' do: [
 		spec 
-			baseline: 'PharoBootstrap' with: [ spec loads: #('KernelGroup' 'CompilerGroup' 'MultilingualGroup') ];
+			"baseline: 'PharoBootstrap' with: [ spec loads: #('KernelGroup' 'CompilerGroup' 'MultilingualGroup') ];
 			baseline: 'Morphic' with: [ spec loads: 'System-Clipboard' ];
 			baseline: 'MorphicCore' with: [ spec loads: 'Text-Core' ];
-			baseline: 'Traits' with: [ spec loads: 'AST-Core-Traits' ];
+			baseline: 'Traits' with: [ spec loads: 'AST-Core-Traits' ];"
 
 			baseline: 'Beacon' with: [
 				spec repository: 'github://feenkcom/pharo-beacon/repository' ];
@@ -41,7 +41,22 @@ BaselineOfBrickEditor >> baseline: spec [
 
 		spec 
 			package: #'Brick-Editor' with: [
-				spec requires: #(#'PharoBootstrap' #'Morphic' #'BlocCore' #'BlocText' #'BlocPacAsyncElement' #'BlocPacFocusFinder' #'BlocPacInfinite' #'BlocPacTasker' #'BrickCore' #'SpartaCore' #'SpartaSkia') ];
+				spec requires: #(
+					"#'PharoBootstrap'
+					#'Morphic'"
+					
+					#'BlocCore'
+					#'BlocText'
+					
+					#'BlocPacAsyncElement'
+					#'BlocPacFocusFinder'
+					#'BlocPacInfinite'
+					#'BlocPacTasker'
+					
+					#'BrickCore'
+					
+					#'SpartaCore'
+					#'SpartaSkia') ];
 			package: #'Brick-Editor-Extensions' with: [
 				spec requires: #(#'BlocCore' #'Brick-Editor') ]. ].
 ]

@@ -28,10 +28,10 @@ BaselineOfBrick >> baseline: spec [
 	<baseline>
 	spec for: #'common' do: [
 		spec 
-			baseline: 'PharoBootstrap' with: [
+			"baseline: 'PharoBootstrap' with: [
 				spec
 					repository: '';
-					loads: 'KernelGroup' ];
+					loads: 'KernelGroup' ];"
 
 			baseline: 'Bloc' with: [
 				spec repository: 'github://feenkcom/Bloc/src' ];
@@ -77,7 +77,7 @@ BaselineOfBrick >> baseline: spec [
 				spec repository: 'github://feenkcom/pharo-beacon/repository' ].
 		spec 
 			package: #Brick with: [
-				spec requires: #(#'PharoBootstrap' #'Bloc' 'BrickEditor' 'Beacon' 'BlocPacInfinite' 'BlocPacElementQuery'). ];
+				spec requires: #("#'PharoBootstrap' "#'Bloc' 'BrickEditor' 'Beacon' 'BlocPacInfinite' 'BlocPacElementQuery'). ];
 			package: #'Brick-DevTool' with: [
 				spec requires: #('Brick' ). ] ].
 ]
