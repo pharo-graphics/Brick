@@ -78,7 +78,7 @@ BaselineOfBrickWidgets >> repositoryOf: aBaselineClass default: aDefaultString [
 		ifNil: [ aDefaultString ]
 		ifNotNil: [ :anIcebergRepository |
 		anIcebergRepository
-			locationIfPresent: [ :location | location fullPath fullName ]
+			locationIfPresent: [ :location | 'tonel://',location fullPath fullName ]
 			ifAbsent: [ anIcebergRepository description ] ]
 			"| theRepositories |
 			
@@ -100,5 +100,14 @@ BaselineOfBrickWidgets >> repositoryOf: aBaselineClass default: aDefaultString [
 
 { #category : #'private - baseline' }
 BaselineOfBrickWidgets >> thisRepository [
-	^ self repositoryOf: self class default: nil
+	| thisRepository |
+	
+	thisRepository := self repositoryOf: self class default: nil.
+	
+	NonInteractiveTranscript stdout
+		nextPutAll: 'detecting thisRepository: ';
+		print: thisRepository;
+		cr.
+	
+	^ thisRepository
 ]
