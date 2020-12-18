@@ -32,19 +32,6 @@ BaselineOfBrick >> baseline: spec [
 				spec repository: 'github://feenkcom/Bloc/src' ];
 			baseline: 'BlocPac' with: [
 				spec repository: 'github://feenkcom/bloc-pac:main/src' ];
-
-			baseline: 'BrickWidgets' with: [
-				self thisRepositoryFor: spec ];
-
-			baseline: 'BrickHydra' with: [
-				self thisRepositoryFor: spec ];
-			baseline: 'BrickMaterial' with: [
-				self thisRepositoryFor: spec ];
-			baseline: 'BrickGlamorous' with: [
-				self thisRepositoryFor: spec ];
-			
-			baseline: 'BrickExamples' with: [
-				self thisRepositoryFor: spec ].
 			
 		spec
 			package: #'Brick-Core' with: [
