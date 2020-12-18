@@ -78,7 +78,7 @@ BaselineOfBrickWidgets >> repositoryOf: aBaselineClass default: aDefaultString [
 		ifNil: [ aDefaultString ]
 		ifNotNil: [ :anIcebergRepository |
 		anIcebergRepository
-			locationIfPresent: [ :location | 'tonel://',location fullPath fullName ]
+			locationIfPresent: [ :location | 'tonel://', location fullPath fullName, '/', anIcebergRepository subdirectory ]
 			ifAbsent: [ anIcebergRepository description ] ]
 			"| theRepositories |
 			
