@@ -74,23 +74,28 @@ BaselineOfBrickWidgets >> repository: aRepositoryString for: spec [
 
 { #category : #'private - baseline' }
 BaselineOfBrickWidgets >> repositoryOf: aBaselineClass default: aDefaultString [
-	| theRepositories |
-	theRepositories := aBaselineClass package mcWorkingCopy repositoryGroup repositories.
-	
-	NonInteractiveTranscript stdout 
-		nextPutAll: 'for: ';
-		print: aDefaultString; cr;
-		tab; print: theRepositories;
-		cr.
-	
-	^ (IceRepository registeredRepositoryIncludingPackage: aBaselineClass package)
-		locationIfPresent: [ :location | location fullPath fullName ]
-		ifAbsent: [
+	(IceRepository registeredRepositoryIncludingPackage: aBaselineClass package)
+		ifNil: [ aDefaultString ]
+		ifNotNil: [ :anIcebergRepository |
+		anIcebergRepository
+			locationIfPresent: [ :location | location fullPath fullName ]
+			ifAbsent: [ anIcebergRepository description ] ]
+			"| theRepositories |
+			
+			anIcebergRepository description
+			
+			theRepositories := aBaselineClass package mcWorkingCopy repositoryGroup repositories.
+			
+			NonInteractiveTranscript stdout 
+				nextPutAll: 'for: ';
+				print: aDefaultString; cr;
+				tab; print: theRepositories;
+				cr.
 			(theRepositories select: [:each | each = MCCacheRepository uniqueInstance ])
 				ifNotEmpty: [ :repositories | repositories anyOne description ]
 				ifEmpty: [ (theRepositories reject: [:each | each = MCCacheRepository uniqueInstance]) 
 					ifNotEmpty: [ :repositories | repositories anyOne description ]
-					ifEmpty: [ aDefaultString ] ] ]
+					ifEmpty: [ aDefaultString ] ] "
 ]
 
 { #category : #'private - baseline' }
