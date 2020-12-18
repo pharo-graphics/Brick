@@ -24,7 +24,7 @@ BaselineOfBrickMaterial >> baseline: spec [
 		spec 
 			package: #'Brick-Material' with: [
 				spec requires: #(
-					#'PharoBootstrap'
+					"#'PharoBootstrap'"
 					
 					#'BlocCore'
 					#'BlocLayout'
