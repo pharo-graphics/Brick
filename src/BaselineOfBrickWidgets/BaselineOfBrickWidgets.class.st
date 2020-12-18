@@ -13,25 +13,27 @@ BaselineOfBrickWidgets >> baseline: spec [
 				spec
 					repository: '';
 					loads: 'KernelGroup' ];"
-			
+
 			baseline: 'BlocCore' with: [
-				spec repository: 'github://feenkcom/Bloc/src' ];
+				self repository: 'github://feenkcom/Bloc/src' for: spec ];
 			baseline: 'BlocLayout' with: [
-				spec repository: 'github://feenkcom/Bloc/src' ];
+				self repository: 'github://feenkcom/Bloc/src' for: spec ];
 			baseline: 'BlocText' with: [
-				spec repository: 'github://feenkcom/Bloc/src' ];
-			
+				self repository: 'github://feenkcom/Bloc/src' for: spec ];
+
 			baseline: 'BlocPacInfinite' with: [
-				spec repository: 'github://feenkcom/bloc-pac:main/src' ];
+				self repository: 'github://feenkcom/bloc-pac:main/src' for: spec ];
 			baseline: 'BlocPacResizable' with: [
-				spec repository: 'github://feenkcom/bloc-pac:main/src' ];
+				self repository: 'github://feenkcom/bloc-pac:main/src' for: spec ];
 			baseline: 'BlocPacScrollable' with: [
-				spec repository: 'github://feenkcom/bloc-pac:main/src' ];
+				self repository: 'github://feenkcom/bloc-pac:main/src' for: spec ];
+			baseline: 'BlocPacScripter' with: [
+				self repository: 'github://feenkcom/bloc-pac:main/src' for: spec ];
 
 			baseline: 'BrickCore' with: [
-				spec repository: 'github://feenkcom/Brick/src' ];
+				self thisRepositoryFor: spec ];
 			baseline: 'BrickEditor' with: [
-				spec repository: 'github://feenkcom/Brick/src' ].
+				self thisRepositoryFor: spec ].
 		spec 
 			package: #Brick with: [
 				spec requires: #(
@@ -47,5 +49,5 @@ BaselineOfBrickWidgets >> baseline: spec [
 					#'BrickCore'
 					#'BrickEditor'). ];
 			package: #'Brick-DevTool' with: [
-				spec requires: #(#'Brick'). ] ].
+				spec requires: #(#'Brick' #'BlocPacScripter'). ] ].
 ]

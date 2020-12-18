@@ -12,36 +12,36 @@ BaselineOfBrickExamples >> baseline: spec [
 			"baseline: 'PharoBootstrap' with: [ spec loads: #(#'KernelGroup' 'FileSystemGroup') ];"
 
 			baseline: 'BlocCore' with: [
-				spec repository: 'github://feenkcom/Bloc/src' ];
+				self repository: 'github://feenkcom/Bloc/src' for: spec ];
 			baseline: 'BlocAnimation' with: [
-				spec repository: 'github://feenkcom/Bloc/src' ];
+				self repository: 'github://feenkcom/Bloc/src' for: spec ];
 			baseline: 'BlocLayout' with: [
-				spec repository: 'github://feenkcom/Bloc/src' ];
+				self repository: 'github://feenkcom/Bloc/src' for: spec ];
 			baseline: 'BlocText' with: [
-				spec repository: 'github://feenkcom/Bloc/src' ];
+				self repository: 'github://feenkcom/Bloc/src' for: spec ];
 			
 			baseline: 'BlocPacAsyncElementExamples' with: [
-				spec repository: 'github://feenkcom/bloc-pac:main/src' ];
+				self repository: 'github://feenkcom/bloc-pac:main/src' for: spec ];
 			baseline: 'BlocPacInfinite' with: [
-				spec repository: 'github://feenkcom/bloc-pac:main/src' ];
+				self repository: 'github://feenkcom/bloc-pac:main/src' for: spec ];
 			baseline: 'BlocPacPullAndSlide' with: [
-				spec repository: 'github://feenkcom/bloc-pac:main/src' ];
+				self repository: 'github://feenkcom/bloc-pac:main/src' for: spec ];
 			baseline: 'BlocPacScripter' with: [
-				spec repository: 'github://feenkcom/bloc-pac:main/src' ];
+				self repository: 'github://feenkcom/bloc-pac:main/src' for: spec ];
 			
 
 			baseline: 'BrickCore' with: [
-				spec repository: 'github://feenkcom/Brick/src' ];
+				self thisRepositoryFor: spec ];
 			baseline: 'BrickWidgets' with: [
-				spec repository: 'github://feenkcom/Brick/src' ];
+				self thisRepositoryFor: spec ];
 			baseline: 'BrickEditor' with: [
-				spec repository: 'github://feenkcom/Brick/src' ];
+				self thisRepositoryFor: spec ];
 			baseline: 'BrickHydra' with: [
-				spec repository: 'github://feenkcom/Brick/src' ];
+				self thisRepositoryFor: spec ];
 			baseline: 'BrickMaterial' with: [
-				spec repository: 'github://feenkcom/Brick/src' ];
+				self thisRepositoryFor: spec ];
 			baseline: 'BrickGlamorous' with: [
-				spec repository: 'github://feenkcom/Brick/src' ].
+				self thisRepositoryFor: spec ].
 
 		spec 
 			package: #'Brick-Editor-Examples' with: [

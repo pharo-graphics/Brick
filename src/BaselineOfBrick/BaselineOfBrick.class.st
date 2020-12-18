@@ -29,18 +29,18 @@ BaselineOfBrick >> baseline: spec [
 	spec for: #'common' do: [
 		spec 
 			baseline: 'Bloc' with: [
-				spec repository: 'github://feenkcom/Bloc/src' ];
-			
+				self repository: 'github://feenkcom/Bloc/src' for: spec ];
+
 			baseline: 'BrickWidgets' with: [
-				spec repository: 'github://feenkcom/Brick/src' ];
+				self thisRepositoryFor: spec ];
 
 			baseline: 'BrickHydra' with: [
-				spec repository: 'github://feenkcom/Brick/src' ];
+				self thisRepositoryFor: spec ];
 			baseline: 'BrickMaterial' with: [
-				spec repository: 'github://feenkcom/Brick/src' ];
+				self thisRepositoryFor: spec ];
 			baseline: 'BrickGlamorous' with: [
-				spec repository: 'github://feenkcom/Brick/src' ];
+				self thisRepositoryFor: spec ];
 			
 			baseline: 'BrickExamples' with: [
-				spec repository: 'github://feenkcom/Brick/src' ] ]
+				self thisRepositoryFor: spec ] ]
 ]

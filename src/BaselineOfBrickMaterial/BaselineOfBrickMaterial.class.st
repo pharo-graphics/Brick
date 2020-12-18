@@ -12,14 +12,14 @@ BaselineOfBrickMaterial >> baseline: spec [
 			"baseline: 'PharoBootstrap' with: [ spec loads: 'KernelGroup' ];"
 
 			baseline: 'BlocCore' with: [
-				spec repository: 'github://feenkcom/Bloc/src' ];
+				self repository: 'github://feenkcom/Bloc/src' for: self ];
 			baseline: 'BlocLayout' with: [
-				spec repository: 'github://feenkcom/Bloc/src' ];
+				self repository: 'github://feenkcom/Bloc/src' for: self ];
 			
 			baseline: 'BrickCore' with: [
-				spec repository: 'github://feenkcom/Brick/src' ];
+				self thisRepositoryFor: spec ];
 			baseline: 'BrickWidgets' with: [
-				spec repository: 'github://feenkcom/Brick/src' ].
+				self thisRepositoryFor: spec ].
 
 		spec 
 			package: #'Brick-Material' with: [

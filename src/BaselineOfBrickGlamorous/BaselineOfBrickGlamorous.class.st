@@ -14,32 +14,32 @@ BaselineOfBrickGlamorous >> baseline: spec [
 			baseline: 'Display' with: [ spec loads: #(#'Graphics-Display Objects' ) ];"
 
 			baseline: 'BlocCore' with: [
-				spec repository: 'github://feenkcom/Bloc/src' ];
+				self repository: 'github://feenkcom/Bloc/src' for: spec ];
 			baseline: 'BlocAnimation' with: [
-				spec repository: 'github://feenkcom/Bloc/src' ];
+				self repository: 'github://feenkcom/Bloc/src' for: spec ];
 			baseline: 'BlocLayout' with: [
-				spec repository: 'github://feenkcom/Bloc/src' ];
+				self repository: 'github://feenkcom/Bloc/src' for: spec ];
 			baseline: 'BlocText' with: [
-				spec repository: 'github://feenkcom/Bloc/src' ];
+				self repository: 'github://feenkcom/Bloc/src' for: spec ];
 
 			baseline: 'BlocPacAsyncElement' with: [
-				spec repository: 'github://feenkcom/bloc-pac:main/src' ];
+				self repository: 'github://feenkcom/bloc-pac:main/src' for: spec ];
 			baseline: 'BlocPacGeometry' with: [
-				spec repository: 'github://feenkcom/bloc-pac:main/src' ];
+				self repository: 'github://feenkcom/bloc-pac:main/src' for: spec ];
 			baseline: 'BlocPacOverlay' with: [
-				spec repository: 'github://feenkcom/bloc-pac:main/src' ];
+				self repository: 'github://feenkcom/bloc-pac:main/src' for: spec ];
 			baseline: 'BlocPacScalable' with: [
-				spec repository: 'github://feenkcom/bloc-pac:main/src' ];
+				self repository: 'github://feenkcom/bloc-pac:main/src' for: spec ];
 
 			baseline: 'BrickCore' with: [
-				spec repository: 'github://feenkcom/Brick/src' ];
+				self thisRepositoryFor: spec ];
 			baseline: 'BrickWidgets' with: [
-				spec repository: 'github://feenkcom/Brick/src' ];
+				self thisRepositoryFor: spec ];
 			baseline: 'BrickEditor' with: [
-				spec repository: 'github://feenkcom/Brick/src' ];
+				self thisRepositoryFor: spec ];
 			
 			baseline: 'GToolkitResourcesUtility' with: [
-				spec repository: 'github://feenkcom/gtoolkit-utility/src' ].
+				self repository: 'github://feenkcom/gtoolkit-utility/src' for: self ].
 		spec 
 			package: #'Brick-Glamorous' with: [
 				spec requires: #(
