@@ -29,7 +29,9 @@ BaselineOfBrick >> baseline: spec [
 	spec for: #'common' do: [
 		spec 
 			baseline: 'Bloc' with: [
-				self repository: 'github://feenkcom/Bloc/src' for: spec ];
+				spec repository: 'github://feenkcom/Bloc/src' ];
+			baseline: 'BlocPac' with: [
+				spec repository: 'github://feenkcom/bloc-pac:main/src' ];
 
 			baseline: 'BrickWidgets' with: [
 				self thisRepositoryFor: spec ];
@@ -42,5 +44,26 @@ BaselineOfBrick >> baseline: spec [
 				self thisRepositoryFor: spec ];
 			
 			baseline: 'BrickExamples' with: [
-				self thisRepositoryFor: spec ] ]
+				self thisRepositoryFor: spec ].
+			
+		spec
+			package: #'Brick-Core' with: [
+				spec requires: #('Bloc' 'BlocPac') ];
+			package: #'Brick-Editor' with: [
+				spec requires: #('Brick-Core') ];
+			package: #'Brick-Editor-Extensions' with: [
+				spec requires: #('Brick-Editor') ];
+			
+			package: #'Brick' with: [
+				spec requires: #(#'Brick-Core' #'Brick-Editor') ];
+			
+			package: #'Brick-Glamorous' with: [
+				spec requires: #(#'Brick') ];
+			package: #'Brick-Material' with: [
+				spec requires: #(#'Brick') ];
+			package: #'Brick-Hydra' with: [
+				spec requires: #(#'Brick') ];
+			
+			package: #'Brick-Examples' with: [
+				spec requires: #(#'Brick' #'Brick-Glamorous' #'Brick-Material' #'Brick-Hydra') ] ]
 ]

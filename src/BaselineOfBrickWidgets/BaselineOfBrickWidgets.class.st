@@ -35,7 +35,7 @@ BaselineOfBrickWidgets >> baseline: spec [
 			baseline: 'BrickEditor' with: [
 				self thisRepositoryFor: spec ].
 		spec 
-			package: #Brick with: [
+			package: #'Brick' with: [
 				spec requires: #(
 					"#'PharoBootstrap' "
 					#'BlocCore'
