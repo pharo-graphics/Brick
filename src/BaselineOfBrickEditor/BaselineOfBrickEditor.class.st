@@ -8,6 +8,8 @@ Class {
 BaselineOfBrickEditor >> baseline: spec [
 	<baseline>
 	spec for: #'common' do: [
+		| repository |
+		repository := self packageRepository description.
 		spec 
 			"baseline: 'PharoBootstrap' with: [ spec loads: #('KernelGroup' 'CompilerGroup' 'MultilingualGroup') ];
 			baseline: 'Morphic' with: [ spec loads: 'System-Clipboard' ];
@@ -32,7 +34,7 @@ BaselineOfBrickEditor >> baseline: spec [
 				spec repository: 'github://feenkcom/bloc-pac:main/src' ];
 
 			baseline: 'BrickCore' with: [
-				spec repository: 'github://feenkcom/Brick/src' ];
+				spec repository: repository ];
 
 			baseline: 'SpartaCore' with: [
 				spec repository: 'github://feenkcom/Sparta/src' ];
@@ -59,4 +61,15 @@ BaselineOfBrickEditor >> baseline: spec [
 					#'SpartaSkia') ];
 			package: #'Brick-Editor-Extensions' with: [
 				spec requires: #(#'BlocCore' #'Brick-Editor') ]. ].
+]
+
+{ #category : #'as yet unclassified' }
+BaselineOfBrickEditor >> packageRepository [
+	| theRepositories |
+	theRepositories := self class package mcWorkingCopy repositoryGroup repositories.
+	^ (theRepositories reject: [:each | each = MCCacheRepository uniqueInstance]) 
+		ifNotEmpty: [ :repositories | repositories anyOne ]
+		ifEmpty: [ (theRepositories select: [:each | each = MCCacheRepository uniqueInstance ])
+			ifNotEmpty: [ :repositories | repositories anyOne ]
+			ifEmpty: [ nil ] ]
 ]

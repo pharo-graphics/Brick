@@ -8,6 +8,8 @@ Class {
 BaselineOfBrickGlamorous >> baseline: spec [
 	<baseline>
 	spec for: #'common' do: [
+		| repository |
+		repository := self packageRepository description.
 		spec
 			"baseline: 'PharoBootstrap' with: [ spec loads: #(#'KernelGroup') ];
 			baseline: 'Morphic' with: [ spec loads: #(#'Graphics-Files' ) ];
@@ -32,11 +34,11 @@ BaselineOfBrickGlamorous >> baseline: spec [
 				spec repository: 'github://feenkcom/bloc-pac:main/src' ];
 
 			baseline: 'BrickCore' with: [
-				spec repository: 'github://feenkcom/Brick/src' ];
+				spec repository: repository ];
 			baseline: 'BrickWidgets' with: [
-				spec repository: 'github://feenkcom/Brick/src' ];
+				spec repository: repository ];
 			baseline: 'BrickEditor' with: [
-				spec repository: 'github://feenkcom/Brick/src' ];
+				spec repository: repository ];
 			
 			baseline: 'GToolkitResourcesUtility' with: [
 				spec repository: 'github://feenkcom/gtoolkit-utility/src' ].
@@ -62,4 +64,15 @@ BaselineOfBrickGlamorous >> baseline: spec [
 					#'BrickEditor'
 					
 					#'GToolkitResourcesUtility') ]. ].
+]
+
+{ #category : #'as yet unclassified' }
+BaselineOfBrickGlamorous >> packageRepository [
+	| theRepositories |
+	theRepositories := self class package mcWorkingCopy repositoryGroup repositories.
+	^ (theRepositories reject: [:each | each = MCCacheRepository uniqueInstance]) 
+		ifNotEmpty: [ :repositories | repositories anyOne ]
+		ifEmpty: [ (theRepositories select: [:each | each = MCCacheRepository uniqueInstance ])
+			ifNotEmpty: [ :repositories | repositories anyOne ]
+			ifEmpty: [ nil ] ]
 ]

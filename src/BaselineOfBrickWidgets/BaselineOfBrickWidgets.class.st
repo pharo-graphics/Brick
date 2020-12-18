@@ -8,6 +8,8 @@ Class {
 BaselineOfBrickWidgets >> baseline: spec [
 	<baseline>
 	spec for: #'common' do: [
+		| repository |
+		repository := self packageRepository description.
 		spec 
 			"baseline: 'PharoBootstrap' with: [
 				spec
@@ -29,9 +31,9 @@ BaselineOfBrickWidgets >> baseline: spec [
 				spec repository: 'github://feenkcom/bloc-pac:main/src' ];
 
 			baseline: 'BrickCore' with: [
-				spec repository: 'github://feenkcom/Brick/src' ];
+				spec repository: repository ];
 			baseline: 'BrickEditor' with: [
-				spec repository: 'github://feenkcom/Brick/src' ].
+				spec repository: repository ].
 		spec 
 			package: #Brick with: [
 				spec requires: #(
@@ -48,4 +50,15 @@ BaselineOfBrickWidgets >> baseline: spec [
 					#'BrickEditor'). ];
 			package: #'Brick-DevTool' with: [
 				spec requires: #(#'Brick'). ] ].
+]
+
+{ #category : #'as yet unclassified' }
+BaselineOfBrickWidgets >> packageRepository [
+	| theRepositories |
+	theRepositories := self class package mcWorkingCopy repositoryGroup repositories.
+	^ (theRepositories reject: [:each | each = MCCacheRepository uniqueInstance]) 
+		ifNotEmpty: [ :repositories | repositories anyOne ]
+		ifEmpty: [ (theRepositories select: [:each | each = MCCacheRepository uniqueInstance ])
+			ifNotEmpty: [ :repositories | repositories anyOne ]
+			ifEmpty: [ nil ] ]
 ]
