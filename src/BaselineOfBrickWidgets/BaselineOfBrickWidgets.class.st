@@ -29,9 +29,9 @@ BaselineOfBrickWidgets >> baseline: spec [
 				self repository: 'github://feenkcom/bloc-pac:main/src' for: spec ];
 
 			baseline: 'BrickCore' with: [
-				spec repository: self repository ];
+				spec repository: self thisRepository ];
 			baseline: 'BrickEditor' with: [
-				spec repository: self repository ].
+				spec repository: self thisRepository ].
 		spec 
 			package: #Brick with: [
 				spec requires: #(
@@ -66,11 +66,22 @@ BaselineOfBrickWidgets >> repository: aRepositoryString for: spec [
 { #category : #'private - baseline' }
 BaselineOfBrickWidgets >> repositoryOf: aBaselineClass default: aDefaultString [
 	| theRepositories |
-	
 	theRepositories := aBaselineClass package mcWorkingCopy repositoryGroup repositories.
+	
+	NonInteractiveTranscript stdout 
+		nextPutAll: 'for: ';
+		print: aDefaultString; cr;
+		tab; print: theRepositories;
+		cr.
+	
 	^ (theRepositories select: [:each | each = MCCacheRepository uniqueInstance ])
 		ifNotEmpty: [ :repositories | repositories anyOne description ]
 		ifEmpty: [ (theRepositories reject: [:each | each = MCCacheRepository uniqueInstance]) 
 			ifNotEmpty: [ :repositories | repositories anyOne description ]
 			ifEmpty: [ aDefaultString ] ]
+]
+
+{ #category : #'private - baseline' }
+BaselineOfBrickWidgets >> thisRepository [
+	^ self repositoryOf: self class default: nil
 ]
