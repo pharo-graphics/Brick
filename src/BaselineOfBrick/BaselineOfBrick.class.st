@@ -31,7 +31,7 @@ BaselineOfBrick >> baseline: spec [
 			baseline: 'Bloc' with: [
 				spec repository: 'github://feenkcom/Bloc/src' ];
 			baseline: 'BlocPac' with: [
-				spec repository: 'github://feenkcom/bloc-pac:main/src' ];
+				spec repository: 'github://feenkcom/bloc-pac:main/src' ].
 			
 		spec
 			package: #'Brick-Core' with: [
