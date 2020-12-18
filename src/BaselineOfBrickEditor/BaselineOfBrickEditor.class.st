@@ -8,8 +8,6 @@ Class {
 BaselineOfBrickEditor >> baseline: spec [
 	<baseline>
 	spec for: #'common' do: [
-		| repository |
-		repository := self packageRepository description.
 		spec 
 			"baseline: 'PharoBootstrap' with: [ spec loads: #('KernelGroup' 'CompilerGroup' 'MultilingualGroup') ];
 			baseline: 'Morphic' with: [ spec loads: 'System-Clipboard' ];
@@ -17,29 +15,29 @@ BaselineOfBrickEditor >> baseline: spec [
 			baseline: 'Traits' with: [ spec loads: 'AST-Core-Traits' ];"
 
 			baseline: 'Beacon' with: [
-				spec repository: 'github://feenkcom/pharo-beacon/repository' ];
+				self repository: 'github://feenkcom/pharo-beacon/repository' for: spec ];
 			
 			baseline: 'BlocCore' with: [
-				spec repository: 'github://feenkcom/Bloc/src' ];
+				self repository: 'github://feenkcom/Bloc/src' for: spec ];
 			baseline: 'BlocText' with: [
-				spec repository: 'github://feenkcom/Bloc/src' ];
+				self repository: 'github://feenkcom/Bloc/src' for: spec ];
 
 			baseline: 'BlocPacAsyncElement' with: [
-				spec repository: 'github://feenkcom/bloc-pac:main/src' ];
+				self repository: 'github://feenkcom/bloc-pac:main/src' for: spec ];
 			baseline: 'BlocPacFocusFinder' with: [
-				spec repository: 'github://feenkcom/bloc-pac:main/src' ];
+				self repository: 'github://feenkcom/bloc-pac:main/src' for: spec ];
 			baseline: 'BlocPacInfinite' with: [
-				spec repository: 'github://feenkcom/bloc-pac:main/src' ];
+				self repository: 'github://feenkcom/bloc-pac:main/src' for: spec ];
 			baseline: 'BlocPacTasker' with: [
-				spec repository: 'github://feenkcom/bloc-pac:main/src' ];
+				self repository: 'github://feenkcom/bloc-pac:main/src' for: spec ];
 
 			baseline: 'BrickCore' with: [
-				spec repository: repository ];
+				self thisRepositoryFor: spec ];
 
 			baseline: 'SpartaCore' with: [
-				spec repository: 'github://feenkcom/Sparta/src' ];
+				self repository: 'github://feenkcom/Sparta/src' for: spec ];
 			baseline: 'SpartaSkia' with: [
-				spec repository: 'github://feenkcom/Sparta/src' ].
+				self repository: 'github://feenkcom/Sparta/src' for: spec ].
 
 		spec 
 			package: #'Brick-Editor' with: [
@@ -61,15 +59,4 @@ BaselineOfBrickEditor >> baseline: spec [
 					#'SpartaSkia') ];
 			package: #'Brick-Editor-Extensions' with: [
 				spec requires: #(#'BlocCore' #'Brick-Editor') ]. ].
-]
-
-{ #category : #'as yet unclassified' }
-BaselineOfBrickEditor >> packageRepository [
-	| theRepositories |
-	theRepositories := self class package mcWorkingCopy repositoryGroup repositories.
-	^ (theRepositories reject: [:each | each = MCCacheRepository uniqueInstance]) 
-		ifNotEmpty: [ :repositories | repositories anyOne ]
-		ifEmpty: [ (theRepositories select: [:each | each = MCCacheRepository uniqueInstance ])
-			ifNotEmpty: [ :repositories | repositories anyOne ]
-			ifEmpty: [ nil ] ]
 ]

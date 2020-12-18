@@ -13,7 +13,7 @@ BaselineOfBrickWidgets >> baseline: spec [
 				spec
 					repository: '';
 					loads: 'KernelGroup' ];"
-			
+
 			baseline: 'BlocCore' with: [
 				self repository: 'github://feenkcom/Bloc/src' for: spec ];
 			baseline: 'BlocLayout' with: [
@@ -29,9 +29,9 @@ BaselineOfBrickWidgets >> baseline: spec [
 				self repository: 'github://feenkcom/bloc-pac:main/src' for: spec ];
 
 			baseline: 'BrickCore' with: [
-				spec repository: self thisRepository ];
+				self thisRepositoryFor: spec ];
 			baseline: 'BrickEditor' with: [
-				spec repository: self thisRepository ].
+				self thisRepositoryFor: spec ].
 		spec 
 			package: #Brick with: [
 				spec requires: #(
@@ -48,66 +48,4 @@ BaselineOfBrickWidgets >> baseline: spec [
 					#'BrickEditor'). ];
 			package: #'Brick-DevTool' with: [
 				spec requires: #(#'Brick'). ] ].
-]
-
-{ #category : #'private - baseline' }
-BaselineOfBrickWidgets >> repository: aRepositoryString for: spec [
-	| aRepository |
-	
-
-	aRepository := self class environment
-		at: spec root className asSymbol
-		ifPresent: [ :aBaselineClass | self repositoryOf: aBaselineClass default: aRepositoryString ]
-		ifAbsent: [ aRepositoryString ].
-		
-	NonInteractiveTranscript stdout
-		nextPutAll: 'detecting repo for: ';
-		print: aRepositoryString;
-		nextPutAll: ' spec root: ';
-		print: spec root className asSymbol;
-		nextPutAll: ' found: ';
-		print: aRepository;
-		cr.
-		
-	spec repository: aRepository
-]
-
-{ #category : #'private - baseline' }
-BaselineOfBrickWidgets >> repositoryOf: aBaselineClass default: aDefaultString [
-	^ (IceRepository registeredRepositoryIncludingPackage: aBaselineClass package)
-		ifNil: [ aDefaultString ]
-		ifNotNil: [ :anIcebergRepository |
-		anIcebergRepository
-			locationIfPresent: [ :location | 'tonel://', location fullPath fullName, '/', anIcebergRepository subdirectory ]
-			ifAbsent: [ anIcebergRepository description ] ]
-			"| theRepositories |
-			
-			anIcebergRepository description
-			
-			theRepositories := aBaselineClass package mcWorkingCopy repositoryGroup repositories.
-			
-			NonInteractiveTranscript stdout 
-				nextPutAll: 'for: ';
-				print: aDefaultString; cr;
-				tab; print: theRepositories;
-				cr.
-			(theRepositories select: [:each | each = MCCacheRepository uniqueInstance ])
-				ifNotEmpty: [ :repositories | repositories anyOne description ]
-				ifEmpty: [ (theRepositories reject: [:each | each = MCCacheRepository uniqueInstance]) 
-					ifNotEmpty: [ :repositories | repositories anyOne description ]
-					ifEmpty: [ aDefaultString ] ] "
-]
-
-{ #category : #'private - baseline' }
-BaselineOfBrickWidgets >> thisRepository [
-	| thisRepository |
-	
-	thisRepository := self repositoryOf: self class default: nil.
-	
-	NonInteractiveTranscript stdout
-		nextPutAll: 'detecting thisRepository: ';
-		print: thisRepository;
-		cr.
-	
-	^ thisRepository
 ]

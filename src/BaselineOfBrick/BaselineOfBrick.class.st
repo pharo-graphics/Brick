@@ -27,34 +27,20 @@ Class {
 BaselineOfBrick >> baseline: spec [
 	<baseline>
 	spec for: #'common' do: [
-		| repository |
-		repository := self packageRepository description.
-
 		spec 
 			baseline: 'Bloc' with: [
-				spec repository: 'github://feenkcom/Bloc/src' ];
-			
+				self repository: 'github://feenkcom/Bloc/src' for: spec ];
+
 			baseline: 'BrickWidgets' with: [
-				spec repository: repository ];
+				self thisRepositoryFor: spec ];
 
 			baseline: 'BrickHydra' with: [
-				spec repository: repository ];
+				self thisRepositoryFor: spec ];
 			baseline: 'BrickMaterial' with: [
-				spec repository: repository ];
+				self thisRepositoryFor: spec ];
 			baseline: 'BrickGlamorous' with: [
-				spec repository: repository ];
+				self thisRepositoryFor: spec ];
 			
 			baseline: 'BrickExamples' with: [
-				spec repository: repository ] ]
-]
-
-{ #category : #'as yet unclassified' }
-BaselineOfBrick >> packageRepository [
-	| theRepositories |
-	theRepositories := self class package mcWorkingCopy repositoryGroup repositories.
-	^ (theRepositories reject: [:each | each = MCCacheRepository uniqueInstance]) 
-		ifNotEmpty: [ :repositories | repositories anyOne ]
-		ifEmpty: [ (theRepositories select: [:each | each = MCCacheRepository uniqueInstance ])
-			ifNotEmpty: [ :repositories | repositories anyOne ]
-			ifEmpty: [ nil ] ]
+				self thisRepositoryFor: spec ] ]
 ]
