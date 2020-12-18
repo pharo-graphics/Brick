@@ -39,7 +39,7 @@ BaselineOfBrickGlamorous >> baseline: spec [
 				self thisRepositoryFor: spec ];
 			
 			baseline: 'GToolkitResourcesUtility' with: [
-				self repository: 'github://feenkcom/gtoolkit-utility/src' for: self ].
+				self repository: 'github://feenkcom/gtoolkit-utility/src' for: spec ].
 		spec 
 			package: #'Brick-Glamorous' with: [
 				spec requires: #(
