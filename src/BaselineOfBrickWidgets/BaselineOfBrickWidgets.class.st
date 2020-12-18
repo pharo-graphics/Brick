@@ -83,11 +83,14 @@ BaselineOfBrickWidgets >> repositoryOf: aBaselineClass default: aDefaultString [
 		tab; print: theRepositories;
 		cr.
 	
-	^ (theRepositories select: [:each | each = MCCacheRepository uniqueInstance ])
-		ifNotEmpty: [ :repositories | repositories anyOne description ]
-		ifEmpty: [ (theRepositories reject: [:each | each = MCCacheRepository uniqueInstance]) 
-			ifNotEmpty: [ :repositories | repositories anyOne description ]
-			ifEmpty: [ aDefaultString ] ]
+	^ (IceRepository registeredRepositoryIncludingPackage: aBaselineClass package)
+		locationIfPresent: [ :location | location fullPath fullName ]
+		ifAbsent: [
+			(theRepositories select: [:each | each = MCCacheRepository uniqueInstance ])
+				ifNotEmpty: [ :repositories | repositories anyOne description ]
+				ifEmpty: [ (theRepositories reject: [:each | each = MCCacheRepository uniqueInstance]) 
+					ifNotEmpty: [ :repositories | repositories anyOne description ]
+					ifEmpty: [ aDefaultString ] ] ]
 ]
 
 { #category : #'private - baseline' }
