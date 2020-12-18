@@ -30,9 +30,9 @@ BaselineOfBrickExamples >> baseline: spec [
 				spec repository: 'github://feenkcom/bloc-pac:main/src' ];
 			
 
-			baseline: 'Brick' with: [
-				spec repository: 'github://feenkcom/Brick/src' ];
 			baseline: 'BrickCore' with: [
+				spec repository: 'github://feenkcom/Brick/src' ];
+			baseline: 'BrickWidgets' with: [
 				spec repository: 'github://feenkcom/Brick/src' ];
 			baseline: 'BrickEditor' with: [
 				spec repository: 'github://feenkcom/Brick/src' ];
@@ -53,7 +53,7 @@ BaselineOfBrickExamples >> baseline: spec [
 					
 					#'BlocPacInfinite'
 					
-					#'Brick'
+					#'BrickWidgets'
 					#'BrickEditor' ) ];
 			package: #'Brick-Examples' with: [
 				spec requires: #(
@@ -69,8 +69,8 @@ BaselineOfBrickExamples >> baseline: spec [
 					#'BlocPacPullAndSlide'
 					#'BlocPacScripter'
 					
-					#'Brick'
 					#'BrickCore'
+					#'BrickWidgets'
 					#'BrickEditor'
 					#'BrickHydra'
 					#'BrickMaterial'

@@ -28,25 +28,12 @@ BaselineOfBrick >> baseline: spec [
 	<baseline>
 	spec for: #'common' do: [
 		spec 
-			"baseline: 'PharoBootstrap' with: [
-				spec
-					repository: '';
-					loads: 'KernelGroup' ];"
-
 			baseline: 'Bloc' with: [
 				spec repository: 'github://feenkcom/Bloc/src' ];
 			
-			baseline: 'BlocCore' with: [
-				spec repository: 'github://feenkcom/Bloc/src' ];
-			baseline: 'BlocLayout' with: [
-				spec repository: 'github://feenkcom/Bloc/src' ];
-			baseline: 'BlocText' with: [
-				spec repository: 'github://feenkcom/Bloc/src' ];
+			baseline: 'BrickWidgets' with: [
+				spec repository: 'github://feenkcom/Brick/src' ];
 
-			baseline: 'BrickCore' with: [
-				spec repository: 'github://feenkcom/Brick/src' ];
-			baseline: 'BrickEditor' with: [
-				spec repository: 'github://feenkcom/Brick/src' ];
 			baseline: 'BrickHydra' with: [
 				spec repository: 'github://feenkcom/Brick/src' ];
 			baseline: 'BrickMaterial' with: [
@@ -54,30 +41,6 @@ BaselineOfBrick >> baseline: spec [
 			baseline: 'BrickGlamorous' with: [
 				spec repository: 'github://feenkcom/Brick/src' ];
 			
-			baseline: 'BlocPacAsyncElement' with: [
-				spec repository: 'github://feenkcom/bloc-pac:main/src' ];
-			baseline: 'BlocPacElementQuery' with: [
-				spec repository: 'github://feenkcom/bloc-pac:main/src' ];
-			baseline: 'BlocPacFocusFinder' with: [
-				spec repository: 'github://feenkcom/bloc-pac:main/src' ];
-			baseline: 'BlocPacInfinite' with: [
-				spec repository: 'github://feenkcom/bloc-pac:main/src' ];
-			baseline: 'BlocPacOverlay' with: [
-				spec repository: 'github://feenkcom/bloc-pac:main/src' ];
-			baseline: 'BlocPacResizable' with: [
-				spec repository: 'github://feenkcom/bloc-pac:main/src' ];
-			baseline: 'BlocPacScalable' with: [
-				spec repository: 'github://feenkcom/bloc-pac:main/src' ];
-			baseline: 'BlocPacScrollable' with: [
-				spec repository: 'github://feenkcom/bloc-pac:main/src' ];
-			baseline: 'BlocPacTasker' with: [
-				spec repository: 'github://feenkcom/bloc-pac:main/src' ];
-			
-			baseline: 'Beacon' with: [
-				spec repository: 'github://feenkcom/pharo-beacon/repository' ].
-		spec 
-			package: #Brick with: [
-				spec requires: #("#'PharoBootstrap' "#'Bloc' 'BrickEditor' 'Beacon' 'BlocPacInfinite' 'BlocPacElementQuery'). ];
-			package: #'Brick-DevTool' with: [
-				spec requires: #('Brick' ). ] ].
+			baseline: 'BrickExamples' with: [
+				spec repository: 'github://feenkcom/Brick/src' ] ]
 ]

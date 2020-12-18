@@ -18,7 +18,7 @@ BaselineOfBrickMaterial >> baseline: spec [
 			
 			baseline: 'BrickCore' with: [
 				spec repository: 'github://feenkcom/Brick/src' ];
-			baseline: 'Brick' with: [
+			baseline: 'BrickWidgets' with: [
 				spec repository: 'github://feenkcom/Brick/src' ].
 
 		spec 
@@ -30,5 +30,5 @@ BaselineOfBrickMaterial >> baseline: spec [
 					#'BlocLayout'
 					
 					#'BrickCore'
-					#'Brick') ]. ].
+					#'BrickWidgets') ]. ].
 ]

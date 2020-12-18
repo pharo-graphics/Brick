@@ -18,9 +18,9 @@ BaselineOfBrickHydra >> baseline: spec [
 			
 			baseline: 'BrickCore' with: [
 				spec repository: 'github://feenkcom/Brick/src' ];
-			baseline: 'Brick' with: [
+			baseline: 'BrickWidgets' with: [
 				spec repository: 'github://feenkcom/Brick/src' ].
-		
+
 		spec 
 			package: #'Brick-Hydra' with: [
 				spec requires: #(
@@ -28,7 +28,7 @@ BaselineOfBrickHydra >> baseline: spec [
 					
 					#'BlocCore'
 					#'BlocLayout'
-					
+
 					#'BrickCore'
-					#'Brick') ]. ].
+					#'BrickWidgets') ]. ].
 ]

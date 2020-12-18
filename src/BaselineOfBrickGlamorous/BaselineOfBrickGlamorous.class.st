@@ -33,7 +33,7 @@ BaselineOfBrickGlamorous >> baseline: spec [
 
 			baseline: 'BrickCore' with: [
 				spec repository: 'github://feenkcom/Brick/src' ];
-			baseline: 'Brick' with: [
+			baseline: 'BrickWidgets' with: [
 				spec repository: 'github://feenkcom/Brick/src' ];
 			baseline: 'BrickEditor' with: [
 				spec repository: 'github://feenkcom/Brick/src' ];
@@ -58,7 +58,7 @@ BaselineOfBrickGlamorous >> baseline: spec [
 					#'BlocPacScalable'
 					
 					#'BrickCore'
-					#'Brick'
+					#'BrickWidgets'
 					#'BrickEditor'
 					
 					#'GToolkitResourcesUtility') ]. ].
