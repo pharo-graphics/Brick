@@ -8,8 +8,6 @@ Class {
 BaselineOfBrickWidgets >> baseline: spec [
 	<baseline>
 	spec for: #'common' do: [
-		| repository |
-		repository := self packageRepository description.
 		spec 
 			"baseline: 'PharoBootstrap' with: [
 				spec
@@ -17,23 +15,23 @@ BaselineOfBrickWidgets >> baseline: spec [
 					loads: 'KernelGroup' ];"
 			
 			baseline: 'BlocCore' with: [
-				spec repository: 'github://feenkcom/Bloc/src' ];
+				self repository: 'github://feenkcom/Bloc/src' for: spec ];
 			baseline: 'BlocLayout' with: [
-				spec repository: 'github://feenkcom/Bloc/src' ];
+				self repository: 'github://feenkcom/Bloc/src' for: spec ];
 			baseline: 'BlocText' with: [
-				spec repository: 'github://feenkcom/Bloc/src' ];
-			
+				self repository: 'github://feenkcom/Bloc/src' for: spec ];
+
 			baseline: 'BlocPacInfinite' with: [
-				spec repository: 'github://feenkcom/bloc-pac:main/src' ];
+				self repository: 'github://feenkcom/bloc-pac:main/src' for: spec ];
 			baseline: 'BlocPacResizable' with: [
-				spec repository: 'github://feenkcom/bloc-pac:main/src' ];
+				self repository: 'github://feenkcom/bloc-pac:main/src' for: spec ];
 			baseline: 'BlocPacScrollable' with: [
-				spec repository: 'github://feenkcom/bloc-pac:main/src' ];
+				self repository: 'github://feenkcom/bloc-pac:main/src' for: spec ];
 
 			baseline: 'BrickCore' with: [
-				spec repository: repository ];
+				spec repository: self repository ];
 			baseline: 'BrickEditor' with: [
-				spec repository: repository ].
+				spec repository: self repository ].
 		spec 
 			package: #Brick with: [
 				spec requires: #(
@@ -52,13 +50,27 @@ BaselineOfBrickWidgets >> baseline: spec [
 				spec requires: #(#'Brick'). ] ].
 ]
 
-{ #category : #'as yet unclassified' }
-BaselineOfBrickWidgets >> packageRepository [
+{ #category : #'private - baseline' }
+BaselineOfBrickWidgets >> repository [
+	^ self repositoryOf: self class default: nil
+]
+
+{ #category : #'private - baseline' }
+BaselineOfBrickWidgets >> repository: aRepositoryString for: spec [	
+	^ self class environment
+		at: spec root className asSymbol
+		ifPresent: [ :aBaselineClass | self repositoryOf: aBaselineClass default: aRepositoryString ]
+		ifAbsent: [ aRepositoryString ]
+]
+
+{ #category : #'private - baseline' }
+BaselineOfBrickWidgets >> repositoryOf: aBaselineClass default: aDefaultString [
 	| theRepositories |
-	theRepositories := self class package mcWorkingCopy repositoryGroup repositories.
-	^ (theRepositories reject: [:each | each = MCCacheRepository uniqueInstance]) 
-		ifNotEmpty: [ :repositories | repositories anyOne ]
-		ifEmpty: [ (theRepositories select: [:each | each = MCCacheRepository uniqueInstance ])
-			ifNotEmpty: [ :repositories | repositories anyOne ]
-			ifEmpty: [ nil ] ]
+	
+	theRepositories := aBaselineClass package mcWorkingCopy repositoryGroup repositories.
+	^ (theRepositories select: [:each | each = MCCacheRepository uniqueInstance ])
+		ifNotEmpty: [ :repositories | repositories anyOne description ]
+		ifEmpty: [ (theRepositories reject: [:each | each = MCCacheRepository uniqueInstance]) 
+			ifNotEmpty: [ :repositories | repositories anyOne description ]
+			ifEmpty: [ aDefaultString ] ]
 ]
