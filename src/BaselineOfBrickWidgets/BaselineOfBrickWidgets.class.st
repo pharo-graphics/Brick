@@ -27,6 +27,8 @@ BaselineOfBrickWidgets >> baseline: spec [
 				self repository: 'github://feenkcom/bloc-pac:main/src' for: spec ];
 			baseline: 'BlocPacScrollable' with: [
 				self repository: 'github://feenkcom/bloc-pac:main/src' for: spec ];
+			baseline: 'BlocPacScripter' with: [
+				self repository: 'github://feenkcom/bloc-pac:main/src' for: spec ];
 
 			baseline: 'BrickCore' with: [
 				self thisRepositoryFor: spec ];
@@ -47,5 +49,5 @@ BaselineOfBrickWidgets >> baseline: spec [
 					#'BrickCore'
 					#'BrickEditor'). ];
 			package: #'Brick-DevTool' with: [
-				spec requires: #(#'Brick'). ] ].
+				spec requires: #(#'Brick' #'BlocPacScripter'). ] ].
 ]
