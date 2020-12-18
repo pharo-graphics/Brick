@@ -74,7 +74,7 @@ BaselineOfBrickWidgets >> repository: aRepositoryString for: spec [
 
 { #category : #'private - baseline' }
 BaselineOfBrickWidgets >> repositoryOf: aBaselineClass default: aDefaultString [
-	(IceRepository registeredRepositoryIncludingPackage: aBaselineClass package)
+	^ (IceRepository registeredRepositoryIncludingPackage: aBaselineClass package)
 		ifNil: [ aDefaultString ]
 		ifNotNil: [ :anIcebergRepository |
 		anIcebergRepository
