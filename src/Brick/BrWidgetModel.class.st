@@ -10,12 +10,17 @@ Class {
 		'model',
 		'whenAttachedActions'
 	],
-	#category : #'Brick-Core-Core'
+	#category : #Brick
 }
 
 { #category : #'api - composition' }
 BrWidgetModel class >> + anotherModel [
 	^ self asModel + anotherModel
+]
+
+{ #category : #'as yet unclassified' }
+BrWidgetModel class >> allRelatedViewModels [
+	^ { }
 ]
 
 { #category : #'api - composition' }
@@ -26,6 +31,40 @@ BrWidgetModel class >> asModel [
 { #category : #printing }
 BrWidgetModel class >> modelName [
 	^ self name
+]
+
+{ #category : #'as yet unclassified' }
+BrWidgetModel class >> withAllSuperclassChangeEvents [
+	<return: #Set of: #'BrChangeEvent class'>
+
+	^ ((self withAllSuperclassModels
+		flatCollect: [ :eachLookClass | eachLookClass referencedClasses
+			select: [ :eachReferencedClass | eachReferencedClass isKindOf: BrChangeEvent class ] ]) as: Set) asArray
+]
+
+{ #category : #'as yet unclassified' }
+BrWidgetModel class >> withAllSuperclassModels [
+	| theModels |
+	
+	theModels := OrderedCollection with: self.
+	
+	self = BrWidgetModel
+		ifTrue: [ ^ theModels ].
+
+	theModels
+		addAll: (self allSuperclassesIncluding: BrWidgetModel);
+		yourself.
+		
+	^ theModels
+]
+
+{ #category : #'as yet unclassified' }
+BrWidgetModel class >> withAllSuperclassRequests [
+	<return: #Set of: #'BrRequest class'>
+
+	^ ((self withAllSuperclassModels
+		flatCollect: [ :eachLookClass | eachLookClass referencedClasses
+			select: [ :eachReferencedClass | eachReferencedClass isKindOf: BrRequest class ] ]) as: Set) asArray
 ]
 
 { #category : #'api - composition' }
