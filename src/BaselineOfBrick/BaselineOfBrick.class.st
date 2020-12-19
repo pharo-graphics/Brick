@@ -31,7 +31,9 @@ BaselineOfBrick >> baseline: spec [
 			baseline: 'Bloc' with: [
 				spec repository: 'github://feenkcom/Bloc/src' ];
 			baseline: 'BlocPac' with: [
-				spec repository: 'github://feenkcom/bloc-pac:main/src' ].
+				spec repository: 'github://feenkcom/bloc-pac:main/src' ];
+			baseline: 'GToolkitResourcesUtility' with: [
+				spec repository: 'github://feenkcom/gtoolkit-utility/src' ].
 			
 		spec
 			package: #'Brick-Core' with: [
@@ -45,7 +47,7 @@ BaselineOfBrick >> baseline: spec [
 				spec requires: #(#'Brick-Core' #'Brick-Editor') ];
 			
 			package: #'Brick-Glamorous' with: [
-				spec requires: #(#'Brick') ];
+				spec requires: #(#'Brick' #'GToolkitResourcesUtility') ];
 			package: #'Brick-Material' with: [
 				spec requires: #(#'Brick') ];
 			package: #'Brick-Hydra' with: [
