@@ -25,6 +25,12 @@ BrAbstractTreeModel >> expandAll [
 	self root withAllChildrenNodesBreadthFirstDo: [ :eachNode | eachNode expand ]
 ]
 
+{ #category : #accessing }
+BrAbstractTreeModel >> expandSuchThat: anOneArgBlock [
+	"It stops expanding children if a parent node does not satisfy the condition."
+	self root expandSuchThat: anOneArgBlock
+]
+
 { #category : #'expanding-collapsing' }
 BrAbstractTreeModel >> expandUpTo: aLevelIndex [
 	self root expandUpTo: aLevelIndex

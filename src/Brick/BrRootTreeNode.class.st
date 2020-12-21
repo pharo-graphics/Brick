@@ -71,6 +71,14 @@ BrRootTreeNode >> depth [
 	^ 0
 ]
 
+{ #category : #accessing }
+BrRootTreeNode >> expandSuchThat: anOneArgBlock [
+	self value isCollection
+		ifTrue: [ self childrenNodes do: [ :eachNode | 
+			eachNode expandSuchThat: anOneArgBlock ] ]
+		ifFalse: [ super expandSuchThat: anOneArgBlock ]
+]
+
 { #category : #initialization }
 BrRootTreeNode >> initialize [
 	super initialize.
