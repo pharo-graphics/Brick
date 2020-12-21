@@ -16,13 +16,13 @@ BrGlamorousSpaceTabBasicLook >> initialize [
 		default: [ :aStyle |
 			aStyle margin: (BlInsets top: 0 right: 1).
 			aStyle geometry: (BlRoundedRectangleGeometry cornerRadii: (BlCornerRadii new
-				topLeft: 8;
-				topRight: 8;
+				topLeft: 4;
+				topRight: 4;
 				bottomLeft: 0;
 				bottomRight: 0)).
 			aStyle padding: (BlInsets top: 4 left: 10 bottom: 4 right: 10) ];
-		deselected: [ :aStyle | aStyle background: (Color white alpha: 0.4) ];
+		deselected: [ :aStyle | aStyle background: BrGlamorousColors backdropColor darker ];
 		when: [ :aState | aState deselected & aState hovered ]
-			style: [ :aStyle | aStyle background: (Color white alpha: 0.6) ];
-		selected: [ :aStyle | aStyle background: Color white ]).
+			style: [ :aStyle | aStyle background: BrGlamorousColors backdropColor ];
+		selected: [ :aStyle | aStyle background: BrGlamorousColors backdropColor ]).
 ]
