@@ -8,6 +8,7 @@ Class {
 	#superclass : #SharedPool,
 	#classVars : [
 		'ActiveColor',
+		'BackdropColor',
 		'ButtonBackgroundColor',
 		'ButtonBorderColor',
 		'ButtonTextColor',
@@ -40,12 +41,18 @@ Class {
 		'PrimaryBorderColor',
 		'SecondaryHeaderBackgroundColor',
 		'SelectedListItemBackgroundColor',
+		'ShadowColor',
 		'SuccessBackgroundColor',
 		'SuccessBorderColor',
 		'TextHighlightColor'
 	],
 	#category : #'Brick-Glamorous-Colors, Icons, Fonts'
 }
+
+{ #category : #accessing }
+BrGlamorousColors class >> backdropColor [
+	^ BackdropColor
+]
 
 { #category : #accessing }
 BrGlamorousColors class >> darkBorderColor [
@@ -100,6 +107,11 @@ BrGlamorousColors class >> defaultHeaderTextColor [
 { #category : #'list and tree items - background' }
 BrGlamorousColors class >> defaultListItemColor [
 	^ self deselectedListItemColor
+]
+
+{ #category : #accessing }
+BrGlamorousColors class >> defaultShadowColor [
+	^ ShadowColor
 ]
 
 { #category : #'list and tree items - background' }
@@ -359,10 +371,14 @@ BrGlamorousColors class >> initialize [
 	PressedButtonTextColor := ActiveColor.
 	DisabledButtonTextColor := Color black alpha: 0.25.
 
+	"background"
+	BackdropColor := Color r: 240 g: 240 b: 240 range: 255.
+	ShadowColor := Color r: 200 g: 200 b: 200 range: 255.
+	
 	"header - background"
 	HeaderBackgroundColor := Color fromHexString: #'d9d9d9'. "grey-5"
 	SecondaryHeaderBackgroundColor := Color fromHexString: #'e8e8e8'. "grey-6"
-
+	
 	"header - text"
 	HeaderTextColor := Color black alpha: 0.85.
 	DisabledHeaderTextColor := Color black alpha: 0.25.
@@ -469,6 +485,11 @@ BrGlamorousColors class >> selectedListItemColor [
 { #category : #'list and tree items - background' }
 BrGlamorousColors class >> selectedListItemColor: aColor [
 	SelectedListItemBackgroundColor := aColor
+]
+
+{ #category : #accessing }
+BrGlamorousColors class >> shadowColor [
+	^ ShadowColor
 ]
 
 { #category : #'status - background' }

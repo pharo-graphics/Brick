@@ -13,6 +13,13 @@ Class {
 }
 
 { #category : #accessing }
+BrShadowLook >> beLarge [
+	self 
+		width: 6;
+		offset: 0@3
+]
+
+{ #category : #accessing }
 BrShadowLook >> color: aColor [
 	self shadow: (self shadow copyWithColor: aColor)
 ]
@@ -22,7 +29,7 @@ BrShadowLook >> initialize [
 	super initialize.
 	
 	shadow := BlGaussianShadowEffect
-		color: (Color black alpha: 0.3)
+		color: BrGlamorousColors defaultShadowColor
 		width: 2
 		offset: 0 @ 1.
 		
