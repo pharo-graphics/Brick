@@ -30,6 +30,8 @@ BaselineOfBrick >> baseline: spec [
 		spec 
 			baseline: 'Bloc' with: [
 				spec repository: 'github://feenkcom/Bloc/src' ];
+			baseline: 'BlocExamples' with: [
+				spec repository: 'github://feenkcom/Bloc/src' ];
 			baseline: 'BlocPac' with: [
 				spec repository: 'github://feenkcom/bloc-pac:main/src' ];
 			baseline: 'GToolkitResourcesUtility' with: [
@@ -57,7 +59,7 @@ BaselineOfBrick >> baseline: spec [
 				spec requires: #(#'Brick' #'Bloc' #'BlocPac') ];
 
 			package: #'Brick-Examples' with: [
-				spec requires: #(#'Brick' #'Brick-Glamorous' #'Brick-Material' #'Brick-Hydra') ];
+				spec requires: #(#'BlocExamples' #'Brick' #'Brick-Glamorous' #'Brick-Material' #'Brick-Hydra') ];
 			package: #'Brick-Editor-Examples' with: [
 				spec requires: #(#'Brick' #'Brick-Editor') ] ]
 ]
