@@ -55,6 +55,9 @@ BaselineOfBrick >> baseline: spec [
 			
 			package: #'Brick-DevTool' with: [
 				spec requires: #(#'Brick' #'Bloc' #'BlocPac') ];
+
 			package: #'Brick-Examples' with: [
-				spec requires: #(#'Brick' #'Brick-Glamorous' #'Brick-Material' #'Brick-Hydra') ] ]
+				spec requires: #(#'Brick' #'Brick-Glamorous' #'Brick-Material' #'Brick-Hydra') ];
+			package: #'Brick-Editor-Examples' with: [
+				spec requires: #(#'Brick' #'Brick-Editor') ] ]
 ]
