@@ -21,7 +21,7 @@ BrGlamorousButtonLabelLook >> defaultColor [
 { #category : #accessing }
 BrGlamorousButtonLabelLook >> defaultColor: aPaint [
 	defaultColor := aPaint.
-	labelLook default foreground: selectedColor
+	labelLook default foreground: defaultColor
 ]
 
 { #category : #accessing }
