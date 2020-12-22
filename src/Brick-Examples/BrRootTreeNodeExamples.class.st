@@ -127,6 +127,37 @@ BrRootTreeNodeExamples >> onManyEmpty_expandUpTo [
 ]
 
 { #category : #examples }
+BrRootTreeNodeExamples >> onMany_expandSuchThat [
+	<gtExample>
+	| aNode expandedCount |
+	
+	aNode := BrRootTreeNode 
+		onMany: { self depth_5_rope } 
+		computed: [ :eachRope | eachRope children ].
+	
+	self assert: aNode isExpanded not.
+	self assert: aNode size equals: 0.
+	self assert: aNode childrenNodes size equals: 0.
+	self assert: aNode depth equals: 0.
+
+	aNode expandSuchThat: [ :eachNode | 
+		"all nodes that ends with 'lo' or 'ld'"
+		| aRope |
+		aRope := eachNode value.
+		aRope size > 1 and: [ 
+			((aRope at: aRope size - 1) = $l) and: [ 
+				#( $o $d ) includes: (aRope at: aRope size) ] ] ].
+	
+	expandedCount := 0.
+	aNode withAllChildrenNodesBreadthFirstDo: [ :eachNode |
+		expandedCount := expandedCount + eachNode isExpanded asBit ].
+	
+	self assert: expandedCount equals: 6.
+	
+	^ aNode
+]
+
+{ #category : #examples }
 BrRootTreeNodeExamples >> onMany_expandUpTo [
 	<gtExample>
 	| aNode |
@@ -142,6 +173,37 @@ BrRootTreeNodeExamples >> onMany_expandUpTo [
 	self assert: aNode size equals: Collection subclasses size + 1.
 	self assert: aNode childrenNodes size equals: 1.
 	self assert: aNode depth equals: 0.
+
+	^ aNode
+]
+
+{ #category : #examples }
+BrRootTreeNodeExamples >> onMany_immediate_expandSuchThat [
+	<gtExample>
+	| aNode expandedCount |
+	
+	aNode := BrRootTreeNode 
+		onMany: { self depth_5_rope } 
+		immediate: [ :eachRope | eachRope children ].
+
+	self assert: aNode isExpanded not.	
+	self assert: aNode size equals: 0.
+	self assert: aNode childrenNodes size equals: 0.
+	self assert: aNode depth equals: 0.
+
+	aNode expandSuchThat: [ :eachNode | 
+		"all nodes that ends with 'lo' or 'ld'"
+		| aRope |
+		aRope := eachNode value.
+		aRope size > 1 and: [ 
+			((aRope at: aRope size - 1) = $l) and: [ 
+				#( $o $d ) includes: (aRope at: aRope size) ] ] ].
+	
+	expandedCount := 0.
+	aNode withAllChildrenNodesBreadthFirstDo: [ :eachNode |
+		expandedCount := expandedCount + eachNode isExpanded asBit ].
+	
+	self assert: expandedCount equals: 6.
 
 	^ aNode
 ]
@@ -184,5 +246,67 @@ BrRootTreeNodeExamples >> onOne [
 	self assert: aNode childrenNodes size equals: Collection subclasses size.
 	self assert: aNode depth equals: 0.
 	
+	^ aNode
+]
+
+{ #category : #examples }
+BrRootTreeNodeExamples >> onOne_expandSuchThat [
+	<gtExample>
+	| aNode expandedCount |
+	
+	aNode := BrRootTreeNode 
+		onOne: self depth_5_rope
+		computed: [ :eachRope | eachRope children ].
+	
+	self assert: aNode isExpanded not.
+	self assert: aNode size equals: 1.
+	self assert: aNode childrenNodes size equals: 0.
+	self assert: aNode depth equals: 0.
+
+	aNode expandSuchThat: [ :eachNode | 
+		"all nodes that ends with 'lo' or 'ld'"
+		| aRope |
+		aRope := eachNode value.
+		aRope size > 1 and: [ 
+			((aRope at: aRope size - 1) = $l) and: [ 
+				#( $o $d ) includes: (aRope at: aRope size) ] ] ].
+	
+	expandedCount := 0.
+	aNode withAllChildrenNodesBreadthFirstDo: [ :eachNode |
+		expandedCount := expandedCount + eachNode isExpanded asBit ].
+	
+	self assert: expandedCount equals: 5.
+	
+	^ aNode
+]
+
+{ #category : #examples }
+BrRootTreeNodeExamples >> onOne_immediate_expandSuchThat [
+	<gtExample>
+	| aNode expandedCount |
+	
+	aNode := BrRootTreeNode 
+		onOne: self depth_5_rope
+		immediate: [ :eachRope | eachRope children ].
+
+	self assert: aNode isExpanded not.	
+	self assert: aNode size equals: 1.
+	self assert: aNode childrenNodes size equals: 0.
+	self assert: aNode depth equals: 0.
+
+	aNode expandSuchThat: [ :eachNode | 
+		"all nodes that ends with 'lo' or 'ld'"
+		| aRope |
+		aRope := eachNode value.
+		aRope size > 1 and: [ 
+			((aRope at: aRope size - 1) = $l) and: [ 
+				#( $o $d ) includes: (aRope at: aRope size) ] ] ].
+	
+	expandedCount := 0.
+	aNode withAllChildrenNodesBreadthFirstDo: [ :eachNode |
+		expandedCount := expandedCount + eachNode isExpanded asBit ].
+	
+	self assert: expandedCount equals: 5.
+
 	^ aNode
 ]

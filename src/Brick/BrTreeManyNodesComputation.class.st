@@ -6,7 +6,8 @@ Class {
 
 { #category : #'api - expandable' }
 BrTreeManyNodesComputation >> expand: aNode suchThat: anOneArgBlock [
-	 aNode childrenNodes do: [ :eachNode | 
+	aNode expand.
+	aNode childrenNodes do: [ :eachNode | 
 		eachNode expandSuchThat: anOneArgBlock ]
 ]
 
