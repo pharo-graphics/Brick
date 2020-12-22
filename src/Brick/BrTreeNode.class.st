@@ -249,6 +249,15 @@ BrTreeNode >> expand [
 ]
 
 { #category : #enumeration }
+BrTreeNode >> expandSuchThat: anOneArgBlock [
+	"It stops expanding children if a parent node does not satisfy the condition."
+	(anOneArgBlock value: self) ifTrue: [ 
+		self expand.
+		self childrenNodesDo: [ :eachNode | eachNode expandSuchThat: anOneArgBlock ]
+	].
+]
+
+{ #category : #enumeration }
 BrTreeNode >> expandUpTo: aLevelIndex [
 	"#expandUpTo: 1 is the same as just #expand"
 	self upToDepth: aLevelIndex do: [ :eachNode | eachNode expand ]
