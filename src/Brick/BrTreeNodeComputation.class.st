@@ -17,6 +17,11 @@ BrTreeNodeComputation >> block: anObject [
 	block := anObject
 ]
 
+{ #category : #'api - expandable' }
+BrTreeNodeComputation >> expand: aNode suchThat: anOneArgBlock [
+	self subclassResponsibility
+]
+
 { #category : #generated }
 BrTreeNodeComputation >> value: anObject [
 	^ self subclassResponsibility

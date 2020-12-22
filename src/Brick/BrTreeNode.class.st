@@ -257,7 +257,7 @@ BrTreeNode >> expandSuchThat: anOneArgBlock [
 	].
 ]
 
-{ #category : #enumeration }
+{ #category : #'api - expandable' }
 BrTreeNode >> expandUpTo: aLevelIndex [
 	"#expandUpTo: 1 is the same as just #expand"
 	self upToDepth: aLevelIndex do: [ :eachNode | eachNode expand ]
