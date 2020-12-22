@@ -15,29 +15,29 @@ BaselineOfBrickEditor >> baseline: spec [
 			baseline: 'Traits' with: [ spec loads: 'AST-Core-Traits' ];"
 
 			baseline: 'Beacon' with: [
-				self repository: 'github://feenkcom/pharo-beacon/repository' for: spec ];
+				spec repository: 'github://feenkcom/pharo-beacon/repository' ];
 			
 			baseline: 'BlocCore' with: [
-				self repository: 'github://feenkcom/Bloc/src' for: spec ];
+				spec repository: 'github://feenkcom/Bloc/src' ];
 			baseline: 'BlocText' with: [
-				self repository: 'github://feenkcom/Bloc/src' for: spec ];
+				spec repository: 'github://feenkcom/Bloc/src' ];
 
 			baseline: 'BlocPacAsyncElement' with: [
-				self repository: 'github://feenkcom/bloc-pac:main/src' for: spec ];
+				spec repository: 'github://feenkcom/bloc-pac:main/src' ];
 			baseline: 'BlocPacFocusFinder' with: [
-				self repository: 'github://feenkcom/bloc-pac:main/src' for: spec ];
+				spec repository: 'github://feenkcom/bloc-pac:main/src' ];
 			baseline: 'BlocPacInfinite' with: [
-				self repository: 'github://feenkcom/bloc-pac:main/src' for: spec ];
+				spec repository: 'github://feenkcom/bloc-pac:main/src' ];
 			baseline: 'BlocPacTasker' with: [
-				self repository: 'github://feenkcom/bloc-pac:main/src' for: spec ];
+				spec repository: 'github://feenkcom/bloc-pac:main/src' ];
 
 			baseline: 'BrickCore' with: [
-				self thisRepositoryFor: spec ];
+				spec repository: 'github://feenkcom/Brick/src' ];
 
 			baseline: 'SpartaCore' with: [
-				self repository: 'github://feenkcom/Sparta/src' for: spec ];
+				spec repository: 'github://feenkcom/Sparta/src' ];
 			baseline: 'SpartaSkia' with: [
-				self repository: 'github://feenkcom/Sparta/src' for: spec ].
+				spec repository: 'github://feenkcom/Sparta/src' ].
 
 		spec 
 			package: #'Brick-Editor' with: [
