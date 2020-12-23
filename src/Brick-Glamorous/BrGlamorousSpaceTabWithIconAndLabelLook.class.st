@@ -8,7 +8,7 @@ Class {
 BrGlamorousSpaceTabWithIconAndLabelLook >> initialize [
 	super initialize.
 	
-	self add: BrIconLook new.
+	self add: BrGlamorousSpaceTabIconLook new.
 	self add: (BrGlamorousTextLabelLook new foreground: Color black).
 	self add: BrGlamorousSpaceTabBasicLook new.
 ]
