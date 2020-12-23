@@ -44,7 +44,8 @@ Class {
 		'ShadowColor',
 		'SuccessBackgroundColor',
 		'SuccessBorderColor',
-		'TextHighlightColor'
+		'TextHighlightColor',
+		'TextMarkupColor'
 	],
 	#category : #'Brick-Glamorous-Colors, Icons, Fonts'
 }
@@ -385,6 +386,7 @@ BrGlamorousColors class >> initialize [
 	
 	"highlighting - text"
 	TextHighlightColor := Color fromHexString: #ffd666.
+	TextMarkupColor := Color black alpha: 0.6.
 	
 	"list and tree items"
 	DeselectedListItemBackgroundColor := Color transparent.
@@ -515,4 +517,9 @@ BrGlamorousColors class >> textHighlightColor [
 { #category : #'button - border' }
 BrGlamorousColors class >> textHighlightColor: anObject [
 	TextHighlightColor := anObject
+]
+
+{ #category : #'header - text' }
+BrGlamorousColors class >> textMarkupColor [
+	^ TextMarkupColor
 ]

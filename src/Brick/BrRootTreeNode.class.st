@@ -24,7 +24,7 @@ BrRootTreeNode class >> onMany: aCollection computed: aComputationBlock [
 	^ self new
 		lazy: true;
 		value: aCollection
-		computation: (BrTreeNodeIdentityComputation new block: aComputationBlock)
+		computation: (BrTreeManyNodesComputation new block: aComputationBlock)
 		withSelf: false
 ]
 
@@ -35,7 +35,7 @@ BrRootTreeNode class >> onMany: aCollection immediate: aComputationBlock [
 	^ (self new
 		lazy: false;
 		value: aCollection
-		computation: (BrTreeNodeIdentityComputation new block: aComputationBlock)
+		computation: (BrTreeManyNodesComputation new block: aComputationBlock)
 		withSelf: false) ensureChildrenNodes
 ]
 
@@ -46,7 +46,7 @@ BrRootTreeNode class >> onOne: anObject computed: aComputationBlock [
 	^ self new
 		lazy: true;
 		value: anObject
-		computation: (BrTreeNodeBlockComputation new block: aComputationBlock)
+		computation: (BrTreeOneNodeComputation new block: aComputationBlock)
 		withSelf: true
 ]
 
@@ -57,7 +57,7 @@ BrRootTreeNode class >> onOne: anObject immediate: aComputationBlock [
 	^ (self new
 		lazy: false;
 		value: anObject
-		computation: (BrTreeNodeBlockComputation new block: aComputationBlock)
+		computation: (BrTreeOneNodeComputation new block: aComputationBlock)
 		withSelf: true) ensureChildrenNodes
 ]
 
@@ -71,12 +71,9 @@ BrRootTreeNode >> depth [
 	^ 0
 ]
 
-{ #category : #accessing }
+{ #category : #'api - expandable' }
 BrRootTreeNode >> expandSuchThat: anOneArgBlock [
-	self value isCollection
-		ifTrue: [ self childrenNodes do: [ :eachNode | 
-			eachNode expandSuchThat: anOneArgBlock ] ]
-		ifFalse: [ super expandSuchThat: anOneArgBlock ]
+	computation expand: self suchThat: anOneArgBlock
 ]
 
 { #category : #initialization }
