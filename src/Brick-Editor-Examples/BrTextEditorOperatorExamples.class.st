@@ -31,40 +31,6 @@ BrTextEditorOperatorExamples >> editorCreatesOneCursorOnFocus [
 	^ anEditor
 ]
 
-{ #category : #'instance creation' }
-BrTextEditorOperatorExamples >> editorFor: aText [
-	<return: #BrEditor>
-	| anEditor aRopedText |
-
-	aRopedText := aText asRopedText lineSpacing: self lineSpacing; paragraphMargin: self paragraphMargin; wordPadding: self wordPadding.
-
-	anEditor := BrEditor new.
-	anEditor editor beLineBased.
-	anEditor look: BrEditorLook new.
-	anEditor padding: BlInsets empty.
-	anEditor fitContent.
-	anEditor text: aRopedText.
-	
-	BlDevCrossover on: anEditor.
-	
-	anEditor editor segmentBuilder
-		wordStencil: [ :aTBrTextEditorTextualPiece |
-			| aTextElement |
-			aTextElement := BrTextEditableWordPieceStencilBuilder new
-				segmentPiece: aTBrTextEditorTextualPiece;
-				asElement.
-			aTextElement measurer: self fixedMeasurer.
-			aTextElement measurer measurer textOffset: aTBrTextEditorTextualPiece textStart.
-			aTextElement ].
-	
-	anEditor requestFocus.
-	anEditor forceLayout.
-	
-	self assert: anEditor isFocused.
-
-	^ anEditor
-]
-
 { #category : #'focus - examples' }
 BrTextEditorOperatorExamples >> editorHasNoFocusByDefault [
 	<gtExample>

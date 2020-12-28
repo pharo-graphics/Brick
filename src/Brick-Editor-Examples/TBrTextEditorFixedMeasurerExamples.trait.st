@@ -38,7 +38,7 @@ TBrTextEditorFixedMeasurerExamples >> editorFor: aText [
 				segmentPiece: aTBrTextEditorTextualPiece;
 				asElement.
 			aTextElement measurer: self fixedMeasurer.
-			aTextElement measurer measurer textOffset: aTBrTextEditorTextualPiece textStart.
+			aTextElement measurer textOffset: aTBrTextEditorTextualPiece textStart.
 			aTextElement ].
 	
 	anEditor requestFocus.
