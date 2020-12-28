@@ -49,7 +49,7 @@ TBrTextEditorFixedMeasurerExamples >> editorFor: aText [
 
 { #category : #'private - instance creation' }
 TBrTextEditorFixedMeasurerExamples >> fixedMeasurer [
-	^ BlTextElementFixedMeasurer new
+	^ BlTextElementMockedMeasurer new
 		ascent: self ascent;
 		descent: self descent;
 		glyphWidth: self glyphWidth;
