@@ -10,8 +10,8 @@ Class {
 { #category : #'api - accessing' }
 BrTabGroupTabEventHandler >> eventsToHandle [
 	^ {
-		BrTabActionbarChangedEvent .
-		BrTabDeselectedEvent .
+		BrTabActionbarChangedEvent.
+		BrTabDeselectedEvent.
 		BrTabSelectedEvent.
 		BrTabStencilChangedEvent.
 		BrTabToolbarChangedEvent

@@ -4,8 +4,8 @@ Class {
 	#instVars : [
 		'tabs',
 		'selectedTab',
-		'actionbarStencilBuilder',
-		'tabEventHandler'
+		'tabEventHandler',
+		'actionbarStencilBuilder'
 	],
 	#category : #'Brick-Tabs - Model'
 }
@@ -54,7 +54,7 @@ BrTabGroupModel >> deselectTab: aBrTabModel [
 	(self selectedTab ~= aBrTabModel)
 		ifTrue: [ ^ self ].
 	
-	"we nil is first so that by the time a listener receives an announcement,
+	"we nil it first so that by the time a listener receives an announcement,
 	#hasSelectedTab will return false"
 	selectedTab := nil.
 	aBrTabModel deselect.
@@ -90,8 +90,9 @@ BrTabGroupModel >> initialize [
 
 	tabs := OrderedCollection new.
 	selectedTab := nil.
+	tabEventHandler := BrTabGroupTabEventHandler new tabGroup: self.
+
 	actionbarStencilBuilder := nil.
-	tabEventHandler := BrTabGroupTabEventHandler new tabGroup: self
 ]
 
 { #category : #hooks }
@@ -190,7 +191,7 @@ BrTabGroupModel >> onTabAdded: aBrTabModel at: anIndex [
 
 	aBrTabModel addEventHandler: tabEventHandler.
 	self notifyTabAdded: aBrTabModel at: anIndex.
-		
+
 	"if user adds a tab marked as selected we should force select it"
 	aBrTabModel isSelected
 		ifTrue: [ ^ self selectTab: aBrTabModel ].

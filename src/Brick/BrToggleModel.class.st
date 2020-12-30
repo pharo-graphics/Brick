@@ -19,7 +19,7 @@ BrToggleModel >> activateDueTo: anEvent [
 		ifTrue: [ ^ self ].
 
 	activated := true.
-	self notifyToggleActivatedDueTo: anEvent
+	self onToggleActivatedDueTo: anEvent
 ]
 
 { #category : #'api - toggle' }
@@ -48,7 +48,8 @@ BrToggleModel >> clickEvent: anEvent [
 	anEvent consumed: true.
 	
 	(self widget states hasState: BlElementState disabled)
-		ifFalse: [ self 
+		ifFalse: [
+			self 
 				activated: (self isOneWay or: [ self isActivated not ]) 
 				dueTo: anEvent ]
 ]
@@ -64,7 +65,7 @@ BrToggleModel >> deactivateDueTo: anEvent [
 		ifFalse: [ ^ self ].
 
 	activated := false.
-	self notifyToggleDeactivatedDueTo: anEvent
+	self onToggleDeactivatedDueTo: anEvent
 ]
 
 { #category : #initialization }
@@ -74,16 +75,10 @@ BrToggleModel >> initialize [
 	oneWay := false
 ]
 
-{ #category : #hooks }
+{ #category : #initialization }
 BrToggleModel >> initializeListeners [
 	super initializeListeners.
 
-	self
-		when: BrToggleStateRequest
-		do: [ self isActivated
-				ifTrue: [ BrToggleActivatedEvent toggle: self ]
-				ifFalse: [ BrToggleDeactivatedEvent toggle: self ] ].
-			
 	self when: BlClickEvent do: [ :anEvent | self clickEvent: anEvent ]
 ]
 
@@ -103,23 +98,27 @@ BrToggleModel >> isOneWay [
 ]
 
 { #category : #notifying }
-BrToggleModel >> notifyToggleActivated [
-	self notifyToggleActivatedDueTo: nil
-]
-
-{ #category : #notifying }
 BrToggleModel >> notifyToggleActivatedDueTo: anEvent [
-	self fireEvent: (BrToggleActivatedEvent toggle: self originalEvent: anEvent)
-]
-
-{ #category : #notifying }
-BrToggleModel >> notifyToggleDeactivated [
-	self notifyToggleDeactivatedDueTo: nil
+	self dispatchEvent: (BrToggleActivatedEvent toggle: self originalEvent: anEvent)
 ]
 
 { #category : #notifying }
 BrToggleModel >> notifyToggleDeactivatedDueTo: anEvent [
-	self fireEvent: (BrToggleDeactivatedEvent toggle: self originalEvent: anEvent)
+	self dispatchEvent: (BrToggleDeactivatedEvent toggle: self originalEvent: anEvent)
+]
+
+{ #category : #hooks }
+BrToggleModel >> onToggleActivatedDueTo: anEvent [
+	
+	self widgetDo: [ :aWidget | aWidget states addState: BrToggleState activated ].
+	self notifyToggleActivatedDueTo: anEvent
+]
+
+{ #category : #hooks }
+BrToggleModel >> onToggleDeactivatedDueTo: anEvent [
+
+	self widgetDo: [ :aWidget | aWidget states addState: BrToggleState deactivated ].
+	self notifyToggleDeactivatedDueTo: anEvent
 ]
 
 { #category : #'api - toggle' }

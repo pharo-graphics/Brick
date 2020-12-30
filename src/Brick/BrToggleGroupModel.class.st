@@ -3,10 +3,27 @@ Class {
 	#superclass : #BrWidgetModel,
 	#instVars : [
 		'toggles',
-		'activatedToggle'
+		'activatedToggle',
+		'toggleEventHandler'
 	],
-	#category : 'Brick-Toggle - Model'
+	#category : #'Brick-Toggle - Model'
 }
+
+{ #category : #'api - toggles' }
+BrToggleGroupModel >> activateToggle: aBrToggleModel [
+	"a given toggle is already activated, do nothing"
+	(self hasActivatedToggle and: [ self activatedToggle = aBrToggleModel ])
+		ifTrue: [ ^ self ].
+	
+	"deactivate a previously activated toggle"
+	self hasActivatedToggle
+		ifTrue: [ self deactivateToggle: self activatedToggle ].
+	
+	activatedToggle := aBrToggleModel.
+	activatedToggle activate.
+
+	self notifyToggleActivated: aBrToggleModel
+]
 
 { #category : #'api - toggles' }
 BrToggleGroupModel >> activatedToggle [
@@ -21,9 +38,17 @@ BrToggleGroupModel >> activatedToggle [
 
 { #category : #'api - toggles' }
 BrToggleGroupModel >> addToggle: aBrToggleModel [
+	self addToggle: aBrToggleModel at: self toggles size + 1
+]
 
-	self toggles add: aBrToggleModel.
-	self onToggleAdded: aBrToggleModel
+{ #category : #'api - toggles' }
+BrToggleGroupModel >> addToggle: aBrToggleModel at: anIndex [
+	"Toggle already exists, do nothing"
+	(self hasToggle: aBrToggleModel)
+		ifTrue: [ ^ self ].
+
+	self toggles add: aBrToggleModel beforeIndex: anIndex.
+	self onToggleAdded: aBrToggleModel at: anIndex
 ]
 
 { #category : #'api - toggles' }
@@ -31,13 +56,23 @@ BrToggleGroupModel >> addToggles: aCollectionOfToggleModels [
 	aCollectionOfToggleModels do: [ :aToggleModel | self addToggle: aToggleModel ]
 ]
 
-{ #category : #'gt-inspector-extension' }
-BrToggleGroupModel >> gtInspectorTogglesIn: aComposite [
-	<gtInspectorPresentationOrder: 80>
+{ #category : #'api - toggles' }
+BrToggleGroupModel >> deactivateToggle: aBrToggleModel [
 
-	^ aComposite fastList
-		title: 'Toggles';
-		display: [ self toggles ]
+	"there are no activated toggles, do nothing"
+	self hasActivatedToggle
+		ifFalse: [ ^ self ].
+
+	"toggle is not activated, do nothing"
+	(self activatedToggle ~= aBrToggleModel)
+		ifTrue: [ ^ self ].
+	
+	"we nil it first so that by the time a listener receives an announcement,
+	#hasActivatedToggle will return false"
+	activatedToggle := nil.
+	aBrToggleModel deactivate.
+
+	self notifyToggleDeactivated: aBrToggleModel
 ]
 
 { #category : #'api - testing' }
@@ -47,11 +82,28 @@ BrToggleGroupModel >> hasActivatedToggle [
 	^ activatedToggle isNotNil
 ]
 
+{ #category : #'api - testing' }
+BrToggleGroupModel >> hasToggle: aBrToggleModel [
+	<return: #Boolean>
+	
+	^ self toggles identityIncludes: aBrToggleModel
+]
+
+{ #category : #'api - toggles' }
+BrToggleGroupModel >> indexOf: aToggleModel [
+	"It returns 0 if a toggle is not present"
+	<return: #Number>
+
+	^ self toggles indexOf: aToggleModel
+]
+
 { #category : #initialization }
 BrToggleGroupModel >> initialize [
 	super initialize.
 	
-	toggles := OrderedCollection new
+	toggles := OrderedCollection new.
+	activatedToggle := nil.
+	toggleEventHandler := BrToggleGroupToggleEventHandler new toggleGroup: self
 ]
 
 { #category : #'api - testing' }
@@ -71,8 +123,23 @@ BrToggleGroupModel >> isNotEmpty [
 ]
 
 { #category : #notifying }
+BrToggleGroupModel >> notifyToggleActivated: aBrToggleModel [
+	self dispatchEvent: (BrToggleActivatedEvent new toggle: aBrToggleModel)
+]
+
+{ #category : #notifying }
 BrToggleGroupModel >> notifyToggleAdded: aBrToggleModel [
 	self dispatchEvent: (BrToggleAddedEvent toggle: aBrToggleModel)
+]
+
+{ #category : #notifying }
+BrToggleGroupModel >> notifyToggleAdded: aBrToggleModel at: anIndex [
+	self dispatchEvent: ((BrToggleAddedEvent toggle: aBrToggleModel) index: anIndex)
+]
+
+{ #category : #notifying }
+BrToggleGroupModel >> notifyToggleDeactivated: aBrToggleModel [
+	self dispatchEvent: (BrToggleDeactivatedEvent new toggle: aBrToggleModel)
 ]
 
 { #category : #notifying }
@@ -81,49 +148,20 @@ BrToggleGroupModel >> notifyToggleRemoved: aBrToggleModel [
 ]
 
 { #category : #hooks }
-BrToggleGroupModel >> onToggleActivated: aBrToggleModel [
-	self
-		assert: [ aBrToggleModel isNotNil ]
-		description: [ 'Activated toggle must not be nil' ].
-		
-	self toggles
-		select: [ :eachToggle | eachToggle ~~ aBrToggleModel ]
-		thenDo: #deactivate.
-		
-	activatedToggle := aBrToggleModel
-]
-
-{ #category : #hooks }
-BrToggleGroupModel >> onToggleAdded: aBrToggleModel [
+BrToggleGroupModel >> onToggleAdded: aBrToggleModel at: anIndex [
 	
 	self
 		assert: [ aBrToggleModel isNotNil ]
 		description: [ 'Added toggle must not be nil' ].
 	
 	aBrToggleModel beOneWay.
-	aBrToggleModel when: BrToggleActivatedEvent do: [ :anEvent | self onToggleActivated: anEvent toggle ].
-	aBrToggleModel when: BrToggleDeactivatedEvent do: [ :anEvent | self onToggleDeactivated: anEvent toggle ].
+	aBrToggleModel addEventHandler: toggleEventHandler.
 	
-	self notifyToggleAdded: aBrToggleModel.
+	self notifyToggleAdded: aBrToggleModel at: anIndex.
 	
 	"if user adds a toggle marked as activated we should force activate it"
 	aBrToggleModel isActivated
-		ifTrue: [ self onToggleActivated: aBrToggleModel ]
-]
-
-{ #category : #hooks }
-BrToggleGroupModel >> onToggleDeactivated: aBrToggleModel [
-
-	self
-		assert: [ aBrToggleModel isNotNil ]
-		description: [ 'Deactivated toggle must not be nil' ].
-
-	self
-		assert: [ aBrToggleModel == self activatedToggle ]
-		description: [ 'Deactivated toggle must be known as activated' ].
-	
-	
-	activatedToggle := nil
+		ifTrue: [ self activateToggle: aBrToggleModel ]
 ]
 
 { #category : #hooks }
@@ -131,22 +169,24 @@ BrToggleGroupModel >> onToggleRemoved: aBrToggleModel at: anIndex [
 	self
 		assert: [ aBrToggleModel isNotNil ]
 		description: [ 'Removed toggle must not be nil' ].
-
+	
+	aBrToggleModel removeEventHandler: toggleEventHandler.
 	self notifyToggleRemoved: aBrToggleModel
 ]
 
 { #category : #'api - toggles' }
 BrToggleGroupModel >> removeToggle: aBrToggleModel [
 	| aToggleIndex |
-	
-	aToggleIndex := self toggles indexOf: aBrToggleModel.
-	self toggles removeAt: aToggleIndex.
-	
-	"we have to deactivate removed toggle before sending removed event
-	otherwise deactivation event will not bubble"
-	aBrToggleModel deactivate.
 
-	self onToggleRemoved: aBrToggleModel at: aToggleIndex
+	"trying to remove a toggle that does not exist"
+	(self hasToggle: aBrToggleModel)
+		ifFalse: [ ^ self ].
+
+	self deactivateToggle: aBrToggleModel.
+
+	aToggleIndex := self indexOf: aBrToggleModel.
+	self toggles remove: aBrToggleModel.
+	self onToggleRemoved: aBrToggleModel at: aToggleIndex.
 ]
 
 { #category : #'api - toggles' }

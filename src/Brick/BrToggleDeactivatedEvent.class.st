@@ -8,3 +8,8 @@ Class {
 	#classTraits : 'TBrToggleOriginalEvent classTrait',
 	#category : #'Brick-Toggle - Events'
 }
+
+{ #category : #sending }
+BrToggleDeactivatedEvent >> sendTo: anObject [
+	anObject toggleDeactivated: self
+]

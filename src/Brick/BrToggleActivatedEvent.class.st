@@ -13,3 +13,8 @@ Class {
 BrToggleActivatedEvent >> model [
 	^ self target viewModel model
 ]
+
+{ #category : #sending }
+BrToggleActivatedEvent >> sendTo: anObject [
+	anObject toggleActivated: self
+]

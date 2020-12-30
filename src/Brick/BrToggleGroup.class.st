@@ -1,6 +1,8 @@
 Class {
 	#name : #BrToggleGroup,
 	#superclass : #BlElement,
+	#traits : 'TBrLayoutResizable',
+	#classTraits : 'TBrLayoutResizable classTrait',
 	#category : #'Brick-Toggle - UI'
 }
 
@@ -18,7 +20,8 @@ BrToggleGroup >> addToggles: aCollectionOfToggles [
 { #category : #initialization }
 BrToggleGroup >> initialize [
 	super initialize.
-
+	
+	self fitContent.
 	self viewModel: BrToggleGroupModel new
 ]
 

@@ -189,10 +189,10 @@ BrTextEditorLineSegmentSplitter >> processWithoutReplacements: aTextIterator in:
 BrTextEditorLineSegmentSplitter >> split: aText from: aStartIndex to: anEndIndex [
 	"aStartIndex and anEndIndex are given in cursor coordinates"
 	| thePieces |
-		
+
 	thePieces := Array streamContents: [ :aStream |
 		| lineIterator |
-		
+
 		lineIterator := aText iterator.
 		[ lineIterator hasNext ] whileTrue: [
 			self processSegment: lineIterator in: aStream offset: aStartIndex ] ].

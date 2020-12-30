@@ -45,8 +45,8 @@ BrToggle >> icon: anElement [
 BrToggle >> initialize [
 	super initialize.
 	
-	self
-		fitContent.
+	self hFitContent; vLocal.
+	self beNormalSize.
 	
 	self viewModel: (BrToggleModel new +
 		(labelModel := BrLabelModel new) +
