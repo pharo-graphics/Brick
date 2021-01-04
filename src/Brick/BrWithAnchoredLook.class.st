@@ -159,6 +159,10 @@ BrWithAnchoredLook >> onShowWish: aWish [
 
 { #category : #accessing }
 BrWithAnchoredLook >> preferredExtent [
+	"Answer the minimum extent required by the widget.
+	This will be used by the ${class:name=BrAnchoredAvailableBounds}$ to determine where the widget should be placed and its available extent."
+	<return: #Point>
+
 	^ preferredExtent
 ]
 
