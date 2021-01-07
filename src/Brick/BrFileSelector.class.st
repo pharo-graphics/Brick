@@ -146,6 +146,7 @@ BrFileSelector >> createTable [
 	| aTable |
 	aTable := BrColumnedList new.
 	aTable 
+		rowStencil: (BrGlamorousColumnedListSelectableRowElementStencilBuilder new);
 		padding: (BlInsets top: 5);
 		matchParent.
 
