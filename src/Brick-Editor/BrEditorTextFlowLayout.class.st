@@ -24,7 +24,7 @@ BrEditorTextFlowLayout >> findClosestChildOf: anElement to: aPoint [
 	| aClosestLine |
 
 	aClosestLine := self findClosestLineTo: aPoint.
-	^ aClosestLine findClosestElementTo: aPoint
+	^ aClosestLine findClosestChildOf: anElement to: aPoint
 ]
 
 { #category : #geometry }
@@ -152,6 +152,5 @@ BrEditorTextFlowLayout >> onCleanUp: anElement [
 
 { #category : #initialization }
 BrEditorTextFlowLayout >> resetLines [
-	lines ifNotNil: [ :theLines | theLines reset ].
-	lines := nil
+	lines ifNotNil: [ :theLines | theLines reset ]
 ]
