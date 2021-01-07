@@ -44,8 +44,10 @@ BrEditorTextFlowLayoutExamples >> layout_no_memory_leak [
 	aContainer := self container_extent.
 	
 	self assert: aContainer layout hasLines.
+	self assert: aContainer layout hasElements.
 	aContainer onRemovedFromSceneGraph.
-	self assert: aContainer layout hasLines not.
+	self assert: aContainer layout hasLines.
+	self assert: aContainer layout hasElements not.
 	
 	^ aContainer
 ]

@@ -4,7 +4,8 @@ Class {
 	#instVars : [
 		'defaultBackground',
 		'defaultForeground',
-		'minWidth'
+		'minWidth',
+		'styleLook'
 	],
 	#category : #'Brick-Glamorous-Editor'
 }
@@ -16,7 +17,12 @@ BrGlamorousEditableLabelLook >> defaultBackground [
 
 { #category : #accessing }
 BrGlamorousEditableLabelLook >> defaultBackground: anObject [
-	defaultBackground := anObject
+	defaultBackground := anObject.
+	styleLook 
+		default: [ :aStyle |
+			aStyle background: self defaultBackground ];
+		when: [ :aState | aState hovered and: BrEditorModeState readOnly ]
+			style: [ :aStyle | aStyle background: self defaultBackground darker ].
 ]
 
 { #category : #accessing }
@@ -42,7 +48,7 @@ BrGlamorousEditableLabelLook >> initialize [
 		with: [ self minWidth ].
 
 	self
-		add: (BrStyleCommonLook new
+		add: (styleLook := BrStyleCommonLook new
 			default: [ :aStyle |
 				aStyle geometry: (BlRoundedRectangleGeometry cornerRadius: 4).
 				aStyle background: self defaultBackground.
@@ -54,7 +60,7 @@ BrGlamorousEditableLabelLook >> initialize [
 			when: [ :aState | aState focused and: BrEditorModeState editable ]
 				style: [ :aStyle | aStyle border: (BlBorder paint: BrGlamorousColors focusedEditorBorderColor width: 1) ];
 			when: [ :aState | aState hovered and: BrEditorModeState readOnly ]
-				style: [ :aStyle | aStyle background: BrGlamorousColors neutralBackgroundColor darker ];
+				style: [ :aStyle | aStyle background: self defaultBackground darker ];
 			when: [ :aState | aState focused and: BrEditorModeState readOnly ]
 				style: [ :aStyle |
 					aStyle background: BrGlamorousColors focusedEditorBorderColor.

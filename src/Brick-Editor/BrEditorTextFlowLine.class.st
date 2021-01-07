@@ -85,14 +85,28 @@ BrEditorTextFlowLine >> elements [
 ]
 
 { #category : #geometry }
-BrEditorTextFlowLine >> findClosestElementTo: aPoint [
+BrEditorTextFlowLine >> findClosestChildOf: anElement to: aPoint [
+	<return: #BlElement>
+	
+	"use cached elements"
+	elements
+		ifNotNil: [ ^ self findClosestElementTo: aPoint in: elements ].
+	
+	"otherwise compute based on the assigned line"
+	^ self
+		findClosestElementTo: aPoint
+		in: (anElement children select: [ :eachChild | eachChild constraints textFlow assignedLine = self ])
+]
+
+{ #category : #geometry }
+BrEditorTextFlowLine >> findClosestElementTo: aPoint in: aCollectionOfElements [
 	<return: #BlElement>
 	| aClosestElement aClosestDistance |
 	
-	aClosestElement := elements first.
+	aClosestElement := aCollectionOfElements first.
 	aClosestDistance := aClosestElement distanceToX: aPoint.
 	
-	elements do: [ :eachElement | 
+	aCollectionOfElements do: [ :eachElement | 
 		| eachDistance |
 		
 		eachDistance := eachElement distanceToX: aPoint.
@@ -100,7 +114,7 @@ BrEditorTextFlowLine >> findClosestElementTo: aPoint [
 			ifTrue: [
 				aClosestDistance := eachDistance.
 				aClosestElement := eachElement ] ].
-		
+
 	^ aClosestElement
 ]
 
@@ -143,7 +157,17 @@ BrEditorTextFlowLine >> height [
 BrEditorTextFlowLine >> initialize [
 	super initialize.
 	
-	self reset
+	maxWidth := Float infinity.
+	width := 0.
+	height := 0.
+	origin := 0@0.
+	baseline := 0.
+	availableWidth := maxWidth.
+
+	elements := OrderedCollection new.
+	pushedQueue := LinkedList new.
+
+	nextLine := nil
 ]
 
 { #category : #testing }
@@ -200,6 +224,7 @@ BrEditorTextFlowLine >> push: anElement [
 	and update my geometry properties taking new element into account "
 
 	elements addLast: anElement.
+	anElement constraints textFlow assignToLine: self.
 
 	width := width + (anElement measuredWidth + anElement margin width).
 	height := height max: (anElement measuredHeight + anElement margin height).
@@ -220,17 +245,10 @@ BrEditorTextFlowLine >> pushedQueue: aQueue [
 
 { #category : #initialization }
 BrEditorTextFlowLine >> reset [
-	maxWidth := Float infinity.
-	width := 0.
-	height := 0.
-	origin := 0@0.
-	baseline := 0.
-	availableWidth := maxWidth.
-	elements := OrderedCollection new.
-	pushedQueue := LinkedList new.
-	
-	nextLine ifNotNil: [ :aNextLine | aNextLine reset ].
-	nextLine := nil
+	elements := nil.
+	pushedQueue := nil.
+
+	nextLine ifNotNil: [ :aNextLine | aNextLine reset ]
 ]
 
 { #category : #geometry }
