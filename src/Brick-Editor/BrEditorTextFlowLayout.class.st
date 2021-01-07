@@ -48,6 +48,11 @@ BrEditorTextFlowLayout >> findClosestLineTo: aPoint [
 ]
 
 { #category : #testing }
+BrEditorTextFlowLayout >> hasElements [
+	^ lines notNil and: [ lines elements notNil ]
+]
+
+{ #category : #testing }
 BrEditorTextFlowLayout >> hasLines [
 	^ lines notNil
 ]
