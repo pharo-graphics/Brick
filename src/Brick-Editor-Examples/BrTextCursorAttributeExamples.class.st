@@ -12,11 +12,11 @@ BrTextCursorAttributeExamples >> changingForeground [
 - click here
 - second item' asRopedText fontSize: 20.
 
-	(text from: 13 to: 24) attribute: (BrTextCursorAttribute new
-		enterAction: [ :aTextEditor :anEvent :aFromIndex :aToIndex |
-			(aTextEditor text from: aFromIndex to: aToIndex) foreground: Color red ];
-		leaveAction: [ :aTextEditor :anEvent :aFromIndex :aToIndex |
-			(aTextEditor text from: aFromIndex to: aToIndex) foreground: Color blue ]).
+	(text from: 13 to: 24)
+		onCursorEnter: [ :aTextEditor :anEvent :aFromIndex :aToIndex |
+			(aTextEditor text from: aFromIndex to: aToIndex) foreground: Color red ]
+		leave: [ :aTextEditor :anEvent :aFromIndex :aToIndex |
+			(aTextEditor text from: aFromIndex to: aToIndex) foreground: Color blue ].
 
 	^ text
 ]

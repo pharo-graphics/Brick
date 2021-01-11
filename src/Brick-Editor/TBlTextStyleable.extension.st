@@ -17,6 +17,14 @@ TBlTextStyleable >> lineSpacing: aNumber [
 ]
 
 { #category : #'*Brick-Editor' }
+TBlTextStyleable >> onClick: aClickAction [
+	"Perform actions when a user clicks on a piece of text.
+	The click action is a block in the following form: [ :aTBrTextEditorTextualPiece :aWorldElement :anEditorElement :anEvent | ]"
+
+	self attributesBuilder attribute: (BrTextClickAttribute new action: aClickAction)
+]
+
+{ #category : #'*Brick-Editor' }
 TBlTextStyleable >> onCursorEnter: anEnterAction leave: aLeaveAction [
 	"Perform actions when a cursor enters and leaves a piece of text.
 	The enter action is a block in the following form: [ :aTextEditor :aBrTextEditorCursorAddedEvent | ]

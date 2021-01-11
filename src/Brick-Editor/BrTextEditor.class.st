@@ -25,7 +25,8 @@ Class {
 		'attachedElements',
 		'history',
 		'filter',
-		'shortcuts'
+		'shortcuts',
+		'isFocused'
 	],
 	#classInstVars : [
 		'isDebug'
@@ -385,6 +386,8 @@ BrTextEditor >> initialize [
 	
 	shortcuts := BrTextEditorShortcuts new.
 	history := BrTextEditorHistory new.
+	
+	isFocused := false.
 
 	self beEditable.
 	"self beParagraphBased"
@@ -425,6 +428,13 @@ BrTextEditor >> insertString: aString at: aTextIndex [
 { #category : #'api - modification' }
 BrTextEditor >> inserter [
 	^ BrTextEditorInserter new editor: self
+]
+
+{ #category : #accessing }
+BrTextEditor >> isFocused [
+	<return: #Boolean>
+
+	^ isFocused
 ]
 
 { #category : #accessing }
@@ -514,6 +524,9 @@ BrTextEditor >> notifyAttributesWithinCursor: aCollectionOfAttributes [
 	"I select and notify those attributes in the given collection that are within any of the cursors"
 	| theEventHandlingAttributes anEvent |
 	
+	self isFocused
+		ifFalse: [ ^ self ].
+
 	anEvent := BrTextEditorCursorAddedEvent cursor: self cursors.
 	
 	theEventHandlingAttributes := (aCollectionOfAttributes select: [ :eachAttribute | eachAttribute isEventHandler ]) asSet.
@@ -648,10 +661,8 @@ BrTextEditor >> onElementRecycled: anElementHolder [
 
 { #category : #'private - focus' }
 BrTextEditor >> onGotFocus [
-
-	self cursors isEmpty
-		ifTrue: [ self navigator moveTo: 0; apply ].
-
+	isFocused := true.
+	self processCursorAttributes.
 	self enqueueCommand: (self newFocusChangedCommand hasFocus: true)
 ]
 
@@ -668,7 +679,10 @@ BrTextEditor >> onInteractionRemoved: anInteraction from: anEditorElement [
 
 { #category : #'private - focus' }
 BrTextEditor >> onLostFocus [
-	self enqueueCommand: (self newFocusChangedCommand hasFocus: false)
+	isFocused := false.
+
+	self processCursorAttributes.
+	self enqueueCommand: (self newFocusChangedCommand hasFocus: false).
 ]
 
 { #category : #hooks }
@@ -840,7 +854,7 @@ BrTextEditor >> processCursorAttributesFrom: aFromIndex to: aToIndex [
 							findAttribute: eachAttribute
 							indicesDo: [ :eachStart :eachEnd |
 								| anEvent |
-								anEvent := (self cursors anySatisfy: [ :eachCursor | eachCursor position between: (aStart - 1 max: 0) and: anEnd ])
+								anEvent := (self isFocused and: [ self cursors anySatisfy: [ :eachCursor | eachCursor position between: (aStart - 1 max: 0) and: anEnd ] ])
 									ifTrue: [ anEnteredEvent ]
 									ifFalse: [ aLeavedEvent ].
 								(eachAttribute wantsEvent: anEvent in: self)

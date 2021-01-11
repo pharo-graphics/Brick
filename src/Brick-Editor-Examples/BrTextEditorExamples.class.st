@@ -74,7 +74,6 @@ BrTextEditorExamples class >> exampleMethodTextOpen [
 	editorElement := (self >> #elementOnMethodWithSyntaxHighlighting) gtExample returnValue.
 	editorElement editor text attributes: {
 		(BlFontSizeAttribute size: 18) beNotOverwritableByStyler.
-		BlFontGenericFamilyAttribute monospace beNotOverwritableByStyler
 	}.
 	editorElement editor text attributes: {
 		BrTextHoverStylableAttribute new beNotOverwritableByStyler.
@@ -97,7 +96,6 @@ BrTextEditorExamples class >> exampleMethodTextOpenEmbedElement [
 	editorElement := (self >> #elementWithMethod) gtExample returnValue.
 	editorElement editor text attributes: {
 		BlFontSizeAttribute size: 18.
-		BlFontGenericFamilyAttribute monospace
 	}.
 	editorElement editor text attributes: {
 		BrTextAdornmentDynamicAttribute new stencil: [ BlElement new size: 70 @ 50; background: Color red; yourself ]
