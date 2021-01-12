@@ -139,7 +139,7 @@ BrWithAnchoredLook >> onHideWish: aWish [
 			^ self hide ].
 	
 	"if anchor is not specify we can check the source of the wish"
-	(aWish anchor isNil and: [ aWish source hasParent: innerContainer ])
+	(aWish anchor isNil and: [ aWish source = widget or: [ aWish source hasParent: widget ] ])
 		ifTrue: [ 
 			aWish consumed: true.
 			^ self hide ]
@@ -153,8 +153,20 @@ BrWithAnchoredLook >> onRelocateWish: aWish [
 
 { #category : #'private - event handling' }
 BrWithAnchoredLook >> onShowWish: aWish [
-	(aWish anchor = widget and: [ self canShow ])
-		ifTrue: [ self show ]
+	self canShow
+		ifFalse: [ ^ self ].
+		
+	"if an anchor is explicitely specified we can show"
+	(aWish anchor = widget)
+		ifTrue: [
+			aWish consumed: true.
+			^ self show ].
+	
+	"if anchor is not specify we can check the source of the wish"
+	(aWish anchor isNil and: [ aWish source = widget or: [ aWish source hasParent: widget ] ])
+		ifTrue: [ 
+			aWish consumed: true.
+			^ self show ]
 ]
 
 { #category : #accessing }
