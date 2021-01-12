@@ -41,13 +41,16 @@ BrTextEditorMouseDownHandler >> handleEvent: anEvent [
 	aScreenPosition := (anEditorElement localBoundsToMine: (BlBounds origin: anEvent localPosition extent: 0.0@0.0) fromChild: anEvent currentTarget) center.
 	
 	anEditorElement editor deselecter all deselect.
-	anEditorElement requestFocus.
 	
 	aNavigator := anEditorElement editor navigator.
 	anEvent modifiers isPrimaryModifier
 		ifTrue: [ aNavigator addAtScreenPosition: aScreenPosition ]
 		ifFalse: [ aNavigator moveToScreenPosition: aScreenPosition ].
-	aNavigator apply
+	aNavigator apply.
+
+	"it is important to request focus *after* we add a cursor, otherwise it would jump to the 0 position when
+	handling focus event"
+	anEditorElement requestFocus
 ]
 
 { #category : #'api - event managing' }

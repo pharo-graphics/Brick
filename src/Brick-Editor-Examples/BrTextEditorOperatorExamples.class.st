@@ -7,7 +7,7 @@ Class {
 }
 
 { #category : #'focus - examples' }
-BrTextEditorOperatorExamples >> editorDoesNotCreateCursorOnFocus [
+BrTextEditorOperatorExamples >> editorCreatesOneCursorOnFocus [
 	<gtExample>
 	| anEditor aSpace |
 	
@@ -24,7 +24,7 @@ BrTextEditorOperatorExamples >> editorDoesNotCreateCursorOnFocus [
 	
 	self assert: anEditor isFocused.
 	self assert: anEditor hasFocus.
-	self assert: anEditor cursors isEmpty.
+	self assert: anEditor cursors allCursors equals: { BrTextEditorSingleCursor new position: 0 }.
 	
 	aSpace removeChild: anEditor.
 	

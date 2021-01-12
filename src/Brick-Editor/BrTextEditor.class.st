@@ -662,6 +662,10 @@ BrTextEditor >> onElementRecycled: anElementHolder [
 { #category : #'private - focus' }
 BrTextEditor >> onGotFocus [
 	isFocused := true.
+	
+	self cursors isEmpty
+		ifTrue: [ self navigator moveTo: 0; apply ].
+
 	self processCursorAttributes.
 	self enqueueCommand: (self newFocusChangedCommand hasFocus: true)
 ]
