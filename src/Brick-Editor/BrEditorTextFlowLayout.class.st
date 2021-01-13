@@ -76,7 +76,7 @@ BrEditorTextFlowLayout >> layout: anElement in: aRectangle [
 	
 	lines do: [ :aLine |
 		aLine origin: aLeft @ aTop.
-		aLine elements do: [ :aChildElement |
+		(aLine elementsIn: anElement) do: [ :aChildElement |
 			| aWidth aMarginedTop |
 			aLeft := aLeft + aChildElement margin left.
 			aMarginedTop := aTop .
