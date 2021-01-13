@@ -84,6 +84,14 @@ BrEditorTextFlowLine >> elements [
 	^ elements
 ]
 
+{ #category : #accessing }
+BrEditorTextFlowLine >> elementsIn: anElement [
+	"Return a collection of all elements assigned to this line"
+	<return: #OrderedCollection>
+
+	^ elements ifNil: [ elements := anElement children select: [ :eachChild | eachChild constraints textFlow assignedLine = self ] ]
+]
+
 { #category : #geometry }
 BrEditorTextFlowLine >> findClosestChildOf: anElement to: aPoint [
 	<return: #BlElement>
