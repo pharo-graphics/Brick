@@ -9,6 +9,26 @@ Class {
 	#category : #'Brick-List - UI'
 }
 
+{ #category : #factory }
+BrSimpleList class >> horizontal [
+	^ self new beHorizontal
+]
+
+{ #category : #factory }
+BrSimpleList class >> vertical [
+	^ self new beVertical
+]
+
+{ #category : #'api - orientation' }
+BrSimpleList >> beHorizontal [
+	self states addState: BrListOrientationState horizontal
+]
+
+{ #category : #'api - orientation' }
+BrSimpleList >> beVertical [
+	self states addState: BrListOrientationState vertical
+]
+
 { #category : #initialization }
 BrSimpleList >> defaultListModel [
 	^ BrSimpleListModel new
@@ -17,7 +37,12 @@ BrSimpleList >> defaultListModel [
 { #category : #initialization }
 BrSimpleList >> initialize [
 	super initialize.
+	self beVertical.
+	self look: BrSimpleListLook + BrGlamorousWithVerticalScrollbarLook.
+]
 
+{ #category : #initialization }
+BrSimpleList >> initializeLooks [
 	self look: BrSimpleListLook + BrGlamorousWithVerticalScrollbarLook
 ]
 

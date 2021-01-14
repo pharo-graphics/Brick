@@ -1,20 +1,20 @@
 "
 I am a ${class:BlInfiniteElement}$
-I am a vertical infinite list.
+I am a horizontal infinite list.
 
 "
 Class {
-	#name : #BrInfiniteListElement,
+	#name : #BrHorizontalInfiniteListElement,
 	#superclass : #BlInfiniteElement,
 	#category : #'Brick-List - Support'
 }
 
 { #category : #initialization }
-BrInfiniteListElement >> defaultDataSource [
+BrHorizontalInfiniteListElement >> defaultDataSource [
 	^ BrSimpleListDataSource new
 ]
 
 { #category : #initialization }
-BrInfiniteListElement >> defaultLayout [
-	^ BlInfiniteLinearLayout vertical
+BrHorizontalInfiniteListElement >> defaultLayout [
+	^ BlInfiniteLinearLayout horizontal
 ]

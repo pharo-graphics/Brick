@@ -3,3 +3,8 @@ Class {
 	#superclass : #BrScrollbarOrientationState,
 	#category : #'Brick-Scrollbar - State'
 }
+
+{ #category : #accessing }
+BrScrollbarVerticalState >> name [
+	^ 'vertical'
+]

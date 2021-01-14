@@ -29,6 +29,19 @@ BrScrollbarOrientationState >> isVertical [
 ]
 
 { #category : #accessing }
+BrScrollbarOrientationState >> name [
+	^ 'orientation'
+]
+
+{ #category : #printing }
+BrScrollbarOrientationState >> printOn: aStream [
+	aStream
+		nextPutAll: 'scrollbar ';
+		nextPutAll: self name;
+		nextPutAll: ' orientation'
+]
+
+{ #category : #accessing }
 BrScrollbarOrientationState >> priority [
 	^ UserPriority
 ]
