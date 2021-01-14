@@ -38,12 +38,7 @@ BrSimpleList >> defaultListModel [
 BrSimpleList >> initialize [
 	super initialize.
 	self beVertical.
-	self look: BrSimpleListLook + BrGlamorousWithVerticalScrollbarLook.
-]
-
-{ #category : #initialization }
-BrSimpleList >> initializeLooks [
-	self look: BrSimpleListLook + BrGlamorousWithVerticalScrollbarLook
+	self look: BrSimpleListLook + BrGlamorousListWithScrollbarLook.
 ]
 
 { #category : #'api - scripting' }

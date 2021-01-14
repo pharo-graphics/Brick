@@ -3,7 +3,6 @@ Class {
 	#superclass : #BrLook,
 	#instVars : [
 		'scrollbar',
-		'orientation',
 		'scrollable',
 		'thumbStencil',
 		'trackStencil'
@@ -12,43 +11,43 @@ Class {
 }
 
 { #category : #initialization }
-BrBasicScrollbarLook >> buildNewScrollbar [
-	| aScrollbar |
-	
-	aScrollbar := orientation isVertical
-		ifTrue: [ BlVerticalScrollbarElement new ]
-		ifFalse: [ BlHorizontalScrollbarElement new ].
+BrBasicScrollbarLook >> beHorizontal [
+	| aCurrentScrollbar |
+	scrollbar class = BlHorizontalScrollbarElement ifTrue: [ ^ self ].
+	aCurrentScrollbar := scrollbar.
+	aCurrentScrollbar detach.
+	scrollbar := BlHorizontalScrollbarElement new.
+	self initializeScrollbar: scrollbar.
+	self replaceScrollbarElement: aCurrentScrollbar by: scrollbar.
+]
 
-	scrollable
-		ifNotNil: [ aScrollbar attachTo: scrollable ].
-
-	thumbStencil
-		ifNotNil: [ aScrollbar thumb: thumbStencil asElement removeFromParent ].
-
-	trackStencil
-		ifNotNil: [ aScrollbar track: trackStencil asElement removeFromParent ].
-
-	^ aScrollbar
+{ #category : #initialization }
+BrBasicScrollbarLook >> beVertical [
+	| aCurrentScrollbar |
+	scrollbar class = BlVerticalScrollbarElement ifTrue: [ ^ self ].
+	aCurrentScrollbar := scrollbar.
+	aCurrentScrollbar detach.
+	scrollbar := BlVerticalScrollbarElement new.
+	self initializeScrollbar: scrollbar.
+	self replaceScrollbarElement: aCurrentScrollbar by: scrollbar.
 ]
 
 { #category : #initialization }
 BrBasicScrollbarLook >> initialize [
 	super initialize.
 	
-	scrollable := nil.
-	orientation := BrScrollbarOrientationState vertical.
-	trackStencil := nil.
-	thumbStencil := nil.
-	
-	scrollbar := self buildNewScrollbar.
+	self initializeScrollbar.
 	self addChangeAddChildAs: #(content scrollbar) with: [ scrollbar ].
+	
+	self add: (BrScrollbarOrientationLook new
+		horizontal: [ :aStyle | aStyle do: [ :aWidget | self beHorizontal ] ];
+		vertical: [ :aStyle | aStyle do: [ :aWidget | self beVertical ] ])
 ]
 
 { #category : #initialization }
 BrBasicScrollbarLook >> initializeListeners [
 	super initializeListeners.
 	
-	self when: BrScrollbarOrientationChanged do: [ :anEvent | self orientationChanged: anEvent orientation ].
 	self when: BrScrollbarScrollableChanged do: [ :anEvent |
 		"by defualt is not assigned in the model"
 		anEvent scrollableElement
@@ -61,28 +60,36 @@ BrBasicScrollbarLook >> initializeListeners [
 BrBasicScrollbarLook >> initializeRequests [
 	super initializeRequests.
 	
-	self request: BrScrollbarOrientationRequest new.
 	self request: BrScrollbarThumbRequest new.
 	self request: BrScrollbarTrackRequest new.
-	self request: BrScrollbarScrollableRequest new
+	self request: BrScrollbarScrollableRequest new.
 ]
 
-{ #category : #'event handling' }
-BrBasicScrollbarLook >> orientationChanged: aScrollbarOrientation [
-	| aCurrentScrollbar |
+{ #category : #initialization }
+BrBasicScrollbarLook >> initializeScrollbar [
+	scrollbar := BlVerticalScrollbarElement new.
+	self initializeScrollbar: scrollbar.
+]
 
-	orientation = aScrollbarOrientation
-		ifTrue: [ ^ self ].
-		
-	orientation := aScrollbarOrientation.
+{ #category : #initialization }
+BrBasicScrollbarLook >> initializeScrollbar: aScrollbar [
 	
-	aCurrentScrollbar := scrollbar.
-	aCurrentScrollbar detach.
+	scrollable
+		ifNotNil: [ aScrollbar attachTo: scrollable ].
 
-	scrollbar := self buildNewScrollbar.
-	
-	aCurrentScrollbar hasParent
-		ifTrue: [ aCurrentScrollbar parent replaceChild: aCurrentScrollbar with: scrollbar ]
+	thumbStencil
+		ifNotNil: [ aScrollbar thumb: thumbStencil asElement removeFromParent ].
+
+	trackStencil
+		ifNotNil: [ aScrollbar track: trackStencil asElement removeFromParent ].
+]
+
+{ #category : #'private - updating' }
+BrBasicScrollbarLook >> replaceScrollbarElement: anOldScrollbar by: aNewScrollbar [
+	self widgetDo: [ :aWidget |
+		| aParent |
+		aParent := anOldScrollbar parent.
+		aParent replaceChild: anOldScrollbar with: aNewScrollbar as: #scrollbar. ]
 ]
 
 { #category : #'event handling' }
