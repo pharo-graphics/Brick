@@ -248,14 +248,14 @@ BrTextEditorParagraphElement >> onChildAdded: anElement [
 ]
 
 { #category : #layout }
-BrTextEditorParagraphElement >> onLayout: aBounds [
+BrTextEditorParagraphElement >> onLayout: aBounds context: aBlElementBoundsUpdateContext [
 	| placeholders |
 	
 	placeholders := self placeholderElements.
 	placeholders with: paragraph placeholderRectangles do: [ :eachElement :eachBounds |
-		eachElement applyLayoutIn: (eachBounds translateBy: self padding topLeft) ].
+		eachElement applyLayoutIn: (eachBounds translateBy: self padding topLeft) context: aBlElementBoundsUpdateContext ].
 	
-	self cursorElements do: [ :eachCursor | eachCursor applyLayoutIn: eachCursor measuredBounds asRectangle ].
+	self cursorElements do: [ :eachCursor | eachCursor applyLayoutIn: eachCursor measuredBounds asRectangle context: aBlElementBoundsUpdateContext ].
 ]
 
 { #category : #layout }

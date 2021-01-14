@@ -65,7 +65,7 @@ BrEditorTextFlowLayout >> initialize [
 ]
 
 { #category : #layout }
-BrEditorTextFlowLayout >> layout: anElement in: aRectangle [
+BrEditorTextFlowLayout >> layout: anElement in: aRectangle context: aBlElementBoundsUpdateContext [
 	| anOffsetX anOffsetY aLeft aTop |
 
 	anOffsetX := anElement padding left.
@@ -87,14 +87,14 @@ BrEditorTextFlowLayout >> layout: anElement in: aRectangle [
 			
 			aWidth := aChildElement measuredWidth.
 			"we computed layout bounds for the element, let it apply it"
-			aChildElement applyLayoutIn: (aLeft @ aMarginedTop extent: aChildElement measuredExtent).
+			aChildElement applyLayoutIn: (aLeft @ aMarginedTop extent: aChildElement measuredExtent) context: aBlElementBoundsUpdateContext.
 			"offset width for the next element"
 			aLeft := aLeft + aWidth + aChildElement margin right ].
 		"prepare values for the next line"
 		aLeft := anOffsetX.
 		aTop := aTop + aLine height + lineSpacing ].
 	
-	self layoutIgnored: anElement
+	self layoutIgnored: anElement context: aBlElementBoundsUpdateContext
 ]
 
 { #category : #accessing }
