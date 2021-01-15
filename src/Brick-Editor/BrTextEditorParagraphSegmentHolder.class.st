@@ -260,14 +260,12 @@ BrTextEditorParagraphSegmentHolder >> segment: anEditorSegment [
 			self infiniteElement telemetry
 				timeSync: [ 'Update segment at {1}' format: { anEditorSegment index } ]
 				during: [
-					self infiniteElement layout
-						ignoreRequestLayoutDuring: [ self updateSegment: anEditorSegment ] ] ]
+					self infiniteElement ignoreRequestLayoutDuring: [ self updateSegment: anEditorSegment ] ] ]
 		ifFalse: [
 			self infiniteElement telemetry
 				timeSync: [ 'Build segment at {1}' format: { anEditorSegment index } ]
 				during: [
-					self infiniteElement layout
-						ignoreRequestLayoutDuring: [ self buildSegment: anEditorSegment ] ] ]
+					self infiniteElement ignoreRequestLayoutDuring: [ self buildSegment: anEditorSegment ] ] ]
 ]
 
 { #category : #'private - accessing' }
