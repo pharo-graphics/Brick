@@ -22,5 +22,13 @@ TODO add element extensions, theme, themeStrategy
 Class {
 	#name : #BrTheme,
 	#superclass : #Object,
+	#classInstVars : [
+		'global'
+	],
 	#category : #'Brick-Theme'
 }
+
+{ #category : #accessing }
+BrTheme class >> global [
+	^ global ifNil: [ global := self new ]
+]
