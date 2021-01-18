@@ -34,7 +34,7 @@ BrBreadcrumbLinearLook >> addItemsAndSeparators [
 BrBreadcrumbLinearLook >> initialize [
 	super initialize.
 
-	self add: (resizerLook := BrLayoutResizerLook new inherit inherit: [ :aBlock | self itemElements do: aBlock ]).
+	self add: (resizerLook := BrLayoutResizerLook new inherit vInherit: [ :aBlock | self itemElements do: aBlock ]).
 	self add: (BrLayoutAlignmentLook forHorizontalLinearLayout)
 ]
 
