@@ -393,6 +393,7 @@ BrLayoutResizerLook >> vInherit [
 
 { #category : #'api - inherit' }
 BrLayoutResizerLook >> vInherit: aChildElementOrBlock [
+	propagations vInherit: aChildElementOrBlock
 ]
 
 { #category : #'api - style' }
