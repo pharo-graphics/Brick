@@ -6,7 +6,7 @@ Class {
 
 { #category : #initialization }
 BrTextEditorSignalLogger >> interestingSignals [
-	^ { BrTextEditorSignal . BrTextEditorHolderCommand }
+	^ { BrTextStylerSignal }
 ]
 
 { #category : #accessing }

@@ -66,23 +66,34 @@ BrTextStylerCommonAsyncStrategy >> isStylingRequested: aBoolean [
 { #category : #styling }
 BrTextStylerCommonAsyncStrategy >> styleTextInEditor: aBrTextEditor afterDo: aBlock [
 	| aView aTextToStyle |
+	
+	BrTextStylerStyleTextInEditorStartSignal new emit.
+	
 	aView := self view.
 	aView ifNil: [ 
+		BrTextStylerStyleTextInEditorNoViewSignal new emit.
 		"A graphical widget is not available, we therefore do not need to style the text"
 		^ self ].
 	
 	aTextToStyle := aBrTextEditor textSnapshot nextGeneration.
 	aTextToStyle
-		ifEmpty: [ ^ self ].
+		ifEmpty: [
+			BrTextStylerStyleTextInEditorTextIsEmptySignal new emit.
+			^ self ].
 
 	monitor critical: [
 		isStylingRequested
-			ifTrue: [ ^ self ].
+			ifTrue: [
+				BrTextStylerStyleTextInEditorStylingAlreadyRequestedSignal new emit.
+				^ self ].
 
 		aView isAttachedToSceneGraph
 			"if the editor is already attached to the scene graph we can style it directly"
-			ifTrue: [ self style: aTextToStyle afterDo: aBlock ]
+			ifTrue: [
+				BrTextStylerStyleTextInEditorViewIsAttachedSignal new emit.
+				self style: aTextToStyle afterDo: aBlock ]
 			ifFalse: [
+				BrTextStylerStyleTextInEditorViewIsNotAttachedSignal new emit.
 				self isStylingRequested: true.
 				"othrewise we should defer the styling until some time in the future when the element appears in the scene"
 				aView enqueueTask: (BrTextStylerDeferringTask new
