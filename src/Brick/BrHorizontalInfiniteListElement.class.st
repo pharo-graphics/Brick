@@ -18,3 +18,8 @@ BrHorizontalInfiniteListElement >> defaultDataSource [
 BrHorizontalInfiniteListElement >> defaultLayout [
 	^ BlInfiniteLinearLayout horizontal
 ]
+
+{ #category : #initialization }
+BrHorizontalInfiniteListElement >> defaultMouseScrollEventHandler [
+	^ BlInfiniteMouseScrollDirectionallyLimitedListener horizontal
+]
