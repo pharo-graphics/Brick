@@ -32,3 +32,8 @@ Class {
 BrTheme class >> global [
 	^ global ifNil: [ global := self new ]
 ]
+
+{ #category : #accessing }
+BrTheme >> newLookFor: anElement [
+	self subclassResponsibility
+]

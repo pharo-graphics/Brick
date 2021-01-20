@@ -15,3 +15,10 @@ BlElement >> themeStrategy [
 				ifTrue: [ BrThemeGlobalStrategy instance ]
 				ifFalse: [ BrThemeInheritStrategy instance ] ]
 ]
+
+{ #category : #'*Brick-Theme' }
+BlElement >> themeStrategy: aStrategy [
+	self userData
+		removeKey: #brickTheme ifAbsent: [ "noop" ];
+		at: #brickThemeStrategy put: aStrategy
+]
