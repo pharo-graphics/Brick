@@ -50,6 +50,7 @@ BrTextEditorLineSegmentAdornmentPiece >> createElement: anEditorElement [
 		theAdornmentElements := OrderedCollection with: (BlElement new size: 0@0) ]. 
 	theAdornmentElements do: [ :eachElement |
 		eachElement mouseCursor ifNil: [ eachElement mouseCursor: BlCursor default ].
+		eachElement userData at: #brickEditorAdornment put: true.
 		self adornmentAttribute isFocusable
 			ifFalse: [ eachElement focusability: BlFocusabilityNone new ] ].
 	

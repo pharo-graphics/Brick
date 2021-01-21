@@ -8,7 +8,7 @@ ${example:BrTextAttributesHowToGuide>>#hideMarkupInText|previewExpanded}$
 Class {
 	#name : #BrTextAttributesHowToGuide,
 	#superclass : #Object,
-	#category : #'Brick-Editor-Examples-Documentation'
+	#category : #'Brick-Editor-Examples-! Documentation'
 }
 
 { #category : #examples }

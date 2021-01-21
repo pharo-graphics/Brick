@@ -11,5 +11,5 @@ Adornment attribute can replace a piece of text with arbitrary visual elements o
 Class {
 	#name : #BrTextEditorAdornmentsExamples,
 	#superclass : #Object,
-	#category : #'Brick-Editor-Examples-Documentation'
+	#category : #'Brick-Editor-Examples-! Documentation'
 }

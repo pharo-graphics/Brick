@@ -75,11 +75,16 @@ BrTextAdornmentAttribute >> isAdornment [
 
 { #category : #testing }
 BrTextAdornmentAttribute >> isFocusable [
+	"Return true if an element (but not its children) created by the adornment attribute can be focused"
+	<return: #Boolean>
+
 	^ false
 ]
 
 { #category : #testing }
 BrTextAdornmentAttribute >> isStyle [
+	"I am not a text style related attribute"
+
 	^ false
 ]
 

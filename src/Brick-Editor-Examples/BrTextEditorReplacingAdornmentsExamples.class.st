@@ -20,7 +20,7 @@ They can also overlapp. In this case attributes that end first take precedence o
 Class {
 	#name : #BrTextEditorReplacingAdornmentsExamples,
 	#superclass : #BrTextEditorAdornmentsExamples,
-	#category : #'Brick-Editor-Examples-Documentation'
+	#category : #'Brick-Editor-Examples-! Documentation'
 }
 
 { #category : #'examples - replacements' }

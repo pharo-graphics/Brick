@@ -131,15 +131,21 @@ BrWithAnchoredLook >> onAnchoredElementRemoved: anAnchoredElement [
 { #category : #'private - event handling' }
 BrWithAnchoredLook >> onHideWish: aWish [
 	"hide on wish"
-	
+
 	"if an anchor is explicitely specified we can hide"
 	(aWish anchor = widget)
 		ifTrue: [
 			aWish consumed: true.
 			^ self hide ].
 	
-	"if anchor is not specify we can check the source of the wish"
+	"if anchor is not specified and the souce is within the widget - hide"
 	(aWish anchor isNil and: [ aWish source = widget or: [ aWish source hasParent: widget ] ])
+		ifTrue: [ 
+			aWish consumed: true.
+			^ self hide ].
+		
+	"if anchor is not specified and the souce is within the outer container - hide"
+	((aWish anchor isNil and: [ outerContainer notNil ]) and: [ aWish source = outerContainer or: [ aWish source hasParent: outerContainer ] ])
 		ifTrue: [ 
 			aWish consumed: true.
 			^ self hide ]

@@ -17,11 +17,15 @@ BrTextEditorParagraphSegmentTextPiece >> = anotherObject [
 { #category : #'instance creation' }
 BrTextEditorParagraphSegmentTextPiece >> createElement: anEditorElement [
 	<return: #BlElement>
+	| anElement |
 
-	^ (anEditorElement editor segmentBuilder wordStencilBuilder
+	anElement := (anEditorElement editor segmentBuilder wordStencilBuilder
 		wordPadding: self wordPadding;
 		wordMargin: self wordMargin;
-		segmentPiece: self) asElement
+		segmentPiece: self) asElement.
+		
+	anElement userData removeKey: #brickEditorAdornment ifAbsent: [  ].
+	^ anElement
 ]
 
 { #category : #comparing }

@@ -1,7 +1,7 @@
 Class {
 	#name : #BrTextCursorAttributeExamples,
 	#superclass : #BrTextEditorAdornmentsExamples,
-	#category : #'Brick-Editor-Examples-Documentation'
+	#category : #'Brick-Editor-Examples-! Documentation'
 }
 
 { #category : #public }
