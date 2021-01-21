@@ -6,6 +6,6 @@ Class {
 
 { #category : #accessing }
 BrThemeableElement >> onAddedToSceneGraph [
-	super onAddedToSceneGraph.
-	self look ifNil: [ self look: (self theme newLookFor: self) ]
+	self look ifNil: [ self look: (self theme newLookFor: self) ].
+	super onAddedToSceneGraph
 ]

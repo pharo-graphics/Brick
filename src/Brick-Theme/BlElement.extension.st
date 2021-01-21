@@ -8,6 +8,14 @@ BlElement >> theme [
 ]
 
 { #category : #'*Brick-Theme' }
+BlElement >> theme: aTheme [
+	self userData
+		at: #brickTheme put: aTheme;
+		at: #brickThemeStrategy
+			put: (BrThemeExplicitStrategy theme: aTheme)
+]
+
+{ #category : #'*Brick-Theme' }
 BlElement >> themeStrategy [
 	^ self userData
 		at: #brickThemeStrategy
