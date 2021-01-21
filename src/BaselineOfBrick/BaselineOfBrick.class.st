@@ -49,6 +49,8 @@ BaselineOfBrick >> baseline: spec [
 			
 			package: #'Brick' with: [
 				spec requires: #(#'Brick-Core' #'Brick-Editor') ];
+			package: #'Brick-Theme' with: [
+				spec requires: #(#'Brick') ];
 			
 			package: #'Brick-Glamorous' with: [
 				spec requires: #(#'Brick' #'GToolkitResourcesUtility') ];
@@ -62,6 +64,8 @@ BaselineOfBrick >> baseline: spec [
 
 			package: #'Brick-Examples' with: [
 				spec requires: #(#'BlocExamples' #'Brick' #'Brick-Glamorous' #'Brick-Material' #'Brick-Hydra') ];
+			package: #'Brick-Theme-Examples' with: [
+				spec requires: #(#'Brick-Theme') ];
 			package: #'Brick-Editor-Examples' with: [
 				spec requires: #(#'Brick' #'Brick-Editor') ] ]
 ]
