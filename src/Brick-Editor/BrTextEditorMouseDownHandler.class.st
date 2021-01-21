@@ -36,7 +36,13 @@ BrTextEditorMouseDownHandler >> handleEvent: anEvent [
 		withAllParentsDetect: [ :anElement | anElement isKindOf: BrEditorElement ]
 		ifFound: #yourself
 		ifNone: [ ^ self ].
-	
+
+	anEvent target
+		withAllParentsUpTo: anEditorElement
+		detect: [ :anElement | anElement userData at: #brickEditorAdornment ifAbsent: [ false ] ]
+		ifFound:  [ :anAdornmentElement | ^ self ]
+		ifNone: #yourself.
+
 	anEvent consumed: true.
 	aScreenPosition := (anEditorElement localBoundsToMine: (BlBounds origin: anEvent localPosition extent: 0.0@0.0) fromChild: anEvent currentTarget) center.
 	
