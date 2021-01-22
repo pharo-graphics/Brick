@@ -4,7 +4,7 @@ I am a special marker attribute that is intended to be used together with ${meth
 Class {
 	#name : #BrTextInvisibleMarkerAttribute,
 	#superclass : #BlTextAttribute,
-	#category : #'Brick-Editor-Text-Attributes'
+	#category : #'Brick-Editor-Attributes'
 }
 
 { #category : #comparing }

@@ -4,7 +4,7 @@ Class {
 	#instVars : [
 		'special'
 	],
-	#category : #'Brick-Editor-Text-Attributes'
+	#category : #'Brick-Editor-Attributes - Support'
 }
 
 { #category : #initialization }

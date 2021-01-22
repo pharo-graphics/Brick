@@ -6,7 +6,7 @@ Class {
 		'attributesCreatingBlock',
 		'createdAttributes'
 	],
-	#category : #'Brick-Editor-Text-Attributes'
+	#category : #'Brick-Editor-Attributes'
 }
 
 { #category : #private }

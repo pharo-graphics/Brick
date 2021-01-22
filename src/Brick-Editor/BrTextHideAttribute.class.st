@@ -1,7 +1,7 @@
 Class {
 	#name : #BrTextHideAttribute,
 	#superclass : #BrTextAdornmentAttribute,
-	#category : #'Brick-Editor-Text-Attributes'
+	#category : #'Brick-Editor-Attributes'
 }
 
 { #category : #accessing }

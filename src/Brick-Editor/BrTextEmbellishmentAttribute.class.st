@@ -6,7 +6,7 @@ Class {
 		'padding',
 		'margin'
 	],
-	#category : #'Brick-Editor-Text-Attributes'
+	#category : #'Brick-Editor-Attributes'
 }
 
 { #category : #accessing }

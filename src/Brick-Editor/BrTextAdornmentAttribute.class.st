@@ -10,17 +10,18 @@ Class {
 	#superclass : #BlTextAttribute,
 	#instVars : [
 		'shouldAppend',
-		'renderingStrategy'
+		'renderingStrategy',
+		'cache'
 	],
-	#category : #'Brick-Editor-Text-Attributes'
+	#category : #'Brick-Editor-Attributes'
 }
 
 { #category : #accessing }
 BrTextAdornmentAttribute >> affect: aTBrTextEditorTextualPiece in: anEditorElement [
 	"Return an element that should affect (either append or replace) a provided text piece"
 	<return: #SequenceableCollection of: #BlElement>
-
-	^ self renderingStrategy affect: aTBrTextEditorTextualPiece in: anEditorElement
+	
+	^ self cache ifAbsentPut: [ self renderingStrategy affect: aTBrTextEditorTextualPiece in: anEditorElement ]
 ]
 
 { #category : #accessing }
@@ -43,6 +44,18 @@ BrTextAdornmentAttribute >> beSync [
 	self renderingStrategy: BrTextAdornmentAttributeSyncRenderingStrategy new.
 ]
 
+{ #category : #'api - cache' }
+BrTextAdornmentAttribute >> cache [
+	<return: #BrTextAdornmentAttributeCache>
+
+	^ cache
+]
+
+{ #category : #'api - cache' }
+BrTextAdornmentAttribute >> cache: aBrTextAdornmentAttributeCache [
+	cache := aBrTextAdornmentAttributeCache
+]
+
 { #category : #accessing }
 BrTextAdornmentAttribute >> doAffect: aTBrTextEditorTextualPiece in: anEditorElement [
 	"Return an element that should affect (either append or replace) a provided text piece"
@@ -57,6 +70,7 @@ BrTextAdornmentAttribute >> initialize [
 	
 	shouldAppend := false.
 	self renderingStrategy: BrTextAdornmentAttributeSyncRenderingStrategy new.
+	cache := BrTextAdornmentAttributeNoCache uniqueInstance
 ]
 
 { #category : #initialization }
@@ -126,4 +140,16 @@ BrTextAdornmentAttribute >> storeOn: aStream [
 { #category : #comparing }
 BrTextAdornmentAttribute >> type [
 	^ self
+]
+
+{ #category : #'api - cache' }
+BrTextAdornmentAttribute >> withCache: aDictionary key: aKey [
+	self cache: (aDictionary
+		at: aKey
+		ifAbsentPut: [ BrTextAdornmentAttributePooledCache new ])
+]
+
+{ #category : #'api - cache' }
+BrTextAdornmentAttribute >> withoutCache [
+	self cache: BrTextAdornmentAttributeNoCache uniqueInstance
 ]

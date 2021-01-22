@@ -9,7 +9,7 @@ Class {
 	#instVars : [
 		'lineSpacing'
 	],
-	#category : #'Brick-Editor-Text-Attributes'
+	#category : #'Brick-Editor-Attributes'
 }
 
 { #category : #'instance creation' }

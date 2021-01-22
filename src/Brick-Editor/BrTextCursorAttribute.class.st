@@ -11,7 +11,7 @@ Class {
 		'leaveAction',
 		'isInside'
 	],
-	#category : #'Brick-Editor-Text-Attributes'
+	#category : #'Brick-Editor-Attributes'
 }
 
 { #category : #accessing }
