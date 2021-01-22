@@ -11,6 +11,10 @@ Class {
 BrTextAdornmentAttributePooledCache >> canElementBeReusedFromCache: anElement [
 	"Return true if given element can be reused from the cache"
 	<return: #Boolean>
+	
+	"element is detached - we can reuse it"
+	anElement isDetachedFromSceneGraph
+		ifTrue: [ ^ true ].
 
 	^ anElement isRemovedFromSceneGraph and: [ anElement hasParent not ]
 ]
