@@ -102,6 +102,11 @@ BrTextAdornmentAttribute >> isStyle [
 	^ false
 ]
 
+{ #category : #private }
+BrTextAdornmentAttribute >> newPooledCache [
+	^ BrTextAdornmentAttributePooledCache new
+]
+
 { #category : #accessing }
 BrTextAdornmentAttribute >> renderingStrategy [
 	<return: #BrTextAdornmentAttributeRenderingStrategy>
@@ -146,7 +151,31 @@ BrTextAdornmentAttribute >> type [
 BrTextAdornmentAttribute >> withCache: aDictionary key: aKey [
 	self cache: (aDictionary
 		at: aKey
-		ifAbsentPut: [ BrTextAdornmentAttributePooledCache new ])
+		ifAbsentPut: [ self newPooledCache ])
+]
+
+{ #category : #'api - cache' }
+BrTextAdornmentAttribute >> withCache: anObject selector: aSelectorSymbol [
+	(anObject perform: aSelectorSymbol withArguments: #())
+		ifNil: [
+			| aNewCache |
+			
+			aNewCache := self newPooledCache.
+			anObject perform: aSelectorSymbol asMutator withArguments: { aNewCache }.
+			self cache: aNewCache ]
+		ifNotNil: [ :aCache | self cache: aCache ]
+]
+
+{ #category : #'api - cache' }
+BrTextAdornmentAttribute >> withCacheGet: aGetBlock set: aSetBlock [
+	aGetBlock value
+		ifNil: [
+			| aNewCache |
+			
+			aNewCache := self newPooledCache.
+			aSetBlock value: aNewCache.
+			self cache: aNewCache ]
+		ifNotNil: [ :aCache | self cache: aCache ]
 ]
 
 { #category : #'api - cache' }
