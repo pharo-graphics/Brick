@@ -106,7 +106,7 @@ BrTextElementWithCursors >> initialize [
 ]
 
 { #category : #layout }
-BrTextElementWithCursors >> measureCursors: anExtentMeasurementSpec [
+BrTextElementWithCursors >> layoutCursors: aBounds context: aBlElementBoundsUpdateContext [
 	cursorElements do: [ :aCursorElement |
 		| aCursorPosition aTextPositionX aMaxTextPositionX aMinTextPositionX aTextPosition |
 		
@@ -120,9 +120,9 @@ BrTextElementWithCursors >> measureCursors: anExtentMeasurementSpec [
 		aTextPositionX := ((aTextPositionX - (aCursorElement measuredWidth // 2)) min: aMaxTextPositionX) max: aMinTextPositionX.
 		aTextPosition := aTextPositionX @ self padding top.
 		
-		aCursorElement measuredBounds
-			extent: aCursorElement measuredWidth @ ((self measuredHeight - self padding height) max: 0.0);
-			position: aTextPosition ]
+		aCursorElement
+			applyLayoutIn: (aTextPosition extent: (aCursorElement measuredWidth @ ((aCursorElement measuredHeight - self padding height) max: 0.0)))
+			context: aBlElementBoundsUpdateContext ]
 ]
 
 { #category : #initialization }
@@ -131,13 +131,14 @@ BrTextElementWithCursors >> newCursor [
 	<return: #BlElement>
 
 	^ self cursorStencil asElement
+		constraintsDo: [ :c | c ignoreByLayout ]
 ]
 
 { #category : #layout }
-BrTextElementWithCursors >> onMeasure: anExtentMeasurementSpec [	
-	super onMeasure: anExtentMeasurementSpec.
+BrTextElementWithCursors >> onLayout: aBounds context: aBlElementBoundsUpdateContext [
+	super onLayout: aBounds context: aBlElementBoundsUpdateContext.
 	
-	self measureCursors: anExtentMeasurementSpec
+	self layoutCursors: aBounds context: aBlElementBoundsUpdateContext
 ]
 
 { #category : #printing }
