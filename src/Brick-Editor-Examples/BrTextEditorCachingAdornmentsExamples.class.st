@@ -5,38 +5,41 @@ Class {
 }
 
 { #category : #example }
-BrTextEditorCachingAdornmentsExamples >> cacheExample [
+BrTextEditorCachingAdornmentsExamples >> cacheDictionaryExample [
 	<gtExample>
-	| cache text |
-	cache := Dictionary new.
+	| cache attribute text |
 
-	text := ('Hello' asRopedText attribute: (BrTextAdornmentDynamicAttribute new
+	cache := Dictionary new.
+	
+	attribute := BrTextAdornmentDynamicAttribute new
 		beAppend;
-		withCache: cache key: #one;
+		withCache: cache key: #key;
 		stencil: [
 			BlElement new
-				background: (Color random alpha: 0.5);
-				size: 200@100 ])),
-		String cr asRopedText,
-		(String loremIpsum: 2000) asRopedText,
-		String cr asRopedText,
-		('Brand' asRopedText attribute: (BrTextAdornmentDynamicAttribute new
-		beAppend;
-		withCache: cache key: #one;
-		stencil: [
-			BlElement new
-				background: (Color random alpha: 0.5);
-				size: 200@100 ])),
-		String cr asRopedText,
-		(String loremIpsum: 2000) asRopedText,
-		String cr asRopedText,
-		('World' asRopedText attribute: (BrTextAdornmentDynamicAttribute new
-		beAppend;
-		withCache: cache key: #two;
-		stencil: [
-			BlElement new
-				background: (Color random alpha: 0.5);
-				size: 200@100 ])).
+				background: (Color gray alpha: 0.4);
+				size: 200@100 ].
+
+	text := 'Hello' asRopedText attribute: attribute.
 			
+	^ text
+]
+
+{ #category : #example }
+BrTextEditorCachingAdornmentsExamples >> cacheValueHolderExample [
+	<gtExample>
+	| cache attribute text |
+
+	cache := ValueHolder new.
+	
+	attribute := BrTextAdornmentDynamicAttribute new
+		beAppend;
+		withCache: cache selector: #contents;
+		stencil: [
+			BlElement new
+				background: (Color gray alpha: 0.4);
+				size: 200@100 ].
+
+	text := 'Hello' asRopedText attribute: attribute.
+
 	^ text
 ]
