@@ -26,14 +26,12 @@ BrTextEditorSelectionMemento >> order [
 
 { #category : #memento }
 BrTextEditorSelectionMemento >> restoreStateOf: aTextEditor [
-	| aSelecter |
-
 	aTextEditor deselecter all deselect.
 
-	aSelecter := aTextEditor selecter withoutCursorUpdate.
-	selection do: [ :eachMonotoneSelection |
-		aSelecter from: eachMonotoneSelection from to: eachMonotoneSelection to ].
-	aSelecter select.
+	aTextEditor selecter
+		withoutCursorUpdate;
+		all: selection;
+		select
 ]
 
 { #category : #memento }
@@ -44,6 +42,11 @@ BrTextEditorSelectionMemento >> saveStateOf: aTextEditor [
 { #category : #accessing }
 BrTextEditorSelectionMemento >> selection [
 	^ selection
+]
+
+{ #category : #accessing }
+BrTextEditorSelectionMemento >> selection: anObject [
+	selection := anObject
 ]
 
 { #category : #evaluating }

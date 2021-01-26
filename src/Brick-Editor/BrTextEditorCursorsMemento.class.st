@@ -7,6 +7,11 @@ Class {
 	#category : #'Brick-Editor-Model - Memento'
 }
 
+{ #category : #accessing }
+BrTextEditorCursorsMemento >> cursors: anObject [
+	cursors := anObject
+]
+
 { #category : #initialization }
 BrTextEditorCursorsMemento >> initialize [
 	super initialize.
@@ -26,12 +31,11 @@ BrTextEditorCursorsMemento >> order [
 
 { #category : #memento }
 BrTextEditorCursorsMemento >> restoreStateOf: aTextEditor [
-	| aNavigator |
-
-	aNavigator := aTextEditor navigator removeAll.
-	aNavigator withoutResettingDesiredCoordinate.
-	cursors do: [ :eachCursor | aNavigator add: eachCursor ].
-	aNavigator apply
+	aTextEditor navigator
+		withoutResettingDesiredCoordinate;
+		removeAll;
+		addAll: cursors;
+		apply
 ]
 
 { #category : #memento }

@@ -29,6 +29,11 @@ BrTextEditorNavigator >> add: aCursor [
 ]
 
 { #category : #'api - configuration' }
+BrTextEditorNavigator >> addAll: aBrTextEditorCursors [
+	aBrTextEditorCursors do: [ :eachCursor | self add: eachCursor ]
+]
+
+{ #category : #'api - configuration' }
 BrTextEditorNavigator >> addAt: aTextPosition [
 	"Add a cursor at a given text position"
 	self privateAssertPosition: aTextPosition.
@@ -294,7 +299,7 @@ BrTextEditorNavigator >> privateAddRegisteredIn: aSet [
 BrTextEditorNavigator >> privateAssertPosition: aTextPosition [
 	self
 		assert: [ aTextPosition between: 0 and: self text size ]
-		description: [ 'Cursor position must be within the interval [0.. text size]' ].
+		description: [ 'Cursor position ({1}) must be within the interval [0.. {2}]' format: { aTextPosition . self text size } ].
 ]
 
 { #category : #'private - accessing' }

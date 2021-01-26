@@ -8,6 +8,11 @@ Class {
 }
 
 { #category : #'api - memento' }
+BrTextEditorCompositeMemento >> addMemento: aMemento [
+	mementos add: aMemento
+]
+
+{ #category : #'api - memento' }
 BrTextEditorCompositeMemento >> all [
 	self
 		cursors;

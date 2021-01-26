@@ -22,6 +22,12 @@ BrTextEditorSelecter >> all [
 		to: self text size
 ]
 
+{ #category : #'api - configuration' }
+BrTextEditorSelecter >> all: aCompositeSelection [
+	aCompositeSelection do: [ :eachMonotoneSelection |
+		self from: eachMonotoneSelection from to: eachMonotoneSelection to ]
+]
+
 { #category : #private }
 BrTextEditorSelecter >> characterType: aCharacter [
 	<return: #Symbol>
