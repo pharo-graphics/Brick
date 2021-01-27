@@ -7,7 +7,7 @@ Class {
 { #category : #accessing }
 BrThemeExampleMapped >> initialize [
 	super initialize.
-	self at: BrThemeableElement put: #newDefaultLookFor:
+	self at: BlElement put: #newDefaultLookFor:
 ]
 
 { #category : #accessing }
