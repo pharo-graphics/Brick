@@ -77,15 +77,21 @@ BrEditableLabel >> initialize [
 
 	self
 		when: BlDoubleClickEvent
-		do: [ :anEvent | anEvent currentTarget switchToEditor ].
+		do: [ :anEvent |
+			anEvent consumed: true.
+			anEvent currentTarget switchToEditor ].
 		
 	self
 		when: BlClickEvent
-		do: [ :anEvent | anEvent currentTarget requestFocus ].
+		do: [ :anEvent |
+			anEvent consumed: true.
+			anEvent currentTarget requestFocus ].
 
 	self
 		when: BlBlurEvent
-		do: [ :anEvent | anEvent currentTarget acceptEdition ].
+		do: [ :anEvent |
+			anEvent isDueToRemoval
+				ifFalse: [ anEvent currentTarget acceptEdition ] ].
 
 	self switchToLabel
 ]
