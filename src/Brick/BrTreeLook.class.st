@@ -34,6 +34,7 @@ BrTreeLook >> initializeListeners [
 	self when: BrTreeChildrenChanged do: [ :anEvent | self root: anEvent root ].
 	self when: BrSelectionChanged do: [ :anEvent | self onSelectionChanged: anEvent indices ].
 	self when: BrTreeNodeTypeStencilChangedEvent do: [ :anEvent | self onNodeTypeStencilChanged: anEvent nodeTypeStencil ].
+	self when: BrTreeNodeIdStencilChangedEvent do: [ :anEvent | self onNodeIdStencilChanged: anEvent nodeIdStencil ].
 	
 	self
 		when: BrScrollByWish
@@ -48,9 +49,15 @@ BrTreeLook >> initializeListeners [
 BrTreeLook >> initializeRequests [
 	super initializeRequests.
 	
+	self request: BrTreeNodeTypeStencilRequest new.
+	self request: BrTreeNodeIdStencilRequest new.
 	self request: BrTreeChildrenRequest new.
 	self request: BrSelectionRequest new.
-	self request: BrTreeNodeTypeStencilRequest new.
+]
+
+{ #category : #hooks }
+BrTreeLook >> onNodeIdStencilChanged: aBrTreeNodeIdStencilBuilder [
+	treeElement dataSource nodeIdStencil: aBrTreeNodeIdStencilBuilder
 ]
 
 { #category : #hooks }

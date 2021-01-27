@@ -3,7 +3,8 @@ Class {
 	#superclass : #BrWidgetModel,
 	#instVars : [
 		'rootNode',
-		'nodeTypeStencil'
+		'nodeTypeStencil',
+		'nodeIdStencil'
 	],
 	#category : #'Brick-Tree - Model'
 }
@@ -97,7 +98,8 @@ BrAbstractTreeModel >> initialize [
 	super initialize.
 
 	rootNode := BrRootTreeNode onMany: #() computed: [ :eachChild | #() ].
-	nodeTypeStencil := BrTreeDefaultItemTypeStencilBuilder new
+	nodeTypeStencil := BrTreeDefaultItemTypeStencilBuilder new.
+	nodeIdStencil := nil
 ]
 
 { #category : #initialization }
@@ -106,6 +108,7 @@ BrAbstractTreeModel >> initializeListeners [
 	
 	self when: BrTreeChildrenRequest reply: [ :aResponse | aResponse root: self root ].
 	self when: BrTreeNodeTypeStencilRequest reply: [ :aResponse | aResponse nodeTypeStencil: self nodeTypeStencil ].
+	self when: BrTreeNodeIdStencilRequest reply: [ :aResponse | aResponse nodeIdStencil: self nodeIdStencil ].
 ]
 
 { #category : #'api - accessing' }
@@ -136,6 +139,22 @@ BrAbstractTreeModel >> items: aCollectionOfItems immediate: aBlockOrValuable [
 	rootNode expand.
 
 	self notifyChildrenChanged
+]
+
+{ #category : #'api - accessing' }
+BrAbstractTreeModel >> nodeIdStencil [
+	"Return a stencil that is used to create a node id of a given item object"
+	<return: #BrTreeNodeIdStencilBuilder or: nil>
+
+	^ nodeIdStencil
+]
+
+{ #category : #'api - accessing' }
+BrAbstractTreeModel >> nodeIdStencil: aStencil [
+	"Set a stencil that will be used to compute an id of a node object"
+
+	nodeIdStencil := aStencil asStencilBuilder: BrTreeNodeIdStencilBuilder.
+	self dispatchEvent: (BrTreeNodeIdStencilChangedEvent new nodeIdStencil: nodeIdStencil)
 ]
 
 { #category : #'api - accessing' }

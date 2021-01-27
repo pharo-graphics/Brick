@@ -6,7 +6,8 @@ Class {
 		'treeElement',
 		'selection',
 		'nodeTypeStencil',
-		'clickToSelectHandler'
+		'clickToSelectHandler',
+		'nodeIdStencil'
 	],
 	#category : #'Brick-Tree - Support'
 }
@@ -33,6 +34,23 @@ BrTreeDataSource >> itemCount [
 ]
 
 { #category : #accessing }
+BrTreeDataSource >> itemIdAt: anItemPosition [
+	| anItemNode anItemId |
+
+	nodeIdStencil
+		ifNil: [ ^ NoId ].
+
+	anItemNode := rootNode at: anItemPosition.
+
+	anItemId := nodeIdStencil
+		itemPosition: anItemPosition;
+		itemNode: anItemNode;
+		build.
+
+	^ anItemId
+]
+
+{ #category : #accessing }
 BrTreeDataSource >> itemTypeAt: anItemPosition [
 	| anItemNode anItemType |
 	
@@ -46,6 +64,13 @@ BrTreeDataSource >> itemTypeAt: anItemPosition [
 	nodeTypeStencil reset.
 
 	^ anItemType
+]
+
+{ #category : #'accessing - stencils' }
+BrTreeDataSource >> nodeIdStencil: aBrTreeNodeIdStencilBuilder [
+	nodeIdStencil := aBrTreeNodeIdStencilBuilder asStencilBuilder: BrTreeNodeIdStencilBuilder.
+	hasStableIds := aBrTreeNodeIdStencilBuilder notNil.
+	self notifyChanged
 ]
 
 { #category : #'accessing - stencils' }

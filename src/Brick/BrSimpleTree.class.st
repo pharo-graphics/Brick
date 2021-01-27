@@ -24,6 +24,13 @@ BrSimpleTree >> nodeDataBinder: aBrTreeNodeDataBinderOrBlock [
 ]
 
 { #category : #'api - scripting' }
+BrSimpleTree >> nodeId: aBrTreeNodeIdStencilBuilderOrBlock [
+	"A node id stencil can be a #value-able of the form [ :aTreeNode :aNodeIndex | ]"
+	
+	self viewModel nodeIdStencil: aBrTreeNodeIdStencilBuilderOrBlock
+]
+
+{ #category : #'api - scripting' }
 BrSimpleTree >> nodeStencil: aBrListItemElementStencilBuilderOrBlock [
 	"A node element stencil can be a #value-able of the form [ :aNodeType | ]"
 

@@ -1,52 +1,54 @@
 "
-I am a stencil builder that defines a general api of the object that should compute the id of an item in the list.
+I am a stencil builder that defines a general api of the object that should compute the id of a node in the tree.
 "
 Class {
-	#name : #BrListItemIdStencilBuilder,
+	#name : #BrTreeNodeIdStencilBuilder,
 	#superclass : #BrStencilBuilder,
 	#instVars : [
 		'itemPosition',
 		'itemObject'
 	],
-	#category : #'Brick-List - Stencil'
+	#category : #'Brick-Tree - Stencil'
 }
 
 { #category : #'api - instantiation' }
-BrListItemIdStencilBuilder >> buildDefault [
+BrTreeNodeIdStencilBuilder >> buildDefault [
 	<return: #BrStencil or: #BlElement>
 
 	^ BlInfiniteDataSource noId
 ]
 
 { #category : #accessing }
-BrListItemIdStencilBuilder >> itemObject [
+BrTreeNodeIdStencilBuilder >> itemNode [
 	^ itemObject
 ]
 
 { #category : #accessing }
-BrListItemIdStencilBuilder >> itemObject: anObject [
+BrTreeNodeIdStencilBuilder >> itemNode: anObject [
 	itemObject := anObject
 ]
 
 { #category : #accessing }
-BrListItemIdStencilBuilder >> itemPosition [
+BrTreeNodeIdStencilBuilder >> itemPosition [
 	^ itemPosition
 ]
 
 { #category : #accessing }
-BrListItemIdStencilBuilder >> itemPosition: anObject [
+BrTreeNodeIdStencilBuilder >> itemPosition: anObject [
 	itemPosition := anObject
 ]
 
 { #category : #'api - instantiation' }
-BrListItemIdStencilBuilder >> paramsOn: aStencilExecutor [
+BrTreeNodeIdStencilBuilder >> paramsOn: aStencilExecutor [
 	aStencilExecutor
-		push: self itemObject;
+		push: self itemNode;
 		push: self itemPosition
 ]
 
 { #category : #initialization }
-BrListItemIdStencilBuilder >> reset [
+BrTreeNodeIdStencilBuilder >> reset [
+	super reset.
+
 	itemPosition := nil.
 	itemObject := nil
 ]
