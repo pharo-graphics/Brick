@@ -319,38 +319,14 @@ BrLayoutResizerPropagations >> precomputePropagationRules: aParentElement [
 { #category : #accessing }
 BrLayoutResizerPropagations >> propagateState: aBrLayoutResizerState from: aParentElement to: aChildElement [
 
-	"NonInteractiveTranscript stdout
-		nextPutAll: 'propagationMap of ';
-		nextPutAll: aParentElement id asString; space;
-		nextPutAll: propagationMap asString; cr; cr."
-
 	^ propagationMap
 		at: aChildElement
 		ifPresent: [ :aPropagationMap |
 			aPropagationMap
 				at: aBrLayoutResizerState asNotPropagated
 				ifPresent: [ :aMappedState | aMappedState asPropagated ]
-				ifAbsent: [
-					"NonInteractiveTranscript stdout
-						tab;
-						nextPutAll: ('state {1} not found in propagation map of {2}({3})' format: {
-							aBrLayoutResizerState.
-							aParentElement id.
-							aParentElement
-						}); cr."
-					
-					
-					aBrLayoutResizerState asNotPropagated ] ]
-		ifAbsent: [
-			"NonInteractiveTranscript stdout
-				tab;
-				nextPutAll: ('child {1} not found in propagation map of {2}({3})' format: {
-					aChildElement id.
-					aParentElement id.
-					aParentElement
-				}); cr."
-			
-			aBrLayoutResizerState asNotPropagated ]
+				ifAbsent: [ aBrLayoutResizerState asNotPropagated ] ]
+		ifAbsent: [ aBrLayoutResizerState asNotPropagated ]
 ]
 
 { #category : #'adding / removing' }

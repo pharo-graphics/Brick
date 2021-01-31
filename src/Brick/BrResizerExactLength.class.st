@@ -11,7 +11,7 @@ Class {
 BrResizerExactLength >> adjustHeightFor: anElement [
 	"Set element height"
 	anElement height: self length.
-	anElement states addState: BrLayoutVerticalResizerState exact.
+	anElement states addState: BrLayoutVerticalResizerState exact
 ]
 
 { #category : #'api - size' }
