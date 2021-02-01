@@ -278,14 +278,13 @@ BrSimpleListByScripterExamples >> verticalAndHorizontalLists [
 { #category : #'examples - nested lists' }
 BrSimpleListByScripterExamples >> verticalAndHorizontalLists_DownBy [
 	<gtExample>
-	<noTest>
 	| aScripter |
 	aScripter := self verticalAndHorizontalLists.
 	
 	aScripter substep: 'Scroll down' do: [ :aStep |
 
 		aStep mouseWheel
-			downBy: 5;
+			downBy: 7;
 			onBreadthFirstChildOfClass: BrInfiniteListElement;
 			onBreadthFirstChildOfClass: BrHorizontalInfiniteListElement.
 			
@@ -363,14 +362,13 @@ BrSimpleListByScripterExamples >> verticalAndHorizontalLists_RightBy [
 { #category : #'examples - nested lists' }
 BrSimpleListByScripterExamples >> verticalAndHorizontalLists_UpBy [
 	<gtExample>
-	<noTest>
 	| aScripter |
 	aScripter := self verticalAndHorizontalLists_DownBy.
 	
 	aScripter substep: 'Scroll up' do: [ :aStep |
 
 		aStep mouseWheel
-			upBy: 5;
+			upBy: 7;
 			onBreadthFirstChildOfClass: BrInfiniteListElement;
 			onBreadthFirstChildOfClass: BrHorizontalInfiniteListElement.
 			

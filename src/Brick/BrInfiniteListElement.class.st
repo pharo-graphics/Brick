@@ -21,5 +21,5 @@ BrInfiniteListElement >> defaultLayout [
 
 { #category : #initialization }
 BrInfiniteListElement >> defaultMouseScrollEventHandler [
-	^ BlInfiniteMouseScrollDirectionallyLimitedListener vertical
+	^ BlInfiniteMouseOrientationRestrictedScrollListener new
 ]
