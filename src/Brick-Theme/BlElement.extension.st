@@ -1,6 +1,14 @@
 Extension { #name : #BlElement }
 
 { #category : #'*Brick-Theme' }
+BlElement >> dispatchThemeChanged [
+	self flag: 'the strategy decides where to dispatch to'.
+	self userData removeKey: #brickTheme ifAbsent: [ "noop" ].
+	self dispatchEvent: BrThemeChanged new.
+	self children do: #dispatchThemeChanged
+]
+
+{ #category : #'*Brick-Theme' }
 BlElement >> theme [
 	^ self userData
 		at: #brickTheme
@@ -9,10 +17,7 @@ BlElement >> theme [
 
 { #category : #'*Brick-Theme' }
 BlElement >> theme: aTheme [
-	self userData
-		at: #brickTheme put: aTheme;
-		at: #brickThemeStrategy
-			put: (BrThemeExplicitStrategy theme: aTheme)
+	self themeStrategy: (BrThemeExplicitStrategy theme: aTheme)
 ]
 
 { #category : #'*Brick-Theme' }
@@ -26,7 +31,6 @@ BlElement >> themeStrategy [
 
 { #category : #'*Brick-Theme' }
 BlElement >> themeStrategy: aStrategy [
-	self userData
-		removeKey: #brickTheme ifAbsent: [ "noop" ];
-		at: #brickThemeStrategy put: aStrategy
+	self userData at: #brickThemeStrategy put: aStrategy.
+	self dispatchThemeChanged
 ]
