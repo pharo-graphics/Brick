@@ -118,6 +118,17 @@ BrTree >> scrollTo: anIndex [
 	self scrollToIndex: anIndex
 ]
 
+{ #category : #'api - scrolling' }
+BrTree >> scrollToItem: anObject [
+	"Request a scrollable widget to scroll to a given item"
+
+	self viewModel root
+		allChildrenNodesBreadthFirstDo: [ :treeNode | 
+			treeNode ensureChildrenNodes.
+			anObject = treeNode value
+				ifTrue: [ self scrollToIndex: treeNode indexInTree ] ]
+]
+
 { #category : #'api - selection' }
 BrTree >> selectAndScrollTo: anObject [
 	self viewModel root

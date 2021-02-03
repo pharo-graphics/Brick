@@ -47,11 +47,14 @@ Class {
 { #category : #initialization }
 BrFileSelector >> buildUI [
 	| alignedButton |
+
 	breadcrumb := self createBreadcrumb.
 	table := self createTable.
 	alignedButton := self createOkButton.
+
 	self matchParent.
-	self addChildren: {
+	self addChildren: {	
+		"scrollable horizontally only to accomodate the breadcrumb"
 		BrScrollPane new
 			look: BrScrollPaneLook;
 			hMatchParent;
