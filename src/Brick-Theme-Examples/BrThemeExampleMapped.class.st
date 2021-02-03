@@ -7,10 +7,21 @@ Class {
 { #category : #accessing }
 BrThemeExampleMapped >> initialize [
 	super initialize.
-	self at: BlElement put: #newDefaultLookFor:
+	self at: BlElement put: #newDefaultLookFor:.
+	self at: BrButton put: #newGlamorousButtonLookFor:
 ]
 
 { #category : #accessing }
 BrThemeExampleMapped >> newDefaultLookFor: anElement [
 	^ BrThemeExampleLook new
+]
+
+{ #category : #accessing }
+BrThemeExampleMapped >> newGlamorousButtonLookFor: anElement [
+	^ BrGlamorousButtonWithLabelLook new
+]
+
+{ #category : #accessing }
+BrThemeExampleMapped >> newMaterialButtonLookFor: anElement [
+	^ BrMaterialButtonLook new
 ]

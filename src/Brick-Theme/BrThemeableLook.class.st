@@ -3,7 +3,8 @@ Class {
 	#superclass : #BrLook,
 	#instVars : [
 		'delegate',
-		'addedToSceneGraphEventHandler'
+		'addedToSceneGraphEventHandler',
+		'themeChangedEventHandler'
 	],
 	#category : #'Brick-Theme'
 }
@@ -16,7 +17,7 @@ BrThemeableLook >> delegate: aLook [
 	delegate
 		ifNil: [ actors := actors copyWithFirst: aLook ]
 		ifNotNil: [ self
-				assert: [ delegate == actors at: 1 ]
+				assert: [ delegate == (actors at: 1) ]
 				description:
 					'delegate must be first child, otherwise someone else messed with the array'.
 			actors at: 1 put: aLook ].
@@ -30,10 +31,19 @@ BrThemeableLook >> initialize [
 	addedToSceneGraphEventHandler := BlEventHandler
 		on: BlElementAddedToSceneGraphEvent
 		do: [ self delegate: (widget theme newLookFor: widget) ].
+	themeChangedEventHandler := BlEventHandler
+		on: BrThemeChanged
+		do: [ self delegate: (widget theme newLookFor: widget) ].
 	self
 		addChange:
 			(BrLookChange new
-				up: [ :e | widget addEventHandler: addedToSceneGraphEventHandler ];
-				down: [ :e | widget removeEventHandler: addedToSceneGraphEventHandler ];
+				up: [ :e | 
+					widget
+						addEventHandler: addedToSceneGraphEventHandler;
+						addEventHandler: themeChangedEventHandler ];
+				down: [ :e | 
+					widget
+						removeEventHandler: themeChangedEventHandler;
+						removeEventHandler: addedToSceneGraphEventHandler ];
 				yourself)
 ]
