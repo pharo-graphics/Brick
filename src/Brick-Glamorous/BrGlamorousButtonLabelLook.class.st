@@ -48,12 +48,12 @@ BrGlamorousButtonLabelLook >> initialize [
 		fontName: 'Source Sans Pro'.
 
 	labelElement addLook: (BrSizeAdjustmentLook new
-		normal: [ :aStyle | aStyle fontSize: 14 ];
-		huge: [ :aStyle | aStyle fontSize: 20 ];
-		large: [ :aStyle | aStyle fontSize: 16 ];
-		small: [ :aStyle | aStyle fontSize: 12 ];
-		tiny: [ :aStyle | aStyle fontSize: 10 ];
-		mini: [ :aStyle | aStyle fontSize: 8 ]).
+		mini: [ :aStyle | aStyle fontSizeEm: 0.55 ];
+		tiny: [ :aStyle | aStyle fontSizeEm: 0.7 ];
+		small: [ :aStyle | aStyle fontSizeEm: 0.85 ];
+		normal: [ :aStyle | aStyle fontSizeEm: 1.0 ];
+		large: [ :aStyle | aStyle fontSizeEm: 1.15 ];
+		huge: [ :aStyle | aStyle fontSizeEm: 1.55 ]).
 
 	self add: (labelLook := BrStyleCommonLook new
 		@ labelElement;
