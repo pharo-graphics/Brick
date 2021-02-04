@@ -53,7 +53,64 @@ BrThemeExamples >> container [
 ]
 
 { #category : #accessing }
-BrThemeExamples >> list [
+BrThemeExamples >> listBaseline [
+	<gtExample>
+	| list |
+	list := BrSimpleList vertical
+		itemType: [ :aFactory :anItem :anIndex | Integer ];
+		itemStencil: [ :anItemType | 
+			BrButton new
+				look: BrGlamorousButtonWithLabelLook;
+				yourself ];
+		itemDataBinder: [ :anElement :anItem :anIndex | anElement label: anItem asString ];
+		items: (1 to: 1000);
+		yourself.
+	^ list
+]
+
+{ #category : #accessing }
+BrThemeExamples >> listBaselineScripter [
+	<gtExample>
+	| scripter |
+	scripter := BlDevScripter new
+		element: self listBaseline;
+		yourself.
+	scripter wait forEmptySpaceTaskQueue.
+	100
+		timesRepeat: [ scripter mouseWheel downBy: 25.
+			scripter wait waitingBlock: [ :e | 16 milliSeconds wait ] ].
+	scripter wait forEmptySpaceTaskQueue.
+	scripter syncContinue.
+	^ scripter
+]
+
+{ #category : #accessing }
+BrThemeExamples >> listElement [
+	<gtExample>
+	| list a b |
+	a := BrThemeExampleMapped new
+		at: BrButton put: #newGlamorousButtonLookFor:;
+		yourself.
+	b := BrThemeExampleMapped new
+		at: BrButton put: #newMaterialButtonLookFor:;
+		yourself.
+	list := BrSimpleList vertical
+		theme: a;
+		itemType: [ :aFactory :anItem :anIndex | Integer ];
+		itemStencil: [ :anItemType | 
+			BrThemeableButton new
+				action: [ list theme == a
+						ifTrue: [ list theme: b ]
+						ifFalse: [ list theme: a ] ];
+				yourself ];
+		itemDataBinder: [ :anElement :anItem :anIndex | anElement label: anItem asString ];
+		items: (1 to: 1000);
+		yourself.
+	^ list
+]
+
+{ #category : #accessing }
+BrThemeExamples >> listLook [
 	<gtExample>
 	| list a b |
 	a := BrThemeExampleMapped new
@@ -71,22 +128,6 @@ BrThemeExamples >> list [
 				action: [ list theme == a
 						ifTrue: [ list theme: b ]
 						ifFalse: [ list theme: a ] ];
-				yourself ];
-		itemDataBinder: [ :anElement :anItem :anIndex | anElement label: anItem asString ];
-		items: (1 to: 1000);
-		yourself.
-	^ list
-]
-
-{ #category : #accessing }
-BrThemeExamples >> listUnthemed [
-	<gtExample>
-	| list |
-	list := BrSimpleList vertical
-		itemType: [ :aFactory :anItem :anIndex | Integer ];
-		itemStencil: [ :anItemType | 
-			BrButton new
-				look: BrGlamorousButtonWithLabelLook;
 				yourself ];
 		itemDataBinder: [ :anElement :anItem :anIndex | anElement label: anItem asString ];
 		items: (1 to: 1000);
