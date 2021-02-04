@@ -10,6 +10,7 @@ Class {
 { #category : #'api - instantiation' }
 BrDefaultTreeRowDataBinder >> buildDefault [
 	<return: #BrStencil or: #BlElement>
+
 	self rowElement
 		childNamed: #toggle
 		ifFound: [ :aToggleElement | 

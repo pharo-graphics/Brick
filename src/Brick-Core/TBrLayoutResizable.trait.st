@@ -37,11 +37,17 @@ TBrLayoutResizable >> hExact: aNumber [
 
 { #category : #'api - layout resizeable' }
 TBrLayoutResizable >> hFitContent [
+	(self constraints horizontal resizer isFitContent)
+		ifFalse: [ self constraintsDo: [ :c | c horizontal fitContent ] ].
+
 	self states addState: BrLayoutHorizontalResizerState fitContent
 ]
 
 { #category : #'api - layout resizeable' }
 TBrLayoutResizable >> hFitContentLimited [
+	(self constraints horizontal resizer isFitContentLimited)
+		ifFalse: [ self constraintsDo: [ :c | c horizontal fitContentLimited ] ].
+
 	self states addState: BrLayoutHorizontalResizerState fitContentLimited
 ]
 
@@ -52,6 +58,9 @@ TBrLayoutResizable >> hLocal [
 
 { #category : #'api - layout resizeable' }
 TBrLayoutResizable >> hMatchParent [
+	(self constraints horizontal resizer isMatchParent)
+		ifFalse: [ self constraintsDo: [ :c | c horizontal matchParent ] ].
+
 	self states addState: BrLayoutHorizontalResizerState matchParent
 ]
 
@@ -75,11 +84,17 @@ TBrLayoutResizable >> vExact: aNumber [
 
 { #category : #'api - layout resizeable' }
 TBrLayoutResizable >> vFitContent [
+	(self constraints vertical resizer isFitContent)
+		ifFalse: [ self constraintsDo: [ :c | c vertical fitContent ] ].
+
 	self states addState: BrLayoutVerticalResizerState fitContent
 ]
 
 { #category : #'api - layout resizeable' }
 TBrLayoutResizable >> vFitContentLimited [
+	(self constraints vertical resizer isFitContentLimited)
+		ifFalse: [ self constraintsDo: [ :c | c vertical fitContentLimited ] ].
+
 	self states addState: BrLayoutVerticalResizerState fitContentLimited
 ]
 
@@ -90,5 +105,8 @@ TBrLayoutResizable >> vLocal [
 
 { #category : #'api - layout resizeable' }
 TBrLayoutResizable >> vMatchParent [
+	(self constraints vertical resizer isMatchParent)
+		ifFalse: [ self constraintsDo: [ :c | c vertical matchParent ] ].
+
 	self states addState: BrLayoutVerticalResizerState matchParent
 ]
