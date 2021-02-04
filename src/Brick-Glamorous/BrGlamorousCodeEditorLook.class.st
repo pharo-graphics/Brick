@@ -7,5 +7,7 @@ Class {
 { #category : #initialization }
 BrGlamorousCodeEditorLook >> initialize [
 	super initialize.
-	self glamorousCodeFontAndSize
+	self 
+		glamorousCodeFont;
+		fontSize: 1 fontEm
 ]

@@ -9,5 +9,5 @@ BrGlamorousRegularEditorLook >> initialize [
 	super initialize.
 	self 
 		glamorousRegularFont;
-		fontSize: 14
+		fontSize: 1 fontEm
 ]

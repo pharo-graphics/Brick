@@ -1,9 +1,6 @@
 Class {
 	#name : #BrGlamorousTextLabelLook,
 	#superclass : #BrTextLabelLook,
-	#instVars : [
-		'normalFontSize'
-	],
 	#category : #'Brick-Glamorous-Label'
 }
 
@@ -12,7 +9,7 @@ BrGlamorousTextLabelLook >> initialize [
 	super initialize.
 
 	self fontName: 'Source Sans Pro'.
-		
+
 	labelElement addLook: (BrSizeAdjustmentLook new
 		mini: [ :aStyle | aStyle fontSizeEm: 0.55 ];
 		tiny: [ :aStyle | aStyle fontSizeEm: 0.7 ];
