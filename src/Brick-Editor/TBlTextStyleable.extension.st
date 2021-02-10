@@ -12,6 +12,13 @@ TBlTextStyleable >> appendingAdornment: aBrTextAdornmentStencilBuilder [
 ]
 
 { #category : #'*Brick-Editor' }
+TBlTextStyleable >> hideText [
+	"Visually replace a piece of text with a repeating aCharacter"
+
+	self attributesBuilder attribute: BrTextHideAttribute new
+]
+
+{ #category : #'*Brick-Editor' }
 TBlTextStyleable >> lineSpacing: aNumber [
 	self attributesBuilder attribute: (BrTextParagraphLineSpacingAttribute lineSpacing: aNumber)
 ]
