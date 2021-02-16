@@ -166,6 +166,8 @@ BrTreeNode >> collapse [
 	
 	self hasParent
 		ifTrue: [ self parent onNodesDisappearedAfter: self amount: aChildrenSize ].
+		
+	self update.
 	
 	self
 		onChildCollapsed: self
@@ -241,6 +243,8 @@ BrTreeNode >> expand [
 	
 	self hasParent
 		ifTrue: [ self parent onNodesAppearedAfter: self amount: aChildrenSize ].
+	
+	self update.
 	
 	self
 		onChildExpanded: self
