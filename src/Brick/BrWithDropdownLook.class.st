@@ -2,7 +2,8 @@ Class {
 	#name : #BrWithDropdownLook,
 	#superclass : #BrWithAnchoredLook,
 	#instVars : [
-		'hideWishHandler'
+		'hideWishHandler',
+		'clickShowCondition'
 	],
 	#category : #'Brick-Dropdown - Look'
 }
@@ -67,7 +68,9 @@ BrWithDropdownLook >> initialize [
 	hideWishHandler := BlEventHandler
 		on: BrDropdownHideWish
 		do: [ :aWish | self onHideWish: aWish ].
-	
+
+	clickShowCondition := [ :aClickEvent | true ].
+
 	preferredExtent := 200 @ 300.
 	strategy := BrAnchoredCompositeStrategy builder
 		single: [ :e | 
@@ -139,8 +142,12 @@ BrWithDropdownLook >> initializeListeners [
 	
 	self
 		when: BlClickEvent
-		do: [ self isWidgetEnabled
-			ifTrue: [ self show ] ]
+		do: [ :anEvent |
+			((self shouldShowDueToClick: anEvent)
+				and: [ self isWidgetEnabled ])
+					ifTrue: [
+						anEvent consumed: true.
+						self show ] ]
 ]
 
 { #category : #initialization }
@@ -165,6 +172,21 @@ BrWithDropdownLook >> onAnchoredElementCreated: anAnchoredElement [
 { #category : #'private - hooks' }
 BrWithDropdownLook >> onAnchoredElementRemoved: anAnchoredElement [
 	anAnchoredElement removeEventHandler: hideWishHandler
+]
+
+{ #category : #'api - displaying' }
+BrWithDropdownLook >> onControlClick [
+	clickShowCondition := [ :anEvent | anEvent modifiers isCtrl ]
+]
+
+{ #category : #'api - displaying' }
+BrWithDropdownLook >> onPrimaryClick [
+	clickShowCondition := [ :anEvent | anEvent modifiers isPrimaryModifier ]
+]
+
+{ #category : #'private - testing' }
+BrWithDropdownLook >> shouldShowDueToClick: aClickEvent [
+	^ clickShowCondition value: aClickEvent
 ]
 
 { #category : #'api - displaying' }
