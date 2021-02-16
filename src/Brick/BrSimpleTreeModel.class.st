@@ -3,6 +3,7 @@ Class {
 	#superclass : #BrAbstractTreeModel,
 	#instVars : [
 		'rowElementStencil',
+		'rowDataBinder',
 		'nodeElementStencil',
 		'nodeDataBinder',
 		'nodeUnbinder'
@@ -15,6 +16,8 @@ BrSimpleTreeModel >> initialize [
 	super initialize.
 
 	rowElementStencil := BrSimpleTreeRowElementStencilBuilder new.
+	rowDataBinder := BrDefaultTreeRowDataBinder new.
+	
 	nodeElementStencil := BrTreeNodeElementStencilBuilder new.
 	nodeDataBinder := BrTreeNodeDataBinder new.
 	nodeUnbinder := [ :anItemElement :anItem :aTreeNode | ]
@@ -25,7 +28,8 @@ BrSimpleTreeModel >> initializeListeners [
 	super initializeListeners.
 
 	self when: BrTreeNodeElementStencilRequest reply: [ :aResponse | aResponse nodeElementStencil: self nodeElementStencil ].
-	self when: BrTreeNodeDataBinderRequest reply: [ :aResponse | aResponse nodeDataBinder: self nodeDataBinder ]
+	self when: BrTreeNodeDataBinderRequest reply: [ :aResponse | aResponse nodeDataBinder: self nodeDataBinder ].
+	self when: BrTreeRowDataBinderRequest reply: [ :aResponse | aResponse rowDataBinder: self rowDataBinder ]
 ]
 
 { #category : #accessing }
@@ -70,6 +74,22 @@ BrSimpleTreeModel >> nodeUnbinder: anObject [
 
 	nodeUnbinder := anObject.
 	self dispatchEvent: (BrTreeNodeUnbinderChangedEvent new nodeUnbinder: nodeUnbinder)
+]
+
+{ #category : #accessing }
+BrSimpleTreeModel >> rowDataBinder [
+	"Return a stencil that is used to bind row data to a given row element"
+	<return: #BrTreeRowDataBinder>
+
+	^ rowDataBinder
+]
+
+{ #category : #accessing }
+BrSimpleTreeModel >> rowDataBinder: aStencil [
+	"Set a stencil that will be used to bind row data to a given row element"
+
+	rowDataBinder := aStencil asStencilBuilder: BrTreeRowDataBinder.
+	self dispatchEvent: (BrTreeRowDataBinderChangedEvent new rowDataBinder: rowDataBinder)
 ]
 
 { #category : #accessing }

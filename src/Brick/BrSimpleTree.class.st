@@ -53,6 +53,13 @@ BrSimpleTree >> nodeUnbinder: aBrTreeNodeUnbinder [
 ]
 
 { #category : #'api - scripting' }
+BrSimpleTree >> rowDataBinder: aBrTreeRowDataBinderOrBlock [
+	"An item type stencil can be a #value-able of the form [ :aRowElement :aTreeNode :aRowPosition | ]"
+
+	self viewModel rowDataBinder: aBrTreeRowDataBinderOrBlock
+]
+
+{ #category : #'api - scripting' }
 BrSimpleTree >> rowStencil: aBrSimpleTreeRowElementStencilBuilderOrBlock [
 	"A row element stencil can be a #value-able of the form [ :aNodeType :aNodeElement | ]"
 

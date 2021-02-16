@@ -21,6 +21,10 @@ BrSimpleTreeLook >> initializeListeners [
 	self
 		when: BrTreeRowElementStencilChangedEvent
 		do: [ :anEvent | self onRowElementStencilChanged: anEvent rowElementStencil ].
+		
+	self
+		when: BrTreeRowDataBinderChangedEvent
+		do: [ :anEvent | self onRowDataBinderChanged: anEvent rowDataBinder ].
 	
 	self
 		when: BrTreeNodeElementStencilChangedEvent
@@ -42,7 +46,8 @@ BrSimpleTreeLook >> initializeRequests [
 
 	self request: BrTreeRowElementStencilRequest new.
 	self request: BrTreeNodeElementStencilRequest new.
-	self request: BrTreeNodeDataBinderRequest new
+	self request: BrTreeNodeDataBinderRequest new.
+	self request: BrTreeRowDataBinderRequest new
 ]
 
 { #category : #hooks }
@@ -58,6 +63,11 @@ BrSimpleTreeLook >> onNodeElementStencilChanged: aBrTreeNodeElementStencilBuilde
 { #category : #hooks }
 BrSimpleTreeLook >> onNodeUnbinderChanged: aBrTreeNodeUnbinder [
 	treeElement dataSource nodeUnbinder: aBrTreeNodeUnbinder
+]
+
+{ #category : #hooks }
+BrSimpleTreeLook >> onRowDataBinderChanged: aBrTreeRowDataBinder [
+	treeElement dataSource rowDataBinder: aBrTreeRowDataBinder
 ]
 
 { #category : #hooks }
