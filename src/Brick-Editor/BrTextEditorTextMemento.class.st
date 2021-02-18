@@ -14,6 +14,11 @@ BrTextEditorTextMemento >> initialize [
 	text := '' asRopedText
 ]
 
+{ #category : #testing }
+BrTextEditorTextMemento >> isTextMemento [
+	^ true
+]
+
 { #category : #evaluating }
 BrTextEditorTextMemento >> label [
 	^ 'Text'

@@ -4,6 +4,16 @@ Class {
 	#category : #'Brick-Editor-Model - Memento'
 }
 
+{ #category : #testing }
+BrTextEditorMemento >> isSelectionMemento [
+	^ false
+]
+
+{ #category : #testing }
+BrTextEditorMemento >> isTextMemento [
+	^ false
+]
+
 { #category : #evaluating }
 BrTextEditorMemento >> label [
 	^ self subclassResponsibility
