@@ -39,6 +39,15 @@ BrStyleLook >> initialize [
 			yourself)
 ]
 
+{ #category : #initialization }
+BrStyleLook >> propagateStylesToWidget [
+	"Call me if this look is updated after its creation"
+
+	self widgetDo: [ :aWidget |
+		aWidget style addStyles: styles styles.
+		aWidget requestStyle ]
+]
+
 { #category : #accessing }
 BrStyleLook >> queryStep: aBlElementStep [
 	target queryStep: aBlElementStep
