@@ -3,7 +3,8 @@ Class {
 	#superclass : #BrWithAnchoredLook,
 	#instVars : [
 		'hideWishHandler',
-		'clickShowCondition'
+		'clickShowCondition',
+		'shouldHideWidget'
 	],
 	#category : #'Brick-Dropdown - Look'
 }
@@ -55,6 +56,57 @@ BrWithDropdownLook class >> handle: anObject content: anotherObject lookDo: aBlo
 ]
 
 { #category : #'api - displaying' }
+BrWithDropdownLook >> attachToCenter [
+	strategy := BrAnchoredCompositeStrategy builder
+		single: [ :e | 
+			e
+				anchorBounds: [ :f | widget bounds inParent: f ];
+				referencePoint: BrAnchoredCenterReferencePoint;
+				availableBounds: BrAnchoredBottomRightAvailableBounds;
+				apply: [ innerContainer
+						removeLook: BrDropdownBottomLeftLook;
+						removeLook: BrDropdownTopLeftLook;
+						removeLook: BrDropdownTopRightLook;
+						addLook: BrDropdownBottomRightLook ] ];
+		single: [ :e | 
+			e
+				anchorBounds: [ :f | widget bounds inParent: f ];
+				referencePoint: BrAnchoredCenterReferencePoint;
+				availableBounds: BrAnchoredBottomLeftAvailableBounds;
+				apply: [ innerContainer
+						removeLook: BrDropdownBottomRightLook;
+						removeLook: BrDropdownTopLeftLook;
+						removeLook: BrDropdownTopRightLook;
+						addLook: BrDropdownBottomLeftLook ] ];
+		single: [ :e | 
+			e
+				anchorBounds: [ :f | widget bounds inParent: f ];
+				referencePoint: BrAnchoredCenterReferencePoint;
+				availableBounds: BrAnchoredTopRightAvailableBounds;
+				apply: [ innerContainer
+						removeLook: BrDropdownBottomRightLook;
+						removeLook: BrDropdownBottomLeftLook;
+						removeLook: BrDropdownTopRightLook;
+						addLook: BrDropdownTopLeftLook ] ];
+		single: [ :e | 
+			e
+				anchorBounds: [ :f | widget bounds inParent: f ];
+				referencePoint: BrAnchoredCenterReferencePoint;
+				availableBounds: BrAnchoredTopLeftAvailableBounds;
+				apply: [ innerContainer
+						removeLook: BrDropdownBottomRightLook;
+						removeLook: BrDropdownBottomLeftLook;
+						removeLook: BrDropdownTopLeftLook;
+						addLook: BrDropdownTopRightLook ] ];
+		build.
+]
+
+{ #category : #'api - displaying' }
+BrWithDropdownLook >> doNotHideWidget [
+	self shouldHideWidget: false
+]
+
+{ #category : #'api - displaying' }
 BrWithDropdownLook >> hide [
 	super hide.
 
@@ -70,6 +122,9 @@ BrWithDropdownLook >> initialize [
 		do: [ :aWish | self onHideWish: aWish ].
 
 	clickShowCondition := [ :aClickEvent | true ].
+	
+	"when true, the widget under the dropdown will be hidden"
+	shouldHideWidget := true.
 
 	preferredExtent := 200 @ 300.
 	strategy := BrAnchoredCompositeStrategy builder
@@ -184,6 +239,16 @@ BrWithDropdownLook >> onPrimaryClick [
 	clickShowCondition := [ :anEvent | anEvent modifiers isPrimaryModifier ]
 ]
 
+{ #category : #'api - displaying' }
+BrWithDropdownLook >> shouldHideWidget [
+	^ shouldHideWidget
+]
+
+{ #category : #'api - displaying' }
+BrWithDropdownLook >> shouldHideWidget: anObject [
+	shouldHideWidget := anObject
+]
+
 { #category : #'private - testing' }
 BrWithDropdownLook >> shouldShowDueToClick: aClickEvent [
 	^ clickShowCondition value: aClickEvent
@@ -193,5 +258,6 @@ BrWithDropdownLook >> shouldShowDueToClick: aClickEvent [
 BrWithDropdownLook >> show [
 	super show.
 
-	self widgetDo: [ :aWidget | aWidget visibility: BlVisibility hidden ]
+	self shouldHideWidget
+		ifTrue: [ self widgetDo: [ :aWidget | aWidget visibility: BlVisibility hidden ] ]
 ]
