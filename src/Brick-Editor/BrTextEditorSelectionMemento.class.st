@@ -14,6 +14,11 @@ BrTextEditorSelectionMemento >> initialize [
 	selection := BlCompositeSelection new
 ]
 
+{ #category : #testing }
+BrTextEditorSelectionMemento >> isSelectionMemento [
+	^ true
+]
+
 { #category : #evaluating }
 BrTextEditorSelectionMemento >> label [
 	^ 'Selection'

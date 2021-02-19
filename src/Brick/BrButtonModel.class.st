@@ -66,7 +66,11 @@ BrButtonModel >> gtActionFor: aView [
 		title: 'Action';
 		priority: 1;
 		object: [ self action ];
-		view: #gtSourceCodeFor:
+		view: #gtSourceCodeFor:;
+		actionButtonIcon: BrGlamorousVectorIcons inspect 
+			label: 'Action' 
+			tooltip: 'Inspect action object' 
+			action: [ :aButton | aButton phlow spawnObject: self action ]
 ]
 
 { #category : #initialization }
