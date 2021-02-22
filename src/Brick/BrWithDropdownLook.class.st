@@ -110,7 +110,8 @@ BrWithDropdownLook >> doNotHideWidget [
 BrWithDropdownLook >> hide [
 	super hide.
 
-	self widgetDo: [ :aWidget | aWidget visibility: BlVisibility visible ]
+	self shouldHideWidget
+		ifTrue: [ self widgetDo: [ :aWidget | aWidget visibility: BlVisibility visible ] ]
 ]
 
 { #category : #initialization }
