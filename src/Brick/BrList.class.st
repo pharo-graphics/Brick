@@ -1,8 +1,8 @@
 Class {
 	#name : #BrList,
 	#superclass : #BlElement,
-	#traits : 'TBrLayoutResizable + TBrSelectable',
-	#classTraits : 'TBrLayoutResizable classTrait + TBrSelectable classTrait',
+	#traits : 'TBrLayoutResizable + TBrSelectable + TBrScrollable',
+	#classTraits : 'TBrLayoutResizable classTrait + TBrSelectable classTrait + TBrScrollable classTrait',
 	#category : #'Brick-List - UI'
 }
 
