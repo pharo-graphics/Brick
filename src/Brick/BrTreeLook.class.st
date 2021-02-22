@@ -36,13 +36,7 @@ BrTreeLook >> initializeListeners [
 	self when: BrTreeNodeTypeStencilChangedEvent do: [ :anEvent | self onNodeTypeStencilChanged: anEvent nodeTypeStencil ].
 	self when: BrTreeNodeIdStencilChangedEvent do: [ :anEvent | self onNodeIdStencilChanged: anEvent nodeIdStencil ].
 	
-	self
-		when: BrScrollByWish
-		do: [ :aWish | self onScrollBy: aWish ].
-
-	self
-		when: BrScrollToItemWish
-		do: [ :aWish | self onScrollToItem: aWish ]
+	self initializeScrollListeners
 ]
 
 { #category : #initialization }
@@ -53,6 +47,17 @@ BrTreeLook >> initializeRequests [
 	self request: BrTreeNodeIdStencilRequest new.
 	self request: BrTreeChildrenRequest new.
 	self request: BrSelectionRequest new.
+]
+
+{ #category : #initialization }
+BrTreeLook >> initializeScrollListeners [
+	self
+		when: BrScrollByWish
+		do: [ :aWish | self onScrollBy: aWish ].
+
+	self
+		when: BrScrollToItemWish
+		do: [ :aWish | self onScrollToItem: aWish ]
 ]
 
 { #category : #hooks }

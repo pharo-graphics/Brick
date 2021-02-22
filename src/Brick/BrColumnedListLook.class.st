@@ -1,6 +1,8 @@
 Class {
 	#name : #BrColumnedListLook,
 	#superclass : #BrLook,
+	#traits : 'TBrListInfiniteElementScroll',
+	#classTraits : 'TBrListInfiniteElementScroll classTrait',
 	#instVars : [
 		'listElement',
 		'rowStencil'
@@ -39,6 +41,8 @@ BrColumnedListLook >> initializeListeners [
 	self when: BrColumnsChanged do: [ :anEvent | self onColumnsChanged: anEvent columns ].
 	self when: BrSelectionChanged do: [ :anEvent | self onSelectionChanged: anEvent indices ].
 	self when: BrListItemTypeStencilChangedEvent do: [ :anEvent | self onItemTypeStencilChanged: anEvent itemTypeStencil ].
+	
+	self initializeScrollListeners
 ]
 
 { #category : #initialization }

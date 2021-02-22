@@ -1,6 +1,8 @@
 Class {
 	#name : #BrSimpleListLook,
 	#superclass : #BrLook,
+	#traits : 'TBrListInfiniteElementScroll',
+	#classTraits : 'TBrListInfiniteElementScroll classTrait',
 	#instVars : [
 		'listElement'
 	],
@@ -70,6 +72,8 @@ BrSimpleListLook >> initializeListeners [
 	self when: BrListItemElementStencilChangedEvent do: [ :anEvent | self onItemElementStencilChanged: anEvent itemElementStencil ].
 	self when: BrListItemDataBinderChangedEvent do: [ :anEvent | self onItemDataBinderChanged: anEvent itemDataBinder ].
 	self when: BrListItemDataUnbinderChangedEvent do: [ :anEvent | self onItemDataUnbinderChanged: anEvent itemDataUnbinder ].
+	
+	self initializeScrollListeners
 ]
 
 { #category : #initialization }

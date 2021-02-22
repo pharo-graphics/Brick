@@ -1,8 +1,8 @@
 Class {
 	#name : #BrList,
 	#superclass : #BlElement,
-	#traits : 'TBrLayoutResizable + TBrSelectable',
-	#classTraits : 'TBrLayoutResizable classTrait + TBrSelectable classTrait',
+	#traits : 'TBrLayoutResizable + TBrSelectable + TBrScrollable',
+	#classTraits : 'TBrLayoutResizable classTrait + TBrSelectable classTrait + TBrScrollable classTrait',
 	#category : #'Brick-List - UI'
 }
 
@@ -74,4 +74,13 @@ BrList >> maxSelectionIndex [
 	<return: #Number>
 	
 	^ self items size
+]
+
+{ #category : #'api - scrolling' }
+BrList >> scrollToItem: anObject [
+	"Request a scrollable widget to scroll to a given item"
+
+	self viewModel items withIndexDo: [ :anItem :anIndex | 
+		anObject = anItem 
+			ifTrue: [ self scrollToIndex: anIndex ] ]
 ]
