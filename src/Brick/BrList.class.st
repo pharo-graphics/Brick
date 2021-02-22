@@ -75,3 +75,12 @@ BrList >> maxSelectionIndex [
 	
 	^ self items size
 ]
+
+{ #category : #'api - scrolling' }
+BrList >> scrollToItem: anObject [
+	"Request a scrollable widget to scroll to a given item"
+
+	self viewModel items withIndexDo: [ :anItem :anIndex | 
+		anObject = anItem 
+			ifTrue: [ self scrollToIndex: anIndex ] ]
+]
