@@ -29,6 +29,5 @@ BrThemeMapped >> newLookFor: anElement [
 		at: cursor
 		ifPresent: [ :s | ^ self perform: s with: anElement ].
 	cursor := cursor superclass ] doWhileTrue: [ cursor isNotNil ].
-	Error
-		signal: 'Could not create look, no mapped class in inheritance tree found'
+	^ nil
 ]

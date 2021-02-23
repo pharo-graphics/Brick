@@ -7,7 +7,6 @@ Class {
 { #category : #accessing }
 BrThemeExampleMapped >> initialize [
 	super initialize.
-	self at: BlElement put: #newDefaultLookFor:.
 	self at: BrButton put: #newGlamorousButtonLookFor:
 ]
 
