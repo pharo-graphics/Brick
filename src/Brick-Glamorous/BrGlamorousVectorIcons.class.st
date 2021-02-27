@@ -247,6 +247,19 @@ BrGlamorousVectorIcons class >> filter [
 ]
 
 { #category : #icons }
+BrGlamorousVectorIcons class >> folder [
+	<script: 'self folder inspect'>
+
+	^ [ BlElement new
+		size: self standardSize;
+		geometry: (BlSvgPath new
+			svg: 'M 2 5.1616955 L 2 13 L 14 13 L 14 5.1616955 L 10 5.1616955 L 8.4 3 L 2 3 Z'
+			viewbox: (0@0 extent: self standardSize));
+		outskirts: BlOutskirts centered;
+		border: (BlBorder paint: Color black width: 1.5) ] asStencil
+]
+
+{ #category : #icons }
 BrGlamorousVectorIcons class >> gt [
 	<script: 'self gt inspect'>
 
