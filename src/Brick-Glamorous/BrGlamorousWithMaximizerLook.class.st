@@ -21,6 +21,11 @@ BrGlamorousWithMaximizerLook >> createActionButton [
 		size: 16@16
 ]
 
+{ #category : #'api - visibility' }
+BrGlamorousWithMaximizerLook >> hideMaximizeButton [
+	actionButton visibility: BlVisibility gone
+]
+
 { #category : #initialization }
 BrGlamorousWithMaximizerLook >> initialize [
 	super initialize.
@@ -52,5 +57,10 @@ BrGlamorousWithMaximizerLook >> onMaximized [
 BrGlamorousWithMaximizerLook >> onMinimized [
 	super onMinimized.
 
+	actionButton visibility: BlVisibility visible
+]
+
+{ #category : #'api - visibility' }
+BrGlamorousWithMaximizerLook >> showMaximizeButton [
 	actionButton visibility: BlVisibility visible
 ]
