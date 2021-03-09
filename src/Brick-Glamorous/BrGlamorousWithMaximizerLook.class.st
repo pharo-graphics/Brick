@@ -24,13 +24,13 @@ BrGlamorousWithMaximizerLook >> createActionButton [
 { #category : #initialization }
 BrGlamorousWithMaximizerLook >> initialize [
 	super initialize.
-	
+
 	actionButton := self createActionButton.
 	actionButton action: [
 		isMaximized
 			ifTrue: [ self minimize ]
 			ifFalse: [ self maximize ] ].
-	
+
 	actionButton constraintsDo: [ :c |
 		c ignoreByLayout.
 		c ignored horizontal alignCenterAt: 0.
