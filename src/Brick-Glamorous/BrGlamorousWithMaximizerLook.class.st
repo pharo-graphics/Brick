@@ -17,8 +17,8 @@ BrGlamorousWithMaximizerLook >> createActionButton [
 			pressed: [ :s | s background: Color veryVeryLightGray ]);
 		geometry: BlEllipseGeometry new;
 		layout: BlLinearLayout horizontal alignCenter;
-		icon: (BrPlusIconStencil new);
-		size: 20@20
+		icon: (BrPlusIconStencil new radius: 4);
+		size: 16@16
 ]
 
 { #category : #initialization }
@@ -33,7 +33,7 @@ BrGlamorousWithMaximizerLook >> initialize [
 	
 	actionButton constraintsDo: [ :c |
 		c ignoreByLayout.
-		c ignored horizontal alignCenterAt: 1.
+		c ignored horizontal alignCenterAt: 0.
 		c ignored vertical alignCenterAt: 0 ].
 	actionButton zIndex: 100.
 
