@@ -159,6 +159,15 @@ BrActor >> hasActor: anActorClass [
 ]
 
 { #category : #'api - testing' }
+BrActor >> hasActorOfKind: anActorClass [
+	"Return true if I or any of my children is of the given type"
+	<return: #Boolean>
+
+	^ (self isKindOf: anActorClass)
+		or: [ self actors anySatisfy: [ :eachActor | eachActor hasActorOfKind: anActorClass ] ]
+]
+
+{ #category : #'api - testing' }
 BrActor >> hasOwner [
 	"Utility #owner message makes it possible to have a polymorphic way to visualise a tree structure of the elements"
 	<return: #Boolean>

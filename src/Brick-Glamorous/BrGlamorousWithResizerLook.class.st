@@ -7,6 +7,11 @@ Class {
 	#category : #'Brick-Glamorous-Resizer'
 }
 
+{ #category : #'api - visibility' }
+BrGlamorousWithResizerLook >> hideResizer [
+	self resizerDo: [ :aResizer | aResizer visibility: BlVisibility hidden ]
+]
+
 { #category : #initialization }
 BrGlamorousWithResizerLook >> initialize [
 	super initialize.
@@ -31,4 +36,9 @@ BrGlamorousWithResizerLook >> newResizer [
 { #category : #enumerating }
 BrGlamorousWithResizerLook >> resizerDo: aBlock [
 	aBlock value: resizer
+]
+
+{ #category : #'api - visibility' }
+BrGlamorousWithResizerLook >> showResizer [
+	self resizerDo: [ :aResizer | aResizer visibility: BlVisibility visible ]
 ]
