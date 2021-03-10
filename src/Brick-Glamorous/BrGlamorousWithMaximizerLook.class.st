@@ -21,16 +21,20 @@ BrGlamorousWithMaximizerLook >> createActionButton [
 		size: 16@16
 ]
 
+{ #category : #'api - visibility' }
+BrGlamorousWithMaximizerLook >> hideMaximizeButton [
+	actionButton visibility: BlVisibility gone
+]
+
 { #category : #initialization }
 BrGlamorousWithMaximizerLook >> initialize [
 	super initialize.
-	
+
 	actionButton := self createActionButton.
 	actionButton action: [
 		isMaximized
-			ifTrue: [ self minimize ]
 			ifFalse: [ self maximize ] ].
-	
+
 	actionButton constraintsDo: [ :c |
 		c ignoreByLayout.
 		c ignored horizontal alignCenterAt: 0.
@@ -52,5 +56,10 @@ BrGlamorousWithMaximizerLook >> onMaximized [
 BrGlamorousWithMaximizerLook >> onMinimized [
 	super onMinimized.
 
+	actionButton visibility: BlVisibility visible
+]
+
+{ #category : #'api - visibility' }
+BrGlamorousWithMaximizerLook >> showMaximizeButton [
 	actionButton visibility: BlVisibility visible
 ]

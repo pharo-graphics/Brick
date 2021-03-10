@@ -22,6 +22,13 @@ BrTextEventHandlerAttribute >> isEventHandler [
 	^ true
 ]
 
+{ #category : #testing }
+BrTextEventHandlerAttribute >> mayHaveExternalReferences [
+	"Answer if this attribute can have references to some external objects like AST nodes or computation results"
+
+	^ true
+]
+
 { #category : #comparing }
 BrTextEventHandlerAttribute >> type [
 	^ self

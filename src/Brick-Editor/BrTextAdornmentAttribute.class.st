@@ -102,6 +102,13 @@ BrTextAdornmentAttribute >> isStyle [
 	^ false
 ]
 
+{ #category : #testing }
+BrTextAdornmentAttribute >> mayHaveExternalReferences [
+	"Answer if this attribute can have references to some external objects like AST nodes or computation results"
+
+	^ true
+]
+
 { #category : #private }
 BrTextAdornmentAttribute >> newPooledCache [
 	^ BrTextAdornmentAttributePooledCache new

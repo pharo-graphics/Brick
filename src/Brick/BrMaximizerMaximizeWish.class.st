@@ -2,6 +2,7 @@ Class {
 	#name : #BrMaximizerMaximizeWish,
 	#superclass : #BlEvent,
 	#instVars : [
+		'maximizerLook',
 		'elementToMaximize',
 		'preferredBackground'
 	],
@@ -16,6 +17,16 @@ BrMaximizerMaximizeWish >> elementToMaximize [
 { #category : #accessing }
 BrMaximizerMaximizeWish >> elementToMaximize: anObject [
 	elementToMaximize := anObject
+]
+
+{ #category : #accessing }
+BrMaximizerMaximizeWish >> maximizerLook [
+	^ maximizerLook
+]
+
+{ #category : #accessing }
+BrMaximizerMaximizeWish >> maximizerLook: anObject [
+	maximizerLook := anObject
 ]
 
 { #category : #accessing }
