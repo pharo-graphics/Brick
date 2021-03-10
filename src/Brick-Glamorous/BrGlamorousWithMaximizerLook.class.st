@@ -33,7 +33,6 @@ BrGlamorousWithMaximizerLook >> initialize [
 	actionButton := self createActionButton.
 	actionButton action: [
 		isMaximized
-			ifTrue: [ self minimize ]
 			ifFalse: [ self maximize ] ].
 
 	actionButton constraintsDo: [ :c |

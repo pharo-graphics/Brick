@@ -1,13 +1,21 @@
 Class {
 	#name : #BrWithMaximizerLook,
 	#superclass : #BrLook,
+	#traits : 'TBlElementQuery',
+	#classTraits : 'TBlElementQuery classTrait',
 	#instVars : [
 		'isMaximized',
 		'placeholderElement',
-		'preferredBackground'
+		'preferredBackground',
+		'targetQuery'
 	],
 	#category : #'Brick-Maximizer - Look'
 }
+
+{ #category : #private }
+BrWithMaximizerLook >> elementToMaximize [
+	^ (targetQuery findOne: self widget) result
+]
 
 { #category : #private }
 BrWithMaximizerLook >> findAllPossibleHostsFor: anElement [
@@ -28,7 +36,10 @@ BrWithMaximizerLook >> initialize [
 	super initialize.
 	
 	isMaximized := false.
-	preferredBackground := Color transparent
+	preferredBackground := Color transparent.
+	
+	"empty selector, means we apply it on the widget itself"
+	targetQuery := BlElementLazyQuery new
 ]
 
 { #category : #initialization }
@@ -49,58 +60,40 @@ BrWithMaximizerLook >> isMaximized [
 { #category : #'api - maximization' }
 BrWithMaximizerLook >> maximize [
 	self widgetDo: [ :anElement |
-		 (self findAllPossibleHostsFor: anElement)
-			ifNotEmpty: [ :theHosts | self maximizeElement: anElement in: theHosts first ] ]
+		| anElementToMaximize |
+		
+		anElementToMaximize := self elementToMaximize.
+		anElementToMaximize
+			ifNil: [ ^ self ].
+		
+		 (self findAllPossibleHostsFor: anElementToMaximize)
+			ifNotEmpty: [ :theHosts | self maximizeElement: anElementToMaximize in: theHosts first ] ]
 ]
 
 { #category : #private }
-BrWithMaximizerLook >> maximizeElement: anElement in: aHostElement [
+BrWithMaximizerLook >> maximizeElement: anElementToMaximize in: aHostElement [
 	"Maximization is impossible if an element has no parent"
-	anElement hasParent
+	anElementToMaximize hasParent
 		ifFalse: [ ^ self ].
 
 	placeholderElement := BlElement new.
-	placeholderElement constraints horizontal resizer: anElement constraints horizontal resizer.
-	placeholderElement constraints vertical resizer: anElement constraints vertical resizer.
+	placeholderElement constraints horizontal resizer: anElementToMaximize constraints horizontal resizer.
+	placeholderElement constraints vertical resizer: anElementToMaximize constraints vertical resizer.
 	
-	anElement parent replaceChild: anElement with: placeholderElement.
+	anElementToMaximize parent replaceChild: anElementToMaximize with: placeholderElement.
 	
 	aHostElement dispatchEvent: (BrMaximizerMaximizeWish new
-		elementToMaximize: anElement;
+		maximizerLook: self;
+		elementToMaximize: anElementToMaximize;
 		preferredBackground: self preferredBackground).
 	
 	isMaximized := true.
 	
-	anElement dispatchEvent: (BrMaximizerElementMaximized new
+	anElementToMaximize dispatchEvent: (BrMaximizerElementMaximized new
 		hostElement: aHostElement;
 		placeholderElement: placeholderElement).
-		
+
 	self onMaximized
-]
-
-{ #category : #'api - maximization' }
-BrWithMaximizerLook >> maximizeIn: aHostElement [
-	isMaximized
-		ifTrue: [ ^ self ].
-
-	self widgetDo: [ :anElement |
-		anElement hasParent
-			ifFalse: [ ^ self ].
-	
-		self maximizeElement: anElement in: aHostElement ]
-]
-
-{ #category : #'api - maximization' }
-BrWithMaximizerLook >> minimize [
-	isMaximized
-		ifFalse: [ ^ self ].
-
-	self widgetDo: [ :anElement |
-		anElement hasParent
-			ifFalse: [ ^ self ].
-		self
-			minimizeElement: anElement
-			in: anElement parent ]
 ]
 
 { #category : #private }
@@ -138,4 +131,9 @@ BrWithMaximizerLook >> preferredBackground [
 { #category : #accessing }
 BrWithMaximizerLook >> preferredBackground: anObject [
 	preferredBackground := anObject
+]
+
+{ #category : #'api - query' }
+BrWithMaximizerLook >> queryStep: aBlElementStep [
+	targetQuery queryStep: aBlElementStep
 ]
