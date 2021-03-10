@@ -87,10 +87,12 @@ BrList >> scrollToItem: anObject [
 
 { #category : #'api - selection' }
 BrList >> selectedItemDo: aBlock [
-	"Evaluate aBlock with the currently selected item"
+	"Evaluate aBlock with the currently selected item and index"
 	
 	self selectedIndices
 		ifNotEmpty: [ :theIndices |
 			(theIndices first between: 1 and: self viewModel itemCount)
-				ifTrue: [ aBlock value: (self viewModel itemAt: theIndices first) ] ]
+				ifTrue: [ aBlock 
+					cull: (self viewModel itemAt: theIndices first) 
+					cull: theIndices first ] ]
 ]
