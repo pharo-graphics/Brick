@@ -8,6 +8,7 @@ Class {
 BrTextEditorReadonlyWithSelectionMode >> createEventHandlers [
 	^ super createEventHandlers, {
 		BrTextEditorMouseDownHandler uniqueInstance.
+		BrTextEditorDoubleClickHandler uniqueInstance.
 		BrTextEditorSelectionHandler new.
 		BrTextEditorCursorIconHandler uniqueInstance.
 	}

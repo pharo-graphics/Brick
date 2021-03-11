@@ -8,8 +8,9 @@ Class {
 BrTextEditorEditableMode >> createEventHandlers [
 	^ super createEventHandlers, {
 		BrTextEditorMouseDownHandler uniqueInstance.
+		BrTextEditorDoubleClickHandler uniqueInstance.
 		BrTextEditorSelectionHandler new.
-		BrTextEditorInsertionHandler new.
+		BrTextEditorInsertionHandler uniqueInstance.
 		BrTextEditorCursorIconHandler uniqueInstance.
 	}
 ]

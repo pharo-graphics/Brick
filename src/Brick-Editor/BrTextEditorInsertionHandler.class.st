@@ -3,9 +3,29 @@ I handle keystroke-based insertions and must be added to the editor element
 "
 Class {
 	#name : #BrTextEditorInsertionHandler,
-	#superclass : #BlEventListener,
+	#superclass : #BlCustomEventHandler,
+	#classInstVars : [
+		'uniqueInstance'
+	],
 	#category : #'Brick-Editor-UI - Handlers'
 }
+
+{ #category : #accessing }
+BrTextEditorInsertionHandler class >> cleanUp [
+	super cleanUp.
+	
+	uniqueInstance := nil
+]
+
+{ #category : #accessing }
+BrTextEditorInsertionHandler class >> uniqueInstance [
+	^ uniqueInstance ifNil: [ uniqueInstance := self new ]
+]
+
+{ #category : #'api - accessing' }
+BrTextEditorInsertionHandler >> eventsToHandle [
+	^ { BlTextInputEvent }
+]
 
 { #category : #'api - insertion' }
 BrTextEditorInsertionHandler >> insert: aString atCursorIn: anEditor context: anElement [
@@ -31,7 +51,7 @@ BrTextEditorInsertionHandler >> insert: aString atCursorIn: anEditor context: an
 				insert ]
 ]
 
-{ #category : #'keyboard handlers' }
+{ #category : #'api - event managing' }
 BrTextEditorInsertionHandler >> textInputEvent: anEvent [
     "we don't want to insert anything if primary modifier key is pressed.
     without this check if users try to use shortcuts that may don't exist such as (meta+s) the action will result in typing

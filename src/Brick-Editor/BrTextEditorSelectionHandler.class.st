@@ -1,6 +1,6 @@
 Class {
 	#name : #BrTextEditorSelectionHandler,
-	#superclass : #BlEventListener,
+	#superclass : #BlCustomEventHandler,
 	#instVars : [
 		'startIndex'
 	],
@@ -9,9 +9,7 @@ Class {
 
 { #category : #'dnd handlers' }
 BrTextEditorSelectionHandler >> dragEvent: anEvent [
-	| anEditor currentIndex |
-	super dragEvent: anEvent.
-	
+	| anEditor currentIndex |	
 	anEvent consumed: true.
 
 	anEditor := anEvent currentTarget editor.
@@ -36,9 +34,7 @@ BrTextEditorSelectionHandler >> dragEvent: anEvent [
 
 { #category : #'dnd handlers' }
 BrTextEditorSelectionHandler >> dragStartEvent: anEvent [
-	| anEditor |
-	super dragStartEvent: anEvent.
-	
+	| anEditor |	
 	anEvent consumed: true.
 
 	anEditor := anEvent currentTarget editor.
@@ -47,4 +43,9 @@ BrTextEditorSelectionHandler >> dragStartEvent: anEvent [
 	startIndex := anEditor navigator
 		findTextIndexAtScreenPosition: anEvent localPosition
 		ifAbsent: [ nil ].
+]
+
+{ #category : #'api - accessing' }
+BrTextEditorSelectionHandler >> eventsToHandle [
+	^ { BlDragEvent . BlDragStartEvent }
 ]

@@ -3,7 +3,7 @@ I handle mouse down events and move or add a cursor at a corresponding position
 "
 Class {
 	#name : #BrTextEditorMouseDownHandler,
-	#superclass : #BlBasicEventHandler,
+	#superclass : #BlCustomEventHandler,
 	#classInstVars : [
 		'uniqueInstance'
 	],
@@ -22,13 +22,13 @@ BrTextEditorMouseDownHandler class >> uniqueInstance [
 	^ uniqueInstance ifNil: [ uniqueInstance := self new ]
 ]
 
-{ #category : #accessing }
-BrTextEditorMouseDownHandler >> eventClass [
-	^ BlMouseDownEvent
+{ #category : #'api - accessing' }
+BrTextEditorMouseDownHandler >> eventsToHandle [
+	^ { BlMouseDownEvent }
 ]
 
 { #category : #'api - event managing' }
-BrTextEditorMouseDownHandler >> handleEvent: anEvent [
+BrTextEditorMouseDownHandler >> mouseDownEvent: anEvent [
 	| aNavigator aScreenPosition anEditorElement |
 	
 	"To not create an instance of me for each tiny text element"
@@ -61,5 +61,5 @@ BrTextEditorMouseDownHandler >> handleEvent: anEvent [
 
 { #category : #'api - event managing' }
 BrTextEditorMouseDownHandler >> wantsEvent: anEvent [
-	^ anEvent class = self eventClass and: [ anEvent primaryButtonPressed ]
+	^ (super wantsEvent: anEvent) and: [ anEvent primaryButtonPressed ]
 ]

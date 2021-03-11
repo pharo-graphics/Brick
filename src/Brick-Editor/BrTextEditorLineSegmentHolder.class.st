@@ -114,7 +114,6 @@ BrTextEditorLineSegmentHolder >> createSegmentElement [
 		beInSeparateCompositionLayer;
 		layout: self class defaultSegmentLayout;
 		focusability: BlFocusability after;
-		addEventHandler: BrTextEditorMouseDownHandler uniqueInstance;
 		constraintsDo: [ :c |
 			c horizontal matchParent.
 			c vertical fitContent ];

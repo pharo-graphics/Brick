@@ -47,12 +47,6 @@ BrTextEditableWordPieceStencilBuilder >> createWordElement [
 			
 			"text changed in the editor"
 			addEventHandler: BrTextWordPieceTextChangeHandler uniqueInstance;		
-			
-			"when clicking inside of a text piece we should move cursor there and request editor focus"
-			addEventHandler: BrTextEditorMouseDownHandler uniqueInstance;
-			
-			"when double-clicking inside of a text piece we should select the whole word"
-			addEventHandler: BrTextWordPieceDoubleClickHandler uniqueInstance;
 
 			"text piece got inside of selected area"
 			addEventHandler: BrTextWordPieceSelectionAcquiredHandler uniqueInstance;

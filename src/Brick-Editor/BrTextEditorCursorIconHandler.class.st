@@ -1,6 +1,6 @@
 Class {
 	#name : #BrTextEditorCursorIconHandler,
-	#superclass : #BlEventListener,
+	#superclass : #BlCustomEventHandler,
 	#classInstVars : [
 		'uniqueInstance'
 	],
@@ -17,12 +17,38 @@ BrTextEditorCursorIconHandler class >> uniqueInstance [
 	^ uniqueInstance ifNil: [ uniqueInstance := self new ]
 ]
 
-{ #category : #protocol }
-BrTextEditorCursorIconHandler >> mouseOutEvent: anEvent [
+{ #category : #'api - event managing' }
+BrTextEditorCursorIconHandler >> dragEnterEvent: anEvent [
 	anEvent currentTarget mouseCursor: BlCursor default
 ]
 
-{ #category : #protocol }
+{ #category : #'api - event managing' }
+BrTextEditorCursorIconHandler >> dragLeaveEvent: anEvent [
+	anEvent currentTarget mouseCursor: BlCursor default
+]
+
+{ #category : #'api - accessing' }
+BrTextEditorCursorIconHandler >> eventsToHandle [
+	^ {
+		BlDragEnterEvent.
+		BlDragLeaveEvent.
+		BlMouseEnterEvent.
+		BlMouseLeaveEvent.
+		BlMouseOverEvent 
+	}
+]
+
+{ #category : #'api - event managing' }
+BrTextEditorCursorIconHandler >> mouseEnterEvent: anEvent [
+	anEvent currentTarget mouseCursor: BlCursor overEditableText
+]
+
+{ #category : #'api - event managing' }
+BrTextEditorCursorIconHandler >> mouseLeaveEvent: anEvent [
+	anEvent currentTarget mouseCursor: BlCursor default
+]
+
+{ #category : #'api - event managing' }
 BrTextEditorCursorIconHandler >> mouseOverEvent: anEvent [
 	anEvent currentTarget mouseCursor: BlCursor overEditableText
 ]

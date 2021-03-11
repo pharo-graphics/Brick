@@ -109,12 +109,7 @@ BrTextEditorParagraphElement >> addText: aBlText toBuilder: aParagraphBuilder [
 					ifTrue: [ aTextStyle fontFamily: aFontAndStyleBuilder familyName ].
 
 				aFontAndStyleBuilder hasCustomColor
-					ifTrue: [
-						NonInteractiveTranscript stdout
-							nextPutAll: 'custom color: ';
-							nextPutAll: aFontAndStyleBuilder color asString;
-							cr.
-						aTextStyle color: aFontAndStyleBuilder color ]
+					ifTrue: [ aTextStyle color: aFontAndStyleBuilder color ]
 					ifFalse: [ aTextStyle color: self defaultTextColor ].
 					
 				aFontAndStyleBuilder hasCustomDecoration
