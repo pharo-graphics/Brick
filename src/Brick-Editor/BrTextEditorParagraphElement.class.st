@@ -10,11 +10,39 @@ Class {
 		'segment',
 		'pieces'
 	],
-	#classInstVars : [
-		'aCompositorPainter'
+	#classVars : [
+		'Slants',
+		'Stretches'
 	],
 	#category : #'Brick-Editor-UI'
 }
+
+{ #category : #'instance creation' }
+BrTextEditorParagraphElement class >> fontSlantToSkia: aBlFontSlant [
+	Slants ifNil: [ Slants := {
+		BlFontSlant normal -> SkiaFontStyleSlant Upright.
+		BlFontSlant italic -> SkiaFontStyleSlant Italic.
+		BlFontSlant oblique -> SkiaFontStyleSlant Oblique
+	} asDictionary ].
+	
+	^ Slants at: aBlFontSlant ifAbsent: [ SkiaFontStyleSlant Upright ]
+]
+
+{ #category : #'instance creation' }
+BrTextEditorParagraphElement class >> fontStretchToSkia: aBlFontStretch [
+	Stretches ifNil: [ Stretches := { 
+		BlFontStretch condensed -> SkiaFontStyleWidth Condensed.
+		BlFontStretch expanded -> SkiaFontStyleWidth Expanded.
+		BlFontStretch extraCondensed -> SkiaFontStyleWidth ExtraCondensed.
+		BlFontStretch extraExpanded -> SkiaFontStyleWidth ExtraExpanded.
+		BlFontStretch normal -> SkiaFontStyleWidth Normal.
+		BlFontStretch semiCondensed -> SkiaFontStyleWidth SemiCondensed.
+		BlFontStretch semiExpanded -> SkiaFontStyleWidth SemiExpanded.
+		BlFontStretch ultraCondensed -> SkiaFontStyleWidth UltraCondensed.
+		BlFontStretch ultraExpanded -> SkiaFontStyleWidth UltraExpanded.
+	} asDictionary ].
+	^ Stretches at: aBlFontStretch ifAbsent: [ SkiaFontStyleWidth Normal ]
+]
 
 { #category : #'api - cursor' }
 BrTextEditorParagraphElement >> addCursorAt: aTextPosition [
@@ -43,31 +71,56 @@ BrTextEditorParagraphElement >> addText: aBlText toBuilder: aParagraphBuilder [
 		eachSpan := anIterator nextSpan.
 		
 		eachSpan attributes ifNotEmpty: [ :theAttributes |
-			| aStyleBuilder |
-
-			aStyleBuilder := BrTextEditorParagraphTextStyleBuilder new.
-			theAttributes do: [ :eachAttribute | eachAttribute applyOnSpartaFontBuilder: aStyleBuilder ].
-			theAttributes do: [ :eachAttribute | eachAttribute applyOnSpartaTextPainter: aStyleBuilder ].
+			| aFontAndStyleBuilder |
+			
+			"we first collect font properties and text style from the attributes"
+			aFontAndStyleBuilder := BlTextFontAndStyleBuilder new.
+			theAttributes do: [ :eachAttribute | eachAttribute applyOnFontAndStyleBuilder: aFontAndStyleBuilder ].
 		
-			SkiaParagraphTextStyle newDuring: [ :aTextStyle |				
-				aStyleBuilder hasCustomFontStyle
-					ifTrue: [ aStyleBuilder asFontStyleDuring: [ :aSkiaFontStyle | aTextStyle fontStyle: aSkiaFontStyle ] ].
-					
-				aStyleBuilder hasCustomFontSize
-					ifTrue: [ aTextStyle fontSize: aStyleBuilder fontSize ]
+			SkiaParagraphTextStyle newDuring: [ :aTextStyle |		
+		
+				aFontAndStyleBuilder hasCustomFontStyle
+					ifTrue: [
+						| aFontWeight aFontStretch aFontSlant |
+						
+						aFontWeight := aFontAndStyleBuilder hasCustomFontWeight
+							ifTrue: [ aFontAndStyleBuilder fontWeight ]
+							ifFalse: [ BlFontWeight normal ].
+							
+						aFontStretch := aFontAndStyleBuilder hasCustomFontStretch
+							ifTrue: [ aFontAndStyleBuilder fontStretch ]
+							ifFalse: [ BlFontStretch normal ].
+							
+						aFontSlant := aFontAndStyleBuilder hasCustomFontSlant
+							ifTrue: [ aFontAndStyleBuilder fontSlant ]
+							ifFalse: [ BlFontSlant normal ].
+						
+						SkiaFontStyle
+							weight: aFontWeight value
+							width: (self class fontStretchToSkia: aFontStretch)
+							slant: (self class fontSlantToSkia: aFontSlant)
+							during: [ :aSkiaFontStyle | aTextStyle fontStyle: aSkiaFontStyle ] ].
+
+				aFontAndStyleBuilder hasCustomFontSize
+					ifTrue: [ aTextStyle fontSize: aFontAndStyleBuilder resolvedFontSize value asFloat ]
 					ifFalse: [ aTextStyle fontSize: self defaultFontSize ].
 					
-				aStyleBuilder hasCustomFamilyName
-					ifTrue: [ aTextStyle fontFamily: aStyleBuilder familyName ].
-					
-				aStyleBuilder hasCustomColor
-					ifTrue: [ aTextStyle color: aStyleBuilder color ]
+				aFontAndStyleBuilder hasCustomFamilyName
+					ifTrue: [ aTextStyle fontFamily: aFontAndStyleBuilder familyName ].
+
+				aFontAndStyleBuilder hasCustomColor
+					ifTrue: [
+						NonInteractiveTranscript stdout
+							nextPutAll: 'custom color: ';
+							nextPutAll: aFontAndStyleBuilder color asString;
+							cr.
+						aTextStyle color: aFontAndStyleBuilder color ]
 					ifFalse: [ aTextStyle color: self defaultTextColor ].
 					
-				aStyleBuilder hasCustomDecoration
+				aFontAndStyleBuilder hasCustomDecoration
 					ifTrue: [
 						SkiaTextDecoration newDuring: [ :aSkiaDecoration |
-							aStyleBuilder decoration applyOnSkiaDecoration: aSkiaDecoration.
+							aFontAndStyleBuilder decoration applyOnSkiaDecoration: aSkiaDecoration.
 							aTextStyle decoration: aSkiaDecoration ] ].
 
 				aParagraphBuilder
@@ -131,7 +184,7 @@ BrTextEditorParagraphElement >> cursorStencil: aStencil [
 
 { #category : #initialization }
 BrTextEditorParagraphElement >> defaultFontSize [
-	^ 12
+	^ BlFont defaultFontSize
 ]
 
 { #category : #initialization }
