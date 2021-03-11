@@ -44,11 +44,9 @@ BrTextStylerTaskItStrategy >> newStylingCommandFor: aBlText afterDo: aBlock [
 { #category : #private }
 BrTextStylerTaskItStrategy >> postponeStylingOf: aBlText afterDo: aBlock [
 	"Must be called within monitor critical code"
-	command := BlTaskAtPostponedTerminableTask new
-		command: (self newStylingCommandFor: aBlText afterDo: aBlock);
-		pool: BlTktWorkerProvider highUICPUBoundPool;
-		scheduledTime: BlTime real now.
-	BlTaskAtQueue default schedule: command
+
+	BlTktWorkerProvider nonUIMultiPool
+		schedule: (command := self newStylingCommandFor: aBlText afterDo: aBlock)
 ]
 
 { #category : #styling }
