@@ -7,7 +7,6 @@ Class {
 	#instVars : [
 		'stylerAsyncStrategy',
 		'textEditor',
-		'textToStyle',
 		'afterBlock'
 	],
 	#category : #'Brick-Editor-Styler'
@@ -25,12 +24,11 @@ BrTextStylerDeferringTask >> afterBlock: anObject [
 
 { #category : #'api - running' }
 BrTextStylerDeferringTask >> run [
-	self stylerAsyncStrategy critical: [
-		(self textToStyle isNextGenerationOf: self textEditor textSnapshot)
-			ifTrue: [ self stylerAsyncStrategy
-				style: self textToStyle
-				afterDo: self afterBlock ].
-		self stylerAsyncStrategy isStylingRequested: false ]
+	self stylerAsyncStrategy
+		isStylingRequested: false.
+	self stylerAsyncStrategy
+		styleTextInEditorElement: self textEditor
+		thenDo: self afterBlock
 ]
 
 { #category : #accessing }
@@ -51,14 +49,4 @@ BrTextStylerDeferringTask >> textEditor [
 { #category : #accessing }
 BrTextStylerDeferringTask >> textEditor: anObject [
 	textEditor := anObject
-]
-
-{ #category : #accessing }
-BrTextStylerDeferringTask >> textToStyle [
-	^ textToStyle
-]
-
-{ #category : #accessing }
-BrTextStylerDeferringTask >> textToStyle: anObject [
-	textToStyle := anObject
 ]

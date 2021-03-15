@@ -34,6 +34,11 @@ BrTextEditorStylerMemento >> saveStateOf: aTextEditor [
 	styler := aTextEditor styler
 ]
 
+{ #category : #accessing }
+BrTextEditorStylerMemento >> styler: anObject [
+	styler := anObject
+]
+
 { #category : #evaluating }
 BrTextEditorStylerMemento >> value [
 	^ styler

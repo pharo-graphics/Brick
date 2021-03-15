@@ -26,7 +26,8 @@ Class {
 		'history',
 		'filter',
 		'shortcuts',
-		'isFocused'
+		'isFocused',
+		'shouldStyleWhenTextModified'
 	],
 	#classInstVars : [
 		'isDebug'
@@ -217,7 +218,7 @@ BrTextEditor >> defaultStyler [
 { #category : #initialization }
 BrTextEditor >> defaultStylerEventHandler [
 	^ BlEventHandler
-		on: BlTextStyledEvent
+		on: BrTextStyledEvent
 		do: [ :anEvent | self onTextStyled: anEvent ]
 ]
 
@@ -268,6 +269,11 @@ BrTextEditor >> deselecter [
 	^ BrTextEditorDeselecter new editor: self
 ]
 
+{ #category : #'text - styling' }
+BrTextEditor >> disableStyleTextWhenModified [
+	shouldStyleWhenTextModified := false
+]
+
 { #category : #'api - mode' }
 BrTextEditor >> editorMode [
 	<return: #BrTextEditorMode>
@@ -300,6 +306,11 @@ BrTextEditor >> editorShortcuts [
 	<return: #BrTextEditorShortcuts>
 
 	^ shortcuts
+]
+
+{ #category : #'text - styling' }
+BrTextEditor >> enableStyleTextWhenModified [
+	shouldStyleWhenTextModified := true
 ]
 
 { #category : #'commands - processing' }
@@ -381,13 +392,15 @@ BrTextEditor >> initialize [
 	segmentBuilder := self defaultSegmentBuilder.
 
 	styler := self defaultStyler.
-	stylerEventHandler := self defaultStylerEventHandler.	
+	stylerEventHandler := self defaultStylerEventHandler.
+	self addEventHandler: stylerEventHandler.
 	self useDefaultStylerStrategy.
 	
 	shortcuts := BrTextEditorShortcuts new.
 	history := BrTextEditorHistory new.
 	
 	isFocused := false.
+	shouldStyleWhenTextModified := true.
 
 	self beEditable.
 	"self beParagraphBased"
@@ -725,10 +738,11 @@ BrTextEditor >> onStringsInserted: aBlTextStringsInserted [
 			self
 				notifyInserted: aString asRopedText
 				at: anIndex ].
-			
+
 	self notifyModified: self text.
 
-	self styleText
+	shouldStyleWhenTextModified
+		ifTrue: [ self styleText ]
 ]
 
 { #category : #'hooks - text modifications' }
@@ -766,11 +780,10 @@ BrTextEditor >> onTextReplaced [
 { #category : #'hooks - text modifications' }
 BrTextEditor >> onTextStyled: aBlTextStyledEvent [
 	self assertUIProcess.
-
+	
 	(aBlTextStyledEvent text isNextGenerationOf: self text)
 		ifTrue: [
 			self text rope: aBlTextStyledEvent text text rope.
-			aBlTextStyledEvent afterAction cull: self text cull: self.
 			
 			"notify the event handling attributes that they are within the cursors"
 			self processCursorAttributes.
@@ -807,8 +820,9 @@ BrTextEditor >> onTextsDeleted: aBlTextsDeleted [
 				to:  eachInterval last ].
 
 	self notifyModified: self text.
-
-	self styleText
+	
+	shouldStyleWhenTextModified
+		ifTrue: [ self styleText ]
 ]
 
 { #category : #'text - copy/paste' }
@@ -1067,14 +1081,14 @@ BrTextEditor >> setEditorShortcuts: aBrTextEditorShortcuts [
 BrTextEditor >> styleText [
 	"I request styler to re-style my current text"
 	
-	self styleTextAndAfterDo: [ "do nothing" ]
+	self styleTextAndAfterDo: [ :aStyledText | "do nothing" ]
 ]
 
 { #category : #'text - styling' }
 BrTextEditor >> styleTextAndAfterDo: aBlock [
 	"I first style, and then I do aBlock once I am finished"
 	
-	self stylerStrategy styleTextInEditor: self afterDo: aBlock.
+	self dispatchEvent: (BrTextEditorTextStyleRequested new afterAction: aBlock)
 ]
 
 { #category : #accessing }
@@ -1088,13 +1102,8 @@ BrTextEditor >> styler: aStyler [
 	styler = aStyler
 		ifTrue: [ ^ self ].
 
-	styler removeEventHandler: stylerEventHandler.
-
 	styler := aStyler.
-	styler addEventHandler: stylerEventHandler.
-	self stylerStrategy ifNotNil: [ 
-		self stylerStrategy styler: aStyler ].
-	
+
 	"styler changed, let's restyle the text"
 	self styleText
 ]
@@ -1110,11 +1119,7 @@ BrTextEditor >> stylerStrategy: aBrTextStylerStrategy [
 	self 
 		assert: [ aBrTextStylerStrategy isNotNil ] 
 		description: [ 'Text styler strategy must be non-nil' ].
-	self styler ifNotNil: [ 
-		aBrTextStylerStrategy styler: self styler ].
-	stylerStrategy ifNotNil: [ 
-		stylerStrategy view ifNotNil: [ :aView | 
-			aBrTextStylerStrategy view: aView ] ].
+
 	stylerStrategy := aBrTextStylerStrategy
 ]
 
@@ -1219,7 +1224,7 @@ BrTextEditor >> updater [
 
 { #category : #initialization }
 BrTextEditor >> useAsyncStylerStrategy [
-	self stylerStrategy: BrTextStylerAsyncStrategy new.
+	self stylerStrategy: BrTextStylerAsyncStrategy new
 ]
 
 { #category : #initialization }
@@ -1229,17 +1234,10 @@ BrTextEditor >> useDefaultStylerStrategy [
 
 { #category : #initialization }
 BrTextEditor >> useSyncStylerStrategy [
-	self stylerStrategy: BrTextStylerSyncStrategy new.
+	self stylerStrategy: BrTextStylerSyncStrategy new
 ]
 
 { #category : #initialization }
 BrTextEditor >> useTaskItStylerStrategy [
-	self stylerStrategy: BrTextStylerTaskItStrategy new.
-]
-
-{ #category : #accessing }
-BrTextEditor >> view: aBlElement [
-	"Some objects may need a Bloc widget to enqueue some UI-level changes, e.g., 
-		styling test in a background process."
-	self stylerStrategy view: aBlElement.
+	self stylerStrategy: BrTextStylerTaskItStrategy new
 ]

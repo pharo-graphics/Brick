@@ -15,16 +15,16 @@ Class {
 }
 
 { #category : #styling }
-BrTextStylerSyncStrategy >> style: aBlText afterDo: aBlock [
-	| aStyledBlText |
-	aStyledBlText := self styler style: aBlText.
-	self styler
-		fireStyledEventForText: aStyledBlText
-		andAfterAction: aBlock.
-]
+BrTextStylerSyncStrategy >> styleTextInEditorElement: aBrEditorElement thenDo: aBlock [
+	| aStyledText |
 
-{ #category : #styling }
-BrTextStylerSyncStrategy >> styleTextInEditor: aBrTextEditor afterDo: aBlock [
-	aBrTextEditor text isEmpty ifTrue: [ ^ self ].
-	self style: aBrTextEditor text nextGeneration afterDo: aBlock.
+	aStyledText := self
+		doStyleText: aBrEditorElement editor text
+		with: aBrEditorElement editor styler
+		afterDo: aBlock.
+
+	aBrEditorElement editor dispatchEvent: (BrTextStyledEvent new
+		text: aStyledText;
+		afterAction: aBlock;
+		editorElement: aBrEditorElement)
 ]

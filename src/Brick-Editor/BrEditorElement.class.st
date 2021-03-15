@@ -5,7 +5,8 @@ Class {
 	#name : #BrEditorElement,
 	#superclass : #BlInfiniteElement,
 	#instVars : [
-		'hasFocus'
+		'hasFocus',
+		'textStyleHandler'
 	],
 	#category : #'Brick-Editor-UI'
 }
@@ -29,8 +30,9 @@ BrEditorElement >> editor [
 
 { #category : #accessing }
 BrEditorElement >> editor: aBrTextEditor [
+	self editor removeEventHandler: textStyleHandler.
 	self dataSource: aBrTextEditor.
-	self dataSource view: self
+	self editor addEventHandler: textStyleHandler.
 ]
 
 { #category : #'focus testing' }
@@ -44,7 +46,11 @@ BrEditorElement >> initialize [
 
 	hasFocus := false.
 	self when: BlFocusInEvent do: [ hasFocus := true ].
-	self when: BlFocusOutEvent do: [ hasFocus := false ]
+	self when: BlFocusOutEvent do: [ hasFocus := false ].
+	
+	textStyleHandler := BlEventHandler
+		on: BrTextEditorTextStyleRequested
+		do: [ :anEvent | self editor stylerStrategy styleTextInEditorElement: self thenDo: anEvent afterAction ]
 ]
 
 { #category : #scrolling }

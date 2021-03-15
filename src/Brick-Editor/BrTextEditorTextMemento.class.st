@@ -44,6 +44,11 @@ BrTextEditorTextMemento >> text [
 	^ text
 ]
 
+{ #category : #accessing }
+BrTextEditorTextMemento >> text: anObject [
+	text := anObject
+]
+
 { #category : #evaluating }
 BrTextEditorTextMemento >> value [
 	^ text copyWithoutExternalReferences
