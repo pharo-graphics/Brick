@@ -44,7 +44,7 @@ BrDevLookOverview >> buildCoderArtifactReferenceList: aListOfWishReferences [
 			| aHighlighter |
 			
 			aHighlighter := GtCompositeHighlighter forHighlighters: (eachReferenceGroup value collect: [ :eachReference |
-				(GtVariableReferenceHighlighter forVariableName: eachReference artifact name) ]).
+				(GtPharoVariableReferenceHighlighter forVariableName: eachReference artifact name) ]).
 			
 			(GtPharoMethodCoder forMethod: eachReferenceGroup key)
 				highlighter: aHighlighter;
