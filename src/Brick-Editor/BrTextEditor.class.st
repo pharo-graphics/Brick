@@ -950,7 +950,8 @@ BrTextEditor >> restoreText: aBrText [
 	self notifyChanged.
 
 	"text changed, we should style it"
-	self styleText
+	shouldStyleWhenTextModified
+		ifTrue: [ self styleText ]
 ]
 
 { #category : #'api - save state' }
@@ -1105,7 +1106,8 @@ BrTextEditor >> styler: aStyler [
 	styler := aStyler.
 
 	"styler changed, let's restyle the text"
-	self styleText
+	shouldStyleWhenTextModified
+		ifTrue: [ self styleText ]
 ]
 
 { #category : #accessing }
@@ -1168,7 +1170,7 @@ BrTextEditor >> text: aBrText [
 				from: aBrText size to: text size;
 				deselect ].
 
-	self restoreText: aBrText.
+	self restoreText: aBrText
 ]
 
 { #category : #accessing }
