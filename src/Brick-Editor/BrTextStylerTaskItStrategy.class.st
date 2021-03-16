@@ -24,43 +24,49 @@ BrTextStylerTaskItStrategy >> commandNameFromText: aBrText [
 		ifFalse: [ (aBrText from: 1 to: (aBrText size min: 20)) printString ]
 ]
 
-{ #category : #accessing }
-BrTextStylerTaskItStrategy >> doStyle: aBrText afterDo: aBlock [
-	super doStyle: aBrText afterDo: aBlock.
-	command := nil.
-]
-
 { #category : #'instance creation' }
-BrTextStylerTaskItStrategy >> newStylingCommandFor: aBlText afterDo: aBlock [
+BrTextStylerTaskItStrategy >> newStylingCommandFor: aBlText with: aStyler inEditorElement: aBrEditorElement afterDo: aBlock [
 	<return: #BlTktTerminableCommand>
 	| aName aCommand |
 	aName := self commandNameFromText: aBlText.
 	aCommand := [
-		self doStyle: aBlText afterDo: aBlock ] asBlTktTerminableCommand asBlTktLoggingCommand.
+		| aStyledText |
+		aStyledText := self doStyleText: aBlText with: aStyler afterDo: aBlock.
+		aBrEditorElement enqueueTask: (BlTaskAction new action: [
+			aBrEditorElement editor dispatchEvent: (BrTextStyledEvent new
+				text: aStyledText;
+				afterAction: aBlock;
+				editorElement: aBrEditorElement) ]).
+		command := nil ] asBlTktTerminableCommand asBlTktLoggingCommand.
 	aCommand name: 'Text Styler for ''' , aName , ''''.
 	^ aCommand
 ]
 
 { #category : #private }
-BrTextStylerTaskItStrategy >> postponeStylingOf: aBlText afterDo: aBlock [
-	"Must be called within monitor critical code"
-
-	BlTktWorkerProvider nonUIMultiPool
-		schedule: (command := self newStylingCommandFor: aBlText afterDo: aBlock)
-]
-
-{ #category : #styling }
-BrTextStylerTaskItStrategy >> style: aBlText afterDo: aBlock [
-	self view ifNil: [ 
-		"A graphical widget is not available, we therefore do not need to style the text"
-		^ self ].
+BrTextStylerTaskItStrategy >> scheduleStyleTextInEditorElement: aBrEditorElement thenDo: aBlock [
+	| aTextToStyle aStyler |
 	
+	aStyler := aBrEditorElement editor styler.
+	aTextToStyle := aBrEditorElement editor text.
+
 	BlUseAsyncFeatures 
 		ifEnabledDo: [ 
 			monitor critical: [ 
 				self terminateBackgroundStylingProcess.
-				self postponeStylingOf: aBlText afterDo: aBlock ] ]
-		otherwise: [ self doStyle: aBlText afterDo: aBlock ]
+
+				BlTktWorkerProvider nonUIMultiPool
+					schedule: (command := self
+						newStylingCommandFor: aTextToStyle
+						with: aStyler
+						inEditorElement: aBrEditorElement
+						afterDo: aBlock) ] ]
+		otherwise: [
+			| aStyledText |
+			aStyledText := self doStyleText: aTextToStyle with: aStyler afterDo: aBlock.
+			aBrEditorElement editor dispatchEvent: (BrTextStyledEvent new
+				text: aStyledText;
+				afterAction: aBlock;
+				editorElement: aBrEditorElement) ]
 ]
 
 { #category : #private }

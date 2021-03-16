@@ -13,7 +13,6 @@ Class {
 	#name : #BrTextStylerCommonAsyncStrategy,
 	#superclass : #BrTextStylerStrategy,
 	#instVars : [
-		'view',
 		'monitor',
 		'isStylingRequested'
 	],
@@ -30,27 +29,12 @@ BrTextStylerCommonAsyncStrategy >> critical: aBlock [
 	monitor critical: aBlock
 ]
 
-{ #category : #private }
-BrTextStylerCommonAsyncStrategy >> doStyle: aBrText afterDo: aBlock [
-	| anElement aStyledBrText aTaskAction |
-	anElement := self view.
-	anElement ifNil: [ 
-		"The graphical widget is no more available, we therefore do not need to style text".
-		^ self ].
-	aStyledBrText := self styler style: aBrText.
-	aTaskAction := BlTaskAction new action: [ 
-		self styler fireStyledEventForText: aStyledBrText andAfterAction: aBlock.
-		 ].
-	anElement enqueueTask: aTaskAction.
-]
-
 { #category : #initialization }
 BrTextStylerCommonAsyncStrategy >> initialize [
 	super initialize.
 
 	monitor := Monitor new.
-	isStylingRequested := false.
-	view := nil
+	isStylingRequested := false
 ]
 
 { #category : #accessing }
@@ -63,56 +47,32 @@ BrTextStylerCommonAsyncStrategy >> isStylingRequested: aBoolean [
 	isStylingRequested := aBoolean
 ]
 
+{ #category : #private }
+BrTextStylerCommonAsyncStrategy >> scheduleStyleTextInEditorElement: aBrEditorElement thenDo: aBlock [
+	self subclassResponsibility
+]
+
 { #category : #styling }
-BrTextStylerCommonAsyncStrategy >> styleTextInEditor: aBrTextEditor afterDo: aBlock [
-	| aView aTextToStyle |
-	
+BrTextStylerCommonAsyncStrategy >> styleTextInEditorElement: aBrEditorElement thenDo: aBlock [
 	BrStyleTextStartSignal new emit.
 	
-	aView := self view.
-	aView ifNil: [ 
-		BrStyleTextNoViewSignal new emit.
-		"A graphical widget is not available, we therefore do not need to style the text"
-		^ self ].
-	
-	aTextToStyle := aBrTextEditor textSnapshot nextGeneration.
-	aTextToStyle
-		ifEmpty: [
-			BrStyleTextIsEmptySignal new emit.
-			^ self ].
-
 	monitor critical: [
-		isStylingRequested
+		self isStylingRequested
 			ifTrue: [
 				BrStyleTextStylingAlreadyRequestedSignal new emit.
 				^ self ].
 
-		aView isAttachedToSceneGraph
+		aBrEditorElement isAttachedToSceneGraph
 			"if the editor is already attached to the scene graph we can style it directly"
 			ifTrue: [
 				BrStyleTextViewIsAttachedSignal new emit.
-				self style: aTextToStyle afterDo: aBlock ]
+				self scheduleStyleTextInEditorElement: aBrEditorElement thenDo: aBlock ]
 			ifFalse: [
 				BrStyleTextViewIsNotAttachedSignal new emit.
 				self isStylingRequested: true.
 				"othrewise we should defer the styling until some time in the future when the element appears in the scene"
-				aView enqueueTask: (BrTextStylerDeferringTask new
+				aBrEditorElement enqueueTask: (BrTextStylerDeferringTask new
 					stylerAsyncStrategy: self;
-					textToStyle: aTextToStyle;
-					textEditor: aBrTextEditor;
+					textEditor: aBrEditorElement;
 					afterBlock: aBlock) ] ]
-]
-
-{ #category : #accessing }
-BrTextStylerCommonAsyncStrategy >> view [
-	<return: #BlElement or: nil>
-	^ view ifNotNil: [ :aWeakReference | aWeakReference at: 1 ]
-]
-
-{ #category : #accessing }
-BrTextStylerCommonAsyncStrategy >> view: aBlElement [
-	self 
-		assert: [ aBlElement isNotNil ] 
-		description: [ 'View must be non-nil' ].
-	view := aBlElement asWeakReference
 ]
