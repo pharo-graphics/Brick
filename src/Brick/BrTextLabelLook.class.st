@@ -70,8 +70,9 @@ BrTextLabelLook >> label [
 ]
 
 { #category : #accessing }
-BrTextLabelLook >> labelDo: aBlock [	
-	aBlock value: self label
+BrTextLabelLook >> labelDo: aBlock [
+	
+	self label ifNotNil: aBlock
 ]
 
 { #category : #initialization }
