@@ -5,10 +5,36 @@ Class {
 	#name : #BrGlamorousButtonRectangularLook,
 	#superclass : #BrStyleCommonLook,
 	#instVars : [
-		'cornerRadius'
+		'cornerRadius',
+		'paddingScale',
+		'heightScale'
 	],
 	#category : #'Brick-Glamorous-Buttons - Support'
 }
+
+{ #category : #'instance creation' }
+BrGlamorousButtonRectangularLook class >> paddingScale: aPaddingScale [
+	^ self basicNew
+		setPaddingScale: aPaddingScale;
+		initialize
+]
+
+{ #category : #'instance creation' }
+BrGlamorousButtonRectangularLook class >> paddingScale: aPaddingScale heightScale: aHeightScale [
+	^ self basicNew
+		setPaddingScale: aPaddingScale;
+		setHeightScale: aHeightScale;
+		initialize
+]
+
+{ #category : #'instance creation' }
+BrGlamorousButtonRectangularLook class >> paddingScale: aPaddingScale heightScale: aHeightScale cornerRadius: aCornerRadius [
+	^ self basicNew
+		setPaddingScale: aPaddingScale;
+		setHeightScale: aHeightScale;
+		setCornerRadius: aCornerRadius;
+		initialize
+]
 
 { #category : #accessing }
 BrGlamorousButtonRectangularLook >> cornerRadius [
@@ -23,37 +49,69 @@ BrGlamorousButtonRectangularLook >> cornerRadius: aNumber [
 
 { #category : #initialization }
 BrGlamorousButtonRectangularLook >> initialize [
+	| miniPadding tinyPadding smallPadding normalPadding largePadding hugePadding miniHeight tinyHeight smallHeight normalHeight largeHeight hugeHeight |
 	super initialize.
 
-	cornerRadius := 4.
+	cornerRadius := cornerRadius ifNil: [ 4 ].
+	paddingScale := paddingScale ifNil: [ 1.0 ].
+	heightScale := heightScale ifNil: [ 1.0 ].
+	
+	miniPadding := 4 * paddingScale.
+	tinyPadding := 6 * paddingScale.
+	smallPadding := 6 * paddingScale.
+	normalPadding := 8 * paddingScale.
+	largePadding := 10 * paddingScale.
+	hugePadding := 16 * paddingScale.
+	
+	miniHeight := 12 * heightScale.
+	tinyHeight := 16 * heightScale.
+	smallHeight := 20 * heightScale.
+	normalHeight := 24 * heightScale.
+	largeHeight := 30 * heightScale.
+	hugeHeight := 48 * heightScale.
 
-	self default geometry: (BlRoundedRectangleGeometry cornerRadius: self cornerRadius).
+	self default geometry: (BlRoundedRectangleGeometry cornerRadius: cornerRadius).
 	
 	self add: (BrSizeAdjustmentLook new
 		mini: [ :aStyle |
 			aStyle
-				vExact: 12;
-				padding: (BlInsets left: 4 right: 4) ];
+				vExact: miniHeight;
+				padding: (BlInsets left: miniPadding right: miniPadding) ];
 		tiny: [ :aStyle |
 			aStyle
-				vExact: 16;
-				padding: (BlInsets left: 6 right: 6) ];
+				vExact: tinyHeight;
+				padding: (BlInsets left: tinyPadding right: tinyPadding) ];
 		small: [ :aStyle | 
 			aStyle
-				vExact: 20;
-				padding: (BlInsets left: 8 right: 8) ];
+				vExact: smallHeight;
+				padding: (BlInsets left: smallPadding right: smallPadding) ];
 		normal: [ :aStyle | 
 			aStyle
-				vExact: 24;
-				padding: (BlInsets left: 10 right: 10) ];
+				vExact: normalHeight;
+				padding: (BlInsets left: normalPadding right: normalPadding) ];
 		large: [ :aStyle |
 			aStyle
-				vExact: 30;
-				padding: (BlInsets left: 10 right: 10) ];
+				vExact: largeHeight;
+				padding: (BlInsets left: largePadding right: largePadding) ];
 		huge: [ :aStyle |
 			aStyle
-				vExact: 48;
-				padding: (BlInsets left: 16 right: 16) ]).
+				vExact: hugeHeight;
+				padding: (BlInsets left: hugePadding right: hugePadding) ]).
 
 	self add: BrGlamorousButtonLayoutLook new
+]
+
+{ #category : #initialization }
+BrGlamorousButtonRectangularLook >> setCornerRadius: aNumber [
+	cornerRadius := aNumber
+]
+
+{ #category : #initialization }
+BrGlamorousButtonRectangularLook >> setHeightScale: aNumber [
+	heightScale := aNumber
+]
+
+{ #category : #initialization }
+BrGlamorousButtonRectangularLook >> setPaddingScale: aNumber [
+	paddingScale := aNumber
 ]

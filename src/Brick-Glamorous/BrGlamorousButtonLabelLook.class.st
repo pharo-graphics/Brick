@@ -8,7 +8,8 @@ Class {
 		'selectedColor',
 		'labelLook',
 		'hoveredColor',
-		'defaultColor'
+		'defaultColor',
+		'pressedColor'
 	],
 	#category : #'Brick-Glamorous-Buttons - Support'
 }
@@ -32,7 +33,7 @@ BrGlamorousButtonLabelLook >> hoveredColor [
 { #category : #accessing }
 BrGlamorousButtonLabelLook >> hoveredColor: aPaint [
 	hoveredColor := aPaint.
-	labelLook hovered foreground: selectedColor
+	labelLook hovered foreground: hoveredColor
 ]
 
 { #category : #initialization }
@@ -42,6 +43,7 @@ BrGlamorousButtonLabelLook >> initialize [
 	defaultColor := BrGlamorousColors defaultButtonTextColor.
 	selectedColor := BrGlamorousColors hoveredButtonTextColor.
 	hoveredColor := BrGlamorousColors hoveredButtonTextColor.
+	pressedColor := BrGlamorousColors pressedButtonTextColor.
 
 	self
 		weight: 400;
@@ -59,9 +61,20 @@ BrGlamorousButtonLabelLook >> initialize [
 		@ labelElement;
 		default: [ :aStyle | aStyle foreground: defaultColor ];
 		hovered: [ :aStyle | aStyle foreground: hoveredColor ];
-		pressed: [ :aStyle | aStyle foreground: BrGlamorousColors pressedButtonTextColor ];
+		pressed: [ :aStyle | aStyle foreground: pressedColor ];
 		disabled: [ :aStyle | aStyle foreground: BrGlamorousColors disabledButtonTextColor ];
 		selected: [ :aStyle | aStyle foreground: selectedColor ])
+]
+
+{ #category : #accessing }
+BrGlamorousButtonLabelLook >> pressedColor [
+	^ pressedColor
+]
+
+{ #category : #accessing }
+BrGlamorousButtonLabelLook >> pressedColor: aPaint [
+	pressedColor := aPaint.
+	labelLook pressed foreground: pressedColor
 ]
 
 { #category : #accessing }
