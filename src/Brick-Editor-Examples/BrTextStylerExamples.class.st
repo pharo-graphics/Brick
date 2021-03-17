@@ -42,6 +42,7 @@ BrTextStylerExamples >> editorWithAsyncStylerStrategy [
 	self assert: anElement taskQueue tasks size equals: 1.
 	
 	aSpace := BlSpace new.
+	aSpace host: BlMockedHost new.
 	aSpace addChild: anElement.
 	
 	"We simulate the task execution that triggers styling"
@@ -114,6 +115,7 @@ BrTextStylerExamples >> editorWithTaskItStylerStrategy [
 	self assert: anElement taskQueue tasks size equals: 1.
 	
 	aSpace := BlSpace new.
+	aSpace host: BlMockedHost new.
 	aSpace addChild: anElement.
 	"We simulate the task execution that triggers styling"
 	BlUseAsyncFeatures disableDuring: [ aSpace pulse ].
