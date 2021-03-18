@@ -18,17 +18,16 @@ BrTextEditorSegment >> gtDisplayOn: aStream [
 ]
 
 { #category : #initialization }
-BrTextEditorSegment >> initializeWith: aBrText from: aTextStart to: aTextEnd [
-	"Set a piece of text to be associated with this segment"
-
+BrTextEditorSegment >> initializeWith: aBlText from: aTextStart to: aTextEnd delimiter: aDelimiterLength [
 	self
-		assert: [ aBrText isKindOf: BlSubText ]
+		assert: [ aBlText isKindOf: BlSubText ]
 		description: [ 'Must be sub-text' ].
 
-	text := aBrText.
-
+	text := aBlText.
+	
 	textStart := aTextStart.
 	textEnd := aTextEnd.
+	delimiterLength := aDelimiterLength.
 
 	self clearCache.
 	self updateSegmentProperties
@@ -48,6 +47,8 @@ BrTextEditorSegment >> insert: aCollectionOfSegments [
 	self
 		scopeText: self textStart
 		end: aCollectionOfSegments first textEnd.
+
+	delimiterLength := aCollectionOfSegments first delimiterLength.
 
 	theSegments last
 		scopeText: theSegments last textStart

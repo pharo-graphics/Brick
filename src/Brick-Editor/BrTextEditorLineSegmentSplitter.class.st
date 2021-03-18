@@ -14,8 +14,9 @@ BrTextEditorLineSegmentSplitter >> adornmentPiece: aBlText with: anAdornmentAttr
 
 	^ self adornmentPieceClass new
 		initializeWith: aBlText
-		from: aTextStart
-		to: aTextEnd;
+			from: aTextStart
+			to: aTextEnd
+			delimiter: 0;
 		adornmentAttribute: anAdornmentAttribute
 ]
 
@@ -213,6 +214,7 @@ BrTextEditorLineSegmentSplitter >> textPiece: aBlText from: aTextStart to: aText
 		initializeWith: aBlText
 		from: aTextStart
 		to: aTextEnd
+		delimiter: 0
 ]
 
 { #category : #accessing }

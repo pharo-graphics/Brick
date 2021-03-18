@@ -28,6 +28,7 @@ BrTextEditorLineSplitter >> newSegment: aBlText from: aStartIndex to: anEndIndex
 		initializeWith: aText
 		from: anAbsoluteTextStart + anOffset
 		to: anAbsoluteTextEnd + anOffset
+		delimiter: aDelimiterIndex - anEndIndex
 ]
 
 { #category : #'api - splitting' }

@@ -174,11 +174,13 @@ BrTextEditorLineSplitterExamples >> split_Cr [
 	aSegment := aStream segments first.
 	self assert: aSegment textStart equals: 0.
 	self assert: aSegment textEnd equals: 0.
+	self assert: aSegment textEndDelimited equals: 1.
 	self assert: aSegment text asString equals: ''.
 	
 	aSegment := aStream segments second.
 	self assert: aSegment textStart equals: 1.
 	self assert: aSegment textEnd equals: 1.
+	self assert: aSegment textEndDelimited equals: 1.
 	self assert: aSegment text asString equals: ''.
 
 	^ aStream
@@ -200,16 +202,19 @@ BrTextEditorLineSplitterExamples >> split_CrCr [
 	aSegment := aStream segments first.
 	self assert: aSegment textStart equals: 0.
 	self assert: aSegment textEnd equals: 0.
+	self assert: aSegment textEndDelimited equals: 1.
 	self assert: aSegment text asString equals: ''.
 	
 	aSegment := aStream segments second.
 	self assert: aSegment textStart equals: 1.
 	self assert: aSegment textEnd equals: 1.
+	self assert: aSegment textEndDelimited equals: 2.
 	self assert: aSegment text asString equals: ''.
 	
 	aSegment := aStream segments third.
 	self assert: aSegment textStart equals: 2.
 	self assert: aSegment textEnd equals: 2.
+	self assert: aSegment textEndDelimited equals: 2.
 	self assert: aSegment text asString equals: ''.
 
 	^ aStream
@@ -231,11 +236,13 @@ BrTextEditorLineSplitterExamples >> split_CrLf [
 	aSegment := aStream segments first.
 	self assert: aSegment textStart equals: 0.
 	self assert: aSegment textEnd equals: 0.
+	self assert: aSegment textEndDelimited equals: 2.
 	self assert: aSegment text asString equals: ''.
 	
 	aSegment := aStream segments second.
-	self assert: aSegment textStart equals: 1.
-	self assert: aSegment textEnd equals: 1.
+	self assert: aSegment textStart equals: 2.
+	self assert: aSegment textEnd equals: 2.
+	self assert: aSegment textEndDelimited equals: 2.
 	self assert: aSegment text asString equals: ''.
 
 	^ aStream
@@ -257,16 +264,19 @@ BrTextEditorLineSplitterExamples >> split_CrLfCrLf [
 	aSegment := aStream segments first.
 	self assert: aSegment textStart equals: 0.
 	self assert: aSegment textEnd equals: 0.
+	self assert: aSegment textEndDelimited equals: 2.
 	self assert: aSegment text asString equals: ''.
 	
 	aSegment := aStream segments second.
-	self assert: aSegment textStart equals: 1.
-	self assert: aSegment textEnd equals: 1.
+	self assert: aSegment textStart equals: 2.
+	self assert: aSegment textEnd equals: 2.
+	self assert: aSegment textEndDelimited equals: 4.
 	self assert: aSegment text asString equals: ''.
 	
 	aSegment := aStream segments third.
-	self assert: aSegment textStart equals: 2.
-	self assert: aSegment textEnd equals: 2.
+	self assert: aSegment textStart equals: 4.
+	self assert: aSegment textEnd equals: 4.
+	self assert: aSegment textEndDelimited equals: 4.
 	self assert: aSegment text asString equals: ''.
 
 	^ aStream
@@ -353,8 +363,8 @@ BrTextEditorLineSplitterExamples >> split_CraCrLf [
 	self assert: aSegment text asString equals: 'a'.
 	
 	aSegment := aStream segments third.
-	self assert: aSegment textStart equals: 3.
-	self assert: aSegment textEnd equals: 3.
+	self assert: aSegment textStart equals: 4.
+	self assert: aSegment textEnd equals: 4.
 	self assert: aSegment text asString equals: ''.
 
 	^ aStream
@@ -384,8 +394,8 @@ BrTextEditorLineSplitterExamples >> split_CraCrLfb [
 	self assert: aSegment text asString equals: 'a'.
 	
 	aSegment := aStream segments third.
-	self assert: aSegment textStart equals: 3.
-	self assert: aSegment textEnd equals: 4.
+	self assert: aSegment textStart equals: 4.
+	self assert: aSegment textEnd equals: 5.
 	self assert: aSegment text asString equals: 'b'.
 
 	^ aStream
@@ -407,21 +417,24 @@ BrTextEditorLineSplitterExamples >> split_CraCrLfbLf [
 	aSegment := aStream segments first.
 	self assert: aSegment textStart equals: 0.
 	self assert: aSegment textEnd equals: 0.
+	self assert: aSegment textEndDelimited equals: 1.
 	self assert: aSegment text asString equals: ''.
 	
 	aSegment := aStream segments second.
 	self assert: aSegment textStart equals: 1.
 	self assert: aSegment textEnd equals: 2.
+	self assert: aSegment textEndDelimited equals: 4.
 	self assert: aSegment text asString equals: 'a'.
 	
 	aSegment := aStream segments third.
-	self assert: aSegment textStart equals: 3.
-	self assert: aSegment textEnd equals: 4.
+	self assert: aSegment textStart equals: 4.
+	self assert: aSegment textEnd equals: 5.
+	self assert: aSegment textEndDelimited equals: 6.
 	self assert: aSegment text asString equals: 'b'.
 	
 	aSegment := aStream segments fourth.
-	self assert: aSegment textStart equals: 5.
-	self assert: aSegment textEnd equals: 5.
+	self assert: aSegment textStart equals: 6.
+	self assert: aSegment textEnd equals: 6.
 	self assert: aSegment text asString equals: ''.
 
 	^ aStream

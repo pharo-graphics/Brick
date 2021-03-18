@@ -3,7 +3,8 @@ Trait {
 	#instVars : [
 		'text',
 		'textStart',
-		'textEnd'
+		'textEnd',
+		'delimiterLength'
 	],
 	#category : #'Brick-Editor-Model - Segment-Text'
 }
@@ -14,14 +15,30 @@ TBrTextEditorTextualPiece >> copyWithText: aBlText [
 		initializeWith: aBlText
 		from: self textStart
 		to: self textEnd
+		delimiter: delimiterLength
+]
+
+{ #category : #'text - accessing' }
+TBrTextEditorTextualPiece >> delimiterLength [
+	^ delimiterLength
 ]
 
 { #category : #initialization }
 TBrTextEditorTextualPiece >> initializeWith: aBlText from: aTextStart to: aTextEnd [
+	self
+		initializeWith: aBlText
+		from: aTextStart
+		to: aTextEnd
+		delimiter: 0
+]
+
+{ #category : #initialization }
+TBrTextEditorTextualPiece >> initializeWith: aBlText from: aTextStart to: aTextEnd delimiter: aDelimiterLength [
 	text := aBlText.
 	
 	textStart := aTextStart.
-	textEnd := aTextEnd
+	textEnd := aTextEnd.
+	delimiterLength := aDelimiterLength
 ]
 
 { #category : #'text - testing' }
@@ -71,6 +88,14 @@ TBrTextEditorTextualPiece >> textEnd [
 	<return: #Number>
 	
 	^ textEnd
+]
+
+{ #category : #'text - accessing' }
+TBrTextEditorTextualPiece >> textEndDelimited [
+	"Return an index of the last character of a subtext that I represent including the possible delimiter"
+	<return: #Number>
+	
+	^ textEnd + delimiterLength
 ]
 
 { #category : #'text - accessing' }

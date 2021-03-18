@@ -10,14 +10,6 @@ Class {
 	#category : #'Brick-Editor-Model - Segment-Text-Line'
 }
 
-{ #category : #copying }
-BrTextEditorLineSegmentPiece >> copyWithText: aBlText [
-	^ self copy
-		initializeWith: aBlText
-		from: self textStart
-		to: self textEnd
-]
-
 { #category : #'instance creation' }
 BrTextEditorLineSegmentPiece >> createElement: anEditorElement [
 	<return: #BlElement>

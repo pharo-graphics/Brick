@@ -46,11 +46,6 @@ BrTextEditorLineSegment >> initialize [
 	self resetProperties
 ]
 
-{ #category : #initialization }
-BrTextEditorLineSegment >> initializeWith: aBrText from: aTextStart to: aTextEnd [
-	super initializeWith: aBrText from: aTextStart to: aTextEnd.
-]
-
 { #category : #testing }
 BrTextEditorLineSegment >> isLastTextPiece: aSegmentPiece [
 	<return: #Boolean>

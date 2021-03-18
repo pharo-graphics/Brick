@@ -205,7 +205,24 @@ BrTextEditorSegmentCollector >> cachedSegmentIndexAt: aTextIndex [
 					aTextIndex < aSegment textStart
 						ifTrue: [ -1 ]
 						ifFalse: [ 1 ] ] ]
-		ifNone: [ 0 ]
+		ifNone: [ :a :b |
+			| anAssoc |
+			
+			anAssoc := (self segments
+				at: a
+				ifAbsent: [ nil ]) -> a.
+			
+			anAssoc key ifNil: [
+				anAssoc := (self segments
+					at: b
+					ifAbsent: [ nil ]) -> b. ].
+
+			anAssoc key
+				ifNil: [ 0 ]
+				ifNotNil: [ :aSegment |
+					(aTextIndex between: aSegment textStart and: aSegment textEndDelimited)
+						ifTrue: [ anAssoc value ]
+						ifFalse: [ 0 ] ] ]
 ]
 
 { #category : #'cache - computation' }

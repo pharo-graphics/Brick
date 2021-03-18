@@ -9,6 +9,7 @@ BrTextEditorLineSegment >> gtInfoFor: aView [
 		#text -> self text.
 		#textStart -> self textStart.
 		#textEnd -> self textEnd.
+		#textEndDelimited -> self textEndDelimited.
 		#lineSpacing -> self lineSpacing.
 		#wordPadding -> self wordPadding.
 		#paragraphMargin -> self paragraphMargin.
