@@ -1,28 +1,28 @@
 Class {
-	#name : #BrEditorSelectLineAfterCursorShortcut,
+	#name : #BrEditorSelectLineBelowCursorShortcut,
 	#superclass : #BrEditorShortcut,
 	#category : #'Brick-Editor-Shortcuts'
 }
 
 { #category : #accessing }
-BrEditorSelectLineAfterCursorShortcut >> description [
+BrEditorSelectLineBelowCursorShortcut >> description [
 	^ 'Selects one line at a time below the cursor.'
 ]
 
 { #category : #initialization }
-BrEditorSelectLineAfterCursorShortcut >> initialize [
+BrEditorSelectLineBelowCursorShortcut >> initialize [
 	super initialize.
 	
 	combination := BlKeyCombination shiftArrowDown
 ]
 
 { #category : #accessing }
-BrEditorSelectLineAfterCursorShortcut >> name [
+BrEditorSelectLineBelowCursorShortcut >> name [
 	^ 'Select line below'
 ]
 
 { #category : #evaluation }
-BrEditorSelectLineAfterCursorShortcut >> performOnEditor: aBrTextEditor element: aBrEditorElement dueTo: aShortcutEvent [
+BrEditorSelectLineBelowCursorShortcut >> performOnEditor: aBrTextEditor element: aBrEditorElement dueTo: aShortcutEvent [
 	aBrTextEditor selecter
 		withoutCursorUpdate;
 		moveOneDown;

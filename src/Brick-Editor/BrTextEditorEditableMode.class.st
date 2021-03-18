@@ -44,8 +44,8 @@ BrTextEditorEditableMode >> initialize [
 		BrEditorDeselectAllShortcut new.
 		BrEditorSelectLetterAfterCursorShortcut new.
 		BrEditorSelectLetterBeforeCursorShortcut new.
-		BrEditorSelectLineAfterCursorShortcut new.
-		BrEditorSelectLineBeforeCursorShortcut new.
+		BrEditorSelectLineBelowCursorShortcut new.
+		BrEditorSelectLineAboveCursorShortcut new.
 	}
 ]
 
