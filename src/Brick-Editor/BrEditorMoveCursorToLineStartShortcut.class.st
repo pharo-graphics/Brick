@@ -1,8 +1,16 @@
 Class {
 	#name : #BrEditorMoveCursorToLineStartShortcut,
 	#superclass : #BrEditorShortcut,
+	#instVars : [
+		'combinationForUnix'
+	],
 	#category : #'Brick-Editor-Shortcuts'
 }
+
+{ #category : #'api - combination' }
+BrEditorMoveCursorToLineStartShortcut >> combinationForUnix [
+	^ combinationForUnix
+]
 
 { #category : #accessing }
 BrEditorMoveCursorToLineStartShortcut >> description [
@@ -13,7 +21,8 @@ BrEditorMoveCursorToLineStartShortcut >> description [
 BrEditorMoveCursorToLineStartShortcut >> initialize [
 	super initialize.
 	
-	combination := BlKeyCombination home
+	combination := BlKeyCombination primaryArrowLeft.
+	combinationForUnix := BlKeyCombination home
 ]
 
 { #category : #accessing }

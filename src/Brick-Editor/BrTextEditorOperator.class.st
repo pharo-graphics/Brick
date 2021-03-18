@@ -123,6 +123,47 @@ BrTextEditorOperator >> findTextIndexAboveCursor: aCursor ifAbsent: anExceptionB
 ]
 
 { #category : #'api - utility' }
+BrTextEditorOperator >> findTextIndexAtLineEnd: aCursor [
+	"Find a text index at the end of the line where the cursor is located"
+	<return: #Number>
+	| aText aTextIterator foundLineBreak |
+	
+	aText := self text.
+	aTextIterator := aText iterator: aCursor position + 1 to: aText size.
+
+	"if we have a line break after cursor - do nothing"
+	(aTextIterator hasNext and: [ aTextIterator peek isLineBreak ])
+		ifTrue: [ ^ aCursor position ].
+
+	foundLineBreak := false.
+	[ aTextIterator hasNext and: [ (foundLineBreak := aTextIterator next isLineBreak) not ] ] whileTrue.
+
+	^ aTextIterator position - foundLineBreak asBit
+]
+
+{ #category : #'api - utility' }
+BrTextEditorOperator >> findTextIndexAtLineStart: aCursor [
+	"Find a text index at the start of the line where the cursor is located"
+	<return: #Number>
+	| aText aTextIterator foundLineBreak |
+	
+	aText := self text.
+	aTextIterator := aText iterator: 1 to: aCursor position.
+	aTextIterator skip: aCursor position.
+
+	"if we have a line break before cursor - do nothing"
+	(aTextIterator hasPrevious
+		and: [ (aTextIterator previous; hasPrevious)
+			and: [ aTextIterator peek isLineBreak ] ])
+		ifTrue: [ ^ aCursor position ].
+
+	foundLineBreak := false.
+	[ aTextIterator hasPrevious and: [ (foundLineBreak := aTextIterator previous isLineBreak) not ] ] whileTrue.
+
+	^ aTextIterator position + foundLineBreak asBit
+]
+
+{ #category : #'api - utility' }
 BrTextEditorOperator >> findTextIndexAtScreenPosition: aScreenPosition [
 	"Convert screen position to a text index"
 	<return: #Number>

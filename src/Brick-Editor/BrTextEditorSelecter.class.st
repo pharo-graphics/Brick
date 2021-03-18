@@ -42,6 +42,70 @@ BrTextEditorSelecter >> characterType: aCharacter [
 ]
 
 { #category : #'api - configuration' }
+BrTextEditorSelecter >> extendToLineEnd [
+	"Extend selection to the end of the line"
+	| theNewCursorPositions theNewSelections |
+	self assertUIProcess.
+
+	theNewCursorPositions := (self cursors collect: [ :aCursor |
+		aCursor -> ((self findTextIndexAtLineStart: aCursor) to: (self findTextIndexAtLineEnd: aCursor)) ]) as: OrderedIdentityDictionary.
+
+	theNewCursorPositions := (theNewCursorPositions associations select: [ :eachAssoc |
+		| eachExistingCursor eachLineInterval |
+		eachExistingCursor := eachAssoc key.
+		eachLineInterval := eachAssoc value.
+		eachExistingCursor position ~= eachLineInterval last
+	]) as: OrderedIdentityDictionary.
+
+	theNewSelections := theNewCursorPositions associations collect: [ :eachAssoc |
+		| eachExistingCursor eachLineInterval aStartIndex |
+		eachExistingCursor := eachAssoc key.
+		eachLineInterval := eachAssoc value.
+		aStartIndex := self findLineSelectionEndAfter: eachExistingCursor within: eachLineInterval.
+		BlMonotoneSelection from: aStartIndex to: eachLineInterval last ].
+
+	theNewCursorPositions do: [ :eachLineInterval |
+		self editor deselecter
+			from: eachLineInterval first to: eachLineInterval last;
+			deselect ].
+
+	theNewSelections do: [ :eachSelection |
+		self from: eachSelection from to: eachSelection to ]
+]
+
+{ #category : #private }
+BrTextEditorSelecter >> findLineSelectionEndAfter: aCursor within: aTextInterval [
+	| anEndIndex |
+	
+	anEndIndex := aCursor position.
+	self selection do: [ :eachMonotoneSelection |
+		(eachMonotoneSelection to between: aTextInterval first and: aTextInterval last)
+			ifTrue: [ anEndIndex := anEndIndex max: eachMonotoneSelection to ].
+	
+		(eachMonotoneSelection to > aTextInterval last
+			and: [ eachMonotoneSelection from <= aTextInterval last ])
+				ifTrue: [ anEndIndex := aTextInterval last ] ].
+
+	^ anEndIndex
+]
+
+{ #category : #private }
+BrTextEditorSelecter >> findLineSelectionStartBefore: aCursor within: aTextInterval [
+	| aStartIndex |
+	
+	aStartIndex := aCursor position.
+	self selection do: [ :eachMonotoneSelection |
+		(eachMonotoneSelection from between: aTextInterval first and: aTextInterval last)
+			ifTrue: [ aStartIndex := aStartIndex min: eachMonotoneSelection from ].
+
+		(eachMonotoneSelection from < aTextInterval first
+			and: [ eachMonotoneSelection to >= aTextInterval first ])
+				ifTrue: [ aStartIndex := aTextInterval first ] ].
+
+	^ aStartIndex
+]
+
+{ #category : #'api - configuration' }
 BrTextEditorSelecter >> from: aFromIndex to: aToIndex [
 	self assertUIProcess.
 
@@ -183,6 +247,38 @@ BrTextEditorSelecter >> moveOneUp [
 	"the cursor is on the left side of the selection or is not inside any selection, we should extend it to the new potential location"
 	theCursorsOnTheLeft, theCursorsOutside do: [ :aCursor | 
 		self from: (theNewCursorPositions at: aCursor) to: aCursor position ]
+]
+
+{ #category : #'api - configuration' }
+BrTextEditorSelecter >> moveToLineStart [
+	"Extend selection to the start of the line"
+	| theNewCursorPositions theNewSelections |
+	self assertUIProcess.
+
+	theNewCursorPositions := (self cursors collect: [ :aCursor |
+		aCursor -> ((self findTextIndexAtLineStart: aCursor) to: (self findTextIndexAtLineEnd: aCursor)) ]) as: OrderedIdentityDictionary.
+
+	theNewCursorPositions := (theNewCursorPositions associations select: [ :eachAssoc |
+		| eachExistingCursor eachLineInterval |
+		eachExistingCursor := eachAssoc key.
+		eachLineInterval := eachAssoc value.
+		eachExistingCursor position ~= eachLineInterval first
+	]) as: OrderedIdentityDictionary.
+
+	theNewSelections := theNewCursorPositions associations collect: [ :eachAssoc |
+		| eachExistingCursor eachLineInterval anEndIndex |
+		eachExistingCursor := eachAssoc key.
+		eachLineInterval := eachAssoc value.
+		anEndIndex := self findLineSelectionStartBefore: eachExistingCursor within: eachLineInterval.
+		BlMonotoneSelection from: eachLineInterval first to: anEndIndex ].
+
+	theNewCursorPositions do: [ :eachLineInterval |
+		self editor deselecter
+			from: eachLineInterval first to: eachLineInterval last;
+			deselect ].
+
+	theNewSelections do: [ :eachSelection |
+		self from: eachSelection from to: eachSelection to ]
 ]
 
 { #category : #'api - configuration' }

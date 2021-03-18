@@ -1,8 +1,16 @@
 Class {
 	#name : #BrEditorMoveCursorToPreviousWordShortcut,
 	#superclass : #BrEditorShortcut,
+	#instVars : [
+		'combinationForMacOS'
+	],
 	#category : #'Brick-Editor-Shortcuts'
 }
+
+{ #category : #'api - combination' }
+BrEditorMoveCursorToPreviousWordShortcut >> combinationForMacOS [
+	^ combinationForMacOS
+]
 
 { #category : #accessing }
 BrEditorMoveCursorToPreviousWordShortcut >> description [
@@ -13,7 +21,8 @@ BrEditorMoveCursorToPreviousWordShortcut >> description [
 BrEditorMoveCursorToPreviousWordShortcut >> initialize [
 	super initialize.
 	
-	combination := BlKeyCombination primaryArrowLeft
+	combination := BlKeyCombination builder control arrowLeft build.
+	combinationForMacOS := BlKeyCombination builder alt arrowLeft build.
 ]
 
 { #category : #accessing }
