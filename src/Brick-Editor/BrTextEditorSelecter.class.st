@@ -276,7 +276,10 @@ BrTextEditorSelecter >> privateExtendSelectionLeftAt: aTextPosition by: anAmount
 			aSelectionStart = aSelectionEnd
 				ifFalse: [ toSelect add: (BlSelection from: aSelectionStart to: aSelectionEnd) ] ].
 
-	^ { #toSelect -> toSelect . #toDeselect -> toDeselect } asOrderedDictionary
+	^ BrExtendSelectionCommand new 
+		editor: editor;
+		toSelect: toSelect;
+		toDeselect: toDeselect
 ]
 
 { #category : #private }
@@ -307,37 +310,27 @@ BrTextEditorSelecter >> privateExtendSelectionRightAt: aTextPosition by: anAmoun
 			aSelectionStart = aSelectionEnd
 				ifFalse: [ toSelect add: (BlSelection from: aSelectionStart to: aSelectionEnd) ] ].
 
-	^ { #toSelect -> toSelect . #toDeselect -> toDeselect } asOrderedDictionary
+	^ BrExtendSelectionCommand new 
+		editor: editor;
+		toSelect: toSelect;
+		toDeselect: toDeselect
 ]
 
 { #category : #private }
 BrTextEditorSelecter >> privatePerformSelectAndDeselectCommands: theCommands [
-	"The commands is a collection of dictionaries:
-	{ 
-	{ #toSelect -> #() . #toDeselect -> #() } asDictionary.
-	}
-	"
 	| aDeselecter |
-	
 	aDeselecter := self editor deselecter.
-	theCommands do: [ :eachToSelectAndDeselect |
-		eachToSelectAndDeselect
-			at: #toDeselect
-			ifPresent: [ :toDeselect |
-				toDeselect do: [ :eachSelectionToDeselect |
-					aDeselecter
-						from: eachSelectionToDeselect from
-						to: eachSelectionToDeselect to ] ] ].
+	theCommands do: [ :aCommand |
+		aCommand toDeselectDo: [ :eachSelectionToDeselect |
+			aDeselecter
+				from: eachSelectionToDeselect from
+				to: eachSelectionToDeselect to ] ].
 	aDeselecter deselect.
-	
-	theCommands do: [ :eachToSelectAndDeselect |
-		eachToSelectAndDeselect
-			at: #toSelect
-			ifPresent: [ :toSelect |
-				toSelect do: [ :eachSelectionToSelect |
-					self
-						from: eachSelectionToSelect from
-						to: eachSelectionToSelect to ] ] ]
+	theCommands do: [ :aCommand |
+		aCommand toSelectDo: [ :eachSelectionToSelect |
+			self
+				from: eachSelectionToSelect from
+				to: eachSelectionToSelect to ] ]
 ]
 
 { #category : #private }
