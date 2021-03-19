@@ -74,6 +74,57 @@ BrTextEditorSelecterExamples >> select_all_reduced [
 	^ anEditor
 ]
 
+{ #category : #accessing }
+BrTextEditorSelecterExamples >> select_moveOneLeft_at_4 [
+	<gtExample>
+	| anEditor |
+
+	anEditor := self editorOnMultilineText.
+	anEditor editor moveCursorTo: 4.
+	anEditor selecter moveOneToLeft; select.
+	self 
+		assert: anEditor selection 
+		equals: (BlCompositeSelection new select: 3 to: 4).
+	self 
+		assert: anEditor editor selectedText asString 
+		equals: 'u'.
+	"self assert: anEditor cursors equals: (BrTextEditorCursor atAll: #(4))."
+	^ anEditor
+]
+
+{ #category : #accessing }
+BrTextEditorSelecterExamples >> select_moveOneLeft_at_4_extendToNextWordEnd [
+	<gtExample>
+	| anEditor |
+	anEditor := self select_moveOneLeft_at_4.
+	anEditor selecter extendToNextWordEnd; select.
+"	self 
+		assert: anEditor selection 
+		equals: (BlCompositeSelection new select: 4 to: 8).
+	self 
+		assert: anEditor editor selectedText asString 
+		equals: 'mmer'."
+	^ anEditor
+]
+
+{ #category : #accessing }
+BrTextEditorSelecterExamples >> select_moveOneRight_at_6 [
+	<gtExample>
+	| anEditor |
+
+	anEditor := self editorOnMultilineText.
+	anEditor editor moveCursorTo: 6.
+	anEditor selecter moveOneToRight; select.
+	self 
+		assert: anEditor selection 
+		equals: (BlCompositeSelection new select: 6 to: 7).
+	self 
+		assert: anEditor editor selectedText asString 
+		equals: 'e'.
+	self assert: anEditor cursors equals: (BrTextEditorCursor atAll: #(7)).
+	^ anEditor
+]
+
 { #category : #'examples - word' }
 BrTextEditorSelecterExamples >> select_word_at_0 [
 	<gtExample>
