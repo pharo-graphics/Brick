@@ -28,56 +28,67 @@ BrTextEditorSelecter >> all: aCompositeSelection [
 		self from: eachMonotoneSelection from to: eachMonotoneSelection to ]
 ]
 
-{ #category : #private }
-BrTextEditorSelecter >> characterType: aCharacter [
-	<return: #Symbol>
-	
-	(self isWordChar: aCharacter)
-		ifTrue: [ ^ #word ].
-		
-	aCharacter isSeparator
-		ifTrue: [ ^ #separator ].
-		
-	^ #other
-]
-
 { #category : #'api - configuration' }
 BrTextEditorSelecter >> extendToLineEnd [
 	"Extend selection to the end of the line"
-	| theNewCursorPositions theNewSelections |
+	|  theCommands |
 	self assertUIProcess.
 
-	theNewCursorPositions := (self cursors collect: [ :aCursor |
-		aCursor -> ((self findTextIndexAtLineStart: aCursor) to: (self findTextIndexAtLineEnd: aCursor)) ]) as: OrderedIdentityDictionary.
+	theCommands := self cursors collect: [ :aCursor |
+		self
+			privateExtendSelectionRightAt: aCursor position
+			by: (self findTextIndexAtLineEnd: aCursor) - aCursor position ].
+	
+	self privatePerformSelectAndDeselectCommands: theCommands
+]
 
-	theNewCursorPositions := (theNewCursorPositions associations select: [ :eachAssoc |
-		| eachExistingCursor eachLineInterval |
-		eachExistingCursor := eachAssoc key.
-		eachLineInterval := eachAssoc value.
-		eachExistingCursor position ~= eachLineInterval last
-	]) as: OrderedIdentityDictionary.
+{ #category : #'api - configuration' }
+BrTextEditorSelecter >> extendToLineStart [
+	"Extend selection to the start of the line"
+	|  theCommands |
+	self assertUIProcess.
 
-	theNewSelections := theNewCursorPositions associations collect: [ :eachAssoc |
-		| eachExistingCursor eachLineInterval aStartIndex |
-		eachExistingCursor := eachAssoc key.
-		eachLineInterval := eachAssoc value.
-		aStartIndex := self findLineSelectionEndAfter: eachExistingCursor within: eachLineInterval.
-		BlMonotoneSelection from: aStartIndex to: eachLineInterval last ].
+	theCommands := self cursors collect: [ :aCursor |
+		self
+			privateExtendSelectionLeftAt: aCursor position
+			by: aCursor position - (self findTextIndexAtLineStart: aCursor) ].
 
-	theNewCursorPositions do: [ :eachLineInterval |
-		self editor deselecter
-			from: eachLineInterval first to: eachLineInterval last;
-			deselect ].
+	self privatePerformSelectAndDeselectCommands: theCommands
+]
 
-	theNewSelections do: [ :eachSelection |
-		self from: eachSelection from to: eachSelection to ]
+{ #category : #'api - configuration' }
+BrTextEditorSelecter >> extendToNextWordEnd [
+	"Extend selection to the end of the next word"
+	|  theCommands |
+	self assertUIProcess.
+
+	theCommands := self cursors collect: [ :aCursor |
+		self
+			privateExtendSelectionRightAt: aCursor position
+			by: (self findWordEndAfter: aCursor position) - aCursor position ].
+	
+	self privatePerformSelectAndDeselectCommands: theCommands
+]
+
+{ #category : #'api - configuration' }
+BrTextEditorSelecter >> extendToPreviousWordStart [
+	"Extend selection to start of the previous word"
+	|  theCommands |
+	self assertUIProcess.
+
+	theCommands := self cursors collect: [ :aCursor |
+		self
+			privateExtendSelectionLeftAt: aCursor position
+			by: aCursor position - (self findWordStartBefore: aCursor position) ].
+	
+	self privatePerformSelectAndDeselectCommands: theCommands
 ]
 
 { #category : #private }
-BrTextEditorSelecter >> findLineSelectionEndAfter: aCursor within: aTextInterval [
+BrTextEditorSelecter >> findExistingSelectionEndAfter: aTextIndex within: aTextInterval [
 	| anEndIndex |
 	
-	anEndIndex := aCursor position.
+	anEndIndex := aTextIndex.
 	self selection do: [ :eachMonotoneSelection |
 		(eachMonotoneSelection to between: aTextInterval first and: aTextInterval last)
 			ifTrue: [ anEndIndex := anEndIndex max: eachMonotoneSelection to ].
@@ -90,10 +101,10 @@ BrTextEditorSelecter >> findLineSelectionEndAfter: aCursor within: aTextInterval
 ]
 
 { #category : #private }
-BrTextEditorSelecter >> findLineSelectionStartBefore: aCursor within: aTextInterval [
+BrTextEditorSelecter >> findExistingSelectionStartBefore: aTextIndex within: aTextInterval [
 	| aStartIndex |
 	
-	aStartIndex := aCursor position.
+	aStartIndex := aTextIndex.
 	self selection do: [ :eachMonotoneSelection |
 		(eachMonotoneSelection from between: aTextInterval first and: aTextInterval last)
 			ifTrue: [ aStartIndex := aStartIndex min: eachMonotoneSelection from ].
@@ -122,13 +133,6 @@ BrTextEditorSelecter >> initialize [
 	selection := BlCompositeSelection new.
 	shouldUpdateCursor := true.
 	shouldDeselectExisting := false
-]
-
-{ #category : #private }
-BrTextEditorSelecter >> isWordChar: aCharacter [
-	<return: #Number>
-
-	^ aCharacter isAlphaNumeric
 ]
 
 { #category : #'api - configuration' }
@@ -166,53 +170,29 @@ BrTextEditorSelecter >> moveOneDown [
 { #category : #'api - configuration' }
 BrTextEditorSelecter >> moveOneToLeft [
 	"Select and move a cursor one character to the left"
-	| theCursorsOnTheLeft theCursorsOnTheRight theCursorsOutside |
+	|  theCommands |
 	self assertUIProcess.
+
+	theCommands := self cursors collect: [ :aCursor |
+		self
+			privateExtendSelectionLeftAt: aCursor position
+			by: 1 ].
 	
-	theCursorsOnTheLeft := self cursors
-		select: [ :aCursor | self selection anySatisfy: [ :aSelection | aCursor position = aSelection from ] ].
-		
-	theCursorsOnTheRight := self cursors
-		select: [ :aCursor | self selection anySatisfy: [ :aSelection | aCursor position = aSelection to ] ].
-	
-	theCursorsOutside := self cursors
-		select: [ :aCursor | (self selection anySatisfy: [ :aSelection | aCursor position between: aSelection from and: aSelection to ]) not ].
-		
-	"the cursor is on the right side of the selection, we should deselect right most character"
-	theCursorsOnTheRight do: [ :aCursor |
-		self editor deselecter
-			from: aCursor position - 1 to: aCursor position;
-			deselect ].
-	
-	"the cursor is on the left side of the selection or is not inside any selection, we should extend it by one character to the left"
-	theCursorsOnTheLeft, theCursorsOutside do: [ :aCursor | 
-		self from: ((aCursor position - 1) max: 0) to: aCursor position ].
+	self privatePerformSelectAndDeselectCommands: theCommands
 ]
 
 { #category : #'api - configuration' }
 BrTextEditorSelecter >> moveOneToRight [
 	"Select and move a cursor one character to the right"
-	| theCursorsOnTheLeft theCursorsOnTheRight theCursorsOutside |
+	|  theCommands |
 	self assertUIProcess.
+
+	theCommands := self cursors collect: [ :aCursor |
+		self
+			privateExtendSelectionRightAt: aCursor position
+			by: 1 ].
 	
-	theCursorsOnTheLeft := self cursors
-		select: [ :aCursor | self selection anySatisfy: [ :aSelection | aCursor position = aSelection from ] ].
-		
-	theCursorsOnTheRight := self cursors
-		select: [ :aCursor | self selection anySatisfy: [ :aSelection | aCursor position = aSelection to ] ].
-	
-	theCursorsOutside := self cursors
-		select: [ :aCursor | (self selection anySatisfy: [ :aSelection | aCursor position between: aSelection from and: aSelection to ]) not ].
-		
-	"the cursor is on the left side of the selection, we should deselect left most character"
-	theCursorsOnTheLeft do: [ :aCursor |
-		self editor deselecter
-			from: aCursor position to: aCursor position + 1;
-			deselect ].
-	
-	"the cursor is on the right side of the selection or is not inside any selection, we should extend it by one character to the right"
-	theCursorsOnTheRight, theCursorsOutside do: [ :aCursor | 
-		self from: aCursor position to: ((aCursor position + 1) min: self text size) ].
+	self privatePerformSelectAndDeselectCommands: theCommands
 ]
 
 { #category : #'api - configuration' }
@@ -250,38 +230,6 @@ BrTextEditorSelecter >> moveOneUp [
 ]
 
 { #category : #'api - configuration' }
-BrTextEditorSelecter >> moveToLineStart [
-	"Extend selection to the start of the line"
-	| theNewCursorPositions theNewSelections |
-	self assertUIProcess.
-
-	theNewCursorPositions := (self cursors collect: [ :aCursor |
-		aCursor -> ((self findTextIndexAtLineStart: aCursor) to: (self findTextIndexAtLineEnd: aCursor)) ]) as: OrderedIdentityDictionary.
-
-	theNewCursorPositions := (theNewCursorPositions associations select: [ :eachAssoc |
-		| eachExistingCursor eachLineInterval |
-		eachExistingCursor := eachAssoc key.
-		eachLineInterval := eachAssoc value.
-		eachExistingCursor position ~= eachLineInterval first
-	]) as: OrderedIdentityDictionary.
-
-	theNewSelections := theNewCursorPositions associations collect: [ :eachAssoc |
-		| eachExistingCursor eachLineInterval anEndIndex |
-		eachExistingCursor := eachAssoc key.
-		eachLineInterval := eachAssoc value.
-		anEndIndex := self findLineSelectionStartBefore: eachExistingCursor within: eachLineInterval.
-		BlMonotoneSelection from: eachLineInterval first to: anEndIndex ].
-
-	theNewCursorPositions do: [ :eachLineInterval |
-		self editor deselecter
-			from: eachLineInterval first to: eachLineInterval last;
-			deselect ].
-
-	theNewSelections do: [ :eachSelection |
-		self from: eachSelection from to: eachSelection to ]
-]
-
-{ #category : #'api - configuration' }
 BrTextEditorSelecter >> overwrite [
 	"Deselect any selections if they exist and overwrite with the new selection"
 	
@@ -298,6 +246,98 @@ BrTextEditorSelecter >> privateDeselectExisting: aSelection [
 	aDeselecter := self editor deselecter.	
 	aSelection do: [ :eachMonotoneSelection | aDeselecter from: eachMonotoneSelection from to: eachMonotoneSelection to ].
 	aDeselecter deselect
+]
+
+{ #category : #private }
+BrTextEditorSelecter >> privateExtendSelectionLeftAt: aTextPosition by: anAmount [
+	| hasSelectionAfter toSelect toDeselect |
+
+	toSelect := OrderedCollection new.
+	toDeselect := OrderedCollection new.
+
+	hasSelectionAfter := self selection
+		anySatisfy: [ :eachMonotoneSelection |
+			(eachMonotoneSelection from <= aTextPosition)
+				and: [ eachMonotoneSelection to > aTextPosition ] ].
+
+	hasSelectionAfter
+		ifTrue: [ toSelect add: (BlSelection from: aTextPosition - anAmount to: aTextPosition) ]
+		ifFalse: [
+			| aSelectionStart aSelectionEnd |
+			aSelectionEnd := self
+				findExistingSelectionStartBefore: aTextPosition
+				within: (aTextPosition - anAmount to: aTextPosition).
+			
+			aSelectionEnd = aTextPosition
+				ifFalse: [ toDeselect add: (BlSelection from: aSelectionEnd to: aTextPosition) ].
+				
+			aSelectionStart := aTextPosition - anAmount.
+			
+			aSelectionStart = aSelectionEnd
+				ifFalse: [ toSelect add: (BlSelection from: aSelectionStart to: aSelectionEnd) ] ].
+
+	^ { #toSelect -> toSelect . #toDeselect -> toDeselect } asOrderedDictionary
+]
+
+{ #category : #private }
+BrTextEditorSelecter >> privateExtendSelectionRightAt: aTextPosition by: anAmount [
+	| hasSelectionBefore toSelect toDeselect |
+
+	toSelect := OrderedCollection new.
+	toDeselect := OrderedCollection new.
+
+	hasSelectionBefore := self selection
+		anySatisfy: [ :eachMonotoneSelection |
+			(eachMonotoneSelection from < aTextPosition)
+				and: [ eachMonotoneSelection to >= aTextPosition ] ].
+
+	hasSelectionBefore
+		ifTrue: [ toSelect add: (BlSelection from: aTextPosition to: aTextPosition + anAmount) ]
+		ifFalse: [
+			| aSelectionStart aSelectionEnd |
+			aSelectionStart := self
+				findExistingSelectionEndAfter: aTextPosition
+				within: (aTextPosition to: aTextPosition + anAmount).
+			
+			aSelectionStart = aTextPosition
+				ifFalse: [ toDeselect add: (BlSelection from: aTextPosition to: aSelectionStart) ].
+				
+			aSelectionEnd := aTextPosition + anAmount.
+			
+			aSelectionStart = aSelectionEnd
+				ifFalse: [ toSelect add: (BlSelection from: aSelectionStart to: aSelectionEnd) ] ].
+
+	^ { #toSelect -> toSelect . #toDeselect -> toDeselect } asOrderedDictionary
+]
+
+{ #category : #private }
+BrTextEditorSelecter >> privatePerformSelectAndDeselectCommands: theCommands [
+	"The commands is a collection of dictionaries:
+	{ 
+	{ #toSelect -> #() . #toDeselect -> #() } asDictionary.
+	}
+	"
+	| aDeselecter |
+	
+	aDeselecter := self editor deselecter.
+	theCommands do: [ :eachToSelectAndDeselect |
+		eachToSelectAndDeselect
+			at: #toDeselect
+			ifPresent: [ :toDeselect |
+				toDeselect do: [ :eachSelectionToDeselect |
+					aDeselecter
+						from: eachSelectionToDeselect from
+						to: eachSelectionToDeselect to ] ] ].
+	aDeselecter deselect.
+	
+	theCommands do: [ :eachToSelectAndDeselect |
+		eachToSelectAndDeselect
+			at: #toSelect
+			ifPresent: [ :toSelect |
+				toSelect do: [ :eachSelectionToSelect |
+					self
+						from: eachSelectionToSelect from
+						to: eachSelectionToSelect to ] ] ]
 ]
 
 { #category : #private }
@@ -371,33 +411,9 @@ BrTextEditorSelecter >> withoutCursorUpdate [
 { #category : #'api - configuration' }
 BrTextEditorSelecter >> wordAt: aTextIndex [
 	"Select a word or a whitespace at a given text index"
-	| aTextIterator hasWordToTheLeft hasWordToTheRight shouldBeWord aWordStart aWordEnd aDesiredType |
+	| aWordInterval |
 	self assertUIProcess.
 	
-	aTextIterator := self text iterator skip: aTextIndex.
-	
-	hasWordToTheLeft := aTextIterator hasPrevious and: [ self isWordChar: aTextIterator peer ].
-	hasWordToTheRight := aTextIterator hasNext and: [ self isWordChar: aTextIterator peek ].
-	shouldBeWord := hasWordToTheLeft or: hasWordToTheRight.
-	
-	aWordStart := aTextIndex.
-	aWordEnd := aTextIndex.
-	
-	aTextIterator hasNext ifTrue: [
-		aTextIterator
-			nextSegment: [ :eachCharacter | self characterType: eachCharacter ]
-			indicesDo: [ :aStart :anEnd :aType |
-				aDesiredType := aType.
-				(shouldBeWord not or: [ (aType = #word and: [ shouldBeWord ]) ])
-					ifTrue: [ aWordEnd := anEnd ] ] ].
-	
-	aTextIterator := self text iterator skip: aTextIndex.
-	aTextIterator hasPrevious ifTrue: [
-		aTextIterator
-			previousSegment: [ :eachCharacter | self characterType: eachCharacter ]
-			indicesDo: [ :aStart :anEnd :aType |
-				((aType = #word and: [ shouldBeWord ]) or: [ (aDesiredType isNil or: [ aType = aDesiredType ] ) ])
-					ifTrue: [ aWordStart := aStart ] ] ].
-			
-	self from: aWordStart to: aWordEnd
+	aWordInterval := self findWordAt: aTextIndex.
+	self from: aWordInterval first to: aWordInterval last
 ]

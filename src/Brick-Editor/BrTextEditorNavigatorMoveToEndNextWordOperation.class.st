@@ -9,18 +9,8 @@ Class {
 
 { #category : #matching }
 BrTextEditorNavigatorMoveToEndNextWordOperation >> performOn: aNavigator [
-	| textIterator newPosition |
-	"Moves cursor to the end of the next word"
-
-	newPosition := self cursor position.
-	textIterator := aNavigator text iterator: (newPosition max: 1) to: aNavigator text size.
-	[ textIterator hasNext and: [ newPosition = self cursor first position ] ] whileTrue: [
-		| skip |
-		skip := textIterator peek isSeparator.
-		textIterator nextWord.
-		skip ifFalse: [ newPosition := textIterator position ] ].
 	
 	aNavigator
 		privateRegisterForMove: self cursor
-		by: (newPosition - self cursor position)
+		by: (aNavigator findWordEndAfter: self cursor position) - self cursor position
 ]

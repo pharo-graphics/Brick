@@ -9,17 +9,9 @@ Class {
 
 { #category : #matching }
 BrTextEditorNavigatorMoveToStartPreviousWordOperation >> performOn: aNavigator [
-	| newPosition |
-	"Moves cursor to the left by one character"
-
-	newPosition := self cursor position - 1.
-	newPosition := newPosition max: 0.
-	[ newPosition > 0 and: [ (aNavigator text at: newPosition) isSeparator ] ] whileTrue:
-		[ newPosition := newPosition - 1 ].
-	[ newPosition = 0 or: [ (aNavigator text at: newPosition) isSeparator ] ] whileFalse:
-		[ newPosition := newPosition - 1 ].
+	"Moves cursor to the left until the start of the previous word"
 	
 	aNavigator
 		privateRegisterForMove: self cursor
-		by: (newPosition - self cursor position)
+		by: (aNavigator findWordStartBefore: self cursor position) - self cursor position
 ]

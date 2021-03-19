@@ -34,7 +34,7 @@ BrEditorSelectLineBeforeCursorShortcut >> name [
 BrEditorSelectLineBeforeCursorShortcut >> performOnEditor: aBrTextEditor element: aBrEditorElement dueTo: aShortcutEvent [
 	aBrTextEditor selecter
 		withoutCursorUpdate;
-		moveToLineStart;
+		extendToLineStart;
 		select.
 
 	aBrTextEditor navigator

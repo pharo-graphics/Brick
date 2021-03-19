@@ -20,7 +20,7 @@ BrEditorMoveCursorToPreviousWordShortcut >> description [
 { #category : #initialization }
 BrEditorMoveCursorToPreviousWordShortcut >> initialize [
 	super initialize.
-	
+
 	combination := BlKeyCombination builder control arrowLeft build.
 	combinationForMacOS := BlKeyCombination builder alt arrowLeft build.
 ]
@@ -35,6 +35,7 @@ BrEditorMoveCursorToPreviousWordShortcut >> performOnEditor: aBrTextEditor eleme
 	aBrTextEditor deselecter
 		all;
 		deselect.
+
 	aBrTextEditor navigator
 		moveToStartPreviousWord;
 		apply
