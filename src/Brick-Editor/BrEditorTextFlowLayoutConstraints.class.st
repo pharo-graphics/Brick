@@ -6,6 +6,7 @@ Class {
 	#superclass : #BlLayoutConstraints,
 	#instVars : [
 		'pushLine',
+		'shouldFillLine',
 		'breakLineBefore',
 		'breakLineAfter',
 		'assignedLine'
@@ -37,13 +38,19 @@ BrEditorTextFlowLayoutConstraints >> breakLineBefore [
 	breakLineBefore := true
 ]
 
+{ #category : #accessing }
+BrEditorTextFlowLayoutConstraints >> doNotFillLine [
+	shouldFillLine := false
+]
+
 { #category : #initialization }
 BrEditorTextFlowLayoutConstraints >> initialize [
 	super initialize.
 	
 	breakLineBefore := false.
 	breakLineAfter := false.
-	pushLine := false
+	pushLine := false.
+	shouldFillLine := true
 ]
 
 { #category : #accessing }
@@ -67,6 +74,13 @@ BrEditorTextFlowLayoutConstraints >> shouldBreakLineBefore [
 	<return: #Boolean>
 
 	^ breakLineBefore
+]
+
+{ #category : #testing }
+BrEditorTextFlowLayoutConstraints >> shouldFillLine [
+	"Return true if the element should fill all available space in the line if it is the last element"
+
+	^ shouldFillLine
 ]
 
 { #category : #testing }
