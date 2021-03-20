@@ -142,10 +142,14 @@ BrEditorTextFlowLayout >> measure: anElement with: anExtentSpec [
 
 	lines do: [ :aLine |
 		aLine elements ifNotEmpty: [ :theElements |
-			(theElements last isKindOf: BrTextElementWithCursors)
+			| theLastElement |
+			
+			theLastElement := theElements last.
+			
+			((theLastElement isKindOf: BrTextElementWithCursors) and: [ theLastElement constraints textFlow shouldFillLine ])
 				ifTrue: [
-					theElements last measure: (BlExtentMeasurementSpec exact:
-						theElements last measuredExtent + (((anElement measuredWidth - aLine width) max: 0.0) @ theElements last padding height negated)) ] ] ].
+					theLastElement measure: (BlExtentMeasurementSpec exact:
+						theLastElement measuredExtent + (((anElement measuredWidth - aLine width) max: 0.0) @ theLastElement padding height negated)) ] ] ].
 			
 	self measureIgnored: anElement with: anExtentSpec
 ]
