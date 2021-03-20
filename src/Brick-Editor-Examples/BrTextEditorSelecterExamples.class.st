@@ -125,6 +125,25 @@ BrTextEditorSelecterExamples >> select_moveOneRight_at_6 [
 	^ anEditor
 ]
 
+{ #category : #accessing }
+BrTextEditorSelecterExamples >> select_moveOneRight_at_6_extendToNextWordEnd_twice [
+	<gtExample>
+	| anEditor |
+	anEditor := self select_moveOneRight_at_6.
+	anEditor selecter extendToNextWordEnd; select.
+	self 
+		assert: anEditor selection 
+		equals: (BlCompositeSelection new select: 6 to: 8).
+	self 
+		assert: anEditor editor selectedText asString 
+		equals: 'er'.
+	anEditor selecter extendToNextWordEnd; select.
+	self 
+		assert: anEditor selection 
+		equals: (BlCompositeSelection new select: 6 to: 14).
+	^ anEditor
+]
+
 { #category : #'examples - word' }
 BrTextEditorSelecterExamples >> select_word_at_0 [
 	<gtExample>
