@@ -2,20 +2,17 @@
 
 Brick is a widget library on top of [Bloc](https://github.com/feenkcom/Bloc).
 
+:warning:
+This repository contains the code for Brick that may be included in the future in Pharo.
+It retrofits a part of the development made at https://github.com/feenkcom/Brick. This version will focus on core features and stability. We are currently identifying the core we want for Pharo.
+
 # Installation
-
-## How to load
-
-The ideal way to load the code is by loading the entire [Glamorous Toolkit project](https://github.com/feenkcom/gtoolkit).
-
-## All-in-one versions 
-[Brick](https://github.com/feenkcom/Bloc) + [Bloc](https://github.com/feenkcom/Bloc)
 
 The following script install the latest version of Brick + Bloc
 
 ```smalltalk
 Metacello new
     baseline: 'Brick';
-    repository: 'github://feenkcom/Brick/src';
+    repository: 'github://pharo-graphics/Brick/src';
     load
 ```
