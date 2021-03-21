@@ -1,8 +1,13 @@
 Class {
 	#name : #BrLayoutResizerRequest,
 	#superclass : #BrRequest,
-	#category : #'Brick-Layout Resizer - Events'
+	#category : #'Brick-! Deprecated'
 }
+
+{ #category : #testing }
+BrLayoutResizerRequest class >> isDeprecated [
+	^ true
+]
 
 { #category : #initialization }
 BrLayoutResizerRequest >> responseClass [

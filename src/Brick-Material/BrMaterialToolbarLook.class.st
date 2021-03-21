@@ -8,5 +8,11 @@ Class {
 BrMaterialToolbarLook >> initialize [
 	super initialize.
 	
-	self add: (BrLayoutLook new layout: (BlGridLayout horizontal cellSpacing: 7); fitContent)
+	self
+		addChangeProperty: #(widget layout)
+			with: [ BlGridLayout horizontal cellSpacing: 7 ];
+		addChangeProperty: #(widget constraints vertical resizer)
+			with: [ BlLayoutResizer fitContent ];
+		addChangeProperty: #(widget constraints horizontal resizer)
+			with: [ BlLayoutResizer fitContent ]
 ]

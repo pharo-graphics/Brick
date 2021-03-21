@@ -17,8 +17,8 @@ BrTextEditorScreenToCursorCommand >> explicitScreenToCursor: aTransformation for
 
 	"we convert a pure screen position, should send to all segment holders"
 	aTextEditor
-		notifyItems: aTextEditor segmentCollector cachedInterval
-		event: self newHolderCommand
+		enqueueHolderCommand: self newHolderCommand
+		interval: aTextEditor segmentCollector cachedInterval
 ]
 
 { #category : #'instance creation' }
@@ -35,8 +35,8 @@ BrTextEditorScreenToCursorCommand >> relativeScreenToCursor: aTransformation for
 		cachedSegmentAt: self transformation cursor position
 		ifFound: [ :aSegment |
 			aTextEditor
-				notifyItems: (aSegment index to: aSegment index)
-				event: self newHolderCommand ]
+				enqueueHolderCommand: self newHolderCommand
+				interval: (aSegment index to: aSegment index) ]
 		ifNotFound: [  ].
 ]
 

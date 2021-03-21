@@ -1,31 +1,16 @@
 "
-I am an attribute with the ability to handle events received by a visual text element 
+!Event handler attribute
+Is the superclass of all attributes with the ability to handle some text events received by the visual text elements.
 "
 Class {
 	#name : #BrTextEventHandlerAttribute,
 	#superclass : #BlTextAttribute,
-	#category : #'Brick-Editor-Text-Attributes'
+	#category : #'Brick-Editor-Attributes'
 }
 
-{ #category : #comparing }
-BrTextEventHandlerAttribute >> equals: aTextAttribute [
-	"Return true if I am equal to a given text attribute assuming that
-	it has the same type as me"
-	<return: #Boolean>
-
-	^ self species = aTextAttribute species
-]
-
 { #category : #events }
-BrTextEventHandlerAttribute >> handleEvent: anEvent in: aTextEditor [
-	"Handle a given event or dispatch it using #sendTo:"
-
+BrTextEventHandlerAttribute >> handleEvent: anEvent in: aTextEditor on: aTBrTextEditorTextualPiece [
 	self subclassResponsibility
-]
-
-{ #category : #comparing }
-BrTextEventHandlerAttribute >> hash [
-	^ self identityHash
 ]
 
 { #category : #testing }
@@ -35,6 +20,18 @@ BrTextEventHandlerAttribute >> isEventHandler [
 	<return: #Boolean>
 
 	^ true
+]
+
+{ #category : #testing }
+BrTextEventHandlerAttribute >> mayHaveExternalReferences [
+	"Answer if this attribute can have references to some external objects like AST nodes or computation results"
+
+	^ true
+]
+
+{ #category : #comparing }
+BrTextEventHandlerAttribute >> type [
+	^ self
 ]
 
 { #category : #events }

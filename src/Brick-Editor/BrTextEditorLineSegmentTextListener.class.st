@@ -3,48 +3,53 @@ I add support of BrTextEventHandlerAttribute - special kind of attribute that ca
 "
 Class {
 	#name : #BrTextEditorLineSegmentTextListener,
-	#superclass : #BlBasicEventHandler,
-	#instVars : [
-		'editorElement'
-	],
-	#category : #'Brick-Editor-Model - Segment-Text-Line'
+	#superclass : #BrTextWordPieceUniqueHandler,
+	#category : #'Brick-Editor-UI - Word'
 }
 
-{ #category : #accessing }
-BrTextEditorLineSegmentTextListener >> editorElement [
-	^ editorElement
+{ #category : #cleanup }
+BrTextEditorLineSegmentTextListener class >> cleanUp [
+	super cleanUp.
+	
+	uniqueInstance := nil
 ]
 
 { #category : #accessing }
-BrTextEditorLineSegmentTextListener >> editorElement: anEditorElement [
-	editorElement := anEditorElement
+BrTextEditorLineSegmentTextListener class >> uniqueInstance [
+	^ uniqueInstance ifNil: [ uniqueInstance := self new ]
+]
+
+{ #category : #accessing }
+BrTextEditorLineSegmentTextListener >> eventClass [
+	^ BlMouseEvent
 ]
 
 { #category : #events }
 BrTextEditorLineSegmentTextListener >> handleEvent: aBlMouseEvent [
-	| aTextElement aLocalPosition aTextIndex anIterator theAttributes |
+	| aTextElement anEditorElement aLocalPosition aTextIndex anIterator theAttributes |
 
 	aTextElement := aBlMouseEvent currentTarget.
 	"If text element has no paragraph we can not find text index for mouse event"
-	aTextElement paragraph
+	aTextElement rawParagraph
 		ifNil: [ ^ self ].
+
+	"To not create an instance of me for each tiny text element"
+	anEditorElement := aTextElement
+		allParentsDetect: [ :anElement | anElement isKindOf: BrEditorElement ]
+		ifFound: #yourself
+		ifNone: [ ^ self ].
 	
 	aLocalPosition := aTextElement globalPointToLocal: aBlMouseEvent position.
 
-	aTextIndex := aTextElement paragraph indexAtPosition: aLocalPosition.
+	aTextIndex := aTextElement indexAtScreenPosition: aLocalPosition.
 
-	anIterator := aTextElement text iterator: (aTextIndex max: 1) to: (aTextIndex max: 1).
-	theAttributes := anIterator selectAttributes: [ :anAttribute | anAttribute isKindOf: BrTextEventHandlerAttribute ].
+	anIterator := aTextElement text
+		iterator: (aTextIndex + 1)
+		to: ((aTextIndex + 1) min: aTextElement text size).
+
+	theAttributes := anIterator selectAttributes: [ :anAttribute | anAttribute isEventHandler ].
 
 	theAttributes do: [ :anAttribute |
-		(anAttribute wantsEvent: aBlMouseEvent in: self editorElement editor)
-			ifTrue: [ anAttribute handleEvent: aBlMouseEvent in: self editorElement editor ] ]
-]
-
-{ #category : #events }
-BrTextEditorLineSegmentTextListener >> wantsEvent: anEvent [
-
-	^ (anEvent isKindOf: BlMouseEvent)
-		and: [anEvent currentTarget isAttachedToSceneGraph
-			and: [ anEvent currentTarget text isNotEmpty ] ]
+		(anAttribute wantsEvent: aBlMouseEvent in: anEditorElement editor)
+			ifTrue: [ anAttribute handleEvent: aBlMouseEvent in: anEditorElement editor on: aTextElement segmentPiece ] ]
 ]

@@ -1,6 +1,8 @@
 Class {
 	#name : #BrBreadcrumb,
 	#superclass : #BlElement,
+	#traits : 'TBrLayoutResizable + TBrLayoutAlignable',
+	#classTraits : 'TBrLayoutResizable classTrait + TBrLayoutAlignable classTrait',
 	#category : #'Brick-Breadcrumb - UI'
 }
 
@@ -25,7 +27,12 @@ BrBreadcrumb >> hasItems [
 { #category : #initialization }
 BrBreadcrumb >> initialize [
 	super initialize.
-	self viewModel: BrBreadcrumbModel new.
+	
+	self viewModel: (BrBreadcrumbModel new
+		add: (BrInteractiveModel withAll: {
+			BrLayoutAlignmentModel centerLeft })).
+			
+	self fitContent
 ]
 
 { #category : #accessing }
@@ -40,6 +47,11 @@ BrBreadcrumb >> numberOfItems [
 	<return: #Number>
 
 	^ self viewModel numberOfItems
+]
+
+{ #category : #'api - adding / removing' }
+BrBreadcrumb >> removeAllItems [
+	self viewModel removeAllItems
 ]
 
 { #category : #'api - adding / removing' }

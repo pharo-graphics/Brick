@@ -8,3 +8,8 @@ Class {
 BrDefaultState >> matches: aSetOfStates [
 	^ true
 ]
+
+{ #category : #printing }
+BrDefaultState >> printOn: aStream [
+	aStream nextPutAll: 'default'
+]

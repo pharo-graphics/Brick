@@ -4,18 +4,16 @@ Class {
 	#category : #'Brick-Glamorous-Buttons - Support'
 }
 
-{ #category : #'as yet unclassified' }
+{ #category : #initialization }
 BrGlamorousButtonIconLook >> initialize [
 	super initialize.
-	
-	self add: (BrInteractiveLook new style: [ :aStyler |
-		aStyler default: [ self icon
-			transformDo: [ :t | t scaleBy: 1 ]].
-		aStyler small: [ self icon 
-			transformDo: [ :t | t scaleBy: 0.75] ]])
-]
-
-{ #category : #initialization }
-BrGlamorousButtonIconLook >> initializeLook [
-	super initializeLook
+			
+	self add: (BrSizeAdjustmentLook new
+		@ [ self icon ];
+		huge: [ :aStyle | aStyle scaleBy: 2 ];
+		large: [ :aStyle | aStyle scaleBy: 1.5 ];
+		normal: [ :aStyle | aStyle scaleBy: 1 ];
+		small: [ :aStyle | aStyle scaleBy: 0.75 ];
+		tiny: [ :aStyle | aStyle scaleBy: 0.75 ];
+		mini: [ :aStyle | aStyle scaleBy: 0.5 ])
 ]

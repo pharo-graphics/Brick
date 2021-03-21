@@ -7,7 +7,8 @@ Class {
 	#instVars : [
 		'cursor',
 		'oldIndex',
-		'newIndex'
+		'newIndex',
+		'dueTo'
 	],
 	#category : #'Brick-Editor-Model - Events'
 }
@@ -22,6 +23,17 @@ BrTextEditorCursorMovedEvent class >> cursor: aCursor from: anOldIndex to: aNewI
 		newIndex: aNewIndex
 ]
 
+{ #category : #'instance creation' }
+BrTextEditorCursorMovedEvent class >> cursor: aCursor from: anOldIndex to: aNewIndex dueTo: aTextEditorOperator [
+	<return: #BrTextEditorCursorMovedEvent>
+	
+	^ self new
+		cursor: aCursor;
+		oldIndex: anOldIndex;
+		newIndex: aNewIndex;
+		dueTo: aTextEditorOperator
+]
+
 { #category : #accessing }
 BrTextEditorCursorMovedEvent >> cursor [
 	<return: #BrTextEditorSingleCursor>
@@ -32,6 +44,16 @@ BrTextEditorCursorMovedEvent >> cursor [
 { #category : #accessing }
 BrTextEditorCursorMovedEvent >> cursor: aBrTextEditorSingleCursor [
 	cursor := aBrTextEditorSingleCursor
+]
+
+{ #category : #accessing }
+BrTextEditorCursorMovedEvent >> dueTo [
+	^ dueTo
+]
+
+{ #category : #accessing }
+BrTextEditorCursorMovedEvent >> dueTo: aTextEditorOperator [
+	dueTo := aTextEditorOperator
 ]
 
 { #category : #accessing }

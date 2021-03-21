@@ -127,17 +127,14 @@ BrExamplesShowroom >> accordion [
 	| accordion |
 
 	accordion := BrAccordion new.
+	accordion vExact: 200.
 	accordion look: BrGlamorousAccordionLook new.
-	accordion content: [
-		BlElement new
-			size: 200@100;
-			background: Color paleRed ].
+	accordion content: [ BlElement new background: Color paleRed ].
 	accordion header: [
 		BrButton new
 			look: BrGlamorousAccordionHeaderLook new;
 			label: 'Click to expand/collapse';
-			action: [ accordion toggle ] ].
-
+			action: [ accordion toggleExpanded ] ].
 	^ accordion
 ]
 
@@ -151,9 +148,7 @@ BrExamplesShowroom >> accordionList [
 		accordion := BrAccordion new.
 		accordion look: BrGlamorousAccordionLook new.
 		accordion margin: (BlInsets all: 5).
-		accordion content: [
-			(BrEditorElement new editor: (BrTextEditor new text: 'Hello world' asRopedText))
-				constraintsDo: [ :c | c vertical fitContent ] ].
+		accordion content: [ (BrEditor new text: 'Hello world' asRopedText) ].
 		accordion header: [
 			BrButton new
 				look: BrGlamorousAccordionHeaderLook new;
@@ -176,29 +171,30 @@ BrExamplesShowroom >> accordionList [
 BrExamplesShowroom >> columnedList [
 	<gtExample>
 	| aList |
-
 	aList := BrColumnedList new.
 	aList column
-		stencil: [ :aColor :aRowIndex |
+		width: 50;
+		title: 'Index';
+		stencil: [ :aColor :aRowIndex | 
 			BrLabel new
-				look: (BrGlamorousLabelLook new foreground: aColor contrastingForegroundColor);
+				look:
+					(BrGlamorousLabelLook new
+						foreground: aColor contrastingBlackAndWhiteColor);
 				text: aRowIndex asString;
 				background: aColor;
-				padding: (BlInsets all: 12);
-				hExact: 50;
-				vMatchParent ].
+				padding: (BlInsets all: 12) ].
 	aList column
-		stencil: [ :aColor |
+		matchParent;
+		title: 'Color';
+		stencil: [ :aColor | 
 			BrLabel new
-				look: (BrGlamorousLabelLook new foreground: aColor contrastingForegroundColor);
+				look:
+					(BrGlamorousLabelLook new
+						foreground: aColor contrastingBlackAndWhiteColor);
 				text: aColor asString;
 				background: aColor;
-				padding: (BlInsets all: 12);
-				hMatchParent;
-				vMatchParent ].
-
-	aList display: (Color indexedColors).
-
+				padding: (BlInsets all: 12) ].
+	aList items: Color indexedColors.
 	^ aList
 ]
 
@@ -241,6 +237,26 @@ BrExamplesShowroom >> glamorousButton [
 ]
 
 { #category : #buttons }
+BrExamplesShowroom >> glamorousButtonWithTooltipLook [
+	<gtExample>
+	^ BrButton new
+		look: BrGlamorousButtonWithIconLook;
+		label: 'Accept';
+		icon: BrGlamorousVectorIcons accept;
+		action: [ self inform: 'Clicked' ]
+]
+
+{ #category : #buttons }
+BrExamplesShowroom >> glamorousDefaultButton [
+	<gtExample>
+	
+	^ BrButton new
+		look: BrGlamorousButtonWithLabelLook new;
+		label: 'Button';
+		action: [ self inform: 'Clicked' ]
+]
+
+{ #category : #buttons }
 BrExamplesShowroom >> glamorousDisabledButton [
 	<gtExample>
 	
@@ -249,11 +265,20 @@ BrExamplesShowroom >> glamorousDisabledButton [
 ]
 
 { #category : #buttons }
+BrExamplesShowroom >> glamorousHugeButton [
+	<gtExample>
+	^ BrButton new
+		beHugeSize;
+		look: BrGlamorousButtonWithLabelLook new;
+		label: 'Button';
+		action: [ self inform: 'Clicked' ]
+]
+
+{ #category : #buttons }
 BrExamplesShowroom >> glamorousLargeButton [
 	<gtExample>
-	
 	^ BrButton new
-		beLarge;
+		beLargeSize;
 		look: BrGlamorousButtonWithLabelLook new;
 		label: 'Button';
 		action: [ self inform: 'Clicked' ]
@@ -264,7 +289,7 @@ BrExamplesShowroom >> glamorousSmallButton [
 	<gtExample>
 	
 	^ BrButton new
-		beSmall;
+		beSmallSize;
 		look: BrGlamorousButtonWithLabelLook new;
 		label: 'Button';
 		action: [ self inform: 'Clicked' ]
@@ -285,10 +310,10 @@ BrExamplesShowroom >> glamorousTabs [
 		stencil: [ BlElement new
 			constraintsDo: [ :c |
 				c horizontal exact: 300.
-				c vertical matchParent ];
+				c vertical exact: 150 ];
 			margin: (BlInsets all: 10);
 			background: (Color red alpha: 0.2) ]).
-		
+
 	aTabGroup addTab: (BrTab new
 		look: BrGlamorousTabLook new;
 		label: 'Tab 2';
@@ -296,28 +321,159 @@ BrExamplesShowroom >> glamorousTabs [
 			margin: (BlInsets all: 10);
 			constraintsDo: [ :c |
 				c horizontal matchParent.
-				c vertical matchParent ];
+				c vertical exact: 50 ];
 			background: (Color blue alpha: 0.2) ]).
-		
+
 	aTabGroup addTab: (BrTab new
 		look: BrGlamorousTabLook new;
 		label: 'Tab 3';
 		stencil: [ BlElement new
 			constraintsDo: [ :c |
 				c horizontal matchParent.
-				c vertical exact: 300 ];
+				c vertical exact: 100 ];
 			margin: (BlInsets all: 10);
 			background: (Color orange alpha: 0.2) ]).
 
 	^ aTabGroup
 ]
 
+{ #category : #tabs }
+BrExamplesShowroom >> glamorousTabsSwitcherWithHiddenSelectedTabsWithIcons [
+	<gtExample>
+	<description: 'Tabs with glamorous switcher look'>
+	| aTabGroup |
+
+	aTabGroup := BrTabGroup new.
+	aTabGroup look: BrGlamorousTabGroupSwitcherWithHiddenSelectedTabLook new.
+
+	aTabGroup addTab: (BrTab new
+		look: BrGlamorousTabSwitcherWithIconLook new;
+		label: 'Tab 1';
+		icon: BrGlamorousVectorIcons add;
+		stencil: [ BlElement new
+			constraintsDo: [ :c |
+				c horizontal exact: 300.
+				c vertical matchParent ];
+			margin: (BlInsets all: 10);
+			background: (Color red alpha: 0.2) ]).
+
+	aTabGroup addTab: (BrTab new
+		look: BrGlamorousTabSwitcherWithIconLook new;
+		label: 'Tab 2';
+		icon: BrGlamorousVectorIcons remove;
+		stencil: [ BlElement new
+			margin: (BlInsets all: 10);
+			constraintsDo: [ :c |
+				c horizontal matchParent.
+				c vertical matchParent ];
+			background: (Color blue alpha: 0.2) ]).
+	
+	^ aTabGroup
+]
+
+{ #category : #tabs }
+BrExamplesShowroom >> glamorousTabsSwitcherWithHiddenSelectedTabsWithLabels [
+	<gtExample>
+	<description: 'Tabs with glamorous switcher look'>
+	| aTabGroup |
+
+	aTabGroup := BrTabGroup new.
+	aTabGroup look: BrGlamorousTabGroupSwitcherWithHiddenSelectedTabLook new.
+
+	aTabGroup addTab: (BrTab new
+		look: BrGlamorousTabSwitcherWithLabelLook new;
+		label: 'Tab 1';
+		stencil: [ BlElement new
+			constraintsDo: [ :c |
+				c horizontal exact: 300.
+				c vertical matchParent ];
+			margin: (BlInsets all: 10);
+			background: (Color red alpha: 0.2) ]).
+
+	aTabGroup addTab: (BrTab new
+		look: BrGlamorousTabSwitcherWithLabelLook new;
+		label: 'Tab 2';
+		stencil: [ BlElement new
+			margin: (BlInsets all: 10);
+			constraintsDo: [ :c |
+				c horizontal matchParent.
+				c vertical matchParent ];
+			background: (Color blue alpha: 0.2) ]).
+	
+	^ aTabGroup
+]
+
+{ #category : #tabs }
+BrExamplesShowroom >> glamorousTabsSwitcherWithIcons [
+	<gtExample>
+	<description: 'Tabs with glamorous switcher look'>
+	| aTabGroup |
+
+	aTabGroup := BrTabGroup new.
+	aTabGroup look: BrGlamorousTabGroupSwitcherLook new.
+
+	aTabGroup addTab: (BrTab new
+		look: BrGlamorousTabSwitcherWithIconLook new;
+		label: 'Tab 1';
+		icon: BrGlamorousVectorIcons add;
+		stencil: [ BlElement new
+			constraintsDo: [ :c |
+				c horizontal exact: 300.
+				c vertical matchParent ];
+			margin: (BlInsets all: 10);
+			background: (Color red alpha: 0.2) ]).
+
+	aTabGroup addTab: (BrTab new
+		look: BrGlamorousTabSwitcherWithIconLook new;
+		label: 'Tab 2';
+		icon: BrGlamorousVectorIcons remove;
+		stencil: [ BlElement new
+			margin: (BlInsets all: 10);
+			constraintsDo: [ :c |
+				c horizontal matchParent.
+				c vertical matchParent ];
+			background: (Color blue alpha: 0.2) ]).
+	
+	^ aTabGroup
+]
+
+{ #category : #tabs }
+BrExamplesShowroom >> glamorousTabsSwitcherWithLabels [
+	<gtExample>
+	<description: 'Tabs with glamorous switcher look'>
+	| aTabGroup |
+
+	aTabGroup := BrTabGroup new.
+	aTabGroup look: BrGlamorousTabGroupSwitcherLook new.
+
+	aTabGroup addTab: (BrTab new
+		look: BrGlamorousTabSwitcherWithLabelLook new;
+		label: 'Tab 1';
+		stencil: [ BlElement new
+			constraintsDo: [ :c |
+				c horizontal exact: 300.
+				c vertical matchParent ];
+			margin: (BlInsets all: 10);
+			background: (Color red alpha: 0.2) ]).
+
+	aTabGroup addTab: (BrTab new
+		look: BrGlamorousTabSwitcherWithLabelLook new;
+		label: 'Tab 2';
+		stencil: [ BlElement new
+			margin: (BlInsets all: 10);
+			constraintsDo: [ :c |
+				c horizontal matchParent.
+				c vertical matchParent ];
+			background: (Color blue alpha: 0.2) ]).
+	
+	^ aTabGroup
+]
+
 { #category : #buttons }
 BrExamplesShowroom >> glamorousTinyButton [
 	<gtExample>
-	
 	^ BrButton new
-		beTiny;
+		beTinySize;
 		look: BrGlamorousButtonWithLabelLook new;
 		label: 'Button';
 		action: [ self inform: 'Clicked' ]
@@ -422,48 +578,6 @@ BrExamplesShowroom >> materialReversedToggle [
 		look: BrMaterialToggleWithLabelLook + BrMaterialToggleWithIconLook
 ]
 
-{ #category : #tabs }
-BrExamplesShowroom >> materialTabs [
-	<gtExample>
-	<description: 'Tabs with material look'>
-	| aTabGroup |
-
-	aTabGroup := BrTabGroup new.
-	aTabGroup look: BrMaterialTabGroupLook new.
-
-	aTabGroup addTab: (BrTab new
-		look: BrMaterialTabLook new;
-		label: 'Tab 1';
-		stencil: [ BlElement new
-			constraintsDo: [ :c |
-				c horizontal exact: 300.
-				c vertical matchParent ];
-			margin: (BlInsets all: 10);
-			background: (Color red alpha: 0.2) ]).
-
-	aTabGroup addTab: (BrTab new
-		look: BrMaterialTabLook new;
-		label: 'Tab 2';
-		stencil: [ BlElement new
-			margin: (BlInsets all: 10);
-			constraintsDo: [ :c |
-				c horizontal matchParent.
-				c vertical matchParent ];
-			background: (Color blue alpha: 0.2) ]).
-
-	aTabGroup addTab: (BrTab new
-		look: BrMaterialTabLook new;
-		label: 'Tab 3';
-		stencil: [ BlElement new
-			constraintsDo: [ :c |
-				c horizontal matchParent.
-				c vertical exact: 300 ];
-			margin: (BlInsets all: 10);
-			background: (Color orange alpha: 0.2) ]).
-
-	^ aTabGroup
-]
-
 { #category : #toggle }
 BrExamplesShowroom >> materialToggle [
 	<gtExample>
@@ -499,12 +613,13 @@ BrExamplesShowroom >> materialToolbar [
 { #category : #list }
 BrExamplesShowroom >> simpleList [
 	<gtExample>
-	
 	^ BrSimpleList new
-		display: (Color indexedColors);
-		stencil: [ :aColor |
+		items: Color indexedColors;
+		stencil: [ :aColor | 
 			BrLabel new
-				look: (BrGlamorousLabelLook new foreground: aColor contrastingForegroundColor);
+				look:
+					(BrGlamorousLabelLook new
+						foreground: aColor contrastingBlackAndWhiteColor);
 				text: aColor asString;
 				background: aColor;
 				padding: (BlInsets all: 12);

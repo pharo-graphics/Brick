@@ -4,7 +4,7 @@ Class {
 	#instVars : [
 		'pages'
 	],
-	#category : 'Brick-Pager - Model'
+	#category : #'Brick-Pager - Model'
 }
 
 { #category : #'api - adding / removing' }
@@ -29,6 +29,14 @@ BrPagerModel >> initialize [
 	pages := OrderedCollection new
 ]
 
+{ #category : #hooks }
+BrPagerModel >> initializeListeners [
+	super initializeListeners.
+
+	"answer if somebody is interested in what pages I have"
+	self when: BrPagerPagesRequest reply: [ BrPagerPagesChanged pages: self pages ].
+]
+
 { #category : #notifying }
 BrPagerModel >> notifyPageAdded: aPageModel [
 	self dispatchEvent: (BrPagerPageAddedEvent page: aPageModel)
@@ -42,15 +50,6 @@ BrPagerModel >> notifyPageRemoved: aPageModel [
 { #category : #notifying }
 BrPagerModel >> notifyPagesChanged [
 	self dispatchEvent: (BrPagerPagesChanged pages: self pages)
-]
-
-{ #category : #hooks }
-BrPagerModel >> onAttachedTo: anElement [
-	super onAttachedTo: anElement.
-
-	"answer if somebody is interested in what pages I have"
-	self when: BrPagerPagesRequest reply: [ BrPagerPagesChanged pages: self pages ].
-	
 ]
 
 { #category : #hooks }
@@ -91,9 +90,25 @@ BrPagerModel >> pages: aCollectionOfPages [
 ]
 
 { #category : #'api - adding / removing' }
+BrPagerModel >> removeAllPages [
+	self pages reverseDo: [ :eachPage | self removePage: eachPage ]
+]
+
+{ #category : #'api - adding / removing' }
 BrPagerModel >> removePage: aPageModel [
-	self pages remove: aPageModel.
-	self onPageRemoved: aPageModel
+	| aPageIndex |
+	
+	aPageIndex := self pages indexOf: aPageModel.
+	self removePageAt: aPageIndex
+]
+
+{ #category : #'api - adding / removing' }
+BrPagerModel >> removePageAt: aPageIndex [
+	| aPageToRemove |
+	
+	aPageToRemove := self pages at: aPageIndex.
+	self pages removeAt: aPageIndex.
+	self onPageRemoved: aPageToRemove
 ]
 
 { #category : #'api - adding / removing' }

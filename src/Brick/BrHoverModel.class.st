@@ -4,8 +4,13 @@ Class {
 	#instVars : [
 		'hovered'
 	],
-	#category : #'Brick-! Core'
+	#category : #'Brick-! Deprecated'
 }
+
+{ #category : #testing }
+BrHoverModel class >> isDeprecated [
+	^ true
+]
 
 { #category : #printing }
 BrHoverModel class >> modelName [
@@ -42,7 +47,11 @@ BrHoverModel >> initialize [
 BrHoverModel >> initializeListeners [
 	super initializeListeners.
 	
-	self when: BrHoveredRequest reply: [ :aResponse | aResponse hovered: self isHovered ]
+	self when: BrHoveredRequest reply: [ :aResponse | aResponse hovered: self isHovered ].
+	self when: BlDragEnterEvent do: [ :anEvent | self dragEnterEvent: anEvent ].
+	self when: BlDragLeaveEvent do: [ :anEvent | self dragLeaveEvent: anEvent ].
+	self when: BlMouseEnterEvent do: [ :anEvent | self mouseEnterEvent: anEvent ].
+	self when: BlMouseLeaveEvent do: [ :anEvent | self mouseLeaveEvent: anEvent ]
 ]
 
 { #category : #testing }
@@ -51,17 +60,13 @@ BrHoverModel >> isHovered [
 ]
 
 { #category : #'mouse handlers' }
-BrHoverModel >> mouseOutEvent: anEvent [
-	anEvent consumed: true.
-	
-	self hovered: false
+BrHoverModel >> mouseEnterEvent: anEvent [
+	self hovered: true
 ]
 
 { #category : #'mouse handlers' }
-BrHoverModel >> mouseOverEvent: anEvent [
-	anEvent consumed: true.
-	
-	self hovered: true
+BrHoverModel >> mouseLeaveEvent: anEvent [
+	self hovered: false
 ]
 
 { #category : #printing }
@@ -78,7 +83,7 @@ BrHoverModel >> stateChangedEventClass [
 ]
 
 { #category : #streaming }
-BrHoverModel >> streamStateOn: aStream [
+BrHoverModel >> streamStateIn: aBrInteractionStatesMapping [
 	self isHovered
-		ifTrue: [ aStream nextPut: BrHoveredState new ]
+		ifTrue: [ aBrInteractionStatesMapping addState: BrHoveredState new model: self ]
 ]

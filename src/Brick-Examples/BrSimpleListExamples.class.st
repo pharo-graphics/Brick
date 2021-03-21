@@ -4,77 +4,165 @@ Class {
 	#category : #'Brick-Examples-List'
 }
 
-{ #category : #'examples - selection' }
-BrSimpleListExamples >> exampleWithSelection [
+{ #category : #'examples - vertical list' }
+BrSimpleListExamples >> allClasses [
 	<gtExample>
-	| aList |
-	aList := BrSimpleList new.
-	aList
-		stencil: [ :each :index |
-			BlTextElement new
-				text: each key asRopedText;
-				constraintsDo: [ :c | c horizontal matchParent ];
-				padding: (BlInsets all: 5);
-				when: BlClickEvent do: [ :anEvent  |
-					anEvent consumed: true.
-					aList selectOne: index ] ];
-		display: (Smalltalk ui icons icons associations);
-		when: BrSelectionChanged do: [ :anEvent |
-			anEvent selectedDo: [ :anInterval | self inform: 'Selected: ', anInterval asString ].
-			anEvent deselectedDo: [ :anInterval | self inform: 'Deselected: ', anInterval asString ] ];
-		yourself.
+	^ BrSimpleList new
+		itemStencil: [
+			BrLabel new
+				"hMatchParent;"
+				look: BrGlamorousLabelLook new + (BrStyleCommonLook new
+					selected: [ :aStyle | aStyle background: Color veryVeryLightGray ]);
+				padding: (BlInsets all: 5) ];
+		itemDataBinder: [ :eachElement :eachClass :eachIndex | eachElement text: eachClass name ];
+		items: (SystemNavigation new allClasses sorted: [ :a :b | a name < b name ])
+]
+
+{ #category : #'examples - horizontal list' }
+BrSimpleListExamples >> horizontalAllClasses [
+	<gtExample>
+	| aList aResult |
+	aList := self allClasses.
+	aList beHorizontal.
+	
 	^ aList
 ]
 
-{ #category : #'examples - list' }
-BrSimpleListExamples >> listAllClasses [
+{ #category : #'examples - nested lists' }
+BrSimpleListExamples >> horizontalAndVerticalNumbers [
 	<gtExample>
-	| aListElement aListLook aListModel |
-
-	aListElement := self listElement.
-
-	aListModel := self listModel.
-	aListModel items: Smalltalk allClasses.
-
-	aListLook := self listLook.	
-	aListElement look: aListLook.
-	aListElement viewModel: aListModel.
-
-	^ aListElement
+	| aList |
+	aList := self 
+		horizontalListFor: (0 to: 10000 by: 100)
+		verticalListFor: [ :aNumber | aNumber to: aNumber + 99 ].
+	^ aList
 ]
 
-{ #category : #'examples - instance creation' }
-BrSimpleListExamples >> listElement [
+{ #category : #'examples - support' }
+BrSimpleListExamples >> horizontalListFor: aCollection [
 	<gtExample>
-
-	^ BlElement new
-		constraintsDo: [ :c |
-			c horizontal exact: 500.
-			c vertical matchParent ]
-]
-
-{ #category : #'examples - instance creation' }
-BrSimpleListExamples >> listLook [
-	<gtExample>
+	| aList aScrollable |
+	aList := BrSimpleList horizontal
+		itemType: [ :aFactory :anItem :anIndex | 
+			Integer ];
+		itemStencil: [ :anItemType | 
+			self label ];
+		itemDataBinder: [ :anElement :anItem :anIndex | 
+			anElement text: anItem asString ];
+		items: aCollection.
 	
-	^ BrSimpleListLook new
-]
-
-{ #category : #'examples - instance creation' }
-BrSimpleListExamples >> listModel [
-	<gtExample>
+	aList enqueueTask: (BlTaskAction new action: [ 
+		aScrollable := aList childNamed: #scrollable.
+		aScrollable margin: aScrollable margin + (BlInsets bottom: 5) ]).
 	
-	^ BrSimpleListModel new
+	^ aList
 ]
 
-{ #category : #'examples - material' }
-BrSimpleListExamples >> singleLineWithTinyIcon [
+{ #category : #'examples - support' }
+BrSimpleListExamples >> horizontalListFor: aCollection verticalListFor: aHorizontalBlock [
 	<gtExample>
+	| aList aScrollable |
+	aList := BrSimpleList horizontal
+		itemType: [ :aFactory :anItem :anIndex | 
+			Integer ];
+		itemStencil: [ :anItemType | 
+			| aNestedList |
+			aNestedList := self verticalListFor: #().
+			aNestedList hFitContent. ];
+		itemDataBinder: [ :anElement :anItem :anIndex | 
+			| aNestedCollection |
+			aNestedCollection := aHorizontalBlock cull: anItem cull: anIndex.
+			anElement items: aNestedCollection ];
+		items: aCollection.
+	
+	aList enqueueTask: (BlTaskAction new action: [ 
+		aScrollable := aList childNamed: #scrollable.
+		aScrollable margin: aScrollable margin + (BlInsets bottom:5) ]).
+	
+	^ aList
+]
 
-	^ BrSimpleList new
-		stencil: [ :each :index |			
-			BrMaterialListItemStencil singleLineWithTinyIcon
-				label: each key asString;
-				icon: (BlScalableElement new contentElement: (BlElement new background: each value; size: each value extent)) ];
-		display: (Smalltalk ui icons icons associations)
+{ #category : #'examples - horizontal list' }
+BrSimpleListExamples >> horizontalNumbers [
+	<gtExample>
+	| aList |
+	aList := self horizontalListFor: (1 to: 1000).
+	
+	^ aList
+]
+
+{ #category : #'examples - support' }
+BrSimpleListExamples >> label [
+	<gtExample>
+	| aLabel |
+	aLabel := BrLabel new
+		beHugeSize;
+		look: BrGlamorousLabelLook.
+	aLabel margin: aLabel margin + (BlInsets all: 5).
+	aLabel padding: aLabel padding + (BlInsets top: 5 right: 10 bottom: 5 left: 10).
+	aLabel border: (BlBorder paint: Color lightGray width: 1).
+	aLabel geometry: (BlRoundedRectangleGeometry cornerRadius: 4).
+	^ aLabel
+]
+
+{ #category : #'examples - nested lists' }
+BrSimpleListExamples >> verticalAndHorizontalNumbers [
+	<gtExample>
+	| aList |
+	aList := self 
+		verticalListFor: (0 to: 10000 by: 100)
+		horizontalListFor: [ :aNumber | aNumber to: aNumber + 99 ].
+	^ aList
+]
+
+{ #category : #'examples - support' }
+BrSimpleListExamples >> verticalListFor: aCollection [
+	<gtExample>
+	| aList aScrollable |
+	aList := BrSimpleList vertical
+		itemType: [ :aFactory :anItem :anIndex | 
+			Integer ];
+		itemStencil: [ :anItemType | 
+			self label ];
+		itemDataBinder: [ :anElement :anItem :anIndex | 
+			anElement text: anItem asString ];
+		items: aCollection.
+	
+	aList enqueueTask: (BlTaskAction new action: [ 
+		aScrollable := aList childNamed: #scrollable.
+		aScrollable margin: aScrollable margin + (BlInsets right: 5) ]).
+	
+	^ aList
+]
+
+{ #category : #'examples - support' }
+BrSimpleListExamples >> verticalListFor: aCollection horizontalListFor: aHorizontalBlock [
+	<gtExample>
+	| aList aScrollable |
+	aList := BrSimpleList vertical
+		itemType: [ :aFactory :anItem :anIndex | 
+			Integer ];
+		itemStencil: [ :anItemType | 
+			| aNestedList |
+			aNestedList := self horizontalListFor: #().
+			aNestedList vFitContent. ];
+		itemDataBinder: [ :anElement :anItem :anIndex | 
+			| aNestedCollection |
+			aNestedCollection := aHorizontalBlock cull: anItem cull: anIndex.
+			anElement items: aNestedCollection ];
+		items: aCollection.
+	
+	aScrollable := aList childNamed: #scrollable.
+	aScrollable margin: aScrollable margin + (BlInsets right: 5).
+	
+	^ aList
+]
+
+{ #category : #'examples - vertical list' }
+BrSimpleListExamples >> verticalNumbers [
+	<gtExample>
+	| aList |
+	aList := self verticalListFor: (1 to: 1000).
+	
+	^ aList
 ]

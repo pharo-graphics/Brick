@@ -2,7 +2,8 @@ Class {
 	#name : #BrBreadcrumbItemEvent,
 	#superclass : #BlEvent,
 	#instVars : [
-		'item'
+		'item',
+		'index'
 	],
 	#category : #'Brick-Breadcrumb - Events'
 }
@@ -10,6 +11,18 @@ Class {
 { #category : #'instance creation' }
 BrBreadcrumbItemEvent class >> item: aBrToolbarItemModel [
 	^ self new item: aBrToolbarItemModel
+]
+
+{ #category : #accessing }
+BrBreadcrumbItemEvent >> index [
+	<return: #Number>
+
+	^ index
+]
+
+{ #category : #accessing }
+BrBreadcrumbItemEvent >> index: aNumber [
+	index := aNumber
 ]
 
 { #category : #accessing }

@@ -19,10 +19,10 @@ BrAccordionContentStencilChanged class >> stencil: aBrStencil [
 BrAccordionContentStencilChanged >> initialize [
 	super initialize.
 	
-	stencil := BlElement new
+	stencil := [ BlElement new
 		size: 50@50;
 		background: Color red;
-		yourself
+		yourself ] asStencil
 ]
 
 { #category : #accessing }

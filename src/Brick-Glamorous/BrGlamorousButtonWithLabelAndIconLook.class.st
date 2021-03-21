@@ -9,7 +9,8 @@ BrGlamorousButtonWithLabelAndIconLook >> initialize [
 	super initialize.
 	
 	self addAll: {
-		BrGlamorousButtonExteriorRectangularLook new.
+		BrGlamorousButtonExteriorLook new.
+		BrGlamorousButtonRectangularLook new.
 		BrGlamorousButtonLabelLook new.
 		BrGlamorousButtonIconLook new.
 	}

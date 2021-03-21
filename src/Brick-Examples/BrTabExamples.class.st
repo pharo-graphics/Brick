@@ -5,18 +5,74 @@ Class {
 }
 
 { #category : #'examples - tab model' }
+BrTabExamples >> changeStencilTabModel [
+	<gtExample>
+	| aTabModel stencilChangedHander changed changedTabModel changedTabStencil |
+	
+	changed := 0.
+	changedTabModel := nil.
+	changedTabStencil := nil.
+		
+	aTabModel := self tabModel.
+	aTabModel addEventHandler: (stencilChangedHander := BlEventHandler on: BrTabStencilChangedEvent do: [ :anEvent |
+		changedTabModel := anEvent tab.
+		changedTabStencil := anEvent stencil.
+		changed := changed + 1. ]).
+	
+	aTabModel stencil: [ BlElement new ].
+
+	self assert: changed equals: 1.
+	self assert: changedTabStencil isNotNil.
+	self assert: aTabModel contentStencilBuilder equals: changedTabStencil.
+	self assert: changedTabModel equals: aTabModel.
+
+	aTabModel removeEventHandler: stencilChangedHander.
+
+	^ aTabModel
+]
+
+{ #category : #'examples - tab model' }
+BrTabExamples >> changeToolbarStencilModel [
+	<gtExample>
+	| aTabModel stencilChangedHander changed changedTabModel changedTabStencil |
+	
+	changed := 0.
+	changedTabModel := nil.
+	changedTabStencil := nil.
+		
+	aTabModel := self tabModel.
+	aTabModel addEventHandler: (stencilChangedHander := BlEventHandler on: BrTabToolbarChangedEvent do: [ :anEvent |
+		changedTabModel := anEvent tab.
+		changedTabStencil := anEvent stencil.
+		changed := changed + 1. ]).
+	
+	aTabModel toolbarStencil: [ BrToolbar new ].
+
+	self assert: changed equals: 1.
+	self assert: changedTabStencil isNotNil.
+	self assert: aTabModel toolbarStencilBuilder equals: changedTabStencil.
+	self assert: changedTabModel equals: aTabModel.
+
+	aTabModel removeEventHandler: stencilChangedHander.
+
+	^ aTabModel
+]
+
+{ #category : #'examples - tab model' }
 BrTabExamples >> deselectTabModel [
 	<gtExample>
-	| aTabModel selected deselected deselectedTab selectedHander deselectedHandler |
+	| aTabModel selected deselected deselectedTab selectedHandler deselectedHandler |
 	
 	selected := deselected := 0.
 	deselectedTab := nil.
 	
 	aTabModel := self selectTabModel.
-	aTabModel addEventHandler: (selectedHander := BlEventHandler on: BrTabSelectedEvent do: [ selected := selected + 1 ]).
+	aTabModel addEventHandler: (selectedHandler := BlEventHandler on: BrTabSelectedEvent do: [ :anEvent |
+		selected := selected + 1. ]).
+		
 	aTabModel addEventHandler: (deselectedHandler := BlEventHandler on: BrTabDeselectedEvent do: [ :anEvent |
 		deselected := deselected + 1.
-		deselectedTab := anEvent tab ]).
+		deselectedTab := anEvent currentTarget ]).
 	
 	aTabModel deselect.
 
@@ -25,7 +81,7 @@ BrTabExamples >> deselectTabModel [
 	self assert: deselected equals: 1.
 	self assert: deselectedTab equals: aTabModel.
 	
-	aTabModel removeEventHandler: selectedHander.
+	aTabModel removeEventHandler: selectedHandler.
 	aTabModel removeEventHandler: deselectedHandler.
 
 	^ aTabModel
@@ -35,7 +91,7 @@ BrTabExamples >> deselectTabModel [
 BrTabExamples >> groupHeaderLook [
 	<gtExample>
 
-	^ BrTabGroupHeaderLook asLook + (BrLayoutLook of: #header) linearHorizontal
+	^ BrTabGroupHeaderWithToolbarLook asLook
 ]
 
 { #category : #'examples - ui header' }
@@ -46,8 +102,8 @@ BrTabExamples >> groupHeaderWithAddedTabAtFirstPosition [
 	aTabGroupModel := self tabGroupWithOneTab.
 	aHeaderLook := self groupHeaderLook.
 	aHeaderElement := BlElement new
-		look: aHeaderLook;
 		viewModel: aTabGroupModel;
+		look: aHeaderLook;
 		layout: BlLinearLayout vertical;
 		constraintsDo: [ :c |
 			c horizontal fitContent.
@@ -68,31 +124,31 @@ BrTabExamples >> groupHeaderWithAddedTabAtFirstPosition [
 
 { #category : #'examples - ui header' }
 BrTabExamples >> groupHeaderWithBoundTabs [
-	<gtExample>	
+	<gtExample>
 	| aHeaderElement tabElement1 tabElement2 tabElement3 |
 
 	aHeaderElement := self groupHeaderWithoutBoundTabs.
 
 	"binding order does not matter"
 	tabElement2 := BlElement new
-		look: self groupTabLook;
-		viewModel: aHeaderElement viewModel tabs second.
+		viewModel: aHeaderElement viewModel tabs second;
+		look: self groupTabLook.
 		
 	self assert: aHeaderElement children asArray equals: { aHeaderElement look header }.
-	self assert: aHeaderElement children first children asArray equals: { aHeaderElement look scrollTabbar. aHeaderElement look toolbar }.
+	self assert: aHeaderElement children first children asArray equals: { aHeaderElement look scrollTabbar. aHeaderElement look toolbar . aHeaderElement look actionbar }.
 
 	self assert: aHeaderElement look tabbar children asArray equals: { tabElement2 }.
 
 	tabElement1 := BlElement new
-		look: self groupTabLook;
-		viewModel: aHeaderElement viewModel tabs first.
+		viewModel: aHeaderElement viewModel tabs first;
+		look: self groupTabLook.
 		
 	self assert: aHeaderElement children asArray equals: { aHeaderElement look header }.
 	self assert: aHeaderElement look tabbar children asArray equals: { tabElement1 . tabElement2 }.
 
 	tabElement3 := BlElement new
-		look: self groupTabLook;
-		viewModel: aHeaderElement viewModel tabs third.
+		viewModel: aHeaderElement viewModel tabs third;
+		look: self groupTabLook.
 
 	self assert: aHeaderElement children asArray equals: { aHeaderElement look header }.
 	self assert: aHeaderElement look tabbar children asArray equals: { tabElement1 . tabElement2 . tabElement3 }.
@@ -108,18 +164,18 @@ BrTabExamples >> groupHeaderWithoutBoundTabs [
 	tabsRequest := nil.
 	
 	tab1 := BrTabModel new add: (BrLabelModel text: 'Tab 1').
-	tab2 := BrTabModel new add: (BrLabelModel text: 'Tab 2'); add: BrActivationModel disabled.
+	tab2 := BrTabModel new add: (BrLabelModel text: 'Tab 2').
 	tab3 := BrTabModel new add: (BrLabelModel text: 'Tab 3').
 	
 	tabGroup := BrTabGroupModel with: { tab1 . tab2 . tab3 }.
-	tabGroup when: BrTabsRequest do: [ :aTabsRequest | tabsRequest := aTabsRequest copy ].
+	tabGroup when: BrTabGroupTabsRequest do: [ :aTabsRequest | tabsRequest := aTabsRequest copy ].
 	
 	headerLook := self groupHeaderLook.
-	headerLook when: BrTabsChangedEvent do: [ :aTabsChanged | tabsChanged := aTabsChanged copy ].
+	headerLook when: BrTabGroupTabsChangedEvent do: [ :aTabsChanged | tabsChanged := aTabsChanged copy ].
 	
 	headerElement := BlElement new
-		look: headerLook;
 		viewModel: tabGroup;
+		look: headerLook;
 		layout: BlLinearLayout vertical;
 		constraintsDo: [ :c |
 			c horizontal fitContent.
@@ -140,140 +196,112 @@ BrTabExamples >> groupHeaderWithoutBoundTabs [
 BrTabExamples >> groupTabLook [
 	<gtExample>
 
-	^ BrTextLabelLook asLook
+	^ BrTextLabelLook new
 ]
 
-{ #category : #'examples - ui' }
-BrTabExamples >> materialActionGroup [
+{ #category : #'examples - tab group model' }
+BrTabExamples >> moveNotSelectedTabInGroupWithTwoTabs_FromOne_ToTwo [
 	<gtExample>
-	| tab1 tab2 tab3 tabGroup tabGroupElement |
+	| aTabGroup aSelectedTab aNotSelectedTab |
 
-	tab1 := BrTabModel new
-		add: (BrLabelModel text: 'Tab 1');
-		stencil: [
-			BlElement new
-				size: 200@200;
-				background: (Color blue alpha: 0.5) ];
-		actionsStencil: [ 
-			| aToolbar |
-			aToolbar := BrToolbar new.
-			aToolbar look: BrToolbarLook new.
-			aToolbar addItem: (BrButton new 
-				look: BrMaterialToggleLabelledLook;
-				label: 'Hello'; 
-				action: [ self inform: 'Click on Hello' ]).
-			aToolbar addItem: (BrButton new 
-					look: BrMaterialToggleLabelledLook;
-					label: 'World'; 
-					action: [ self inform: 'Click on World' ]) ].
+	aTabGroup := self tabGroupWithTwoTabsSelectedAfterAdding.
 
-	tab2 := BrTabModel new
-		add: (BrLabelModel text: 'Tab 2');
-		add: BrActivationModel disabled.
+	aSelectedTab := aTabGroup selectedTab.
+	self assert: aSelectedTab equals: aTabGroup tabs second.
+	aNotSelectedTab := aTabGroup tabs first.
+	aTabGroup moveTab: aNotSelectedTab at: 2.
 
-	tab3 := BrTabModel new
-		add: (BrLabelModel text: 'Tab 3');
-		stencil: [ BlElement new
-			size: 200@200;
-			background: (Color red alpha: 0.5) ].
-
-	tabGroup := BrTabGroupModel with: { tab1 . tab2. tab3 }.
-
-	tabGroup tabs do: [ :aTab |
-		BlElement new
-			look: BrMaterialTabLabelledLook;
-			viewModel: aTab ].
-
-	tabGroupElement := BlElement new
-		look: BrMaterialTabGroupLook;
-		viewModel: tabGroup.
+	self assert: aTabGroup tabs size equals: 2.
+	self assert: aTabGroup tabs first equals: aSelectedTab.
+	self assert: aTabGroup tabs second equals: aNotSelectedTab.
 	
-	self assert: tabGroupElement children size equals: 3. "header + splitter + content"
-	self assert: tabGroupElement children first children size equals: 2. "tab bar + tool bar"
-	^ tabGroupElement
+	self assert: aTabGroup isNotEmpty.
+	self assert: aTabGroup hasSelectedTab.
+	self assert: aTabGroup selectedTab equals: aSelectedTab.
+	self assert: aTabGroup selectedTab equals: aTabGroup tabs first.
+	self assert: aTabGroup tabs first isSelected.
+	self assert: aTabGroup tabs second isSelected not.
+
+	^ aTabGroup
 ]
 
-{ #category : #'examples - ui' }
-BrTabExamples >> materialGroup [
+{ #category : #'examples - tab group model' }
+BrTabExamples >> moveSelectedTabInGroupWithTwoTabs_FromTwo_ToOne [
 	<gtExample>
-	| tab1 tab2 tab3 tabGroup |
+	| aTabGroup aSelectedTab aNotSelectedTab |
 
-	tab1 := BrTabModel new
-		add: (BrLabelModel text: 'Tab 1');
-		stencil: [ BlElement new
-			size: 200@200;
-			background: (Color red alpha: 0.5) ].
+	aTabGroup := self tabGroupWithTwoTabsSelectedAfterAdding.
 
-	tab2 := BrTabModel new
-		add: (BrLabelModel text: 'Tab 2');
-		add: BrActivationModel disabled.
+	aSelectedTab := aTabGroup selectedTab.
+	self assert: aSelectedTab equals: aTabGroup tabs second.
+	aNotSelectedTab := aTabGroup tabs first.
+	aTabGroup moveTab: aSelectedTab at: 1.
 
-	tab3 := BrTabModel new
-		add: (BrLabelModel text: 'Tab 3');
-		stencil: [ BlElement new
-			size: 200@200;
-			background: (Color blue alpha: 0.5) ].
-
-	tabGroup := BrTabGroupModel with: { tab1 . tab2. tab3 }.
-
-	tabGroup tabs do: [ :aTab |
-		BlElement new
-			look: BrMaterialTabLabelledLook;
-			viewModel: aTab ].
-
-	^ BlElement new
-		look: BrMaterialTabGroupLook;
-		viewModel: tabGroup
-]
-
-{ #category : #'examples - ui' }
-BrTabExamples >> materialGroupNestedInAnotherGroup [
-	<gtExample>
-	| tab1 tabGroup |
-	tab1 := BrTabModel new
-		add: (BrLabelModel text: 'Parent Tab 1');
-		stencil: [ self materialGroup ].
-	tabGroup := BrTabGroupModel with: { tab1 }.
-	tabGroup tabs do: [ :aTab |
-		BlElement new
-			look: BrMaterialTabLabelledLook;
-			viewModel: aTab ].
-	^ BlElement new
-		look: BrMaterialTabGroupLook;
-		viewModel: tabGroup
-]
-
-{ #category : #'examples - ui' }
-BrTabExamples >> materialLabelledTab [
-	<gtExample>
-	| tabModel tabLook tabElement labelModel |
+	self assert: aTabGroup tabs size equals: 2.
+	self assert: aTabGroup tabs first equals: aSelectedTab.
+	self assert: aTabGroup tabs second equals: aNotSelectedTab.
 	
-	tabModel := BrTabModel new add: (labelModel := BrLabelModel text: 'Tab 1').
-	tabLook := BrMaterialTabLabelledLook asLook.
+	self assert: aTabGroup isNotEmpty.
+	self assert: aTabGroup hasSelectedTab.
+	self assert: aTabGroup selectedTab equals: aSelectedTab.
+	self assert: aTabGroup selectedTab equals: aTabGroup tabs first.
+	self assert: aTabGroup tabs first isSelected.
+	self assert: aTabGroup tabs second isSelected not.
 
-	tabElement := BlElement new.
-	tabElement viewModel: tabModel.
-	tabElement look: tabLook.
+	^ aTabGroup
+]
 
-	self assert: tabElement children asArray equals: { tabLook labelLook label }.
-	self assert: tabElement children first text asString equals: labelModel text asString.
+{ #category : #'examples - tab group model' }
+BrTabExamples >> removeNotSelectedTabFromGroupWithTwoTabs [
+	<gtExample>
+	| aTabGroup |
 
-	^ tabElement
+	aTabGroup := self tabGroupWithTwoTabsSelectedAfterAdding.
+
+	self assert: aTabGroup selectedTab equals: aTabGroup tabs second.
+	aTabGroup removeTab: aTabGroup tabs first.
+
+	self assert: aTabGroup isNotEmpty.
+	self assert: aTabGroup hasSelectedTab.
+	self assert: aTabGroup selectedTab equals: aTabGroup tabs first.
+	self assert: aTabGroup tabs first isSelected.
+
+	^ aTabGroup
+]
+
+{ #category : #'examples - tab group model' }
+BrTabExamples >> removeSelectedTabFromGroupWithTwoTabs [
+	<gtExample>
+	| aTabGroup |
+
+	aTabGroup := self tabGroupWithTwoTabsSelectedAfterAdding.
+
+	self assert: aTabGroup selectedTab equals: aTabGroup tabs second.	
+	aTabGroup removeTab: aTabGroup selectedTab.
+
+	self assert: aTabGroup isNotEmpty.
+	self assert: aTabGroup hasSelectedTab.
+	self assert: aTabGroup selectedTab equals: aTabGroup tabs first.
+	self assert: aTabGroup tabs first isSelected.
+
+	^ aTabGroup
 ]
 
 { #category : #'examples - tab model' }
 BrTabExamples >> selectTabModel [
 	<gtExample>
-	| aTabModel selected selectedTab deselected selectedHander deselectedHandler |
+	| aTabModel selected selectedTab deselected selectedHandler deselectedHandler |
 	
 	selected := deselected := 0.
 	selectedTab := nil.
 	
 	aTabModel := self tabModel.
-	aTabModel addEventHandler: (selectedHander := BlEventHandler on: BrTabSelectedEvent do: [ :anEvent |
+	aTabModel addEventHandler: (selectedHandler := BlEventHandler on: BrTabSelectedEvent do: [ :anEvent |
 		selected := selected + 1.
-		selectedTab := anEvent tab ]).
-	aTabModel addEventHandler: (deselectedHandler := BlEventHandler on: BrTabDeselectedEvent do: [	deselected := deselected + 1 ]).
+		selectedTab := anEvent currentTarget ]).
+		
+	aTabModel addEventHandler: (deselectedHandler := BlEventHandler on: BrTabDeselectedEvent do: [ :anEvent |
+		deselected := deselected + 1 ]).
 	
 	aTabModel select.
 	
@@ -282,7 +310,7 @@ BrTabExamples >> selectTabModel [
 	self assert: deselected equals: 0.
 	self assert: selectedTab equals: aTabModel.
 
-	aTabModel removeEventHandler: selectedHander.
+	aTabModel removeEventHandler: selectedHandler.
 	aTabModel removeEventHandler: deselectedHandler.
 
 	^ aTabModel
@@ -303,23 +331,144 @@ BrTabExamples >> tabGroupModel [
 { #category : #'examples - tab group model' }
 BrTabExamples >> tabGroupWithOneTab [
 	<gtExample>
-	| aTabGroupModel aTab |
+	| aTabGroupModel aTab theEvents |
 	
 	aTabGroupModel := self tabGroupModel.
 	self assert: aTabGroupModel isEmpty.
 	self assert: aTabGroupModel hasSelectedTab not.
 	
 	aTab := self tabModel.
+	
+	theEvents := OrderedCollection new.
+	aTab when: BrTabSelectedEvent do: [ :anEvent | theEvents add: anEvent ].
+
 	self assert: aTab isSelected not.
 
 	aTabGroupModel addTab: aTab.
-	
+
 	self assert: aTab isSelected.
+	"make sure that a tab received a selection wish"
+	self assert: theEvents size equals: 1.
+	self assert: (theEvents first isKindOf: BrTabSelectedEvent).
+	self assert: theEvents first tab = aTab.
+
 	self assert: aTabGroupModel isNotEmpty.
 	self assert: aTabGroupModel hasSelectedTab.
 	self assert: aTabGroupModel selectedTab equals: aTab.
 
 	^ aTabGroupModel
+]
+
+{ #category : #'examples - tab group model' }
+BrTabExamples >> tabGroupWithOneTabChangingStencil [
+	<gtExample>
+	| aTabGroupModel aTabModel changed changedTabModel changedTabStencil stencilChangedHandler |
+	
+	changed := 0.
+	changedTabModel := nil.
+	changedTabStencil := nil.
+		
+	aTabGroupModel := self tabGroupModel.	
+	aTabGroupModel addEventHandler: (stencilChangedHandler := BlEventHandler on: BrTabStencilChangedEvent do: [ :anEvent |
+		changedTabModel := anEvent tab.
+		changedTabStencil := anEvent stencil.
+		changed := changed + 1. ]).
+	
+	aTabModel := self tabModel.	
+	aTabGroupModel addTab: aTabModel.
+	
+	aTabModel stencil: [ BlElement new ].
+
+	self assert: changed equals: 1.
+	self assert: changedTabStencil isNotNil.
+	self assert: aTabModel contentStencilBuilder equals: changedTabStencil.
+	self assert: changedTabModel equals: aTabModel.
+
+	aTabModel removeEventHandler: stencilChangedHandler.
+
+	self assert: aTabGroupModel isNotEmpty.
+	self assert: aTabGroupModel hasSelectedTab.
+	self assert: aTabGroupModel selectedTab equals: aTabModel.
+
+	^ aTabGroupModel
+]
+
+{ #category : #'examples - tab group model' }
+BrTabExamples >> tabGroupWithOneTabChangingToolbarStencil [
+	<gtExample>
+	| aTabGroupModel aTabModel changed changedTabModel changedTabStencil stencilChangedHandler |
+	
+	changed := 0.
+	changedTabModel := nil.
+	changedTabStencil := nil.
+		
+	aTabGroupModel := self tabGroupModel.	
+	aTabGroupModel addEventHandler: (stencilChangedHandler := BlEventHandler on: BrTabToolbarChangedEvent do: [ :anEvent |
+		changedTabModel := anEvent tab.
+		changedTabStencil := anEvent stencil.
+		changed := changed + 1. ]).
+	
+	aTabModel := self tabModel.	
+	aTabGroupModel addTab: aTabModel.
+	
+	aTabModel toolbarStencil: [ BrToolbar new ].
+
+	self assert: changed equals: 1.
+	self assert: changedTabStencil isNotNil.
+	self assert: aTabModel toolbarStencilBuilder equals: changedTabStencil.
+	self assert: changedTabModel equals: aTabModel.
+
+	aTabModel removeEventHandler: stencilChangedHandler.
+
+	self assert: aTabGroupModel isNotEmpty.
+	self assert: aTabGroupModel hasSelectedTab.
+	self assert: aTabGroupModel selectedTab equals: aTabModel.
+
+	^ aTabGroupModel
+]
+
+{ #category : #'examples - tab group model' }
+BrTabExamples >> tabGroupWithSecondSelectedTabAddedAtFirstPosition [
+	<gtExample>
+	| aTabGroup aTab |
+	
+	aTabGroup := self tabGroupWithOneTab.
+	
+	aTab := self tabModel.
+	aTab select.
+
+	aTabGroup addTab: aTab at: 1.
+
+	self assert: aTab isSelected.
+	self assert: aTabGroup isNotEmpty.
+	self assert: aTabGroup hasSelectedTab.
+	self assert: aTabGroup selectedTab equals: aTab.
+
+	^ aTabGroup
+]
+
+{ #category : #'examples - tab group model' }
+BrTabExamples >> tabGroupWithSecondTabAddedAtFirstPosition [
+	<gtExample>
+	| aTabGroup aTab theEvents |
+	
+	aTabGroup := self tabGroupWithOneTab.
+	
+	aTab := self tabModel.
+
+	aTabGroup addTab: aTab at: 1.
+
+	theEvents := OrderedCollection new.
+	aTab when: BrTabSelectedEvent do: [ :anEvent | theEvents add: anEvent ].
+
+	self assert: theEvents isEmpty.
+	self assert: aTab isSelected not.
+	self assert: aTabGroup isNotEmpty.
+	self assert: aTabGroup hasSelectedTab.
+	self assert: aTabGroup selectedTab equals: (aTabGroup tabs at: 2).
+	self assert: aTabGroup selectedTab ~= aTab.
+
+	^ aTabGroup
 ]
 
 { #category : #'examples - tab group model' }

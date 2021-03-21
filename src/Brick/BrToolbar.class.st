@@ -1,7 +1,9 @@
 Class {
 	#name : #BrToolbar,
 	#superclass : #BlElement,
-	#category : 'Brick-Toolbar - UI'
+	#traits : 'TBrLayoutResizable + TBrLayoutAlignable',
+	#classTraits : 'TBrLayoutResizable classTrait + TBrLayoutAlignable classTrait',
+	#category : #'Brick-Toolbar - UI'
 }
 
 { #category : #'api - adding / removing' }
@@ -25,7 +27,12 @@ BrToolbar >> hasItems [
 { #category : #initialization }
 BrToolbar >> initialize [
 	super initialize.
-	self viewModel: BrToolbarModel new.
+	
+	self fitContent.
+	
+	self viewModel: (BrToolbarModel new + (BrInteractiveModel withAll: {
+		BrLayoutAlignmentModel centerLeft.
+	}))
 ]
 
 { #category : #accessing }

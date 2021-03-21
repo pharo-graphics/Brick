@@ -1,47 +1,35 @@
 Class {
 	#name : #BrTabLook,
 	#superclass : #BrLook,
-	#category : 'Brick-Tabs - Look'
+	#category : #'Brick-Tabs - Look'
 }
 
 { #category : #initialization }
 BrTabLook >> initializeListeners [
 	super initializeListeners.
 	
-	self when: BrTabSelectedEvent do: [ self tabSelected ].
-	self when: BrTabDeselectedEvent do: [ self tabDeselected ].
-	self when: BrTabEnabledEvent do: [ self tabEnabled ].
-	self when: BrTabDisabledEvent do: [ self tabDisabled ]
+	self
+		when: BrTabSelectedEvent
+		do: [ :anEvent | self onTabSelected: anEvent tab ].
+	self
+		when: BrTabDeselectedEvent
+		do: [ :anEvent | self onTabDeselected: anEvent tab ].
 ]
 
-{ #category : #initialization }
-BrTabLook >> initializeLook [
-	super initializeLook.
+{ #category : #hooks }
+BrTabLook >> onTabDeselected: aBrTabModel [ 
+	self
+		assert: [ self isAttachedToWidget ]
+		description: [ 'I can not receive the tab deselected event without being attached to a widget' ].
 
-	"here we define default tab look (independent from the view model)"
-	self tabDeselected.
-	self tabEnabled
+	self widget states removeState: BlElementState selected
 ]
 
-{ #category : #initialization }
-BrTabLook >> initializeRequests [
-	super initializeRequests.
-	
-	self request: BrTabStateRequest new
-]
+{ #category : #hooks }
+BrTabLook >> onTabSelected: aTabModel [
+	self
+		assert: [ self isAttachedToWidget ]
+		description: [ 'I can not receive the tab selected event without being attached to a widget' ].
 
-{ #category : #'event handling' }
-BrTabLook >> tabDeselected [
-]
-
-{ #category : #'event handling' }
-BrTabLook >> tabDisabled [
-]
-
-{ #category : #'event handling' }
-BrTabLook >> tabEnabled [
-]
-
-{ #category : #'event handling' }
-BrTabLook >> tabSelected [
+	self widget states addState: BlElementState selected
 ]

@@ -1,8 +1,17 @@
 Class {
 	#name : #BrTabGroup,
 	#superclass : #BlElement,
-	#category : 'Brick-Tabs - UI'
+	#traits : 'TBrLayoutResizable',
+	#classTraits : 'TBrLayoutResizable classTrait',
+	#category : #'Brick-Tabs - UI'
 }
+
+{ #category : #accessing }
+BrTabGroup >> actionbarStencil: anActionbarStencilBuilder [
+	"See ${method:BrTabGroupModel>>#actionbarStencil:}"
+
+	self viewModel actionbarStencil: anActionbarStencilBuilder
+]
 
 { #category : #'api - adding / removing' }
 BrTabGroup >> addTab: anElement [
@@ -33,10 +42,21 @@ BrTabGroup >> hasTab: anElement [
 BrTabGroup >> initialize [
 	super initialize.
 
+	self matchParent.
 	self viewModel: BrTabGroupModel new
+]
+
+{ #category : #'api - adding / removing' }
+BrTabGroup >> moveTab: anElement at: anInteger [
+	self viewModel moveTab: anElement viewModel at: anInteger
 ]
 
 { #category : #'api - adding / removing' }
 BrTabGroup >> removeTab: anElement [
 	self viewModel removeTab: anElement viewModel
+]
+
+{ #category : #accessing }
+BrTabGroup >> tabs [
+	^ self viewModel tabs
 ]

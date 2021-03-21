@@ -8,12 +8,6 @@ Class {
 BrLabelLook >> initialize [
 	super initialize.
 
-	self add: (BrLayoutResizerLook new inherit)
-]
-
-{ #category : #initialization }
-BrLabelLook >> initializeLook [
-	super initializeLook.
-
-	self widget layout: BlLinearLayout vertical alignCenter
+	self add: BrLayoutResizerLook new inherit.
+	self add: (BrLayoutAlignmentLook forHorizontalLinearLayout).
 ]

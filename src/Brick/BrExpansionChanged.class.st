@@ -8,12 +8,17 @@ Class {
 	#instVars : [
 		'expanded'
 	],
-	#category : #'Brick-! Core - Events'
+	#category : #'Brick-! Deprecated'
 }
 
 { #category : #'instance creation' }
 BrExpansionChanged class >> expanded: aBoolean [
 	^ self new expanded: aBoolean
+]
+
+{ #category : #testing }
+BrExpansionChanged class >> isDeprecated [
+	^ true
 ]
 
 { #category : #accessing }
@@ -28,6 +33,13 @@ BrExpansionChanged >> expanded: aBoolean [
 	expanded := aBoolean
 ]
 
+{ #category : #initialization }
+BrExpansionChanged >> initialize [
+	super initialize.
+	
+	expanded := false
+]
+
 { #category : #testing }
 BrExpansionChanged >> isCollapsed [
 	^ self expanded not
@@ -39,8 +51,8 @@ BrExpansionChanged >> isExpanded [
 ]
 
 { #category : #accessing }
-BrExpansionChanged >> state: anObject [
+BrExpansionChanged >> state: aBoolean [
 	"Override me to properly set the given state"
 
-	self expanded: anObject
+	self expanded: aBoolean
 ]

@@ -6,5 +6,5 @@ Class {
 
 { #category : #'api - instantiation' }
 BrSimpleListRowStencilBuilder >> buildDefault [
-	^ BrListLabelStencil new text: self rowValue asString
+	^ BrColumnCellLabelStencil new text: self rowValue asString
 ]

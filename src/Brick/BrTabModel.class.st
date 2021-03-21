@@ -2,27 +2,44 @@ Class {
 	#name : #BrTabModel,
 	#superclass : #BrWidgetModel,
 	#instVars : [
-		'selected',
 		'contentStencilBuilder',
-		'actionStencilBuilder'
+		'toolbarStencilBuilder',
+		'actionbarStencilBuilder',
+		'selected'
 	],
-	#category : 'Brick-Tabs - Model'
+	#category : #'Brick-Tabs - Model'
 }
 
+{ #category : #'api - tab' }
+BrTabModel >> actionbarStencil: anActionbarStencilBuilder [
+	"Set a stencil to be used to create an action bar for this tab.
+	An action bar is usually located inside of the tab itself, for example a close button"
+
+	actionbarStencilBuilder := anActionbarStencilBuilder asStencilBuilder: BrTabStencilBuilder.
+	self notifyActionbarChanged: actionbarStencilBuilder
+]
+
 { #category : #accessing }
-BrTabModel >> actionStencilBuilder [
-	^ actionStencilBuilder
+BrTabModel >> actionbarStencilBuilder [
+	<return: #BrStencilBuilder>
+
+	^ actionbarStencilBuilder
 ]
 
 { #category : #'api - tab' }
 BrTabModel >> actionsStencil: anActionStencilBuilder [
-	actionStencilBuilder := anActionStencilBuilder asStencilBuilder
+	self
+		deprecated: 'Please use #toolbarStencil: instead'
+		transformWith: '`@receiver actionsStencil:: `@statements1' 
+						-> '`@receiver toolbarStencil: `@statements1'.
+	
+	self toolbarStencil: anActionStencilBuilder
 ]
 
 { #category : #'mouse handlers' }
 BrTabModel >> clickEvent: anEvent [
-	"self isEnabled
-		ifFalse: [ ^ self ]."
+	(self widget states hasState: BlElementState disabled)
+		ifTrue: [ ^ self ].
 
 	anEvent consumed: true.
 	self select
@@ -30,30 +47,37 @@ BrTabModel >> clickEvent: anEvent [
 
 { #category : #accessing }
 BrTabModel >> contentStencilBuilder [
-	<return: #BrStencilBuilder>
+	<return: #BrTabStencilBuilder>
 	
 	^ contentStencilBuilder
 ]
 
-{ #category : #'api - tab' }
+{ #category : #'api - selection' }
 BrTabModel >> deselect [
 	self isSelected
 		ifFalse: [ ^ self ].
-
+		
 	selected := false.
-	self notifyTabDeselected
+	self dispatchEvent: (BrTabDeselectedEvent new tab: self)
 ]
 
-{ #category : #initialization }
+{ #category : #hooks }
 BrTabModel >> initialize [
 	super initialize.
-
-	selected := false.
-	contentStencilBuilder := [ BlElement new size: 50@50; background: Color random ] asStencilBuilder.
-	actionStencilBuilder := [ BlElement new size: 0@0 ] asStencilBuilder
+	
+	selected := false
 ]
 
-{ #category : #'api - testing' }
+{ #category : #hooks }
+BrTabModel >> initializeListeners [
+	super initializeListeners.
+
+	self when: BlClickEvent do: [ :anEvent | self clickEvent: anEvent ].
+	self when: BrTabActionbarRequest reply: [ :aResponse | aResponse stencil: actionbarStencilBuilder ].
+	self when: BrTabToolbarRequest reply: [ :aResponse | aResponse stencil: toolbarStencilBuilder ].
+]
+
+{ #category : #'api - selection' }
 BrTabModel >> isSelected [
 	<return: #Boolean>
 
@@ -61,43 +85,30 @@ BrTabModel >> isSelected [
 ]
 
 { #category : #notifying }
-BrTabModel >> notifyTabDeselected [
-	self dispatchEvent: (BrTabDeselectedEvent tab: self)
+BrTabModel >> notifyActionbarChanged: aStencil [
+	self dispatchEvent: (BrTabActionbarChangedEvent new tab: self; stencil: aStencil)
 ]
 
 { #category : #notifying }
-BrTabModel >> notifyTabSelected [
-	self dispatchEvent: (BrTabSelectedEvent tab: self)
+BrTabModel >> notifyStencilChanged: aStencil [
+	self dispatchEvent: (BrTabStencilChangedEvent new tab: self; stencil: aStencil)
 ]
 
 { #category : #notifying }
-BrTabModel >> notifyTabSelectionChanged [
-	self isSelected
-		ifTrue: [ self notifyTabSelected ]
-		ifFalse: [ self notifyTabDeselected ]
+BrTabModel >> notifyToolbarChanged: aStencil [
+	self dispatchEvent: (BrTabToolbarChangedEvent new tab: self; stencil: aStencil)
 ]
 
-{ #category : #hooks }
-BrTabModel >> onAttachedTo: anElement [
-	super onAttachedTo: anElement.
-
-	anElement when: BrTabStateRequest
-		do: [ :anEvent |
-			anEvent source dispatchEvent: (self isSelected
-				ifTrue: [ BrTabSelectedEvent tab: self ]
-				ifFalse: [ BrTabDeselectedEvent tab: self ]) ]
-]
-
-{ #category : #'api - tab' }
+{ #category : #'api - selection' }
 BrTabModel >> select [
 	self isSelected
 		ifTrue: [ ^ self ].
-
+		
 	selected := true.
-	self notifyTabSelected
+	self dispatchEvent: (BrTabSelectedEvent new tab: self)
 ]
 
-{ #category : #'api - tab' }
+{ #category : #'api - selection' }
 BrTabModel >> selected: aBoolean [
 	aBoolean
 		ifTrue: [ self select ]
@@ -106,5 +117,26 @@ BrTabModel >> selected: aBoolean [
 
 { #category : #'api - tab' }
 BrTabModel >> stencil: aStencilBuilder [
-	contentStencilBuilder := aStencilBuilder asStencilBuilder
+	"Set a stencil to be used to create a content of a tab.
+	It should be computed lazily by the Tab widget on demand"
+
+	contentStencilBuilder := aStencilBuilder asStencilBuilder: BrTabStencilBuilder.
+	self notifyStencilChanged: contentStencilBuilder.
+]
+
+{ #category : #'api - tab' }
+BrTabModel >> toolbarStencil: aToolbarStencilBuilder [
+	"Set a stencil to be used to create a toolbar for this tab.
+	A toolbar is usually located on the right side of a tab group header and changes depending
+	on the currently selected tab"
+
+	toolbarStencilBuilder := aToolbarStencilBuilder asStencilBuilder: BrTabStencilBuilder.
+	self notifyToolbarChanged: toolbarStencilBuilder
+]
+
+{ #category : #accessing }
+BrTabModel >> toolbarStencilBuilder [
+	<return: #BrStencilBuilder>
+
+	^ toolbarStencilBuilder
 ]

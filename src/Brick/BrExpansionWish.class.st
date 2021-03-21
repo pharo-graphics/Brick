@@ -23,8 +23,8 @@ BrExpansionWish >> expanded [
 ]
 
 { #category : #accessing }
-BrExpansionWish >> expanded: anObject [
-	expanded := anObject
+BrExpansionWish >> expanded: aBoolean [
+	expanded := aBoolean
 ]
 
 { #category : #initialization }
@@ -32,4 +32,9 @@ BrExpansionWish >> initialize [
 	super initialize.
 	
 	expanded := false
+]
+
+{ #category : #testing }
+BrExpansionWish >> isExpanded [
+	^ expanded
 ]

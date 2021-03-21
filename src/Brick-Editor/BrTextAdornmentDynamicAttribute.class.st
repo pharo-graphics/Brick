@@ -25,20 +25,40 @@ Class {
 	#instVars : [
 		'stencilBuilder'
 	],
-	#category : #'Brick-Editor-Text-Attributes'
+	#category : #'Brick-Editor-Attributes'
 }
 
 { #category : #accessing }
-BrTextAdornmentDynamicAttribute >> affect: aBlText in: anEditorElement [
-	<return: #BlElement>
+BrTextAdornmentDynamicAttribute >> doAffect: aTBrTextEditorTextualPiece in: anEditorElement [
+	"Return an element that should affect (either append or replace) a provided text piece"
+	<return: #SequenceableCollection of: #BlElement>
+	| aResult |
 
-	^ stencilBuilder
-		text: aBlText;
+	aResult := stencilBuilder
+		segmentPiece: aTBrTextEditorTextualPiece;
 		editor: anEditorElement;
-		asElement
+		build.
+
+	aResult isCollection
+		ifTrue: [ ^ aResult ].
+
+	^ aResult asElement asOrderedCollection
 ]
 
 { #category : #accessing }
 BrTextAdornmentDynamicAttribute >> stencil: anAdornmentStencilBuilder [
 	stencilBuilder := anAdornmentStencilBuilder asStencilBuilder: BrTextAdornmentStencilBuilder
+]
+
+{ #category : #printing }
+BrTextAdornmentDynamicAttribute >> storeOn: aStream [
+	super storeOn: aStream.
+	
+	aStream
+		space;
+		nextPutAll: #stencil: asString;
+		space;
+		nextPut: $(;
+		store: stencilBuilder;
+		nextPut: $)
 ]

@@ -6,7 +6,8 @@ Class {
 		'insertionIndices',
 		'shouldUpdateCursor',
 		'shouldUpdateSelection',
-		'shouldDeleteSelected'
+		'shouldDeleteSelected',
+		'inputFilter'
 	],
 	#category : #'Brick-Editor-Model - Operators'
 }
@@ -42,7 +43,14 @@ BrTextEditorPaster >> initialize [
 	insertionIndices := SortedCollection new.
 	shouldUpdateCursor := true.
 	shouldUpdateSelection := true.
-	shouldDeleteSelected := true
+	shouldDeleteSelected := true.
+
+	inputFilter := BrTextEditorNoInputFilter new
+]
+
+{ #category : #'api - configuration' }
+BrTextEditorPaster >> inputFilter: aTextEditorInputFilter [
+	inputFilter := aTextEditorInputFilter
 ]
 
 { #category : #'api - processing' }
@@ -50,6 +58,7 @@ BrTextEditorPaster >> paste [
 	| anInserter |
 	
 	anInserter := self editor inserter.
+	anInserter inputFilter: inputFilter.
 	anInserter text: text.
 	anInserter shouldDeleteSelected: shouldDeleteSelected.
 	anInserter shouldUpdateCursor: shouldUpdateCursor.

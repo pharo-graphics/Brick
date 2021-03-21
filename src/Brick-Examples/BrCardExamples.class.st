@@ -30,7 +30,7 @@ BrCardExamples >> verticalCard [
 		title: ('GToolkit in Pharo' asRopedText bold);
 		description: ((String loremIpsum: 200) asRopedText 
 			foreground: Color gray; fontSize: 10; readonly);
-		picture: PolymorphSystemSettings pharoLogoForm asElement asPannableElement;
+		picture: ((BlElement new background: Color lightGray; size: (361@121)) asPannableElement);
 		action: [ :aBrCard | self inform: 'Hey! I am a card' ].
 	aTitleElement := anElement childNamed: #label.
 	aPictureElement := anElement childNamed: #icon.

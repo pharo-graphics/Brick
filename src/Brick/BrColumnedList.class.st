@@ -1,12 +1,15 @@
 Class {
 	#name : #BrColumnedList,
 	#superclass : #BrList,
+	#instVars : [
+		'columnedModel'
+	],
 	#category : #'Brick-List - UI'
 }
 
 { #category : #'api - scripting' }
 BrColumnedList >> column [
-	<return: #BlListColumn>
+	<return: #BrColumn>
 
 	^ self viewModel column
 ]
@@ -20,8 +23,7 @@ BrColumnedList >> defaultListModel [
 BrColumnedList >> initialize [
 	super initialize.
 
-	self look: BrColumnedListLook new + BrLayoutLook linearVertical matchParent.
-	self rowStencil: BrListClickableRowStencilBuilder new
+	self look: BrColumnedListLook + BrGlamorousWithVerticalScrollbarLook
 ]
 
 { #category : #'api - scripting' }

@@ -5,7 +5,7 @@ Class {
 		'content',
 		'contentElementsCache'
 	],
-	#category : 'Brick-Tabs - Look'
+	#category : #'Brick-Tabs - Look'
 }
 
 { #category : #'api - accessing' }
@@ -24,13 +24,14 @@ BrTabGroupContentLook >> contentDo: aBlock [
 BrTabGroupContentLook >> initialize [
 	super initialize.
 
-	content := BlElement new
+	content := BlElement new 
 		layout: BlLinearLayout horizontal;
-		constraintsDo: [ :c |
-			c horizontal matchParent.
-			c vertical fitContent ].
-		
-	contentElementsCache := IdentityDictionary new
+		labeled: 'Content'.
+
+	content addLook: (BrLayoutResizerLook new inherit).
+
+	contentElementsCache := IdentityDictionary new.
+	self addChangeAddChildAs: #(content) with: [ content ]
 ]
 
 { #category : #initialization }
@@ -38,21 +39,16 @@ BrTabGroupContentLook >> initializeListeners [
 	super initializeListeners.
 
 	self when: BrTabSelectedEvent do: [ :anEvent | self onTabSelected: anEvent tab ].
-	self when: BrTabDeselectedEvent do: [ :anEvent | self onTabDeselected: anEvent tab ]
-]
-
-{ #category : #initialization }
-BrTabGroupContentLook >> initializeLook [
-	super initializeLook.
-
-	self widget addChild: content as: #content
+	self when: BrTabDeselectedEvent do: [ :anEvent | self onTabDeselected: anEvent tab ].
+	self when: BrTabRemovedEvent do: [ :anEvent | self onTabRemoved: anEvent tab ].
+	self when: BrTabStencilChangedEvent do: [ :anEvent | self onTabStencilChanged: anEvent tab ].
 ]
 
 { #category : #initialization }
 BrTabGroupContentLook >> initializeRequests [
 	super initializeRequests.
 	
-	self request: BrTabSelectedRequest new
+	self request: BrSelectionRequest new
 ]
 
 { #category : #hooks }
@@ -61,13 +57,34 @@ BrTabGroupContentLook >> onTabDeselected: aTabModel [
 ]
 
 { #category : #hooks }
+BrTabGroupContentLook >> onTabRemoved: aTabModel [
+	contentElementsCache removeKey: aTabModel ifAbsent: [  ]
+]
+
+{ #category : #hooks }
 BrTabGroupContentLook >> onTabSelected: aTabModel [
 	| aContentElement |
+	
 	self widgetContent removeChildren.
 
 	aContentElement := contentElementsCache
 		at: aTabModel
-		ifAbsentPut: [ aTabModel contentStencilBuilder asElement ].
+		ifAbsentPut: [
+			| aStencilBuilder aTabContentElement |
+			
+			aStencilBuilder := aTabModel contentStencilBuilder.
+			aTabContentElement := aStencilBuilder
+				tabModel: aTabModel;
+				asElement.
+			aStencilBuilder tabModel: nil.
+			aTabContentElement ].
 
 	self widgetContent addChild: aContentElement
+]
+
+{ #category : #hooks }
+BrTabGroupContentLook >> onTabStencilChanged: aTabModel [
+	self onTabRemoved: aTabModel.	
+	aTabModel isSelected ifTrue: [ 
+		self onTabSelected: aTabModel ]
 ]

@@ -1,3 +1,10 @@
+"
+I am an abstract class. I am a basic ${class:BrProgress}$ look. I listen to progress changes from ${class:BrProgressModel}$ and trigger ${method:BrProgressLook>>#onProgressChanged|label=#selector}$ on progress status changes.
+
+See my subclasses for specific use cases: ${class:BrProgressLook|show=#gtSubclassesFor:|expanded=true|height=200}$
+
+
+"
 Class {
 	#name : #BrProgressLook,
 	#superclass : #BrLook,
@@ -5,13 +12,8 @@ Class {
 		'amount',
 		'total'
 	],
-	#category : 'Brick-Progress - Look'
+	#category : #'Brick-Progress - Look'
 }
-
-{ #category : #accessing }
-BrProgressLook class >> widgetProgressName [
-	^ #progress
-]
 
 { #category : #accessing }
 BrProgressLook >> amount [
@@ -65,38 +67,15 @@ BrProgressLook >> initializeListeners [
 ]
 
 { #category : #initialization }
-BrProgressLook >> initializeLook [
-	super initializeLook.
-	"Ensure a progress element"
-	self widgetContent 
-		layout: BlFrameLayout new.
-	self widgetProgress
-		constraintsDo: [ :c |
-				c horizontal matchParent.
-				c vertical matchParent.
-				c frame horizontal weight: self fraction.
-				c frame horizontal alignLeft.
-				c frame vertical alignCenter ]
-	
-]
-
-{ #category : #initialization }
 BrProgressLook >> initializeRequests [
 	super initializeRequests.
 	
 	self request: BrProgressStatusRequest new
 ]
 
-{ #category : #'instance creation' }
-BrProgressLook >> newProgressElement [
-	^ BlElement new
-]
-
 { #category : #hooks }
 BrProgressLook >> onProgressChanged [
-	self widgetDo: [ :aWidget | 
-		self widgetProgress constraintsDo: [ :c | 
-			c frame horizontal weight: self fraction ] ]
+	"looks can react to progress changes"
 ]
 
 { #category : #'accessing-computed' }
@@ -112,28 +91,4 @@ BrProgressLook >> percentage: aNumber [
 { #category : #accessing }
 BrProgressLook >> total [
 	^ total
-]
-
-{ #category : #accessing }
-BrProgressLook >> widgetProgress [
-	"Return widget's progress container element"
-	<return: #BlElement>
-
-	self
-		assert: [ widget isNotNil ]
-		description: [ 'I must be attached to the widget first' ].
-
-	"if widget does not have explicit #content container, we treat widget as a container itself"
-	self widgetContent
-		childNamed: self widgetProgressName
-		ifFound: [ :anElement | ^ anElement ]
-		ifNone: [ | anElement |
-			anElement := self newProgressElement.
-			self widgetContent addChild: anElement as: self widgetProgressName.
-			^ anElement ]
-]
-
-{ #category : #accessing }
-BrProgressLook >> widgetProgressName [
-	^ self class widgetProgressName
 ]

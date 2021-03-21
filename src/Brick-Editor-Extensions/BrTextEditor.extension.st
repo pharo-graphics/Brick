@@ -1,10 +1,12 @@
 Extension { #name : #BrTextEditor }
 
 { #category : #'*Brick-Editor-Extensions' }
-BrTextEditor >> gtInspectorSegmentsIn: aComposite [
-	<gtInspectorPresentationOrder: 15>
+BrTextEditor >> gtHistoryFor: aView [
+	<gtView>
 
-	^ self segmentCollector gtInspectorSegmentsIn: aComposite
+	^ (self history gtHistoryFor: aView)
+		title: 'History';
+		priority: 2
 ]
 
 { #category : #'*Brick-Editor-Extensions' }
@@ -20,7 +22,17 @@ BrTextEditor >> gtLiveFor: aView [
 				padding: (BlInsets all: 10);
 				constraintsDo: [ :c | 
 					c horizontal matchParent.
-					c vertical matchParent ] ]
+					c vertical matchParent ];
+				requestFocus ]
+]
+
+{ #category : #'*Brick-Editor-Extensions' }
+BrTextEditor >> gtSegmentsFor: aView [
+	<gtView>
+
+	^ (self segmentCollector gtSegmentsFor: aView)
+		title: 'Segments';
+		priority: 3
 ]
 
 { #category : #'*Brick-Editor-Extensions' }
@@ -28,7 +40,7 @@ BrTextEditor >> gtSelectionTreeFor: aView [
 	<gtView>
 
 	^ (selection gtTreeFor: aView)
-		priority: 1;
+		priority: 5;
 		title: 'Selection'
 ]
 
@@ -37,5 +49,5 @@ BrTextEditor >> gtTextFor: aView [
 	<gtView>
 	^ (self text 
 		gtTextFor: aView)
-		priority: 3
+		priority: 1
 ]

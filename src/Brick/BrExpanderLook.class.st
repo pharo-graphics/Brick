@@ -6,7 +6,8 @@ Class {
 		'headerStencil',
 		'contentElement',
 		'headerElement',
-		'layoutResizerLook'
+		'shouldRecreateHeader',
+		'shouldReplaceHeader'
 	],
 	#category : #'Brick-Expander - Look'
 }
@@ -36,10 +37,18 @@ BrExpanderLook >> contentStencil: aBrStencil [
 	contentStencil := aBrStencil asStencil.
 	contentElement ifNotNil: #removeFromParent.
 	contentElement := nil.
+	
+	self widgetDo: [ :aWidget |
+		(aWidget states hasState: BrExpansionState expanded)
+			ifTrue: [ self onExpanded ]
+			ifFalse: [ self onCollapsed ] ]
+]
 
-	(self request: BrExpansionStateRequest oneWay) isExpanded
-		ifTrue: [ self onExpanded ]
-		ifFalse: [ self onCollapsed ]
+{ #category : #'api - configuration' }
+BrExpanderLook >> doNotReplaceHeader [
+	"Tell expander to not replace header with the content, but instead just add it"
+	
+	shouldReplaceHeader := false
 ]
 
 { #category : #accessing }
@@ -58,41 +67,40 @@ BrExpanderLook >> headerStencil: aBrStencil [
 	headerElement ifNotNil: #removeFromParent.
 	headerElement := nil.
 
-	(self request: BrExpansionStateRequest oneWay) isExpanded
-		ifTrue: [ self onExpanded ]
-		ifFalse: [ self onCollapsed ]
+	self widgetDo: [ :aWidget |
+		(aWidget states hasState: BrExpansionState expanded)
+			ifTrue: [ self onExpanded ]
+			ifFalse: [ self onCollapsed ] ]
 ]
 
 { #category : #initialization }
 BrExpanderLook >> initialize [
 	super initialize.
 	
+	shouldRecreateHeader := false.
+	shouldReplaceHeader := true.
+
 	contentStencil := [ BlElement new ] asStencil.
 	headerStencil := [ BlElement new ] asStencil.
 
-	self add: (BrInteractiveCommonLook new
-		expanded: [ self onExpanded ];
-		collapsed: [ self onCollapsed ]).
-
-	self add: (layoutResizerLook := BrLayoutResizerLook new
+	self add: (BrLayoutResizerLook new
 		inherit; "for myself"
-		matchParentToMatchParentIn: [ :aBlock | self resizableElementsDo: aBlock ];
-		exactToMatchParentIn: [ :aBlock | self resizableElementsDo: aBlock ];
-		fitContentToFitContentIn: [ :aBlock | self resizableElementsDo: aBlock ])
+		matchParentToMatchParent: [ :aBlock | self resizableElementsDo: aBlock ];
+		exactToMatchParent: [ :aBlock | self resizableElementsDo: aBlock ];
+		fitContentToFitContent: [ :aBlock | self resizableElementsDo: aBlock ];
+		fitContentLimitedToFitContentLimited: [ :aBlock | self resizableElementsDo: aBlock ])
 ]
 
 { #category : #initialization }
 BrExpanderLook >> initializeContentElement [
 	contentElement := self contentStencil asElement.
-	contentElement removeFromParent.
-	layoutResizerLook requestStates
+	contentElement removeFromParent
 ]
 
 { #category : #initialization }
 BrExpanderLook >> initializeHeaderElement [
 	headerElement := self headerStencil asElement.
-	headerElement removeFromParent.
-	layoutResizerLook requestStates
+	headerElement removeFromParent
 ]
 
 { #category : #initialization }
@@ -100,7 +108,10 @@ BrExpanderLook >> initializeListeners [
 	super initializeListeners.
 
 	self when: BrAccordionContentStencilChanged do: [ :anEvent | self contentStencil: anEvent stencil ].
-	self when: BrAccordionHeaderStencilChanged do: [ :anEvent | self headerStencil: anEvent stencil ]
+	self when: BrAccordionHeaderStencilChanged do: [ :anEvent | self headerStencil: anEvent stencil ].
+		
+	self when: BrExpandedEvent do: [ :anEvent | self onExpanded ].
+	self when: BrCollapsedEvent do: [ :anEvent | self onCollapsed ]
 ]
 
 { #category : #initialization }
@@ -115,6 +126,11 @@ BrExpanderLook >> initializeRequests [
 BrExpanderLook >> onCollapsed [
 	contentElement ifNotNil: #removeFromParent.
 	
+	shouldRecreateHeader
+		ifTrue: [
+			headerElement ifNotNil: #removeFromParent.
+			headerElement := nil ].
+
 	headerElement ifNil: [ self initializeHeaderElement ].
 	headerElement hasParent
 		ifFalse: [ self addHeaderElement: headerElement ]
@@ -122,11 +138,23 @@ BrExpanderLook >> onCollapsed [
 
 { #category : #hooks }
 BrExpanderLook >> onExpanded [
-	headerElement ifNotNil: #removeFromParent.
+
+	shouldReplaceHeader
+		ifTrue: [ headerElement ifNotNil: #removeFromParent ]
+		ifFalse: [
+			headerElement ifNil: [ self initializeHeaderElement ].
+			headerElement hasParent
+				ifFalse: [ self addHeaderElement: headerElement ] ].
 	
 	contentElement ifNil: [ self initializeContentElement ].
 	contentElement hasParent
 		ifFalse: [ self addContentElement: contentElement ]
+]
+
+{ #category : #'api - configuration' }
+BrExpanderLook >> recreateHeader [
+	"Tell expander to recreate the header every time I am collapsed"
+	shouldRecreateHeader := true
 ]
 
 { #category : #accessing }

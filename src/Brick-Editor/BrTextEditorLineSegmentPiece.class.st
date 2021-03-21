@@ -1,25 +1,14 @@
 Class {
 	#name : #BrTextEditorLineSegmentPiece,
 	#superclass : #Object,
+	#traits : 'TBrTextEditorTextualPiece',
+	#classTraits : 'TBrTextEditorTextualPiece classTrait',
 	#instVars : [
 		'segment',
-		'text',
-		'textStart',
-		'textEnd',
 		'currentCursors'
 	],
 	#category : #'Brick-Editor-Model - Segment-Text-Line'
 }
-
-{ #category : #comparing }
-BrTextEditorLineSegmentPiece >> = anotherObject [
-	self == anotherObject
-		ifTrue: [ ^ true ].
-	(anotherObject isKindOf: self class)
-		ifFalse: [ ^ false ].
-	
-	^ anotherObject text = self text
-]
 
 { #category : #'instance creation' }
 BrTextEditorLineSegmentPiece >> createElement: anEditorElement [
@@ -38,11 +27,9 @@ BrTextEditorLineSegmentPiece >> currentCursors [
 	^ currentCursors
 ]
 
-{ #category : #accessing }
-BrTextEditorLineSegmentPiece >> end [
-	<return: #Number>
-
-	^ textEnd
+{ #category : #'api - cursor' }
+BrTextEditorLineSegmentPiece >> currentCursors: aSetOfCursors [	
+	currentCursors := aSetOfCursors asSet
 ]
 
 { #category : #'api - cursor' }
@@ -79,19 +66,14 @@ BrTextEditorLineSegmentPiece >> globalTextIndexToLocal: aTextIndex [
 	This convertion is necessary due to the fact that text elements that represent every segment piece work with text in their own local system"
 	<return: #Number>
 
-	^ self text isEmpty
+	^ self isEmpty
 		ifTrue: [ 0 ]
-		ifFalse: [ aTextIndex - self start ]
+		ifFalse: [ aTextIndex - self textStart ]
 ]
 
 { #category : #printing }
 BrTextEditorLineSegmentPiece >> gtDisplayOn: aStream [
 	self printOn: aStream
-]
-
-{ #category : #comparing }
-BrTextEditorLineSegmentPiece >> hash [
-	^ self class hash bitXor: self text hash
 ]
 
 { #category : #initialization }
@@ -102,8 +84,8 @@ BrTextEditorLineSegmentPiece >> initialize [
 ]
 
 { #category : #testing }
-BrTextEditorLineSegmentPiece >> isEmpty [
-	^ self text isEmpty
+BrTextEditorLineSegmentPiece >> isText [
+	^ false
 ]
 
 { #category : #'cursor - hooks' }
@@ -125,6 +107,10 @@ BrTextEditorLineSegmentPiece >> onCursorRemoved: aCursor from: aPieceElement in:
 		(BrTextEditorHideCursorRequest new
 			editorElement: anEditorElement;
 			cursorPosition: aCursor position)
+]
+
+{ #category : #updating }
+BrTextEditorLineSegmentPiece >> onRecycled: aPieceElement in: anEditorElement [
 ]
 
 { #category : #printing }
@@ -151,56 +137,51 @@ BrTextEditorLineSegmentPiece >> segment: anObject [
 	segment := anObject
 ]
 
-{ #category : #accessing }
-BrTextEditorLineSegmentPiece >> start [
-	<return: #Number>
-
-	^ textStart
-]
-
-{ #category : #accessing }
-BrTextEditorLineSegmentPiece >> start: aStartIndex end: anEndIndex [
-	textStart := aStartIndex.
-	textEnd := anEndIndex.
-
-	text start: ((aStartIndex + 1) min: anEndIndex) end: anEndIndex
-]
-
-{ #category : #accessing }
-BrTextEditorLineSegmentPiece >> text [
-	<return: #BlSubText>
-
-	^ text
-]
-
-{ #category : #accessing }
-BrTextEditorLineSegmentPiece >> text: aBrSubText [
-	text := aBrSubText.
-	
-	textStart := text textOffset.
-	textEnd := textStart + text size
-]
-
 { #category : #updating }
-BrTextEditorLineSegmentPiece >> updateCursor: aTextElement of: aLineSegment in: anEditorElement [
-	| theUpdatedCursors theAddedCursors theRemovedCursors |
-
+BrTextEditorLineSegmentPiece >> setCursor: aPieceElement of: aLineSegment in: anEditorElement [
+	| theUpdatedCursors aFocusRequest |
 	"select text editor cursors that are currently within this segment piece and convert them to local ones"
-	theUpdatedCursors := anEditorElement editor cursor allCursors
+	theUpdatedCursors := (anEditorElement editor cursors allCursors
 		select: [ :aCursor | aCursor insideSubText: self of: aLineSegment ]
-		thenCollect: [ :aCursor | self globalCursorToLocal: aCursor ].
-
-	theAddedCursors := self findAddedCursors: theUpdatedCursors to: self currentCursors.
-	theRemovedCursors := self findRemovedCursors: theUpdatedCursors from: self currentCursors.
+		thenCollect: [ :aCursor | self globalCursorToLocal: aCursor ]) asSet.
 
 	"update current cursors"
 	currentCursors := theUpdatedCursors.
-	
-	"tell to remove deleted cursors"
-	theRemovedCursors do: [ :aCursor | self onCursorRemoved: aCursor from: aTextElement in: anEditorElement ].
-	
+
 	"tell to add new cursors"
-	theAddedCursors do: [ :aCursor | self onCursorAdded: aCursor to: aTextElement in: anEditorElement ]
+	theUpdatedCursors
+		do: [ :aCursor | self onCursorAdded: aCursor to: aPieceElement in: anEditorElement ].
+	aFocusRequest := anEditorElement isFocused
+		ifTrue: [ BrTextEditorFocusRequest new ]
+		ifFalse: [ BrTextEditorBlurRequest new ].
+	aPieceElement
+		dispatchEvent: (aFocusRequest editorElement: anEditorElement)
+]
+
+{ #category : #updating }
+BrTextEditorLineSegmentPiece >> updateCursor: aPieceElement of: aLineSegment in: anEditorElement [
+	| theUpdatedCursors theAddedCursors theRemovedCursors |
+	"select text editor cursors that are currently within this segment piece and convert them to local ones"
+	theUpdatedCursors := (anEditorElement editor cursors allCursors
+		select: [ :aCursor | aCursor insideSubText: self of: aLineSegment ]
+		thenCollect: [ :aCursor | self globalCursorToLocal: aCursor ]) asSet.
+	theAddedCursors := self
+		findAddedCursors: theUpdatedCursors
+		to: self currentCursors.
+	theRemovedCursors := self
+		findRemovedCursors: theUpdatedCursors
+		from: self currentCursors.
+
+	"update current cursors"
+	currentCursors := theUpdatedCursors.
+
+	"tell to remove deleted cursors"
+	theRemovedCursors
+		do: [ :aCursor | self onCursorRemoved: aCursor from: aPieceElement in: anEditorElement ].
+
+	"tell to add new cursors"
+	theAddedCursors
+		do: [ :aCursor | self onCursorAdded: aCursor to: aPieceElement in: anEditorElement ]
 ]
 
 { #category : #updating }
@@ -223,17 +204,17 @@ BrTextEditorLineSegmentPiece >> updateSelection: aTextElement of: aLineSegment i
 	aTextElement dispatchEvent: (BrTextEditorDeselectRequest new
 		editorElement: anEditorElement;
 		fromIndex: 0;
-		toIndex: self text size).
+		toIndex: self textLength).
 
 	(aTextEditor selection + aTextEditor selectionRecorder selection) do: [ :aSelection |
 		| aSelectionInterval textInterval |
 		aSelectionInterval := aSelection interval.
-		textInterval := BlSelection from: self text start to: self text end.
+		textInterval := BlSelection from: (self textStart + 1 min: self textEnd) to: self textEnd.
 		(aSelection overlaps: textInterval)
 			ifTrue: [
 				| localFrom localTo |
-				localFrom := (aSelectionInterval first - self text start + 1) max: 0.
-				localTo := (aSelectionInterval last - self text start + 1) min: self text size + 1.
+				localFrom := (aSelectionInterval first - self textStart) max: 0.
+				localTo := (aSelectionInterval last - self textStart) min: self textLength + 1.
 
 				aTextElement dispatchEvent: (BrTextEditorSelectRequest new
 					editorElement: anEditorElement;
@@ -243,5 +224,29 @@ BrTextEditorLineSegmentPiece >> updateSelection: aTextElement of: aLineSegment i
 
 { #category : #updating }
 BrTextEditorLineSegmentPiece >> updateText: aTextElement of: aLineSegment in: anEditorElement [
-	aTextElement dispatchEvent: (BrTextEditorTextChangedRequest new editorElement: anEditorElement)
+	aTextElement dispatchEvent: (BrTextEditorTextChangedRequest new
+		editorElement: anEditorElement;
+		segmentPiece: self;
+		text: self text;
+		textStart: self textStart;
+		textEnd: self textEnd)
+]
+
+{ #category : #'api - geometry' }
+BrTextEditorLineSegmentPiece >> wordMargin [
+	<return: #BlInsets>
+	| aHalfOfLineSpacing |
+	
+	aHalfOfLineSpacing := (self segment lineSpacing / 2.0) floor.
+
+	^ BlInsets
+		top: aHalfOfLineSpacing
+		bottom: (self segment lineSpacing - aHalfOfLineSpacing)
+]
+
+{ #category : #'api - geometry' }
+BrTextEditorLineSegmentPiece >> wordPadding [
+	<return: #BlInsets>
+		
+	^ self segment wordPadding
 ]

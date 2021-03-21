@@ -1,23 +1,64 @@
 Class {
 	#name : #BrSimpleListLook,
 	#superclass : #BrLook,
+	#traits : 'TBrListInfiniteElementScroll',
+	#classTraits : 'TBrListInfiniteElementScroll classTrait',
 	#instVars : [
-		'listElement',
-		'rowStencilBuilder'
+		'listElement'
 	],
-	#category : 'Brick-List - Look'
+	#category : #'Brick-List - Look'
 }
+
+{ #category : #'api - orientation' }
+BrSimpleListLook >> beHorizontal [
+	| anOldListElement |
+	self listElement class = BrHorizontalInfiniteListElement ifTrue: [ ^ self ].
+	anOldListElement := self listElement.
+	listElement := BrHorizontalInfiniteListElement new.
+	self replaceListElement: anOldListElement by: self listElement.
+	self requestListConfiguration.
+]
+
+{ #category : #'api - orientation' }
+BrSimpleListLook >> beVertical [
+	| anOldListElement |
+	self listElement class = BrInfiniteListElement ifTrue: [ ^ self ].
+	anOldListElement := self listElement.
+	listElement := BrInfiniteListElement new.
+	self replaceListElement: anOldListElement by: self listElement.
+	self requestListConfiguration.
+]
 
 { #category : #initialization }
 BrSimpleListLook >> initialize [
 	super initialize.
+
+	self initializeListElement.
 	
+	self add: (BrLayoutResizerLook new
+		inherit;
+		inherit: [ self listElement ]).
+	
+	self addChangeAddChildAs: #(content scrollable) with: [ self listElement ].
+
+	self
+		addChangeProperty: #(widgetContent layout)
+		with: [ BlLinearLayout vertical ].
+	self
+		addChange:
+			(BrLookChange new
+				up: [ :e | self updateListElementParent ];
+				down: [ :e |  ];
+				yourself).
+	
+	self add: (BrListOrientationLook new
+		horizontal: [ :aStyle | aStyle do: [ :aWidget | self beHorizontal ] ];
+		vertical: [ :aStyle | aStyle do: [ :aWidget | self beVertical ] ])
+]
+
+{ #category : #initialization }
+BrSimpleListLook >> initializeListElement [
 	listElement := BrInfiniteListElement new.
-	listElement constraintsDo: [ :c | 
-		c horizontal matchParent.
-		c vertical matchParent ].
-	
-	self rowStencilBuilder: BrSimpleListRowStencilBuilder new
 ]
 
 { #category : #initialization }
@@ -25,44 +66,83 @@ BrSimpleListLook >> initializeListeners [
 	super initializeListeners.
 
 	self when: BrListItemsChangedEvent do: [ :anEvent | self onItemsChanged: anEvent items ].
-	self when: BrSelectionChanged do: [ :anEvent | self onSelectionChanged: anEvent selection ]
-]
-
-{ #category : #initialization }
-BrSimpleListLook >> initializeLook [
-	super initializeLook.
+	self when: BrSelectionChanged do: [ :anEvent | self onSelectionChanged: anEvent indices ].
+	self when: BrListItemTypeStencilChangedEvent do: [ :anEvent | self onItemTypeStencilChanged: anEvent itemTypeStencil ].
+	self when: BrListItemIdStencilChangedEvent do: [ :anEvent | self onItemIdStencilChanged: anEvent itemIdStencil ].
+	self when: BrListItemElementStencilChangedEvent do: [ :anEvent | self onItemElementStencilChanged: anEvent itemElementStencil ].
+	self when: BrListItemDataBinderChangedEvent do: [ :anEvent | self onItemDataBinderChanged: anEvent itemDataBinder ].
+	self when: BrListItemDataUnbinderChangedEvent do: [ :anEvent | self onItemDataUnbinderChanged: anEvent itemDataUnbinder ].
 	
-	listElement dataSource listElement: self widgetContent.
-	self widgetContent addChild: listElement as: #list
+	self initializeScrollListeners
 ]
 
 { #category : #initialization }
 BrSimpleListLook >> initializeRequests [
 	super initializeRequests.
-	
-	self request: BrListItemsRequest new.
-	self request: BrSelectionRequest new
+	self requestListConfiguration
 ]
 
-{ #category : #accessing }
+{ #category : #'private - accessing' }
 BrSimpleListLook >> listElement [
 	^ listElement
 ]
 
 { #category : #hooks }
-BrSimpleListLook >> onItemsChanged: aCollectionOfObjects [
-	listElement dataSource rowValues: aCollectionOfObjects
+BrSimpleListLook >> onItemDataBinderChanged: aBrListItemDataBinder [
+	self listElement dataSource itemDataBinder: aBrListItemDataBinder
 ]
 
 { #category : #hooks }
-BrSimpleListLook >> onSelectionChanged: aBlSelection [
-	listElement dataSource selection: aBlSelection
+BrSimpleListLook >> onItemDataUnbinderChanged: aBrListItemDataUnbinder [
+	self listElement dataSource itemDataUnbinder: aBrListItemDataUnbinder
 ]
 
-{ #category : #accessing }
-BrSimpleListLook >> rowStencilBuilder: aStencilBuilder [
-	"aStencilBuilder is expected to be a subclass of BrListRowStencil or a valuable"
-	rowStencilBuilder := aStencilBuilder asStencilBuilder: BrListRowStencilBuilder.
+{ #category : #hooks }
+BrSimpleListLook >> onItemElementStencilChanged: aBrListItemElementStencilBuilder [
+	self listElement dataSource itemElementStencil: aBrListItemElementStencilBuilder
+]
 
-	listElement dataSource rowStencilBuilder: rowStencilBuilder
+{ #category : #hooks }
+BrSimpleListLook >> onItemIdStencilChanged: aBrListItemIdStencilBuilder [
+	self listElement dataSource itemIdStencil: aBrListItemIdStencilBuilder
+]
+
+{ #category : #hooks }
+BrSimpleListLook >> onItemTypeStencilChanged: aBrListItemTypeStencilBuilder [
+	self listElement dataSource itemTypeStencil: aBrListItemTypeStencilBuilder
+]
+
+{ #category : #hooks }
+BrSimpleListLook >> onItemsChanged: aCollectionOfObjects [
+	self listElement dataSource rowValues: aCollectionOfObjects
+]
+
+{ #category : #hooks }
+BrSimpleListLook >> onSelectionChanged: aCollectionOfIndices [
+	self listElement dataSource selection: (BlCompositeSelection fromIndices: aCollectionOfIndices)
+]
+
+{ #category : #'private - updating' }
+BrSimpleListLook >> replaceListElement: anOldListElement by: aNewListElement [
+	self widgetDo: [ :aWidget |
+		| aParent |
+		aParent := anOldListElement parent.
+		aParent replaceChild: anOldListElement with: aNewListElement as: #scrollable.
+		self updateListElementParent. ]
+]
+
+{ #category : #initialization }
+BrSimpleListLook >> requestListConfiguration [
+	self request: BrListItemsRequest new.
+	self request: BrSelectionRequest new.
+	self request: BrListItemTypeStencilRequest new.
+	self request: BrListItemIdStencilRequest new.
+	self request: BrListItemElementStencilRequest new.
+	self request: BrListItemDataBinderRequest new.
+	self request: BrListItemDataUnbinderRequest new
+]
+
+{ #category : #'private - updating' }
+BrSimpleListLook >> updateListElementParent [
+	self listElement dataSource listElement: self widgetContent
 ]

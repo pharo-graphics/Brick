@@ -11,46 +11,27 @@ Class {
 BrGlamorousTabLook >> initialize [
 	super initialize.
 
-	self add: BrGlamorousTabLabelLook new.
+	self add: (BrGlamorousTextLabelLook new foreground: Color black).
+	self add: BrGlamorousTabActionbarLook new.
+	self add: BrLayoutResizerLook inherit.
+	self add: (BrLayoutAlignmentLook forHorizontalLinearLayout).
 
-	bar := BlElement new.
-	bar visibility: BlVisibility hidden.
-	bar background: BrGlamorousColors primaryBorderColor.
-	bar constraintsDo: [ :c |
-		c ignoreByLayout.
-		c ignored vertical alignBottom.
-		c vertical exact: 2.
-		c horizontal matchParent ]
-]
+	bar := BlElement new
+		visibility: BlVisibility hidden;
+		background: BrGlamorousColors primaryBorderColor;
+		constraintsDo: [ :c | 
+			c ignoreByLayout.
+			c ignored vertical alignBottom.
+			c vertical exact: 2.
+			c horizontal matchParent ].
 
-{ #category : #initialization }
-BrGlamorousTabLook >> initializeLook [
-	super initializeLook.
+	self add: (BrStyleCommonLook new
+		default: [ :aStyle | aStyle padding: (BlInsets top: 10 left: 12 bottom: 10 right: 12) ]).
 
-	self widgetContent
-		layout: BlLinearLayout horizontal alignCenter;
-		padding: (BlInsets top: 10 left: 12 bottom: 10 right: 12);
-		constraintsDo: [ :c |
-			c vertical matchParent.
-			c horizontal fitContent ];
-		addChild: bar
-]
+	self add: (BrStyleCommonLook new
+		@ bar;
+		deselected: [ :aStyle | aStyle hidden ];
+		selected: [ :aStyle | aStyle visible ]).
 
-{ #category : #'event handling' }
-BrGlamorousTabLook >> invisibleBar [
-	bar background: Color transparent
-]
-
-{ #category : #'event handling' }
-BrGlamorousTabLook >> tabDeselected [
-	super tabDeselected.
-	
-	bar visibility: BlVisibility hidden
-]
-
-{ #category : #'event handling' }
-BrGlamorousTabLook >> tabSelected [
-	super tabSelected.
-	
-	bar visibility: BlVisibility visible
+	self addChangeAddChildAs: #(content bar) with: [ bar ]
 ]

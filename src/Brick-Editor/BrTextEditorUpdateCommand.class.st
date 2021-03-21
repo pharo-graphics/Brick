@@ -5,7 +5,7 @@ Class {
 		'fromIndex',
 		'toIndex'
 	],
-	#category : 'Brick-Editor-Commands'
+	#category : #'Brick-Editor-Commands'
 }
 
 { #category : #executing }
@@ -39,6 +39,15 @@ BrTextEditorUpdateCommand >> fromIndex [
 { #category : #accessing }
 BrTextEditorUpdateCommand >> fromIndex: aFromTextIndex [
 	fromIndex := aFromTextIndex
+]
+
+{ #category : #printing }
+BrTextEditorUpdateCommand >> printOn: aStream [
+	aStream
+		nextPutAll: 'Text changed from ';
+		print: self fromIndex;
+		nextPutAll: ' to ';
+		print: self toIndex
 ]
 
 { #category : #accessing }

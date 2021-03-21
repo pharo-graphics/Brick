@@ -4,17 +4,30 @@ Class {
 	#instVars : [
 		'resizer'
 	],
-	#category : #'Brick-Layout Resizer - Events'
+	#category : #'Brick-! Deprecated'
 }
 
 { #category : #'instance creation' }
 BrLayoutResizerWish class >> exact: aNumber [
+	<argument: #aNumber satisfies: #isBlocFiniteFloat>
+	<argument: #aNumber satisfies: #isBlocPositiveFloat>
+
 	^ self resizer: (BlLayoutResizer exact: aNumber)
 ]
 
 { #category : #'instance creation' }
 BrLayoutResizerWish class >> fitContent [
 	^ self resizer: BlLayoutResizer fitContent
+]
+
+{ #category : #'instance creation' }
+BrLayoutResizerWish class >> fitContentLimited [
+	^ self resizer: BlLayoutResizer fitContentLimited
+]
+
+{ #category : #testing }
+BrLayoutResizerWish class >> isDeprecated [
+	^ true
 ]
 
 { #category : #'instance creation' }

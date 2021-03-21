@@ -2,118 +2,120 @@ Class {
 	#name : #BrTextWordPieceStencilBuilder,
 	#superclass : #BrStencilBuilder,
 	#instVars : [
-		'text',
-		'editorElement',
 		'wordPadding',
-		'measurer',
-		'mouseDownHandler',
-		'doubleClickHandler',
-		'selectionAcquiredHandler',
-		'selectionLostHandler'
+		'wordMargin',
+		'segmentPiece',
+		'shouldUsePool'
 	],
 	#category : #'Brick-Editor-UI - Stencils'
 }
 
+{ #category : #'private - pool' }
+BrTextWordPieceStencilBuilder >> acquire [
+	<return: #BrTextElementWithCursors or: nil>
+	
+	shouldUsePool
+		ifFalse: [ ^ nil ].
+	
+	^ self pool acquire
+]
+
 { #category : #'api - instantiation' }
 BrTextWordPieceStencilBuilder >> buildDefault [
-	^ BrTextElementWithCursors new
-		text: self text;
-		clipChildren: false;
+	| aTextElement |
+	
+	aTextElement := (self acquire ifNil: [ self createWordElement ])
+		segmentPiece: self segmentPiece;
 		padding: self wordPadding;
-		ascentBaseline;
-		looseMesurement;
+		margin: self wordMargin.
 		
-		"to support event-handling attributes"
-		addEventHandler: (BrTextEditorLineSegmentTextListener new editorElement: self editorElement);
+	aTextElement userData at: #editorPool put: self pool.
 
-		"editor requests to show a cursor as a result of its position change"
-		addEventHandler: BrTextWordPieceShowCursorHandler uniqueInstance;
-		
-		"editor requests to remove a cursor as a result of its position change"
-		addEventHandler: BrTextWordPieceHideCursorHandler uniqueInstance;
-		
-		"for screen position to cursor index transformation"
-		addEventHandler: BrTextWordPieceScreenToCursorHandler uniqueInstance;
-
-		addEventHandler: BrTextWordPieceFocusHandler uniqueInstance;
-		addEventHandler: BrTextWordPieceBlurHandler uniqueInstance;
-		
-		"selection changed in the editor, select a given interval"
-		addEventHandler: BrTextWordPieceSelectionHandler uniqueInstance;
-		
-		"selection changed in the editor, deselect a given interval"
-		addEventHandler: BrTextWordPieceDeselectionHandler uniqueInstance;
-		
-		"text changed in the editor"
-		addEventHandler: BrTextWordPieceTextChangeHandler uniqueInstance;		
-		
-		"when clicking inside of a text piece we should move cursor there and request editor focus"
-		addEventHandler: mouseDownHandler;
-		
-		"when double-clicking inside of a text piece we should select the whole word"
-		addEventHandler: doubleClickHandler;
-
-		"text piece got inside of selected area"
-		addEventHandler: selectionAcquiredHandler;
-
-		"text piece got outside of then selected area"
-		addEventHandler: selectionLostHandler;
-
-		yourself
+	self reset.
+	
+	^ aTextElement
 ]
 
-{ #category : #accessing }
-BrTextWordPieceStencilBuilder >> editorElement [
-	^ editorElement
-]
+{ #category : #'api - instantiation' }
+BrTextWordPieceStencilBuilder >> createWordElement [
+	<return: #BrTextElementWithCursors>
 
-{ #category : #accessing }
-BrTextWordPieceStencilBuilder >> editorElement: anEditorElement [
-	editorElement := anEditorElement.
-
-	mouseDownHandler editorElement: anEditorElement.
-	doubleClickHandler editorElement: anEditorElement.
-	selectionAcquiredHandler editorElement: anEditorElement.
-	selectionLostHandler editorElement: anEditorElement.
+	^ self subclassResponsibility
 ]
 
 { #category : #initialization }
 BrTextWordPieceStencilBuilder >> initialize [
 	super initialize.
 	
-	wordPadding := BlInsets top: 3 bottom: 3.
-	measurer := BlTextElementCanvasMeasurer new.
-	mouseDownHandler := BrTextEditorMouseDownHandler new.
-	doubleClickHandler := BrTextWordPieceDoubleClickHandler new.
-	selectionAcquiredHandler := BrTextWordPieceSelectionAcquiredHandler new.
-	selectionLostHandler := BrTextWordPieceSelectionLostHandler new.
-]
-
-{ #category : #accessing }
-BrTextWordPieceStencilBuilder >> measurer [
-	^ measurer
-]
-
-{ #category : #accessing }
-BrTextWordPieceStencilBuilder >> measurer: aMeasurer [
-	measurer := aMeasurer
+	self reset
 ]
 
 { #category : #'api - instantiation' }
 BrTextWordPieceStencilBuilder >> paramsOn: aStencilExecutor [
-	aStencilExecutor
-		push: self text;
-		push: self editorElement
+	aStencilExecutor push: self segmentPiece
+]
+
+{ #category : #'private - pool' }
+BrTextWordPieceStencilBuilder >> pool [
+	^ self subclassResponsibility
+]
+
+{ #category : #'private - pool' }
+BrTextWordPieceStencilBuilder >> recycle: aPieceElement [
+	aPieceElement removeFromParent.
+	aPieceElement removeCursors.
+	aPieceElement selectNone.
+	aPieceElement resetDefaultFontSize.
+
+	"otherwise attributes may not be garbage collected
+	see https://github.com/feenkcom/gtoolkit/issues/537"
+	aPieceElement removeSegmentPiece.
+
+	aPieceElement userData
+		at: #editorPool
+		ifPresent: [ :aPool | aPool == self pool ifTrue: [ self pool release: aPieceElement  ] ]
+]
+
+{ #category : #initialization }
+BrTextWordPieceStencilBuilder >> reset [
+	wordPadding := BlInsets empty.
+	wordMargin := BlInsets empty.
+	segmentPiece := nil.
+	shouldUsePool := true
 ]
 
 { #category : #accessing }
-BrTextWordPieceStencilBuilder >> text [
-	^ text
+BrTextWordPieceStencilBuilder >> segmentPiece [
+	<return: #TBrTextEditorTextualPiece>
+
+	^ segmentPiece
 ]
 
 { #category : #accessing }
-BrTextWordPieceStencilBuilder >> text: anObject [
-	text := anObject
+BrTextWordPieceStencilBuilder >> segmentPiece: aTBrTextEditorTextualPiece [
+	segmentPiece := aTBrTextEditorTextualPiece
+]
+
+{ #category : #accessing }
+BrTextWordPieceStencilBuilder >> shouldUsePool [
+	^ shouldUsePool
+]
+
+{ #category : #accessing }
+BrTextWordPieceStencilBuilder >> shouldUsePool: aBoolean [
+	shouldUsePool := aBoolean
+]
+
+{ #category : #accessing }
+BrTextWordPieceStencilBuilder >> wordMargin [
+	<return: #BlInsets>
+
+	^ wordMargin
+]
+
+{ #category : #accessing }
+BrTextWordPieceStencilBuilder >> wordMargin: aBlInsets [
+	wordMargin := aBlInsets
 ]
 
 { #category : #accessing }

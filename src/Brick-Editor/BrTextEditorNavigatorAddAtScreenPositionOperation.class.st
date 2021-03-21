@@ -10,7 +10,7 @@ Class {
 { #category : #matching }
 BrTextEditorNavigatorAddAtScreenPositionOperation >> performOn: aNavigator [
 	| aGlobalTextIndex |
-	
+
 	aGlobalTextIndex := aNavigator
 		findTextIndexAtScreenPosition: self screenPosition
 		ifAbsent: [ ^ self ].

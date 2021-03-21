@@ -9,32 +9,32 @@ Class {
 	#instVars : [
 		'expanded'
 	],
-	#category : #'Brick-! Core'
+	#category : #'Brick-! Deprecated'
 }
+
+{ #category : #testing }
+BrExpandableModel class >> isDeprecated [
+	^ true
+]
 
 { #category : #'api - expandable' }
 BrExpandableModel >> collapse [
-	self isCollapsed
-		ifTrue: [ ^ self ].
-
-	expanded := false.
-	self notifyExpansionChanged
+	self expanded: false
 ]
 
 { #category : #'api - expandable' }
 BrExpandableModel >> expand [
-	self isExpanded
-		ifTrue: [ ^ self ].
-
-	expanded := true.
-	self notifyExpansionChanged
+	self expanded: true
 ]
 
 { #category : #'api - expandable' }
 BrExpandableModel >> expanded: aBoolean [
-	aBoolean
-		ifTrue: [ self expand ]
-		ifFalse: [ self collapse ]
+	expanded = aBoolean
+		ifTrue: [ ^ self ].
+		
+	expanded := aBoolean.
+	self notifyExpansionChanged.
+	self notifyStateChanged: expanded
 ]
 
 { #category : #initialization }
@@ -69,7 +69,9 @@ BrExpandableModel >> isExpanded [
 
 { #category : #notifying }
 BrExpandableModel >> notifyExpansionChanged [
-	self dispatchEvent: (self stateChangedEventClass expanded: self isExpanded)
+	self dispatchEvent: (self isExpanded
+		ifTrue: [ BrExpandedEvent new ]
+		ifFalse: [ BrCollapsedEvent new ])
 ]
 
 { #category : #streaming }
@@ -78,10 +80,12 @@ BrExpandableModel >> stateChangedEventClass [
 ]
 
 { #category : #streaming }
-BrExpandableModel >> streamStateOn: aStream [
-	self isExpanded 
-		ifTrue: [ aStream nextPut: BrExpandedState new ]
-		ifFalse: [ aStream nextPut: BrExpandedState new not ]
+BrExpandableModel >> streamStateIn: aBrInteractionStatesMapping [
+	aBrInteractionStatesMapping
+		addState: (self isExpanded 
+			ifTrue: [ BrDeprecatedExpandedState new ]
+			ifFalse: [ BrDeprecatedExpandedState new not ])
+		model: self
 ]
 
 { #category : #'api - expandable' }

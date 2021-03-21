@@ -1,3 +1,7 @@
+"
+I inform about progress status changes. I am triggered by ${class:BrProgressModel}$ and received by ${class:BrProgressLook}$.
+
+"
 Class {
 	#name : #BrProgressChangedEvent,
 	#superclass : #BlEvent,
@@ -5,7 +9,7 @@ Class {
 		'amount',
 		'total'
 	],
-	#category : 'Brick-Progress - Events'
+	#category : #'Brick-Progress - Events'
 }
 
 { #category : #accessing }

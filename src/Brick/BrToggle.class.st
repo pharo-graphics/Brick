@@ -1,11 +1,19 @@
 Class {
 	#name : #BrToggle,
 	#superclass : #BlElement,
-	#category : 'Brick-Toggle - UI'
+	#traits : 'TBrEnableable + TBrLayoutAlignable + TBrLayoutResizable + TBrSizeAdjustable',
+	#classTraits : 'TBrEnableable classTrait + TBrLayoutAlignable classTrait + TBrLayoutResizable classTrait + TBrSizeAdjustable classTrait',
+	#instVars : [
+		'labelModel',
+		'iconModel'
+	],
+	#category : #'Brick-Toggle - UI'
 }
 
 { #category : #'api - toggle' }
 BrToggle >> activate [
+	"Activate the toggle if it is deactivated, otherwise do nothing"
+
 	self viewModel activate
 ]
 
@@ -14,16 +22,10 @@ BrToggle >> activated: aBoolean [
 	self viewModel activated: aBoolean
 ]
 
-{ #category : #'api - widget' }
-BrToggle >> content: anElement [
-	"Set the given element as my content"
-
-	self removeChildNamed: #content.
-	self addChild: anElement as: #content
-]
-
 { #category : #'api - toggle' }
 BrToggle >> deactivate [
+	"Deactivate the toggle if it is activated, otherwise do nothing"
+
 	self viewModel deactivate
 ]
 
@@ -31,19 +33,28 @@ BrToggle >> deactivate [
 BrToggle >> icon [
 	<return: #BlElement>
 
-	^ self viewModel icon
+	^ iconModel icon
 ]
 
 { #category : #'api - widget' }
 BrToggle >> icon: anElement [
-	self viewModel icon: anElement
+	iconModel icon: anElement
 ]
 
 { #category : #initialization }
 BrToggle >> initialize [
 	super initialize.
-
-	self viewModel: BrToggleModel new
+	
+	self hFitContent; vLocal.
+	self beNormalSize.
+	
+	self viewModel: (BrToggleModel new +
+		(labelModel := BrLabelModel new) +
+		(iconModel := BrIconModel new) +
+		(BrInteractiveModel new
+			addStates: {
+				BrLayoutAlignmentModel center.
+			}))
 ]
 
 { #category : #'api - toggle' }
@@ -55,17 +66,21 @@ BrToggle >> isActivated [
 
 { #category : #'api - widget' }
 BrToggle >> label [
-	<return: #BlText or: #String>
+	<return: #BlText>
 
-	^ self viewModel label
+	^ labelModel text
 ]
 
 { #category : #'api - widget' }
-BrToggle >> label: aBrTextOrString [
-	self viewModel label: aBrTextOrString
+BrToggle >> label: aStringOrBrText [
+	labelModel text: aStringOrBrText
 ]
 
 { #category : #'api - toggle' }
 BrToggle >> toggle [
+	"Invert the toggle's state:
+	 - activate if the toggle is deactivated
+	 - deactivate if the toggle is already activated"
+
 	self viewModel toggle
 ]

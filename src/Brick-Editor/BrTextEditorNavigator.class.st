@@ -13,7 +13,9 @@ Class {
 		'cursorsToRemove',
 		'cursorsToMove',
 		'shouldResetDesiredCoordinate',
-		'operations'
+		'operations',
+		'dueTo',
+		'shouldHistorize'
 	],
 	#category : #'Brick-Editor-Model - Operators'
 }
@@ -24,6 +26,11 @@ BrTextEditorNavigator >> add: aCursor [
 	self privateAssertPosition: aCursor position.
 
 	operations add: (BrTextEditorNavigatorAddCursorOperation cursor: aCursor)
+]
+
+{ #category : #'api - configuration' }
+BrTextEditorNavigator >> addAll: aBrTextEditorCursors [
+	aBrTextEditorCursors do: [ :eachCursor | self add: eachCursor ]
 ]
 
 { #category : #'api - configuration' }
@@ -77,9 +84,32 @@ BrTextEditorNavigator >> apply [
 				ifTrue: [ theAddedCursors add: (theNewCursorsArray at: anIndex) ]
 				ifFalse: [ theRemovedCursors add: ((theCurrentCursorsArray at: anIndex)) ] ] ].
 
-	theRemovedCursors do: [ :aCursor | self privateRemoveCursor: aCursor ].
-	theAddedCursors do: [ :aCursor | self privateAddCursor: aCursor ].
-	theMovedCursors do: [ :anAssociation | self privateMoveCursor: anAssociation key to: anAssociation value position ]
+	shouldHistorize ifTrue: [
+		self editor history
+			cursorsMovedFrom: (theRemovedCursors collect: #position), (theMovedCursors collect: [ :anAssociation | anAssociation key position ])
+			to: (theAddedCursors collect: #position), (theMovedCursors collect: [ :anAssociation | anAssociation value position ]) ].
+
+	self telemetry
+		timeSync: [ 'Remove cursors {1}' format: { theRemovedCursors } ]
+		during: [ theRemovedCursors do: [ :aCursor | self privateRemoveCursor: aCursor ] ].
+	self telemetry
+		timeSync: [ 'Add cursors {1}' format: { theRemovedCursors } ]
+		during: [ theAddedCursors do: [ :aCursor | self privateAddCursor: aCursor ] ].
+	self telemetry
+		timeSync: [ 'Move cursors {1}' format: { theRemovedCursors } ]
+		during: [ theMovedCursors do: [ :anAssociation | self privateMoveCursor: anAssociation key to: anAssociation value position ] ].
+	
+	dueTo := nil
+]
+
+{ #category : #accessing }
+BrTextEditorNavigator >> dueTo [
+	^ dueTo
+]
+
+{ #category : #accessing }
+BrTextEditorNavigator >> dueTo: aTextEditorOperator [
+	dueTo := aTextEditorOperator
 ]
 
 { #category : #initialization }
@@ -90,7 +120,8 @@ BrTextEditorNavigator >> initialize [
 	cursorsToAdd := Set new.
 	cursorsToRemove := Set new.
 	cursorsToMove := Dictionary new.
-	shouldResetDesiredCoordinate := true
+	shouldResetDesiredCoordinate := true.
+	shouldHistorize := false
 ]
 
 { #category : #'api - configuration' }
@@ -151,6 +182,13 @@ BrTextEditorNavigator >> moveTo: aTextPosition [
 ]
 
 { #category : #'api - configuration' }
+BrTextEditorNavigator >> moveToEndNextWord [
+	"Move all cursors to the end of the next word"
+
+	self cursor do: [ :aCursor | operations add: (BrTextEditorNavigatorMoveToEndNextWordOperation cursor: aCursor) ]
+]
+
+{ #category : #'api - configuration' }
 BrTextEditorNavigator >> moveToLineEnd [
 	"Move all cursors to the end of their corresponding lines"
 
@@ -178,15 +216,40 @@ BrTextEditorNavigator >> moveToScreenPosition: aScreenPosition [
 ]
 
 { #category : #'api - configuration' }
+BrTextEditorNavigator >> moveToStartPreviousWord [
+	"Move all cursors to the start of the previous word"
+
+	self cursor do: [ :aCursor | operations add: (BrTextEditorNavigatorMoveToStartPreviousWordOperation cursor: aCursor) ]
+]
+
+{ #category : #'api - configuration' }
 BrTextEditorNavigator >> moveUp [
 	"Move all cursors up one line"
 
 	self cursor do: [ :aCursor | operations add: (BrTextEditorNavigatorMoveUpOperation cursor: aCursor) ]
 ]
 
+{ #category : #'api - configuration' }
+BrTextEditorNavigator >> moveWithin: anInterval [
+	"Move all cursors so that they end up within a given text interval.
+	The operation is only applied on existing cursor, not the ones that will be added"
+
+	self cursor do: [ :aCursor |
+		aCursor position < anInterval first
+			ifTrue: [ self move: aCursor to: anInterval first ]
+			ifFalse: [ aCursor position > anInterval last
+				ifTrue: [ self move: aCursor to: anInterval last ] ] ]
+]
+
 { #category : #notifying }
 BrTextEditorNavigator >> notifyCursorAdded: aCursor [
-	self editor dispatchEvent: (BrTextEditorCursorAddedEvent cursor: aCursor)
+	self editor dispatchEvent: (BrTextEditorCursorAddedEvent cursor: aCursor).
+	self notifyCursorChanged
+]
+
+{ #category : #notifying }
+BrTextEditorNavigator >> notifyCursorChanged [
+	self editor dispatchEvent: (BrTextEditorCursorChangedEvent new cursors: self cursors)
 ]
 
 { #category : #private }
@@ -194,6 +257,7 @@ BrTextEditorNavigator >> notifyCursorChanged: aCursor [
 	| aCommand |
 
 	aCommand := BrTextEditorCursorChangeCommand new
+		context: self context;
 		cursor: aCursor;
 		position: aCursor position.
 	self editor enqueueCommand: aCommand
@@ -201,12 +265,14 @@ BrTextEditorNavigator >> notifyCursorChanged: aCursor [
 
 { #category : #notifying }
 BrTextEditorNavigator >> notifyCursorMoved: aCursor from: aFromIndex to: aToIndex [
-	self editor dispatchEvent: (BrTextEditorCursorMovedEvent cursor: aCursor from: aFromIndex to: aToIndex)
+	self editor dispatchEvent: (BrTextEditorCursorMovedEvent cursor: aCursor from: aFromIndex to: aToIndex dueTo: (dueTo ifNil: [self])).
+	self notifyCursorChanged
 ]
 
 { #category : #notifying }
 BrTextEditorNavigator >> notifyCursorRemoved: aCursor [
-	self editor dispatchEvent: (BrTextEditorCursorRemovedEvent cursor: aCursor)
+	self editor dispatchEvent: (BrTextEditorCursorRemovedEvent cursor: aCursor).
+	self notifyCursorChanged
 ]
 
 { #category : #private }
@@ -233,7 +299,7 @@ BrTextEditorNavigator >> privateAddRegisteredIn: aSet [
 BrTextEditorNavigator >> privateAssertPosition: aTextPosition [
 	self
 		assert: [ aTextPosition between: 0 and: self text size ]
-		description: [ 'Cursor position must be within the interval [0.. text size]' ].
+		description: [ 'Cursor position ({1}) must be within the interval [0.. {2}]' format: { aTextPosition . self text size } ].
 ]
 
 { #category : #'private - accessing' }
@@ -255,9 +321,17 @@ BrTextEditorNavigator >> privateMoveCursor: aCursor to: aTextIndex [
 	aCursor position: aTextIndex.
 	self privateUpdateDesiredCoordinate: aCursor.
 
-	self notifyCursorChanged: anOldCursor.
-	self notifyCursorChanged: aCursor.
-	self notifyCursorMoved: aCursor from: anOldCursor position to: aTextIndex
+	self telemetry
+		timeSync: [ 'Notify cursor changed {1}' format: { anOldCursor position } ]
+		during: [ self notifyCursorChanged: anOldCursor ].
+		
+	self telemetry
+		timeSync: [ 'Notify cursor changed {1}' format: { aCursor position } ]
+		during: [ self notifyCursorChanged: aCursor ].
+		
+	self telemetry
+		timeSync: [ 'Notify cursor moved from {1} to {2}' format: { anOldCursor position . aTextIndex } ]
+		during: [ self notifyCursorMoved: aCursor from: anOldCursor position to: aTextIndex ].
 ]
 
 { #category : #'private - operations' }
@@ -385,10 +459,24 @@ BrTextEditorNavigator >> whenMoved: aBlock [
 ]
 
 { #category : #'api - events' }
+BrTextEditorNavigator >> whenReachedBoundary: aBlock [
+	"Subscribe to the cursor reached boundary event and return an event handler"
+
+	^ self when: BrTextEditorCursorReachedBoundaryEvent do: aBlock
+]
+
+{ #category : #'api - events' }
 BrTextEditorNavigator >> whenRemoved: aBlock [
 	"Subscribe to the cursor removed event and return an event handler"
 
 	^ self when: BrTextEditorCursorRemovedEvent do: aBlock
+]
+
+{ #category : #'api - configuration' }
+BrTextEditorNavigator >> withHistorization [
+	"Add cursor movement to the history sos that it can be undone / redone"
+	
+	shouldHistorize := true
 ]
 
 { #category : #'api - configuration' }

@@ -1,7 +1,7 @@
 Class {
 	#name : #BrTextEditorCursor,
 	#superclass : #Object,
-	#category : 'Brick-Editor-Model - Cursor'
+	#category : #'Brick-Editor-Model - Cursor'
 }
 
 { #category : #'instance creation' }
@@ -125,7 +125,7 @@ BrTextEditorCursor >> errorNotFound: anObject [
 { #category : #accessing }
 BrTextEditorCursor >> first [
 	"Return the first cursor sorted by position. Throw an error if there are no cursors"
-	<return: #BlTextEditorSingleCursor>
+	<return: #BrTextEditorSingleCursor>
 
 	^ (self allCursors sorted: [ :a :b | a position < b position ]) first
 ]
@@ -145,6 +145,19 @@ BrTextEditorCursor >> isNotEmpty [
 	<return: #Boolean>
 
 	^ self isEmpty not
+]
+
+{ #category : #testing }
+BrTextEditorCursor >> isSingle [
+	"Return true if there is exactly *one* cursor"
+	<return: #Boolean>
+
+	^ self cursorsCount = 1
+]
+
+{ #category : #accessing }
+BrTextEditorCursor >> positions [
+	^ self collect: [ :eachCursor | eachCursor position ]
 ]
 
 { #category : #enumerating }

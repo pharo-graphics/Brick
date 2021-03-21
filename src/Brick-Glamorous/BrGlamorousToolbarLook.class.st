@@ -1,30 +1,43 @@
+"
+I am a horizontal toolbar look
+"
 Class {
 	#name : #BrGlamorousToolbarLook,
 	#superclass : #BrToolbarLook,
+	#instVars : [
+		'spacing'
+	],
 	#category : #'Brick-Glamorous-Toolbar'
 }
 
 { #category : #factory }
 BrGlamorousToolbarLook class >> horizontal [
-	^ self basicNew initialize beHorizontal
-]
-
-{ #category : #factory }
-BrGlamorousToolbarLook class >> new [
-	^ self horizontal
-]
-
-{ #category : #factory }
-BrGlamorousToolbarLook class >> vertical [
-	^ self basicNew initialize beVertical
+	self deprecated: 'Use #new instead' transformWith: '`@receiver horizontal' -> '`@receiver new'.
+	
+	^ self new
 ]
 
 { #category : #initialization }
-BrGlamorousToolbarLook >> beHorizontal [
-	self add: (BrLayoutLook new layout: (BlGridLayout horizontal cellSpacing: 2); fitContent)
+BrGlamorousToolbarLook >> initialize [
+	super initialize.
+	
+	spacing := 4.
+
+	self add: BrLayoutResizerLook inherit.
+	self add: BrLayoutAlignmentLook forAlignable.	
+	self
+		addChangeProperty: #(widget layout)
+		with: [ BlLinearLayout horizontal cellSpacing: spacing ]
 ]
 
-{ #category : #initialization }
-BrGlamorousToolbarLook >> beVertical [
-	self add: (BrLayoutLook new layout: (BlGridLayout vertical cellSpacing: 2); fitContent)
+{ #category : #accessing }
+BrGlamorousToolbarLook >> spacing [
+	^ spacing
+]
+
+{ #category : #accessing }
+BrGlamorousToolbarLook >> spacing: aNumber [
+	spacing := aNumber.
+	
+	self widgetDo: [ :anElement | anElement layoutDo: [ :l | l cellSpacing: aNumber ] ]
 ]

@@ -14,7 +14,8 @@ Class {
 		'width',
 		'height',
 		'pushedQueue',
-		'origin'
+		'origin',
+		'baseline'
 	],
 	#category : #'Brick-Editor-Layout'
 }
@@ -38,6 +39,11 @@ BrEditorTextFlowLine >> add: anElement [
 	^ anElement constraints textFlow shouldBreakLineAfter
 		ifTrue: [ currentLine nextLine ]
 		ifFalse: [ currentLine ]
+]
+
+{ #category : #accessing }
+BrEditorTextFlowLine >> baseline [
+	^ baseline
 ]
 
 { #category : #accessing }
@@ -78,15 +84,37 @@ BrEditorTextFlowLine >> elements [
 	^ elements
 ]
 
+{ #category : #accessing }
+BrEditorTextFlowLine >> elementsIn: anElement [
+	"Return a collection of all elements assigned to this line"
+	<return: #OrderedCollection>
+
+	^ elements ifNil: [ elements := anElement children select: [ :eachChild | eachChild constraints textFlow assignedLine = self ] ]
+]
+
 { #category : #geometry }
-BrEditorTextFlowLine >> findClosestElementTo: aPoint [
+BrEditorTextFlowLine >> findClosestChildOf: anElement to: aPoint [
+	<return: #BlElement>
+	
+	"use cached elements"
+	elements
+		ifNotNil: [ ^ self findClosestElementTo: aPoint in: elements ].
+	
+	"otherwise compute based on the assigned line"
+	^ self
+		findClosestElementTo: aPoint
+		in: (anElement children select: [ :eachChild | eachChild constraints textFlow assignedLine = self ])
+]
+
+{ #category : #geometry }
+BrEditorTextFlowLine >> findClosestElementTo: aPoint in: aCollectionOfElements [
 	<return: #BlElement>
 	| aClosestElement aClosestDistance |
 	
-	aClosestElement := elements first.
+	aClosestElement := aCollectionOfElements first.
 	aClosestDistance := aClosestElement distanceToX: aPoint.
 	
-	elements do: [ :eachElement | 
+	aCollectionOfElements do: [ :eachElement | 
 		| eachDistance |
 		
 		eachDistance := eachElement distanceToX: aPoint.
@@ -94,7 +122,7 @@ BrEditorTextFlowLine >> findClosestElementTo: aPoint [
 			ifTrue: [
 				aClosestDistance := eachDistance.
 				aClosestElement := eachElement ] ].
-		
+
 	^ aClosestElement
 ]
 
@@ -114,7 +142,15 @@ BrEditorTextFlowLine >> hasSpaceFor: anElement [
 	<return: #Boolean>
 	
 	^ self isEmpty or: [
-		availableWidth >= (anElement measuredWidth + anElement margin width) ]
+		| aChildWidth |
+		
+		aChildWidth := anElement measuredWidth + anElement margin width.
+		
+		"we can not directly return the comparison, because it is possible that available width
+		is very very close but slightly less than (by a thousand of a pixel) the child's measured width."
+		availableWidth >= aChildWidth
+			ifTrue: [ true ]
+			ifFalse: [ availableWidth closeTo: aChildWidth epsilon: 0.5 ] ]
 ]
 
 { #category : #geometry }
@@ -133,9 +169,13 @@ BrEditorTextFlowLine >> initialize [
 	width := 0.
 	height := 0.
 	origin := 0@0.
+	baseline := 0.
 	availableWidth := maxWidth.
+
 	elements := OrderedCollection new.
-	pushedQueue := LinkedList new
+	pushedQueue := LinkedList new.
+
+	nextLine := nil
 ]
 
 { #category : #testing }
@@ -192,10 +232,13 @@ BrEditorTextFlowLine >> push: anElement [
 	and update my geometry properties taking new element into account "
 
 	elements addLast: anElement.
+	anElement constraints textFlow assignToLine: self.
 
 	width := width + (anElement measuredWidth + anElement margin width).
 	height := height max: (anElement measuredHeight + anElement margin height).
-	availableWidth := maxWidth - width
+	availableWidth := maxWidth - width.
+	
+	baseline := baseline max: (anElement baselineOffset + anElement margin top)
 ]
 
 { #category : #accessing }
@@ -206,6 +249,14 @@ BrEditorTextFlowLine >> pushedQueue [
 { #category : #accessing }
 BrEditorTextFlowLine >> pushedQueue: aQueue [
 	pushedQueue := aQueue
+]
+
+{ #category : #initialization }
+BrEditorTextFlowLine >> reset [
+	elements := nil.
+	pushedQueue := nil.
+
+	nextLine ifNotNil: [ :aNextLine | aNextLine reset ]
 ]
 
 { #category : #geometry }

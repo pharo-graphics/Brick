@@ -7,7 +7,7 @@ Class {
 	#instVars : [
 		'attributes'
 	],
-	#category : #'Brick-Editor-Text-Attributes'
+	#category : #'Brick-Editor-Attributes'
 }
 
 { #category : #accessing }
@@ -31,10 +31,7 @@ BrTextHoverStylableAttribute >> initialize [
 	super initialize.
 
 	attributes := #().
-	enterAction := [ :aText :aTextElement :aTextEditor :anEvent |
-		aText attributes: self attributes.
-		aTextEditor invalidateAll ].
+	enterAction := [ :aText :aTextElement :aTextEditor :anEvent | aText attributes: self attributes ].
 	leaveAction := [ :aText :aTextElement :aTextEditor :anEvent |
-		aText clearAttributes: [ :aTextAttribute | self attributes identityIncludes: aTextAttribute ].
-		aTextEditor invalidateAll ]
+		aText clearAttributes: [ :aTextAttribute | self attributes identityIncludes: aTextAttribute ] ]
 ]

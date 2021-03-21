@@ -1,14 +1,13 @@
 "
 !! Playing with Label Looks for Buttons
-
 When using a label look, the label look embeds the label element directly in the widget element as a child. In the example below, the look is added directly to the button element:
 ${example:name=BrButtonLabelLookExamples>>#buttonWithDirectlyEmbeddedLabel|expanded=true|expandedPreview=true}$
 
 If the button has a more complex structure, this behaviour can cause problems. In the example below, the button defines a content element in which the label should be added. However, because the look is added to the button element, the label will be emdedd in the button element instead of the content element:
 ${example:name=BrButtonLabelLookExamples>>#buttonWithModelAndWrongContentPlacement|expanded=true|expandedPreview=true}$
 
-To change this behavior, the label look  provides more control over where the label is inserted into the button element: to identify the element in the button element where the label should be placed, the look looks for an element marked with ==#content==. There shoud be only one element marked with  ==#content==.  To fix the problem from the above example,  we can mark the ==aContent== element with ==#content== when adding it to the button element:
-[[[example:name=BrButtonLabelLookExamples>>#buttonWithModelAndLookWithoutConstraints|expanded=true|expandedPreview=true]]]
+To change this behavior, the label look  provides more control over where the label is inserted into the button element: to identify the element in the button element where the label should be placed, the look looks for an element named ==#content==. There shoud be only one element named  ==#content== within the button.  To fix the problem from the above example,  we can name the ==aContent== element with ==#content== when adding it to the button element:
+${example:name=BrButtonLabelLookExamples>>#buttonWithModelAndLookWithoutConstraints|expanded=true|expandedPreview=true}$
 
 The label look can directly change properties of the label element. This can be usefull when one wants to change layout properties or update graphical properties of the label:
 ${example:name=BrButtonLabelLookExamples>>#buttonWithChangedConstraintsInLook|expanded=true|expandedPreview=true}$
@@ -24,14 +23,11 @@ ${example:name=BrButtonLabelLookExamples>>#buttonWithOnlyModelAndChangedModelLab
 
 When attaching a label look and a button model to a button widget the order in which they are attached does not matter.  If the model is set first then the text value set in the label look is not used; the model has priority  over the label look
 ${example:name=BrButtonLabelLookExamples>>#buttonWithModelFirstThenLook|expanded=true|expandedPreview=true}$
-
-If the label look is set first, and the button widget does not have a model the the text value defined in the label look is used. If the button widget  is then assigned a button model, then the value defined in the model is used:
-${example:name=BrButtonLabelLookExamples>>#buttonWithLookFirstThenModel|expanded=true|expandedPreview=true}$
 "
 Class {
 	#name : #BrButtonLabelLookExamples,
 	#superclass : #Object,
-	#category : #'Brick-Examples'
+	#category : #'Brick-Examples-Button'
 }
 
 { #category : #'example - instance creation' }
@@ -157,37 +153,6 @@ BrButtonLabelLookExamples >> buttonWithDirectlyEmbeddedLabel [
 ]
 
 { #category : #'example - button' }
-BrButtonLabelLookExamples >> buttonWithLookFirstThenModel [
-	<gtExample>
-	| aButton aModel aLook modelLabel lookLabel aLabelElement |
-	
-	modelLabel := 'Hello world'.
-	lookLabel := 'Hello glamorous world'.
-	
-	aButton := self buttonElement.
-
-	aModel := self labelModel + self buttonModel.
-	aModel text: modelLabel.
-	
-	aLook := self buttonLabelLookWithConstraints.
-	aLook text: lookLabel.
-	
-	aButton look: aLook.
-	self assert: aLook text asString equals: lookLabel.
-
-	aLabelElement := aButton children first.
-	self assert: aLabelElement text asString equals: lookLabel.
-	
-	aButton viewModel: aModel.
-	
-	self assert: aLook text asString equals: modelLabel.
-	self assert: aModel text asString equals: modelLabel.
-	self assert: aLabelElement text asString equals: modelLabel.
-	
-	^ aButton
-]
-
-{ #category : #'example - button' }
 BrButtonLabelLookExamples >> buttonWithModelAndLookAndChangedModelLabel [
 	<gtExample>
 	| aButton newLabel |
@@ -237,8 +202,8 @@ BrButtonLabelLookExamples >> buttonWithModelAndLookWithoutConstraints [
 	
 	aButton addChild: aContent as: #content.
 
-	aButton look: aLabelLook.
 	aButton viewModel: self allModels.
+	aButton look: aLabelLook.
 	
 	self assert: aLabelLook label text asString equals: self labelText.
 
@@ -339,7 +304,7 @@ BrButtonLabelLookExamples >> changeIconOfButtonModelEvent [
 	| anIconModel aButtonIcon anIconChangedEvent |
 
 	anIconModel := self iconModel.
-	aButtonIcon := (BlEllipse extent: 10@10) asElement.
+	aButtonIcon := ((BlEllipseGeometry new) extent: 10@10) asElement.
 	
 	anIconChangedEvent := nil.
 	anIconModel when: BrIconChanged do: [ :anEvent | anIconChangedEvent := anEvent copy ].
@@ -353,7 +318,6 @@ BrButtonLabelLookExamples >> changeIconOfButtonModelEvent [
 	self assert: anIconChangedEvent target equals: anIconModel.
 	self assert: anIconChangedEvent currentTarget equals: anIconModel.
 	self assert: anIconChangedEvent isConsumed not.
-	self assert: anIconChangedEvent traversedTargets size equals: 2.
 	
 	^ anIconChangedEvent
 ]
@@ -378,7 +342,6 @@ BrButtonLabelLookExamples >> changeLabelOfButtonModelEvent [
 	self assert: aLabelChangedEvent target equals: aButtonModel.
 	self assert: aLabelChangedEvent currentTarget equals: aButtonModel.
 	self assert: aLabelChangedEvent isConsumed not.
-	self assert: aLabelChangedEvent traversedTargets size equals: 2.
 	
 	^ aLabelChangedEvent
 ]
@@ -406,7 +369,7 @@ BrButtonLabelLookExamples >> iconChangedEvent [
 	| aButton newIcon anIconChangedEvent |
 
 	anIconChangedEvent := nil.
-	newIcon := (BlEllipse extent: 10@10) asElement.
+	newIcon := ((BlEllipseGeometry new) extent: 10@10) asElement.
 
 	aButton := self buttonWithModelAndLookWithoutConstraints.
 	aButton look when: BrIconChanged do: [ :anEvent | anIconChangedEvent := anEvent copy ].
@@ -416,17 +379,11 @@ BrButtonLabelLookExamples >> iconChangedEvent [
 
 	self assert: anIconChangedEvent notNil.
 	self assert: anIconChangedEvent isConsumed not.
-	self assert: anIconChangedEvent target equals: aButton look.
+	self assert: anIconChangedEvent target equals: aButton.
 	self assert: anIconChangedEvent currentTarget equals: aButton look.
 	self assert: anIconChangedEvent source equals: aButton viewModel widgetModels second.
 	self assert: anIconChangedEvent icon equals: newIcon.
-	self assert: anIconChangedEvent timestamp isNil.
-
-	self flag: 'anIconChangedEvent traversedTargets size is sometimes 6, sometimes 8'.
-	"self assert: anIconChangedEvent traversedTargets size equals: 6."
-	self assert: ( #( 6 8 ) includes: anIconChangedEvent traversedTargets size).
-
-	
+	self assert: anIconChangedEvent timestamp isNil.	
 
 	^ anIconChangedEvent
 ]
@@ -454,14 +411,11 @@ BrButtonLabelLookExamples >> labelChangedEvent [
 
 	self assert: aLabelChangedEvent notNil.
 	self assert: aLabelChangedEvent isConsumed not.
-	self assert: aLabelChangedEvent target equals: aButton look.
+	self assert: aLabelChangedEvent target equals: aButton.
 	self assert: aLabelChangedEvent currentTarget equals: aButton look.
 	self assert: aLabelChangedEvent source equals: aButton viewModel widgetModels first.
 	self assert: aLabelChangedEvent text asString equals: newLabel.
 	self assert: aLabelChangedEvent timestamp isNil.
-	self flag: 'aLabelChangedEvent traversedTargets size is sometimes 6, sometimes 8'.
-	"self assert: aLabelChangedEvent traversedTargets size equals: 6."
-	self assert: ( #( 6 8 ) includes: aLabelChangedEvent traversedTargets size).
 
 	^ aLabelChangedEvent
 ]

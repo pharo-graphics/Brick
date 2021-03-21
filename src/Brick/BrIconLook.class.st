@@ -15,7 +15,7 @@ Class {
 	#instVars : [
 		'iconElement'
 	],
-	#category : 'Brick-! Core'
+	#category : #'Brick-! Core - Looks'
 }
 
 { #category : #accessing }
@@ -26,12 +26,12 @@ BrIconLook >> icon [
 ]
 
 { #category : #accessing }
-BrIconLook >> icon: anElement [
+BrIconLook >> icon: aStencilOrElement [
 	self
-		assert: [ anElement isNotNil ]
+		assert: [ aStencilOrElement isNotNil ]
 		description: [ 'Icon must not be nil' ].
 
-	iconElement := anElement.
+	iconElement := aStencilOrElement asElement.
 	self updateIcon
 ]
 
@@ -43,12 +43,18 @@ BrIconLook >> iconDo: aBlock [
 { #category : #initialization }
 BrIconLook >> initialize [
 	super initialize.
-	
+
 	"default icon"
 	iconElement := BlElement new.
-	iconElement size: 6@6.
+	iconElement size: 6 @ 6.
 	iconElement background: Color red.
-	iconElement geometry: BlEllipse new.
+	iconElement geometry: BlEllipseGeometry new.
+	self
+		addChange:
+			(BrLookChange new
+				up: [ :e | self updateIcon ];
+				down: [ :e | iconElement ifNotNil: #removeFromParent ];
+				yourself)
 ]
 
 { #category : #initialization }
@@ -56,13 +62,6 @@ BrIconLook >> initializeListeners [
 	super initializeListeners.
 
 	self when: BrIconChanged do: [ :anEvent | self icon: anEvent icon ]
-]
-
-{ #category : #initialization }
-BrIconLook >> initializeLook [
-	super initializeLook.
-
-	self updateIcon
 ]
 
 { #category : #initialization }

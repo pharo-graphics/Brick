@@ -4,7 +4,7 @@ Class {
 	#instVars : [
 		'wordPadding'
 	],
-	#category : #'Brick-Editor-Text-Attributes'
+	#category : #'Brick-Editor-Attributes'
 }
 
 { #category : #'instance creation' }
@@ -15,6 +15,18 @@ BrTextParagraphWordPaddingAttribute class >> wordPadding: aBlInsets [
 { #category : #hook }
 BrTextParagraphWordPaddingAttribute >> applyOn: aTextParagraph [
 	aTextParagraph wordPadding: self wordPadding
+]
+
+{ #category : #comparing }
+BrTextParagraphWordPaddingAttribute >> equals: anAnotherAttribute [
+	^ self wordPadding = anAnotherAttribute wordPadding
+]
+
+{ #category : #comparing }
+BrTextParagraphWordPaddingAttribute >> hash [
+	"Answer an integer value that is related to the identity of the receiver."
+
+	^ super hash bitXor: self wordPadding hash
 ]
 
 { #category : #initialization }

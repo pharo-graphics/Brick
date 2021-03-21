@@ -1,13 +1,15 @@
 Class {
 	#name : #BrToggleGroup,
 	#superclass : #BlElement,
-	#category : 'Brick-Toggle - UI'
+	#traits : 'TBrLayoutResizable',
+	#classTraits : 'TBrLayoutResizable classTrait',
+	#category : #'Brick-Toggle - UI'
 }
 
 { #category : #'adding / removing' }
 BrToggleGroup >> addToggle: aToggle [
 	self viewModel addToggle: aToggle viewModel.
-	self addChild: aToggle.
+	self addChild: aToggle
 ]
 
 { #category : #'adding / removing' }
@@ -18,7 +20,8 @@ BrToggleGroup >> addToggles: aCollectionOfToggles [
 { #category : #initialization }
 BrToggleGroup >> initialize [
 	super initialize.
-
+	
+	self fitContent.
 	self viewModel: BrToggleGroupModel new
 ]
 

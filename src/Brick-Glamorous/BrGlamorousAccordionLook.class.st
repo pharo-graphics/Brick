@@ -52,40 +52,39 @@ BrGlamorousAccordionLook >> initialize [
 	wrapper := self newWrapper.
 	headerBar := self newHeaderBar.
 	contentBar := self newContentBar.
-
 	headerContainer := self newHeaderContainer.
 	headerContainer addChild: headerBar.
-
 	contentContainer := self newContentContainer.
 	contentContainer addChild: contentBar.
 
 	wrapper addChild: headerContainer as: #header.
 	wrapper addChild: contentContainer as: #content.
 	
-	self add: (BrInteractiveLook new style: [ :aStyler |
-		aStyler default: [
-			headerBar background: (Color gray alpha: 0.4).
-			contentBar background: (Color gray alpha: 0.2).
-			contentBar visibility: BlVisibility gone ].
-		aStyler focused: [
-			headerBar background: (BrGlamorousColors primaryBorderColor alpha: 0.4).
-			contentBar background: (BrGlamorousColors primaryBorderColor alpha: 0.2) ].
-		aStyler expanded: [ contentBar visibility: BlVisibility visible ] ])
-]
-
-{ #category : #initialization }
-BrGlamorousAccordionLook >> initializeLook [
-	"We need to add wrapper first in order for the widget to find header and content containers"
-	super initializeLook.
+	self
+		addChangeProperty: #(widget layout)
+		with: [ BlLinearLayout horizontal ].
+	self addChangeAddChildAs: #(content wrapper) with: [ wrapper ].
 	
-	wrapper addChildFirst: headerElement.
-	self widget addChild: wrapper.
-
-	self widget
-		layout: BlLinearLayout horizontal;
-		constraintsDo: [ :c |
-			c horizontal matchParent.
-			c vertical fitContent ]
+	self add: (BrStyleCommonLook new
+		@ headerBar;
+		default: [ :aStyle | aStyle background: (Color gray alpha: 0.4) ];
+		focused: [ :aStyle | aStyle background: (BrGlamorousColors primaryBorderColor alpha: 0.4) ]).
+		
+	self add: (BrStyleCommonLook new
+		@ contentBar;
+		default: [ :aStyle | aStyle gone; background: (Color gray alpha: 0.2) ];
+		focused: [ :aStyle | aStyle background: (BrGlamorousColors primaryBorderColor alpha: 0.2) ];
+		expanded: [ :aStyle | aStyle visible ]).
+	
+	self add: (BrLayoutResizerLook new
+		inherit;
+		inherit: wrapper;
+		inherit: contentContainer).
+	
+	self
+		add:
+			(BrLayoutResizerLook new
+				inherit: [ :aBlock | aBlock value: (contentElement ifNil: [ BlElement new ]) ])
 ]
 
 { #category : #'instance creation' }
@@ -112,11 +111,7 @@ BrGlamorousAccordionLook >> newContentBar [
 BrGlamorousAccordionLook >> newContentContainer [
 	<return: #BlElement>
 
-	^ BlElement new
-		layout: BlLinearLayout horizontal;
-		constraintsDo: [ :c |
-			c horizontal matchParent.
-			c vertical fitContent ]
+	^ BlElement new layout: BlLinearLayout horizontal
 ]
 
 { #category : #'instance creation' }
@@ -142,9 +137,5 @@ BrGlamorousAccordionLook >> newHeaderContainer [
 BrGlamorousAccordionLook >> newWrapper [
 	<return: #BlElement>
 
-	^ BlElement new
-		layout: BlLinearLayout vertical;
-		constraintsDo: [ :c |
-			c horizontal matchParent.
-			c vertical fitContent ]
+	^ BlElement new layout: BlLinearLayout vertical
 ]

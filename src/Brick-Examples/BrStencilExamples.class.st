@@ -20,7 +20,7 @@ BrStencilExamples >> coloredElementUsingBlock [
 		BlElement new
 			size: 200@200;
 			background: aColor;
-			geometry: (BlRectangle cornerRadius: aCornerRadius) ] asStencil.
+			geometry: (BlRoundedRectangleGeometry cornerRadius: aCornerRadius) ] asStencil.
 	aStencil arguments: { (Color blue alpha: 0.5) . 50 }.
 
 	anElement := aStencil create.
@@ -35,25 +35,9 @@ BrStencilExamples >> coloredElementUsingBlock [
 BrStencilExamples >> createMaterialSimpleListUsingBlock [
 	<gtExample>
 	| aStencil aList |
-
 	aStencil := [ BrSimpleList new ] asStencil.
-
 	aList := aStencil create.
-	aList display: (1 to: 100).
-
-	^ aList
-]
-
-{ #category : #'examples - list' }
-BrStencilExamples >> createMaterialSimpleListUsingStencil [
-	<gtExample>
-	| aStencil aList |
-
-	aStencil := self materialSimpleListStencil.
-
-	aList := aStencil create.
-	aList display: (1 to: 100).
-
+	aList items: (1 to: 100).
 	^ aList
 ]
 
@@ -97,7 +81,7 @@ BrStencilExamples >> defaultElementUsingBlock [
 		BlElement new
 			size: 200@200;
 			background: Color gray;
-			geometry: (BlRectangle cornerRadius: 20) ] asStencil.
+			geometry: (BlRoundedRectangleGeometry cornerRadius: 20) ] asStencil.
 
 	anElement := aStencil create.
 
@@ -130,11 +114,4 @@ BrStencilExamples >> elementToStencilBuilder [
 	self assert: (aStencilBuilder isKindOf: BrStencilBuilder).
 	self assert: aSecondElement == anElement.
 	^ aStencilBuilder
-]
-
-{ #category : #'examples - instance creation' }
-BrStencilExamples >> materialSimpleListStencil [
-	<gtExample>
-	
-	^ BrMaterialSimpleListStencil new
 ]

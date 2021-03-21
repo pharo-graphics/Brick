@@ -13,26 +13,43 @@ Class {
 	#name : #BrInteractiveLook,
 	#superclass : #BrLook,
 	#instVars : [
-		'styles'
+		'styles',
+		'currentStates'
 	],
-	#category : #'Brick-! Core'
+	#category : #'Brick-! Deprecated'
 }
 
-{ #category : #initialization }
-BrInteractiveLook >> buildStylesOn: aStyler [
-	
+{ #category : #testing }
+BrInteractiveLook class >> isDeprecated [
+	^ true
 ]
 
-{ #category : #'element handlers' }
-BrInteractiveLook >> elementAddedToSuperParent: anEvent [
-	self initializeRequests
+{ #category : #'gt-extension' }
+BrInteractiveLook >> gtStylesFor: aView [
+	<gtView>
+	
+	^ aView columnedList
+		title: 'Styles';
+		priority: 3;
+		items: [ self styles ];
+		column: 'State' item: [ :eachItem | eachItem state ] width: 200;
+		column: 'Action' item: [ :eachItem | eachItem action ]
+		
 ]
 
 { #category : #initialization }
 BrInteractiveLook >> initialize [
 	super initialize.
 	
-	styles := OrderedCollection new
+	styles := OrderedCollection new.
+	currentStates := #().
+	
+	self
+		addChange:
+			(BrLookChange new
+				up: [ :e | styles ];
+				down: [ :e |  ];
+				yourself)
 ]
 
 { #category : #initialization }
@@ -43,26 +60,18 @@ BrInteractiveLook >> initializeListeners [
 ]
 
 { #category : #initialization }
-BrInteractiveLook >> initializeLook [
-	| aStyler |
-	super initializeLook.
-	
-	aStyler := BrInteractiveCommonStyler new.
-	self buildStylesOn: aStyler.
-	
-	styles addAllFirst: aStyler styles
-]
-
-{ #category : #initialization }
 BrInteractiveLook >> initializeRequests [
 	super initializeRequests.
-	
-	self requestStates
+
+	self request: BrInteractionRequest new
 ]
 
 { #category : #initialization }
 BrInteractiveLook >> requestStates [
-	self statesChanged: (self request: BrInteractionRequest oneWay)
+	self widgetDo: [ :aWidget |
+		aWidget telemetry
+			timeSync: [ 'Request states for interactive look {1}' format: { aWidget } ]
+			during: [ self statesChanged: (self request: (BrInteractionRequest oneWay forceUpdate: true)) ] ]
 ]
 
 { #category : #accessing }
@@ -72,10 +81,18 @@ BrInteractiveLook >> state [
 
 { #category : #hooks }
 BrInteractiveLook >> statesChanged: anEvent [
+	| aWidget newStates |
 
+	aWidget := self widget.
+	newStates := anEvent states.
+
+	(anEvent forceUpdate not and: [ currentStates = newStates ])
+		ifTrue: [ ^ self ].
+
+	currentStates := newStates.
 	styles
-		select: [ :aStyle | aStyle state matches: anEvent states ]
-		thenDo: [ :aStyle | aStyle action cull: self widget cull: aStyle state ]
+		select: [ :aStyle | aStyle state matches: currentStates ]
+		thenDo: [ :aStyle | aStyle action cull: aWidget cull: aStyle state ]
 ]
 
 { #category : #'api - style' }

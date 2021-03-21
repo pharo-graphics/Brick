@@ -9,7 +9,7 @@ Class {
 		'descriptionElement',
 		'text'
 	],
-	#category : #'Brick-! Core'
+	#category : #'Brick-! Core - Looks'
 }
 
 { #category : #accessing }
@@ -32,22 +32,30 @@ BrDescriptionLook >> descriptionDo: aBlock [
 ]
 
 { #category : #initialization }
+BrDescriptionLook >> fitContent [
+	descriptionElement
+		constraintsDo: [ :c | 
+			c vertical fitContent.
+			c horizontal fitContent ]
+]
+
+{ #category : #initialization }
 BrDescriptionLook >> initialize [
 	super initialize.
-	
 	text := 'Description' asRopedText.
-	
 	editor := BrTextEditor new.
-	
 	descriptionElement := BrEditorElement new.
 	descriptionElement editor: editor.
-	descriptionElement constraintsDo: [ :c | 
-		c vertical matchParent.
-		c horizontal matchParent ].
-
+	descriptionElement
+		constraintsDo: [ :c | 
+			c vertical matchParent.
+			c horizontal matchParent ].
 	attributesBuilder := BlTextDelegatedAttributesBuilder new.
 	attributesBuilder attributesTarget: text.
-	attributesBuilder whenAdded: [ descriptionElement text: text ]
+	attributesBuilder whenAdded: [ editor text: text ].
+	self
+		addChangeAddChildAs: #(content description)
+		with: [ descriptionElement ]
 ]
 
 { #category : #initialization }
@@ -58,18 +66,22 @@ BrDescriptionLook >> initializeListeners [
 ]
 
 { #category : #initialization }
-BrDescriptionLook >> initializeLook [
-	super initializeLook.
-
-	editor text: text.
-	self widgetContent addChild: descriptionElement as: #description
-]
-
-{ #category : #initialization }
 BrDescriptionLook >> initializeRequests [
 	super initializeRequests.
 	
 	self request: BrDescriptionRequest new
+]
+
+{ #category : #initialization }
+BrDescriptionLook >> readonly [
+	editor segmentBuilder
+		wordStencil: [ :aTBrTextEditorTextualPiece |
+			| aTextElement |
+			aTextElement := BrTextElementWithCursors new
+				editorMeasurement
+				segmentPiece: aTBrTextEditorTextualPiece.
+			aTextElement ].
+	descriptionElement preventMeAndChildrenMouseEvents
 ]
 
 { #category : #accessing }

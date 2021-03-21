@@ -1,30 +1,32 @@
 Class {
 	#name : #BrToggleLook,
-	#superclass : #BrLook,
-	#category : 'Brick-Toggle - Look'
+	#superclass : #BrStyleCommonLook,
+	#category : #'Brick-Toggle - Look'
 }
 
-{ #category : #initialization }
-BrToggleLook >> initializeListeners [
-	super initializeListeners.
-	
-	self when: BrToggleActivatedEvent do: [ self toggleActivated ].
-	self when: BrToggleDeactivatedEvent do: [ self toggleDeactivated ]
+{ #category : #'api - style' }
+BrToggleLook >> activated [
+	^ self styleFor: BrToggleState activated
 ]
 
-{ #category : #initialization }
-BrToggleLook >> initializeLook [
-	super initializeLook.
-	
-	self toggleDeactivated.
-	self toggleEnabled
+{ #category : #'api - style' }
+BrToggleLook >> activated: aBlock [
+	aBlock value: self activated
 ]
 
-{ #category : #initialization }
-BrToggleLook >> initializeRequests [
-	super initializeRequests.
-	
-	self request: BrToggleStateRequest new
+{ #category : #'api - style' }
+BrToggleLook >> deactivated [
+	^ self styleFor: BrToggleState deactivated
+]
+
+{ #category : #'api - style' }
+BrToggleLook >> deactivated: aBlock [
+	aBlock value: self deactivated
+]
+
+{ #category : #accessing }
+BrToggleLook >> state [
+	^ BrToggleState
 ]
 
 { #category : #'event handling' }
@@ -33,12 +35,4 @@ BrToggleLook >> toggleActivated [
 
 { #category : #'event handling' }
 BrToggleLook >> toggleDeactivated [
-]
-
-{ #category : #'event handling' }
-BrToggleLook >> toggleDisabled [
-]
-
-{ #category : #'event handling' }
-BrToggleLook >> toggleEnabled [
 ]

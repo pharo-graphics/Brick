@@ -1,6 +1,6 @@
 Class {
 	#name : #BrTextWordPieceSelectionAcquiredHandler,
-	#superclass : #BrTextWordPieceStatefulHandler,
+	#superclass : #BrTextWordPieceUniqueHandler,
 	#category : #'Brick-Editor-UI - Word'
 }
 
@@ -11,30 +11,36 @@ BrTextWordPieceSelectionAcquiredHandler >> eventClass [
 
 { #category : #'api - event managing' }
 BrTextWordPieceSelectionAcquiredHandler >> handleEvent: anEvent [
-	| aTextEditElement aGlobalFrom aGlobalTo |
+	| anEditorElement aTextElement aGlobalFrom aGlobalTo |
+
+	"To not create an instance of me for each tiny text element"
+	anEditorElement := anEvent currentTarget
+		allParentsDetect: [ :anElement | anElement isKindOf: BrEditorElement ]
+		ifFound: #yourself
+		ifNone: [ ^ self ].
+
 	anEvent consumed: true.
 
-	aTextEditElement := anEvent currentTarget.
+	aTextElement := anEvent currentTarget.
 	
 	"selection bounds equal to our bounds => fast select the whole text piece"
-	(anEvent bounds = aTextEditElement boundsInLocal)
+	(anEvent bounds = aTextElement boundsInLocal)
 		ifTrue: [
-			aGlobalFrom := (aTextEditElement text start - 1) max: 0.
-			aGlobalTo := (aTextEditElement text start + aTextEditElement text size - 1) max: 0 ]
+			aGlobalFrom :=  aTextElement textStart.
+			aGlobalTo := aTextElement textEnd ]
 		ifFalse: [ 
 			| aFromIndex aToIndex |
-			aFromIndex := aTextEditElement paragraph indexAtPosition: anEvent bounds origin.
-			aToIndex := aTextEditElement paragraph indexAtPosition: anEvent bounds corner.
+			aFromIndex := aTextElement indexAtScreenPosition: anEvent bounds origin.
+			aToIndex := aTextElement indexAtScreenPosition: anEvent bounds corner.
 
 			"remove previous selection"	
-			aTextEditElement selection do: [ :aMonotoneSelection |
-				aGlobalFrom := aTextEditElement text start + aMonotoneSelection from - 1.
-				aGlobalTo := aTextEditElement text start + aMonotoneSelection to - 1.
-				
-				self editorElement editor recordDeselection: (BlMonotoneSelection from: aGlobalFrom to: aGlobalTo) ].
+			aTextElement selection do: [ :aMonotoneSelection |
+				aGlobalFrom := self localTextIndexToGlobal: aMonotoneSelection from in: aTextElement.
+				aGlobalTo := self localTextIndexToGlobal: aMonotoneSelection to in: aTextElement.
+				anEditorElement editor recordDeselection: (BlMonotoneSelection from: aGlobalFrom to: aGlobalTo) ].
 			
-			aGlobalFrom := (aTextEditElement text start + aFromIndex - 1) max: 0.
-			aGlobalTo := (aTextEditElement text start + aToIndex - 1) max: 0 ].
+			aGlobalFrom := self localTextIndexToGlobal: aFromIndex from in: aTextElement.
+			aGlobalTo := self localTextIndexToGlobal: aToIndex to in: aTextElement ].
 		
-	self editorElement editor recordSelection: (BlMonotoneSelection from: aGlobalFrom to: aGlobalTo)
+	anEditorElement editor recordSelection: (BlMonotoneSelection from: aGlobalFrom to: aGlobalTo)
 ]

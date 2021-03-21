@@ -10,6 +10,8 @@ Class {
 
 { #category : #accessing }
 BrSelectionDoubleClicked >> selection [
+	<return: #Collection of: #Number>
+
 	^ selection
 ]
 

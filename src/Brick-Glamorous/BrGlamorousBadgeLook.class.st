@@ -1,6 +1,6 @@
 Class {
 	#name : #BrGlamorousBadgeLook,
-	#superclass : #BrInteractiveCommonLook,
+	#superclass : #BrStyleCommonLook,
 	#instVars : [
 		'contentContainer'
 	],
@@ -10,24 +10,20 @@ Class {
 { #category : #initialization }
 BrGlamorousBadgeLook >> initialize [
 	super initialize.
-	
-	self default: [ :aWidget | aWidget background: Color orange ].
 
 	contentContainer := BlScalableElement new clipChildren: false.
 
+	self default: [ :aStyle | aStyle background: Color orange ].
+	
 	self add: (BrLayoutResizerLook new
-		inherit; "for myself"
+		inherit;
+		"for myself"
 		inherit: contentContainer;
-		exact: [ :aWidget | aWidget layoutDo: [ :aLayout | aLayout beLoose ] ];
-		fitContent: [ :aWidget | aWidget layoutDo: [ :aLayout | aLayout beLoose ] ];
-		matchParent: [ :aWidget | aWidget layoutDo: [ :aLayout | aLayout beTight ] ])
-]
-
-{ #category : #initialization }
-BrGlamorousBadgeLook >> initializeLook [
-	super initializeLook.
-
-	self widget
-		layout: (BlSquaredLayout on: BlLinearLayout vertical alignCenter) beLoose;
-		addChild: contentContainer as: #content
+		exactDo: [ :aStyle | aStyle do: [ :aWidget | aWidget layoutDo: [ :aLayout | aLayout beLoose ] ] after: [  ] ];
+		fitContentDo: [ :aStyle | aStyle do: [ :aWidget | aWidget layoutDo: [ :aLayout | aLayout beLoose ] ] after: [  ] ];
+		matchParentDo: [ :aStyle | aStyle do: [ :aWidget | aWidget layoutDo: [ :aLayout | aLayout beTight ] ] after: [  ] ]).
+	self addChangeAddChildAs: #(content) with: [ contentContainer ].
+	self
+		addChangeProperty: #(widget layout)
+		with: [ (BlSquaredLayout on: BlLinearLayout vertical alignCenter) beLoose ]
 ]

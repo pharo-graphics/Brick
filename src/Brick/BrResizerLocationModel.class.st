@@ -50,6 +50,9 @@ BrResizerLocationModel >> location [
 
 { #category : #accessing }
 BrResizerLocationModel >> location: aLocation [
+	location = aLocation
+		ifTrue: [ ^ self ].
+
 	location := aLocation.
 	self notifyStateChanged: aLocation
 ]
@@ -60,6 +63,8 @@ BrResizerLocationModel >> stateChangedEventClass [
 ]
 
 { #category : #'state - streaming' }
-BrResizerLocationModel >> streamStateOn: aStream [
-	aStream nextPut: (BrResizerLocationState location: self location)
+BrResizerLocationModel >> streamStateIn: aBrInteractionStatesMapping [
+	aBrInteractionStatesMapping
+		addState: (BrResizerLocationState location: self location)
+		model: self
 ]

@@ -8,7 +8,7 @@ Class {
 		'fromIndex',
 		'toIndex'
 	],
-	#category : 'Brick-Editor-Commands'
+	#category : #'Brick-Editor-Commands'
 }
 
 { #category : #executing }
@@ -18,7 +18,8 @@ BrTextEditorDeselectCommand >> executeOn: aTextEditor [
 		ifTrue: [ ^ self ].
 
 	aTextEditor selection deselect: self fromIndex to: self toIndex.
-	aTextEditor updateSelection: self fromIndex to: self toIndex
+	aTextEditor updateSelection: self fromIndex to: self toIndex.
+	aTextEditor notifySelectionChanged: aTextEditor selection
 ]
 
 { #category : #accessing }

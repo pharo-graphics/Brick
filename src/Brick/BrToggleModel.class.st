@@ -3,27 +3,35 @@ Class {
 	#superclass : #BrWidgetModel,
 	#instVars : [
 		'activated',
-		'label',
-		'icon',
 		'oneWay'
 	],
-	#category : 'Brick-Toggle - Model'
+	#category : #'Brick-Toggle - Model'
 }
 
 { #category : #'api - toggle' }
 BrToggleModel >> activate [
+	self activateDueTo: nil
+]
+
+{ #category : #'api - toggle' }
+BrToggleModel >> activateDueTo: anEvent [
 	self isActivated
 		ifTrue: [ ^ self ].
 
 	activated := true.
-	self notifyToggleActivated
+	self onToggleActivatedDueTo: anEvent
 ]
 
 { #category : #'api - toggle' }
 BrToggleModel >> activated: aBoolean [
+	self activated: aBoolean dueTo: nil
+]
+
+{ #category : #'api - toggle' }
+BrToggleModel >> activated: aBoolean dueTo: anEvent [
 	aBoolean
-		ifTrue: [ self activate ]
-		ifFalse: [ self deactivate ]
+		ifTrue: [ self activateDueTo: anEvent ]
+		ifFalse: [ self deactivateDueTo: anEvent ]
 ]
 
 { #category : #'api - toggle' }
@@ -31,6 +39,7 @@ BrToggleModel >> beOneWay [
 	"One way toggle can only be activated as a result of click,
 	however it can be deactivated programmatically.
 	One way toggles are used within a toggle group"
+
 	oneWay := true
 ]
 
@@ -38,44 +47,39 @@ BrToggleModel >> beOneWay [
 BrToggleModel >> clickEvent: anEvent [
 	anEvent consumed: true.
 	
-	self activated: (oneWay or: [ self isActivated not ])
+	(self widget states hasState: BlElementState disabled)
+		ifFalse: [
+			self 
+				activated: (self isOneWay or: [ self isActivated not ]) 
+				dueTo: anEvent ]
 ]
 
 { #category : #'api - toggle' }
 BrToggleModel >> deactivate [
+	self deactivateDueTo: nil
+]
+
+{ #category : #'api - toggle' }
+BrToggleModel >> deactivateDueTo: anEvent [
 	self isActivated
 		ifFalse: [ ^ self ].
 
 	activated := false.
-	self notifyToggleDeactivated
-]
-
-{ #category : #printing }
-BrToggleModel >> gtDisplayOn: aStream [
-	aStream nextPutAll: self label
-]
-
-{ #category : #'api - widget' }
-BrToggleModel >> icon [
-	<return: #BlElement>
-
-	^ icon
-]
-
-{ #category : #'api - widget' }
-BrToggleModel >> icon: aBlElement [
-	icon := aBlElement.
-	self notifyIconChanged
+	self onToggleDeactivatedDueTo: anEvent
 ]
 
 { #category : #initialization }
 BrToggleModel >> initialize [
 	super initialize.
-
-	label := 'Toggle'.
-	icon := (BlEllipse radius: 5) asElement.
 	activated := false.
 	oneWay := false
+]
+
+{ #category : #initialization }
+BrToggleModel >> initializeListeners [
+	super initializeListeners.
+
+	self when: BlClickEvent do: [ :anEvent | self clickEvent: anEvent ]
 ]
 
 { #category : #testing }
@@ -86,11 +90,6 @@ BrToggleModel >> isActivated [
 ]
 
 { #category : #testing }
-BrToggleModel >> isEnabled [
-	^ true
-]
-
-{ #category : #testing }
 BrToggleModel >> isOneWay [
 	"Return true if I am one way toggle - I can not be deactivated as a result of a click, only programmatically"
 	<return: #Boolean>
@@ -98,60 +97,28 @@ BrToggleModel >> isOneWay [
 	^ oneWay
 ]
 
-{ #category : #'api - widget' }
-BrToggleModel >> label [
-	<return: #BlText or: #String>
-
-	^ label
-]
-
-{ #category : #'api - widget' }
-BrToggleModel >> label: aBrTextOrString [
-	label := aBrTextOrString.
-	self notifyLabelChanged
+{ #category : #notifying }
+BrToggleModel >> notifyToggleActivatedDueTo: anEvent [
+	self dispatchEvent: (BrToggleActivatedEvent toggle: self originalEvent: anEvent)
 ]
 
 { #category : #notifying }
-BrToggleModel >> notifyIconChanged [
-	self dispatchEvent: (BrIconChanged new icon: self icon)
-]
-
-{ #category : #notifying }
-BrToggleModel >> notifyLabelChanged [
-	self dispatchEvent: (BrLabelChanged new text: self label)
-]
-
-{ #category : #notifying }
-BrToggleModel >> notifyToggleActivated [
-	self fireEvent: (BrToggleActivatedEvent toggle: self)
-]
-
-{ #category : #notifying }
-BrToggleModel >> notifyToggleDeactivated [
-	self fireEvent: (BrToggleDeactivatedEvent toggle: self)
+BrToggleModel >> notifyToggleDeactivatedDueTo: anEvent [
+	self dispatchEvent: (BrToggleDeactivatedEvent toggle: self originalEvent: anEvent)
 ]
 
 { #category : #hooks }
-BrToggleModel >> onAttachedTo: anElement [
-	super onAttachedTo: anElement.
-
-	self when: BrLabelRequest reply: [ BrLabelChanged new text: self label ].
-	self when: BrIconRequest reply: [ BrIconChanged new icon: self icon ].
+BrToggleModel >> onToggleActivatedDueTo: anEvent [
 	
-	self when: BrToggleStateRequest do: [
-		self isActivated
-			ifTrue: [ BrToggleActivatedEvent toggle: self ]
-			ifFalse: [ BrToggleDeactivatedEvent toggle: self ] ].
-
-	self when: BrToggleStateRequest do: [
-		self isEnabled
-			ifTrue: [ BrToggleEnabledEvent toggle: self ]
-			ifFalse: [ BrToggleDisabledEvent toggle: self ] ]
+	self widgetDo: [ :aWidget | aWidget states addState: BrToggleState activated ].
+	self notifyToggleActivatedDueTo: anEvent
 ]
 
-{ #category : #printing }
-BrToggleModel >> printOn: aStream [
-	aStream nextPutAll: self label
+{ #category : #hooks }
+BrToggleModel >> onToggleDeactivatedDueTo: anEvent [
+
+	self widgetDo: [ :aWidget | aWidget states addState: BrToggleState deactivated ].
+	self notifyToggleDeactivatedDueTo: anEvent
 ]
 
 { #category : #'api - toggle' }

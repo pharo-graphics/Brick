@@ -84,7 +84,7 @@ BrTextEditorDeleter >> delete [
 
 { #category : #'api - configuration' }
 BrTextEditorDeleter >> from: aFromIndex to: aToIndex [
-	"Mark a text interval given by from an to indices as the one to be deleted"
+	"Mark a text interval given by from an to indices as the one to be deleted in cursor coordinates"
 
 	aFromIndex = aToIndex
 		ifTrue: [ ^ self ].
@@ -101,6 +101,11 @@ BrTextEditorDeleter >> initialize [
 	shouldUpdateSelection := true
 ]
 
+{ #category : #testing }
+BrTextEditorDeleter >> isDeleter [
+	^ true
+]
+
 { #category : #'api - configuration' }
 BrTextEditorDeleter >> oneAfterCursor [
 	"Delete one symbol after the cursors"
@@ -115,10 +120,16 @@ BrTextEditorDeleter >> oneAfterCursor [
 BrTextEditorDeleter >> oneBeforeCursor [
 	"Delete one symbol before the cursor"
 
-	self cursor do: [ :aCursor |
-		self
-			from: ((aCursor position - 1) max: 0)
-			to: aCursor position ]
+	self cursor do: [ :aCursor | self oneBeforeCursor: aCursor ]
+]
+
+{ #category : #'api - configuration' }
+BrTextEditorDeleter >> oneBeforeCursor: aCursor [
+	"Delete one symbol before the specified cursor "
+
+	self
+		from: ((aCursor position - 1) max: 0)
+		to: aCursor position
 ]
 
 { #category : #private }
@@ -150,6 +161,29 @@ BrTextEditorDeleter >> selected [
 	self selection do: [ :aMonotoneSelection | self from: aMonotoneSelection from to: aMonotoneSelection to ]
 ]
 
+{ #category : #'api - configuration' }
+BrTextEditorDeleter >> surroundings: aDictionaryOrArray [
+	"Delete the surrounding around each cursor (if there is any) but only if the cursor is not part of the selection"
+	| theAssociations |
+	
+	theAssociations := aDictionaryOrArray isArray
+		ifFalse: [ aDictionaryOrArray associations ]
+		ifTrue: [ aDictionaryOrArray ].
+	
+	
+	self cursor do: [ :aCursor |
+		(self selection contains: aCursor position)
+			ifFalse: [
+				theAssociations
+					detect: [ :eachReplacement |
+						(self hasString: eachReplacement key beforeCursor: aCursor)
+							and: [ self hasString: eachReplacement value afterCursor: aCursor ] ]
+					ifFound: [ :aReplacement |
+						self
+							from: aCursor position - aReplacement key size
+							to: aCursor position + aReplacement value size ] ] ]
+]
+
 { #category : #private }
 BrTextEditorDeleter >> updateCursors [
 	
@@ -158,6 +192,7 @@ BrTextEditorDeleter >> updateCursors [
 		aCursorDelta := self computeCursorMovement: aCursor.
 		aCursorDelta isZero
 			ifFalse: [ self editor navigator
+				dueTo: self;
 				move: aCursor by: aCursorDelta;
 				apply ] ]
 ]

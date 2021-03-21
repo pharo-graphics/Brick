@@ -4,25 +4,23 @@ Class {
 	#instVars : [
 		'splitter'
 	],
-	#category : 'Brick-Tabs - Look'
+	#category : #'Brick-Tabs - Look'
 }
 
 { #category : #initialization }
 BrTabGroupSplitterLook >> initialize [
 	super initialize.
-	
-	splitter := BlElement new.
-	splitter background: Color veryVeryLightGray.
+
+	splitter := BlElement new labeled: 'Splitter'.
+	splitter background: BrGlamorousColors lightBorderColor.
+	splitter elevation: (BlRelativeElevation elevation: -1).
 	splitter constraintsDo: [ :c |
 		c horizontal matchParent.
-		c vertical exact: 1 ]
-]
+		c vertical exact: 1.
+		c ignoreByLayout.
+		c ignored vertical alignBottom ].
 
-{ #category : #initialization }
-BrTabGroupSplitterLook >> initializeLook [
-	super initializeLook.
-	
-	self widget addChild: splitter as: #splitter
+	self addChangeAddChildAs: #(header splitter) with: [ splitter ]
 ]
 
 { #category : #accessing }

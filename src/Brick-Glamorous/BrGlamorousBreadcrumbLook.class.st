@@ -1,14 +1,14 @@
 Class {
 	#name : #BrGlamorousBreadcrumbLook,
-	#superclass : #BrBreadcrumbLook,
+	#superclass : #BrBreadcrumbLinearLook,
 	#category : #'Brick-Glamorous-Breadcrumb'
 }
 
 { #category : #initialization }
 BrGlamorousBreadcrumbLook >> initialize [
 	super initialize.
-	
-	self addAll: { 
-		BrLayoutLook linearHorizontal fitContent
-	}
+	self add: BrLayoutResizerLook inherit.
+	self
+		addChangeProperty: #(widget layout)
+		with: [ BlLinearLayout horizontal alignCenterLeft ]
 ]

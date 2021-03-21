@@ -1,0 +1,663 @@
+"
+I am a Glamorous vector icons container.
+
+Each of my icon is a stencil that creates an actual element. It means that some icons can be parametrised.
+
+Here is a list of available icons:
+
+${class:BrGlamorousVectorIcons|show=gtIconsFor:|expanded=}$
+
+
+
+"
+Class {
+	#name : #BrGlamorousVectorIcons,
+	#superclass : #Object,
+	#category : #'Brick-Glamorous-Colors, Icons, Fonts'
+}
+
+{ #category : #icons }
+BrGlamorousVectorIcons class >> accept [
+	<script: 'self accept inspect'>
+
+	^ [ BlElement new
+		size: 16@16;
+		geometry: (BlSvgPath new
+			svg: 'M 6.6927416 9.132157 L 4.6074596 7.046875 L 3.1875 8.466835 L 6.6845514 11.963886 L 13.13755 5.515776 L 11.723336 4.1015625 Z'
+			viewbox: (0@0 extent: 16@16));
+		background: Color black ] asStencil
+]
+
+{ #category : #icons }
+BrGlamorousVectorIcons class >> add [
+	<script: 'self add inspect'>
+
+	^ [ BlElement new
+		size: 16@16;
+		geometry: (BlSvgPath new
+			svg: 'M 7 9 L 7 12 L 9 12 L 9 9 L 12 9 L 12 7 L 9 7 L 9 4 L 7 4 L 7 7 L 4 7 L 4 9 Z'
+			viewbox: (0@0 extent: 16@16));
+		background: Color black ] asStencil
+]
+
+{ #category : #utility }
+BrGlamorousVectorIcons class >> allIcons [
+	<script: 'super inspect'>
+	^ (self class methodsInProtocol: #icons)
+		sort: [ :a :b | a selector < b selector ];
+		collect: [ :eachCompiledMethod | 
+			eachCompiledMethod selector -> (self perform: eachCompiledMethod selector) ]
+]
+
+{ #category : #icons }
+BrGlamorousVectorIcons class >> browse [
+	<script: 'self browse inspect'>
+
+	^ [ BlElement new
+		size: 16@16;
+		geometry: (BlSvgPath new
+			svg: 'M 7.468188 5.546875 L 7.468188 11.703125 C 6.593188 11.296875 6.061938 11.1875 4.9525633 11.03125 C 4.644486 10.987859 2.922108 10.967926 2.4681883 11.046875 L 2.4681883 4.5762466 C 2.922108 4.497298 4.0794197 4.469626 4.5306883 4.5 C 6.155688 4.609375 7.452563 5.171875 7.468188 5.546875 Z M 8.5 5.5546875 C 8.515625 5.1796875 9.8125 4.6171875 11.4375 4.5078125 C 11.888769 4.4774387 13.04608 4.5051105 13.5 4.5840593 L 13.5 11.054687 C 13.04608 10.975738 11.323703 10.995671 11.015625 11.039062 C 9.90625 11.195312 9.375 11.304688 8.5 11.710938 Z M 7.5 12.969612 L 7.5 13 C 7.825414 12.998916 8.369811 12.99186 8.468188 12.992188 L 8.468188 12.977424 C 8.474063 12.976874 8.476563 12.976562 8.476563 12.976562 C 8.476563 12.976562 8.822868 12.295372 10.960937 12.070313 C 11.554688 12.007813 12.585938 11.835938 14.507813 12.242188 L 14.5 3.75 C 13.796875 3.625 12.70639 3.4618137 11.929688 3.4921875 C 9.963313 3.569085 8.649562 3.9703634 7.988436 4.5608164 C 7.330181 3.9660904 6.013533 3.5616107 4.038501 3.484375 C 3.261798 3.454001 2.1713133 3.6171873 1.4681883 3.7421873 L 1.4603758 12.234375 C 3.382251 11.828125 4.413501 12 5.007251 12.0625 C 7.145321 12.28756 7.491626 12.96875 7.491626 12.96875 C 7.491626 12.96875 7.494126 12.969061 7.5 12.969612 Z'
+			viewbox: (0@0 extent: 16@16));
+		background: Color black ] asStencil
+]
+
+{ #category : #icons }
+BrGlamorousVectorIcons class >> cancel [
+	<script: 'self cancel inspect'>
+
+	^ [ BlElement new
+		size: 16@16;
+		geometry: (BlSvgPath new
+			svg: 'M 6.487276 8.18329 L 4.354816 10.31575 L 5.7690296 11.729964 L 7.90149 9.597504 L 10.01167 11.707684 L 11.425884 10.29347 L 9.315703 8.18329 L 11.425884 6.0731096 L 10.01167 4.658896 L 7.90149 6.7690764 L 5.7690296 4.636616 L 4.354816 6.05083 Z'
+			viewbox: (0@0 extent: 16@16));
+		background: Color black ] asStencil
+]
+
+{ #category : #icons }
+BrGlamorousVectorIcons class >> checkbox [
+	<script: 'self checkbox inspect'>
+
+	^ [ BlElement new
+		size: 16@16;
+		geometry: (self crossGeometry: 0.16 extent: 1@1 origin: 0@0);
+		background: Color black ] asStencil
+]
+
+{ #category : #geometry }
+BrGlamorousVectorIcons class >> checkedCheckboxGeometry [
+	<return: #BlElementGeometry>
+
+	^ self crossGeometry: 0.16 extent: 1@1 origin: 0@0
+]
+
+{ #category : #icons }
+BrGlamorousVectorIcons class >> clipboard [
+	<script: 'self clipboard inspect'>
+
+	^ self transcript
+]
+
+{ #category : #icons }
+BrGlamorousVectorIcons class >> close [
+	<script: 'self close inspect'>
+
+	^ [ BlElement new
+		size: 16@16;
+		geometry: (BlSvgPath new
+			svg: 'M 6.5857864 8 L 4.1109127 10.474874 L 5.525126 11.889087 L 8 9.414214 L 10.474874 11.889087 L 11.889087 10.474874 L 9.414214 8 L 11.889087 5.525126 L 10.474874 4.1109127 L 8 6.5857864 L 5.525126 4.1109127 L 4.1109127 5.525126 Z'
+			viewbox: (0@0 extent: 16@16));
+		background: Color black ] asStencil
+]
+
+{ #category : #'private - geometry' }
+BrGlamorousVectorIcons class >> crossGeometry: aThickness extent: anExtent origin: anOrigin [
+	<return: #BlElementVectorGeometry>
+	| cathetus w h halfW halfH |
+	
+	cathetus := (2 sqrt / 2.0) * aThickness.
+	w := anExtent x.
+	halfW := w / 2.0.
+	h := anExtent y.
+	halfH := h / 2.0.
+	
+	^ BlNormalizedPolygon vertices: ({
+		cathetus @ 0.
+		halfW @ (halfH - cathetus).
+		(w - cathetus) @ 0.
+		w @ cathetus.
+		(halfW + cathetus) @ halfH.
+		w @ (h - cathetus).
+		(w - cathetus) @ h.
+		halfW @ (halfH + cathetus).
+		cathetus @ h.
+		0 @ (h - cathetus).
+		(halfW - cathetus) @ halfH.
+		0 @ cathetus
+	} collect: [ :eachVertex | eachVertex + anOrigin ])
+]
+
+{ #category : #icons }
+BrGlamorousVectorIcons class >> debug [
+	<script: 'self debug inspect'>
+
+	^ [ BlElement new
+		size: 16@16;
+		geometry: (BlSvgPath new
+			svg: 'M 6.453125 2.5 L 4.1875 8.125 L 6.25 8.125 L 3.1328125 14.726562 L 12.921875 6.953125 L 8.859375 6.953125 L 10.78125 2.4921875 Z'
+			viewbox: (0@0 extent: 16@16));
+		background: Color black ] asStencil
+]
+
+{ #category : #icons }
+BrGlamorousVectorIcons class >> down [
+	<script: 'self down inspect'>
+
+	^ [ BlElement new
+		size: 16@16;
+		geometry: (BlSvgPath new
+			svg: 'M 7 3 L 9 3 L 9 7.75 L 12 7.75 L 8 13 L 4 7.75 L 7 7.75 Z'
+			viewbox: (0@0 extent: 16@16));
+		containerName: #'icon--down';
+		background: Color black ] asStencil
+]
+
+{ #category : #icons }
+BrGlamorousVectorIcons class >> downwards [
+	<script: 'self downwards inspect'>
+
+	^ [ BlElement new
+		size: 16@16;
+		geometry: (BlSvgPath new
+			svg: 'M 12 6 L 8 10 L 4 6 Z'
+			viewbox: (4@6 extent: 8@4));
+		background: Color black ] asStencil
+]
+
+{ #category : #icons }
+BrGlamorousVectorIcons class >> driller [
+	<script: 'self driller inspect'>
+
+	^ [ BlElement new
+		size: 16@16;
+		geometry: (BlSvgPath new
+			svg: 'M 1.2205525 4.3565276 L 3.16991 4.3565276 L 3.16991 3.873174 L 5.831151 2.6066092 L 12.509988 2.6066092 C 12.562575 2.6066092 12.614323 2.6105252 12.664952 2.6180776 C 12.93488 2.6566788 13.154739 2.796538 13.327325 3.0004527 L 13.340472 3.0172358 C 13.368444 3.0513615 13.395856 3.0863263 13.42131 3.1238085 C 13.44257 3.1545776 13.46215 3.187864 13.48173 3.220871 C 13.489562 3.2342973 13.497954 3.2468846 13.505226 3.260591 C 13.51222 3.273178 13.520331 3.284367 13.527044 3.297234 C 13.714735 3.652756 13.817952 4.124641 13.817952 4.626176 C 13.817952 5.599037 13.408723 6.645743 12.509988 6.645743 L 11.306919 6.645743 L 12.11055 10.466417 L 12.146914 10.466417 C 12.218452 10.466343 12.287081 10.494728 12.337666 10.545313 C 12.388251 10.595898 12.416637 10.664528 12.416562 10.736066 L 12.416562 13.123742 C 12.416562 13.272832 12.296004 13.393391 12.146914 13.393391 L 7.672817 13.393391 L 7.672817 10.466417 L 8.827215 10.466417 L 8.222464 6.645743 L 5.8308716 6.645743 L 3.1696305 5.3788985 L 3.1696305 4.895825 L 1.2202728 4.895825 C 1.1239366 4.895775 1.034945 4.844334 .9868202 4.7608794 C .9386954 4.677425 .9387487 4.5746354 .98696 4.491231 C 1.0351714 4.407826 1.1242163 4.3564777 1.2205525 4.3565276 Z'
+			viewbox: (0@0 extent: 16@16));
+		background: Color black ] asStencil
+]
+
+{ #category : #icons }
+BrGlamorousVectorIcons class >> edit [
+	<script: 'self edit inspect'>
+
+	^ [ BlElement new
+		size: 16@16;
+		geometry: (BlSvgPath new
+			svg: 'M 5.94939 6.7221825 L 4.8180195 10.68198 L 8.777817 9.55061 L 12.596194 5.732233 L 9.767767 2.903806 Z M 3 13.5 L 8 13.5'
+			viewbox: (0@0 extent: 16@16));
+		outskirts: BlOutskirts centered;
+		border: (BlBorder paint: Color black width: 1) ] asStencil
+]
+
+{ #category : #icons }
+BrGlamorousVectorIcons class >> eg [
+	<script: 'self eg inspect'>
+
+	^ [ BlElement new
+		size: 16@16;
+		geometry: (BlSvgPath new
+			svg: 'M 4.76 10.344 L 4.76 10.344 C 5.160002 10.344 5.567998 10.282 5.984 10.158 C 6.400002 10.033999 6.779998 9.864001 7.124 9.648 L 6.536 8.58 C 6.271999 8.716001 6.018001 8.82 5.774 8.892 C 5.529999 8.964 5.2720014 9 5 9 C 4.5119976 9 4.1160015 8.900001 3.812 8.7 C 3.5079985 8.499999 3.3120004 8.184002 3.224 7.752 L 7.28 7.752 C 7.296 7.68 7.314 7.570001 7.334 7.422 C 7.354 7.273999 7.364 7.120001 7.364 6.96 C 7.364 6.551998 7.304001 6.174002 7.184 5.826 C 7.063999 5.477998 6.886001 5.176001 6.65 4.92 C 6.413999 4.6639987 6.120002 4.4640007 5.768 4.32 C 5.415998 4.1759993 5.012002 4.104 4.556 4.104 C 4.155998 4.104 3.770002 4.1739993 3.398 4.314 C 3.025998 4.4540007 2.6960014 4.6579986 2.408 4.926 C 2.1199986 5.1940013 1.8900009 5.521998 1.718 5.91 C 1.5459991 6.298002 1.46 6.7359975 1.46 7.224 C 1.46 7.720002 1.5439992 8.161998 1.712 8.55 C 1.8800008 8.938002 2.1119985 9.263999 2.408 9.528 C 2.7040015 9.792001 3.053998 9.993999 3.458 10.134 C 3.862002 10.274001 4.2959977 10.344 4.76 10.344 Z M 4.616 5.448 L 4.616 5.448 C 5.3120035 5.448 5.7039996 5.819996 5.792 6.564 L 3.248 6.564 C 3.3360004 6.187998 3.497999 5.908001 3.734 5.724 C 3.970001 5.539999 4.263998 5.448 4.616 5.448 Z M 11.348 9.084 L 11.348 9.084 C 10.995998 9.084 10.740001 9.05 10.58 8.982 C 10.419999 8.914 10.34 8.800001 10.34 8.64 C 10.34 8.535999 10.362 8.452 10.406 8.388 C 10.45 8.324 10.516 8.26 10.604 8.196 C 10.892001 8.276 11.163999 8.316 11.42 8.316 C 11.764002 8.316 12.085998 8.276 12.386 8.196 C 12.686001 8.116 12.945999 7.994001 13.166 7.83 C 13.386001 7.665999 13.56 7.460001 13.688 7.212 C 13.816 6.963999 13.88 6.668002 13.88 6.324 C 13.88 6.171999 13.852 6.026001 13.796 5.886 C 13.74 5.745999 13.68 5.6320004 13.616 5.544 L 14.816 5.544 L 14.816 4.248 L 12.404 4.248 C 12.115999 4.1519995 11.788002 4.104 11.42 4.104 C 11.083998 4.104 10.762002 4.1499995 10.454 4.242 C 10.145998 4.3340004 9.876001 4.469999 9.644 4.65 C 9.411999 4.830001 9.226001 5.0539986 9.086 5.322 C 8.945999 5.590001 8.876 5.903998 8.876 6.264 C 8.876 6.616002 8.951999 6.921999 9.104 7.182 C 9.256001 7.442001 9.439999 7.643999 9.656 7.788 L 9.656 7.836 C 9.447999 7.980001 9.278001 8.151999 9.146 8.352 C 9.013999 8.552001 8.948 8.751999 8.948 8.952 C 8.948 9.208001 9.005999 9.415999 9.122 9.576 C 9.238001 9.736001 9.379999 9.868 9.548 9.972 L 9.548 10.02 C 8.931997 10.324001 8.624 10.719998 8.624 11.208 C 8.624 11.472001 8.691999 11.699999 8.828 11.892 C 8.964001 12.084001 9.151999 12.242 9.392 12.366 C 9.632001 12.49 9.917998 12.582 10.25 12.642 C 10.582002 12.702 10.939998 12.732 11.324 12.732 C 11.860003 12.732 12.347998 12.678 12.788 12.57 C 13.228002 12.462 13.599998 12.314001 13.904 12.126 C 14.208002 11.937999 14.444 11.712001 14.612 11.448 C 14.78 11.183999 14.864 10.896002 14.864 10.584 C 14.864 10.047997 14.658002 9.664001 14.246 9.432 C 13.833998 9.199999 13.236004 9.084 12.452 9.084 Z M 11.42 7.248 L 11.42 7.248 C 11.171999 7.248 10.962001 7.166001 10.79 7.002 C 10.617999 6.837999 10.532 6.592002 10.532 6.264 C 10.532 5.9519984 10.617999 5.712001 10.79 5.544 C 10.962001 5.375999 11.171999 5.292 11.42 5.292 C 11.668001 5.292 11.879999 5.375999 12.056 5.544 C 12.232001 5.712001 12.32 5.9519984 12.32 6.264 C 12.32 6.592002 12.232001 6.837999 12.056 7.002 C 11.879999 7.166001 11.668001 7.248 11.42 7.248 Z M 11.576 11.616 L 11.576 11.616 C 11.103998 11.616 10.734001 11.56 10.466 11.448 C 10.197999 11.336 10.064 11.168001 10.064 10.944 C 10.064 10.832 10.096 10.73 10.16 10.638 C 10.224 10.546 10.331999 10.452 10.484 10.356 C 10.596 10.388 10.721999 10.41 10.862 10.422 C 11.002001 10.434 11.179999 10.44 11.396 10.44 L 12.14 10.44 C 12.484002 10.44 12.743999 10.468 12.92 10.524 C 13.096001 10.58 13.184 10.703999 13.184 10.896 C 13.184 11.104001 13.036001 11.275999 12.74 11.412 C 12.443999 11.548 12.056002 11.616 11.576 11.616 Z'
+			viewbox: (0@0 extent: 16@16));
+		background: Color black ] asStencil
+]
+
+{ #category : #icons }
+BrGlamorousVectorIcons class >> emphasizedBrowse [
+	^ [ self browse asElement
+		outskirts: BlOutskirts centered;
+		border: (BlBorder paint: Color black width: 0.5) 
+	] asStencil
+]
+
+{ #category : #icons }
+BrGlamorousVectorIcons class >> emphasizedInspect [
+	^ [ self inspect asElement
+		outskirts: BlOutskirts centered;
+		border: (BlBorder paint: Color black width: 0.5) 
+	] asStencil
+]
+
+{ #category : #icons }
+BrGlamorousVectorIcons class >> emphasizedPlay [
+	^ [ self play asElement
+		outskirts: BlOutskirts centered;
+		border: (BlBorder paint: Color black width: 0.5) 
+	] asStencil
+]
+
+{ #category : #icons }
+BrGlamorousVectorIcons class >> filter [
+	<script: 'self filter inspect'>
+
+	^ [ BlElement new
+		size: 16@16;
+		geometry: (BlSvgPath new
+			svg: 'M 6 7 L 6 14 L 10 12.4 L 10 7 L 14 2 L 2 2 Z'
+			viewbox: (0@0 extent: 16@16));
+		background: Color black ] asStencil
+]
+
+{ #category : #icons }
+BrGlamorousVectorIcons class >> folder [
+	<script: 'self folder inspect'>
+
+	^ [ BlElement new
+		size: self standardSize;
+		geometry: (BlSvgPath new
+			svg: 'M 2 5.1616955 L 2 13 L 14 13 L 14 5.1616955 L 10 5.1616955 L 8.4 3 L 2 3 Z'
+			viewbox: (0@0 extent: self standardSize));
+		outskirts: BlOutskirts centered;
+		border: (BlBorder paint: Color black width: 1.5) ] asStencil
+]
+
+{ #category : #icons }
+BrGlamorousVectorIcons class >> gt [
+	<script: 'self gt inspect'>
+
+	^ [ BlElement new
+	size: 16@16;
+	layout: BlFrameLayout new;
+	addChild: 
+		((BrLabel new text: ('g' asRopedText weight: 100), ('t' asRopedText bold); look: BrGlamorousLabelLook) asScalableElement margin: (BlInsets top: -4 left: -1))
+	] asStencil
+]
+
+{ #category : #icons }
+BrGlamorousVectorIcons class >> hamburger [
+	<script: 'self hamburger inspect'>
+
+	^ [ BlElement new
+		size: 16@16;
+		geometry: (BlSvgPath new
+			svg: 'M 4 3 L 12 3 L 12 5 L 4 5 Z M 4 7 L 12 7 L 12 9 L 4 9 Z M 4 11 L 12 11 L 12 13 L 4 13 Z'
+			viewbox: (0@0 extent: 16@16));
+		background: Color black ] asStencil
+]
+
+{ #category : #geometry }
+BrGlamorousVectorIcons class >> indeterminateCheckboxGeometry [
+	<return: #BlElementGeometry>
+
+	^ self minusGeometry: 0.16 extent: 1@1 origin: 0@0
+]
+
+{ #category : #icons }
+BrGlamorousVectorIcons class >> inspect [
+	<script: 'self inspect inspect'>
+
+	^ [ BlElement new
+		size: 16@16;
+		geometry: (BlSvgPath new
+			svg: 'M 7.736 12 L 7.736 7.428 L 5.348 7.428 L 5.348 6.048 L 9.5 6.048 L 9.5 12 Z M 8.54 5.112 C 8.195998 5.112 7.914001 5.016001 7.694 4.824 C 7.473999 4.631999 7.364 4.3720016 7.364 4.044 C 7.364 3.7159984 7.473999 3.450001 7.694 3.246 C 7.914001 3.041999 8.195998 2.94 8.54 2.94 C 8.884002 2.94 9.165999 3.041999 9.386 3.246 C 9.606001 3.450001 9.716 3.7159984 9.716 4.044 C 9.716 4.3720016 9.606001 4.631999 9.386 4.824 C 9.165999 5.016001 8.884002 5.112 8.54 5.112 Z'
+			viewbox: (0@0 extent: 16@16));
+		background: Color black ] asStencil
+]
+
+{ #category : #icons }
+BrGlamorousVectorIcons class >> largeBook [
+	<script: 'self largeBook inspect'>
+
+	^ [ BlElement new
+		size: 64@64;
+		geometry: (BlSvgPath new
+			svg: 'M 32 49.2 L 32 18.2 C 32 18.2 28.731183 12.344086 12.4 12.26 C 7.864769 12.23665 6.545928 12.504819 4 12.942374 L 4 19.350902 L 4 47.85147 C 6.545928 47.413916 9.39392 47.1691 12.4 47.1691 C 23.224772 47.1691 32 50.343794 32 54.26 C 32 50.343794 40.77523 47.1691 51.6 47.1691 C 54.60608 47.1691 57.45407 47.413916 60 47.85147 L 60 19.350902 L 60 12.942374 C 57.45407 12.504819 56.406085 12.15427 51.8 12.2 C 35.213675 12.364672 32 18.2 32 18.2 L 32 47 Z'
+			viewbox: (0@0 extent: 64@64));
+		border: (BlBorder builder capSquare paint: Color black; width: 6; build);
+		outskirts: (BlOutskirts centered) ] asStencil
+]
+
+{ #category : #icons }
+BrGlamorousVectorIcons class >> largeEg [
+	<script: 'self largeEg inspect'>
+
+	^ [ BlElement new
+		size: 64@64;
+		geometry: (BlSvgPath new
+			svg: 'M 16.69181 39.772715 L 16.69181 39.772715 C 18.525152 39.772715 20.395134 39.48855 22.30181 38.920215 C 24.208486 38.35188 25.950135 37.57272 27.52681 36.582715 L 24.83181 31.687715 C 23.621804 32.31105 22.45765 32.787713 21.33931 33.117715 C 20.22097 33.447716 19.038483 33.612715 17.79181 33.612715 C 15.555132 33.612715 13.74015 33.154386 12.34681 32.237715 C 10.95347 31.321043 10.055145 29.872724 9.65181 27.892715 L 28.24181 27.892715 C 28.315144 27.562713 28.397643 27.05855 28.48931 26.380215 C 28.580977 25.701878 28.62681 24.996052 28.62681 24.262715 C 28.62681 22.392705 28.351813 20.660223 27.80181 19.065215 C 27.251807 17.470207 26.435982 16.086054 25.35431 14.912715 C 24.272638 13.739375 22.92515 12.822718 21.31181 12.162715 C 19.698468 11.502711 17.84682 11.172715 15.75681 11.172715 C 13.923467 11.172715 12.154318 11.493545 10.44931 12.135215 C 8.744301 12.776884 7.2318165 13.711875 5.91181 14.940215 C 4.591803 16.168554 3.537647 17.671872 2.74931 19.450215 C 1.9609726 21.228557 1.5668099 23.236037 1.5668099 25.472715 C 1.5668099 27.74606 1.951806 29.771872 2.72181 31.550215 C 3.4918137 33.328557 4.5551364 34.82271 5.91181 36.032715 C 7.268483 37.24272 8.872634 38.168545 10.72431 38.810215 C 12.575986 39.451884 14.565133 39.772715 16.69181 39.772715 Z M 16.03181 17.332715 L 16.03181 17.332715 C 19.221826 17.332715 21.018475 19.037698 21.42181 22.447715 L 9.76181 22.447715 C 10.165145 20.724373 10.907638 19.441052 11.98931 18.597715 C 13.070982 17.754377 14.418468 17.332715 16.03181 17.332715 Z M 51.94681 33.997715 L 51.94681 33.997715 L 46.88681 33.997715 C 45.27347 33.997715 44.100147 33.841883 43.36681 33.530215 C 42.633473 33.218546 42.26681 32.69605 42.26681 31.962715 C 42.26681 31.486046 42.36764 31.10105 42.56931 30.807715 C 42.77098 30.51438 43.073475 30.22105 43.47681 29.927715 C 44.796816 30.294383 46.04347 30.477715 47.21681 30.477715 C 48.793484 30.477715 50.2693 30.294383 51.64431 29.927715 C 53.019317 29.561046 54.21097 29.001885 55.21931 28.250215 C 56.22765 27.498544 57.02514 26.554387 57.61181 25.417715 C 58.19848 24.281042 58.49181 22.92439 58.49181 21.347715 C 58.49181 20.651044 58.36348 19.981884 58.10681 19.340215 C 57.85014 18.698545 57.575145 18.17605 57.28181 17.772715 L 62.78181 17.772715 L 62.78181 11.832715 L 51.72681 11.832715 C 50.406803 11.392712 48.903485 11.172715 47.21681 11.172715 C 45.6768 11.172715 44.200984 11.383546 42.78931 11.805215 C 41.377636 12.226883 40.14015 12.85021 39.07681 13.675215 C 38.01347 14.500219 37.16098 15.526875 36.51931 16.755215 C 35.87764 17.983554 35.55681 19.422706 35.55681 21.072715 C 35.55681 22.686056 35.90514 24.088542 36.60181 25.280215 C 37.29848 26.471887 38.141805 27.39771 39.13181 28.057715 L 39.13181 28.277715 C 38.17847 28.937718 37.399313 29.726043 36.79431 30.642715 C 36.189307 31.559386 35.88681 32.476043 35.88681 33.392715 C 35.88681 34.566054 36.15264 35.519378 36.68431 36.252715 C 37.21598 36.98605 37.866806 37.591046 38.63681 38.067715 L 38.63681 38.287715 C 35.813462 39.681055 34.40181 41.496037 34.40181 43.732715 C 34.40181 44.94272 34.713473 45.98771 35.33681 46.867715 C 35.960146 47.74772 36.821804 48.47188 37.92181 49.040215 C 39.021815 49.60855 40.332636 50.030213 41.85431 50.305215 C 43.375984 50.580216 45.0168 50.717715 46.77681 50.717715 C 49.23349 50.717715 51.470133 50.47022 53.48681 49.975215 C 55.503487 49.48021 57.20847 48.801886 58.60181 47.940215 C 59.99515 47.078544 61.076806 46.04272 61.84681 44.832715 C 62.61681 43.62271 63.00181 42.30272 63.00181 40.872715 C 63.00181 38.416036 62.05765 36.656053 60.16931 35.592715 C 58.28097 34.529376 55.54016 33.997715 51.94681 33.997715 Z M 47.21681 25.582715 L 47.21681 25.582715 C 46.08014 25.582715 45.117647 25.206885 44.32931 24.455215 C 43.54097 23.703544 43.14681 22.576055 43.14681 21.072715 C 43.14681 19.642707 43.54097 18.542718 44.32931 17.772715 C 45.117647 17.00271 46.08014 16.617715 47.21681 16.617715 C 48.35348 16.617715 49.32514 17.00271 50.13181 17.772715 C 50.93848 18.542718 51.34181 19.642707 51.34181 21.072715 C 51.34181 22.576055 50.93848 23.703544 50.13181 24.455215 C 49.32514 25.206885 48.35348 25.582715 47.21681 25.582715 Z M 47.10681 40.212715 L 47.10681 40.212715 L 50.51681 40.212715 C 52.093484 40.212715 53.28514 40.341047 54.09181 40.597715 C 54.89848 40.854383 55.30181 41.42271 55.30181 42.302715 C 55.30181 43.256053 54.623483 44.04438 53.26681 44.667715 C 51.910136 45.29105 50.13182 45.602715 47.93181 45.602715 C 45.768466 45.602715 44.07265 45.34605 42.84431 44.832715 C 41.61597 44.31938 41.00181 43.549386 41.00181 42.522715 C 41.00181 42.00938 41.148475 41.541883 41.44181 41.120215 C 41.735145 40.698546 42.23014 40.267717 42.92681 39.827715 C 43.440146 39.97438 44.01764 40.075214 44.65931 40.130215 C 45.30098 40.185215 46.116805 40.212715 47.10681 40.212715 Z'
+			viewbox: (0@0 extent: 64@64));
+		background: Color black ] asStencil
+]
+
+{ #category : #icons }
+BrGlamorousVectorIcons class >> largeGt [
+	<script: 'self largeGt inspect'>
+
+	^ [ BlElement new
+	size: 250@250;
+	layout: BlFrameLayout new;
+	addChild: 
+		((BrLabel new text: ('g' asRopedText weight: 100), ('t' asRopedText bold); look: BrGlamorousLabelLook) asScalableElement margin: (BlInsets top: -4 left: -1)) ] asStencil
+]
+
+{ #category : #icons }
+BrGlamorousVectorIcons class >> largePerformance [
+	<script: 'self largePerformance inspect'>
+
+	^ [ BlElement new
+		size: 64@64;
+		geometry: (BlSvgPath new
+			svg: 'M 29.550972 28.111004 L 20.402698 60.24932 L 43.661156 36.25752 Z M 48.16244 51.22281 L 44.964286 54.4944 L 51.3738 60.90392 L 54.62742 57.687786 C 67.124194 45.19101 67.124194 24.92973 54.62742 12.432952 C 42.13064 -.06382534 21.86936 -.06382534 9.372583 12.432952 C -3.121018 24.926553 -3.1241935 45.18071 9.363057 57.678256 L 12.612604 60.93963 L 19.067361 54.484873 L 15.83756 51.22281 C 6.91129 42.29654 6.91129 27.824198 15.83756 18.897928 C 24.76383 9.971659 39.23617 9.971659 48.16244 18.897928 C 57.08871 27.824198 57.08871 42.29654 48.16244 51.22281 Z'
+			viewbox: (0@0 extent: 64@64));
+		background: Color black;
+		outskirts: (BlOutskirts centered) ] asStencil
+]
+
+{ #category : #icons }
+BrGlamorousVectorIcons class >> largePlay [
+	<script: 'self largePlay inspect'>
+
+	^ [ BlElement new
+		size: 64@64;
+		geometry: (BlSvgPath new
+			svg: 'M 10.506208 3.0563515 L 53.95177 32.020057 L 10.506208 60.98376 Z'
+			viewbox: (0@0 extent: 64@64));
+		background: Color black ] asStencil
+]
+
+{ #category : #icons }
+BrGlamorousVectorIcons class >> largeSearch [
+	<script: 'self largeSearch inspect'>
+
+	^ [ BlElement new
+		size: 64@64;
+		geometry: (BlSvgPath new
+			svg: 'M 13.724291 13.72426 C 21.128916 6.319606 33.134174 6.319606 40.5388 13.72426 C 47.94346 21.128877 47.94346 33.134123 40.5388 40.53874 C 33.134174 47.943393 21.128916 47.943393 13.724291 40.53874 C 6.319629 33.134123 6.319629 21.128877 13.724291 13.72426 M 40.371052 48.344503 L 53.59231 61.5658 L 62.03294 53.1252 L 48.69724 39.789454 C 54.32991 30.20809 53.03389 17.678522 44.809186 9.453858 C 35.04609 -.3092868 19.216999 -.3092868 9.453904 9.453858 C -.30924176 19.216954 -.30924176 35.046046 9.453904 44.80914 C 17.846036 53.20132 30.72017 54.37977 40.371052 48.344503 Z'
+			viewbox: (0@0 extent: 64@64));
+		background: Color black ] asStencil
+]
+
+{ #category : #icons }
+BrGlamorousVectorIcons class >> largeSignal [
+	<script: 'self largeSignal inspect'>
+
+	^ [ BlElement new
+		size: 64@64;
+		geometry: (BlSvgPath new
+			svg: 'M 4.7949585 33.204834 C 4.7949585 33.204834 12.011454 33.090287 12.011454 33.090287 C 12.011454 33.090287 16.00802 26.809853 17.955329 26.695306 C 19.902637 26.580758 22.422683 41.35739 24.48454 41.35739 C 26.546394 41.35739 31.01375 15.698742 33.419247 15.698742 C 35.824745 15.698742 38.80298 48.688434 40.979385 48.688434 C 43.15579 48.688434 47.97938 32.173907 47.97938 32.173907 C 47.97938 32.173907 59.20504 32.173907 59.20504 32.173907'
+			viewbox: (0@0 extent: 64@64));
+		border: (BlBorder builder capSquare paint: Color black; width: 6; build);
+		outskirts: (BlOutskirts centered) ] asStencil
+]
+
+{ #category : #'private - sizes' }
+BrGlamorousVectorIcons class >> largeSize [
+	^ 64@64
+]
+
+{ #category : #icons }
+BrGlamorousVectorIcons class >> largeTranscript [
+	<script: 'self largeTranscript inspect'>
+
+	^ [ BlElement new
+		size: 64@64;
+		geometry: (BlSvgPath new
+			svg: 'M 25.691057 7.01897 L 38.319783 7.01897 L 38.319783 10.298103 L 25.691057 10.298103 Z M 18 27.333334 L 18 32 L 46 32 L 46 27.333334 Z M 18 36.666667 L 18 41.333334 L 46 41.333334 L 46 36.666667 Z M 18 46 L 18 50.66667 L 46 50.66667 L 46 46 Z M 19.7 10.366666 L 8.7 10.366666 C 7.043145 10.366666 5.6999996 11.709812 5.6999996 13.366666 L 5.6999996 59.96667 C 5.6999996 61.62352 7.043145 62.96667 8.7 62.96667 L 55.3 62.96667 C 56.956855 62.96667 58.3 61.62352 58.3 59.96667 L 58.3 13.366666 C 58.3 11.709812 56.956855 10.366666 55.3 10.366666 L 44.4 10.366666 L 44.4 3.9666666 C 44.4 2.3098123 43.056856 .9666666 41.4 .9666666 L 22.7 .9666666 C 21.043147 .9666666 19.7 2.3098123 19.7 3.9666666 Z M 22.135647 16.313666 C 22.15702 16.317734 22.17847 16.321575 22.2 16.325187 L 22.2 21.319608 C 22.2 21.540522 22.379086 21.719608 22.6 21.719608 L 41.4 21.719608 C 41.620915 21.719608 41.8 21.540522 41.8 21.319608 L 41.8 16.340233 C 41.855275 16.332868 41.910074 16.323998 41.964355 16.313666 L 52.38628 16.313666 L 52.38628 56.99105 L 11.6 56.99105 L 11.6 16.313666 Z'
+			viewbox: (0@0 extent: 64@64));
+		background: Color black ] asStencil
+]
+
+{ #category : #icons }
+BrGlamorousVectorIcons class >> largeWindow [
+	<script: 'self largeWindow inspect'>
+
+	^ [ BlElement new
+		size: 64@64;
+		geometry: (BlSvgPath new
+			svg: 'M 2 1 L 2 63 L 62 63 L 62 1 Z M 8 17 L 56 17 L 56 57 L 8 57 Z M 24 7 L 28 7 L 28 11 L 24 11 Z M 16 7 L 20 7 L 20 11 L 16 11 Z M 8 7 L 12 7 L 12 11 L 8 11 Z'
+			viewbox: (0@0 extent: 64@64));
+		background: Color black ] asStencil
+]
+
+{ #category : #icons }
+BrGlamorousVectorIcons class >> largebranching [
+	<script: 'self largebranching inspect'>
+
+	^ [ BlElement new
+		size: 64@64;
+		geometry: (BlSvgPath new
+			svg: 'M 15.987392 51.61287 C 17.209382 50.390874 19.190618 50.390874 20.412608 51.61287 C 21.634604 52.834856 21.634604 54.81609 20.412608 56.038075 C 19.190618 57.26007 17.209382 57.26007 15.987392 56.038075 C 14.765396 54.81609 14.765396 52.834856 15.987392 51.61287 M 15.987392 7.961925 C 17.209382 6.739931 19.190618 6.739931 20.412608 7.961925 C 21.634604 9.183912 21.634604 11.165144 20.412608 12.387132 C 19.190618 13.609126 17.209382 13.609126 15.987392 12.387132 C 14.765396 11.165144 14.765396 9.183912 15.987392 7.961925 M 43.58739 17.955897 C 44.80938 16.733903 46.79062 16.733903 48.01261 17.955897 C 49.234604 19.177885 49.234604 21.159116 48.01261 22.381104 C 46.79062 23.603098 44.80938 23.603098 43.58739 22.381104 C 42.365396 21.159116 42.365396 19.177885 43.58739 17.955897 M 15.2 45.42739 C 13.993649 45.857395 12.861406 46.5553 11.895611 47.521096 C 8.413774 51.00291 8.413774 56.648036 11.895611 60.12985 C 15.37743 63.61168 21.02257 63.61168 24.504388 60.12985 C 27.986225 56.648036 27.986225 51.00291 24.504388 47.521096 C 23.571439 46.588143 22.48317 45.905174 21.322817 45.47219 L 21.351638 42.302544 L 23.2 42.4 C 23.2 42.4 27.85648 42.705223 31.20304 42.549193 C 37.46873 42.25706 41.98172 41.309813 44.53015 39.125446 C 47.62365 36.47387 48.92451 33.411835 49.10638 29.295624 L 49.144376 28.43571 C 50.22163 28.000484 51.23106 27.346207 52.10439 26.472876 C 55.586226 22.991065 55.586226 17.345937 52.10439 13.864125 C 48.62257 10.382295 42.97743 10.382295 39.49561 13.864125 C 36.013775 17.345937 36.013775 22.991065 39.49561 26.472876 C 40.548445 27.525713 41.79908 28.260192 43.12789 28.676315 L 43.11223 29.030775 C 42.99933 31.585943 42.365165 33.07868 40.6254 34.569906 C 39.459215 35.569493 35.856304 36.32572 30.9236 36.555704 C 27.81067 36.70084 24.450278 36.644723 21.204986 36.46231 C 21.203322 36.462216 21.201658 36.462123 21.199994 36.46203 C 21.2 35.330257 21.2 33.94234 21.2 32 C 21.2 25.195285 21.2 25.195285 21.2 19.17452 L 21.2 18.572612 C 22.40635 18.142605 23.538594 17.444702 24.504388 16.478904 C 27.986225 12.997092 27.986225 7.351964 24.504388 3.8701525 C 21.02257 .38832283 15.37743 .38832283 11.895611 3.8701525 C 8.413774 7.351964 8.413774 12.997092 11.895611 16.478904 C 12.861406 17.444702 13.993649 18.142605 15.2 18.572612 L 15.2 19.17452 C 15.2 25.195285 15.2 25.195285 15.2 32 C 15.2 38.804715 15.2 38.804715 15.2 44.82548 Z'
+			viewbox: (0@0 extent: 64@64));
+		background: Color black ] asStencil
+]
+
+{ #category : #icons }
+BrGlamorousVectorIcons class >> left [
+	<script: 'self left inspect'>
+
+	^ [ BlElement new
+		size: 16@16;
+		geometry: (BlSvgPath new
+			svg: 'M 13 9 L 13 7 L 8.25 7 L 8.25 4 L 3 8 L 8.25 12 L 8.25 9 Z'
+			viewbox: (0@0 extent: 16@16));
+		background: Color black ] asStencil
+]
+
+{ #category : #icons }
+BrGlamorousVectorIcons class >> leftSide [
+	<script: 'self leftSide inspect'>
+
+	^ [ BlElement new
+		size: 16@16;
+		geometry: (BlSvgPath new
+			svg: 'M 7.5 14.5 L 8.5 14.5 L 14.5 14.5 L 14.5 1.5 L 8.5 1.5 L 7.5 1.5 L 1.5 1.5 L 1.5 14.5 Z M 8.5 13.5 L 8.5 2.5 L 13.5 2.5 L 13.5 13.5 Z M 8.5 13.5 L 8.5 2.5'
+			viewbox: (0@0 extent: 16@16));
+		background: Color black ] asStencil
+]
+
+{ #category : #'private - geometry' }
+BrGlamorousVectorIcons class >> minusGeometry: aThickness extent: anExtent origin: anOrigin [
+	<return: #BlElementVectorGeometry>
+	| w h halfH halfThickness top bottom |
+	
+	w := anExtent x.
+	h := anExtent y.
+	halfH := h / 2.0.
+	halfThickness := aThickness / 2.0.
+	
+	top := halfH - halfThickness.
+	bottom := halfH + halfThickness.
+	
+	^ BlNormalizedPolygon vertices: ({
+		0 @ top.
+		w @ top.
+		w @ bottom.
+		0 @ bottom
+	} collect: [ :eachVertex | eachVertex + anOrigin ])
+]
+
+{ #category : #icons }
+BrGlamorousVectorIcons class >> noIcon [
+	^ [ BlElement new
+			size: 0@0;
+			background: BlBackground transparent ] asStencil
+]
+
+{ #category : #icons }
+BrGlamorousVectorIcons class >> performance [
+	<script: 'self performance inspect'>
+
+	^ [ BlElement new
+		size: 16@16;
+		geometry: (BlSvgPath new
+			svg: 'M 7.464275 6.4798264 L 5.46309 13.510082 L 10.550878 8.261877 Z M 11.535534 11.535534 L 10.835938 12.251195 L 12.238019 13.653276 L 12.949747 12.949747 C 15.683418 10.216077 15.683418 5.7839226 12.949747 3.0502525 C 10.216077 .3165825 5.7839226 .3165825 3.0502525 3.0502525 C .31727727 5.783228 .31658267 10.213825 3.0481687 12.947663 L 3.759007 13.661089 L 5.1709853 12.24911 L 4.464466 11.535534 C 2.5118446 9.582912 2.5118446 6.4170876 4.464466 4.464466 C 6.4170876 2.5118446 9.582912 2.5118446 11.535534 4.464466 C 13.488155 6.4170876 13.488155 9.582912 11.535534 11.535534 Z'
+			viewbox: (0@0 extent: 16@16));
+		background: Color black ] asStencil
+]
+
+{ #category : #icons }
+BrGlamorousVectorIcons class >> play [
+	<script: 'self play inspect'>
+
+	^ [ BlElement new
+		size: 16@16;
+		geometry: (BlSvgPath new
+			svg: 'M 4.5 3.05 L 11.9 8 L 4.5 12.95 Z'
+			viewbox: (0@0 extent: 16@16));
+		background: Color black ] asStencil
+]
+
+{ #category : #icons }
+BrGlamorousVectorIcons class >> playinspect [
+	<script: 'self playinspect inspect'>
+
+	^ [ BlElement new
+		size: 16@16;
+		geometry: (BlSvgPath new
+			svg: 'M 1.5 3.05 L 1.5 12.95 L 8.9 8 Z M 12.736 12 L 14.5 12 L 14.5 6.048 L 10.348 6.048 L 10.348 7.428 L 12.736 7.428 Z M 13.54 5.112 L 13.54 5.112 C 13.884002 5.112 14.165999 5.016001 14.386 4.824 C 14.606001 4.631999 14.716 4.3720016 14.716 4.044 C 14.716 3.7159984 14.606001 3.450001 14.386 3.246 C 14.165999 3.041999 13.884002 2.94 13.54 2.94 C 13.195998 2.94 12.914001 3.041999 12.694 3.246 C 12.473999 3.450001 12.364 3.7159984 12.364 4.044 C 12.364 4.3720016 12.473999 4.631999 12.694 4.824 C 12.914001 5.016001 13.195998 5.112 13.54 5.112 Z'
+			viewbox: (0@0 extent: 16@16));
+		background: Color black ] asStencil
+]
+
+{ #category : #icons }
+BrGlamorousVectorIcons class >> refresh [
+	<script: 'self refresh inspect'>
+
+	^ [ BlElement new
+		size: 16@16;
+		geometry: (BlSvgPath new
+			svg: 'M 10.808615 4.7833314 C 9.528482 3.9172044 8.283157 3.4365278 7.115401 3.5007545 C 5.818468 3.572084 4.702849 4.0937684 3.772776 4.912676 C 3.1742156 5.439694 2.7742314 5.9681214 2.5651493 6.336531 L 2.3183602 6.771382 L 3.1880615 7.26496 L 3.4348507 6.830109 C 3.470442 6.7673965 3.5505065 6.643973 3.6744106 6.480281 C 3.884959 6.202122 4.138442 5.9230966 4.4336054 5.663212 C 5.206068 4.983077 6.116834 4.5571856 7.170318 4.4992455 C 8.054369 4.4506225 9.078983 4.837451 10.162979 5.5547056 C 10.066121 5.785556 10.018969 6.0414586 10.034183 6.308226 L 10.034183 6.3082265 C 10.087641 7.245586 10.89086 7.962132 11.828219 7.908674 C 12.76558 7.8552165 13.482125 7.051999 13.428667 6.114638 C 13.375209 5.177279 12.57199 4.4607326 11.63463 4.5141905 C 11.329601 4.531587 11.047955 4.6283776 10.808616 4.7833494 Z M 4.968434 10.886314 C 6.179986 11.867999 7.3869915 12.460553 8.559506 12.499721 C 9.917603 12.54509 11.113443 12.083009 12.128808 11.291223 C 12.706325 10.840873 13.104762 10.388503 13.319767 10.072309 L 13.600916 9.658841 L 12.773982 9.096543 L 12.492833 9.510011 C 12.457051 9.562632 12.376967 9.667176 12.254486 9.806236 C 12.045826 10.043141 11.798161 10.280957 11.513873 10.502646 C 10.67076 11.160109 9.695127 11.5371 8.592893 11.500279 C 7.703416 11.470565 6.706572 10.989921 5.6767326 10.17232 C 5.792915 9.950127 5.861537 9.698702 5.868729 9.431177 L 5.868729 9.431177 C 5.89396 8.492633 5.1535716 7.711337 4.2150283 7.686106 C 3.276483 7.660874 2.4951885 8.401261 2.4699573 9.339806 C 2.444726 10.27835 3.1851146 11.059646 4.123658 11.084877 C 4.4287173 11.093078 4.7171636 11.020393 4.968434 10.886309 Z'
+			viewbox: (0@0 extent: 16@16));
+		background: Color black ] asStencil
+]
+
+{ #category : #icons }
+BrGlamorousVectorIcons class >> remove [
+	<script: 'self remove inspect'>
+
+	^ [ BlElement new
+		size: 16@16;
+		geometry: (BlSvgPath new
+			svg: 'M 4.5 7 L 11.5 7 L 11.5 9 L 4.5 9 Z'
+			viewbox: (0@0 extent: 16@16));
+		background: Color black ] asStencil
+]
+
+{ #category : #icons }
+BrGlamorousVectorIcons class >> repair [
+	<script: 'self repair inspect'>
+
+	^ [ (BlElement new
+		size: 64@64;
+		geometry: (BlSvgPath new
+			svg: 'M47.7048 33.8576L47.5933 34.1583L47.8201 34.385L60.319 46.884L46.884 60.319L34.385 47.8201L34.1583 47.5933L33.8576 47.7048C25.5105 50.8002 15.7596 48.9936 9.05377 42.2878C3.12518 36.3592 1.02589 28.0508 2.75806 20.4357L16.8319 34.5096L17.1855 34.8632L17.539 34.5096L34.5096 17.539L34.8632 17.1855L34.5096 16.8319L20.4357 2.75806C28.0508 1.02589 36.3592 3.12518 42.2878 9.05377C48.9936 15.7596 50.8002 25.5105 47.7048 33.8576Z'
+			viewbox: (0@0 extent: 64@64));
+		background: Color black) asScalableElement size: 16@16 ] asStencil
+]
+
+{ #category : #icons }
+BrGlamorousVectorIcons class >> right [
+	<script: 'self right inspect'>
+
+	^ [ BlElement new
+		size: 16@16;
+		geometry: (BlSvgPath new
+			svg: 'M 3 9 L 3 7 L 7.75 7 L 7.75 4 L 13 8 L 7.75 12 L 7.75 9 Z'
+			viewbox: (0@0 extent: 16@16));
+		containerName: #'icon--right';
+		background: Color black ] asStencil
+]
+
+{ #category : #icons }
+BrGlamorousVectorIcons class >> rightSide [
+	<script: 'self rightSide inspect'>
+
+	^ [ BlElement new
+		size: 16@16;
+		geometry: (BlSvgPath new
+			svg: 'M 1.5 1.5 L 1.5 14.5 L 14.5 14.5 L 14.5 1.5 Z M 2.5 2.5 L 7.5 2.5 L 7.5 13.5 L 2.5 13.5 Z'
+			viewbox: (0@0 extent: 16@16));
+		background: Color black ] asStencil
+]
+
+{ #category : #icons }
+BrGlamorousVectorIcons class >> search [
+	<script: 'self search inspect'>
+
+	^ [ BlElement new
+		size: 16@16;
+		geometry: (BlSvgPath new
+			svg: 'M 8.972855 11.595775 L 11.208238 13.831159 L 13.329559 11.709838 L 11.252205 9.632485 C 12.448393 7.704032 12.209501 5.1384323 10.53553 3.46447 C 8.58291 1.51184 5.41709 1.51184 3.46447 3.46447 C 1.51184 5.41709 1.51184 8.58291 3.46447 10.53553 C 4.953712 12.02478 7.1486665 12.378195 8.972855 11.595775 Z M 9.739856 8.223948 L 8.223948 9.739856 C 7.1216205 10.232024 5.783204 10.025845 4.878682 9.121318 C 3.707104 7.949746 3.707104 6.050254 4.878682 4.878682 C 6.050254 3.707104 7.949746 3.707104 9.121318 4.878682 C 10.025845 5.783204 10.232024 7.1216205 9.739856 8.223948 Z'
+			viewbox: (0@0 extent: 16@16));
+		background: Color black ] asStencil
+]
+
+{ #category : #'private - sizes' }
+BrGlamorousVectorIcons class >> smallSize [
+	^ 12@12
+]
+
+{ #category : #'private - sizes' }
+BrGlamorousVectorIcons class >> standardSize [
+	^ 16@16
+]
+
+{ #category : #icons }
+BrGlamorousVectorIcons class >> transcript [
+	<script: 'self transcript inspect'>
+
+	^ [ BlElement new
+		size: self standardSize;
+		geometry: (BlSvgPath new
+			svg: 'M 6.453291 1.8837905 L 9.549366 1.8837905 L 9.549366 2.687707 L 6.453291 2.687707 Z M 4.567742 6.864086 L 4.567742 8.008172 L 11.432258 8.008172 L 11.432258 6.864086 Z M 4.567742 9.152258 L 4.567742 10.296344 L 11.432258 10.296344 L 11.432258 9.152258 Z M 4.567742 11.44043 L 4.567742 12.584516 L 11.432258 12.584516 L 11.432258 11.44043 Z M 4.984516 2.704516 L 2.2877418 2.704516 C 1.8815453 2.704516 1.552258 3.0338033 1.552258 3.44 L 1.552258 14.864516 C 1.552258 15.270713 1.8815453 15.6 2.2877418 15.6 L 13.712258 15.6 C 14.118455 15.6 14.447742 15.270713 14.447742 14.864516 L 14.447742 3.44 C 14.447742 3.0338033 14.118455 2.704516 13.712258 2.704516 L 11.04 2.704516 L 11.04 1.1354838 C 11.04 .7292872 10.710713 .3999999 10.304517 .3999999 L 5.72 .3999999 C 5.3138036 .3999999 4.984516 .7292872 4.984516 1.1354838 Z M 5.5816425 4.16249 C 5.586882 4.1634875 5.592141 4.164429 5.5974194 4.1653147 L 5.5974194 5.389753 C 5.5974194 5.443913 5.6413244 5.487818 5.695484 5.487818 L 10.304516 5.487818 C 10.358676 5.487818 10.402581 5.443913 10.402581 5.389753 L 10.402581 4.169003 C 10.416132 4.1671977 10.429567 4.165023 10.442874 4.16249 L 12.997926 4.16249 L 12.997926 14.13501 L 2.9987097 14.13501 L 2.9987097 4.16249 Z'
+			viewbox: (0@0 extent: self standardSize));
+		background: Color black ] asStencil
+]
+
+{ #category : #icons }
+BrGlamorousVectorIcons class >> transparent [
+	^ [ BlElement new
+			size: 16@16;
+			background: BlBackground transparent ] asStencil
+]
+
+{ #category : #geometry }
+BrGlamorousVectorIcons class >> uncheckedCheckboxGeometry [
+	<return: #BlElementGeometry>
+
+	^ BlEmptyGeometry new
+]
+
+{ #category : #icons }
+BrGlamorousVectorIcons class >> up [
+	<script: 'self up inspect'>
+
+	^ [ BlElement new
+		size: 16@16;
+		geometry: (BlSvgPath new
+			svg: 'M 7 13 L 9 13 L 9 8.25 L 12 8.25 L 8 3 L 4 8.25 L 7 8.25 Z'
+			viewbox: (0@0 extent: 16@16));
+		background: Color black ] asStencil
+]
+
+{ #category : #icons }
+BrGlamorousVectorIcons class >> upwards [
+	<script: 'self upwards inspect'>
+
+	^ [ BlElement new
+		size: 16@16;
+		geometry: (BlSvgPath new
+			svg: 'M 12 10 L 8 6 L 4 10 Z'
+			viewbox: (4@3 extent: 8@4));
+		background: Color black ] asStencil
+]
+
+{ #category : #icons }
+BrGlamorousVectorIcons class >> upwardsDownwards [
+	<script: 'self upwardsDownwards inspect'>
+
+	^ [ BlElement new
+		size: 16@16;
+		geometry: (BlSvgPath new
+			svg: 'M 12 9 L 4 9 L 8 13 Z M 12 7 L 8 3 L 4 7 Z'
+			viewbox: (4@3 extent: 8@10));
+		background: Color black ] asStencil
+]

@@ -4,7 +4,7 @@ Class {
 	#instVars : [
 		'paragraphMargin'
 	],
-	#category : #'Brick-Editor-Text-Attributes'
+	#category : #'Brick-Editor-Attributes'
 }
 
 { #category : #'instance creation' }
@@ -15,6 +15,18 @@ BrTextParagraphMarginAttribute class >> paragraphMargin: anInsets [
 { #category : #hook }
 BrTextParagraphMarginAttribute >> applyOn: aTextParagraph [
 	aTextParagraph paragraphMargin: self paragraphMargin
+]
+
+{ #category : #comparing }
+BrTextParagraphMarginAttribute >> equals: anAnotherAttribute [
+	^ self paragraphMargin = anAnotherAttribute paragraphMargin
+]
+
+{ #category : #comparing }
+BrTextParagraphMarginAttribute >> hash [
+	"Answer an integer value that is related to the identity of the receiver."
+
+	^ super hash bitXor: self paragraphMargin hash
 ]
 
 { #category : #initialization }

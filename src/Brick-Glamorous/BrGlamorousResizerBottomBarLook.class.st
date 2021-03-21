@@ -1,20 +1,34 @@
 Class {
 	#name : #BrGlamorousResizerBottomBarLook,
 	#superclass : #BrLook,
-	#category : #'Brick-Glamorous'
+	#category : #'Brick-Glamorous-Resizer'
 }
 
-{ #category : #initialization }
-BrGlamorousResizerBottomBarLook >> initializeLook [
-	super initializeLook.
-	
-	self widget background: (BrGlamorousColors editorBorderColor alpha: 0.5).
-	self widget geometry: (BlRectangle cornerRadius: 2).
-	self widget constraintsDo: [ :c |
-		c ignoreByLayout.
-		c vertical exact: 4.
-		c horizontal exact: 70.
-		c ignored vertical alignBottom.
-		c ignored horizontal alignCenter.
-		c margin: (BlInsets bottom: 4) ]
+{ #category : #accessing }
+BrGlamorousResizerBottomBarLook >> initialize [
+	super initialize.
+	self
+		addChangeProperty: #(widget background)
+		with: [ BrGlamorousColors editorBorderColor alpha: 0.5 ].
+	self
+		addChangeProperty: #(widget geometry)
+		with: [ BlRoundedRectangleGeometry cornerRadius: 2 ].
+	self
+		addChangeProperty: #(widget constraints vertical resizer)
+		with: [ BlLayoutResizer exact: 4.0 ].
+	self
+		addChangeProperty: #(widget constraints horizontal resizer)
+		with: [ BlLayoutResizer exact: 70.0 ].
+	self addChangeProperty: #(widget margin) with: [ BlInsets bottom: 4 ].
+	self
+		addChange:
+			(BrLookChange new
+				up: [ :e | 
+					self widget
+						constraintsDo: [ :c | 
+							c ignoreByLayout.
+							c ignored vertical alignBottom.
+							c ignored horizontal alignCenter ] ];
+				down: [ :e |  ];
+				yourself)
 ]

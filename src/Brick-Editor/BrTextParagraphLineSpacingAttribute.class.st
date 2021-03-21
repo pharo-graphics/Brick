@@ -9,7 +9,7 @@ Class {
 	#instVars : [
 		'lineSpacing'
 	],
-	#category : #'Brick-Editor-Text-Attributes'
+	#category : #'Brick-Editor-Attributes'
 }
 
 { #category : #'instance creation' }
@@ -20,6 +20,18 @@ BrTextParagraphLineSpacingAttribute class >> lineSpacing: aNumber [
 { #category : #hook }
 BrTextParagraphLineSpacingAttribute >> applyOn: aTextParagraph [
 	aTextParagraph lineSpacing: self lineSpacing
+]
+
+{ #category : #comparing }
+BrTextParagraphLineSpacingAttribute >> equals: anAnotherAttribute [
+	^ self lineSpacing = anAnotherAttribute lineSpacing
+]
+
+{ #category : #comparing }
+BrTextParagraphLineSpacingAttribute >> hash [
+	"Answer an integer value that is related to the identity of the receiver."
+
+	^ super hash bitXor: self lineSpacing hash
 ]
 
 { #category : #initialization }

@@ -1,8 +1,13 @@
 Class {
 	#name : #BrLayoutHorizontalResizerModel,
 	#superclass : #BrLayoutResizerModel,
-	#category : #'Brick-Layout Resizer - Model'
+	#category : #'Brick-! Deprecated'
 }
+
+{ #category : #testing }
+BrLayoutHorizontalResizerModel class >> isDeprecated [
+	^ true
+]
 
 { #category : #initialization }
 BrLayoutHorizontalResizerModel >> initializeListeners [
@@ -18,6 +23,8 @@ BrLayoutHorizontalResizerModel >> stateChangedEventClass [
 ]
 
 { #category : #'state - streaming' }
-BrLayoutHorizontalResizerModel >> streamStateOn: aStream [
-	aStream nextPut: (BrLayoutHorizontalResizerState resizer: self resizer)
+BrLayoutHorizontalResizerModel >> streamStateIn: aBrInteractionStatesMapping [
+	aBrInteractionStatesMapping
+		addState: (BrDeprecatedLayoutHorizontalResizerState resizer: self resizer)
+		model: self
 ]

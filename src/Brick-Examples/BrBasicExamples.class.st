@@ -7,22 +7,19 @@ Class {
 { #category : #'examples - events' }
 BrBasicExamples >> widgetModelAttachedEvent [
 	<gtExample>
-	| aWidgetElement aWidgetModel viewModelAttachedEvent |
+	| aWidgetElement aWidgetModel viewModelAttachedElement |
 
 	aWidgetElement := BlElement new.
+	
 	aWidgetModel := BrWidgetModel new.
 
-	viewModelAttachedEvent := nil.
-	aWidgetModel when: BrViewModelAttached do: [ :anEvent | viewModelAttachedEvent := anEvent copy ].
+	viewModelAttachedElement := nil.
+	aWidgetModel whenAttachedDo: [ :anElement | viewModelAttachedElement := anElement ].
 
 	aWidgetElement viewModel: aWidgetModel.
+	aWidgetElement look: BrLook new.
 
-	self assert: viewModelAttachedEvent isNotNil.
-	self assert: viewModelAttachedEvent source equals: aWidgetModel.
-	self assert: viewModelAttachedEvent target equals: aWidgetModel.
-	self assert: viewModelAttachedEvent currentTarget equals: aWidgetModel.
-	self assert: viewModelAttachedEvent viewModel equals: aWidgetModel.
-	self assert: viewModelAttachedEvent traversedTargets size equals: 2.
+	self assert: viewModelAttachedElement == aWidgetElement.
 
-	^ viewModelAttachedEvent
+	^ viewModelAttachedElement
 ]

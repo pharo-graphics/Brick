@@ -4,8 +4,13 @@ Class {
 	#instVars : [
 		'focused'
 	],
-	#category : #'Brick-! Core'
+	#category : #'Brick-! Deprecated'
 }
+
+{ #category : #testing }
+BrFocusModel class >> isDeprecated [
+	^ true
+]
 
 { #category : #'focus handlers' }
 BrFocusModel >> focusInEvent: anEvent [	
@@ -34,6 +39,14 @@ BrFocusModel >> initialize [
 	focused := false
 ]
 
+{ #category : #initialization }
+BrFocusModel >> initializeListeners [
+	super initializeListeners.
+	
+	self when: BlFocusInEvent do: [ :anEvent | self focusInEvent: anEvent ].
+	self when: BlFocusOutEvent do: [ :anEvent | self focusOutEvent: anEvent ]
+]
+
 { #category : #'api - testing' }
 BrFocusModel >> isFocused [
 	<return: #Boolean>
@@ -47,8 +60,10 @@ BrFocusModel >> stateChangedEventClass [
 ]
 
 { #category : #streaming }
-BrFocusModel >> streamStateOn: aStream [
-	aStream nextPut: (self isFocused
-		ifTrue: [ BrFocusedState new ]
-		ifFalse: [ BrFocusedState new not ])
+BrFocusModel >> streamStateIn: aBrInteractionStatesMapping [
+	aBrInteractionStatesMapping
+		addState: (self isFocused
+			ifTrue: [ BrFocusedState new ]
+			ifFalse: [ BrFocusedState new not ])
+		model: self
 ]

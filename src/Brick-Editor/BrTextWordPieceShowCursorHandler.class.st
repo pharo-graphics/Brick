@@ -12,7 +12,7 @@ BrTextWordPieceShowCursorHandler >> eventClass [
 { #category : #'api - event managing' }
 BrTextWordPieceShowCursorHandler >> handleEvent: anEvent [
 	| aCursorElement |
-			
+
 	aCursorElement := anEvent currentTarget addCursorAt: anEvent cursorPosition.
 	anEvent editorElement dispatchEvent: (BrTextEditorCursorElementAddedEvent new cursorElement: aCursorElement).
 

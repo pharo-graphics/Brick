@@ -4,7 +4,7 @@ Class {
 	#instVars : [
 		'thumb'
 	],
-	#category : 'Brick-Hydra'
+	#category : #'Brick-Hydra'
 }
 
 { #category : #accessing }
@@ -15,30 +15,29 @@ BrHydraSwitchWithoutTrackLook >> deactivatedColor [
 { #category : #initialization }
 BrHydraSwitchWithoutTrackLook >> initialize [
 	super initialize.
-	
-	thumb := self newThumbElement
-]
-
-{ #category : #initialization }
-BrHydraSwitchWithoutTrackLook >> initializeLook [
-	super initializeLook.
-
-	self widget
-		size: 36@20;
-		layout: BlFrameLayout new;
-		padding: (BlInsets all: 3);
-		border: (BlBorder builder width: 1; build);
-		geometry: (BlRectangle cornerRadius: 8).
-
-	self widget addChild: thumb.
-
-	self updateColor
+	thumb := self newThumbElement.
+	self addChangeProperty: #(widget layout) with: [ BlFrameLayout new ].
+	self addChangeProperty: #(widget padding) with: [ BlInsets all: 3 ].
+	self
+		addChangeProperty: #(widget border)
+		with: [ :e | e copyWithWidth: 1 ].
+	self
+		addChangeProperty: #(widget geometry)
+		with: [ BlRoundedRectangleGeometry cornerRadius: 8 ].
+	self addChangeAddChildAs: #(content thumb) with: [ thumb ].
+	self addChangeProperty: #(widget size) with: [ 36 @ 20 ].
+	self
+		addChange:
+			(BrLookChange new
+				up: [ :e | self updateColor ];
+				down: [ :e |  ];
+				yourself)
 ]
 
 { #category : #'instance creation' }
 BrHydraSwitchWithoutTrackLook >> newThumbElement [
 	^ BlElement new
-		geometry: (BlEllipse new);
+		geometry: (BlEllipseGeometry new);
 		constraintsDo: [ :c |
 			c horizontal matchParent.
 			c vertical matchParent.

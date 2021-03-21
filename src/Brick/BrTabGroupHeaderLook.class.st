@@ -5,9 +5,7 @@ Class {
 		'tabs',
 		'header',
 		'tabbar',
-		'toolbar',
-		'scrollTabbar',
-		'tabModels'
+		'scrollTabbar'
 	],
 	#category : #'Brick-Tabs - Look'
 }
@@ -28,15 +26,23 @@ BrTabGroupHeaderLook >> headerDo: aBlock [
 { #category : #initialization }
 BrTabGroupHeaderLook >> initialize [
 	super initialize.
+	"We have the following structure:
+	
+	- header
+		- scrollable
+			- tabbar
+	"
+	tabs := OrderedCollection new.
 
-	tabs := OrderedCollection new. 
-	header := BlElement new.
-	scrollTabbar := BlScrollableElement new.
-	header addChild: scrollTabbar as: #scrolltabbar.
-	tabbar := BlElement new.
+	header := BlElement new labeled: 'Header'.
+	scrollTabbar := BlScrollableElement new labeled: 'Scrollable'.
+	tabbar := BlElement new labeled: 'Tabbar'.
+
 	scrollTabbar addChild: tabbar as: #tabbar.
-	toolbar := BlElement new.
-	header addChild: toolbar as: #toolbar.
+
+	header addChild: scrollTabbar as: #scrolltabbar.
+
+	self addChangeAddChildAs: #(header) with: [ header ].
 ]
 
 { #category : #initialization }
@@ -46,31 +52,21 @@ BrTabGroupHeaderLook >> initializeListeners [
 		when: BrTabAddedEvent
 		do: [ :anEvent | self onTabAdded: anEvent tab at: anEvent position ].
 	self
+		when: BrTabMovedEvent
+		do: [ :anEvent | self onTabMoved: anEvent tab from: anEvent oldPosition to: anEvent newPosition ].
+	self
 		when: BrTabRemovedEvent
 		do: [ :anEvent | self onTabRemoved: anEvent tab ].
 	self
-		when: BrTabsChangedEvent
+		when: BrTabGroupTabsChangedEvent
 		do: [ :anEvent | self onTabsChanged: anEvent tabs ].
 	self
 		when: BrTabSelectedEvent
 		do: [ :anEvent | self onTabSelected: anEvent tab ].
 	self
 		when: BrTabDeselectedEvent
-		do: [ :anEvent | self onTabDeselected: anEvent tab ]
-]
+		do: [ :anEvent | self onTabDeselected: anEvent tab ].
 
-{ #category : #initialization }
-BrTabGroupHeaderLook >> initializeLook [
-	super initializeLook.
-
-	self widget addChild: header as: #header.
-]
-
-{ #category : #initialization }
-BrTabGroupHeaderLook >> initializeRequests [
-	super initializeRequests.
-	
-	self request: BrTabsRequest new
 ]
 
 { #category : #hooks }
@@ -91,7 +87,31 @@ BrTabGroupHeaderLook >> onTabAdded: aBrTabModel at: anIndex [
 
 { #category : #hooks }
 BrTabGroupHeaderLook >> onTabDeselected: aBrTabModel [ 
-	self toolbar removeChildren.
+	self
+		assert: [ self isAttachedToWidget ]
+		description: [ 'I can not receive the tab deselected event without being attached to a widget' ].
+
+]
+
+{ #category : #hooks }
+BrTabGroupHeaderLook >> onTabMoved: aBrTabModel from: anOldIndex to: aNewIndex [
+	| anAssoc |
+	self
+		assert: [ self isAttachedToWidget ]
+		description: [ 'I can not receive the tab moved event without being attached to a widget' ].
+
+	anAssoc := self tabs at: anOldIndex.
+	self
+		assert: [ anAssoc key == aBrTabModel ]
+		description: [ 'The moved tab at the old position must be identical to the local tab model at the same position' ].
+	
+	self tabs remove: anAssoc.
+	self tabs add: anAssoc beforeIndex: aNewIndex.
+
+	aBrTabModel whenAttachedDo: [ :aTabElement |
+		self tabbar removeChildren: self tabElements.
+		anAssoc value: aTabElement.
+		self tabbar addChildren: self tabElements ]
 ]
 
 { #category : #hooks }
@@ -105,10 +125,11 @@ BrTabGroupHeaderLook >> onTabRemoved: aBrTabModel [
 		self tabbar removeChild: aTabElement ]
 ]
 
-{ #category : #'private - accessing' }
+{ #category : #hooks }
 BrTabGroupHeaderLook >> onTabSelected: aTabModel [
-	self toolbar removeChildren.
-	self toolbar addChild: aTabModel actionStencilBuilder asElement
+	self
+		assert: [ self isAttachedToWidget ]
+		description: [ 'I can not receive the tab selected event without being attached to a widget' ]
 ]
 
 { #category : #hooks }
@@ -124,6 +145,8 @@ BrTabGroupHeaderLook >> onTabsChanged: aCollectionOfTabs [
 
 { #category : #'api - accessing' }
 BrTabGroupHeaderLook >> scrollTabbar [
+	<return: #BlElement>
+
 	^ scrollTabbar
 ]
 
@@ -146,6 +169,8 @@ BrTabGroupHeaderLook >> tabModels [
 
 { #category : #'api - accessing' }
 BrTabGroupHeaderLook >> tabbar [
+	<return: #BlElement>
+
 	^ tabbar
 ]
 
@@ -157,14 +182,4 @@ BrTabGroupHeaderLook >> tabbarDo: aBlock [
 { #category : #'private - accessing' }
 BrTabGroupHeaderLook >> tabs [
 	^ tabs
-]
-
-{ #category : #'api - accessing' }
-BrTabGroupHeaderLook >> toolbar [
-	^ toolbar
-]
-
-{ #category : #'api - accessing' }
-BrTabGroupHeaderLook >> toolbarDo: aBlock [
-	aBlock value: self toolbar
 ]

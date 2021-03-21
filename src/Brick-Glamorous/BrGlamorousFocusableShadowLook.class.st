@@ -8,7 +8,9 @@ Class {
 BrGlamorousFocusableShadowLook >> initialize [
 	super initialize.
 	
-	self add: (BrInteractiveLook new style: [ :aStyler |
-		aStyler default: [ self color: (BrGlamorousColors darkBorderColor alpha: 0.5) ].
-		aStyler focused: [ self color: (BrGlamorousColors primaryBorderColor alpha: 0.75) ] ])
+	self add: (BrStyleCommonLook new
+		focused: [ :aStyle |
+			aStyle
+				do: [ self color: (BrGlamorousColors primaryBorderColor alpha: 0.75) ]
+				after: [ self color: (BrGlamorousColors darkBorderColor alpha: 0.5) ] ])
 ]

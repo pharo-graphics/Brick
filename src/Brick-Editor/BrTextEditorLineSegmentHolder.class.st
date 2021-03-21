@@ -6,8 +6,7 @@ Class {
 	#superclass : #BrTextEditorSegmentHolder,
 	#instVars : [
 		'segment',
-		'pieceElements',
-		'mouseDownHandler'
+		'pieceElements'
 	],
 	#classInstVars : [
 		'defaultSegmentLayoutBlock'
@@ -32,22 +31,94 @@ BrTextEditorLineSegmentHolder class >> defaultSegmentLayout: aBlock [
 	defaultSegmentLayoutBlock := aBlock
 ]
 
+{ #category : #'private - segment' }
+BrTextEditorLineSegmentHolder >> buildSegment: anEditorSegment [
+	| newPieceElements thePieces hasSelection hasCursor |
+
+	segment := anEditorSegment.
+
+	hasSelection := self hasSelection.
+	hasCursor := self hasCursor.
+	
+	self infiniteElement telemetry
+		timeSync: [ 'Update segment properties' ]
+		during: [ segment updateSegmentProperties ].
+
+	pieceElements := self newPiecesMap.
+	newPieceElements := OrderedCollection new.
+
+	thePieces := self infiniteElement telemetry
+		timeSync: [ 'Get pieces' ]
+		during: [ segment pieces ].
+	
+	self infiniteElement telemetry
+		timeSync: [ 'Create piece elements' ]
+		during: [
+			thePieces withIndexDo: [ :aPiece :eachIndex | 
+				| thePieceElements |
+				
+				thePieceElements := self infiniteElement telemetry
+					timeSync: [ 'Create piece elements at {1}' format: { eachIndex } ]
+					during: [ (aPiece createElement: self infiniteElement) asOrderedCollection ].
+				
+				newPieceElements addAll: thePieceElements.
+				pieceElements atPiece: aPiece putElements: thePieceElements ] ].
+
+	(hasCursor or: [ hasSelection ])
+		ifTrue: [
+			self infiniteElement telemetry
+				timeSync: [ 'Set cursor, selection' ]
+				during: [
+					pieceElements piecesAndTheirElementsDo: [ :aPiece :aPieceElement |
+						hasCursor
+							ifTrue: [
+								self infiniteElement telemetry
+									timeSync: [ 'Set cursor' ]
+									during: [ aPiece setCursor: aPieceElement of: anEditorSegment in: self infiniteElement ] ].
+						
+						self infiniteElement telemetry
+							timeSync: [ 'Set focus' ]
+							during: [ aPiece updateFocus: self infiniteElement isFocused of: aPieceElement in: self infiniteElement ].
+						
+						hasSelection
+							ifTrue: [
+								self infiniteElement telemetry
+									timeSync: [ 'Set selection' ]
+									during: [ aPiece updateSelection: aPieceElement of: anEditorSegment in: self infiniteElement ] ] ] ] ].
+
+	self infiniteElement telemetry
+		timeSync: [ 'Remove segment children' ]
+		during: [ itemElement removeChildren ].
+
+	self infiniteElement telemetry
+		timeSync: [ 'Add segment children' ]
+		during: [ itemElement addChildren: newPieceElements ].
+
+	itemElement
+		constraintsDo: [ :c | c horizontal resizer: infiniteElement constraints horizontal resizer ];
+		padding: anEditorSegment paragraphMargin
+]
+
+{ #category : #'private - accessing' }
+BrTextEditorLineSegmentHolder >> cachedPieces [
+	<return: #Collection of: #BrTextEditorLineSegmentPiece>
+	
+	^ pieceElements allPieces
+]
+
 { #category : #initialization }
 BrTextEditorLineSegmentHolder >> createSegmentElement [
 	<return: #BlElement>
 
 	^ BrTextEditorSegmentElement new
+		beInSeparateCompositionLayer;
 		layout: self class defaultSegmentLayout;
 		focusability: BlFocusability after;
-		addEventHandler: (mouseDownHandler := BrTextEditorMouseDownHandler new);
-		clipChildren: false;
 		constraintsDo: [ :c |
 			c horizontal matchParent.
 			c vertical fitContent ];
 		look: (BrLayoutResizerLook new
-			hExactToMatchParent;
-			hMatchParent;
-			hFitContent;
+			hInherit;
 			vAnyToFitContent);
 		yourself
 ]
@@ -71,23 +142,53 @@ BrTextEditorLineSegmentHolder >> explicitScreenToCursor: aTransformation [
 	(aTransformedScreenPosition y between: aBoundsInEditor top and: aBoundsInEditor bottom)
 		ifFalse: [  ^ self ].
 			
-	aPositionInSegment := (itemElement globalBoundsToMine: (BlBounds origin: aTransformation screenPosition extent: 0@0) fromParent: self infiniteElement) center.	
+	aPositionInSegment := (itemElement globalBoundsToMine: (BlBounds origin: aTransformation screenPosition extent: 0.0@0.0) fromParent: self infiniteElement) center.	
 	segment hasPieces
 		ifFalse: [ ^ self ].
 	
 	"trying to find a segment that actually contains a given position"
-	self piecesAndTheirElementsDo: [ :aPiece :aPieceElement |
+	pieceElements piecesAndTheirElementsDo: [ :aPiece :aPieceElement |
 		(aPieceElement bounds inParent bounds containsPoint: aPositionInSegment)
 			ifTrue: [ ^ aPiece screenToCursor: aTransformation of: self infiniteElement in: aPieceElement ] ].
 		
-	"clicked outside of a segent piece, should find the closest element"
+	"clicked outside of a segment piece, should find the closest element"
 	
 	aClosestPieceElement := itemElement layout findClosestChildOf: itemElement to: aPositionInSegment.
-	aClosestPiece := pieceElements
-		keyAtValue: aClosestPieceElement
+	aClosestPiece := pieceElements 
+		pieceForElement: aClosestPieceElement
 		ifAbsent: [ ^ self ].
 		
 	aClosestPiece screenToCursor: aTransformation of: self infiniteElement in: aClosestPieceElement
+]
+
+{ #category : #'private - testing' }
+BrTextEditorLineSegmentHolder >> hasCursor [
+	| aTextEditor |
+	aTextEditor := self infiniteElement editor.
+	aTextEditor cursors
+		do: [ :aCursor | 
+			(aCursor insideSegment: segment)
+				ifTrue: [ ^ true ] ].
+	^ false
+]
+
+{ #category : #'private - testing' }
+BrTextEditorLineSegmentHolder >> hasSelection [
+	| aTextEditor textInterval |
+
+	aTextEditor := self infiniteElement editor.
+	textInterval := BlSelection from: (segment textStart + 1 min: segment textEnd) to: segment textEnd.
+	
+	(aTextEditor selection + aTextEditor selectionRecorder selection) do: [ :aSelection |
+		(aSelection overlaps: textInterval)
+			ifTrue: [ ^ true ] ].
+
+	^ false
+]
+
+{ #category : #'private - segment' }
+BrTextEditorLineSegmentHolder >> newPiecesMap [
+	^ BrTextEditorLineSegmentPieceCollectionMap new
 ]
 
 { #category : #updating }
@@ -99,7 +200,7 @@ BrTextEditorLineSegmentHolder >> onCursorChanged [
 		assert: [ segment isNotNil ]
 		description: [ 'Segment must be bound!' ].
 
-	self piecesAndTheirElementsDo: [ :aPiece :aPieceElement |
+	pieceElements piecesAndTheirElementsDo: [ :aPiece :aPieceElement |
 		aPiece updateCursor: aPieceElement of: segment in: self infiniteElement ]
 ]
 
@@ -112,8 +213,17 @@ BrTextEditorLineSegmentHolder >> onFocusChanged: aBoolean [
 		assert: [ segment isNotNil ]
 		description: [ 'Segment must be bound!' ].
 
-	self piecesAndTheirElementsDo: [ :aPiece :aPieceElement |
+	pieceElements piecesAndTheirElementsDo: [ :aPiece :aPieceElement |
 		aPiece updateFocus: aBoolean of: aPieceElement in: self infiniteElement ]
+]
+
+{ #category : #updating }
+BrTextEditorLineSegmentHolder >> onRecycled [
+
+	itemElement removeChildren.
+	pieceElements piecesAndTheirElementsDo: [ :aPiece :aPieceElement | aPiece onRecycled: aPieceElement in: self infiniteElement ].
+	pieceElements := nil.
+	segment := nil.
 ]
 
 { #category : #updating }
@@ -125,7 +235,7 @@ BrTextEditorLineSegmentHolder >> onSelectionChanged [
 		assert: [ segment isNotNil ]
 		description: [ 'Segment must be bound!' ].
 
-	self piecesAndTheirElementsDo: [ :aPiece :aPieceElement |
+	pieceElements piecesAndTheirElementsDo: [ :aPiece :aPieceElement |
 		aPiece updateSelection: aPieceElement of: segment in: self infiniteElement ]
 ]
 
@@ -133,32 +243,21 @@ BrTextEditorLineSegmentHolder >> onSelectionChanged [
 BrTextEditorLineSegmentHolder >> onTextChanged [
 	"Is sent when text changed in the editor (for example style attributes).
 	Segment holder should update text elements accordingly"
-		
+
 	self
 		assert: [ segment isNotNil ]
 		description: [ 'Segment must be bound!' ].
 
-	self piecesAndTheirElementsDo: [ :aPiece :aPieceElement |
+	pieceElements piecesAndTheirElementsDo: [ :aPiece :aPieceElement |
 		aPiece updateText: aPieceElement of: segment in: self infiniteElement ]
-]
-
-{ #category : #enumerating }
-BrTextEditorLineSegmentHolder >> piecesAndTheirElementsDo: aBlock [
-	segment hasPieces
-		ifFalse: [ ^ self ].
-		
-	segment pieces do: [ :eachPiece |
-		pieceElements
-			at: eachPiece
-			ifPresent: [ :eachPieceElement | aBlock value: eachPiece value: eachPieceElement ] ]
 ]
 
 { #category : #cursor }
 BrTextEditorLineSegmentHolder >> relativeScreenToCursor: aTransformation [	
 	"trying to find a segment that actually contains a given position"
 
-	self piecesAndTheirElementsDo: [ :aPiece :aPieceElement |
-		(aTransformation cursor position between: aPiece start and: aPiece end)
+	pieceElements piecesAndTheirElementsDo: [ :aPiece :aPieceElement |
+		(aTransformation cursor insideSubText: aPiece of: segment)
 			ifTrue: [ ^ aPiece screenToCursor: aTransformation of: self infiniteElement in: aPieceElement ] ]
 ]
 
@@ -169,20 +268,88 @@ BrTextEditorLineSegmentHolder >> screenToCursor: aTransformation [
 
 { #category : #accessing }
 BrTextEditorLineSegmentHolder >> segment: anEditorSegment [
+	segment == anEditorSegment
+		ifTrue: [
+			self infiniteElement telemetry
+				timeSync: [ 'Update segment at {1}' format: { anEditorSegment index } ]
+				during: [ self updateSegment: anEditorSegment ] ]
+		ifFalse: [
+			self infiniteElement telemetry
+				timeSync: [ 'Build segment at {1}' format: { anEditorSegment index } ]
+				during: [ self buildSegment: anEditorSegment ] ]
+]
+
+{ #category : #'private - segment' }
+BrTextEditorLineSegmentHolder >> updateSegment: anEditorSegment [
+	| newPieceElements newPieceMap |
+	self
+		assert: [ segment == anEditorSegment ]
+		description: [ 'Can only update the same segment!' ].
+
 	segment := anEditorSegment.
+	segment updateSegmentProperties.
 	
-	mouseDownHandler editorElement: self infiniteElement.
-	pieceElements := OrderedIdentityDictionary new.
-	segment pieces do: [ :aPiece | pieceElements at: aPiece put: (aPiece createElement: self infiniteElement) ].
+	newPieceMap := self newPiecesMap.
+	newPieceElements := OrderedCollection new.
 	
-	self piecesAndTheirElementsDo: [ :aPiece :aPieceElement |
-		aPiece updateCursor: aPieceElement of: anEditorSegment in: self infiniteElement.
-		aPiece updateSelection: aPieceElement of: anEditorSegment in: self infiniteElement ].
+	self infiniteElement telemetry
+		timeSync: [ 'Update piece elements' ]
+		during: [
+			| thePieces |
+			self infiniteElement telemetry
+				timeSync: [ 'Compute pieces' ]
+				during: [ thePieces := segment pieces ].
+			
+			thePieces do: [ :eachSegmentPiece | 
+				| thePieceElements |
+
+				thePieceElements := pieceElements
+					at: eachSegmentPiece
+					pieceAndElementsDo: [ :eachPiece :theSegmentElements |
+						
+						"We should transfer the knowledge of the cursors to the new segment piece,
+						otherwise cursors may not be removed from the corresponding elements
+						https://github.com/feenkcom/gtoolkit/issues/892"						
+						eachSegmentPiece currentCursors: eachPiece currentCursors.
+
+						theSegmentElements do: [ :eachSegmentElement |
+							self infiniteElement telemetry
+								timeSync: [ 'Update text of `{1}`' format: { eachPiece } ]
+								during: [ eachPiece updateText: eachSegmentElement of: segment in: self infiniteElement ] ].
+						theSegmentElements ]
+					ifAbsent: [ 
+							self infiniteElement telemetry
+								timeSync: [ 'Create element for `{1}`' format: { eachSegmentPiece } ]
+								during: [ (eachSegmentPiece createElement: self infiniteElement) asOrderedCollection ] ].
+			
+				newPieceElements addAll: thePieceElements.
+				newPieceMap atPiece: eachSegmentPiece putElements: thePieceElements ] ].
+
+	pieceElements := newPieceMap.
+
+	self infiniteElement telemetry
+		timeSync: [ 'Update cursor and selection' format: { anEditorSegment index } ]
+		during: [
+			pieceElements piecesAndTheirElementsDo: [ :aPiece :aPieceElement |
+				self infiniteElement telemetry
+					timeSync: [ 'Update cursor of {1}' format: { aPiece } ]
+					during: [ aPiece updateCursor: aPieceElement of: anEditorSegment in: self infiniteElement ].
+				self infiniteElement telemetry
+					timeSync: [ 'Update selection of {1}' format: { aPiece } ]
+					during: [ aPiece updateSelection: aPieceElement of: anEditorSegment in: self infiniteElement ].
+				self infiniteElement telemetry
+					timeSync: [ 'Update focus of {1}' format: { aPiece } ]
+					during: [ aPiece updateFocus: self infiniteElement isFocused of: aPieceElement in: self infiniteElement ]. ] ].
+
+	self infiniteElement telemetry
+		timeSync: [ 'Remove children' ]
+		during: [ itemElement removeChildren ].
+
+	self infiniteElement telemetry
+		timeSync: [ 'Add piece elements' ]
+		during: [ itemElement addChildren: newPieceElements ].
 
 	itemElement
-		removeChildren;
-		addChildren: pieceElements values;
 		constraintsDo: [ :c | c horizontal resizer: infiniteElement constraints horizontal resizer ];
-		layoutDo: [ :aLayout | aLayout lineSpacing: anEditorSegment lineSpacing ];
 		padding: anEditorSegment paragraphMargin
 ]

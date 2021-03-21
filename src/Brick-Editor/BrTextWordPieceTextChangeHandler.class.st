@@ -11,5 +11,5 @@ BrTextWordPieceTextChangeHandler >> eventClass [
 
 { #category : #'api - event managing' }
 BrTextWordPieceTextChangeHandler >> handleEvent: anEvent [
-	anEvent currentTarget textChanged
+	anEvent currentTarget segmentPiece: anEvent segmentPiece
 ]

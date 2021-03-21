@@ -4,7 +4,7 @@ Class {
 	#instVars : [
 		'thumb'
 	],
-	#category : 'Brick-Hydra'
+	#category : #'Brick-Hydra'
 }
 
 { #category : #accessing }
@@ -15,30 +15,27 @@ BrHydraSwitchRadioLook >> deactivatedColor [
 { #category : #initialization }
 BrHydraSwitchRadioLook >> initialize [
 	super initialize.
-	
-	thumb := self newThumbElement
-]
-
-{ #category : #initialization }
-BrHydraSwitchRadioLook >> initializeLook [
-	super initializeLook.
-
-	self widget
-		size: 20@20;
-		layout: BlFrameLayout new;
-		padding: (BlInsets all: 3);
-		border: (BlBorder builder width: 1; build);
-		geometry: BlEllipse new.
-
-	self widget addChild: thumb.
-
-	self updateColor
+	thumb := self newThumbElement.
+	self addChangeProperty: #(widget layout) with: [ BlFrameLayout new ].
+	self addChangeProperty: #(widget padding) with: [ BlInsets all: 3 ].
+	self
+		addChangeProperty: #(widget border)
+		with: [ :e | e copyWithWidth: 1 ].
+	self addChangeProperty: #(widget geometry) with: [ BlEllipseGeometry new ].
+	self addChangeAddChildAs: #(content thumb) with: [ thumb ].
+	self addChangeProperty: #(widget size) with: [ 20 @ 20 ].
+	self
+		addChange:
+			(BrLookChange new
+				up: [ :e | self updateColor ];
+				down: [ :e |  ];
+				yourself)
 ]
 
 { #category : #'instance creation' }
 BrHydraSwitchRadioLook >> newThumbElement [
 	^ BlElement new
-		geometry: BlEllipse new;
+		geometry: BlEllipseGeometry new;
 		constraintsDo: [ :c |
 			c horizontal matchParent.
 			c vertical matchParent ]

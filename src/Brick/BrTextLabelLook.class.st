@@ -19,32 +19,33 @@ Class {
 	#traits : 'TBlTextStyleable',
 	#classTraits : 'TBlTextStyleable classTrait',
 	#instVars : [
-		'labelElement',
-		'attributesBuilder',
-		'text'
+		'labelElement'
 	],
-	#category : #'Brick-! Core'
+	#category : #'Brick-! Core - Looks'
 }
 
 { #category : #accessing }
 BrTextLabelLook >> attributesBuilder [
 	<return: #BlTextAttributesBuilder>
 	
-	^ attributesBuilder
+	^ labelElement attributesBuilder
+]
+
+{ #category : #initialization }
+BrTextLabelLook >> editorMeasurement [
+	labelElement editorMeasurement
 ]
 
 { #category : #initialization }
 BrTextLabelLook >> initialize [
 	super initialize.
 
-	text := 'Label' asRopedText.
+	labelElement := BlAttributedTextElement new
+		text: 'Label' asRopedText;
+		labelMeasurement;
+		padding: (BlInsets all: 1).
 
-	labelElement := BlTextElement new.
-	labelElement clipChildren: false.
-
-	attributesBuilder := BlTextDelegatedAttributesBuilder new.
-	attributesBuilder attributesTarget: text.
-	attributesBuilder whenAdded: [ labelElement textChanged ]
+	self addChangeAddChildAs: #(content label) with: [ self label ].
 ]
 
 { #category : #initialization }
@@ -52,14 +53,6 @@ BrTextLabelLook >> initializeListeners [
 	super initializeListeners.
 	
 	self when: BrLabelChanged do: [ :anEvent | self text: anEvent text ]
-]
-
-{ #category : #initialization }
-BrTextLabelLook >> initializeLook [
-	super initializeLook.
-
-	labelElement text: text.
-	self widgetContent addChild: labelElement as: #label
 ]
 
 { #category : #initialization }
@@ -77,8 +70,14 @@ BrTextLabelLook >> label [
 ]
 
 { #category : #accessing }
-BrTextLabelLook >> labelDo: aBlock [	
-	aBlock value: self label
+BrTextLabelLook >> labelDo: aBlock [
+	
+	self label ifNotNil: aBlock
+]
+
+{ #category : #initialization }
+BrTextLabelLook >> labelMeasurement [
+	labelElement labelMeasurement
 ]
 
 { #category : #accessing }
@@ -90,18 +89,20 @@ BrTextLabelLook >> padding: aBlInsets [
 BrTextLabelLook >> text [
 	<return: #BlText>
 
-	^ text
+	^ labelElement text
 ]
 
 { #category : #accessing }
 BrTextLabelLook >> text: aTextOrString [
-	text := aTextOrString asRopedText.
-	
-	self attributesBuilder attributesTarget: text.
-	self label text: text
+	self label text: aTextOrString asRopedText
 ]
 
 { #category : #accessing }
 BrTextLabelLook >> textDo: aBlock [
 	self label textDo: aBlock
+]
+
+{ #category : #initialization }
+BrTextLabelLook >> tightMeasurement [
+	labelElement tightMeasurement
 ]

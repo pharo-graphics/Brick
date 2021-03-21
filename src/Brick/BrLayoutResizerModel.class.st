@@ -4,7 +4,7 @@ Class {
 	#instVars : [
 		'resizer'
 	],
-	#category : #'Brick-Layout Resizer - Model'
+	#category : #'Brick-! Deprecated'
 }
 
 { #category : #'instance creation' }
@@ -18,12 +18,25 @@ BrLayoutResizerModel class >> fitContent [
 ]
 
 { #category : #'instance creation' }
+BrLayoutResizerModel class >> fitContentLimited [
+	^ self new fitContentLimited
+]
+
+{ #category : #testing }
+BrLayoutResizerModel class >> isDeprecated [
+	^ true
+]
+
+{ #category : #'instance creation' }
 BrLayoutResizerModel class >> matchParent [
 	^ self new matchParent
 ]
 
 { #category : #'instance creation' }
 BrLayoutResizerModel >> exact: aNumber [
+	<argument: #aNumber satisfies: #isBlocFiniteFloat>
+	<argument: #aNumber satisfies: #isBlocPositiveFloat>
+
 	self resizer: (BlLayoutResizer exact: aNumber)
 ]
 
@@ -32,11 +45,16 @@ BrLayoutResizerModel >> fitContent [
 	self resizer: BlLayoutResizer fitContent
 ]
 
+{ #category : #'instance creation' }
+BrLayoutResizerModel >> fitContentLimited [
+	self resizer: BlLayoutResizer fitContentLimited
+]
+
 { #category : #initialization }
 BrLayoutResizerModel >> initialize [
 	super initialize.
-	
-	resizer := BlLayoutResizer exact: 50
+
+	resizer := BlLayoutResizer exact: 50.0
 ]
 
 { #category : #'instance creation' }
@@ -53,6 +71,9 @@ BrLayoutResizerModel >> resizer [
 
 { #category : #accessing }
 BrLayoutResizerModel >> resizer: aLayoutResizer [
+	resizer = aLayoutResizer
+		ifTrue: [ ^ self ].
+
 	resizer := aLayoutResizer.
 	self notifyStateChanged: aLayoutResizer
 ]

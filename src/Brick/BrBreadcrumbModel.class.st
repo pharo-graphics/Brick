@@ -14,7 +14,7 @@ BrBreadcrumbModel >> addItem: aWidgetModel [
 		description: [ 'Can not add nil widget model' ].
 
 	self items add: aWidgetModel.
-	self onItemAdded: aWidgetModel
+	self onItemAdded: aWidgetModel at: self items size
 ]
 
 { #category : #testing }
@@ -53,13 +53,13 @@ BrBreadcrumbModel >> items [
 ]
 
 { #category : #notifying }
-BrBreadcrumbModel >> notifyItemAdded: aWidgetModel [
-	self dispatchEvent: (BrBreadcrumbItemAddedEvent item: aWidgetModel)
+BrBreadcrumbModel >> notifyItemAdded: aWidgetModel at: anIndex [
+	self dispatchEvent: ((BrBreadcrumbItemAddedEvent item: aWidgetModel) index: anIndex)
 ]
 
 { #category : #notifying }
-BrBreadcrumbModel >> notifyItemRemoved: aWidgetModel [
-	self dispatchEvent: (BrBreadcrumbItemRemovedEvent item: aWidgetModel)
+BrBreadcrumbModel >> notifyItemRemoved: aWidgetModel at: anItemIndex [
+	self dispatchEvent: ((BrBreadcrumbItemRemovedEvent item: aWidgetModel) index: anItemIndex)
 ]
 
 { #category : #accessing }
@@ -70,13 +70,18 @@ BrBreadcrumbModel >> numberOfItems [
 ]
 
 { #category : #hooks }
-BrBreadcrumbModel >> onItemAdded: aWidgetModel [
-	self notifyItemAdded: aWidgetModel.
+BrBreadcrumbModel >> onItemAdded: aWidgetModel at: anIndex [
+	self notifyItemAdded: aWidgetModel at: anIndex
 ]
 
 { #category : #hooks }
 BrBreadcrumbModel >> onItemRemoved: aWidgetModel at: anItemIndex [
-	self notifyItemRemoved: aWidgetModel
+	self notifyItemRemoved: aWidgetModel at: anItemIndex
+]
+
+{ #category : #'api - items' }
+BrBreadcrumbModel >> removeAllItems [	
+	self numberOfItems to: 1 by: -1 do: [ :anIndex | self removeItemAt: anIndex ]
 ]
 
 { #category : #'api - items' }
@@ -84,11 +89,18 @@ BrBreadcrumbModel >> removeItem: aWidgetModel [
 	| anItemIndex |
 
 	anItemIndex := self items indexOf: aWidgetModel.
-	self items remove: aWidgetModel.
-	self onItemRemoved: aWidgetModel at: anItemIndex
+	self removeItemAt: anItemIndex
 ]
 
 { #category : #'api - items' }
 BrBreadcrumbModel >> removeItemAt: anIndex [
-	self removeItem: (self itemAt: anIndex)
+	| aRemovedItem |
+	
+	self
+		assert: [ anIndex between: 1 and: self numberOfItems ]
+		description: [ 'Wrong item index! (Out of bounds)' ].
+
+	aRemovedItem := self itemAt: anIndex.
+	self items removeAt: anIndex.
+	self onItemRemoved: aRemovedItem at: anIndex
 ]

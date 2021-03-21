@@ -1,50 +1,53 @@
 Class {
 	#name : #BrExpander,
 	#superclass : #BlElement,
-	#traits : 'TBrLayoutResizable',
-	#classTraits : 'TBrLayoutResizable classTrait',
-	#instVars : [
-		'expandableModel',
-		'accordionModel'
-	],
+	#traits : 'TBrLayoutResizable + TBrExpandable',
+	#classTraits : 'TBrLayoutResizable classTrait + TBrExpandable classTrait',
 	#category : #'Brick-Expander - UI'
 }
 
-{ #category : #'api - expander' }
+{ #category : #'api - expandable' }
 BrExpander >> collapse [
-	expandableModel collapse
+	self states addState: BrCollapsedState uniqueInstance
 ]
 
 { #category : #accessing }
 BrExpander >> content: aStencil [
-	accordionModel contentStencil: aStencil
+	self viewModel contentStencil: aStencil
 ]
 
-{ #category : #'api - expander' }
+{ #category : #'api - expandable' }
 BrExpander >> expand [
-	expandableModel expand
+	self states addState: BrExpandedState uniqueInstance
 ]
 
 { #category : #accessing }
 BrExpander >> header: aStencil [
-	accordionModel headerStencil: aStencil
+	self viewModel headerStencil: aStencil
 ]
 
 { #category : #initialization }
 BrExpander >> initialize [
 	super initialize.
 	
-	self viewModel: (accordionModel := BrAccordionModel new
-		addAll: {
-			BrInteractiveModel new
-				withFocus;
-				addState: (expandableModel := BrExpandableModel new);
-				addState: (BrLayoutHorizontalResizerModel new);
-				addState: (BrLayoutVerticalResizerModel new)
-		})
+	self viewModel: BrAccordionModel new.
+	self collapse.
 ]
 
-{ #category : #'api - expander' }
-BrExpander >> toggle [
-	expandableModel toggle
+{ #category : #'api - expandable' }
+BrExpander >> isExpanded [
+	"Return true if an widget is expanded (has expanded state), false otherwise"
+	<return: #Boolean>
+
+	^ self states hasState: BrExpandedState uniqueInstance
+]
+
+{ #category : #'api - events' }
+BrExpander >> whenCollapsedDo: aBlock [
+	self when: BrCollapsedEvent do: [ :anEvent | aBlock cull: anEvent ]
+]
+
+{ #category : #'api - events' }
+BrExpander >> whenExpandedDo: aBlock [
+	self when: BrExpandedEvent do: [ :anEvent | aBlock cull: anEvent ]
 ]

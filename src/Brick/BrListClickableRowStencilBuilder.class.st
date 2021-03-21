@@ -23,11 +23,12 @@ BrListClickableRowStencilBuilder >> buildDefault [
 		when: BlClickEvent
 			do: [ :anEvent | 
 			anEvent consumed: true.
-			aList selectOne: anIndex dueTo: anEvent ];
+			aList selectOne: anIndex dueTo: anEvent.
+			aList requestFocus ];
 		when: BlDoubleClickEvent
 			do: [ :anEvent |
 			anEvent consumed: true.
-			aList dispatchEvent: (BrSelectionDoubleClicked new selection: aList selection; sourceEvent: anEvent) ]
+			aList dispatchEvent: (BrSelectionDoubleClicked new selection: aList selectedIndices; sourceEvent: anEvent) ]
 ]
 
 { #category : #accessing }

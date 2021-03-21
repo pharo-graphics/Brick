@@ -32,7 +32,6 @@ BrToggleExamples >> activatePredefinedToggle [
 	aToggle activate.
 
 	self assert: aToggle isActivated.
-	self assert: aToggle viewModel isActivated.
 	
 	^ aToggle
 ]
@@ -43,7 +42,7 @@ BrToggleExamples >> changeIconOfThePredefinedToggle [
 	| aToggle anIcon |
 	
 	aToggle := self predefinedToggle.
-	anIcon := (BlEllipse extent: 10@10) asElement.
+	anIcon := ((BlEllipseGeometry new) extent: 10@10) asElement.
 	
 	aToggle icon: anIcon.
 	self assert: aToggle icon equals: anIcon.
@@ -60,7 +59,7 @@ BrToggleExamples >> changeLabelOfThePredefinedToggle [
 	aLabel := 'Hello world'.
 	
 	aToggle label: aLabel.
-	self assert: aToggle label equals: aLabel.
+	self assert: aToggle label asString equals: aLabel.
 
 	^ aToggle
 ]
@@ -72,7 +71,7 @@ BrToggleExamples >> circleIcon [
 	^ BlElement new
 		size: 6@6;
 		background: Color red;
-		geometry: BlEllipse new;
+		geometry: BlEllipseGeometry new;
 		margin: (BlInsets all: 3)
 ]
 
@@ -139,25 +138,8 @@ BrToggleExamples >> deactivatePredefinedToggle [
 	aToggle deactivate.
 
 	self assert: aToggle isActivated not.
-	self assert: aToggle viewModel isActivated not.
 	
 	^ aToggle
-]
-
-{ #category : #'examples - print' }
-BrToggleExamples >> gtDisplayStringToggleModel [
-	<gtExample>
-	| aToggleModel aToggleLabel aPrintString |
-	
-	aToggleModel := self toggleModel.
-	aToggleLabel := 'Hello world'.
-
-	aToggleModel label: aToggleLabel.
-	aPrintString := aToggleModel gtDisplayString.
-	
-	self assert: aPrintString equals: aToggleLabel.
-	
-	^ aPrintString
 ]
 
 { #category : #'examples - toggle' }
@@ -166,28 +148,15 @@ BrToggleExamples >> predefinedToggle [
 	| aToggle |
 
 	aToggle := BrToggle new.
-	aToggle look: BrIconLook + BrTextLabelLook + BrLayoutLook linearHorizontal fitContent + BrToggleLook.
+	aToggle look: BrIconLook + BrTextLabelLook + BrToggleLook.
+	aToggle layout: BlLinearLayout horizontal.
+	aToggle constraintsDo: [ :c |
+		c horizontal fitContent.
+		c vertical fitContent ].
 
 	self assert: aToggle isActivated not.
-	self assert: aToggle viewModel isActivated not.
 
 	^ aToggle
-]
-
-{ #category : #'examples - print' }
-BrToggleExamples >> printStringToggleModel [
-	<gtExample>
-	| aToggleModel aToggleLabel aPrintString |
-	
-	aToggleModel := self toggleModel.
-	aToggleLabel := 'Hello world'.
-
-	aToggleModel label: aToggleLabel.
-	aPrintString := aToggleModel printString.
-	
-	self assert: aPrintString equals: aToggleLabel.
-	
-	^ aPrintString
 ]
 
 { #category : #'examples - toggle' }
@@ -199,7 +168,6 @@ BrToggleExamples >> setActivatedOfPredefinedToggle [
 	aToggle activated: true.
 
 	self assert: aToggle isActivated.
-	self assert: aToggle viewModel isActivated.
 	
 	^ aToggle
 ]
@@ -213,7 +181,6 @@ BrToggleExamples >> setDeactivatedOfPredefinedToggle [
 	aToggle activated: false.
 
 	self assert: aToggle isActivated not.
-	self assert: aToggle viewModel isActivated not.
 	
 	^ aToggle
 ]
@@ -237,7 +204,6 @@ BrToggleExamples >> toggleActivatedPredefinedToggle [
 	aToggle toggle.
 
 	self assert: aToggle isActivated not.
-	self assert: aToggle viewModel isActivated not.
 	
 	^ aToggle
 ]
@@ -245,8 +211,7 @@ BrToggleExamples >> toggleActivatedPredefinedToggle [
 { #category : #'instance creation' }
 BrToggleExamples >> toggleButton [
 	<gtExample>
-	
-	^ self toggleElement viewModel: self toggleModel
+	^ BrToggle new relocate: 10 @ 10
 ]
 
 { #category : #'instance creation' }
@@ -266,17 +231,8 @@ BrToggleExamples >> toggleDeactivatedPredefinedToggle [
 	aToggle toggle.
 
 	self assert: aToggle isActivated.
-	self assert: aToggle viewModel isActivated.
 	
 	^ aToggle
-]
-
-{ #category : #'instance creation' }
-BrToggleExamples >> toggleElement [
-	<gtExample>
-	
-	^ BlElement new
-		relocate: 10@10
 ]
 
 { #category : #'instance creation' }
@@ -290,11 +246,11 @@ BrToggleExamples >> toggleModel [
 BrToggleExamples >> toggleWithMaterialChangingIcon [
 	<gtExample>
 	^ self toggleButton
-		look: (BrMaterialToggleLabelledLook + BrMaterialToggleIconifiedLook
-			when: BrToggleActivatedEvent do: [ :anEvent | 
-				anEvent currentTarget widget viewModel icon: self squareIcon ];
-			when: BrToggleDeactivatedEvent do: [ :anEvent | 
-				anEvent currentTarget widget viewModel icon: self circleIcon ])
+		look: (BrMaterialToggleLabelledLook + BrMaterialToggleIconifiedLook);
+		when: BrToggleActivatedEvent do: [ :anEvent | 
+			anEvent currentTarget icon: self squareIcon ];
+		when: BrToggleDeactivatedEvent do: [ :anEvent | 
+			anEvent currentTarget icon: self circleIcon ]
 ]
 
 { #category : #'examples - material' }
@@ -302,7 +258,7 @@ BrToggleExamples >> toggleWithMaterialIconAndLabel [
 	<gtExample>
 	^ self toggleButton
 		look: BrMaterialToggleIconifiedLook + BrMaterialToggleLabelledLook;
-		viewModelDo: [ :aModel | aModel icon: self toggleButtonIcon ]
+		icon: self toggleButtonIcon
 ]
 
 { #category : #'examples - material' }
@@ -310,7 +266,7 @@ BrToggleExamples >> toggleWithMaterialLabelAndIcon [
 	<gtExample>
 	^ self toggleButton
 		look: BrMaterialToggleLabelledLook + BrMaterialToggleIconifiedLook;
-		viewModelDo: [ :aModel | aModel icon: self toggleButtonIcon ]
+		icon: self toggleButtonIcon
 ]
 
 { #category : #'examples - material' }
@@ -318,7 +274,7 @@ BrToggleExamples >> toogleWithMaterialIcon [
 	<gtExample>
 	^ self toggleButton
 		look: BrMaterialToggleIconifiedLook new;
-		viewModelDo: [ :aModel | aModel icon: self toggleButtonIcon ]
+		icon: self toggleButtonIcon
 ]
 
 { #category : #'examples - material' }

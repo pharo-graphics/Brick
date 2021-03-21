@@ -4,8 +4,13 @@ Class {
 	#instVars : [
 		'resizer'
 	],
-	#category : #'Brick-Layout Resizer - Events'
+	#category : #'Brick-! Deprecated'
 }
+
+{ #category : #testing }
+BrLayoutResizerChanged class >> isDeprecated [
+	^ true
+]
 
 { #category : #accessing }
 BrLayoutResizerChanged >> resizer [

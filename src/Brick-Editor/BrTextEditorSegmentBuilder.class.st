@@ -11,10 +11,27 @@ Class {
 	#traits : 'TBlDebug',
 	#classTraits : 'TBlDebug classTrait',
 	#instVars : [
-		'splitter'
+		'lineSplitter'
 	],
 	#category : #'Brick-Editor-Model - Segment-Text'
 }
+
+{ #category : #'text - modifications' }
+BrTextEditorSegmentBuilder >> addedAttribute: anAttribute from: aFromIndex to: aToIndex in: aBrTextEditor [
+	"Is sent after an attribute was added in provided text editor"
+
+	self subclassResponsibility
+]
+
+{ #category : #accessing }
+BrTextEditorSegmentBuilder >> beEditable [
+	self subclassResponsibility
+]
+
+{ #category : #accessing }
+BrTextEditorSegmentBuilder >> beReadOnly [
+	self subclassResponsibility
+]
 
 { #category : #initialization }
 BrTextEditorSegmentBuilder >> defaultSplitter [
@@ -34,7 +51,7 @@ BrTextEditorSegmentBuilder >> deletedFrom: aFromIndex to: aToIndex in: aBrTextEd
 BrTextEditorSegmentBuilder >> initialize [
 	super initialize.
 
-	splitter := self defaultSplitter
+	lineSplitter := self defaultSplitter
 ]
 
 { #category : #'text - modifications' }
@@ -44,16 +61,28 @@ BrTextEditorSegmentBuilder >> insertedString: aString at: aTextIndex in: aBrText
 	self subclassResponsibility
 ]
 
+{ #category : #'text - modifications' }
+BrTextEditorSegmentBuilder >> removedAttributesFrom: aFromIndex to: aToIndex in: aBrTextEditor [
+	"Is sent after an attributes were removed in provided text editor"
+
+	self subclassResponsibility
+]
+
 { #category : #splitting }
 BrTextEditorSegmentBuilder >> split: aBrText in: aStream [
 	self splitter split: aBrText in: aStream
+]
+
+{ #category : #splitting }
+BrTextEditorSegmentBuilder >> split: aBrText in: aBrEditorSegmentStream offset: anOffset [
+	self splitter split: aBrText in: aBrEditorSegmentStream offset: anOffset
 ]
 
 { #category : #accessing }
 BrTextEditorSegmentBuilder >> splitter [
 	<return: #BrTextEditorSplitter>
 
-	^ splitter
+	^ lineSplitter
 ]
 
 { #category : #accessing }
@@ -62,5 +91,5 @@ BrTextEditorSegmentBuilder >> splitter: aBrTextEditorSplitter [
 		assert: [ aBrTextEditorSplitter isNotNil ]
 		description: [ 'Splitter must not be nil' ].
 
-	splitter := aBrTextEditorSplitter
+	lineSplitter := aBrTextEditorSplitter
 ]

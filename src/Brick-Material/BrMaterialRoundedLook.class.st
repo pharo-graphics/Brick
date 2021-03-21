@@ -26,18 +26,13 @@ BrMaterialRoundedLook >> cornerRadius: aNumber [
 { #category : #initialization }
 BrMaterialRoundedLook >> initialize [
 	super initialize.
-	
-	cornerRadius := 2
-]
-
-{ #category : #initialization }
-BrMaterialRoundedLook >> initializeLook [
-	super initializeLook.
-	
-	self widget geometry: (BlRectangle cornerRadius: self cornerRadius)
+	cornerRadius := 2.
+	self
+		addChangeProperty: #(widget geometry)
+		with: [ BlRoundedRectangleGeometry cornerRadius: self cornerRadius ]
 ]
 
 { #category : #updating }
 BrMaterialRoundedLook >> updateCornerRadius [
-	self widgetDo: [ :anElement | anElement geometry: (BlRectangle cornerRadius: self cornerRadius) ]
+	self widgetDo: [ :anElement | anElement geometry: (BlRoundedRectangleGeometry cornerRadius: self cornerRadius) ]
 ]

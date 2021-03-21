@@ -3,17 +3,22 @@ I update the size of a page preview element in a scroll bar according to the siz
 "
 Class {
 	#name : #BrPagerPagePreviewResizeListener,
-	#superclass : #BlElementEventListener,
+	#superclass : #BlCustomEventHandler,
 	#instVars : [
 		'previewElement',
 		'height'
 	],
-	#category : 'Brick-Pager - Look'
+	#category : #'Brick-Pager - Look'
 }
 
 { #category : #'element handlers' }
-BrPagerPagePreviewResizeListener >> elementExtentChanged: anEvent [
+BrPagerPagePreviewResizeListener >> elementExtentChangedEvent: anEvent [
 	self updateSizeFrom: anEvent currentTarget
+]
+
+{ #category : #'api - accessing' }
+BrPagerPagePreviewResizeListener >> eventsToHandle [
+	^ { BlElementExtentChangedEvent }
 ]
 
 { #category : #accessing }
@@ -54,12 +59,24 @@ BrPagerPagePreviewResizeListener >> previewElement: anObject [
 BrPagerPagePreviewResizeListener >> updateSizeFrom: aPageElement [
 	| aPageExtent aScale aPreviewExtent |
 
-	aPageExtent := aPageElement extent.
-	aScale := aPageExtent y / self height.
+	aPageExtent := aPageElement extent max: 1@1.
+	aScale := (aPageExtent y / 10).
 	
-	aPreviewExtent := aScale isZero
-		ifTrue: [ 0@0 ]
-		ifFalse: [ (aPageExtent / aScale) rounded ].
+	self
+		assert: [ aScale isZero not ]
+		description: [ 'Scale must not be zero' ].
+	
+	aScale < 1
+		ifTrue: [
+			aScale := 1.
+			aPageExtent := self height asPoint ].
+
+	aPreviewExtent := (aPageExtent / aScale).
+	aPreviewExtent := ((aPreviewExtent x / (aPreviewExtent y / self height)) @ self height) ceiling.
+
+	self
+		assert: [ aPreviewExtent isIntegerPoint ]
+		description: [ 'Extent must be an integer point' ].
 	
 	self previewElement size: aPreviewExtent
 ]

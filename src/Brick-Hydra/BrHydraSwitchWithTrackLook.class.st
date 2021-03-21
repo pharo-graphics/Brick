@@ -6,7 +6,7 @@ Class {
 		'thumb',
 		'cornerRadius'
 	],
-	#category : 'Brick-Hydra'
+	#category : #'Brick-Hydra'
 }
 
 { #category : #accessing }
@@ -23,27 +23,26 @@ BrHydraSwitchWithTrackLook >> cornerRadius: aNumber [
 { #category : #initialization }
 BrHydraSwitchWithTrackLook >> initialize [
 	super initialize.
-	
 	cornerRadius := 0.
 	thumb := self newThumbElement.
-	track := self newTrackElement
-]
-
-{ #category : #initialization }
-BrHydraSwitchWithTrackLook >> initializeLook [
-	super initializeLook.
-
-	self widget
-		layout: BlFrameLayout new;
-		padding: (BlInsets all: 4);
-		border: (BlBorder builder width: 1; build);
-		geometry: (BlRectangle new);
-		size: 48@18.
-
-	self widget addChildren: { track . thumb }.
-	
-	self updateColor.
-	self updateCornerRadius
+	track := self newTrackElement.
+	self addChangeProperty: #(widget layout) with: [ BlFrameLayout new ].
+	self addChangeProperty: #(widget padding) with: [ BlInsets all: 4 ].
+	self
+		addChangeProperty: #(widget border)
+		with: [ :e | e copyWithWidth: 1 ].
+	self addChangeProperty: #(widget geometry) with: [ BlRectangleGeometry new ].
+	self addChangeProperty: #(widget size) with: [ 48 @ 18 ].
+	self addChangeAddChildAs: #(track) with: [ track ].
+	self addChangeAddChildAs: #(thumb) with: [ thumb ].
+	self
+		addChange:
+			(BrLookChange new
+				up: [ :e | 
+					self updateColor.
+					self updateCornerRadius ];
+				down: [ :e |  ];
+				yourself)
 ]
 
 { #category : #'instance creation' }
@@ -83,5 +82,5 @@ BrHydraSwitchWithTrackLook >> updateColor [
 
 { #category : #updating }
 BrHydraSwitchWithTrackLook >> updateCornerRadius [
-	widget geometry: (BlRectangle cornerRadius: self cornerRadius)
+	widget geometry: (BlRoundedRectangleGeometry cornerRadius: self cornerRadius)
 ]

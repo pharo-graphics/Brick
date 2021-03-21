@@ -15,6 +15,11 @@ BrInteractionState class >> default [
 ]
 
 { #category : #'instance creation' }
+BrInteractionState class >> deselected [
+	^ self selected not
+]
+
+{ #category : #'instance creation' }
 BrInteractionState class >> disabled [
 	^ BrDisabledState new
 ]
@@ -26,7 +31,7 @@ BrInteractionState class >> enabled [
 
 { #category : #'instance creation' }
 BrInteractionState class >> expanded [
-	^ BrExpandedState new
+	^ BrDeprecatedExpandedState new
 ]
 
 { #category : #'instance creation' }
@@ -40,38 +45,23 @@ BrInteractionState class >> hovered [
 ]
 
 { #category : #'instance creation' }
-BrInteractionState class >> huge [
-	^ BrDimensionState huge
-]
-
-{ #category : #'instance creation' }
-BrInteractionState class >> large [
-	^ BrDimensionState large
-]
-
-{ #category : #'instance creation' }
 BrInteractionState class >> pressed [
 	^ BrPressedState new
 ]
 
 { #category : #'instance creation' }
-BrInteractionState class >> sized: aNamedSize [
-	^ BrDimensionState new dimension: aNamedSize
-]
-
-{ #category : #'instance creation' }
-BrInteractionState class >> small [
-	^ BrDimensionState small
-]
-
-{ #category : #'instance creation' }
-BrInteractionState class >> tiny [
-	^ BrDimensionState tiny
+BrInteractionState class >> selected [
+	^ BrSelectedState new
 ]
 
 { #category : #'instance creation' }
 BrInteractionState class >> unfocused [
 	^ self focused not
+]
+
+{ #category : #controlling }
+BrInteractionState >> & anAnotherState [
+	^ self and: anAnotherState
 ]
 
 { #category : #comparing }
@@ -106,4 +96,9 @@ BrInteractionState >> or: anAnotherState [
 	^ BrDisjunctionState new
 		left: self;
 		right: anAnotherState
+]
+
+{ #category : #controlling }
+BrInteractionState >> | anAnotherState [
+	^ self or: anAnotherState
 ]

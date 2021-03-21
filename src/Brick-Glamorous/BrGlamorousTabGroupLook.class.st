@@ -1,18 +1,26 @@
 Class {
 	#name : #BrGlamorousTabGroupLook,
 	#superclass : #BrLook,
+	#instVars : [
+		'headerLook'
+	],
 	#category : #'Brick-Glamorous-Tabs'
 }
+
+{ #category : #'api - style' }
+BrGlamorousTabGroupLook >> headerBackground: aBackground [
+	headerLook headerDo: [ :aHeaderElement | aHeaderElement background: aBackground ]
+]
 
 { #category : #initialization }
 BrGlamorousTabGroupLook >> initialize [
 	super initialize.
 
 	self addAll: {
-		BrGlamorousTabGroupHeaderLook new.
-		BrTabGroupContentLook new contentDo: [ :anElement | anElement look: BrLayoutLook matchParent ].
+		headerLook := BrGlamorousTabGroupHeaderLook new.
+		BrTabGroupSplitterLook new.
+		BrTabGroupContentLook new.
+		BrLayoutResizerLook inherit }.
 
-		"layout of the tab whole group is linear vertical"
-		BrLayoutLook linearVertical matchParent.
-	}
+	self addChangeProperty: #(widget layout) with: [ BlLinearLayout vertical ]
 ]

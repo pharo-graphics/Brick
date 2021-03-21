@@ -28,10 +28,10 @@ BrTextEditorSelectionUpdateCommand >> executeOn: aTextEditor [
 		cachedSegmentAt: changedTo
 		ifFound: [ :aSegment | changedTo := aSegment index ]
 		ifNotFound: [ changedTo := aTextEditor segmentCollector segments size ].	
-
+	
 	aTextEditor
-		notifyItems: (changedFrom to: changedTo)
-		event: self newHolderCommand
+		enqueueHolderCommand: self newHolderCommand
+		interval: (changedFrom to: changedTo)
 ]
 
 { #category : #accessing }

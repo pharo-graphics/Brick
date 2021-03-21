@@ -73,19 +73,10 @@ BrAccordionLook >> initialize [
 BrAccordionLook >> initializeListeners [
 	super initializeListeners.
 
-	self when: BrExpansionChanged do: [ :anEvent |
-		anEvent isExpanded
-			ifTrue: [ self accordionExpanded ]
-			ifFalse: [ self accordionCollapsed ] ].
+	self when: BrExpandedEvent do: [ :anEvent | self accordionExpanded ].
+	self when: BrCollapsedEvent do: [ :anEvent | self accordionCollapsed ].
 	self when: BrAccordionContentStencilChanged do: [ :anEvent | self contentStencil: anEvent stencil ].
 	self when: BrAccordionHeaderStencilChanged do: [ :anEvent | self headerStencil: anEvent stencil ]
-]
-
-{ #category : #initialization }
-BrAccordionLook >> initializeLook [
-	super initializeLook.
-
-	headerElement := headerStencil asElement
 ]
 
 { #category : #initialization }

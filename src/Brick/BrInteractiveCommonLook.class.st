@@ -1,8 +1,13 @@
 Class {
 	#name : #BrInteractiveCommonLook,
 	#superclass : #BrInteractiveLook,
-	#category : #'Brick-! Core'
+	#category : #'Brick-! Deprecated'
 }
+
+{ #category : #testing }
+BrInteractiveCommonLook class >> isDeprecated [
+	^ true
+]
 
 { #category : #'api - style' }
 BrInteractiveCommonLook >> collapsed: aStyleBlock [
@@ -15,6 +20,13 @@ BrInteractiveCommonLook >> collapsed: aStyleBlock [
 BrInteractiveCommonLook >> default: aStyleBlock [
 	self
 		when: self state default
+		style: aStyleBlock
+]
+
+{ #category : #'api - style' }
+BrInteractiveCommonLook >> deselected: aStyleBlock [
+	self
+		when: self state deselected
 		style: aStyleBlock
 ]
 
@@ -57,6 +69,13 @@ BrInteractiveCommonLook >> hovered: aStyleBlock [
 BrInteractiveCommonLook >> pressed: aStyleBlock [
 	self
 		when: self state pressed
+		style: aStyleBlock
+]
+
+{ #category : #'api - style' }
+BrInteractiveCommonLook >> selected: aStyleBlock [
+	self
+		when: self state selected
 		style: aStyleBlock
 ]
 

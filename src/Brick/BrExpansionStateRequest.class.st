@@ -4,8 +4,13 @@ I am sent to the ${class:BrExpandableModel}$ to receive its state (expanded / co
 Class {
 	#name : #BrExpansionStateRequest,
 	#superclass : #BrRequest,
-	#category : #'Brick-! Core - Events'
+	#category : #'Brick-! Deprecated'
 }
+
+{ #category : #testing }
+BrExpansionStateRequest class >> isDeprecated [
+	^ true
+]
 
 { #category : #initialization }
 BrExpansionStateRequest >> responseClass [

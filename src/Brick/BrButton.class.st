@@ -1,12 +1,12 @@
 Class {
 	#name : #BrButton,
 	#superclass : #BlElement,
+	#traits : 'TBrEnableable + TBrLayoutAlignable + TBrLayoutResizable + TBrSizeAdjustable',
+	#classTraits : 'TBrEnableable classTrait + TBrLayoutAlignable classTrait + TBrLayoutResizable classTrait + TBrSizeAdjustable classTrait',
 	#instVars : [
 		'labelModel',
 		'iconModel',
-		'activationModel',
-		'interactiveModel',
-		'dimensionModel'
+		'interactiveModel'
 	],
 	#category : #'Brick-Button - UI'
 }
@@ -18,47 +18,14 @@ BrButton >> action [
 
 { #category : #'api - widget' }
 BrButton >> action: aValuable [
+	"An action can be a block with two optional parameters:
+	 - a UI element to which this button model is attached
+	 - this button model
+	[ :aButtonElement :aButtonModel :anEvent |  ].
+
+	Button action must not be nil"
+
 	self viewModel action: aValuable
-]
-
-{ #category : #'api - dimension' }
-BrButton >> beDefault [
-	dimensionModel beDefault
-]
-
-{ #category : #'api - dimension' }
-BrButton >> beHuge [
-	dimensionModel beHuge
-]
-
-{ #category : #'api - dimension' }
-BrButton >> beLarge [
-	dimensionModel beLarge
-]
-
-{ #category : #'api - dimension' }
-BrButton >> beSmall [
-	dimensionModel beSmall
-]
-
-{ #category : #'api - dimension' }
-BrButton >> beTiny [
-	dimensionModel beTiny
-]
-
-{ #category : #'api - widget' }
-BrButton >> disable [
-	activationModel disable
-]
-
-{ #category : #'api - widget' }
-BrButton >> enable [
-	activationModel enable
-]
-
-{ #category : #'api - widget' }
-BrButton >> enabled: aBoolean [
-	activationModel enabled: aBoolean
 ]
 
 { #category : #'api - widget' }
@@ -75,21 +42,18 @@ BrButton >> icon: anElement [
 BrButton >> initialize [
 	super initialize.
 	
+	self
+		hFitContent;
+		vLocal;
+		beNormalSize.
+	
 	self viewModel: (BrButtonModel new +
 		(labelModel := BrLabelModel new) +
 		(iconModel := BrIconModel new) + 
 		(BrInteractiveModel new
 			addStates: {
-				activationModel := BrActivationModel new.
-				BrPressModel new.
-				BrHoverModel new.
-				dimensionModel := BrDimensionModel new
+				BrLayoutAlignmentModel center.
 			}))
-]
-
-{ #category : #'api - widget' }
-BrButton >> isEnabled [
-	^ activationModel isEnabled
 ]
 
 { #category : #'api - widget' }
@@ -100,4 +64,14 @@ BrButton >> label [
 { #category : #'api - widget' }
 BrButton >> label: aStringOrBrText [
 	labelModel text: aStringOrBrText
+]
+
+{ #category : #'api - widget' }
+BrButton >> model [
+	^ self viewModel model
+]
+
+{ #category : #'api - widget' }
+BrButton >> model: anObject [
+	self viewModel model: anObject
 ]

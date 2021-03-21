@@ -1,26 +1,24 @@
 Class {
 	#name : #BrList,
 	#superclass : #BlElement,
-	#instVars : [
-		'selectionModel'
-	],
+	#traits : 'TBrLayoutResizable + TBrSelectable + TBrScrollable',
+	#classTraits : 'TBrLayoutResizable classTrait + TBrSelectable classTrait + TBrScrollable classTrait',
 	#category : #'Brick-List - UI'
 }
 
 { #category : #initialization }
 BrList >> defaultListModel [
-	^ self subclassResponsibility
-]
-
-{ #category : #'api - selection' }
-BrList >> deselectAll [
-	"Deselect all items"
-
-	selectionModel deselectAll
+	^ BrAbstractListModel new
 ]
 
 { #category : #'api - scripting' }
 BrList >> display: aCollectionOfValues [
+	self
+		deprecated: 'Please use items: method instead.'
+		transformWith:
+			'`@receiver display: `@statements1'
+				-> '`@receiver items: `@statements1'.
+
 	self items: aCollectionOfValues value
 ]
 
@@ -28,31 +26,35 @@ BrList >> display: aCollectionOfValues [
 BrList >> initialize [
 	super initialize.
 	
-	self viewModel: (self defaultListModel add: (selectionModel := BrSelectionModel new)).
+	self matchParent.
+	
+	self viewModel: (self defaultListModel
+		add: (selectionModel := BrSelectionModel new)).
+
 	self initializeEventHandlers
 ]
 
 { #category : #initialization }
 BrList >> initializeEventHandlers [
 	"shortcuts only work when list has focus.
-	click handler must not be adde as a filter"
+	click handler must not be added as a filter"
 	self
 		when: BlClickEvent do: [ :anEvent | anEvent currentTarget requestFocus ];
 		when: BrListItemElementAttached do: [ :anEvent |
-			(selectionModel contains: anEvent rowIndex)
+			(self isSelectedAt: anEvent rowIndex)
 				ifTrue: [ self dispatchEvent: (BrListSelectedItemAttached new
 					itemElement: anEvent itemElement;
 					rowIndex: anEvent rowIndex;
 					rowValue: anEvent rowValue) ] ];
 		when: BrListItemElementDetached do: [ :anEvent |
-			(selectionModel contains: anEvent rowIndex)
+			(self isSelectedAt: anEvent rowIndex)
 				ifTrue: [ self dispatchEvent: (BrListSelectedItemDetached new
 					rowIndex: anEvent rowIndex;
 					rowValue: anEvent rowValue) ] ];
-		addShortcut: (BlShortcut new
+		addShortcut: (BlShortcutWithAction new
 			combination: (BlKeyCombination builder arrowDown build);
 			action: [ self selectNext ] );
-		addShortcut: (BlShortcut new
+		addShortcut: (BlShortcutWithAction new
 			combination: (BlKeyCombination builder arrowUp build);
 			action: [ self selectPrevious ] )
 ]
@@ -68,32 +70,29 @@ BrList >> items: aCollectionOfValues [
 ]
 
 { #category : #'api - selection' }
-BrList >> selectNext [
-	selectionModel selection isEmpty
-		ifTrue: [ self selectOne: 1  ]
-		ifFalse: [ self selectOne: ((selectionModel selection to + 1) min: self viewModel items size) ]
+BrList >> maxSelectionIndex [
+	<return: #Number>
+	
+	^ self items size
+]
+
+{ #category : #'api - scrolling' }
+BrList >> scrollToItem: anObject [
+	"Request a scrollable widget to scroll to a given item"
+
+	self viewModel items withIndexDo: [ :anItem :anIndex | 
+		anObject = anItem 
+			ifTrue: [ self scrollToIndex: anIndex ] ]
 ]
 
 { #category : #'api - selection' }
-BrList >> selectOne: anIndex [
-	selectionModel selectOne: anIndex
-]
-
-{ #category : #'api - selection' }
-BrList >> selectOne: anIndex dueTo: aSourceEvent [
-	selectionModel selectOne: anIndex dueTo: aSourceEvent
-]
-
-{ #category : #'api - selection' }
-BrList >> selectPrevious [
-	selectionModel selection isEmpty
-		ifTrue: [ self selectOne: 1  ]
-		ifFalse: [ self selectOne: ((selectionModel selection to - 1) max: 1) ]
-]
-
-{ #category : #'api - selection' }
-BrList >> selection [
-	<return: #BlSelection>
-
-	^ selectionModel selection
+BrList >> selectedItemDo: aBlock [
+	"Evaluate aBlock with the currently selected item and index"
+	
+	self selectedIndices
+		ifNotEmpty: [ :theIndices |
+			(theIndices first between: 1 and: self viewModel itemCount)
+				ifTrue: [ aBlock 
+					cull: (self viewModel itemAt: theIndices first) 
+					cull: theIndices first ] ]
 ]

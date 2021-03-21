@@ -2,10 +2,21 @@ Class {
 	#name : #BrColumnedListItemHolder,
 	#superclass : #BrListItemHolder,
 	#instVars : [
-		'columns'
+		'columns',
+		'columnElements'
 	],
-	#category : 'Brick-List - Support'
+	#category : #'Brick-List - Support'
 }
+
+{ #category : #accessing }
+BrColumnedListItemHolder >> columnElements [
+	^ columnElements
+]
+
+{ #category : #accessing }
+BrColumnedListItemHolder >> columnElements: anObject [
+	columnElements := anObject
+]
 
 { #category : #accessing }
 BrColumnedListItemHolder >> columns [
@@ -20,28 +31,6 @@ BrColumnedListItemHolder >> columns: aCollectionOfBrListColumn [
 { #category : #initialization }
 BrColumnedListItemHolder >> initialize [
 	super initialize.
-	
+
 	columns := #()
-]
-
-{ #category : #'api - binding' }
-BrColumnedListItemHolder >> rowValue: anObject at: aRowIndex [
-	| theCellElements |
-
-	rowValue := anObject.
-
-	itemElement := (self rowStencilBuilder
-		rowValue: anObject;
-		rowIndex: aRowIndex;
-		listElement: self listElement;
-		build) asElement.
-
-	theCellElements := self columns withIndexCollect: [ :aListColumn :aColumnIndex |	
-		(aListColumn stencil
-			rowValue: anObject;
-			rowIndex: aRowIndex;
-			columnIndex: aColumnIndex;
-			build) asElement ].
-	
-	itemElement addChildren: theCellElements
 ]

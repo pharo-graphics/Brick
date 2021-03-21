@@ -2,10 +2,9 @@ Class {
 	#name : #BrPagerLook,
 	#superclass : #BrLook,
 	#instVars : [
-		'pagesListElement',
 		'pages'
 	],
-	#category : 'Brick-Pager - Look'
+	#category : #'Brick-Pager - Look'
 }
 
 { #category : #initialization }
@@ -13,10 +12,8 @@ BrPagerLook >> initialize [
 	super initialize.
 
 	pages := OrderedDictionary new.
-	pagesListElement := BrInfinitePagerElement new.
-	pagesListElement constraintsDo: [ :c | 
-		c horizontal matchParent.
-		c vertical matchParent ]
+	
+	self add: BrLayoutResizerLook inherit
 ]
 
 { #category : #initialization }
@@ -25,19 +22,7 @@ BrPagerLook >> initializeListeners [
 
 	self when: BrPagerPagesChanged do: [ :anEvent | self onPagesChanged: anEvent pages ].
 	self when: BrPagerPageAddedEvent do: [ :anEvent | self onPageAdded: anEvent page ].
-	self when: BrPagerPageRemovedEvent do: [ :anEvent | self onPageRemoved: anEvent page ].
-	self when: BrPagerScrollWish do: [ :anEvent |
-		anEvent consumed: true.
-		anEvent isSmooth
-			ifTrue: [ self smoothScrollTo: anEvent pageIndex ]
-			ifFalse: [ self scrollTo: anEvent pageIndex ] ].
-]
-
-{ #category : #initialization }
-BrPagerLook >> initializeLook [
-	super initializeLook.
-	
-	self widgetContent addChild: pagesListElement as: #list
+	self when: BrPagerPageRemovedEvent do: [ :anEvent | self onPageRemoved: anEvent page ]
 ]
 
 { #category : #initialization }
@@ -45,6 +30,14 @@ BrPagerLook >> initializeRequests [
 	super initializeRequests.
 	
 	self request: BrPagerPagesRequest new
+]
+
+{ #category : #hooks }
+BrPagerLook >> onPage: aPageModel elementAttached: aPageElement [
+]
+
+{ #category : #hooks }
+BrPagerLook >> onPage: aPageMopdel elementDetached: aPageElement [
 ]
 
 { #category : #hooks }
@@ -68,18 +61,18 @@ BrPagerLook >> onPageContentAttached: aPageContentElement [
 	aPageElement := (aPageModel embellisher contentElement: aPageContentElement) asElement.	
 	self pages at: aPageModel put: aPageElement.
 
-	pagesListElement dataSource pageElements: self pageElements
+	self onPage: aPageModel elementAttached: aPageElement
 ]
 
 { #category : #hooks }
 BrPagerLook >> onPageRemoved: aPageModel [
+	| aPageElement |
 	self
 		assert: [ self isAttachedToWidget ]
 		description: [ 'I can not receive the page removed event without being attached to a widget' ].
 
-	self pages removeKey: aPageModel.
-	aPageModel widgetDo: [ :aPageContentElement | aPageContentElement removeFromParent ].
-	pagesListElement dataSource pageElements: self pageElements
+	aPageElement := self pages removeKey: aPageModel.
+	self onPage: aPageModel elementDetached: aPageElement
 ]
 
 { #category : #hooks }
@@ -102,14 +95,4 @@ BrPagerLook >> pageElements [
 { #category : #accessing }
 BrPagerLook >> pages [
 	^ pages
-]
-
-{ #category : #'api - scrolling' }
-BrPagerLook >> scrollTo: aPageIndex [
-	pagesListElement scrollToPosition: aPageIndex
-]
-
-{ #category : #'api - scrolling' }
-BrPagerLook >> smoothScrollTo: aPageIndex [
-	pagesListElement smoothScrollToPosition: aPageIndex
 ]

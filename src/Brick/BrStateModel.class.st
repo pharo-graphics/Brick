@@ -4,8 +4,22 @@ I am a super class of all models that have a boolean state, for example enabled/
 Class {
 	#name : #BrStateModel,
 	#superclass : #BrWidgetModel,
-	#category : #'Brick-! Core'
+	#category : #'Brick-! Deprecated'
 }
+
+{ #category : #testing }
+BrStateModel class >> canPropagateToChildren [
+	"When is true, a state of my class of models can propagate down to children even if they
+	have their own interactive model. This can be used to increase the effect scrope of the state"
+	<return: #Boolean>
+
+	^ false
+]
+
+{ #category : #testing }
+BrStateModel class >> isDeprecated [
+	^ true
+]
 
 { #category : #'state - notifying' }
 BrStateModel >> notifyStateChanged: anObject [
@@ -18,6 +32,6 @@ BrStateModel >> stateChangedEventClass [
 ]
 
 { #category : #'state - streaming' }
-BrStateModel >> streamStateOn: aStream [
+BrStateModel >> streamStateIn: aBrInteractionStatesMapping [
 	self subclassResponsibility
 ]

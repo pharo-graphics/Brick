@@ -8,10 +8,39 @@ BlElement >> actors [
 ]
 
 { #category : #'*Brick' }
+BlElement >> addInteractiveModelState: aState [
+	self viewModel
+		ifNil: [ self viewModel: (BrInteractiveModel with: aState) ]
+		ifNotNil: [ self viewModel addInteractiveModelState: aState ].
+]
+
+{ #category : #'*Brick' }
 BlElement >> addLook: aLook [
 	self look
 		ifNil: [ self look: aLook ]
 		ifNotNil: [ self look add: aLook ].
+]
+
+{ #category : #'*Brick' }
+BlElement >> addViewModel: aViewModel [
+	self viewModel
+		ifNil: [ self viewModel: aViewModel ]
+		ifNotNil: [ self viewModel add: aViewModel ].
+]
+
+{ #category : #'*Brick' }
+BlElement >> anchor [
+	^ self userData at: #brickAnchor ifAbsent: [ self parent ifNotNil: #anchor ]
+]
+
+{ #category : #'*Brick' }
+BlElement >> anchor: anElement [
+	self userData at: #brickAnchor put: anElement
+]
+
+{ #category : #'*Brick' }
+BlElement >> asBrAnchoredAnchorBounds [
+	^ BrAnchoredElementAnchorBounds element: self
 ]
 
 { #category : #'*Brick' }
@@ -47,7 +76,7 @@ BlElement >> gtInspectorPaintModelLookIn: aMondrianView [
 	aMondrianView nodes
 		shape: [ :each |
 			BlElement new
-				geometry: BlEllipse new;
+				geometry: BlEllipseGeometry new;
 				size: 20@20;
 				layout: BlLinearLayout horizontal alignCenter;
 				border: (BlBorder paint: Color lightGray width: 1);
@@ -70,6 +99,13 @@ BlElement >> gtInspectorPaintModelLookIn: aMondrianView [
 ]
 
 { #category : #'*Brick' }
+BlElement >> layoutResizerPropagations [
+	^ self userData
+		at: #brickLayoutResizerPropagations
+		ifAbsentPut: [ BrLayoutResizerElementPropagations new element: self ]
+]
+
+{ #category : #'*Brick' }
 BlElement >> look [
 	^ self userData at: #brickLook ifAbsent: nil
 ]
@@ -78,11 +114,14 @@ BlElement >> look [
 BlElement >> look: aLook [
 	| aLookInstance |
 	
+	self lookDo: [ :aCurrentLook |
+		aCurrentLook onUninstalledIn: self.
+		self userData at: #brickLook put: nil ].
+
 	aLookInstance := aLook asLook.
-	self removeEventHandlersSuchThat: [ :each | each isKindOf: BrLook ].
-	
+
 	self userData at: #brickLook put: aLookInstance.
-	self addEventHandler: aLookInstance.
+	aLookInstance onInstalledIn: self
 ]
 
 { #category : #'*Brick' }
@@ -91,15 +130,31 @@ BlElement >> lookDo: aBlock [
 ]
 
 { #category : #'*Brick' }
+BlElement >> removeLook: aLook [
+	self look
+		ifNotNil: [
+			self look = aLook
+				ifTrue: [
+					self look onUninstalledIn: self.
+					self userData at: #brickLook put: nil ]
+				ifFalse: [ self look remove: aLook ] ]
+]
+
+{ #category : #'*Brick' }
 BlElement >> viewModel [
 	^ self userData at: #brickViewModel ifAbsent: nil
 ]
 
 { #category : #'*Brick' }
-BlElement >> viewModel: aBrToggleModel [
-	self removeEventHandler: self viewModel.
-	self userData at: #brickViewModel put: aBrToggleModel.
-	self addEventHandler: aBrToggleModel
+BlElement >> viewModel: aBrViewModel [
+	self lookDo: [ :aLook | self error: 'View model must be added before look' ].
+
+	self viewModelDo: [ :aCurrentModel |
+		aCurrentModel onUninstalledIn: self.
+		self userData at: #brickViewModel put: nil ].
+
+	self userData at: #brickViewModel put: aBrViewModel.
+	aBrViewModel onInstalledIn: self
 ]
 
 { #category : #'*Brick' }
@@ -109,7 +164,7 @@ BlElement >> viewModelDo: aBlock [
 
 { #category : #'*Brick' }
 BlElement >> viewModelDo: aBlock ifAbsent: anAbsentBlock [
-	self userData
+	^ self userData
 		at: #brickViewModel
 		ifPresent: aBlock
 		ifAbsent: anAbsentBlock

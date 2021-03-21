@@ -1,7 +1,9 @@
 Class {
 	#name : #BrPager,
 	#superclass : #BlElement,
-	#category : 'Brick-Pager - UI'
+	#traits : 'TBrLayoutResizable',
+	#classTraits : 'TBrLayoutResizable classTrait',
+	#category : #'Brick-Pager - UI'
 }
 
 { #category : #'api - adding / removing' }
@@ -17,9 +19,30 @@ BrPager >> hasPageAfter: aPageElement [
 { #category : #initialization }
 BrPager >> initialize [
 	super initialize.
-	
-	self look: BrPagerScrollbarLook new + BrPagerLook new + BrLayoutLook linearVertical.
-	self viewModel: BrPagerModel new
+	self initializeViewModel.
+	self initializeLook.
+	self initializeLayout
+]
+
+{ #category : #initialization }
+BrPager >> initializeLayout [
+	self layout: BlLinearLayout vertical
+]
+
+{ #category : #initialization }
+BrPager >> initializeLook [
+	self background: BrGlamorousColors backdropColor.
+	self look: BrPagerScrollbarLook new + BrScrollablePagerLook new
+]
+
+{ #category : #initialization }
+BrPager >> initializeViewModel [
+	self viewModel: self newPagerModel
+]
+
+{ #category : #'instance creation' }
+BrPager >> newPagerModel [
+	^ BrPagerModel new
 ]
 
 { #category : #accessing }
@@ -36,8 +59,18 @@ BrPager >> pages [
 ]
 
 { #category : #'api - adding / removing' }
+BrPager >> removeAllPages [
+	self viewModel removeAllPages
+]
+
+{ #category : #'api - adding / removing' }
 BrPager >> removePage: aContentElement [	
 	self viewModel removePage: aContentElement viewModel
+]
+
+{ #category : #'api - adding / removing' }
+BrPager >> removePageAt: anIndex [	
+	self viewModel removePageAt: anIndex
 ]
 
 { #category : #'api - adding / removing' }

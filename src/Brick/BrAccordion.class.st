@@ -30,56 +30,42 @@ container
 Class {
 	#name : #BrAccordion,
 	#superclass : #BlElement,
-	#instVars : [
-		'accordionModel',
-		'expandableModel'
-	],
+	#traits : 'TBrLayoutResizable + TBrExpandable',
+	#classTraits : 'TBrLayoutResizable classTrait + TBrExpandable classTrait',
 	#category : #'Brick-Accordion - UI'
 }
 
-{ #category : #'api - accordion' }
+{ #category : #'api - expandable' }
 BrAccordion >> collapse [
-	expandableModel collapse
+	self states addState: BrCollapsedState uniqueInstance
 ]
 
 { #category : #'api - accordion' }
 BrAccordion >> content: aStencil [
-	accordionModel contentStencil: aStencil
+	self viewModel contentStencil: aStencil
 ]
 
-{ #category : #'api - accordion' }
+{ #category : #'api - expandable' }
 BrAccordion >> expand [
-	expandableModel expand
+	self states addState: BrExpandedState uniqueInstance
 ]
 
 { #category : #'api - accordion' }
 BrAccordion >> header: aStencil [
-	accordionModel headerStencil: aStencil
+	self viewModel headerStencil: aStencil
 ]
 
 { #category : #initialization }
 BrAccordion >> initialize [
 	super initialize.
 	
-	self viewModel: (accordionModel := BrAccordionModel new
-		addAll: {
-			BrInteractiveModel new
-				withFocus;
-				addState: (expandableModel := BrExpandableModel new)
-		})
+	self viewModel: BrAccordionModel new
 ]
 
-{ #category : #'api - testing' }
-BrAccordion >> isCollapsed [
-	^ expandableModel isCollapsed
-]
-
-{ #category : #'api - testing' }
+{ #category : #'api - expandable' }
 BrAccordion >> isExpanded [
-	^ expandableModel isExpanded
-]
+	"Return true if an widget is expanded (has expanded state), false otherwise"
+	<return: #Boolean>
 
-{ #category : #'api - accordion' }
-BrAccordion >> toggle [
-	expandableModel toggle
+	^ self states hasState: BrExpandedState uniqueInstance
 ]

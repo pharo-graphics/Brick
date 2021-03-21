@@ -10,7 +10,7 @@ Class {
 		'lines',
 		'lineSpacing'
 	],
-	#category : 'Brick-Editor-Layout'
+	#category : #'Brick-Editor-Layout'
 }
 
 { #category : #constraints }
@@ -24,7 +24,7 @@ BrEditorTextFlowLayout >> findClosestChildOf: anElement to: aPoint [
 	| aClosestLine |
 
 	aClosestLine := self findClosestLineTo: aPoint.
-	^ aClosestLine findClosestElementTo: aPoint
+	^ aClosestLine findClosestChildOf: anElement to: aPoint
 ]
 
 { #category : #geometry }
@@ -47,6 +47,16 @@ BrEditorTextFlowLayout >> findClosestLineTo: aPoint [
 	^ aClosestLine
 ]
 
+{ #category : #testing }
+BrEditorTextFlowLayout >> hasElements [
+	^ lines notNil and: [ lines elements notNil ]
+]
+
+{ #category : #testing }
+BrEditorTextFlowLayout >> hasLines [
+	^ lines notNil
+]
+
 { #category : #initialization }
 BrEditorTextFlowLayout >> initialize [
 	super initialize.
@@ -55,7 +65,7 @@ BrEditorTextFlowLayout >> initialize [
 ]
 
 { #category : #layout }
-BrEditorTextFlowLayout >> layout: anElement in: aRectangle [
+BrEditorTextFlowLayout >> layout: anElement in: aRectangle context: aBlElementBoundsUpdateContext [
 	| anOffsetX anOffsetY aLeft aTop |
 
 	anOffsetX := anElement padding left.
@@ -66,18 +76,25 @@ BrEditorTextFlowLayout >> layout: anElement in: aRectangle [
 	
 	lines do: [ :aLine |
 		aLine origin: aLeft @ aTop.
-		aLine elements do: [ :aChildElement |
+		(aLine elementsIn: anElement) do: [ :aChildElement |
 			| aWidth aMarginedTop |
 			aLeft := aLeft + aChildElement margin left.
-			aMarginedTop := aTop + aChildElement margin top.
+			aMarginedTop := aTop .
+			
+			aChildElement supportsBaseline
+				ifTrue: [ aMarginedTop := aMarginedTop + (aLine baseline - aChildElement baselineOffset) ]
+				ifFalse: [ aMarginedTop := aMarginedTop + aChildElement margin top + ((aLine baseline - aChildElement measuredHeight) max: 0) ].
+			
 			aWidth := aChildElement measuredWidth.
 			"we computed layout bounds for the element, let it apply it"
-			aChildElement applyLayoutIn: (aLeft @ aMarginedTop extent: aChildElement measuredExtent).
+			aChildElement applyLayoutIn: (aLeft @ aMarginedTop extent: aChildElement measuredExtent) context: aBlElementBoundsUpdateContext.
 			"offset width for the next element"
 			aLeft := aLeft + aWidth + aChildElement margin right ].
 		"prepare values for the next line"
 		aLeft := anOffsetX.
-		aTop := aTop + aLine height + lineSpacing ]
+		aTop := aTop + aLine height + lineSpacing ].
+	
+	self layoutIgnored: anElement context: aBlElementBoundsUpdateContext
 ]
 
 { #category : #accessing }
@@ -125,8 +142,24 @@ BrEditorTextFlowLayout >> measure: anElement with: anExtentSpec [
 
 	lines do: [ :aLine |
 		aLine elements ifNotEmpty: [ :theElements |
-			(theElements last isKindOf: BrTextElementWithCursors)
+			| theLastElement |
+			
+			theLastElement := theElements last.
+			
+			((theLastElement isKindOf: BrTextElementWithCursors) and: [ theLastElement constraints textFlow shouldFillLine ])
 				ifTrue: [
-					theElements last measure: (BlExtentMeasurementSpec exact:
-						theElements last measuredExtent + (((anElement measuredWidth - aLine width) max: 0) @ theElements last padding height negated)) ] ] ]
+					theLastElement measure: (BlExtentMeasurementSpec exact:
+						theLastElement measuredExtent + (((anElement measuredWidth - aLine width) max: 0.0) @ theLastElement padding height negated)) ] ] ].
+			
+	self measureIgnored: anElement with: anExtentSpec
+]
+
+{ #category : #'hooks - layout' }
+BrEditorTextFlowLayout >> onCleanUp: anElement [
+	self resetLines
+]
+
+{ #category : #initialization }
+BrEditorTextFlowLayout >> resetLines [
+	lines ifNotNil: [ :theLines | theLines reset ]
 ]

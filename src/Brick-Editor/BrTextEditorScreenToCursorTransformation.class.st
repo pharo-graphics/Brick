@@ -2,7 +2,8 @@ Class {
 	#name : #BrTextEditorScreenToCursorTransformation,
 	#superclass : #Object,
 	#instVars : [
-		'resultBlock'
+		'resultBlock',
+		'resultIndex'
 	],
 	#category : #'Brick-Editor-Model - Cursor'
 }
@@ -17,8 +18,14 @@ BrTextEditorScreenToCursorTransformation >> evaluateOn: anObject for: anEvent [
 	self subclassResponsibility
 ]
 
+{ #category : #testing }
+BrTextEditorScreenToCursorTransformation >> hasResult [
+	^ resultIndex isNotNil
+]
+
 { #category : #accessing }
 BrTextEditorScreenToCursorTransformation >> transformed: aTextIndex [
+	resultIndex := aTextIndex.
 	resultBlock value: aTextIndex
 ]
 

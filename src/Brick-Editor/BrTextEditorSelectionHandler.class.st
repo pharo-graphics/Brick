@@ -1,6 +1,6 @@
 Class {
 	#name : #BrTextEditorSelectionHandler,
-	#superclass : #BlElementEventListener,
+	#superclass : #BlCustomEventHandler,
 	#instVars : [
 		'startIndex'
 	],
@@ -9,9 +9,7 @@ Class {
 
 { #category : #'dnd handlers' }
 BrTextEditorSelectionHandler >> dragEvent: anEvent [
-	| anEditor currentIndex |
-	super dragEvent: anEvent.
-	
+	| anEditor currentIndex |	
 	anEvent consumed: true.
 
 	anEditor := anEvent currentTarget editor.
@@ -19,21 +17,24 @@ BrTextEditorSelectionHandler >> dragEvent: anEvent [
 	currentIndex := anEditor navigator
 		findTextIndexAtScreenPosition: anEvent localPosition
 		ifAbsent: [ ^ self ].
+		
+	self
+		assert: [ currentIndex between: 0 and: anEditor text size ]
+		description: [ 'Text index ({1}) must be within text bounds {2}'
+			format: { currentIndex . 0 to: anEditor text size } ].
 	
 	startIndex ifNil: [ startIndex := currentIndex ].
 	
 	anEditor selecter
 		overwrite;
 		from: (startIndex min: currentIndex)
-		to: (startIndex max: currentIndex);
+			to: (startIndex max: currentIndex);
 		select
 ]
 
 { #category : #'dnd handlers' }
 BrTextEditorSelectionHandler >> dragStartEvent: anEvent [
-	| anEditor |
-	super dragStartEvent: anEvent.
-	
+	| anEditor |	
 	anEvent consumed: true.
 
 	anEditor := anEvent currentTarget editor.
@@ -42,4 +43,9 @@ BrTextEditorSelectionHandler >> dragStartEvent: anEvent [
 	startIndex := anEditor navigator
 		findTextIndexAtScreenPosition: anEvent localPosition
 		ifAbsent: [ nil ].
+]
+
+{ #category : #'api - accessing' }
+BrTextEditorSelectionHandler >> eventsToHandle [
+	^ { BlDragEvent . BlDragStartEvent }
 ]

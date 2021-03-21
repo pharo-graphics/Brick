@@ -6,7 +6,8 @@ Class {
 	#superclass : #BlTextElement,
 	#instVars : [
 		'cursorElements',
-		'cursorStencil'
+		'cursorStencil',
+		'segmentPiece'
 	],
 	#category : #'Brick-Editor-UI'
 }
@@ -14,8 +15,6 @@ Class {
 { #category : #'cursor - management' }
 BrTextElementWithCursors >> addCursorAt: aTextPosition [
 	<return: #BrCursorElement>
-	
-	self assertCursorPosition: aTextPosition.
 	
 	^ self
 		cursorAt: aTextPosition
@@ -58,15 +57,6 @@ BrTextElementWithCursors >> cursorElements [
 	<return: #Collection of: #BrCursorElement>
 
 	^ cursorElements
-]
-
-{ #category : #'cursor - management' }
-BrTextElementWithCursors >> cursorScreenPositionAt: aTextIndex [
-	<return: #Point>
-	| aScreenPosition |
-	
-	aScreenPosition := self paragraph positionAt: aTextIndex.
-	^ aScreenPosition x @ (self height / 2.0)
 ]
 
 { #category : #accessing }
@@ -116,26 +106,23 @@ BrTextElementWithCursors >> initialize [
 ]
 
 { #category : #layout }
-BrTextElementWithCursors >> measureCursors: anExtentMeasurementSpec [
-	| aMaxCursorExtent |
-	
+BrTextElementWithCursors >> layoutCursors: aBounds context: aBlElementBoundsUpdateContext [
 	cursorElements do: [ :aCursorElement |
-		| aCursorPosition aTextPosition |
+		| aCursorPosition aTextPositionX aMaxTextPositionX aMinTextPositionX aTextPosition |
 		
-		self assertCursor: aCursorElement.
-		aCursorPosition := aCursorElement textPosition.
-
-		"cursor is not within paragraph"
-		self paragraph measuredEnd < aCursorPosition
-			ifTrue: [ ^ self ].
-
-		aTextPosition := self cursorScreenPositionAt: aCursorPosition.
-		aTextPosition := (aTextPosition x - (aCursorElement measuredWidth // 2)) @ 0.
-		aCursorElement measuredBounds position: aTextPosition ].
-
-	aMaxCursorExtent := 0@0.
-	cursorElements do: [ :aCursorElement | aMaxCursorExtent := aMaxCursorExtent max: aCursorElement measuredExtent ].
-	self measuredExtent: (self measuredExtent max: aMaxCursorExtent)
+		"we make sure that the cursor is within text bounds (we allow to add a cursor outside of the text bounds)"
+		aCursorPosition := aCursorElement textPosition min: self text size max: 0.0.
+		
+		aMaxTextPositionX := ((self measuredWidth - (aCursorElement measuredWidth))) max: 0.0.
+		aMinTextPositionX := 0.0.
+		
+		aTextPositionX := (self screenPositionAt: aCursorPosition) x.
+		aTextPositionX := ((aTextPositionX - (aCursorElement measuredWidth // 2)) min: aMaxTextPositionX) max: aMinTextPositionX.
+		aTextPosition := aTextPositionX @ self padding top.
+		
+		aCursorElement
+			applyLayoutIn: (aTextPosition extent: (aCursorElement measuredWidth @ ((aCursorElement measuredHeight - self padding height) max: 0.0)))
+			context: aBlElementBoundsUpdateContext ]
 ]
 
 { #category : #initialization }
@@ -144,13 +131,28 @@ BrTextElementWithCursors >> newCursor [
 	<return: #BlElement>
 
 	^ self cursorStencil asElement
+		constraintsDo: [ :c | c ignoreByLayout ]
 ]
 
 { #category : #layout }
-BrTextElementWithCursors >> onMeasure: anExtentMeasurementSpec [	
-	super onMeasure: anExtentMeasurementSpec.
+BrTextElementWithCursors >> onLayout: aBounds context: aBlElementBoundsUpdateContext [
+	super onLayout: aBounds context: aBlElementBoundsUpdateContext.
 	
-	self measureCursors: anExtentMeasurementSpec
+	self layoutCursors: aBounds context: aBlElementBoundsUpdateContext
+]
+
+{ #category : #printing }
+BrTextElementWithCursors >> printOn: aStream [
+	segmentPiece
+		ifNil: [ ^ aStream nextPutAll: 'Uknown segment' ].
+	
+	aStream
+		nextPut: $(;
+		nextPutAll: segmentPiece textStart asString;
+		nextPutAll: ' - ';
+		nextPutAll: segmentPiece textEnd asString;
+		nextPut: $);
+		print: segmentPiece text
 ]
 
 { #category : #'cursor - management' }
@@ -167,6 +169,65 @@ BrTextElementWithCursors >> removeCursorAt: aTextIndex [
 ]
 
 { #category : #'cursor - management' }
+BrTextElementWithCursors >> removeCursors [
+	"Remove all cursors"
+
+	self cursorElements reverseDo: [ :eachCursorElement | eachCursorElement removeFromParent ].
+	self cursorElements removeAll
+]
+
+{ #category : #accessing }
+BrTextElementWithCursors >> removeSegmentPiece [
+	segmentPiece := nil.	
+	self text: '' asRopedText
+]
+
+{ #category : #accessing }
+BrTextElementWithCursors >> segmentPiece [
+	<return: #TBrTextEditorTextualPiece>
+
+	^ segmentPiece
+]
+
+{ #category : #accessing }
+BrTextElementWithCursors >> segmentPiece: aSegmentPiece [
+	| isTextSame |
+	segmentPiece := aSegmentPiece.
+	
+	self telemetry
+		timeSync: [ 'Compare text `{1}` with `{2}`' format: { self text . aSegmentPiece text } ]
+		during: [ isTextSame := self text equals: aSegmentPiece text ].
+
+	isTextSame
+		ifFalse: [
+			| aTextCopy |
+			
+			self telemetry
+				timeSync: [ 'Copy text `{1}`' format: { aSegmentPiece text } ]
+				during: [ aTextCopy := aSegmentPiece text copyFrom: 1 to: aSegmentPiece text size ].
+
+			self telemetry
+				timeSync: [ 'Set text `{1}`' format: { aTextCopy } ]
+				during: [ self text: aTextCopy ] ]
+]
+
+{ #category : #'cursor - management' }
 BrTextElementWithCursors >> showCursors [
 	self cursorElements do: [ :aCursorElement | aCursorElement visibility: BlVisibility visible ]
+]
+
+{ #category : #'text - accessing' }
+BrTextElementWithCursors >> textEnd [
+	"Return an index of the last character of a subtext that I represent"
+	<return: #Number>
+	
+	^ segmentPiece textEnd
+]
+
+{ #category : #'text - accessing' }
+BrTextElementWithCursors >> textStart [
+	"Return an index of the first character of a subtext that I represent"
+	<return: #Number>
+	
+	^ segmentPiece textStart
 ]
