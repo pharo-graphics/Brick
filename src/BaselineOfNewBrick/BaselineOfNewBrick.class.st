@@ -11,8 +11,6 @@ BaselineOfNewBrick >> baseline: spec [
 		spec 
 			baseline: 'NewBloc' with: [
 				spec repository: 'github://pharo-graphics/Bloc/src' ];
-			baseline: 'BlocExamples' with: [
-				spec repository: 'github://pharo-graphics/Bloc/src' ];
 			baseline: 'NewBlocPac' with: [
 				spec repository: 'github://pharo-graphics/bloc-pac:main/src' ].
 			
