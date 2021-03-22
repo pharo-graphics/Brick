@@ -1,5 +1,5 @@
 "
-I am sent by a look to request label text update  from the view mod
+I am sent by a look to request label text update  from the view model
 "
 Class {
 	#name : #BrLabelRequest,
