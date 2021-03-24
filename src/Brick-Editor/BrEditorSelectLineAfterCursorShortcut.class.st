@@ -1,16 +1,8 @@
 Class {
 	#name : #BrEditorSelectLineAfterCursorShortcut,
 	#superclass : #BrEditorShortcut,
-	#instVars : [
-		'combinationForUnix'
-	],
 	#category : #'Brick-Editor-Shortcuts'
 }
-
-{ #category : #'api - combination' }
-BrEditorSelectLineAfterCursorShortcut >> combinationForUnix [
-	^ combinationForUnix
-]
 
 { #category : #accessing }
 BrEditorSelectLineAfterCursorShortcut >> description [
@@ -22,7 +14,7 @@ BrEditorSelectLineAfterCursorShortcut >> initialize [
 	super initialize.
 	
 	combination := BlKeyCombination primaryShiftArrowRight.
-	combinationForUnix := BlKeyCombination shiftEnd
+
 ]
 
 { #category : #accessing }
