@@ -33,31 +33,40 @@ BrTextStylerAsyncStrategy >> delay: aDuration [
 ]
 
 { #category : #private }
-BrTextStylerAsyncStrategy >> doStyle: aBlText afterDo: aBlock [
+BrTextStylerAsyncStrategy >> doStyle: aBrEditorElement afterDo: aBlock [
+
+	| aStyledText |
 	self delay isZero ifFalse: [ self delay wait ].
-	super doStyle: aBlText afterDo: aBlock
+
+	aBrEditorElement enqueueTask: (BlTaskAction new action: [
+		aStyledText := self
+		               doStyleText: aBrEditorElement editor text
+		               with: aBrEditorElement editor styler
+		               afterDo: aBlock.
+
+		aBrEditorElement editor dispatchEvent: (BrTextStyledEvent new
+			 text: aStyledText;
+			 afterAction: aBlock;
+			 editorElement: aBrEditorElement) ])
 ]
 
 { #category : #initialization }
 BrTextStylerAsyncStrategy >> initialize [
 	super initialize.
-	backgroundProcess := nil.
 	delay := 200 milliSeconds.
 ]
 
 { #category : #styling }
-BrTextStylerAsyncStrategy >> style: aBlText afterDo: aBlock [
-	self view ifNil: [ 
-		"A graphical widget is not available, we therefore do not need to style the text"
-		^ self ].
+BrTextStylerAsyncStrategy >> scheduleStyleTextInEditorElement: aBrEditorElement thenDo: aBlock [
+
 	BlUseAsyncFeatures 
 		ifEnabledDo: [  
 			monitor critical: [ 
 				self terminateBackgroundStylingProcess.
 				backgroundProcess := [
-					self doStyle: aBlText afterDo: aBlock 
+					self doStyle: aBrEditorElement afterDo: aBlock 
 				] forkAt: Processor userBackgroundPriority named: 'Text Styler Async Task' ] ]
-		otherwise: [ self doStyle: aBlText afterDo: aBlock ]
+		otherwise: [ self doStyle: aBrEditorElement afterDo: aBlock ]
 ]
 
 { #category : #private }
