@@ -334,14 +334,6 @@ BrTextEditor >> enqueueHolderCommand: aBrTextEditorHolderCommand interval: aText
 		event: aBrTextEditorHolderCommand
 ]
 
-{ #category : #accessing }
-BrTextEditor >> gtStringFor: aView [
-	<gtView>
-	^ (self text 
-		gtStringFor: aView)
-		priority: 5
-]
-
 { #category : #'text - selection' }
 BrTextEditor >> hasCursors [
 	"Return true of there is at least one cursor, false otherwise"

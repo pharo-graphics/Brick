@@ -67,5 +67,7 @@ BaselineOfBrick >> baseline: spec [
 			package: #'Brick-Theme-Examples' with: [
 				spec requires: #(#'Brick-Theme') ];
 			package: #'Brick-Editor-Examples' with: [
+				spec requires: #(#'Brick' #'Brick-Editor') ];
+			package: #'Brick-Extensions' with: [
 				spec requires: #(#'Brick' #'Brick-Editor') ] ]
 ]

@@ -24,19 +24,6 @@ BrInteractiveLook class >> isDeprecated [
 	^ true
 ]
 
-{ #category : #'gt-extension' }
-BrInteractiveLook >> gtStylesFor: aView [
-	<gtView>
-	
-	^ aView columnedList
-		title: 'Styles';
-		priority: 3;
-		items: [ self styles ];
-		column: 'State' item: [ :eachItem | eachItem state ] width: 200;
-		column: 'Action' item: [ :eachItem | eachItem action ]
-		
-]
-
 { #category : #initialization }
 BrInteractiveLook >> initialize [
 	super initialize.

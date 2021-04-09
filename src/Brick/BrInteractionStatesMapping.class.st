@@ -32,20 +32,6 @@ BrInteractionStatesMapping >> addState: aBrInteractiveState modelClass: aBrState
 		put: aBrInteractiveState
 ]
 
-{ #category : #'gt-extension' }
-BrInteractionStatesMapping >> gtStatesFor: aView [
-	<gtView>
-
-	mapping
-		ifEmpty: [ ^ aView empty ].
-	
-	^ aView forward
-		priority: 1;
-		title: 'States';
-		object: [ mapping ];
-		view: #gtItemsFor:
-]
-
 { #category : #comparing }
 BrInteractionStatesMapping >> hash [
 	"Answer an integer value that is related to the identity of the receiver."

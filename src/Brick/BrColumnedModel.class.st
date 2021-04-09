@@ -49,17 +49,6 @@ BrColumnedModel >> columnsDo: aBlock [
 	columns do: aBlock
 ]
 
-{ #category : #'gt-inspector-extension' }
-BrColumnedModel >> gtInspectorColumnsIn: aComposite [
-	<gtInspectorPresentationOrder: 2>
-
-	^ aComposite fastTable
-		title: 'Columns';
-		display: [ self columns ];
-		column: '' evaluated: [ '' ] width: 1;
-		column: 'Title' evaluated: #title
-]
-
 { #category : #initialization }
 BrColumnedModel >> initialize [
 	super initialize.

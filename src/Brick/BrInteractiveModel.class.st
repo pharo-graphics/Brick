@@ -48,17 +48,6 @@ BrInteractiveModel >> addStates: aCollectionOfStateModels [
 	aCollectionOfStateModels do: [ :aStateModel | self addState: aStateModel ]
 ]
 
-{ #category : #'gt-extension' }
-BrInteractiveModel >> gtLocalStatesFor: aView [
-	<gtView>
-	
-	^ aView forward
-		priority: 1;
-		title: 'Local States';
-		object: [ self statesMapping ];
-		view: #gtStatesFor:
-]
-
 { #category : #initialization }
 BrInteractiveModel >> initialize [
 	super initialize.
