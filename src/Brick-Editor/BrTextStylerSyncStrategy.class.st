@@ -16,15 +16,17 @@ Class {
 
 { #category : #styling }
 BrTextStylerSyncStrategy >> styleTextInEditorElement: aBrEditorElement thenDo: aBlock [
-	| aStyledText |
 
+	| aStyledText |
 	aStyledText := self
-		doStyleText: aBrEditorElement editor text
+		doStyleText: aBrEditorElement editor textSnapshot
 		with: aBrEditorElement editor styler
 		afterDo: aBlock.
 
-	aBrEditorElement editor dispatchEvent: (BrTextStyledEvent new
-		text: aStyledText;
-		afterAction: aBlock;
-		editorElement: aBrEditorElement)
+	"Dispatch the event in the UI thread. Needed?"
+	aBrEditorElement enqueueTask: (BlTaskAction new action: [
+		aBrEditorElement editor dispatchEvent: (BrTextStyledEvent new
+			text: aStyledText;
+			afterAction: aBlock;
+			editorElement: aBrEditorElement) ])
 ]
