@@ -21,28 +21,33 @@ Class {
 { #category : #accessing }
 BrTextStylerAsyncStrategy >> delay [
 	<return: #Duration>
+
 	^ delay
 ]
 
 { #category : #accessing }
 BrTextStylerAsyncStrategy >> delay: aDuration [
-	self 
-		assert: [ aDuration isNotNil ] 
-		description: [ 'Style text delay must be non-nil' ].
+
 	delay := aDuration
 ]
 
 { #category : #private }
 BrTextStylerAsyncStrategy >> doStyle: aBrEditorElement afterDo: aBlock [
 
-	| aStyledText |
 	self delay isZero ifFalse: [ self delay wait ].
+	self enqueueTaskOn: aBrEditorElement afterDo: aBlock
+]
 
+{ #category : #private }
+BrTextStylerAsyncStrategy >> enqueueTaskOn: aBrEditorElement afterDo: aBlock [
+	"Enqueue a task into a editor element to style its text. This will dispatch a BrTextStyledEvent with the after block closure."
+
+	| aStyledText |
 	aBrEditorElement enqueueTask: (BlTaskAction new action: [
 		aStyledText := self
-		               doStyleText: aBrEditorElement editor text
-		               with: aBrEditorElement editor styler
-		               afterDo: aBlock.
+               doStyleText: aBrEditorElement editor text
+               with: aBrEditorElement editor styler
+               afterDo: aBlock.
 
 		aBrEditorElement editor dispatchEvent: (BrTextStyledEvent new
 			 text: aStyledText;
@@ -52,6 +57,7 @@ BrTextStylerAsyncStrategy >> doStyle: aBrEditorElement afterDo: aBlock [
 
 { #category : #initialization }
 BrTextStylerAsyncStrategy >> initialize [
+
 	super initialize.
 	delay := 200 milliSeconds.
 ]
