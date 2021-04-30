@@ -162,9 +162,10 @@ BrRBTextStyler >> methodOrBlockTempDeclStyleFor: aSequenceNode [
 
 { #category : #private }
 BrRBTextStyler >> methodOrBlockTempStyleFor: aTemporaryNode [
-	^ aTemporaryNode isBlockVar
-		ifTrue: [ #blockTempVar ]
-		ifFalse: [ #tempVar ]
+
+	^ aTemporaryNode isDefinedByBlock
+		  ifTrue: [ #blockTempVar ]
+		  ifFalse: [ #tempVar ]
 ]
 
 { #category : #private }
@@ -206,18 +207,19 @@ BrRBTextStyler >> privateStyle: aText [
 
 { #category : #private }
 BrRBTextStyler >> resolveStyleFor: aVariableNode [
-	aVariableNode binding isUndeclared ifTrue: [
-		| var |
-		var := aVariableNode scope findVariable: [ :varS | varS name beginsWith: aVariableNode name ] ifNone: [ nil ].
-		var ifNil: [ #default ] ifNotNil: [ #incompleteIdentifier ].
-	].
-	aVariableNode binding ifNil: [^#default].
-	aVariableNode isArg ifTrue: [ ^#methodArg].
-	aVariableNode isTemp ifTrue: [ ^#tempVar].
-	aVariableNode isGlobal ifTrue: [ ^#globalVar].
-	aVariableNode isInstance ifTrue: [ ^#instVar]. 
-	aVariableNode hasIncompleteIdentifier ifTrue:[ ^#incompleteIdentifier].
-	^#invalid.
+
+	aVariableNode binding isUndeclaredVariable ifTrue: [ 
+		^ (aVariableNode scope hasBindingThatBeginsWith: aVariableNode name)
+			  ifTrue: [ #incompleteIdentifier ]
+			  ifFalse: [ #default ] ].
+	aVariableNode binding ifNil: [ ^ #default ].
+	aVariableNode isArgumentVariable ifTrue: [ ^ #methodArg ].
+	aVariableNode isTempVariable ifTrue: [ ^ #tempVar ].
+	aVariableNode isLiteralVariable ifTrue: [ ^ #globalVar ].
+	aVariableNode isInstance ifTrue: [ ^ #instVar ].
+	aVariableNode hasIncompleteIdentifier ifTrue: [ 
+		^ #incompleteIdentifier ].
+	^ #invalid
 ]
 
 { #category : #private }
