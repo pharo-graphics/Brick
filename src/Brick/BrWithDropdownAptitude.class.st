@@ -67,7 +67,7 @@ BrWithDropdownAptitude >> attachToCenter [
 						removeLook: BrDropdownBottomLeftAptitude;
 						removeLook: BrDropdownTopLeftAptitude;
 						removeLook: BrDropdownTopRightAptitude;
-						addLook: BrDropdownBottomRightAptitude ] ];
+						addAptitude: BrDropdownBottomRightAptitude ] ];
 		single: [ :e | 
 			e
 				anchorBounds: [ :f | widget bounds inParent: f ];
@@ -77,7 +77,7 @@ BrWithDropdownAptitude >> attachToCenter [
 						removeLook: BrDropdownBottomRightAptitude;
 						removeLook: BrDropdownTopLeftAptitude;
 						removeLook: BrDropdownTopRightAptitude;
-						addLook: BrDropdownBottomLeftAptitude ] ];
+						addAptitude: BrDropdownBottomLeftAptitude ] ];
 		single: [ :e | 
 			e
 				anchorBounds: [ :f | widget bounds inParent: f ];
@@ -87,7 +87,7 @@ BrWithDropdownAptitude >> attachToCenter [
 						removeLook: BrDropdownBottomRightAptitude;
 						removeLook: BrDropdownBottomLeftAptitude;
 						removeLook: BrDropdownTopRightAptitude;
-						addLook: BrDropdownTopLeftAptitude ] ];
+						addAptitude: BrDropdownTopLeftAptitude ] ];
 		single: [ :e | 
 			e
 				anchorBounds: [ :f | widget bounds inParent: f ];
@@ -97,7 +97,7 @@ BrWithDropdownAptitude >> attachToCenter [
 						removeLook: BrDropdownBottomRightAptitude;
 						removeLook: BrDropdownBottomLeftAptitude;
 						removeLook: BrDropdownTopLeftAptitude;
-						addLook: BrDropdownTopRightAptitude ] ];
+						addAptitude: BrDropdownTopRightAptitude ] ];
 		build.
 ]
 
@@ -138,7 +138,7 @@ BrWithDropdownAptitude >> initialize [
 						removeLook: BrDropdownBottomLeftAptitude;
 						removeLook: BrDropdownTopLeftAptitude;
 						removeLook: BrDropdownTopRightAptitude;
-						addLook: BrDropdownBottomRightAptitude ] ];
+						addAptitude: BrDropdownBottomRightAptitude ] ];
 		single: [ :e | 
 			e
 				anchorBounds: [ :f | widget bounds inParent: f ];
@@ -148,7 +148,7 @@ BrWithDropdownAptitude >> initialize [
 						removeLook: BrDropdownBottomRightAptitude;
 						removeLook: BrDropdownTopLeftAptitude;
 						removeLook: BrDropdownTopRightAptitude;
-						addLook: BrDropdownBottomLeftAptitude ] ];
+						addAptitude: BrDropdownBottomLeftAptitude ] ];
 		single: [ :e | 
 			e
 				anchorBounds: [ :f | widget bounds inParent: f ];
@@ -158,7 +158,7 @@ BrWithDropdownAptitude >> initialize [
 						removeLook: BrDropdownBottomRightAptitude;
 						removeLook: BrDropdownBottomLeftAptitude;
 						removeLook: BrDropdownTopRightAptitude;
-						addLook: BrDropdownTopLeftAptitude ] ];
+						addAptitude: BrDropdownTopLeftAptitude ] ];
 		single: [ :e | 
 			e
 				anchorBounds: [ :f | widget bounds inParent: f ];
@@ -168,7 +168,7 @@ BrWithDropdownAptitude >> initialize [
 						removeLook: BrDropdownBottomRightAptitude;
 						removeLook: BrDropdownBottomLeftAptitude;
 						removeLook: BrDropdownTopLeftAptitude;
-						addLook: BrDropdownTopRightAptitude ] ];
+						addAptitude: BrDropdownTopRightAptitude ] ];
 		build.
 ]
 

@@ -60,7 +60,7 @@ BrEditorWithToolbar >> initialize [
 			beReplace;
 			stencil: [ BlElement new size: 10@10; geometry: BlCircle new; background: BrGlamorousColors darkBorderColor ] ) ]).
 
-	self addLook: (BrLayoutResizerAptitude new
+	self addAptitude: (BrLayoutResizerAptitude new
 		hInherit: toolbar;
 		vAnyToFitContent: toolbar;
 		inherit: editor).

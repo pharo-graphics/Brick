@@ -87,7 +87,7 @@ BrSlideImageExport >> createDropdownFieldFor: aCollection [
 					BrHorizontalPane new
 						hMatchParent;
 						vFitContent;
-						addLook:
+						addAptitude:
 							(BrStyleCommonAptitude new
 								hovered: [ :aStyle | aStyle background: BrGlamorousColors defaultButtonBorderColor ]);
 						padding: (BlInsets top: 0 right: 5 bottom: 5 left: 5);
@@ -98,8 +98,8 @@ BrSlideImageExport >> createDropdownFieldFor: aCollection [
 							do: [ :anEvent |
 								button label: each.
 								anEvent currentTarget fireEvent: (BrDropdownHideWish new) ] ] ].
-	button addLook: dropDownLook.
-	button addLook: (BrStyleCommonAptitude new
+	button addAptitude: dropDownLook.
+	button addAptitude: (BrStyleCommonAptitude new
 		default: [ :aStyle | aStyle background: BrGlamorousColors neutralBackgroundColor ];
 		hovered: [ :aStyle | aStyle background: BrGlamorousColors neutralBackgroundColor darker ]).
 

@@ -103,7 +103,7 @@ BrDevLookOverview >> buildExpandArtifctReferencesAttribute: theWishes [
 				beAppend;
 				stencil:  [
 					(self buildSmallReferencesList: theWishes)
-						addLook: BrShadowAptitude;
+						addAptitude: BrShadowAptitude;
 						background: Color white;
 						margin: (BlInsets all: 10);
 						constraintsDo: [ :c | c textFlow pushLine ] ] ]

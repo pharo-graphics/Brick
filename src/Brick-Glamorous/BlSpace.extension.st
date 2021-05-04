@@ -2,5 +2,5 @@ Extension { #name : #BlSpace }
 
 { #category : #'*Brick-Glamorous' }
 BlSpace >> withGlamorousFullscreenMaxizimerHost [
-	self root addLook: BrGlamorousMaximizerFullscreenHostAptitude
+	self root addAptitude: BrGlamorousMaximizerFullscreenHostAptitude
 ]

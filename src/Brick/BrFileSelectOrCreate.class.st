@@ -62,7 +62,7 @@ BrFileSelectOrCreate >> createFileInputField [
 { #category : #accessing }
 BrFileSelectOrCreate >> createFileInputFieldLabel [
 	^ BrLabel new text:'New file name:'; 
-		addLook: (BrGlamorousLabelAptitude new foreground: Color gray);
+		addAptitude: (BrGlamorousLabelAptitude new foreground: Color gray);
 		fitContent;
 		margin: (BlInsets right: 5).
 ]

@@ -155,7 +155,7 @@ BrDevLookGraphOverview >> buildNodeForClass: aLookClass [
 	^ BrVerticalPane new
 		fitContent;
 		clipChildren: false;
-		addLook: BrShadowAptitude;
+		addAptitude: BrShadowAptitude;
 		background: Color white;
 		addChild: aContainer
 ]

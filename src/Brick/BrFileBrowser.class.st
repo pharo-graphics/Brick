@@ -123,7 +123,7 @@ BrFileBrowser >> createTable [
 					selectedObject := aWidgetElement viewModel
 						itemAt: theIndices first.
 					self folder: selectedObject ] ].
-	aTable addLook: BrColumnedListHeaderAptitude.
+	aTable addAptitude: BrColumnedListHeaderAptitude.
 
 	^ aTable
 ]

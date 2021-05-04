@@ -111,7 +111,7 @@ BrGlamorousTaggerSelectableAptitude >> newAddExplicitTagButton [
 		content: [ self newAddAllowedTagsChooser: allowedTags tags ].
 	
 	^ self newBasicAddTagButton
-		addLook: aDropdownLook
+		addAptitude: aDropdownLook
 ]
 
 { #category : #'private - instance creation' }

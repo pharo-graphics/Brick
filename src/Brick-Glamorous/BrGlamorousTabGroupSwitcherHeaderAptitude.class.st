@@ -21,7 +21,7 @@ BrGlamorousTabGroupSwitcherHeaderAptitude >> initialize [
 			- tabbar
 	"
 	
-	self header addLook: BrGlamorousFocusableShadowAptitude.
+	self header addAptitude: BrGlamorousFocusableShadowAptitude.
 
 	self addChangeProperty: #(header geometry) with: [ BlStadium new ].
 	self addChangeProperty: #(header background) with: [ Color white ]. 
@@ -33,9 +33,9 @@ BrGlamorousTabGroupSwitcherHeaderAptitude >> initialize [
 	self add: (BrLayoutResizerAptitude new
 		anyToFitContent: self header).
 
-	self header addLook: (BrLayoutResizerAptitude new
+	self header addAptitude: (BrLayoutResizerAptitude new
 		anyToFitContent: self scrollTabbar).
 
-	self scrollTabbar addLook: (BrLayoutResizerAptitude new
+	self scrollTabbar addAptitude: (BrLayoutResizerAptitude new
 		anyToFitContent: self tabbar)
 ]

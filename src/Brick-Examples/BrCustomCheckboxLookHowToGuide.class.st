@@ -382,7 +382,7 @@ BrCustomCheckboxLookHowToGuide >> allCheckboxStates: anExampleName [
 				margin: (BlInsets all: 10);
 				padding: (BlInsets all: 15);
 				background: Color white;
-				addLook: BrShadowAptitude;
+				addAptitude: BrShadowAptitude;
 				fitContent;
 				"addChild: (BrLabel new
 					margin: (BlInsets bottom: 10);

@@ -8,17 +8,17 @@ BlElement >> actors [
 ]
 
 { #category : #'*Brick' }
+BlElement >> addAptitude: aLook [
+	self aptitude
+		ifNil: [ self aptitude: aLook ]
+		ifNotNil: [ self aptitude add: aLook ].
+]
+
+{ #category : #'*Brick' }
 BlElement >> addInteractiveModelState: aState [
 	self viewModel
 		ifNil: [ self viewModel: (BrInteractiveModel with: aState) ]
 		ifNotNil: [ self viewModel addInteractiveModelState: aState ].
-]
-
-{ #category : #'*Brick' }
-BlElement >> addLook: aLook [
-	self aptitude
-		ifNil: [ self aptitude: aLook ]
-		ifNotNil: [ self aptitude add: aLook ].
 ]
 
 { #category : #'*Brick' }

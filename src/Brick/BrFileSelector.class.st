@@ -203,7 +203,7 @@ BrFileSelector >> createTable [
 	aTable
 		when: BrSelectionChanged 
 		do: [ :anEvent | okButton enable ].
-	aTable addLook: BrColumnedListHeaderAptitude.
+	aTable addAptitude: BrColumnedListHeaderAptitude.
 
 	^ aTable
 ]

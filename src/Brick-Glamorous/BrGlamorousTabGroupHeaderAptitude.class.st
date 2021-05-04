@@ -27,12 +27,12 @@ BrGlamorousTabGroupHeaderAptitude >> initialize [
 		vAnyToFitContent: self header;
 		hInherit: self header).
 
-	self header addLook: (BrLayoutResizerAptitude new
+	self header addAptitude: (BrLayoutResizerAptitude new
 		hAnyToMatchParent: self scrollTabbar;
 		vAnyToFitContent: self scrollTabbar;
 		anyToFitContent: self toolbar;
 		anyToFitContent: self actionbar).
 
-	self scrollTabbar addLook: (BrLayoutResizerAptitude new
+	self scrollTabbar addAptitude: (BrLayoutResizerAptitude new
 		anyToFitContent: self tabbar).
 ]
