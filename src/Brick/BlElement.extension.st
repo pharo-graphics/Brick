@@ -87,7 +87,7 @@ BlElement >> layoutResizerPropagations [
 ]
 
 { #category : #'*Brick' }
-BlElement >> removeLook: aLook [
+BlElement >> removeAptitude: aLook [
 	self aptitude
 		ifNotNil: [
 			self aptitude = aLook

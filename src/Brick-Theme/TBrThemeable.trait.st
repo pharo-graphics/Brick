@@ -9,7 +9,7 @@ Trait {
 { #category : #accessing }
 TBrThemeable >> dispatchThemeChanged [
 	super dispatchThemeChanged.
-	themeLook ifNotNil: [ self removeLook: themeLook ].
+	themeLook ifNotNil: [ self removeAptitude: themeLook ].
 	self aptitude: (themeLook := self theme newLookFor: self)
 ]
 

@@ -64,9 +64,9 @@ BrWithDropdownAptitude >> attachToCenter [
 				referencePoint: BrAnchoredCenterReferencePoint;
 				availableBounds: BrAnchoredBottomRightAvailableBounds;
 				apply: [ innerContainer
-						removeLook: BrDropdownBottomLeftAptitude;
-						removeLook: BrDropdownTopLeftAptitude;
-						removeLook: BrDropdownTopRightAptitude;
+						removeAptitude: BrDropdownBottomLeftAptitude;
+						removeAptitude: BrDropdownTopLeftAptitude;
+						removeAptitude: BrDropdownTopRightAptitude;
 						addAptitude: BrDropdownBottomRightAptitude ] ];
 		single: [ :e | 
 			e
@@ -74,9 +74,9 @@ BrWithDropdownAptitude >> attachToCenter [
 				referencePoint: BrAnchoredCenterReferencePoint;
 				availableBounds: BrAnchoredBottomLeftAvailableBounds;
 				apply: [ innerContainer
-						removeLook: BrDropdownBottomRightAptitude;
-						removeLook: BrDropdownTopLeftAptitude;
-						removeLook: BrDropdownTopRightAptitude;
+						removeAptitude: BrDropdownBottomRightAptitude;
+						removeAptitude: BrDropdownTopLeftAptitude;
+						removeAptitude: BrDropdownTopRightAptitude;
 						addAptitude: BrDropdownBottomLeftAptitude ] ];
 		single: [ :e | 
 			e
@@ -84,9 +84,9 @@ BrWithDropdownAptitude >> attachToCenter [
 				referencePoint: BrAnchoredCenterReferencePoint;
 				availableBounds: BrAnchoredTopRightAvailableBounds;
 				apply: [ innerContainer
-						removeLook: BrDropdownBottomRightAptitude;
-						removeLook: BrDropdownBottomLeftAptitude;
-						removeLook: BrDropdownTopRightAptitude;
+						removeAptitude: BrDropdownBottomRightAptitude;
+						removeAptitude: BrDropdownBottomLeftAptitude;
+						removeAptitude: BrDropdownTopRightAptitude;
 						addAptitude: BrDropdownTopLeftAptitude ] ];
 		single: [ :e | 
 			e
@@ -94,9 +94,9 @@ BrWithDropdownAptitude >> attachToCenter [
 				referencePoint: BrAnchoredCenterReferencePoint;
 				availableBounds: BrAnchoredTopLeftAvailableBounds;
 				apply: [ innerContainer
-						removeLook: BrDropdownBottomRightAptitude;
-						removeLook: BrDropdownBottomLeftAptitude;
-						removeLook: BrDropdownTopLeftAptitude;
+						removeAptitude: BrDropdownBottomRightAptitude;
+						removeAptitude: BrDropdownBottomLeftAptitude;
+						removeAptitude: BrDropdownTopLeftAptitude;
 						addAptitude: BrDropdownTopRightAptitude ] ];
 		build.
 ]
@@ -135,9 +135,9 @@ BrWithDropdownAptitude >> initialize [
 				referencePoint: BrAnchoredTopLeftReferencePoint;
 				availableBounds: BrAnchoredBottomRightAvailableBounds;
 				apply: [ innerContainer
-						removeLook: BrDropdownBottomLeftAptitude;
-						removeLook: BrDropdownTopLeftAptitude;
-						removeLook: BrDropdownTopRightAptitude;
+						removeAptitude: BrDropdownBottomLeftAptitude;
+						removeAptitude: BrDropdownTopLeftAptitude;
+						removeAptitude: BrDropdownTopRightAptitude;
 						addAptitude: BrDropdownBottomRightAptitude ] ];
 		single: [ :e | 
 			e
@@ -145,9 +145,9 @@ BrWithDropdownAptitude >> initialize [
 				referencePoint: BrAnchoredTopRightReferencePoint;
 				availableBounds: BrAnchoredBottomLeftAvailableBounds;
 				apply: [ innerContainer
-						removeLook: BrDropdownBottomRightAptitude;
-						removeLook: BrDropdownTopLeftAptitude;
-						removeLook: BrDropdownTopRightAptitude;
+						removeAptitude: BrDropdownBottomRightAptitude;
+						removeAptitude: BrDropdownTopLeftAptitude;
+						removeAptitude: BrDropdownTopRightAptitude;
 						addAptitude: BrDropdownBottomLeftAptitude ] ];
 		single: [ :e | 
 			e
@@ -155,9 +155,9 @@ BrWithDropdownAptitude >> initialize [
 				referencePoint: BrAnchoredBottomLeftReferencePoint;
 				availableBounds: BrAnchoredTopRightAvailableBounds;
 				apply: [ innerContainer
-						removeLook: BrDropdownBottomRightAptitude;
-						removeLook: BrDropdownBottomLeftAptitude;
-						removeLook: BrDropdownTopRightAptitude;
+						removeAptitude: BrDropdownBottomRightAptitude;
+						removeAptitude: BrDropdownBottomLeftAptitude;
+						removeAptitude: BrDropdownTopRightAptitude;
 						addAptitude: BrDropdownTopLeftAptitude ] ];
 		single: [ :e | 
 			e
@@ -165,9 +165,9 @@ BrWithDropdownAptitude >> initialize [
 				referencePoint: BrAnchoredBottomRightReferencePoint;
 				availableBounds: BrAnchoredTopLeftAvailableBounds;
 				apply: [ innerContainer
-						removeLook: BrDropdownBottomRightAptitude;
-						removeLook: BrDropdownBottomLeftAptitude;
-						removeLook: BrDropdownTopLeftAptitude;
+						removeAptitude: BrDropdownBottomRightAptitude;
+						removeAptitude: BrDropdownBottomLeftAptitude;
+						removeAptitude: BrDropdownTopLeftAptitude;
 						addAptitude: BrDropdownTopRightAptitude ] ];
 		build.
 ]
