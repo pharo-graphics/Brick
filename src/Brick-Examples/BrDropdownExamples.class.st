@@ -250,7 +250,7 @@ BrDropdownExamples >> popupList [
 	<gtExample>
 	
 	^ BrSimpleListExamples new allClasses
-		lookDo: [ :aLook | aLook listElement constraintsDo: [ :c | c maxHeight: 200 ] ];
+		aptitudeDo: [ :aLook | aLook listElement constraintsDo: [ :c | c maxHeight: 200 ] ];
 		layout: BlLinearLayout vertical;
 		padding: (BlInsets all: 5);
 		vFitContent;

@@ -15,7 +15,7 @@ BlElement >> gtInspectorPaintModelLookIn: aMondrianView [
 
 	nodes := { self }.
 	self viewModelDo: [ :aViewModel | nodes := nodes, aViewModel withAllChildren ].
-	self lookDo: [ :aLook | nodes := nodes, aLook withAllChildren ].
+	self aptitudeDo: [ :aLook | nodes := nodes, aLook withAllChildren ].
 	nodes := nodes asSet asArray.
 	
 	aMondrianView nodes

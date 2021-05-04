@@ -90,7 +90,7 @@ BrInteractiveModel >> notifyStatesChanged: aSetOfStates ofMapping: theStatesMapp
 				^ self notifyStatesMappingChangedIn: aMappingToPropagate ] ].
 
 	"no need to dispatch an event if there is no look"
-	anElement lookDo: [ :aLook | anElement dispatchEvent: (BrInteractionChanged new states: aCurrentSetOfStates) ].
+	anElement aptitudeDo: [ :aLook | anElement dispatchEvent: (BrInteractionChanged new states: aCurrentSetOfStates) ].
 	anElement childrenDo: [ :eachChild | self notifyStatesChanged: aCurrentSetOfStates ofMapping: aCurrentStatesMapping toChildren: eachChild ]
 ]
 

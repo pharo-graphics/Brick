@@ -26,7 +26,7 @@ BrWithMaximizerAptitude >> findAllPossibleHostsFor: anElement [
 	^ Array streamContents: [ :aStream | anElement allParentsDo: [ :eachParent |
 		| hasHostLook |
 		hasHostLook := false.
-		eachParent lookDo: [ :eachParentLook | hasHostLook := eachParentLook hasActorOfKind: BrMaximizerHostAptitude ].
+		eachParent aptitudeDo: [ :eachParentLook | hasHostLook := eachParentLook hasActorOfKind: BrMaximizerHostAptitude ].
 		hasHostLook
 			ifTrue: [ aStream nextPut: eachParent ] ] ]
 ]

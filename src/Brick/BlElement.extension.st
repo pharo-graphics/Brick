@@ -4,7 +4,7 @@ Extension { #name : #BlElement }
 BlElement >> actors [
 	^ Array streamContents: [ :aStream |
 		self viewModelDo: [ :aViewModel | aStream nextPut: aViewModel ].	
-		self lookDo: [ :aLook | aStream nextPut: aLook ] ]
+		self aptitudeDo: [ :aLook | aStream nextPut: aLook ] ]
 ]
 
 { #category : #'*Brick' }
@@ -47,7 +47,7 @@ BlElement >> aptitude [
 BlElement >> aptitude: aLook [
 	| aLookInstance |
 	
-	self lookDo: [ :aCurrentLook |
+	self aptitudeDo: [ :aCurrentLook |
 		aCurrentLook onUninstalledIn: self.
 		self userData at: #brickLook put: nil ].
 
@@ -55,6 +55,11 @@ BlElement >> aptitude: aLook [
 
 	self userData at: #brickLook put: aLookInstance.
 	aLookInstance onInstalledIn: self
+]
+
+{ #category : #'*Brick' }
+BlElement >> aptitudeDo: aBlock [
+	self aptitude ifNotNil: aBlock
 ]
 
 { #category : #'*Brick' }
@@ -82,11 +87,6 @@ BlElement >> layoutResizerPropagations [
 ]
 
 { #category : #'*Brick' }
-BlElement >> lookDo: aBlock [
-	self aptitude ifNotNil: aBlock
-]
-
-{ #category : #'*Brick' }
 BlElement >> removeLook: aLook [
 	self aptitude
 		ifNotNil: [
@@ -104,7 +104,7 @@ BlElement >> viewModel [
 
 { #category : #'*Brick' }
 BlElement >> viewModel: aBrViewModel [
-	self lookDo: [ :aLook | self error: 'View model must be added before look' ].
+	self aptitudeDo: [ :aLook | self error: 'View model must be added before look' ].
 
 	self viewModelDo: [ :aCurrentModel |
 		aCurrentModel onUninstalledIn: self.
