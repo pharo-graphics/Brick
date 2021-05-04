@@ -54,9 +54,9 @@ BrCustomCheckboxLookHowToGuide >> _1_withLabelLook [
 	<gtExample>
 	| aLabel aLook |
 
-	aLabel := BrGlamorousLabelLook new.
+	aLabel := BrGlamorousLabelAptitude new.
 
-	aLook := BrCheckboxLook new.
+	aLook := BrCheckboxAptitude new.
 
 	^ self checkboxWidget
 		look: aLook + aLabel
@@ -74,9 +74,9 @@ BrCustomCheckboxLookHowToGuide >> _2_withBorder [
 	<gtExample>
 	| aLabel aLook |
 
-	aLabel := BrGlamorousLabelLook new.
+	aLabel := BrGlamorousLabelAptitude new.
 	
-	aLook := BrCheckboxLook new
+	aLook := BrCheckboxAptitude new
 		default: [ :aWidget |
 			aWidget border: ((BlBorder paint: Color gray width: 1)) ].
 
@@ -96,10 +96,10 @@ BrCustomCheckboxLookHowToGuide >> _3_withShape [
 	<gtExample>
 	| aLabel aLook aShape |
 
-	aLabel := BrGlamorousLabelLook new.
-	aShape := BrGlamorousButtonRectangularLook new.
+	aLabel := BrGlamorousLabelAptitude new.
+	aShape := BrGlamorousButtonRectangularAptitude new.
 	
-	aLook := BrCheckboxLook new
+	aLook := BrCheckboxAptitude new
 		default: [ :aWidget |
 			aWidget border: ((BlBorder paint: Color gray width: 1)) ].
 
@@ -119,10 +119,10 @@ BrCustomCheckboxLookHowToGuide >> _4_withStateText [
 	<gtExample>
 	| aLabel aLook aShape |
 
-	aLabel := BrGlamorousLabelLook new.
-	aShape := BrGlamorousButtonRectangularLook new.
+	aLabel := BrGlamorousLabelAptitude new.
+	aShape := BrGlamorousButtonRectangularAptitude new.
 	
-	aLook := BrCheckboxLook new
+	aLook := BrCheckboxAptitude new
 		default: [ :aWidget |
 			aWidget border: ((BlBorder paint: Color gray width: 1)) ];
 		checked: [ :aWidget |
@@ -148,10 +148,10 @@ BrCustomCheckboxLookHowToGuide >> _5_withStyledStateText [
 	<gtExample>
 	| aLabel aLook aShape |
 
-	aLabel := BrGlamorousLabelLook new.
-	aShape := BrGlamorousButtonRectangularLook new.
+	aLabel := BrGlamorousLabelAptitude new.
+	aShape := BrGlamorousButtonRectangularAptitude new.
 	
-	aLook := BrCheckboxLook new
+	aLook := BrCheckboxAptitude new
 		default: [ :aWidget |
 			aWidget border: ((BlBorder paint: Color gray width: 1)) ];
 		checked: [ :aWidget |
@@ -186,10 +186,10 @@ BrCustomCheckboxLookHowToGuide >> _6_withStyledBackground [
 	<gtExample>
 	| aLabel aLook aShape |
 
-	aLabel := BrGlamorousLabelLook new.
-	aShape := BrGlamorousButtonRectangularLook new.
+	aLabel := BrGlamorousLabelAptitude new.
+	aShape := BrGlamorousButtonRectangularAptitude new.
 	
-	aLook := BrCheckboxLook new
+	aLook := BrCheckboxAptitude new
 		default: [ :aWidget |
 			aWidget border: ((BlBorder paint: Color gray width: 1)) ];
 
@@ -233,10 +233,10 @@ BrCustomCheckboxLookHowToGuide >> _7_withHoveredBackground [
 	<gtExample>
 	| aLabel aLook aShape |
 
-	aLabel := BrGlamorousLabelLook new.
-	aShape := BrGlamorousButtonRectangularLook new.
+	aLabel := BrGlamorousLabelAptitude new.
+	aShape := BrGlamorousButtonRectangularAptitude new.
 	
-	aLook := BrCheckboxLook new
+	aLook := BrCheckboxAptitude new
 		default: [ :aWidget |
 			aWidget border: ((BlBorder paint: Color gray width: 1)) ];
 
@@ -295,10 +295,10 @@ BrCustomCheckboxLookHowToGuide >> _8_withPressedBackground [
 	<gtExample>
 	| aLabel aLook aShape |
 
-	aLabel := BrGlamorousLabelLook new.
-	aShape := BrGlamorousButtonRectangularLook new.
+	aLabel := BrGlamorousLabelAptitude new.
+	aShape := BrGlamorousButtonRectangularAptitude new.
 
-	aLook := BrCheckboxLook new
+	aLook := BrCheckboxAptitude new
 		default: [ :aWidget |
 			aWidget border: ((BlBorder paint: Color gray width: 1)) ];
 
@@ -382,7 +382,7 @@ BrCustomCheckboxLookHowToGuide >> allCheckboxStates: anExampleName [
 				margin: (BlInsets all: 10);
 				padding: (BlInsets all: 15);
 				background: Color white;
-				addLook: BrShadowLook;
+				addLook: BrShadowAptitude;
 				fitContent;
 				"addChild: (BrLabel new
 					margin: (BlInsets bottom: 10);
@@ -397,7 +397,7 @@ BrCustomCheckboxLookHowToGuide >> allCheckboxStates: anExampleName [
 BrCustomCheckboxLookHowToGuide >> checkboxLook [
 	<gtExample>
 	
-	^ BrCheckboxLook new
+	^ BrCheckboxAptitude new
 ]
 
 { #category : #'instance creation' }

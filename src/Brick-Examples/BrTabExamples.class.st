@@ -91,7 +91,7 @@ BrTabExamples >> deselectTabModel [
 BrTabExamples >> groupHeaderLook [
 	<gtExample>
 
-	^ BrTabGroupHeaderWithToolbarLook asLook
+	^ BrTabGroupHeaderWithToolbarAptitude asLook
 ]
 
 { #category : #'examples - ui header' }
@@ -196,7 +196,7 @@ BrTabExamples >> groupHeaderWithoutBoundTabs [
 BrTabExamples >> groupTabLook [
 	<gtExample>
 
-	^ BrTextLabelLook new
+	^ BrTextLabelAptitude new
 ]
 
 { #category : #'examples - tab group model' }

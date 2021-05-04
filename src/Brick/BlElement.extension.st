@@ -51,7 +51,7 @@ BlElement >> asStencil [
 { #category : #'*Brick' }
 BlElement >> asVerticallyResizableDo: aBlock [
 	^ aBlock value: (BlElement new
-		look: BrGlamorousWithVerticalResizerLook;
+		look: BrGlamorousWithVerticalResizerAptitude;
 		addChild: self)
 ]
 

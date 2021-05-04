@@ -1,6 +1,6 @@
 Class {
 	#name : #BrGlamorousWithDropdownLook2,
-	#superclass : #BrGlamorousWithDropdownLook,
+	#superclass : #BrGlamorousWithDropdownAptitude,
 	#category : #'Brick-Glamorous-Dropdown'
 }
 

@@ -7,5 +7,5 @@ Class {
 { #category : #'api - instantiation' }
 BrGlamorousColumnedListSelectableRowElementStencilBuilder >> buildDefault [
 	^ super buildDefault
-		addLook: BrGlamorousListItemLook
+		addLook: BrGlamorousListItemAptitude
 ]

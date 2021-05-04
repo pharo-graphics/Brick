@@ -12,15 +12,15 @@ BrThemeExampleMapped >> initialize [
 
 { #category : #accessing }
 BrThemeExampleMapped >> newDefaultLookFor: anElement [
-	^ BrThemeExampleLook new
+	^ BrThemeExampleAptitude new
 ]
 
 { #category : #accessing }
 BrThemeExampleMapped >> newGlamorousButtonLookFor: anElement [
-	^ BrGlamorousButtonWithLabelLook new
+	^ BrGlamorousButtonWithLabelAptitude new
 ]
 
 { #category : #accessing }
 BrThemeExampleMapped >> newMaterialButtonLookFor: anElement [
-	^ BrMaterialButtonLook new
+	^ BrMaterialButtonAptitude new
 ]

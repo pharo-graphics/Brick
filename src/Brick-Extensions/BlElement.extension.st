@@ -30,7 +30,7 @@ BlElement >> gtInspectorPaintModelLookIn: aMondrianView [
 					preventMouseEvents;
 					text: (((each isKindOf: BlElement)
 						ifTrue: [ 'W' asRopedText ]
-						ifFalse: [ (each isKindOf: BrLook)
+						ifFalse: [ (each isKindOf: BrAptitude)
 							ifTrue: [ 'L' asRopedText ]
 							ifFalse: [ 'M' asRopedText ] ]) fontSize: 7)) ];
 		with: nodes.

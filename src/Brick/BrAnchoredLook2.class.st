@@ -1,6 +1,6 @@
 Class {
 	#name : #BrAnchoredLook2,
-	#superclass : #BrAnchoredLook,
+	#superclass : #BrAnchoredAptitude,
 	#category : #'Brick-Anchored - Look'
 }
 

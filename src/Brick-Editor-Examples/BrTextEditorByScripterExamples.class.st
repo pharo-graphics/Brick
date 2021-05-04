@@ -63,7 +63,7 @@ BrTextEditorByScripterExamples >> scripterElement [
 	<gtExample>
 
 	^ BrEditor new
-		look: BrGlamorousRegularEditorLook + BrGlamorousTextAreaSpacingLook;
+		look: BrGlamorousRegularEditorAptitude + BrGlamorousTextAreaSpacingAptitude;
 		matchParent;
 		text: '' asRopedText
 ]

@@ -9,7 +9,7 @@ BrGlamorousComponentsEditors >> basicEditor [
 	<gtExample>
 
 	^ BrEditor new
-		look: BrGlamorousEditorLook;
+		look: BrGlamorousEditorAptitude;
 		text: String loremIpsum
 ]
 
@@ -18,7 +18,7 @@ BrGlamorousComponentsEditors >> digitsOnly [
 	<gtExample>
 
 	^ BrEditor new
-		look: BrGlamorousEditorLook + BrGlamorousInputFieldSpacingLook;
+		look: BrGlamorousEditorAptitude + BrGlamorousInputFieldSpacingAptitude;
 		inputFilter: BrTextEditorDigitInputFilter new;
 		text: '42';
 		fitContent
@@ -29,7 +29,7 @@ BrGlamorousComponentsEditors >> inputField [
 	<gtExample>
 
 	^ BrEditor new
-		look: BrGlamorousEditorLook + BrGlamorousInputFieldSpacingLook;
+		look: BrGlamorousEditorAptitude + BrGlamorousInputFieldSpacingAptitude;
 		text: (String loremIpsum: 20) trimBoth;
 		fitContent
 ]
@@ -39,6 +39,6 @@ BrGlamorousComponentsEditors >> textArea [
 	<gtExample>
 
 	^ BrEditor new
-		look: BrGlamorousEditorLook + BrGlamorousTextAreaSpacingLook;
+		look: BrGlamorousEditorAptitude + BrGlamorousTextAreaSpacingAptitude;
 		text: String loremIpsum
 ]

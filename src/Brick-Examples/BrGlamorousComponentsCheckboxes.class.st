@@ -19,7 +19,7 @@ BrGlamorousComponentsCheckboxes >> checked [
 	<gtExample>
 	
 	^ BrCheckbox new
-		look: BrGlamorousCheckboxLook;
+		look: BrGlamorousCheckboxAptitude;
 		check
 ]
 
@@ -28,7 +28,7 @@ BrGlamorousComponentsCheckboxes >> indeterminate [
 	<gtExample>
 
 	^ BrCheckbox new
-		look: BrGlamorousCheckboxLook;
+		look: BrGlamorousCheckboxAptitude;
 		indeterminate
 ]
 
@@ -37,6 +37,6 @@ BrGlamorousComponentsCheckboxes >> unchecked [
 	<gtExample>
 	
 	^ BrCheckbox new
-		look: BrGlamorousCheckboxLook;
+		look: BrGlamorousCheckboxAptitude;
 		uncheck
 ]

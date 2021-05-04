@@ -13,7 +13,7 @@ BrSimpleTree >> defaultListModel [
 BrSimpleTree >> initialize [
 	super initialize.
 
-	self look: BrSimpleTreeLook + BrGlamorousWithVerticalScrollbarLook
+	self look: BrSimpleTreeAptitude + BrGlamorousWithVerticalScrollbarAptitude
 ]
 
 { #category : #'api - scripting' }

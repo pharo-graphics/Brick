@@ -43,7 +43,7 @@ BrTextAttributesHowToGuide >> hideMarkupInText [
 					(aSubText from: aMarkupStart to: aMarkupEnd) attribute: BrTextHideAttribute new ] ].
 
 	^ BrEditor new
-		look: BrGlamorousEditorLook new;
+		look: BrGlamorousEditorAptitude new;
 		text: text
 ]
 

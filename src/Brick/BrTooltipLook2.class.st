@@ -1,6 +1,6 @@
 Class {
 	#name : #BrTooltipLook2,
-	#superclass : #BrTooltipLook,
+	#superclass : #BrTooltipAptitude,
 	#category : #'Brick-Tooltip - Look'
 }
 

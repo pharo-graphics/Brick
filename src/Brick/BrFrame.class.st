@@ -11,5 +11,5 @@ Class {
 BrFrame >> initialize [
 	super initialize.
 
-	self look: BrFrameLook new
+	self look: BrFrameAptitude new
 ]

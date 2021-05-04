@@ -26,7 +26,7 @@ BrFileSelectOrCreate >> buildUI [
 	fileInputFieldContainer := self createFileInputField.
 	self addChildren: {
 		BrScrollPane new
-			look: BrScrollPaneLook;
+			look: BrScrollPaneAptitude;
 			hMatchParent;
 			vFitContent;
 			content: breadcrumb.
@@ -40,7 +40,7 @@ BrFileSelectOrCreate >> createFileInputField [
 	|fileInputFieldLabel |
 	fileInputFieldLabel := self createFileInputFieldLabel .
 	fileInputField := BrEditableLabel new.
-	fileInputField look: BrGlamorousEditableLabelLook.
+	fileInputField look: BrGlamorousEditableLabelAptitude.
 	fileInputField hMatchParent.
 	fileInputField switchToEditor.
 	fileInputField editor
@@ -62,7 +62,7 @@ BrFileSelectOrCreate >> createFileInputField [
 { #category : #accessing }
 BrFileSelectOrCreate >> createFileInputFieldLabel [
 	^ BrLabel new text:'New file name:'; 
-		addLook: (BrGlamorousLabelLook new foreground: Color gray);
+		addLook: (BrGlamorousLabelAptitude new foreground: Color gray);
 		fitContent;
 		margin: (BlInsets right: 5).
 ]

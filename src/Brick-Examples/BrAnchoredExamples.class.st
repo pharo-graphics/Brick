@@ -13,7 +13,7 @@ BrAnchoredExamples >> contextMenu [
 		yourself.
 	content := (BrLabel new
 		look:
-			(BrGlamorousLabelLook new
+			(BrGlamorousLabelAptitude new
 				glamorousRegularFontAndSize;
 				yourself);
 		padding: (BlInsets all: handle width);
@@ -35,7 +35,7 @@ BrAnchoredExamples >> contextMenu [
 				scaleBy: 0.5 ];
 		yourself.
 	anchor := BlElement new
-		look: (BrGlamorousWithContextMenuLook handle: handle content: content);
+		look: (BrGlamorousWithContextMenuAptitude handle: handle content: content);
 		background: Color red;
 		size: 40 @ 80;
 		addEventHandler: BlPullHandler new;
@@ -62,7 +62,7 @@ BrAnchoredExamples >> dropdown [
 		yourself.
 	content := (BrLabel new
 		look:
-			(BrGlamorousLabelLook new
+			(BrGlamorousLabelAptitude new
 				glamorousRegularFontAndSize;
 				yourself);
 		padding: (BlInsets all: handle width);
@@ -85,7 +85,7 @@ BrAnchoredExamples >> dropdown [
 		yourself.
 	anchor := BlElement new
 		look:
-			((BrGlamorousWithDropdownLook handle: handle content: content)
+			((BrGlamorousWithDropdownAptitude handle: handle content: content)
 				root: container;
 				yourself);
 		background: Color red;
@@ -110,7 +110,7 @@ BrAnchoredExamples >> tooltip [
 	<gtExample>
 	| tip |
 	tip := BrLabel new
-		look: (BrGlamorousLabelLook new glamorousRegularFontAndSize);
+		look: (BrGlamorousLabelAptitude new glamorousRegularFontAndSize);
 		padding: (BlInsets all: 20);
 		text: 'no transformation affects me!';
 		alignCenter.

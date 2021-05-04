@@ -52,7 +52,7 @@ BrAnchoredReferencePoint >> gtPreviewFor: aView [
 						clipChildren: false;
 						layout: BlLinearLayout vertical alignCenter;
 						addChild: (BrLabel new
-							look: (BrGlamorousLabelLook new fontSize: 9);
+							look: (BrGlamorousLabelAptitude new fontSize: 9);
 							text: self class label).
 				}) asScalableElement
 					maxScale: 1.2;

@@ -8,7 +8,7 @@ Class {
 BrGridList >> initialize [
 	super initialize.
 
-	self look: BrGridListLook new.
+	self look: BrGridListAptitude new.
 	self layout: BlFrameLayout new.
 	self constraintsDo: [ :c |
 		c horizontal matchParent.

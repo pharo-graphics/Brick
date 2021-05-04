@@ -17,7 +17,7 @@ Class {
 { #category : #'api - instantiation' }
 BrGlamorousColumnedTreeSelectableRowElementStencilBuilder >> buildDefault [
 	^ super buildDefault
-		addLook: BrGlamorousListItemLook;
+		addLook: BrGlamorousListItemAptitude;
 		layoutDo: [ :aLayout | aLayout cellSpacing: self cellSpacing ];
 		padding: self padding
 ]

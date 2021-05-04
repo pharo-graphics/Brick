@@ -10,7 +10,7 @@ BrLabelExamples >> glamorousLabel [
 	| aLabel |
 	
 	aLabel := BrLabel new.
-	aLabel look: BrGlamorousLabelLook new.
+	aLabel look: BrGlamorousLabelAptitude new.
 
 	aLabel forceLayout.
 	

@@ -73,7 +73,7 @@ BrProgressExamples >> animatedBarAndTextAbove [
 { #category : #'examples - looks' }
 BrProgressExamples >> animatedBarLook [
 	<gtExample>
-	^ BrProgressAnimatedBarLook new
+	^ BrProgressAnimatedBarAptitude new
 			beGradientAnimationBaseColor: Color white highlightColor: Color blue muchLighter;
 			barDo: [ :aBar | 
 				aBar background: Color blue.
@@ -161,7 +161,7 @@ BrProgressExamples >> barAndTextInside [
 { #category : #'examples - looks' }
 BrProgressExamples >> barLook [
 	<gtExample>
-	^ BrProgressBarLook new
+	^ BrProgressBarAptitude new
 			barDo: [ :aBar | 
 				aBar background: Color blue.
 				aBar geometry: (BlRoundedRectangleGeometry cornerRadius: 8).
@@ -291,7 +291,7 @@ BrProgressExamples >> progressModel [
 { #category : #'examples - looks' }
 BrProgressExamples >> textLook [
 	<gtExample>
-	^ BrTextLabelLook new 
+	^ BrTextLabelAptitude new 
 			foreground: Color lightGray;
 			labelDo: [ :aWidget | 
 				aWidget constraintsDo: [ :c | 

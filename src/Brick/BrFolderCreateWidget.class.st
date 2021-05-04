@@ -15,14 +15,14 @@ Class {
 BrFolderCreateWidget >> createButton [
 	^ BrButton new
 				icon: BrGlamorousIcons accept;
-				look: (BrGlamorousButtonRectangularLook new + BrGlamorousButtonIconLook new+BrGlamorousButtonExteriorLook new);
+				look: (BrGlamorousButtonRectangularAptitude new + BrGlamorousButtonIconAptitude new+BrGlamorousButtonExteriorAptitude new);
 				disable
 ]
 
 { #category : #accessing }
 BrFolderCreateWidget >> createLabel [
 	^ BrEditableLabel new
-		look: BrGlamorousEditableLabelLook new glamorousRegularFontAndSize;
+		look: BrGlamorousEditableLabelAptitude new glamorousRegularFontAndSize;
 		switchToEditor;
 	text: 'Double click me'.
 ]

@@ -10,7 +10,7 @@ BrContextMenuExamples >> compact [
 	| element |
 	element := self element.
 	element look:
-		(BrGlamorousWithContextMenuLook
+		(BrGlamorousWithContextMenuAptitude
 			content: [
 				BrGlamorousSimpleContextMenuContent new
 					items:
@@ -60,7 +60,7 @@ BrContextMenuExamples >> elementWithModelAndLook [
 BrContextMenuExamples >> look [
 	<gtExample>
 	| look |
-	look := BrWithContextMenuLook new.
+	look := BrWithContextMenuAptitude new.
 	self assert: look visible equals: false.
 	self assert: (look stencil asStencil asElement isKindOf: BlElement).
 	^ look
@@ -73,7 +73,7 @@ BrContextMenuExamples >> model [
 	model := BrWithContextMenuModel new
 		stencil: [ BrAnchoredElement new
 				look:
-					(BrContextMenuLook new
+					(BrContextMenuAptitude new
 						handle:
 							(BlElement new
 								size: 10 @ 10;
@@ -99,7 +99,7 @@ BrContextMenuExamples >> modelForElement: anElement [
 	model := BrWithContextMenuModel new
 		stencil: [ BrAnchoredElement new
 				look:
-					(BrGlamorousContextMenuLook new
+					(BrGlamorousContextMenuAptitude new
 						content:
 							(BrGlamorousSimpleContextMenuContent new
 								display:
