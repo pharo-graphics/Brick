@@ -163,8 +163,8 @@ BrButtonLabelLookExamples >> buttonWithModelAndLookAndChangedModelLabel [
 	
 	aButton viewModel widgetModels first text: newLabel.
 
-	self assert: aButton look text asString equals: newLabel.
-	self assert: aButton look label text asString equals: newLabel.
+	self assert: aButton aptitude text asString equals: newLabel.
+	self assert: aButton aptitude label text asString equals: newLabel.
 
 	^ aButton
 ]
@@ -372,7 +372,7 @@ BrButtonLabelLookExamples >> iconChangedEvent [
 	newIcon := ((BlEllipseGeometry new) extent: 10@10) asElement.
 
 	aButton := self buttonWithModelAndLookWithoutConstraints.
-	aButton look when: BrIconChanged do: [ :anEvent | anIconChangedEvent := anEvent copy ].
+	aButton aptitude when: BrIconChanged do: [ :anEvent | anIconChangedEvent := anEvent copy ].
 	aButton viewModel widgetModels second icon: newIcon.
 	
 	self assert: aButton viewModel widgetModels second icon equals: newIcon.
@@ -380,7 +380,7 @@ BrButtonLabelLookExamples >> iconChangedEvent [
 	self assert: anIconChangedEvent notNil.
 	self assert: anIconChangedEvent isConsumed not.
 	self assert: anIconChangedEvent target equals: aButton.
-	self assert: anIconChangedEvent currentTarget equals: aButton look.
+	self assert: anIconChangedEvent currentTarget equals: aButton aptitude.
 	self assert: anIconChangedEvent source equals: aButton viewModel widgetModels second.
 	self assert: anIconChangedEvent icon equals: newIcon.
 	self assert: anIconChangedEvent timestamp isNil.	
@@ -404,7 +404,7 @@ BrButtonLabelLookExamples >> labelChangedEvent [
 	newLabel := self labelText, ' World'.
 
 	aButton := self buttonWithModelAndLookWithoutConstraints.
-	aButton look when: BrLabelChanged do: [ :anEvent | aLabelChangedEvent := anEvent copy ].
+	aButton aptitude when: BrLabelChanged do: [ :anEvent | aLabelChangedEvent := anEvent copy ].
 	aButton viewModel widgetModels first text: newLabel.
 
 	self assert: aButton viewModel widgetModels first text asString equals: newLabel.
@@ -412,7 +412,7 @@ BrButtonLabelLookExamples >> labelChangedEvent [
 	self assert: aLabelChangedEvent notNil.
 	self assert: aLabelChangedEvent isConsumed not.
 	self assert: aLabelChangedEvent target equals: aButton.
-	self assert: aLabelChangedEvent currentTarget equals: aButton look.
+	self assert: aLabelChangedEvent currentTarget equals: aButton aptitude.
 	self assert: aLabelChangedEvent source equals: aButton viewModel widgetModels first.
 	self assert: aLabelChangedEvent text asString equals: newLabel.
 	self assert: aLabelChangedEvent timestamp isNil.

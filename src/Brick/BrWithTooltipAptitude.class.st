@@ -106,7 +106,7 @@ BrWithTooltipAptitude >> initialize [
 				referencePoint: BrAnchoredBottomCenterReferencePoint;
 				availableBounds: BrAnchoredBottomCenterAvailableBounds;
 				scaleFactor: BrAnchoredGlobalScaleFactor;
-				apply: [ innerContainer look
+				apply: [ innerContainer aptitude
 						remove: BrTooltipTopCenterAptitude;
 						remove: BrTooltipCenterLeftAptitude;
 						remove: BrTooltipCenterRightAptitude;
@@ -121,7 +121,7 @@ BrWithTooltipAptitude >> initialize [
 				referencePoint: BrAnchoredTopCenterReferencePoint;
 				availableBounds: BrAnchoredTopCenterAvailableBounds;
 				scaleFactor: BrAnchoredGlobalScaleFactor;
-				apply: [ innerContainer look
+				apply: [ innerContainer aptitude
 						remove: BrTooltipBottomCenterAptitude;
 						remove: BrTooltipCenterLeftAptitude;
 						remove: BrTooltipCenterRightAptitude;
@@ -136,7 +136,7 @@ BrWithTooltipAptitude >> initialize [
 				referencePoint: BrAnchoredCenterRightReferencePoint;
 				availableBounds: BrAnchoredCenterRightAvailableBounds;
 				scaleFactor: BrAnchoredGlobalScaleFactor;
-				apply: [ innerContainer look
+				apply: [ innerContainer aptitude
 						remove: BrTooltipBottomCenterAptitude;
 						remove: BrTooltipTopCenterAptitude;
 						remove: BrTooltipCenterLeftAptitude;
@@ -151,7 +151,7 @@ BrWithTooltipAptitude >> initialize [
 				referencePoint: BrAnchoredCenterLeftReferencePoint;
 				availableBounds: BrAnchoredCenterLeftAvailableBounds;
 				scaleFactor: BrAnchoredGlobalScaleFactor;
-				apply: [ innerContainer look
+				apply: [ innerContainer aptitude
 						remove: BrTooltipBottomCenterAptitude;
 						remove: BrTooltipTopCenterAptitude;
 						remove: BrTooltipCenterRightAptitude;
@@ -166,7 +166,7 @@ BrWithTooltipAptitude >> initialize [
 				referencePoint: BrAnchoredBottomLeftReferencePoint;
 				availableBounds: BrAnchoredBottomLeftAvailableBounds;
 				scaleFactor: BrAnchoredGlobalScaleFactor;
-				apply: [ innerContainer look
+				apply: [ innerContainer aptitude
 						remove: BrTooltipBottomCenterAptitude;
 						remove: BrTooltipTopCenterAptitude;
 						remove: BrTooltipCenterLeftAptitude;
@@ -181,7 +181,7 @@ BrWithTooltipAptitude >> initialize [
 				referencePoint: BrAnchoredBottomRightReferencePoint;
 				availableBounds: BrAnchoredBottomRightAvailableBounds;
 				scaleFactor: BrAnchoredGlobalScaleFactor;
-				apply: [ innerContainer look
+				apply: [ innerContainer aptitude
 						remove: BrTooltipBottomCenterAptitude;
 						remove: BrTooltipTopCenterAptitude;
 						remove: BrTooltipCenterLeftAptitude;
@@ -196,7 +196,7 @@ BrWithTooltipAptitude >> initialize [
 				referencePoint: BrAnchoredTopLeftReferencePoint;
 				availableBounds: BrAnchoredTopLeftAvailableBounds;
 				scaleFactor: BrAnchoredGlobalScaleFactor;
-				apply: [ innerContainer look
+				apply: [ innerContainer aptitude
 						remove: BrTooltipBottomCenterAptitude;
 						remove: BrTooltipTopCenterAptitude;
 						remove: BrTooltipCenterLeftAptitude;
@@ -211,7 +211,7 @@ BrWithTooltipAptitude >> initialize [
 				referencePoint: BrAnchoredTopRightReferencePoint;
 				availableBounds: BrAnchoredTopRightAvailableBounds;
 				scaleFactor: BrAnchoredGlobalScaleFactor;
-				apply: [ innerContainer look
+				apply: [ innerContainer aptitude
 						remove: BrTooltipBottomCenterAptitude;
 						remove: BrTooltipTopCenterAptitude;
 						remove: BrTooltipCenterLeftAptitude;

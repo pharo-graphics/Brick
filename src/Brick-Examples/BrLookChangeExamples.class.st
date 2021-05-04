@@ -11,7 +11,7 @@ BrLookChangeExamples >> buttonLookChange [
 		look: BrMaterialButtonAptitude;
 		label: 'I am quite materialistic...';
 		action: [ :e | 
-			(e look isKindOf: BrMaterialButtonAptitude)
+			(e aptitude isKindOf: BrMaterialButtonAptitude)
 				ifTrue: [ e
 						look: BrGlamorousButtonWithLabelAptitude;
 						label: 'Now I am glamorous!' ]

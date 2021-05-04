@@ -61,7 +61,7 @@ BrWithContextMenuAptitude >> initialize [
 				referencePoint: [ position + (4 negated @ 4 negated) ];
 				availableBounds: BrAnchoredBottomRightAvailableBounds;
 				scaleFactor: BrAnchoredGlobalScaleFactor;
-				apply: [ innerContainer look
+				apply: [ innerContainer aptitude
 						remove: BrContextMenuBottomLeftAptitude;
 						remove: BrContextMenuTopRightAptitude;
 						remove: BrContextMenuTopLeftAptitude;
@@ -72,7 +72,7 @@ BrWithContextMenuAptitude >> initialize [
 				referencePoint: [ position + (4 @ 4 negated) ];
 				availableBounds: BrAnchoredBottomLeftAvailableBounds;
 				scaleFactor: BrAnchoredGlobalScaleFactor;
-				apply: [ innerContainer look
+				apply: [ innerContainer aptitude
 						remove: BrContextMenuBottomRightAptitude;
 						remove: BrContextMenuTopRightAptitude;
 						remove: BrContextMenuTopLeftAptitude;
@@ -83,7 +83,7 @@ BrWithContextMenuAptitude >> initialize [
 				referencePoint: [ position + (4 negated @ 4) ];
 				availableBounds: BrAnchoredTopRightAvailableBounds;
 				scaleFactor: BrAnchoredGlobalScaleFactor;
-				apply: [ innerContainer look
+				apply: [ innerContainer aptitude
 						remove: BrContextMenuBottomRightAptitude;
 						remove: BrContextMenuBottomLeftAptitude;
 						remove: BrContextMenuTopLeftAptitude;
@@ -94,7 +94,7 @@ BrWithContextMenuAptitude >> initialize [
 				referencePoint: [ position + (4 @ 4) ];
 				availableBounds: BrAnchoredTopLeftAvailableBounds;
 				scaleFactor: BrAnchoredGlobalScaleFactor;
-				apply: [ innerContainer look
+				apply: [ innerContainer aptitude
 						remove: BrContextMenuBottomRightAptitude;
 						remove: BrContextMenuBottomLeftAptitude;
 						remove: BrContextMenuTopRightAptitude;

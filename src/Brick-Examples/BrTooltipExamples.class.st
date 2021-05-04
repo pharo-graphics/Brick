@@ -5,6 +5,16 @@ Class {
 }
 
 { #category : #accessing }
+BrTooltipExamples >> aptitude [
+	<gtExample>
+	| look |
+	look := BrWithTooltipAptitude new.
+	self assert: look visible equals: false.
+	self assert: (look stencil asStencil asElement isKindOf: BlElement).
+	^ look
+]
+
+{ #category : #accessing }
 BrTooltipExamples >> element [
 	<gtExample>
 	^ BlElement new
@@ -18,7 +28,7 @@ BrTooltipExamples >> elementWithModelAndLook [
 	| element model look |
 	element := self element.
 	model := self model.
-	look := self look.
+	look := self aptitude.
 	element
 		viewModel:
 			model
@@ -29,16 +39,6 @@ BrTooltipExamples >> elementWithModelAndLook [
 	element look: look.
 	"self assert: look stencil equals: model stencil."
 	^ element
-]
-
-{ #category : #accessing }
-BrTooltipExamples >> look [
-	<gtExample>
-	| look |
-	look := BrWithTooltipAptitude new.
-	self assert: look visible equals: false.
-	self assert: (look stencil asStencil asElement isKindOf: BlElement).
-	^ look
 ]
 
 { #category : #'as yet unclassified' }

@@ -17,5 +17,5 @@ BrGridList >> initialize [
 
 { #category : #accessing }
 BrGridList >> stencil: aListRowStencilBuilder [
-	self look itemStencilBuilder: aListRowStencilBuilder
+	self aptitude itemStencilBuilder: aListRowStencilBuilder
 ]

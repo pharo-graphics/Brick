@@ -38,5 +38,5 @@ BrColumnedTree >> nodeType: aBrTreeNodeTypeStencilBuilderOrBlock [
 
 { #category : #'api - scripting' }
 BrColumnedTree >> rowStencil: aRowStencil [
-	self look rowStencilBuilder: aRowStencil
+	self aptitude rowStencilBuilder: aRowStencil
 ]

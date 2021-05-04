@@ -23,7 +23,7 @@ BrDevLookGraphOverview >> buildLookAndModelGraph [
 						beTiny;
 						look: BrGlamorousLabelAptitude new;
 						text: eachRequestClass value name ];
-				with: ((eachLookClass withAllSuperclassRequests sorted: [ :a :b | a name < b name ]) collect: [ :aRequest | #look -> aRequest ]).
+				with: ((eachLookClass withAllSuperclassRequests sorted: [ :a :b | a name < b name ]) collect: [ :aRequest | #aptitude -> aRequest ]).
 				
 			aMondrian layout explicit: BlLinearLayout vertical
 		] in: #requests;
@@ -34,7 +34,7 @@ BrDevLookGraphOverview >> buildLookAndModelGraph [
 						beTiny;
 						look: BrGlamorousLabelAptitude new;
 						text: eachRequestClass value name ];
-				with: ((eachLookClass withAllSuperclassChangeEvents sorted: [ :a :b | a name < b name ]) collect: [ :aChangeEvent | #look -> aChangeEvent ]).
+				with: ((eachLookClass withAllSuperclassChangeEvents sorted: [ :a :b | a name < b name ]) collect: [ :aChangeEvent | #aptitude -> aChangeEvent ]).
 			
 			aMondrian layout explicit: BlLinearLayout vertical
 		] in: #changeEvents.
@@ -96,7 +96,7 @@ BrDevLookGraphOverview >> buildLookAndModelGraph [
 				border: (BlBorder paint: (Color red alpha: 0.5) width: 2);
 				toHead: (BlArrowheadSimpleArrow new border: (BlBorder paint: (Color red alpha: 0.5) width: 2)) ];
 		connect: self lookClass withAllSuperclassRequests
-			from: [ :eachRequest | #look -> eachRequest ]
+			from: [ :eachRequest | #aptitude -> eachRequest ]
 			to: [ :eachRequest | #model -> eachRequest ].
 
 	aMondrian edges
@@ -110,7 +110,7 @@ BrDevLookGraphOverview >> buildLookAndModelGraph [
 				toHead: (BlArrowheadSimpleArrow new border: (BlBorder paint: (Color blue alpha: 0.5) width: 2)) ];
 		connect: self lookClass withAllSuperclassChangeEvents
 			from: [ :eachEvent | #model  -> eachEvent ]
-			to: [ :eachEvent | #look -> eachEvent ].
+			to: [ :eachEvent | #aptitude -> eachEvent ].
 
 	aMondrian layout horizontalTree levelDistance: 50; nodeDistance: 50.
 

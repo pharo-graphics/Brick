@@ -15,7 +15,7 @@ TBrThemeable >> dispatchThemeChanged [
 
 { #category : #accessing }
 TBrThemeable >> onAddedToSceneGraph [
-	self look
+	self aptitude
 		ifNil: [ self look: (themeLook := self theme newLookFor: self) ].
 	super onAddedToSceneGraph
 ]

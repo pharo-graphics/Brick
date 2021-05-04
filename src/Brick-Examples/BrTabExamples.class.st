@@ -134,24 +134,24 @@ BrTabExamples >> groupHeaderWithBoundTabs [
 		viewModel: aHeaderElement viewModel tabs second;
 		look: self groupTabLook.
 		
-	self assert: aHeaderElement children asArray equals: { aHeaderElement look header }.
-	self assert: aHeaderElement children first children asArray equals: { aHeaderElement look scrollTabbar. aHeaderElement look toolbar . aHeaderElement look actionbar }.
+	self assert: aHeaderElement children asArray equals: { aHeaderElement aptitude header }.
+	self assert: aHeaderElement children first children asArray equals: { aHeaderElement aptitude scrollTabbar. aHeaderElement aptitude toolbar . aHeaderElement aptitude actionbar }.
 
-	self assert: aHeaderElement look tabbar children asArray equals: { tabElement2 }.
+	self assert: aHeaderElement aptitude tabbar children asArray equals: { tabElement2 }.
 
 	tabElement1 := BlElement new
 		viewModel: aHeaderElement viewModel tabs first;
 		look: self groupTabLook.
 		
-	self assert: aHeaderElement children asArray equals: { aHeaderElement look header }.
-	self assert: aHeaderElement look tabbar children asArray equals: { tabElement1 . tabElement2 }.
+	self assert: aHeaderElement children asArray equals: { aHeaderElement aptitude header }.
+	self assert: aHeaderElement aptitude tabbar children asArray equals: { tabElement1 . tabElement2 }.
 
 	tabElement3 := BlElement new
 		viewModel: aHeaderElement viewModel tabs third;
 		look: self groupTabLook.
 
-	self assert: aHeaderElement children asArray equals: { aHeaderElement look header }.
-	self assert: aHeaderElement look tabbar children asArray equals: { tabElement1 . tabElement2 . tabElement3 }.
+	self assert: aHeaderElement children asArray equals: { aHeaderElement aptitude header }.
+	self assert: aHeaderElement aptitude tabbar children asArray equals: { tabElement1 . tabElement2 . tabElement3 }.
 
 	^ aHeaderElement
 ]

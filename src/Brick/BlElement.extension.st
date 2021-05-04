@@ -16,9 +16,9 @@ BlElement >> addInteractiveModelState: aState [
 
 { #category : #'*Brick' }
 BlElement >> addLook: aLook [
-	self look
+	self aptitude
 		ifNil: [ self look: aLook ]
-		ifNotNil: [ self look add: aLook ].
+		ifNotNil: [ self aptitude add: aLook ].
 ]
 
 { #category : #'*Brick' }
@@ -36,6 +36,11 @@ BlElement >> anchor [
 { #category : #'*Brick' }
 BlElement >> anchor: anElement [
 	self userData at: #brickAnchor put: anElement
+]
+
+{ #category : #'*Brick' }
+BlElement >> aptitude [
+	^ self userData at: #brickLook ifAbsent: nil
 ]
 
 { #category : #'*Brick' }
@@ -63,11 +68,6 @@ BlElement >> layoutResizerPropagations [
 ]
 
 { #category : #'*Brick' }
-BlElement >> look [
-	^ self userData at: #brickLook ifAbsent: nil
-]
-
-{ #category : #'*Brick' }
 BlElement >> look: aLook [
 	| aLookInstance |
 	
@@ -83,18 +83,18 @@ BlElement >> look: aLook [
 
 { #category : #'*Brick' }
 BlElement >> lookDo: aBlock [
-	self look ifNotNil: aBlock
+	self aptitude ifNotNil: aBlock
 ]
 
 { #category : #'*Brick' }
 BlElement >> removeLook: aLook [
-	self look
+	self aptitude
 		ifNotNil: [
-			self look = aLook
+			self aptitude = aLook
 				ifTrue: [
-					self look onUninstalledIn: self.
+					self aptitude onUninstalledIn: self.
 					self userData at: #brickLook put: nil ]
-				ifFalse: [ self look remove: aLook ] ]
+				ifFalse: [ self aptitude remove: aLook ] ]
 ]
 
 { #category : #'*Brick' }

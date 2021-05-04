@@ -5,6 +5,16 @@ Class {
 }
 
 { #category : #accessing }
+BrContextMenuExamples >> aptitude [
+	<gtExample>
+	| look |
+	look := BrWithContextMenuAptitude new.
+	self assert: look visible equals: false.
+	self assert: (look stencil asStencil asElement isKindOf: BlElement).
+	^ look
+]
+
+{ #category : #accessing }
 BrContextMenuExamples >> compact [
 	<gtExample>
 	| element |
@@ -36,7 +46,7 @@ BrContextMenuExamples >> elementWithContextMenuModelAndLook [
 	| element model look |
 	element := self element.
 	model := self modelForElement: element.
-	look := self look.
+	look := self aptitude.
 	element viewModel: model.
 	element look: look.
 	self assert: look stencil equals: model stencil.
@@ -49,21 +59,11 @@ BrContextMenuExamples >> elementWithModelAndLook [
 	| element model look |
 	element := self element.
 	model := self model.
-	look := self look.
+	look := self aptitude.
 	element viewModel: model.
 	element look: look.
 	self assert: look stencil equals: model stencil.
 	^ element
-]
-
-{ #category : #accessing }
-BrContextMenuExamples >> look [
-	<gtExample>
-	| look |
-	look := BrWithContextMenuAptitude new.
-	self assert: look visible equals: false.
-	self assert: (look stencil asStencil asElement isKindOf: BlElement).
-	^ look
 ]
 
 { #category : #accessing }

@@ -28,5 +28,5 @@ BrColumnedList >> initialize [
 
 { #category : #'api - scripting' }
 BrColumnedList >> rowStencil: aRowStencil [
-	self look rowStencilBuilder: aRowStencil
+	self aptitude rowStencilBuilder: aRowStencil
 ]
