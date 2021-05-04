@@ -9,17 +9,17 @@ BrGlamorousComponentsToggles >> toggleGroupWithIcons [
 	<gtExample>
 
 	^ BrToggleGroup new
-		look: BrGlamorousToggleGroupAptitude new;
+		aptitude: BrGlamorousToggleGroupAptitude new;
 		addToggle: (BrToggle new
-			look: BrGlamorousToggleWithIconAptitude new;
+			aptitude: BrGlamorousToggleWithIconAptitude new;
 			icon: BrGlamorousVectorIcons inspect;
 			label: 'Inspect');
 		addToggle: (BrToggle new
-			look: BrGlamorousToggleWithIconAptitude new;
+			aptitude: BrGlamorousToggleWithIconAptitude new;
 			icon: BrGlamorousVectorIcons browse;
 			label: 'Browse');
 		addToggle: (BrToggle new
-			look: BrGlamorousToggleWithIconAptitude new;
+			aptitude: BrGlamorousToggleWithIconAptitude new;
 			icon: BrGlamorousVectorIcons play;
 			label: 'Play')
 ]
@@ -29,14 +29,14 @@ BrGlamorousComponentsToggles >> toggleGroupWithLabels [
 	<gtExample>
 
 	^ BrToggleGroup new
-		look: BrGlamorousToggleGroupAptitude new;
+		aptitude: BrGlamorousToggleGroupAptitude new;
 		addToggle: (BrToggle new
-			look: BrGlamorousToggleWithLabelAptitude new;
+			aptitude: BrGlamorousToggleWithLabelAptitude new;
 			label: 'Inspect');
 		addToggle: (BrToggle new
-			look: BrGlamorousToggleWithLabelAptitude new;
+			aptitude: BrGlamorousToggleWithLabelAptitude new;
 			label: 'Browse');
 		addToggle: (BrToggle new
-			look: BrGlamorousToggleWithLabelAptitude new;
+			aptitude: BrGlamorousToggleWithLabelAptitude new;
 			label: 'Play')
 ]

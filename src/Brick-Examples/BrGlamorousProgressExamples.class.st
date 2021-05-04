@@ -29,7 +29,7 @@ BrGlamorousProgressExamples >> barAndTextAbove [
 			constraintsDo: [ :c | 
 				c horizontal matchParent.
 				c vertical fitContent ].
-	aProgress look: BrGlamorousProgressLabelAptitude + BrGlamorousProgressBarAptitude.
+	aProgress aptitude: BrGlamorousProgressLabelAptitude + BrGlamorousProgressBarAptitude.
 	^ aProgress
 ]
 
@@ -38,7 +38,7 @@ BrGlamorousProgressExamples >> barAndTextAbove_MainUsage [
 	<gtExample>
 	| aProgress |
 	aProgress := self thirtyPercentProgress.
-	aProgress look: BrGlamorousProgressWithLabelAndBarAptitude.
+	aProgress aptitude: BrGlamorousProgressWithLabelAndBarAptitude.
 	^ aProgress
 ]
 
@@ -47,7 +47,7 @@ BrGlamorousProgressExamples >> barAndTextBelow_MainUsage [
 	<gtExample>
 	| aProgress |
 	aProgress := self thirtyPercentProgress.
-	aProgress look: BrGlamorousProgressWithBarAndLabelAptitude.
+	aProgress aptitude: BrGlamorousProgressWithBarAndLabelAptitude.
 	^ aProgress
 ]
 
@@ -56,7 +56,7 @@ BrGlamorousProgressExamples >> barOnly [
 	<gtExample>
 	| aProgress |
 	aProgress := self thirtyPercentProgress.
-	aProgress look: BrGlamorousProgressBarAptitude.
+	aProgress aptitude: BrGlamorousProgressBarAptitude.
 	^ aProgress
 ]
 
@@ -65,7 +65,7 @@ BrGlamorousProgressExamples >> barOnly_MainUsage [
 	<gtExample>
 	| aProgress |
 	aProgress := self thirtyPercentProgress.
-	aProgress look: BrGlamorousProgressWithBarAptitude.
+	aProgress aptitude: BrGlamorousProgressWithBarAptitude.
 	^ aProgress
 ]
 

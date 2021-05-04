@@ -17,7 +17,7 @@ BlElement >> addInteractiveModelState: aState [
 { #category : #'*Brick' }
 BlElement >> addLook: aLook [
 	self aptitude
-		ifNil: [ self look: aLook ]
+		ifNil: [ self aptitude: aLook ]
 		ifNotNil: [ self aptitude add: aLook ].
 ]
 
@@ -44,6 +44,20 @@ BlElement >> aptitude [
 ]
 
 { #category : #'*Brick' }
+BlElement >> aptitude: aLook [
+	| aLookInstance |
+	
+	self lookDo: [ :aCurrentLook |
+		aCurrentLook onUninstalledIn: self.
+		self userData at: #brickLook put: nil ].
+
+	aLookInstance := aLook asLook.
+
+	self userData at: #brickLook put: aLookInstance.
+	aLookInstance onInstalledIn: self
+]
+
+{ #category : #'*Brick' }
 BlElement >> asBrAnchoredAnchorBounds [
 	^ BrAnchoredElementAnchorBounds element: self
 ]
@@ -56,7 +70,7 @@ BlElement >> asStencil [
 { #category : #'*Brick' }
 BlElement >> asVerticallyResizableDo: aBlock [
 	^ aBlock value: (BlElement new
-		look: BrGlamorousWithVerticalResizerAptitude;
+		aptitude: BrGlamorousWithVerticalResizerAptitude;
 		addChild: self)
 ]
 
@@ -65,20 +79,6 @@ BlElement >> layoutResizerPropagations [
 	^ self userData
 		at: #brickLayoutResizerPropagations
 		ifAbsentPut: [ BrLayoutResizerElementPropagations new element: self ]
-]
-
-{ #category : #'*Brick' }
-BlElement >> look: aLook [
-	| aLookInstance |
-	
-	self lookDo: [ :aCurrentLook |
-		aCurrentLook onUninstalledIn: self.
-		self userData at: #brickLook put: nil ].
-
-	aLookInstance := aLook asLook.
-
-	self userData at: #brickLook put: aLookInstance.
-	aLookInstance onInstalledIn: self
 ]
 
 { #category : #'*Brick' }

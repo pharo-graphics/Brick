@@ -19,7 +19,7 @@ BrContextMenuExamples >> compact [
 	<gtExample>
 	| element |
 	element := self element.
-	element look:
+	element aptitude:
 		(BrGlamorousWithContextMenuAptitude
 			content: [
 				BrGlamorousSimpleContextMenuContent new
@@ -48,7 +48,7 @@ BrContextMenuExamples >> elementWithContextMenuModelAndLook [
 	model := self modelForElement: element.
 	look := self aptitude.
 	element viewModel: model.
-	element look: look.
+	element aptitude: look.
 	self assert: look stencil equals: model stencil.
 	^ element
 ]
@@ -61,7 +61,7 @@ BrContextMenuExamples >> elementWithModelAndLook [
 	model := self model.
 	look := self aptitude.
 	element viewModel: model.
-	element look: look.
+	element aptitude: look.
 	self assert: look stencil equals: model stencil.
 	^ element
 ]
@@ -72,7 +72,7 @@ BrContextMenuExamples >> model [
 	| model |
 	model := BrWithContextMenuModel new
 		stencil: [ BrAnchoredElement new
-				look:
+				aptitude:
 					(BrContextMenuAptitude new
 						handle:
 							(BlElement new
@@ -98,7 +98,7 @@ BrContextMenuExamples >> modelForElement: anElement [
 	| model |
 	model := BrWithContextMenuModel new
 		stencil: [ BrAnchoredElement new
-				look:
+				aptitude:
 					(BrGlamorousContextMenuAptitude new
 						content:
 							(BrGlamorousSimpleContextMenuContent new

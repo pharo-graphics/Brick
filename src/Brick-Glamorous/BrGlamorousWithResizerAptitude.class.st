@@ -28,7 +28,7 @@ BrGlamorousWithResizerAptitude >> initialize [
 { #category : #initialization }
 BrGlamorousWithResizerAptitude >> newResizer [
 	^ BrResizer new
-		look: BrGlamorousResizerAptitude;
+		aptitude: BrGlamorousResizerAptitude;
 		elevation: (BlRelativeElevation elevation: 1000);
 		constraintsDo: [ :c | c ignoreByLayout ]
 ]

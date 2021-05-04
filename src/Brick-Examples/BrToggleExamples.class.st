@@ -148,7 +148,7 @@ BrToggleExamples >> predefinedToggle [
 	| aToggle |
 
 	aToggle := BrToggle new.
-	aToggle look: BrIconAptitude + BrTextLabelAptitude + BrToggleAptitude.
+	aToggle aptitude: BrIconAptitude + BrTextLabelAptitude + BrToggleAptitude.
 	aToggle layout: BlLinearLayout horizontal.
 	aToggle constraintsDo: [ :c |
 		c horizontal fitContent.
@@ -246,7 +246,7 @@ BrToggleExamples >> toggleModel [
 BrToggleExamples >> toggleWithMaterialChangingIcon [
 	<gtExample>
 	^ self toggleButton
-		look: (BrMaterialToggleLabelledAptitude + BrMaterialToggleIconifiedAptitude);
+		aptitude: (BrMaterialToggleLabelledAptitude + BrMaterialToggleIconifiedAptitude);
 		when: BrToggleActivatedEvent do: [ :anEvent | 
 			anEvent currentTarget icon: self squareIcon ];
 		when: BrToggleDeactivatedEvent do: [ :anEvent | 
@@ -257,7 +257,7 @@ BrToggleExamples >> toggleWithMaterialChangingIcon [
 BrToggleExamples >> toggleWithMaterialIconAndLabel [
 	<gtExample>
 	^ self toggleButton
-		look: BrMaterialToggleIconifiedAptitude + BrMaterialToggleLabelledAptitude;
+		aptitude: BrMaterialToggleIconifiedAptitude + BrMaterialToggleLabelledAptitude;
 		icon: self toggleButtonIcon
 ]
 
@@ -265,7 +265,7 @@ BrToggleExamples >> toggleWithMaterialIconAndLabel [
 BrToggleExamples >> toggleWithMaterialLabelAndIcon [
 	<gtExample>
 	^ self toggleButton
-		look: BrMaterialToggleLabelledAptitude + BrMaterialToggleIconifiedAptitude;
+		aptitude: BrMaterialToggleLabelledAptitude + BrMaterialToggleIconifiedAptitude;
 		icon: self toggleButtonIcon
 ]
 
@@ -273,7 +273,7 @@ BrToggleExamples >> toggleWithMaterialLabelAndIcon [
 BrToggleExamples >> toogleWithMaterialIcon [
 	<gtExample>
 	^ self toggleButton
-		look: BrMaterialToggleIconifiedAptitude new;
+		aptitude: BrMaterialToggleIconifiedAptitude new;
 		icon: self toggleButtonIcon
 ]
 
@@ -281,5 +281,5 @@ BrToggleExamples >> toogleWithMaterialIcon [
 BrToggleExamples >> toogleWithMaterialLabel [
 	<gtExample>
 	^ self toggleButton
-		look: BrMaterialToggleLabelledAptitude new
+		aptitude: BrMaterialToggleLabelledAptitude new
 ]

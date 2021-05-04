@@ -23,7 +23,7 @@ BrColumnedList >> defaultListModel [
 BrColumnedList >> initialize [
 	super initialize.
 
-	self look: BrColumnedListAptitude + BrGlamorousWithVerticalScrollbarAptitude
+	self aptitude: BrColumnedListAptitude + BrGlamorousWithVerticalScrollbarAptitude
 ]
 
 { #category : #'api - scripting' }

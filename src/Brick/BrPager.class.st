@@ -32,7 +32,7 @@ BrPager >> initializeLayout [
 { #category : #initialization }
 BrPager >> initializeLook [
 	self background: BrGlamorousColors backdropColor.
-	self look: BrPagerScrollbarAptitude new + BrScrollablePagerAptitude new
+	self aptitude: BrPagerScrollbarAptitude new + BrScrollablePagerAptitude new
 ]
 
 { #category : #initialization }

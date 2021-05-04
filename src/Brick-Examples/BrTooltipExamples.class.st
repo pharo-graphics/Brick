@@ -36,7 +36,7 @@ BrTooltipExamples >> elementWithModelAndLook [
 					(BrInteractiveModel new
 						addState: BrHoverModel new;
 						yourself).
-	element look: look.
+	element aptitude: look.
 	"self assert: look stencil equals: model stencil."
 	^ element
 ]
@@ -68,7 +68,7 @@ BrTooltipExamples >> removingAnchor [
 			c horizontal fitContent.
 			c vertical fitContent ];
 		padding: (BlInsets all: 20);
-		look: BrShadowAptitude;
+		aptitude: BrShadowAptitude;
 		background: Color white;
 		yourself.
 	container2 := BlElement new
@@ -77,11 +77,11 @@ BrTooltipExamples >> removingAnchor [
 			c horizontal fitContent.
 			c vertical fitContent ];
 		padding: (BlInsets all: 20);
-		look: BrShadowAptitude;
+		aptitude: BrShadowAptitude;
 		background: Color white;
 		yourself.
 	button := BrButton new
-		look: BrGlamorousButtonWithIconAptitude;
+		aptitude: BrGlamorousButtonWithIconAptitude;
 		icon: BrGlamorousVectorIcons remove;
 		label: 'Click to remove me';
 		action:

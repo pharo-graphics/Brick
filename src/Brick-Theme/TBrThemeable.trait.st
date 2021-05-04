@@ -10,12 +10,12 @@ Trait {
 TBrThemeable >> dispatchThemeChanged [
 	super dispatchThemeChanged.
 	themeLook ifNotNil: [ self removeLook: themeLook ].
-	self look: (themeLook := self theme newLookFor: self)
+	self aptitude: (themeLook := self theme newLookFor: self)
 ]
 
 { #category : #accessing }
 TBrThemeable >> onAddedToSceneGraph [
 	self aptitude
-		ifNil: [ self look: (themeLook := self theme newLookFor: self) ].
+		ifNil: [ self aptitude: (themeLook := self theme newLookFor: self) ].
 	super onAddedToSceneGraph
 ]

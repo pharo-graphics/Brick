@@ -36,7 +36,7 @@ BrProportionalHorizontalPagerAptitude >> onPage: aPageModel elementAttached: aPa
 			aResizerTarget := pagesListElement children last.
 			
 			aResizer := BrResizer new
-				look: BrGlamorousResizerAptitude;
+				aptitude: BrGlamorousResizerAptitude;
 				target: pagesListElement children last;
 				beRight;
 				when: BlResizerResizedEvent

@@ -93,7 +93,7 @@ BrButtonExamples >> buttonAndLookWithLabelAndExterior [
 
 	^ self newButton
 		label: 'Button';
-		look: aButtonLook
+		aptitude: aButtonLook
 ]
 
 { #category : #'instance creation' }
@@ -109,7 +109,7 @@ BrButtonExamples >> buttonWithExteriorLook [
 		disabled: [ :aWidget | aWidget background: Color veryVeryLightGray ].
 
 	^ self newButton
-		look: anExteriorLook
+		aptitude: anExteriorLook
 ]
 
 { #category : #'instance creation' }
@@ -120,7 +120,7 @@ BrButtonExamples >> buttonWithLabelLook [
 	aLabelLook := BrTextLabelAptitude new.
 	
 	^ self newButton
-		look: aLabelLook
+		aptitude: aLabelLook
 ]
 
 { #category : #'instance creation' }
@@ -136,7 +136,7 @@ BrButtonExamples >> buttonWithLabelLookAndCustomFont [
 		foreground: Color gray.
 
 	^ self newButton
-		look: aLabelLook
+		aptitude: aLabelLook
 ]
 
 { #category : #'instance creation' }
@@ -159,7 +159,7 @@ BrButtonExamples >> buttonWithLabelLookOfDifferentSizes [
 	^ self newButton
 		action: [ :aButton | aButton perform: #(beNormalSize beTinySize beSmallSize beLargeSize beHugeSize) atRandom ];
 		beSmallSize;
-		look: aLabelLook
+		aptitude: aLabelLook
 ]
 
 { #category : #'instance creation' }
@@ -178,7 +178,7 @@ BrButtonExamples >> buttonWithLabelLookReactingToHover [
 		hovered: [ aLabelLook foreground: Color darkGray ]).
 
 	^ self newButton
-		look: aLabelLook
+		aptitude: aLabelLook
 ]
 
 { #category : #'instance creation' }
@@ -198,7 +198,7 @@ BrButtonExamples >> buttonWithLabelLookReactingToHoverAndPress [
 		pressed: [ aLabelLook foreground: Color black ]).
 
 	^ self newButton
-		look: aLabelLook
+		aptitude: aLabelLook
 ]
 
 { #category : #'instance creation' }
@@ -220,7 +220,7 @@ BrButtonExamples >> buttonWithLabelLookReactingToHoverAndPressAndDisabled [
 
 	^ self newButton
 		disable;
-		look: aLabelLook
+		aptitude: aLabelLook
 ]
 
 { #category : #'instance creation' }

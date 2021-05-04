@@ -35,7 +35,7 @@ BrGlamorousTaggerAptitude >> defaultTagLabelStencil [
 	^ [ :aTag |
 		BrEditor new
 			beReadOnlyWithoutSelection;
-			look: BrGlamorousEditableLabelAptitude new glamorousRegularFontAndSize;
+			aptitude: BrGlamorousEditableLabelAptitude new glamorousRegularFontAndSize;
 			fitContent;
 			text: aTag name ] asStencilBuilder: BrTaggerTagStencilBuilder
 ]

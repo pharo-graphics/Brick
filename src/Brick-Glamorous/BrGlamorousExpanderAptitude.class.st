@@ -17,7 +17,7 @@ BrGlamorousExpanderAptitude >> initialize [
 	aShadowLook := BrShadowAptitude new.
 
 	toggle := BrTriangle new
-		look: BrGlamorousTriangleInCircleAptitude;
+		aptitude: BrGlamorousTriangleInCircleAptitude;
 		toggleAction: [ self widget fireEvent: BrExpansionToggleWish new ].
 
 	sidebar := BlElement new

@@ -9,7 +9,7 @@ BrTaggerExamples >> newGlamorousTagger [
 	<gtExample>
 
 	^ BrTagger new
-		look: BrGlamorousTaggerEditableAptitude new;
+		aptitude: BrGlamorousTaggerEditableAptitude new;
 		namedTags: { 'How' . 'Are' . 'You' };
 		when: BrTaggerAddTagRequest do: [ :aRequest |
 			aRequest tag name
@@ -27,7 +27,7 @@ BrTaggerExamples >> newGlamorousTaggerWithExplicitTags [
 	<gtExample>
 
 	^ BrTagger new
-		look: (BrGlamorousTaggerSelectableAptitude new);
+		aptitude: (BrGlamorousTaggerSelectableAptitude new);
 		explicitAllowedTags: { BrExampleTaggerCatTag new . BrExampleTaggerDogTag new };
 		when: BrTaggerAddTagRequest do: [ :aRequest |
 			aRequest tag name

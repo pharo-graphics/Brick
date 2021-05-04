@@ -26,15 +26,15 @@ BrAccordionExamples >> glamorousWithEditor [
 	anAccordion := BrAccordion new.
 	anAccordion hMatchParent; vFitContent.
 
-	anAccordion look: BrGlamorousAccordionAptitude new.
+	anAccordion aptitude: BrGlamorousAccordionAptitude new.
 	anAccordion header: [
 		BrButton new
-			look: BrGlamorousAccordionHeaderAptitude new;
+			aptitude: BrGlamorousAccordionHeaderAptitude new;
 			label: 'Click to expand/collapse';
 			action: [ anAccordion toggle ] ].
 	anAccordion content: [
 		BrEditor new
-			look: BrGlamorousEditorAptitude new;
+			aptitude: BrGlamorousEditorAptitude new;
 			text: (String loremIpsum: 200) trimBoth ].
 
 	^ anAccordion

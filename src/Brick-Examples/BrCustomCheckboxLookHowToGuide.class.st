@@ -59,7 +59,7 @@ BrCustomCheckboxLookHowToGuide >> _1_withLabelLook [
 	aLook := BrCheckboxAptitude new.
 
 	^ self checkboxWidget
-		look: aLook + aLabel
+		aptitude: aLook + aLabel
 ]
 
 { #category : #'examples - look' }
@@ -81,7 +81,7 @@ BrCustomCheckboxLookHowToGuide >> _2_withBorder [
 			aWidget border: ((BlBorder paint: Color gray width: 1)) ].
 
 	^ self checkboxWidget
-		look: aLook + aLabel
+		aptitude: aLook + aLabel
 ]
 
 { #category : #'examples - look' }
@@ -104,7 +104,7 @@ BrCustomCheckboxLookHowToGuide >> _3_withShape [
 			aWidget border: ((BlBorder paint: Color gray width: 1)) ].
 
 	^ self checkboxWidget
-		look: aLook + aLabel + aShape
+		aptitude: aLook + aLabel + aShape
 ]
 
 { #category : #'examples - look' }
@@ -133,7 +133,7 @@ BrCustomCheckboxLookHowToGuide >> _4_withStateText [
 			aLabel text: 'Indeterminate' ].
 
 	^ self checkboxWidget
-		look: aLook + aLabel + aShape
+		aptitude: aLook + aLabel + aShape
 ]
 
 { #category : #'examples - look' }
@@ -171,7 +171,7 @@ BrCustomCheckboxLookHowToGuide >> _5_withStyledStateText [
 				regular ].
 
 	^ self checkboxWidget
-		look: aLook + aLabel + aShape
+		aptitude: aLook + aLabel + aShape
 ]
 
 { #category : #'examples - look' }
@@ -218,7 +218,7 @@ BrCustomCheckboxLookHowToGuide >> _6_withStyledBackground [
 				regular ].
 
 	^ self checkboxWidget
-		look: aLook + aLabel + aShape
+		aptitude: aLook + aLabel + aShape
 ]
 
 { #category : #'examples - look' }
@@ -280,7 +280,7 @@ BrCustomCheckboxLookHowToGuide >> _7_withHoveredBackground [
 					background: self indeterminateBackground darker ].
 
 	^ self checkboxWidget
-		look: aLook + aLabel + aShape
+		aptitude: aLook + aLabel + aShape
 ]
 
 { #category : #'examples - look' }
@@ -357,7 +357,7 @@ BrCustomCheckboxLookHowToGuide >> _8_withPressedBackground [
 					background: self indeterminateBackground darker darker ].
 
 	^ self checkboxWidget
-		look: aLook + aLabel + aShape
+		aptitude: aLook + aLabel + aShape
 ]
 
 { #category : #'examples - look' }

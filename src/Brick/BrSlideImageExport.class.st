@@ -47,7 +47,7 @@ BrSlideImageExport >> buildUI [
 	alignedButton := self createOkButton.
 	self addChildren: {
 		BrScrollPane new
-			look: BrScrollPaneAptitude;
+			aptitude: BrScrollPaneAptitude;
 			hMatchParent;
 			vFitContent;
 			content: breadcrumb.
@@ -60,7 +60,7 @@ BrSlideImageExport >> buildUI [
 { #category : #accessing }
 BrSlideImageExport >> createDropdownButtonWithLabel: aString [
 	^ BrButton new
-		look:
+		aptitude:
 			BrTextLabelAptitude new glamorousRegularFont glamorousCodeSmallSize
 				+ BrGlamorousButtonIconAptitude + BrGlamorousButtonLayoutAptitude;
 		vExact: 25;
@@ -92,7 +92,7 @@ BrSlideImageExport >> createDropdownFieldFor: aCollection [
 								hovered: [ :aStyle | aStyle background: BrGlamorousColors defaultButtonBorderColor ]);
 						padding: (BlInsets top: 0 right: 5 bottom: 5 left: 5);
 						addChild: (BrLabel new
-							look: BrGlamorousLabelAptitude new glamorousRegularFont glamorousCodeSmallSize;
+							aptitude: BrGlamorousLabelAptitude new glamorousRegularFont glamorousCodeSmallSize;
 							text: each);
 						when: BlClickEvent
 							do: [ :anEvent |
@@ -109,7 +109,7 @@ BrSlideImageExport >> createDropdownFieldFor: aCollection [
 { #category : #accessing }
 BrSlideImageExport >> createEditableField [
 	^ BrEditableLabel new
-		look: BrGlamorousEditableLabelAptitude new glamorousRegularFontAndSize;
+		aptitude: BrGlamorousEditableLabelAptitude new glamorousRegularFontAndSize;
 		margin: (BlInsets top: 0 right: 5 bottom: 3 left: 0);
 		text: ''.
 ]
@@ -134,7 +134,7 @@ BrSlideImageExport >> createFormatInputSection [
 { #category : #accessing }
 BrSlideImageExport >> createLabelWithText: aString [
 	^ BrLabel new
-		look: (BrGlamorousLabelAptitude new foreground: Color gray);
+		aptitude: (BrGlamorousLabelAptitude new foreground: Color gray);
 		text: (aString asRopedText glamorousRegularFont);
 		margin: (BlInsets top: 3 right: 5 bottom: 0 left: 0);
 		fitContent.

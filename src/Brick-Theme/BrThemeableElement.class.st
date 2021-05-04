@@ -6,6 +6,6 @@ Class {
 
 { #category : #accessing }
 BrThemeableElement >> onAddedToSceneGraph [
-	self aptitude ifNil: [ self look: (self theme newLookFor: self) ].
+	self aptitude ifNil: [ self aptitude: (self theme newLookFor: self) ].
 	super onAddedToSceneGraph
 ]

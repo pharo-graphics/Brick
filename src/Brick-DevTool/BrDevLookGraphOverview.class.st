@@ -21,7 +21,7 @@ BrDevLookGraphOverview >> buildLookAndModelGraph [
 				stencil: [ :eachRequestClass |
 					BrLabel new
 						beTiny;
-						look: BrGlamorousLabelAptitude new;
+						aptitude: BrGlamorousLabelAptitude new;
 						text: eachRequestClass value name ];
 				with: ((eachLookClass withAllSuperclassRequests sorted: [ :a :b | a name < b name ]) collect: [ :aRequest | #aptitude -> aRequest ]).
 				
@@ -32,7 +32,7 @@ BrDevLookGraphOverview >> buildLookAndModelGraph [
 				stencil: [ :eachRequestClass |
 					BrLabel new
 						beTiny;
-						look: BrGlamorousLabelAptitude new;
+						aptitude: BrGlamorousLabelAptitude new;
 						text: eachRequestClass value name ];
 				with: ((eachLookClass withAllSuperclassChangeEvents sorted: [ :a :b | a name < b name ]) collect: [ :aChangeEvent | #aptitude -> aChangeEvent ]).
 			
@@ -47,7 +47,7 @@ BrDevLookGraphOverview >> buildLookAndModelGraph [
 				stencil: [ :eachRequestClass |
 					BrLabel new
 						beTiny;
-						look: BrGlamorousLabelAptitude new;
+						aptitude: BrGlamorousLabelAptitude new;
 						text: eachRequestClass value name ];
 				with: ((eachModelClass withAllSuperclassRequests sorted: [ :a :b | a name < b name ]) collect: [ :aRequest | #model -> aRequest ]).
 				
@@ -59,7 +59,7 @@ BrDevLookGraphOverview >> buildLookAndModelGraph [
 				stencil: [ :eachRequestClass |
 					BrLabel new
 						beTiny;
-						look: BrGlamorousLabelAptitude new;
+						aptitude: BrGlamorousLabelAptitude new;
 						text: eachRequestClass value name ];
 				with: ((eachModelClass withAllSuperclassChangeEvents sorted: [ :a :b | a name < b name ]) collect: [ :aChangeEvent | #model -> aChangeEvent ]).
 			aMondrian layout explicit: BlLinearLayout vertical.
@@ -129,7 +129,7 @@ BrDevLookGraphOverview >> buildNodeForClass: aLookClass [
 
 	aContainer addChild: (BrLabel new
 		beSmallSize;
-		look: BrGlamorousLabelAptitude new bold;
+		aptitude: BrGlamorousLabelAptitude new bold;
 		text: aLookClass name).
 		
 	aContainer addChild: (BrVerticalPane new
@@ -138,7 +138,7 @@ BrDevLookGraphOverview >> buildNodeForClass: aLookClass [
 		fitContent;
 		addChild: (BrLabel new
 			beSmallSize;
-			look: (BrGlamorousLabelAptitude new foreground: Color gray);
+			aptitude: (BrGlamorousLabelAptitude new foreground: Color gray);
 			text: 'Requests')
 	) as: #requests.
 	
@@ -148,7 +148,7 @@ BrDevLookGraphOverview >> buildNodeForClass: aLookClass [
 		fitContent;
 		addChild: (BrLabel new
 			beSmallSize;
-			look: (BrGlamorousLabelAptitude new foreground: Color gray);
+			aptitude: (BrGlamorousLabelAptitude new foreground: Color gray);
 			text: 'Change events')
 	) as: #changeEvents.
 

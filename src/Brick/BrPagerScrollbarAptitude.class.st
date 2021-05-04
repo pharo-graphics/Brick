@@ -16,7 +16,7 @@ BrPagerScrollbarAptitude >> buildPreviewOfThePage: aPageContentElement [
 	aPreviewElement := BrButton new
 		margin: (BlInsets all: 3);
 		border: (BlBorder paint: Color gray width: 2);
-		look: (BrInteractiveCommonAptitude new
+		aptitude: (BrInteractiveCommonAptitude new
 			default: [ :aWidget | aWidget
 				border: (aWidget border copyWithOpacity: 0.4);
 				background: Color transparent ];

@@ -21,7 +21,7 @@ BrColumnedListHeaderAptitude >> headerPane [
 			vFitContent.
 
 	widget viewModel columnsDo: [ :aColumn | | label |
-		label := BrLabel new look: BrGlamorousLabelAptitude.
+		label := BrLabel new aptitude: BrGlamorousLabelAptitude.
 		label text: (aColumn title asRopedText foreground: BrGlamorousColors defaultButtonTextColor).
 		aColumn width applyOn: label.
 		headerPane addChild: label. ].

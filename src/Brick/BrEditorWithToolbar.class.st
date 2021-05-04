@@ -21,31 +21,31 @@ BrEditorWithToolbar >> initialize [
 	super initialize.
 	
 	toolbar := BrToolbar new.
-	toolbar look: BrGlamorousToolbarAptitude new.
+	toolbar aptitude: BrGlamorousToolbarAptitude new.
 	editor := BrEditor new.
 	editor text: ((String loremIpsum: 100) shuffled trimBoth, String crlf, (String loremIpsum: 250) shuffled trimBoth) asRopedText.
-	editor look: BrEditorAptitude + BrGlamorousTextAreaSpacingAptitude.
+	editor aptitude: BrEditorAptitude + BrGlamorousTextAreaSpacingAptitude.
 	
 	toolbar addItem: (BrButton new
-		look: BrGlamorousButtonWithIconAptitude new;
+		aptitude: BrGlamorousButtonWithIconAptitude new;
 		icon: (BlTextElement new text: 'B' asRopedText) asScalableElement;
 		label: 'Bold';
 		action: [ self addAttribute: BlFontWeightAttribute bold ]).
 
 	toolbar addItem: (BrButton new
-		look: BrGlamorousButtonWithIconAptitude new;
+		aptitude: BrGlamorousButtonWithIconAptitude new;
 		icon: (BlTextElement new text: 'I' asRopedText) asScalableElement;
 		label: 'Italic';
 		action: [ self addAttribute: BlFontEmphasisAttribute italic ]).
 
 	toolbar addItem: (BrButton new
-		look: BrGlamorousButtonWithIconAptitude new;
+		aptitude: BrGlamorousButtonWithIconAptitude new;
 		icon: (BlTextElement new text: 'U' asRopedText) asScalableElement;
 		label: 'Underline';
 		action: [ self addAttribute: BlTextUnderlineAttribute new ]).
 		
 	toolbar addItem: (BrButton new
-		look: BrGlamorousButtonWithIconAptitude new;
+		aptitude: BrGlamorousButtonWithIconAptitude new;
 		icon: (BlTextElement new text: 'A' asRopedText) asScalableElement;
 		label: 'Append';
 		action: [ self addAttribute: (BrTextAdornmentDynamicAttribute new
@@ -53,7 +53,7 @@ BrEditorWithToolbar >> initialize [
 			stencil: [ BlElement new size: 10@10; geometry: BlCircle new; background: BrGlamorousColors primaryBorderColor ] ) ]).
 		
 	toolbar addItem: (BrButton new
-		look: BrGlamorousButtonWithIconAptitude new;
+		aptitude: BrGlamorousButtonWithIconAptitude new;
 		icon: (BlTextElement new text: 'R' asRopedText) asScalableElement;
 		label: 'Replace';
 		action: [ self addAttribute: (BrTextAdornmentDynamicAttribute new

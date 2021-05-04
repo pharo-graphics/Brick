@@ -19,13 +19,13 @@ BrGlamorousComponentsAccordions >> withEditor [
 	anAccordion
 		hMatchParent;
 		vFitContent;
-		look: BrGlamorousAccordionAptitude new;
+		aptitude: BrGlamorousAccordionAptitude new;
 		header: [ BrButton new
-				look: BrGlamorousAccordionHeaderAptitude new;
+				aptitude: BrGlamorousAccordionHeaderAptitude new;
 				label: 'Click to expand/collapse';
 				action: [ anAccordion toggleExpanded ] ];
 		content: [ BrEditor new
-				look: BrGlamorousEditorAptitude new;
+				aptitude: BrGlamorousEditorAptitude new;
 				text: (String loremIpsum: 200) trimBoth ].
 	^ anAccordion
 ]

@@ -56,7 +56,7 @@ BrAnchoredAvailableBounds >> gtPreviewFor: aView [
 						border: (BlBorder paint: Color lightGray width: 2);
 						layout: BlLinearLayout vertical alignCenter;
 						addChild: (BrLabel new
-							look: BrGlamorousLabelAptitude new;
+							aptitude: BrGlamorousLabelAptitude new;
 							text: self class label)
 				}) asScalableElement
 					maxScale: 1.2;

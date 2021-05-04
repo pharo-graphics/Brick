@@ -27,7 +27,7 @@ BrWithTooltipAptitude class >> anchoredLookClass [
 BrWithTooltipAptitude class >> content: anObject [
 	^ self stencil: [
 		BrAnchoredElement new
-			look: (self anchoredLook
+			aptitude: (self anchoredLook
 				content: anObject asStencil asElement;
 				yourself);
 			yourself ]
@@ -37,7 +37,7 @@ BrWithTooltipAptitude class >> content: anObject [
 BrWithTooltipAptitude class >> handle: anObject content: anotherObject [
 	^ self stencil: [
 		BrAnchoredElement new
-			look: (self anchoredLook
+			aptitude: (self anchoredLook
 				handle: anObject asStencil asElement;
 				content: anotherObject asStencil asElement;
 				yourself);
@@ -60,7 +60,7 @@ BrWithTooltipAptitude >> cancelShowLater [
 BrWithTooltipAptitude >> contentStencil: aStencil [
 	self stencil: [ 
 		BrAnchoredElement new
-			look: (self class anchoredLook content: aStencil asStencil asElement) ]
+			aptitude: (self class anchoredLook content: aStencil asStencil asElement) ]
 ]
 
 { #category : #accessing }

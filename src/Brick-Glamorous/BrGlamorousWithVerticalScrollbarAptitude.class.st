@@ -16,9 +16,9 @@ BrGlamorousWithVerticalScrollbarAptitude >> initialize [
 	super initialize.
 
 	scrollbar := BrScrollbar new
-		look: BrScrollbarAptitude new;
-		thumb: (BrScrollbarThumb new look: BrGlamorousScrollbarThumbAptitude new);
-		track: (BrScrollbarTrack new look: BrGlamorousScrollbarTrackAptitude new);
+		aptitude: BrScrollbarAptitude new;
+		thumb: (BrScrollbarThumb new aptitude: BrGlamorousScrollbarThumbAptitude new);
+		track: (BrScrollbarTrack new aptitude: BrGlamorousScrollbarTrackAptitude new);
 		constraintsDo: [ :c |
 			c ignoreByLayout.
 			c margin: (BlInsets right: 2).

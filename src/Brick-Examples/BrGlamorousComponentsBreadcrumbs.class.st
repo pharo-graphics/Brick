@@ -19,19 +19,19 @@ BrGlamorousComponentsBreadcrumbs >> breadcrumbWithButtons [
 	<gtExample>
 
 	^ BrBreadcrumb new
-		look: (BrGlamorousBreadcrumbAptitude new separator: [
+		aptitude: (BrGlamorousBreadcrumbAptitude new separator: [
 			BrLabel new
-				look: (BrGlamorousLabelAptitude new thin foreground: Color gray);
+				aptitude: (BrGlamorousLabelAptitude new thin foreground: Color gray);
 				text: '/';
 				margin: (BlInsets left: 5 right: 5) ]);
 		addItem: (BrButton new
-			look: BrGlamorousLinkSquaredButtonWithLabelAptitude new glamorousRegularFont;
+			aptitude: BrGlamorousLinkSquaredButtonWithLabelAptitude new glamorousRegularFont;
 			label: 'Home');
 		addItem: (BrButton new
-			look: BrGlamorousLinkSquaredButtonWithLabelAptitude new glamorousRegularFont;
+			aptitude: BrGlamorousLinkSquaredButtonWithLabelAptitude new glamorousRegularFont;
 			label: 'Store');
 		addItem: (BrButton new
-			look: BrGlamorousLinkSquaredButtonWithLabelAptitude new glamorousRegularFont;
+			aptitude: BrGlamorousLinkSquaredButtonWithLabelAptitude new glamorousRegularFont;
 			label: 'T-Shirt')
 ]
 
@@ -40,19 +40,19 @@ BrGlamorousComponentsBreadcrumbs >> breadcrumbWithLabels [
 	<gtExample>
 
 	^ BrBreadcrumb new
-		look: (BrGlamorousBreadcrumbAptitude new separator: [
+		aptitude: (BrGlamorousBreadcrumbAptitude new separator: [
 			BrLabel new
-				look: (BrGlamorousLabelAptitude new thin foreground: Color gray);
+				aptitude: (BrGlamorousLabelAptitude new thin foreground: Color gray);
 				text: '>';
 				margin: (BlInsets left: 5 right: 5) ]);
 		addItem: (BrLabel new
-			look: BrGlamorousLabelAptitude;
+			aptitude: BrGlamorousLabelAptitude;
 			text: 'Home');
 		addItem: (BrLabel new
-			look: BrGlamorousLabelAptitude;
+			aptitude: BrGlamorousLabelAptitude;
 			text: 'Store');
 		addItem: (BrLabel new
-			look: BrGlamorousLabelAptitude;
+			aptitude: BrGlamorousLabelAptitude;
 			text: 'T-Shirt')
 ]
 
@@ -61,14 +61,14 @@ BrGlamorousComponentsBreadcrumbs >> breadcrumbWithoutSeparator [
 	<gtExample>
 
 	^ BrBreadcrumb new
-		look: BrGlamorousBreadcrumbAptitude;
+		aptitude: BrGlamorousBreadcrumbAptitude;
 		addItem: (BrLabel new
-			look: BrGlamorousLabelAptitude;
+			aptitude: BrGlamorousLabelAptitude;
 			text: 'Home');
 		addItem: (BrLabel new
-			look: BrGlamorousLabelAptitude;
+			aptitude: BrGlamorousLabelAptitude;
 			text: 'Store');
 		addItem: (BrLabel new
-			look: BrGlamorousLabelAptitude;
+			aptitude: BrGlamorousLabelAptitude;
 			text: 'T-Shirt')
 ]

@@ -23,7 +23,7 @@ BrWithDropdownAptitude class >> anchoredLookClass [
 BrWithDropdownAptitude class >> content: anObject [
 	^ self stencil: [
 		BrAnchoredElement new
-			look: (self anchoredLook
+			aptitude: (self anchoredLook
 				content: anObject asStencil asElement;
 				yourself);
 			yourself ]
@@ -51,7 +51,7 @@ BrWithDropdownAptitude class >> handle: anObject content: anotherObject lookDo: 
 			aBlock value: anAnchoredLook.
 			
 			BrAnchoredElement new
-				look: anAnchoredLook;
+				aptitude: anAnchoredLook;
 				yourself ]
 ]
 

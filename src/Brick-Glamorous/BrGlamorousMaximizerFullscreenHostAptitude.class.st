@@ -7,7 +7,7 @@ Class {
 { #category : #'private - hooks' }
 BrGlamorousMaximizerFullscreenHostAptitude >> createCloseButton [
 	^ BrButton new
-		look: BrGlamorousButtonCircularAptitude + BrGlamorousButtonIconAptitude + BrGlamorousButtonFlatExteriorAptitude + BrGlamorousButtonLayoutAptitude;
+		aptitude: BrGlamorousButtonCircularAptitude + BrGlamorousButtonIconAptitude + BrGlamorousButtonFlatExteriorAptitude + BrGlamorousButtonLayoutAptitude;
 		icon: [ (BrGlamorousVectorIcons close asElement
 				outskirts: BlOutskirts centered;
 				background: Color gray;

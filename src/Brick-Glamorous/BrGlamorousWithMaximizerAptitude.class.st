@@ -11,7 +11,7 @@ Class {
 BrGlamorousWithMaximizerAptitude >> createActionButton [
 	^ BrButton new
 		background: Color white;
-		look: BrIconAptitude + BrGlamorousFocusableShadowAptitude + (BrStyleCommonAptitude new
+		aptitude: BrIconAptitude + BrGlamorousFocusableShadowAptitude + (BrStyleCommonAptitude new
 			default: [ :s | s background: Color white ];
 			hovered: [ :s | s background: Color veryVeryLightGray lighter ];
 			pressed: [ :s | s background: Color veryVeryLightGray ]);

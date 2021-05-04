@@ -31,7 +31,7 @@ BrGlamorousTaggerEditableAptitude >> addTagCreatorElement [
 BrGlamorousTaggerEditableAptitude >> defaultTagLabelStencil [
 	^ [ :aTag |
 		BrEditableLabel new
-			look: BrGlamorousEditableLabelAptitude new glamorousRegularFontAndSize;
+			aptitude: BrGlamorousEditableLabelAptitude new glamorousRegularFontAndSize;
 			text: aTag name ] asStencilBuilder: BrTaggerTagStencilBuilder
 ]
 
@@ -76,7 +76,7 @@ BrGlamorousTaggerEditableAptitude >> initialize [
 { #category : #'private - instance creation' }
 BrGlamorousTaggerEditableAptitude >> newAddTagButton [
 	^ BrButton new
-		look:
+		aptitude:
 			BrGlamorousButtonRectangularAptitude new + BrGlamorousButtonIconAptitude new
 				+ BrGlamorousButtonWithLabelTooltipAptitude new
 				+

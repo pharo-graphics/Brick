@@ -130,7 +130,7 @@ BrButtonLabelLookExamples >> buttonWithChangedConstraintsInLook [
 	aButton addChild: aContent as: #content.
 
 	aButton viewModel: self buttonModel.
-	aButton look: aLabelLook.
+	aButton aptitude: aLabelLook.
 	
 	^ aButton
 ]
@@ -144,7 +144,7 @@ BrButtonLabelLookExamples >> buttonWithDirectlyEmbeddedLabel [
 	aLabelLook := self buttonLabelLookWithConstraints.
 
 	aButton viewModel: self allModels.
-	aButton look: aLabelLook.
+	aButton aptitude: aLabelLook.
 	
 	self assert: aLabelLook label text asString equals: self labelText.
 	self assert: aButton children asArray equals: { aLabelLook label }.
@@ -181,7 +181,7 @@ BrButtonLabelLookExamples >> buttonWithModelAndLookWithConstraints [
 	aButton addChild: aContent as: #content.
 
 	aButton viewModel: self allModels.
-	aButton look: aLabelLook.
+	aButton aptitude: aLabelLook.
 	
 	self assert: aLabelLook label text asString equals: self labelText.
 	
@@ -203,7 +203,7 @@ BrButtonLabelLookExamples >> buttonWithModelAndLookWithoutConstraints [
 	aButton addChild: aContent as: #content.
 
 	aButton viewModel: self allModels.
-	aButton look: aLabelLook.
+	aButton aptitude: aLabelLook.
 	
 	self assert: aLabelLook label text asString equals: self labelText.
 
@@ -225,7 +225,7 @@ BrButtonLabelLookExamples >> buttonWithModelAndWrongContentPlacement [
 	aButton addChild: aContent.
 
 	aButton viewModel: self allModels.
-	aButton look: aLabelLook.
+	aButton aptitude: aLabelLook.
 
 	self assert: aButton children asArray equals: { aContent . aLabelLook label }.
 	self assert: aContent children asArray equals: { }.
@@ -250,7 +250,7 @@ BrButtonLabelLookExamples >> buttonWithModelFirstThenLook [
 	aLook text: lookLabel.
 	
 	aButton viewModel: aModel.
-	aButton look: aLook.
+	aButton aptitude: aLook.
 	
 	self assert: aLook text asString equals: modelLabel.
 	self assert: aModel text asString equals: modelLabel.

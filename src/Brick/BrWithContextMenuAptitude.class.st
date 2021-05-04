@@ -24,7 +24,7 @@ BrWithContextMenuAptitude class >> anchoredLookClass [
 BrWithContextMenuAptitude class >> content: anObject [
 	^ self stencil: [
 		BrAnchoredElement new
-			look: (self anchoredLook
+			aptitude: (self anchoredLook
 				content: anObject asStencil asElement;
 				yourself);
 			yourself ]
@@ -34,7 +34,7 @@ BrWithContextMenuAptitude class >> content: anObject [
 BrWithContextMenuAptitude class >> handle: anObject content: anotherObject [
 	^ self stencil: [
 		BrAnchoredElement new
-			look: (self anchoredLook
+			aptitude: (self anchoredLook
 				handle: anObject asStencil asElement;
 				content: anotherObject asStencil asElement;
 				yourself);

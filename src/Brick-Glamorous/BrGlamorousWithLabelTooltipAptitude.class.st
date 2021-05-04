@@ -7,7 +7,7 @@ Class {
 { #category : #'instance creation' }
 BrGlamorousWithLabelTooltipAptitude >> newLabelWithText: aTextOrString [
 	^ BrLabel new
-		look: BrGlamorousLabelAptitude;
+		aptitude: BrGlamorousLabelAptitude;
 		text: aTextOrString;
 		padding: (BlInsets all: 5)
 ]
@@ -16,7 +16,7 @@ BrGlamorousWithLabelTooltipAptitude >> newLabelWithText: aTextOrString [
 BrGlamorousWithLabelTooltipAptitude >> text: aTextOrString [
 	self
 		stencil: [ BrAnchoredElement new
-				look:
+				aptitude:
 					(BrGlamorousTooltipAptitude new
 						content: (self newLabelWithText: aTextOrString);
 						yourself);

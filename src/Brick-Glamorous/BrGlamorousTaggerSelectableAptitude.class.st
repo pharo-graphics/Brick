@@ -35,7 +35,7 @@ BrGlamorousTaggerSelectableAptitude >> addTagCreatorElement: aTagPrototype [
 BrGlamorousTaggerSelectableAptitude >> defaultTagLabelStencil [
 	^ [ :aTag |
 		BrEditableLabel new
-			look: BrGlamorousEditableLabelAptitude new glamorousRegularFontAndSize;
+			aptitude: BrGlamorousEditableLabelAptitude new glamorousRegularFontAndSize;
 			text: aTag name ] asStencilBuilder: BrTaggerTagStencilBuilder
 ]
 
@@ -104,7 +104,7 @@ BrGlamorousTaggerSelectableAptitude >> newAddExplicitTagButton [
 	aDropdownLook := BrGlamorousWithDropdownAptitude
 		handle: [
 			BrButton new
-				look: (BrGlamorousButtonRectangularAptitude new + BrGlamorousButtonIconAptitude new);
+				aptitude: (BrGlamorousButtonRectangularAptitude new + BrGlamorousButtonIconAptitude new);
 				icon: BrGlamorousVectorIcons add;
 				beSmallSize;
 				hExact: 20 ]
@@ -127,7 +127,7 @@ BrGlamorousTaggerSelectableAptitude >> newAllowedTagsChooser: aCollectionOfTags 
 		itemStencil: [
 			BrButton new
 				hMatchParent;
-				look: BrGlamorousLabelAptitude new glamorousRegularFont + (BrInteractiveCommonAptitude new
+				aptitude: BrGlamorousLabelAptitude new glamorousRegularFont + (BrInteractiveCommonAptitude new
 					default: [ :f | f background: Color transparent ];
 					hovered: [ :f | f background: BrGlamorousColors defaultButtonBorderColor ]);
 				yourself ];
@@ -145,7 +145,7 @@ BrGlamorousTaggerSelectableAptitude >> newAllowedTagsChooser: aCollectionOfTags 
 { #category : #'private - instance creation' }
 BrGlamorousTaggerSelectableAptitude >> newBasicAddTagButton [
 	^ BrButton new
-		look:
+		aptitude:
 			(BrGlamorousButtonRectangularAptitude new +
 			BrGlamorousButtonIconAptitude new +
 			BrGlamorousButtonWithLabelTooltipAptitude new + (BrInteractiveCommonAptitude new
@@ -173,7 +173,7 @@ BrGlamorousTaggerSelectableAptitude >> newTagCreatorElement: aTagPrototype [
 
 	aNewTagCreator := BrHorizontalPane new
 		addChild: (BrLabel new
-			look: BrGlamorousLabelAptitude new;
+			aptitude: BrGlamorousLabelAptitude new;
 			text: aTagPrototype).
 
 	aNewTagEditor := (tagLabelStencil tag: aTagPrototype) asElement
@@ -210,10 +210,10 @@ BrGlamorousTaggerSelectableAptitude >> newTagElementFor: aTaggerTag [
 	
 	aTagPrototypeChangerButton := BrButton new
 		beSmallSize;
-		look: BrGlamorousButtonWithLabelAndIconAptitude - BrGlamorousButtonExteriorAptitude + (BrInteractiveCommonAptitude new default: [ :w | w background: Color gray ]) + (BrGlamorousWithDropdownAptitude
+		aptitude: BrGlamorousButtonWithLabelAndIconAptitude - BrGlamorousButtonExteriorAptitude + (BrInteractiveCommonAptitude new default: [ :w | w background: Color gray ]) + (BrGlamorousWithDropdownAptitude
 			handle: [
 				BrButton new
-					look: (BrGlamorousButtonRectangularAptitude new + BrGlamorousButtonLabelAptitude new + BrGlamorousButtonIconAptitude);
+					aptitude: (BrGlamorousButtonRectangularAptitude new + BrGlamorousButtonLabelAptitude new + BrGlamorousButtonIconAptitude);
 					label: aTaggerTag;
 					beSmallSize ]
 				content: [ self newAddAllowedTagsChooser: allowedTags tags ]);

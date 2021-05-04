@@ -17,7 +17,7 @@ BrBasicExamples >> widgetModelAttachedEvent [
 	aWidgetModel whenAttachedDo: [ :anElement | viewModelAttachedElement := anElement ].
 
 	aWidgetElement viewModel: aWidgetModel.
-	aWidgetElement look: BrAptitude new.
+	aWidgetElement aptitude: BrAptitude new.
 
 	self assert: viewModelAttachedElement == aWidgetElement.
 

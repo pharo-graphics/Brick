@@ -12,7 +12,7 @@ BrGlamorousTrangleExpanderTextAttribute >> doAffect: aTBrTextEditorTextualPiece 
 	| aToggle |
 
 	aToggle := BrTriangle new
-		look: BrGlamorousTriangleInCircleAptitude;
+		aptitude: BrGlamorousTriangleInCircleAptitude;
 		expanded: self isExpanded;
 		padding: (BlInsets all: 2);
 		margin: (BlInsets top: 2);
