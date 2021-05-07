@@ -24,7 +24,7 @@ BrSimpleTreeRowElementStencilBuilder >> buildDefault [
 { #category : #'api - instantiation' }
 BrSimpleTreeRowElementStencilBuilder >> createExpandCollapseElement [
 	^ BrTriangle new
-		look: BrGlamorousTriangleInCircleLook
+		aptitude: BrGlamorousTriangleInCircleAptitude
 ]
 
 { #category : #accessing }

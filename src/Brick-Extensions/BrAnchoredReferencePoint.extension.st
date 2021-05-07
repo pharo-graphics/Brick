@@ -12,20 +12,6 @@ BrAnchoredReferencePoint class >> gtAllTypesFor: aView [
 ]
 
 { #category : #'*Brick-Extensions' }
-BrAnchoredReferencePoint class >> gtPreviewFor: aView [
-	<gtView>
-	
-	self = BrAnchoredReferencePoint
-		ifTrue: [ ^ aView empty ].
-	
-	^ aView forward
-		title: 'Preview';
-		priority: -10;
-		object: [ self asBrAnchoredReferencePoint ];
-		view: #gtPreviewFor:
-]
-
-{ #category : #'*Brick-Extensions' }
 BrAnchoredReferencePoint >> gtPreviewFor: aView [
 	<gtView>
 	
@@ -52,11 +38,25 @@ BrAnchoredReferencePoint >> gtPreviewFor: aView [
 						clipChildren: false;
 						layout: BlLinearLayout vertical alignCenter;
 						addChild: (BrLabel new
-							look: (BrGlamorousLabelLook new fontSize: 9);
+							aptitude: (BrGlamorousLabelAptitude new fontSize: 9);
 							text: self class label).
 				}) asScalableElement
 					maxScale: 1.2;
 					clipChildren: false;
 					margin: (BlInsets all: 20)
 		]
+]
+
+{ #category : #'*Brick-Extensions' }
+BrAnchoredReferencePoint class >> gtPreviewFor: aView [
+	<gtView>
+	
+	self = BrAnchoredReferencePoint
+		ifTrue: [ ^ aView empty ].
+	
+	^ aView forward
+		title: 'Preview';
+		priority: -10;
+		object: [ self asBrAnchoredReferencePoint ];
+		view: #gtPreviewFor:
 ]

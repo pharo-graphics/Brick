@@ -57,25 +57,25 @@ BrButtonExamples >> buttonAndLookWithLabelAndExterior [
 	<gtExample>
 	| aButtonLook aLabelLook anExteriorLook |
 	
-	aLabelLook := BrTextLabelLook new.
+	aLabelLook := BrTextLabelAptitude new.
 	aLabelLook
 		bold;
 		fontName: 'Source Sans Pro'.
 
-	aLabelLook add: (BrInteractiveCommonLook new
+	aLabelLook add: (BrInteractiveCommonAptitude new
 		default: [ aLabelLook foreground: Color gray ];
 		hovered: [ aLabelLook foreground: Color white ];
 		pressed: [ aLabelLook foreground: Color paleBlue ];
 		disabled: [ aLabelLook foreground: Color veryLightGray ]).
 
-	aLabelLook add: (BrDeprecatedSizeAdjustmentLook new
+	aLabelLook add: (BrDeprecatedSizeAdjustmentAptitude new
 		default: [ aLabelLook fontSize: 20 ];
 		tiny: [ aLabelLook fontSize: 10 ];
 		small: [ aLabelLook fontSize: 16 ];
 		large: [ aLabelLook fontSize: 26 ];
 		huge: [ aLabelLook fontSize: 36 ]).
 		
-	anExteriorLook := BrInteractiveCommonLook new.
+	anExteriorLook := BrInteractiveCommonAptitude new.
 	anExteriorLook
 		default: [ :aWidget |
 			aWidget padding: (BlInsets top: 5 left: 10 bottom: 5 right: 10).
@@ -84,16 +84,16 @@ BrButtonExamples >> buttonAndLookWithLabelAndExterior [
 		pressed: [ :aWidget | aWidget background: (Color r: 0.04 g: 0.43 b: 0.85) ];
 		disabled: [ :aWidget | aWidget background: Color veryVeryLightGray ].
 		
-	anExteriorLook add: (BrLayoutResizerLook inherit).
-	anExteriorLook add: (BrLayoutAlignmentLook forHorizontalLinearLayout).
-	anExteriorLook add: (BrFlatShadowLook new offset: 3@3).
+	anExteriorLook add: (BrLayoutResizerAptitude inherit).
+	anExteriorLook add: (BrLayoutAlignmentAptitude forHorizontalLinearLayout).
+	anExteriorLook add: (BrFlatShadowAptitude new offset: 3@3).
 		
-	aButtonLook := BrLook new.
+	aButtonLook := BrAptitude new.
 	aButtonLook addAll: { aLabelLook . anExteriorLook }.
 
 	^ self newButton
 		label: 'Button';
-		look: aButtonLook
+		aptitude: aButtonLook
 ]
 
 { #category : #'instance creation' }
@@ -101,7 +101,7 @@ BrButtonExamples >> buttonWithExteriorLook [
 	<gtExample>
 	| anExteriorLook |
 	
-	anExteriorLook := BrInteractiveCommonLook new.
+	anExteriorLook := BrInteractiveCommonAptitude new.
 	anExteriorLook
 		default: [ :aWidget | aWidget background: Color veryVeryLightGray ];
 		hovered: [ :aWidget | aWidget background: (Color r: 0.27 g: 0.67 b: 0.99) ];
@@ -109,7 +109,7 @@ BrButtonExamples >> buttonWithExteriorLook [
 		disabled: [ :aWidget | aWidget background: Color veryVeryLightGray ].
 
 	^ self newButton
-		look: anExteriorLook
+		aptitude: anExteriorLook
 ]
 
 { #category : #'instance creation' }
@@ -117,10 +117,10 @@ BrButtonExamples >> buttonWithLabelLook [
 	<gtExample>
 	| aLabelLook |
 	
-	aLabelLook := BrTextLabelLook new.
+	aLabelLook := BrTextLabelAptitude new.
 	
 	^ self newButton
-		look: aLabelLook
+		aptitude: aLabelLook
 ]
 
 { #category : #'instance creation' }
@@ -128,7 +128,7 @@ BrButtonExamples >> buttonWithLabelLookAndCustomFont [
 	<gtExample>
 	| aLabelLook |
 	
-	aLabelLook := BrTextLabelLook new.
+	aLabelLook := BrTextLabelAptitude new.
 	aLabelLook
 		bold;
 		fontName: 'Source Sans Pro';
@@ -136,7 +136,7 @@ BrButtonExamples >> buttonWithLabelLookAndCustomFont [
 		foreground: Color gray.
 
 	^ self newButton
-		look: aLabelLook
+		aptitude: aLabelLook
 ]
 
 { #category : #'instance creation' }
@@ -144,12 +144,12 @@ BrButtonExamples >> buttonWithLabelLookOfDifferentSizes [
 	<gtExample>
 	| aLabelLook |
 	
-	aLabelLook := BrTextLabelLook new.
+	aLabelLook := BrTextLabelAptitude new.
 	aLabelLook
 		bold;
 		fontName: 'Source Sans Pro'.
 
-	aLabelLook add: (BrDeprecatedSizeAdjustmentLook new
+	aLabelLook add: (BrDeprecatedSizeAdjustmentAptitude new
 		default: [ aLabelLook fontSize: 20 ];
 		tiny: [ aLabelLook fontSize: 10 ];
 		small: [ aLabelLook fontSize: 16 ];
@@ -159,7 +159,7 @@ BrButtonExamples >> buttonWithLabelLookOfDifferentSizes [
 	^ self newButton
 		action: [ :aButton | aButton perform: #(beNormalSize beTinySize beSmallSize beLargeSize beHugeSize) atRandom ];
 		beSmallSize;
-		look: aLabelLook
+		aptitude: aLabelLook
 ]
 
 { #category : #'instance creation' }
@@ -167,18 +167,18 @@ BrButtonExamples >> buttonWithLabelLookReactingToHover [
 	<gtExample>
 	| aLabelLook |
 	
-	aLabelLook := BrTextLabelLook new.
+	aLabelLook := BrTextLabelAptitude new.
 	aLabelLook
 		bold;
 		fontName: 'Source Sans Pro';
 		fontSize: 20.
 
-	aLabelLook add: (BrInteractiveCommonLook new
+	aLabelLook add: (BrInteractiveCommonAptitude new
 		default: [ aLabelLook foreground: Color gray ];
 		hovered: [ aLabelLook foreground: Color darkGray ]).
 
 	^ self newButton
-		look: aLabelLook
+		aptitude: aLabelLook
 ]
 
 { #category : #'instance creation' }
@@ -186,19 +186,19 @@ BrButtonExamples >> buttonWithLabelLookReactingToHoverAndPress [
 	<gtExample>
 	| aLabelLook |
 	
-	aLabelLook := BrTextLabelLook new.
+	aLabelLook := BrTextLabelAptitude new.
 	aLabelLook
 		bold;
 		fontName: 'Source Sans Pro';
 		fontSize: 20.
 
-	aLabelLook add: (BrInteractiveCommonLook new
+	aLabelLook add: (BrInteractiveCommonAptitude new
 		default: [ aLabelLook foreground: Color gray ];
 		hovered: [ aLabelLook foreground: Color darkGray ];
 		pressed: [ aLabelLook foreground: Color black ]).
 
 	^ self newButton
-		look: aLabelLook
+		aptitude: aLabelLook
 ]
 
 { #category : #'instance creation' }
@@ -206,13 +206,13 @@ BrButtonExamples >> buttonWithLabelLookReactingToHoverAndPressAndDisabled [
 	<gtExample>
 	| aLabelLook |
 	
-	aLabelLook := BrTextLabelLook new.
+	aLabelLook := BrTextLabelAptitude new.
 	aLabelLook
 		bold;
 		fontName: 'Source Sans Pro';
 		fontSize: 20.
 
-	aLabelLook add: (BrInteractiveCommonLook new
+	aLabelLook add: (BrInteractiveCommonAptitude new
 		default: [ aLabelLook foreground: Color gray ];
 		hovered: [ aLabelLook foreground: Color darkGray ];
 		pressed: [ aLabelLook foreground: Color black ];
@@ -220,7 +220,7 @@ BrButtonExamples >> buttonWithLabelLookReactingToHoverAndPressAndDisabled [
 
 	^ self newButton
 		disable;
-		look: aLabelLook
+		aptitude: aLabelLook
 ]
 
 { #category : #'instance creation' }
@@ -228,18 +228,18 @@ BrButtonExamples >> labelLookWithCommonAndSizeInteractions [
 	<gtExample>
 	| aLabelLook |
 	
-	aLabelLook := BrTextLabelLook new.
+	aLabelLook := BrTextLabelAptitude new.
 	aLabelLook
 		bold;
 		fontName: 'Source Sans Pro'.
 
-	aLabelLook add: (BrInteractiveCommonLook new
+	aLabelLook add: (BrInteractiveCommonAptitude new
 		default: [ aLabelLook foreground: Color gray ];
 		hovered: [ aLabelLook foreground: Color darkGray ];
 		pressed: [ aLabelLook foreground: Color black ];
 		disabled: [ aLabelLook foreground: Color veryLightGray ]).
 
-	aLabelLook add: (BrDeprecatedSizeAdjustmentLook new
+	aLabelLook add: (BrDeprecatedSizeAdjustmentAptitude new
 		default: [ aLabelLook fontSize: 20 ];
 		tiny: [ aLabelLook fontSize: 10 ];
 		small: [ aLabelLook fontSize: 16 ];

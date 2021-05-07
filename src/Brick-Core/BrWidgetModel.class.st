@@ -75,7 +75,7 @@ BrWidgetModel >> + anotherModel [
 { #category : #'api - composition' }
 BrWidgetModel >> add: aBrWidgetModel [
 
-	self isAttachedToWidget and: [ self widget lookDo: [ :aLook |
+	self isAttachedToWidget and: [ self widget aptitudeDo: [ :aLook |
 		self error: 'Can not add a view model if there is a look'	] ].
 
 	actors := actors copyWith: aBrWidgetModel.

@@ -8,7 +8,7 @@ Class {
 BrFlowList >> initialize [
 	super initialize.
 
-	self look: BrFlowListLook new.
+	self aptitude: BrFlowListAptitude new.
 	self layout: BlFrameLayout new.
 	self constraintsDo: [ :c |
 		c horizontal matchParent.
@@ -17,5 +17,5 @@ BrFlowList >> initialize [
 
 { #category : #accessing }
 BrFlowList >> stencil: aListRowStencilBuilder [
-	self look itemStencilBuilder: aListRowStencilBuilder
+	self aptitude itemStencilBuilder: aListRowStencilBuilder
 ]

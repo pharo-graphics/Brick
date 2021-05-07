@@ -8,7 +8,7 @@ Class {
 BrGridList >> initialize [
 	super initialize.
 
-	self look: BrGridListLook new.
+	self aptitude: BrGridListAptitude new.
 	self layout: BlFrameLayout new.
 	self constraintsDo: [ :c |
 		c horizontal matchParent.
@@ -17,5 +17,5 @@ BrGridList >> initialize [
 
 { #category : #accessing }
 BrGridList >> stencil: aListRowStencilBuilder [
-	self look itemStencilBuilder: aListRowStencilBuilder
+	self aptitude itemStencilBuilder: aListRowStencilBuilder
 ]

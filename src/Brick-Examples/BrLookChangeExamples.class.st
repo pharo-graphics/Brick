@@ -8,15 +8,15 @@ Class {
 BrLookChangeExamples >> buttonLookChange [
 	<gtExample>
 	^ BrButton new
-		look: BrMaterialButtonLook;
+		aptitude: BrMaterialButtonAptitude;
 		label: 'I am quite materialistic...';
 		action: [ :e | 
-			(e look isKindOf: BrMaterialButtonLook)
+			(e aptitude isKindOf: BrMaterialButtonAptitude)
 				ifTrue: [ e
-						look: BrGlamorousButtonWithLabelLook;
+						aptitude: BrGlamorousButtonWithLabelAptitude;
 						label: 'Now I am glamorous!' ]
 				ifFalse: [ e
-						look: BrMaterialButtonLook;
+						aptitude: BrMaterialButtonAptitude;
 						label: 'I am quite materialistic...' ] ]
 ]
 
@@ -63,7 +63,7 @@ BrLookChangeExamples >> buttonLookPropertyChange [
 		border: (BlBorder paint: Color black width: 1);
 		padding: (BlInsets all: 25);
 		geometry: (BlRoundedRectangleGeometry cornerRadius: 20);
-		look: BrGlamorousLabelLook;
+		aptitude: BrGlamorousLabelAptitude;
 		text: 'Click me to change!' asRopedText;
 		yourself.
 	label
@@ -72,14 +72,14 @@ BrLookChangeExamples >> buttonLookPropertyChange [
 			random := changes shuffled
 				copyFrom: 1
 				to: (0 to: changes size) atRandom.
-			look := BrLook new.
+			look := BrAptitude new.
 			text := ' '
 				join:
 					(random
 						collect: [ :f | 
 							look changes add: f value.
 							f key ]).
-			label look: BrGlamorousLabelLook + look.
+			label aptitude: BrGlamorousLabelAptitude + look.
 			label text: text asRopedText ].
 	^ label
 ]

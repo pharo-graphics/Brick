@@ -17,7 +17,7 @@ BrInteractionExamples >> exampleWithPropagation [
 		action: [ :aWidget | expandable toggle ];
 		add: (BrInteractiveModel new addState: (expandable := BrExpandableModel new expand))).
 
-	parent look: (BrInteractiveLook new style: [ :aStyle |
+	parent aptitude: (BrInteractiveAptitude new style: [ :aStyle |
 		aStyle default: [ :aWidget | aWidget border: BlBorder empty ].
 		aStyle expanded: [ :aWidget | aWidget border: (BlBorder paint: Color blue width: 2) ] ]).
 
@@ -25,7 +25,7 @@ BrInteractionExamples >> exampleWithPropagation [
 	child size: 100@100.
 	child relocate: 50@50.
 	child viewModel: (BrInteractiveModel new addState: (BrHoverModel new)).
-	child look: (BrInteractiveLook new style: [ :aStyle |
+	child aptitude: (BrInteractiveAptitude new style: [ :aStyle |
 		aStyle default: [ :aWidget |
 			aWidget
 				background: (Color gray alpha: 0.3);

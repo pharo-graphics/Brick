@@ -11,7 +11,7 @@ Class {
 BrDevLookOverview >> buildCategoryLabel: aString [
 	^ BrLabel new
 		beSmallSize;
-		look: (BrGlamorousLabelLook new foreground: (BrGlamorousColors defaultButtonTextColor alpha: 0.5));
+		aptitude: (BrGlamorousLabelAptitude new foreground: (BrGlamorousColors defaultButtonTextColor alpha: 0.5));
 		margin: (BlInsets bottom: 5);
 		text: aString
 ]
@@ -60,7 +60,7 @@ BrDevLookOverview >> buildEventsList [
 	aList := BrSimpleList new
 		matchParent;
 		items: (self lookClass withAllSuperclassEvents);
-		itemStencil: [ BrLabel new hMatchParent beSmallSize look: BrGlamorousLabelLook ];
+		itemStencil: [ BrLabel new hMatchParent beSmallSize aptitude: BrGlamorousLabelAptitude ];
 		itemDataBinder: [ :anItemElement :anItem | anItemElement text: anItem name ].
 
 	^ aList
@@ -80,7 +80,7 @@ BrDevLookOverview >> buildEventsSection [
 	aContainer addChild: (self buildSectionLabel: 'Events').
 
 	aContainer addChild: (BrEditor new
-		look: BrGlamorousEditorLook new;
+		aptitude: BrGlamorousEditorAptitude new;
 		padding: (BlInsets all: 3);
 		hMatchParent;
 		vFitContent;
@@ -103,7 +103,7 @@ BrDevLookOverview >> buildExpandArtifctReferencesAttribute: theWishes [
 				beAppend;
 				stencil:  [
 					(self buildSmallReferencesList: theWishes)
-						addLook: BrShadowLook;
+						addAptitude: BrShadowAptitude;
 						background: Color white;
 						margin: (BlInsets all: 10);
 						constraintsDo: [ :c | c textFlow pushLine ] ] ]
@@ -113,7 +113,7 @@ BrDevLookOverview >> buildExpandArtifctReferencesAttribute: theWishes [
 BrDevLookOverview >> buildLookHierarchy [
 	^ BrSimpleTree new
 		matchParent;
-		nodeStencil: [ BrLabel new beSmallSize look: BrGlamorousLabelLook ];
+		nodeStencil: [ BrLabel new beSmallSize aptitude: BrGlamorousLabelAptitude ];
 		nodeDataBinder: [ :anItemElement :anItem |
 			anItemElement text: (anItem rootClass = self lookClass
 				ifTrue: [ anItem rootClass name asRopedText bold ]
@@ -130,7 +130,7 @@ BrDevLookOverview >> buildRequestsList [
 	aList := BrSimpleList new
 		matchParent;
 		items: (self lookClass withAllSuperclassRequests);
-		itemStencil: [ BrLabel new hMatchParent beSmallSize look: BrGlamorousLabelLook ];
+		itemStencil: [ BrLabel new hMatchParent beSmallSize aptitude: BrGlamorousLabelAptitude ];
 		itemDataBinder: [ :anItemElement :anItem | anItemElement text: anItem name ].
 
 	^ aList
@@ -150,7 +150,7 @@ BrDevLookOverview >> buildRequestsSection [
 	aContainer addChild: (self buildSectionLabel: 'Requests').
 
 	aContainer addChild: (BrEditor new
-		look: BrGlamorousEditorLook new;
+		aptitude: BrGlamorousEditorAptitude new;
 		padding: (BlInsets all: 3);
 		hMatchParent;
 		vFitContent;
@@ -169,7 +169,7 @@ BrDevLookOverview >> buildRequestsSection [
 BrDevLookOverview >> buildSectionLabel: aString [
 	^ BrLabel new
 		beHuge;
-		look: BrGlamorousLabelLook;
+		aptitude: BrGlamorousLabelAptitude;
 		margin: (BlInsets top: 15 right: 0 bottom: 0 left: 1);
 		text: aString
 ]
@@ -185,7 +185,7 @@ BrDevLookOverview >> buildSmallReferencesList: aListOfLookArtifactReferences [
 		itemStencil: [ BrLabel new
 			hMatchParent;
 			beSmallSize;
-			look: BrGlamorousListLabelLook ];
+			aptitude: BrGlamorousListLabelAptitude ];
 		itemDataBinder: [ :anItemElement :anItem | anItemElement text: anItem artifact name ].
 
 	^ aList
@@ -198,7 +198,7 @@ BrDevLookOverview >> buildWishesList [
 	aList := BrSimpleList new
 		matchParent;
 		items: (self lookClass withAllSuperclassWishes);
-		itemStencil: [ BrLabel new hMatchParent beSmallSize look: BrGlamorousLabelLook ];
+		itemStencil: [ BrLabel new hMatchParent beSmallSize aptitude: BrGlamorousLabelAptitude ];
 		itemDataBinder: [ :anItemElement :anItem | anItemElement text: anItem name ].
 
 	^ aList
@@ -218,7 +218,7 @@ BrDevLookOverview >> buildWishesSection [
 	aContainer addChild: (self buildSectionLabel: 'Wishes').
 
 	aContainer addChild: (BrEditor new
-		look: BrGlamorousEditorLook new;
+		aptitude: BrGlamorousEditorAptitude new;
 		padding: (BlInsets all: 3);
 		hMatchParent;
 		vFitContent;
@@ -251,7 +251,7 @@ BrDevLookOverview >> lookClass: anObject [
 	lookClass := anObject.
 		
 	self addChild: (BrScrollPane new
-		look: BrScrollPaneLook + BrGlamorousWithVerticalScrollbarLook;
+		aptitude: BrScrollPaneAptitude + BrGlamorousWithVerticalScrollbarAptitude;
 		content: (BrVerticalPane new
 			hMatchParent;
 			vFitContent;

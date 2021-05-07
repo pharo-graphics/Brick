@@ -43,7 +43,7 @@ BrProgressExamples >> animatedBar [
 		constraintsDo: [ :c | 
 			c horizontal matchParent.
 			c vertical fitContent ];
-		look: self animatedBarLook.
+		aptitude: self animatedBarLook.
 	self assert: aProgress childrenCount equals: 1.
 	self assert: aProgress children first layout class equals: BlFrameLayout.
 	self assert: aProgress children first childrenCount equals: 1.
@@ -61,7 +61,7 @@ BrProgressExamples >> animatedBarAndTextAbove [
 		constraintsDo: [ :c | 
 			c horizontal matchParent.
 			c vertical fitContent ];
-		look: self textLook + self animatedBarLook.
+		aptitude: self textLook + self animatedBarLook.
 	self assert: aProgress childrenCount equals: 2.
 	self assert: aProgress children second layout class equals: BlFrameLayout.
 	self assert: aProgress children second childrenCount equals: 1.
@@ -73,7 +73,7 @@ BrProgressExamples >> animatedBarAndTextAbove [
 { #category : #'examples - looks' }
 BrProgressExamples >> animatedBarLook [
 	<gtExample>
-	^ BrProgressAnimatedBarLook new
+	^ BrProgressAnimatedBarAptitude new
 			beGradientAnimationBaseColor: Color white highlightColor: Color blue muchLighter;
 			barDo: [ :aBar | 
 				aBar background: Color blue.
@@ -106,7 +106,7 @@ BrProgressExamples >> barAndTextAbove [
 		constraintsDo: [ :c | 
 			c horizontal matchParent.
 			c vertical fitContent ];
-		look: self textLook + self barLook.
+		aptitude: self textLook + self barLook.
 	self assert: aProgress childrenCount equals: 2.
 	self assert: aProgress children second layout class equals: BlFrameLayout.
 	self assert: aProgress children second childrenCount equals: 1.
@@ -125,7 +125,7 @@ BrProgressExamples >> barAndTextBelow [
 		constraintsDo: [ :c | 
 			c horizontal matchParent.
 			c vertical fitContent ];
-		look: self barLook + self textLook.
+		aptitude: self barLook + self textLook.
 	self assert: aProgress childrenCount equals: 2.
 	self assert: aProgress children first layout class equals: BlFrameLayout.
 	self assert: aProgress children first childrenCount equals: 1.
@@ -144,7 +144,7 @@ BrProgressExamples >> barAndTextInside [
 		constraintsDo: [ :c | 
 			c horizontal matchParent.
 			c vertical fitContent ];
-		look: self barLook + (self textLook 
+		aptitude: self barLook + (self textLook 
 			foreground: Color white;
 			labelDo: [ :aLabel | 
 				aLabel constraintsDo: [ :c | 
@@ -161,7 +161,7 @@ BrProgressExamples >> barAndTextInside [
 { #category : #'examples - looks' }
 BrProgressExamples >> barLook [
 	<gtExample>
-	^ BrProgressBarLook new
+	^ BrProgressBarAptitude new
 			barDo: [ :aBar | 
 				aBar background: Color blue.
 				aBar geometry: (BlRoundedRectangleGeometry cornerRadius: 8).
@@ -182,7 +182,7 @@ BrProgressExamples >> barOnly [
 		constraintsDo: [ :c | 
 			c horizontal matchParent.
 			c vertical fitContent ];
-		look: self barLook.
+		aptitude: self barLook.
 	self assert: aProgress childrenCount equals: 1.
 	self assert: aProgress children first layout class equals: BlFrameLayout.
 	self assert: aProgress children first childrenCount equals: 1.
@@ -291,7 +291,7 @@ BrProgressExamples >> progressModel [
 { #category : #'examples - looks' }
 BrProgressExamples >> textLook [
 	<gtExample>
-	^ BrTextLabelLook new 
+	^ BrTextLabelAptitude new 
 			foreground: Color lightGray;
 			labelDo: [ :aWidget | 
 				aWidget constraintsDo: [ :c | 

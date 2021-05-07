@@ -11,15 +11,15 @@ BrToolbarExamples >> addItemsOnButtonClick [
 	| aToolbar |
 	
 	aToolbar := BrToolbar new.
-	aToolbar look: BrMaterialToolbarLook.
+	aToolbar aptitude: BrMaterialToolbarAptitude.
 
 	aToolbar addItem: (BrButton new 
-			look: BrMaterialToggleLabelledLook;
+			aptitude: BrMaterialToggleLabelledAptitude;
 			label: 'Add';
 			action: [ | aSize |
 				aSize := aToolbar numberOfItems.
 				aToolbar addItem: (BrButton new 
-					look: BrMaterialToggleLabelledLook;
+					aptitude: BrMaterialToggleLabelledAptitude;
 					label: aToolbar numberOfItems asString; 
 					action: [ :aWidget | self inform: 'Click on button ', aWidget label asString ]).
 				self assert: aToolbar numberOfItems equals: aSize + 1 ]).
@@ -34,15 +34,15 @@ BrToolbarExamples >> addItemsOnButtonClickVertically [
 	| aToolbar |
 	
 	aToolbar := BrToolbar new.
-	aToolbar look: BrMaterialToolbarLook.
+	aToolbar aptitude: BrMaterialToolbarAptitude.
 
 	aToolbar addItem: (BrButton new
-			look: BrMaterialToggleLabelledLook;
+			aptitude: BrMaterialToggleLabelledAptitude;
 			label: 'Add';
 			action: [ | aSize |
 				aSize := aToolbar numberOfItems.
 				aToolbar addItem: (BrButton new 
-					look: BrMaterialToggleLabelledLook;
+					aptitude: BrMaterialToggleLabelledAptitude;
 					label: aToolbar numberOfItems asString; 
 					action: [ :aWidget | self inform: 'Click on button ', aWidget label asString ]).
 				self assert: aToolbar numberOfItems equals: aSize + 1 ]).
@@ -58,7 +58,7 @@ BrToolbarExamples >> removeItemsOnButtonClick [
 	aToolbar := self addItemsOnButtonClick.
 	
 	aToolbar addItem: (BrButton new 
-		look: BrMaterialToggleLabelledLook;
+		aptitude: BrMaterialToggleLabelledAptitude;
 		label: 'Remove'; 
 		action: [ | aSize anIndex |
 			aSize := aToolbar numberOfItems.
@@ -77,7 +77,7 @@ BrToolbarExamples >> removeItemsOnButtonClickVertically [
 	| aToolbar |
 	aToolbar := self addItemsOnButtonClickVertically.
 	aToolbar addItem: (BrButton new 
-		look: BrMaterialToggleLabelledLook;
+		aptitude: BrMaterialToggleLabelledAptitude;
 		label: 'Remove'; 
 		action: [ | aSize anIndex |
 			aSize := aToolbar numberOfItems.
@@ -94,7 +94,7 @@ BrToolbarExamples >> toolbar [
 	<gtExample>
 	| aToolbar |
 	aToolbar := BrToolbar new.
-	aToolbar look: BrMaterialToolbarLook.
+	aToolbar aptitude: BrMaterialToolbarAptitude.
 	aToolbar addItem: self toolbarItemHello.
 	aToolbar addItem: self toolbarItemGToolkit.
 	self assert: aToolbar numberOfItems equals: 2.
@@ -118,7 +118,7 @@ BrToolbarExamples >> toolbarInAContainer [
 BrToolbarExamples >> toolbarItemGToolkit [
 	<gtExample>
 	^ BrButton new 
-		look: BrMaterialToggleLabelledLook;
+		aptitude: BrMaterialToggleLabelledAptitude;
 		label: 'GToolkit'; 
 		action: [ self inform: 'Click on GToolkit' ]
 ]
@@ -127,7 +127,7 @@ BrToolbarExamples >> toolbarItemGToolkit [
 BrToolbarExamples >> toolbarItemHello [
 	<gtExample>
 	^ BrButton new 
-		look: BrMaterialToggleLabelledLook;
+		aptitude: BrMaterialToggleLabelledAptitude;
 		label: 'Hello'; 
 		action: [ self inform: 'Click on Hello' ]
 ]
@@ -137,7 +137,7 @@ BrToolbarExamples >> verticalToolbar [
 	<gtExample>
 	| aToolbar |
 	aToolbar := BrToolbar new.
-	aToolbar look: BrMaterialToolbarLook.
+	aToolbar aptitude: BrMaterialToolbarAptitude.
 	aToolbar addItem: self toolbarItemHello.
 	aToolbar addItem: self toolbarItemGToolkit.
 	self assert: aToolbar numberOfItems equals: 2.

@@ -16,7 +16,7 @@ BrExpanderExamples >> expanderWithText [
 		hExact: 300;
 		collapse;
 		margin: (BlInsets all: 10);
-		look: BrGlamorousExpanderLook new;
+		aptitude: BrGlamorousExpanderAptitude new;
 		header: [ BrEditorElement new editor: (BrTextEditor new text: aText lines first asRopedText) ];
 		content: [ BrEditorElement new editor: (BrTextEditor new text: aText asRopedText) ].
 

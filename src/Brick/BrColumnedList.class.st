@@ -23,10 +23,10 @@ BrColumnedList >> defaultListModel [
 BrColumnedList >> initialize [
 	super initialize.
 
-	self look: BrColumnedListLook + BrGlamorousWithVerticalScrollbarLook
+	self aptitude: BrColumnedListAptitude + BrGlamorousWithVerticalScrollbarAptitude
 ]
 
 { #category : #'api - scripting' }
 BrColumnedList >> rowStencil: aRowStencil [
-	self look rowStencilBuilder: aRowStencil
+	self aptitude rowStencilBuilder: aRowStencil
 ]

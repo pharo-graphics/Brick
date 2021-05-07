@@ -16,7 +16,7 @@ BrCheckboxExamples >> checkbox [
 { #category : #'form-scripting' }
 BrCheckboxExamples >> checkboxWithLook [
 	<gtExample>
-	^ self checkbox look: BrGlamorousCheckboxLook
+	^ self checkbox aptitude: BrGlamorousCheckboxAptitude
 ]
 
 { #category : #'form-scripting' }
@@ -32,5 +32,5 @@ BrCheckboxExamples >> checkedCheckbox [
 { #category : #'form-scripting' }
 BrCheckboxExamples >> checkedCheckboxWithLook [
 	<gtExample>
-	^ self checkedCheckbox look: BrGlamorousCheckboxLook
+	^ self checkedCheckbox aptitude: BrGlamorousCheckboxAptitude
 ]

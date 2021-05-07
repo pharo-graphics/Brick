@@ -21,11 +21,11 @@ BrGlamorousComponentsDropdowns >> buttonWithIcon [
 	<gtExample>
 
 	^ BrButton new
-		look: BrGlamorousButtonWithIconLook +
-			(BrGlamorousWithDropdownLook
+		aptitude: BrGlamorousButtonWithIconAptitude +
+			(BrGlamorousWithDropdownAptitude
 				handle: [
 					BrButton new
-						look: BrGlamorousButtonRectangularLook + BrGlamorousButtonIconLook;
+						aptitude: BrGlamorousButtonRectangularAptitude + BrGlamorousButtonIconAptitude;
 						icon: BrGlamorousIcons menu ]
 				content: [
 					BlElement new
@@ -41,11 +41,11 @@ BrGlamorousComponentsDropdowns >> buttonWithLabel [
 	<gtExample>
 
 	^ BrButton new
-		look: BrGlamorousButtonWithLabelLook +
-			(BrGlamorousWithDropdownLook
+		aptitude: BrGlamorousButtonWithLabelAptitude +
+			(BrGlamorousWithDropdownAptitude
 				handle: [
 					BrButton new
-						look: BrGlamorousButtonRectangularLook + BrGlamorousButtonLabelLook;
+						aptitude: BrGlamorousButtonRectangularAptitude + BrGlamorousButtonLabelAptitude;
 						label: 'Click me' ]
 				content: [
 					BlElement new
@@ -60,15 +60,15 @@ BrGlamorousComponentsDropdowns >> hideDropdown [
 	<gtExample>
 
 	^ BrButton new
-		look: BrGlamorousButtonWithIconLook +
-			(BrGlamorousWithDropdownLook
+		aptitude: BrGlamorousButtonWithIconAptitude +
+			(BrGlamorousWithDropdownAptitude
 				handle: [
 					BrButton new
-						look: BrGlamorousButtonRectangularLook + BrGlamorousButtonIconLook;
+						aptitude: BrGlamorousButtonRectangularAptitude + BrGlamorousButtonIconAptitude;
 						icon: BrGlamorousIcons menu ]
 				content: [
 					BrButton new
-						look: BrGlamorousButtonWithLabelLook;
+						aptitude: BrGlamorousButtonWithLabelAptitude;
 						margin: (BlInsets all: 20);
 						label: 'Close';
 						action: [ :aButton | aButton fireEvent: BrDropdownHideWish new ] ]);

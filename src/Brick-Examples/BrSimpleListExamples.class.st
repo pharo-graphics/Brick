@@ -11,7 +11,7 @@ BrSimpleListExamples >> allClasses [
 		itemStencil: [
 			BrLabel new
 				"hMatchParent;"
-				look: BrGlamorousLabelLook new + (BrStyleCommonLook new
+				aptitude: BrGlamorousLabelAptitude new + (BrStyleCommonAptitude new
 					selected: [ :aStyle | aStyle background: Color veryVeryLightGray ]);
 				padding: (BlInsets all: 5) ];
 		itemDataBinder: [ :eachElement :eachClass :eachIndex | eachElement text: eachClass name ];
@@ -97,7 +97,7 @@ BrSimpleListExamples >> label [
 	| aLabel |
 	aLabel := BrLabel new
 		beHugeSize;
-		look: BrGlamorousLabelLook.
+		aptitude: BrGlamorousLabelAptitude.
 	aLabel margin: aLabel margin + (BlInsets all: 5).
 	aLabel padding: aLabel padding + (BlInsets top: 5 right: 10 bottom: 5 left: 10).
 	aLabel border: (BlBorder paint: Color lightGray width: 1).

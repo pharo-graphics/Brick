@@ -42,7 +42,7 @@ BrColumnCellLabelStencil class >> matchParent: aText [
 { #category : #'api - instantiation' }
 BrColumnCellLabelStencil >> create [
 	^ BrLabel new
-		look: BrGlamorousListLabelLook;
+		aptitude: BrGlamorousListLabelAptitude;
 		margin: (BlInsets all: 3);
 		text: self text;
 		hMatchParent;

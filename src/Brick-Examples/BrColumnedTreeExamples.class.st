@@ -12,14 +12,14 @@ BrColumnedTreeExamples >> subclassesOfCollection [
 	aTree column
 		title: 'Class';
 		cellStencil: [ BrLabel new
-				look: BrGlamorousLabelLook new;
+				aptitude: BrGlamorousLabelAptitude new;
 				hMatchParent;
 				vFitContent ];
 		dataBinder: [ :aCellElement :aClass | aCellElement text: aClass name asString ].
 	aTree column
 		title: 'Package';
 		cellStencil: [ BrLabel new
-				look: BrGlamorousLabelLook new;
+				aptitude: BrGlamorousLabelAptitude new;
 				hMatchParent;
 				vFitContent ];
 		dataBinder:
@@ -40,7 +40,7 @@ BrColumnedTreeExamples >> subropesTree [
 		width: 150;
 		cellStencil: [ 
 			BrLabel new 
-				look: BrGlamorousLabelLook new ];
+				aptitude: BrGlamorousLabelAptitude new ];
 		dataBinder: [ :eachLabel :eachRope | eachLabel text: eachRope ].
 		
 	aTree column
@@ -48,7 +48,7 @@ BrColumnedTreeExamples >> subropesTree [
 		weight: 2;
 		cellStencil: [ 
 			BrLabel new 
-				look: BrGlamorousLabelLook new ];
+				aptitude: BrGlamorousLabelAptitude new ];
 		dataBinder: [ :eachLabel :eachRope | eachLabel text: eachRope size asString ].
 		
 	aTree 

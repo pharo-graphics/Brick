@@ -20,7 +20,7 @@ BrDevScripterStepElement >> initialize [
 	super initialize.
 	self 
 		layout: BlLinearLayout horizontal;
-		look: BrShadowLook;
+		aptitude: BrShadowAptitude;
 		zIndex: 10;
 		background: Color white;
 		constraintsDo: [ :c | 
@@ -57,7 +57,7 @@ BrDevScripterStepElement >> initializeFromStep: aBlDevScripterStep [
 BrDevScripterStepElement >> initializeLabelElement [
 	labelElement := BrLabel new 
 		zIndex: 10;
-		look: BrGlamorousLabelLook;
+		aptitude: BrGlamorousLabelAptitude;
 		addEventHandlerOn: BlClickEvent do: [ :anEvent | BlEvent fireEvent: anEvent target: self ];
 		constraintsDo: [ :c | 
 			c vertical fitContent.
@@ -73,7 +73,7 @@ BrDevScripterStepElement >> initializeStatusElement [
 { #category : #initialization }
 BrDevScripterStepElement >> initializeTargetElement [
 	targetElement := BrLabel new
-		look: (BrGlamorousLabelLook new fontSize: 10; foreground: Color gray); 
+		aptitude: (BrGlamorousLabelAptitude new fontSize: 10; foreground: Color gray); 
 		addEventHandlerOn: BlClickEvent do: [ :anEvent | BlEvent fireEvent: anEvent target: self ];
 		constraintsDo: [ :c | 
 			c vertical fitContent.

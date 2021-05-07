@@ -17,7 +17,7 @@ BrTriangleExamples >> glamorousInCircle [
 	<gtExample>
 	| aTriangle |
 	aTriangle := self basicTriangle.
-	aTriangle look: BrGlamorousTriangleInCircleLook.
+	aTriangle aptitude: BrGlamorousTriangleInCircleAptitude.
 	^ aTriangle
 ]
 
@@ -36,7 +36,7 @@ BrTriangleExamples >> glamorousInCircleDisabled [
 	<gtExample>
 	| aTriangle |
 	aTriangle := self glamorousInCircle.
-	aTriangle look: BrGlamorousTriangleInCircleLook.
+	aTriangle aptitude: BrGlamorousTriangleInCircleAptitude.
 	aTriangle disable.
 	self assert: aTriangle isDisabled.
 	^ aTriangle
@@ -95,6 +95,6 @@ BrTriangleExamples >> triangle [
 	<gtExample>
 	| aTriangle |
 	aTriangle := self basicTriangle.
-	aTriangle look: BrTriangleLook.
+	aTriangle aptitude: BrTriangleAptitude.
 	^ aTriangle
 ]

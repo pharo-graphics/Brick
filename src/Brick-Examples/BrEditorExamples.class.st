@@ -9,7 +9,7 @@ BrEditorExamples >> editableEditorWithGlamorousRegularLook [
 	<gtExample>
 	
 	^ BrEditor new
-		look: BrGlamorousRegularEditorLook new;
+		aptitude: BrGlamorousRegularEditorAptitude new;
 		beEditable;
 		text: String loremIpsum
 ]
@@ -19,7 +19,7 @@ BrEditorExamples >> editorWithAlphaNumericFilter [
 	<gtExample>
 
 	^ BrEditor new
-		look: BrGlamorousRegularEditorLook + BrGlamorousEditorSpacingLook;
+		aptitude: BrGlamorousRegularEditorAptitude + BrGlamorousEditorSpacingAptitude;
 		inputFilter: BrTextEditorAlphaNumericInputFilter new;
 		vFitContent;
 		text: 'Only alpha-numeric chatacters are allowed'
@@ -30,7 +30,7 @@ BrEditorExamples >> editorWithDigitFilter [
 	<gtExample>
 	
 	^ BrEditor new
-		look: BrGlamorousRegularEditorLook + BrGlamorousEditorSpacingLook;
+		aptitude: BrGlamorousRegularEditorAptitude + BrGlamorousEditorSpacingAptitude;
 		inputFilter: BrTextEditorDigitInputFilter new;
 		vFitContent;
 		text: 'Only digits are allowed'
@@ -41,7 +41,7 @@ BrEditorExamples >> editorWithGlamorousRegularLook [
 	<gtExample>
 	
 	^ BrEditor new
-		look: BrGlamorousRegularEditorLook new;
+		aptitude: BrGlamorousRegularEditorAptitude new;
 		text: String loremIpsum
 ]
 
@@ -50,13 +50,13 @@ BrEditorExamples >> editorWithGlamorousRegularLookAndModeLook [
 	<gtExample>
 	| aModeLook anEditor |
 	
-	aModeLook := BrEditorModeLook new
+	aModeLook := BrEditorModeAptitude new
 		editableFocused: [ :aWidget | aWidget border: (BlBorder paint: BrGlamorousColors focusedEditorBorderColor width: 1) ];
 		editableUnfocused: [ :aWidget | aWidget border: (BlBorder paint: BrGlamorousColors editorBorderColor width: 1) ];
 		readOnly: [ :aWidget | aWidget border: BlBorder empty ].
 
 	anEditor := BrEditor new
-		look: BrGlamorousRegularEditorLook new + aModeLook;
+		aptitude: BrGlamorousRegularEditorAptitude new + aModeLook;
 		text: String loremIpsum;
 		vFitContent.
 
@@ -71,15 +71,15 @@ BrEditorExamples >> editorWithGlamorousRegularLookAndModeLook [
 				cellSpacing: 5;
 				addChildren: { 
 					BrButton new
-						look: BrGlamorousButtonWithLabelLook new;
+						aptitude: BrGlamorousButtonWithLabelAptitude new;
 						label: 'Editable';
 						action: [ anEditor beEditable ].
 					BrButton new
-						look: BrGlamorousButtonWithLabelLook new;
+						aptitude: BrGlamorousButtonWithLabelAptitude new;
 						label: 'Readonly with selection';
 						action: [ anEditor beReadOnlyWithSelection ].
 					BrButton new
-						look: BrGlamorousButtonWithLabelLook new;
+						aptitude: BrGlamorousButtonWithLabelAptitude new;
 						label: 'Readonly without selection';
 						action: [ anEditor beReadOnlyWithoutSelection ]
 				}
@@ -91,7 +91,7 @@ BrEditorExamples >> editorWithNoFilter [
 	<gtExample>
 	
 	^ BrEditor new
-		look: BrGlamorousRegularEditorLook + BrGlamorousEditorSpacingLook;
+		aptitude: BrGlamorousRegularEditorAptitude + BrGlamorousEditorSpacingAptitude;
 		inputFilter: BrTextEditorNoInputFilter new;
 		vFitContent;
 		text: 'All characters are allowed'
@@ -102,7 +102,7 @@ BrEditorExamples >> readOnlyWithSelectionEditorWithGlamorousRegularLook [
 	<gtExample>
 	
 	^ BrEditor new
-		look: BrGlamorousRegularEditorLook new;
+		aptitude: BrGlamorousRegularEditorAptitude new;
 		beReadOnlyWithSelection;
 		text: String loremIpsum
 ]
@@ -112,7 +112,7 @@ BrEditorExamples >> readOnlyWithoutSelectionEditorWithGlamorousRegularLook [
 	<gtExample>
 	
 	^ BrEditor new
-		look: BrGlamorousRegularEditorLook new;
+		aptitude: BrGlamorousRegularEditorAptitude new;
 		beReadOnlyWithoutSelection;
 		text: String loremIpsum
 ]

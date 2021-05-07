@@ -9,7 +9,7 @@ BrSimpleTreeExamples >> subclassesOfCollection [
 	<gtExample>
 	| aTree |
 	aTree := BrSimpleTree new
-		nodeStencil: [ BrLabel new look: BrGlamorousLabelLook ];
+		nodeStencil: [ BrLabel new aptitude: BrGlamorousLabelAptitude ];
 		nodeDataBinder: [ :aNodeElement :aClass | aNodeElement text: aClass name ];
 		items: {Collection} lazy: [ :eachClass | eachClass subclasses ].
 	^ aTree
@@ -22,7 +22,7 @@ BrSimpleTreeExamples >> subclassesOfCollection_InefficientUse [
 	aTree := BrSimpleTree new
 		stencil: [ :eachClass :eachIndex | 
 			BrLabel new
-				look: BrGlamorousLabelLook;
+				aptitude: BrGlamorousLabelAptitude;
 				text: eachClass name;
 				fitContent ];
 		items: {Collection} lazy: [ :eachClass | eachClass subclasses ].
@@ -42,9 +42,9 @@ BrSimpleTreeExamples >> subclassesOfCollection_immediate [
 				hMatchParent;
 				alignCenterLeft;
 				cellSpacing: 5;
-				addChild: (BrLabel new look: BrGlamorousLabelLook) as: #label;
-				addChild: (BrButton new beTiny; look: BrGlamorousButtonWithLabelLook new; label: 'Add child') as: #add;
-				addChild: (BrButton new beTiny; look: BrGlamorousButtonWithLabelLook new; label: 'Delete') as: #delete ];
+				addChild: (BrLabel new aptitude: BrGlamorousLabelAptitude) as: #label;
+				addChild: (BrButton new beTiny; aptitude: BrGlamorousButtonWithLabelAptitude new; label: 'Add child') as: #add;
+				addChild: (BrButton new beTiny; aptitude: BrGlamorousButtonWithLabelAptitude new; label: 'Delete') as: #delete ];
 		nodeDataBinder: [ :aNodeElement :aClass :aTreeNode |
 			(aNodeElement childNamed: #label) text: aClass printString.
 			(aNodeElement childNamed: #delete)
@@ -70,7 +70,7 @@ BrSimpleTreeExamples >> subropesTree [
 	aTree := BrSimpleTree new
 		nodeStencil: [ 
 			BrLabel new 
-			look: BrGlamorousLabelLook ];
+			aptitude: BrGlamorousLabelAptitude ];
 		nodeDataBinder: [ :aNodeElement :eachaRope | aNodeElement text: eachaRope ].
 		
 	aTree 

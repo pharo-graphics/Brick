@@ -267,7 +267,7 @@ BrGlamorousVectorIcons class >> gt [
 	size: 16@16;
 	layout: BlFrameLayout new;
 	addChild: 
-		((BrLabel new text: ('g' asRopedText weight: 100), ('t' asRopedText bold); look: BrGlamorousLabelLook) asScalableElement margin: (BlInsets top: -4 left: -1))
+		((BrLabel new text: ('g' asRopedText weight: 100), ('t' asRopedText bold); aptitude: BrGlamorousLabelAptitude) asScalableElement margin: (BlInsets top: -4 left: -1))
 	] asStencil
 ]
 
@@ -335,7 +335,7 @@ BrGlamorousVectorIcons class >> largeGt [
 	size: 250@250;
 	layout: BlFrameLayout new;
 	addChild: 
-		((BrLabel new text: ('g' asRopedText weight: 100), ('t' asRopedText bold); look: BrGlamorousLabelLook) asScalableElement margin: (BlInsets top: -4 left: -1)) ] asStencil
+		((BrLabel new text: ('g' asRopedText weight: 100), ('t' asRopedText bold); aptitude: BrGlamorousLabelAptitude) asScalableElement margin: (BlInsets top: -4 left: -1)) ] asStencil
 ]
 
 { #category : #icons }

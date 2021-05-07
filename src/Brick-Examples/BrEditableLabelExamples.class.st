@@ -73,7 +73,7 @@ BrEditableLabelExamples >> editableLabelWithGlamorousLook [
 	| anEditableLabel |
 
 	anEditableLabel := BrEditableLabel new
-		look: BrGlamorousEditableLabelLook new glamorousRegularFontAndSize;
+		aptitude: BrGlamorousEditableLabelAptitude new glamorousRegularFontAndSize;
 		text: 'Double click me'.
 
 	self assert: anEditableLabel isReadOnly.

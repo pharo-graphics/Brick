@@ -41,7 +41,7 @@ BrGlamorousComponentsPagers >> dynamicPager [
 				addChild:
 					(BrButton new
 						beHugeSize;
-						look: BrGlamorousButtonWithLabelLook new;
+						aptitude: BrGlamorousButtonWithLabelAptitude new;
 						label: 'Next';
 						action: [ aPager
 								addPage:
@@ -51,8 +51,8 @@ BrGlamorousComponentsPagers >> dynamicPager [
 										weight: 1.0;
 										addChild:
 											(BrLabel new
-												look:
-													(BrGlamorousLabelLook new
+												aptitude:
+													(BrGlamorousLabelAptitude new
 														fontSize: 30;
 														foreground: Color red);
 												text: 'New page')).
@@ -73,15 +73,15 @@ BrGlamorousComponentsPagers >> infinitePager [
 		background: (Color random alpha: 0.1);
 		addChild:
 			(BrLabel new
-				look:
-					(BrGlamorousLabelLook new
+				aptitude:
+					(BrGlamorousLabelAptitude new
 						fontSize: 30;
 						foreground: Color gray);
 				margin: (BlInsets all: 30);
 				text: ('Page {1}' format: {(aPager pages size + 1)}));
 		addChild:
 			(BrButton new
-				look: BrGlamorousButtonWithLabelLook new;
+				aptitude: BrGlamorousButtonWithLabelAptitude new;
 				beHugeSize;
 				label: 'Next';
 				action: [ aPager addPage: aPageStencil asElement.
@@ -103,7 +103,7 @@ BrGlamorousComponentsPagers >> threeFullPagePager [
 		layout: BlLinearLayout horizontal alignCenter;
 		background: (Color gray alpha: 0.1);
 		addChild: (BrLabel new
-			look: (BrGlamorousLabelLook new fontSize: 30; foreground: Color gray);
+			aptitude: (BrGlamorousLabelAptitude new fontSize: 30; foreground: Color gray);
 			text: 'Page 1')).
 			
 	aPager addPage: (BrPagerPageElement new
@@ -111,7 +111,7 @@ BrGlamorousComponentsPagers >> threeFullPagePager [
 		layout: BlLinearLayout horizontal alignCenter;
 		background: (Color red alpha: 0.1);
 		addChild: (BrLabel new
-			look: (BrGlamorousLabelLook new fontSize: 30; foreground: Color red);
+			aptitude: (BrGlamorousLabelAptitude new fontSize: 30; foreground: Color red);
 			text: 'Page 2')).
 
 	aPager addPage: (BrPagerPageElement new
@@ -119,7 +119,7 @@ BrGlamorousComponentsPagers >> threeFullPagePager [
 		layout: BlLinearLayout horizontal alignCenter;
 		background: (Color blue alpha: 0.1);
 		addChild: (BrLabel new
-			look: (BrGlamorousLabelLook new fontSize: 30; foreground: Color blue);
+			aptitude: (BrGlamorousLabelAptitude new fontSize: 30; foreground: Color blue);
 			text: 'Page 3')).
 
 	^ aPager
@@ -138,7 +138,7 @@ BrGlamorousComponentsPagers >> twoHalfPagePager [
 		layout: BlLinearLayout horizontal alignCenter;
 		background: (Color gray alpha: 0.1);
 		addChild: (BrLabel new
-			look: (BrGlamorousLabelLook new fontSize: 30; foreground: Color gray);
+			aptitude: (BrGlamorousLabelAptitude new fontSize: 30; foreground: Color gray);
 			text: 'Page 1')).
 			
 	aPager addPage: (BrPagerPageElement new
@@ -146,7 +146,7 @@ BrGlamorousComponentsPagers >> twoHalfPagePager [
 		layout: BlLinearLayout horizontal alignCenter;
 		background: (Color red alpha: 0.1);
 		addChild: (BrLabel new
-			look: (BrGlamorousLabelLook new fontSize: 30; foreground: Color red);
+			aptitude: (BrGlamorousLabelAptitude new fontSize: 30; foreground: Color red);
 			text: 'Page 2')).
 
 	^ aPager

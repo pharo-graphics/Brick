@@ -19,5 +19,5 @@ BrHorizontalGrid >> initialize [
 	super initialize.
 	
 	self layout: BlGridLayout horizontal.
-	self look: BrHorizontalGridLook new
+	self aptitude: BrHorizontalGridAptitude new
 ]

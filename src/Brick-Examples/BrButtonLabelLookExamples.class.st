@@ -95,7 +95,7 @@ BrButtonLabelLookExamples >> buttonLabelElement [
 BrButtonLabelLookExamples >> buttonLabelLookWithConstraints [
 	<gtExample>
 
-	^ BrTextLabelLook new labelDo: [ :aLabelElement | 
+	^ BrTextLabelAptitude new labelDo: [ :aLabelElement | 
 		aLabelElement constraintsDo: [ :c |
 			c frame vertical alignCenter.
 			c frame horizontal alignCenter ] ]
@@ -105,7 +105,7 @@ BrButtonLabelLookExamples >> buttonLabelLookWithConstraints [
 BrButtonLabelLookExamples >> buttonLabelLookWithoutConstraints [
 	<gtExample>
 
-	^ BrTextLabelLook asLook
+	^ BrTextLabelAptitude asLook
 ]
 
 { #category : #'example - instance creation' }
@@ -130,7 +130,7 @@ BrButtonLabelLookExamples >> buttonWithChangedConstraintsInLook [
 	aButton addChild: aContent as: #content.
 
 	aButton viewModel: self buttonModel.
-	aButton look: aLabelLook.
+	aButton aptitude: aLabelLook.
 	
 	^ aButton
 ]
@@ -144,7 +144,7 @@ BrButtonLabelLookExamples >> buttonWithDirectlyEmbeddedLabel [
 	aLabelLook := self buttonLabelLookWithConstraints.
 
 	aButton viewModel: self allModels.
-	aButton look: aLabelLook.
+	aButton aptitude: aLabelLook.
 	
 	self assert: aLabelLook label text asString equals: self labelText.
 	self assert: aButton children asArray equals: { aLabelLook label }.
@@ -163,8 +163,8 @@ BrButtonLabelLookExamples >> buttonWithModelAndLookAndChangedModelLabel [
 	
 	aButton viewModel widgetModels first text: newLabel.
 
-	self assert: aButton look text asString equals: newLabel.
-	self assert: aButton look label text asString equals: newLabel.
+	self assert: aButton aptitude text asString equals: newLabel.
+	self assert: aButton aptitude label text asString equals: newLabel.
 
 	^ aButton
 ]
@@ -181,7 +181,7 @@ BrButtonLabelLookExamples >> buttonWithModelAndLookWithConstraints [
 	aButton addChild: aContent as: #content.
 
 	aButton viewModel: self allModels.
-	aButton look: aLabelLook.
+	aButton aptitude: aLabelLook.
 	
 	self assert: aLabelLook label text asString equals: self labelText.
 	
@@ -203,7 +203,7 @@ BrButtonLabelLookExamples >> buttonWithModelAndLookWithoutConstraints [
 	aButton addChild: aContent as: #content.
 
 	aButton viewModel: self allModels.
-	aButton look: aLabelLook.
+	aButton aptitude: aLabelLook.
 	
 	self assert: aLabelLook label text asString equals: self labelText.
 
@@ -225,7 +225,7 @@ BrButtonLabelLookExamples >> buttonWithModelAndWrongContentPlacement [
 	aButton addChild: aContent.
 
 	aButton viewModel: self allModels.
-	aButton look: aLabelLook.
+	aButton aptitude: aLabelLook.
 
 	self assert: aButton children asArray equals: { aContent . aLabelLook label }.
 	self assert: aContent children asArray equals: { }.
@@ -250,7 +250,7 @@ BrButtonLabelLookExamples >> buttonWithModelFirstThenLook [
 	aLook text: lookLabel.
 	
 	aButton viewModel: aModel.
-	aButton look: aLook.
+	aButton aptitude: aLook.
 	
 	self assert: aLook text asString equals: modelLabel.
 	self assert: aModel text asString equals: modelLabel.
@@ -372,7 +372,7 @@ BrButtonLabelLookExamples >> iconChangedEvent [
 	newIcon := ((BlEllipseGeometry new) extent: 10@10) asElement.
 
 	aButton := self buttonWithModelAndLookWithoutConstraints.
-	aButton look when: BrIconChanged do: [ :anEvent | anIconChangedEvent := anEvent copy ].
+	aButton aptitude when: BrIconChanged do: [ :anEvent | anIconChangedEvent := anEvent copy ].
 	aButton viewModel widgetModels second icon: newIcon.
 	
 	self assert: aButton viewModel widgetModels second icon equals: newIcon.
@@ -380,7 +380,7 @@ BrButtonLabelLookExamples >> iconChangedEvent [
 	self assert: anIconChangedEvent notNil.
 	self assert: anIconChangedEvent isConsumed not.
 	self assert: anIconChangedEvent target equals: aButton.
-	self assert: anIconChangedEvent currentTarget equals: aButton look.
+	self assert: anIconChangedEvent currentTarget equals: aButton aptitude.
 	self assert: anIconChangedEvent source equals: aButton viewModel widgetModels second.
 	self assert: anIconChangedEvent icon equals: newIcon.
 	self assert: anIconChangedEvent timestamp isNil.	
@@ -404,7 +404,7 @@ BrButtonLabelLookExamples >> labelChangedEvent [
 	newLabel := self labelText, ' World'.
 
 	aButton := self buttonWithModelAndLookWithoutConstraints.
-	aButton look when: BrLabelChanged do: [ :anEvent | aLabelChangedEvent := anEvent copy ].
+	aButton aptitude when: BrLabelChanged do: [ :anEvent | aLabelChangedEvent := anEvent copy ].
 	aButton viewModel widgetModels first text: newLabel.
 
 	self assert: aButton viewModel widgetModels first text asString equals: newLabel.
@@ -412,7 +412,7 @@ BrButtonLabelLookExamples >> labelChangedEvent [
 	self assert: aLabelChangedEvent notNil.
 	self assert: aLabelChangedEvent isConsumed not.
 	self assert: aLabelChangedEvent target equals: aButton.
-	self assert: aLabelChangedEvent currentTarget equals: aButton look.
+	self assert: aLabelChangedEvent currentTarget equals: aButton aptitude.
 	self assert: aLabelChangedEvent source equals: aButton viewModel widgetModels first.
 	self assert: aLabelChangedEvent text asString equals: newLabel.
 	self assert: aLabelChangedEvent timestamp isNil.

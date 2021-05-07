@@ -91,7 +91,7 @@ BrTabExamples >> deselectTabModel [
 BrTabExamples >> groupHeaderLook [
 	<gtExample>
 
-	^ BrTabGroupHeaderWithToolbarLook asLook
+	^ BrTabGroupHeaderWithToolbarAptitude asLook
 ]
 
 { #category : #'examples - ui header' }
@@ -103,7 +103,7 @@ BrTabExamples >> groupHeaderWithAddedTabAtFirstPosition [
 	aHeaderLook := self groupHeaderLook.
 	aHeaderElement := BlElement new
 		viewModel: aTabGroupModel;
-		look: aHeaderLook;
+		aptitude: aHeaderLook;
 		layout: BlLinearLayout vertical;
 		constraintsDo: [ :c |
 			c horizontal fitContent.
@@ -132,26 +132,26 @@ BrTabExamples >> groupHeaderWithBoundTabs [
 	"binding order does not matter"
 	tabElement2 := BlElement new
 		viewModel: aHeaderElement viewModel tabs second;
-		look: self groupTabLook.
+		aptitude: self groupTabLook.
 		
-	self assert: aHeaderElement children asArray equals: { aHeaderElement look header }.
-	self assert: aHeaderElement children first children asArray equals: { aHeaderElement look scrollTabbar. aHeaderElement look toolbar . aHeaderElement look actionbar }.
+	self assert: aHeaderElement children asArray equals: { aHeaderElement aptitude header }.
+	self assert: aHeaderElement children first children asArray equals: { aHeaderElement aptitude scrollTabbar. aHeaderElement aptitude toolbar . aHeaderElement aptitude actionbar }.
 
-	self assert: aHeaderElement look tabbar children asArray equals: { tabElement2 }.
+	self assert: aHeaderElement aptitude tabbar children asArray equals: { tabElement2 }.
 
 	tabElement1 := BlElement new
 		viewModel: aHeaderElement viewModel tabs first;
-		look: self groupTabLook.
+		aptitude: self groupTabLook.
 		
-	self assert: aHeaderElement children asArray equals: { aHeaderElement look header }.
-	self assert: aHeaderElement look tabbar children asArray equals: { tabElement1 . tabElement2 }.
+	self assert: aHeaderElement children asArray equals: { aHeaderElement aptitude header }.
+	self assert: aHeaderElement aptitude tabbar children asArray equals: { tabElement1 . tabElement2 }.
 
 	tabElement3 := BlElement new
 		viewModel: aHeaderElement viewModel tabs third;
-		look: self groupTabLook.
+		aptitude: self groupTabLook.
 
-	self assert: aHeaderElement children asArray equals: { aHeaderElement look header }.
-	self assert: aHeaderElement look tabbar children asArray equals: { tabElement1 . tabElement2 . tabElement3 }.
+	self assert: aHeaderElement children asArray equals: { aHeaderElement aptitude header }.
+	self assert: aHeaderElement aptitude tabbar children asArray equals: { tabElement1 . tabElement2 . tabElement3 }.
 
 	^ aHeaderElement
 ]
@@ -175,7 +175,7 @@ BrTabExamples >> groupHeaderWithoutBoundTabs [
 	
 	headerElement := BlElement new
 		viewModel: tabGroup;
-		look: headerLook;
+		aptitude: headerLook;
 		layout: BlLinearLayout vertical;
 		constraintsDo: [ :c |
 			c horizontal fitContent.
@@ -196,7 +196,7 @@ BrTabExamples >> groupHeaderWithoutBoundTabs [
 BrTabExamples >> groupTabLook [
 	<gtExample>
 
-	^ BrTextLabelLook new
+	^ BrTextLabelAptitude new
 ]
 
 { #category : #'examples - tab group model' }

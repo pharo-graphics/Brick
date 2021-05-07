@@ -14,8 +14,8 @@ BrGlamorousSimpleContextMenuContent >> initialize [
 					(BrInteractiveModel new
 						withHover;
 						yourself);
-				look:
-					(BrInteractiveCommonLook new
+				aptitude:
+					(BrInteractiveCommonAptitude new
 						default: [ :f | f background: Color transparent ];
 						hovered: [ :f | f background: BrGlamorousColors defaultButtonBorderColor ];
 						yourself);
@@ -34,7 +34,7 @@ BrGlamorousSimpleContextMenuContent >> initialize [
 									yourself) ];
 				addChild:
 					(BrLabel new
-						look: BrGlamorousLabelLook;
+						aptitude: BrGlamorousLabelAptitude;
 						text: e key;
 						yourself);
 				yourself ];

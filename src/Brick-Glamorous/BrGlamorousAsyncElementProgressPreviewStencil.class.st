@@ -46,7 +46,7 @@ BrGlamorousAsyncElementProgressPreviewStencil >> newProgress [
 	^ BrProgress new 
 		fixedLabel: self label asRopedText;
 		"We intentionally replaced it with just a label, otherwise the always updating progress bar consumes space frames to redraw which slows down the system"
-		look: (BrGlamorousProgressWithLabelLook new foreground: Color gray lighter);
+		aptitude: (BrGlamorousProgressWithLabelAptitude new foreground: Color gray lighter);
 		constraintsDo: [ :c | 
 			c frame horizontal weight: 0.5.
 			c frame vertical alignCenter.

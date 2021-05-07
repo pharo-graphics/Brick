@@ -4,7 +4,14 @@ Extension { #name : #BlElement }
 BlElement >> actors [
 	^ Array streamContents: [ :aStream |
 		self viewModelDo: [ :aViewModel | aStream nextPut: aViewModel ].	
-		self lookDo: [ :aLook | aStream nextPut: aLook ] ]
+		self aptitudeDo: [ :aLook | aStream nextPut: aLook ] ]
+]
+
+{ #category : #'*Brick' }
+BlElement >> addAptitude: aLook [
+	self aptitude
+		ifNil: [ self aptitude: aLook ]
+		ifNotNil: [ self aptitude add: aLook ].
 ]
 
 { #category : #'*Brick' }
@@ -12,13 +19,6 @@ BlElement >> addInteractiveModelState: aState [
 	self viewModel
 		ifNil: [ self viewModel: (BrInteractiveModel with: aState) ]
 		ifNotNil: [ self viewModel addInteractiveModelState: aState ].
-]
-
-{ #category : #'*Brick' }
-BlElement >> addLook: aLook [
-	self look
-		ifNil: [ self look: aLook ]
-		ifNotNil: [ self look add: aLook ].
 ]
 
 { #category : #'*Brick' }
@@ -39,6 +39,30 @@ BlElement >> anchor: anElement [
 ]
 
 { #category : #'*Brick' }
+BlElement >> aptitude [
+	^ self userData at: #brickLook ifAbsent: nil
+]
+
+{ #category : #'*Brick' }
+BlElement >> aptitude: aLook [
+	| aLookInstance |
+	
+	self aptitudeDo: [ :aCurrentLook |
+		aCurrentLook onUninstalledIn: self.
+		self userData at: #brickLook put: nil ].
+
+	aLookInstance := aLook asLook.
+
+	self userData at: #brickLook put: aLookInstance.
+	aLookInstance onInstalledIn: self
+]
+
+{ #category : #'*Brick' }
+BlElement >> aptitudeDo: aBlock [
+	self aptitude ifNotNil: aBlock
+]
+
+{ #category : #'*Brick' }
 BlElement >> asBrAnchoredAnchorBounds [
 	^ BrAnchoredElementAnchorBounds element: self
 ]
@@ -51,7 +75,7 @@ BlElement >> asStencil [
 { #category : #'*Brick' }
 BlElement >> asVerticallyResizableDo: aBlock [
 	^ aBlock value: (BlElement new
-		look: BrGlamorousWithVerticalResizerLook;
+		aptitude: BrGlamorousWithVerticalResizerAptitude;
 		addChild: self)
 ]
 
@@ -63,38 +87,14 @@ BlElement >> layoutResizerPropagations [
 ]
 
 { #category : #'*Brick' }
-BlElement >> look [
-	^ self userData at: #brickLook ifAbsent: nil
-]
-
-{ #category : #'*Brick' }
-BlElement >> look: aLook [
-	| aLookInstance |
-	
-	self lookDo: [ :aCurrentLook |
-		aCurrentLook onUninstalledIn: self.
-		self userData at: #brickLook put: nil ].
-
-	aLookInstance := aLook asLook.
-
-	self userData at: #brickLook put: aLookInstance.
-	aLookInstance onInstalledIn: self
-]
-
-{ #category : #'*Brick' }
-BlElement >> lookDo: aBlock [
-	self look ifNotNil: aBlock
-]
-
-{ #category : #'*Brick' }
-BlElement >> removeLook: aLook [
-	self look
+BlElement >> removeAptitude: aLook [
+	self aptitude
 		ifNotNil: [
-			self look = aLook
+			self aptitude = aLook
 				ifTrue: [
-					self look onUninstalledIn: self.
+					self aptitude onUninstalledIn: self.
 					self userData at: #brickLook put: nil ]
-				ifFalse: [ self look remove: aLook ] ]
+				ifFalse: [ self aptitude remove: aLook ] ]
 ]
 
 { #category : #'*Brick' }
@@ -104,7 +104,7 @@ BlElement >> viewModel [
 
 { #category : #'*Brick' }
 BlElement >> viewModel: aBrViewModel [
-	self lookDo: [ :aLook | self error: 'View model must be added before look' ].
+	self aptitudeDo: [ :aLook | self error: 'View model must be added before look' ].
 
 	self viewModelDo: [ :aCurrentModel |
 		aCurrentModel onUninstalledIn: self.

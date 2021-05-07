@@ -26,7 +26,7 @@ BrGlamorousComponentsLists >> columnedListOfColors [
 		title: 'Index';
 		cellStencil: [
 			BrLabel new
-				look: BrGlamorousLabelLook new;
+				aptitude: BrGlamorousLabelAptitude new;
 				padding: (BlInsets all: 12) ];
 		dataBinder: [ :eachElement :eachColor :eachIndex | 
 			eachElement text: eachIndex asString ].
@@ -35,7 +35,7 @@ BrGlamorousComponentsLists >> columnedListOfColors [
 		title: 'Color';
 		cellStencil: [
 			BrLabel new
-				look: BrGlamorousLabelLook new;
+				aptitude: BrGlamorousLabelAptitude new;
 				padding: (BlInsets all: 12) ];
 		dataBinder: [ :eachElement :eachColor :eachIndex | 
 			eachElement
@@ -52,7 +52,7 @@ BrGlamorousComponentsLists >> listOfClasses [
 		itemStencil: [
 			BrLabel new
 				hMatchParent;
-				look: BrGlamorousLabelLook new;
+				aptitude: BrGlamorousLabelAptitude new;
 				padding: (BlInsets all: 5) ];
 		itemDataBinder: [ :eachElement :eachClass :eachIndex | eachElement text: eachClass name ];
 		items: (SystemNavigation new allClasses sorted: [ :a :b | a name < b name ])
@@ -65,7 +65,7 @@ BrGlamorousComponentsLists >> listOfColors [
 		itemStencil: [
 			BrLabel new
 				hMatchParent;
-				look: BrGlamorousLabelLook new;
+				aptitude: BrGlamorousLabelAptitude new;
 				padding: (BlInsets all: 12) ];
 		itemDataBinder: [ :eachElement :eachColor :eachIndex |
 			eachElement

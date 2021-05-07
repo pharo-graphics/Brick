@@ -47,7 +47,7 @@ BrSlideImageExport >> buildUI [
 	alignedButton := self createOkButton.
 	self addChildren: {
 		BrScrollPane new
-			look: BrScrollPaneLook;
+			aptitude: BrScrollPaneAptitude;
 			hMatchParent;
 			vFitContent;
 			content: breadcrumb.
@@ -60,9 +60,9 @@ BrSlideImageExport >> buildUI [
 { #category : #accessing }
 BrSlideImageExport >> createDropdownButtonWithLabel: aString [
 	^ BrButton new
-		look:
-			BrTextLabelLook new glamorousRegularFont glamorousCodeSmallSize
-				+ BrGlamorousButtonIconLook + BrGlamorousButtonLayoutLook;
+		aptitude:
+			BrTextLabelAptitude new glamorousRegularFont glamorousCodeSmallSize
+				+ BrGlamorousButtonIconAptitude + BrGlamorousButtonLayoutAptitude;
 		vExact: 25;
 		geometry: (BlRoundedRectangleGeometry cornerRadius: 4);
 		padding: (BlInsets left: 4 right: 2);
@@ -77,7 +77,7 @@ BrSlideImageExport >> createDropdownFieldFor: aCollection [
 
 	button := self createDropdownButtonWithLabel: aCollection first asString.
 
-	dropDownLook := BrGlamorousWithDropdownLook
+	dropDownLook := BrGlamorousWithDropdownAptitude
 		handle: [ self createDropdownButtonWithLabel: aCollection first asString ]
 		content: [
 			BrSimpleList new
@@ -87,19 +87,19 @@ BrSlideImageExport >> createDropdownFieldFor: aCollection [
 					BrHorizontalPane new
 						hMatchParent;
 						vFitContent;
-						addLook:
-							(BrStyleCommonLook new
+						addAptitude:
+							(BrStyleCommonAptitude new
 								hovered: [ :aStyle | aStyle background: BrGlamorousColors defaultButtonBorderColor ]);
 						padding: (BlInsets top: 0 right: 5 bottom: 5 left: 5);
 						addChild: (BrLabel new
-							look: BrGlamorousLabelLook new glamorousRegularFont glamorousCodeSmallSize;
+							aptitude: BrGlamorousLabelAptitude new glamorousRegularFont glamorousCodeSmallSize;
 							text: each);
 						when: BlClickEvent
 							do: [ :anEvent |
 								button label: each.
 								anEvent currentTarget fireEvent: (BrDropdownHideWish new) ] ] ].
-	button addLook: dropDownLook.
-	button addLook: (BrStyleCommonLook new
+	button addAptitude: dropDownLook.
+	button addAptitude: (BrStyleCommonAptitude new
 		default: [ :aStyle | aStyle background: BrGlamorousColors neutralBackgroundColor ];
 		hovered: [ :aStyle | aStyle background: BrGlamorousColors neutralBackgroundColor darker ]).
 
@@ -109,7 +109,7 @@ BrSlideImageExport >> createDropdownFieldFor: aCollection [
 { #category : #accessing }
 BrSlideImageExport >> createEditableField [
 	^ BrEditableLabel new
-		look: BrGlamorousEditableLabelLook new glamorousRegularFontAndSize;
+		aptitude: BrGlamorousEditableLabelAptitude new glamorousRegularFontAndSize;
 		margin: (BlInsets top: 0 right: 5 bottom: 3 left: 0);
 		text: ''.
 ]
@@ -134,7 +134,7 @@ BrSlideImageExport >> createFormatInputSection [
 { #category : #accessing }
 BrSlideImageExport >> createLabelWithText: aString [
 	^ BrLabel new
-		look: (BrGlamorousLabelLook new foreground: Color gray);
+		aptitude: (BrGlamorousLabelAptitude new foreground: Color gray);
 		text: (aString asRopedText glamorousRegularFont);
 		margin: (BlInsets top: 3 right: 5 bottom: 0 left: 0);
 		fitContent.

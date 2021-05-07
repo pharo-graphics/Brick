@@ -27,13 +27,13 @@ BrThemeExamples >> automaticLookLookBased [
 	container := self container.
 	parent := BlElement new
 		themeStrategy: (BrThemeExplicitStrategy theme: BrThemeExampleMapped new);
-		look: BrThemeableLook new;
+		aptitude: BrThemeableAptitude new;
 		yourself.
 	child1 := BlElement new
-		look: BrThemeableLook new;
+		aptitude: BrThemeableAptitude new;
 		yourself.
 	child2 := BlElement new
-		look: BrThemeableLook new;
+		aptitude: BrThemeableAptitude new;
 		yourself.
 	container addChild: parent.
 	parent addChild: child1.
@@ -60,7 +60,7 @@ BrThemeExamples >> listBaseline [
 		itemType: [ :aFactory :anItem :anIndex | Integer ];
 		itemStencil: [ :anItemType | 
 			BrButton new
-				look: BrGlamorousButtonWithLabelLook;
+				aptitude: BrGlamorousButtonWithLabelAptitude;
 				yourself ];
 		itemDataBinder: [ :anElement :anItem :anIndex | anElement label: anItem asString ];
 		items: (1 to: 1000);
@@ -108,7 +108,7 @@ BrThemeExamples >> listLook [
 		itemType: [ :aFactory :anItem :anIndex | Integer ];
 		itemStencil: [ :anItemType | 
 			BrButton new
-				look: BrThemeableLook;
+				aptitude: BrThemeableAptitude;
 				action: [ list theme == a
 						ifTrue: [ list theme: b ]
 						ifFalse: [ list theme: a ] ];

@@ -10,7 +10,7 @@ BrLabelExamples >> glamorousLabel [
 	| aLabel |
 	
 	aLabel := BrLabel new.
-	aLabel look: BrGlamorousLabelLook new.
+	aLabel aptitude: BrGlamorousLabelAptitude new.
 
 	aLabel forceLayout.
 	
@@ -40,7 +40,7 @@ BrLabelExamples >> glamorousLabelWithFontSize [
 	| aLabel |
 	
 	aLabel := self glamorousLabelWithText.
-	aLabel look fontSize: 20.
+	aLabel aptitude fontSize: 20.
 
 	^ aLabel
 ]
@@ -54,7 +54,7 @@ BrLabelExamples >> glamorousLabelWithText [
 	aLabel text: 'Hello'.
 	
 	self assert: aLabel viewModel text asString equals: 'Hello'.
-	self assert: aLabel look text asString equals: 'Hello'.
+	self assert: aLabel aptitude text asString equals: 'Hello'.
 
 	^ aLabel
 ]

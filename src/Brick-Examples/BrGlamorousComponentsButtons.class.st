@@ -22,7 +22,7 @@ BrGlamorousComponentsButtons >> withLabel [
 	<gtExample>
 	
 	^ BrButton new
-		look: BrGlamorousButtonWithLabelLook new;
+		aptitude: BrGlamorousButtonWithLabelAptitude new;
 		label: 'Default';
 		action: [ :aButton | 'Clicked' traceCr ]
 ]
@@ -32,7 +32,7 @@ BrGlamorousComponentsButtons >> withLabelDisabled [
 	<gtExample>
 	
 	^ BrButton new
-		look: BrGlamorousButtonWithLabelLook new;
+		aptitude: BrGlamorousButtonWithLabelAptitude new;
 		label: 'Default';
 		disable
 ]
@@ -41,7 +41,7 @@ BrGlamorousComponentsButtons >> withLabelDisabled [
 BrGlamorousComponentsButtons >> withLabelHuge [
 	<gtExample>
 	^ BrButton new
-		look: BrGlamorousButtonWithLabelLook new;
+		aptitude: BrGlamorousButtonWithLabelAptitude new;
 		label: 'Huge';
 		beHugeSize
 ]
@@ -50,7 +50,7 @@ BrGlamorousComponentsButtons >> withLabelHuge [
 BrGlamorousComponentsButtons >> withLabelLarge [
 	<gtExample>
 	^ BrButton new
-		look: BrGlamorousButtonWithLabelLook new;
+		aptitude: BrGlamorousButtonWithLabelAptitude new;
 		label: 'Large';
 		beLargeSize
 ]
@@ -59,7 +59,7 @@ BrGlamorousComponentsButtons >> withLabelLarge [
 BrGlamorousComponentsButtons >> withLabelMini [
 	<gtExample>
 	^ BrButton new
-		look: BrGlamorousButtonWithLabelLook new;
+		aptitude: BrGlamorousButtonWithLabelAptitude new;
 		label: 'Mini';
 		beMiniSize
 ]
@@ -68,7 +68,7 @@ BrGlamorousComponentsButtons >> withLabelMini [
 BrGlamorousComponentsButtons >> withLabelNormal [
 	<gtExample>
 	^ BrButton new
-		look: BrGlamorousButtonWithLabelLook new;
+		aptitude: BrGlamorousButtonWithLabelAptitude new;
 		label: 'Normal';
 		beNormalSize
 ]
@@ -93,7 +93,7 @@ BrGlamorousComponentsButtons >> withLabelSizes [
 BrGlamorousComponentsButtons >> withLabelSmall [
 	<gtExample>
 	^ BrButton new
-		look: BrGlamorousButtonWithLabelLook new;
+		aptitude: BrGlamorousButtonWithLabelAptitude new;
 		label: 'Small';
 		beSmallSize
 ]
@@ -102,7 +102,7 @@ BrGlamorousComponentsButtons >> withLabelSmall [
 BrGlamorousComponentsButtons >> withLabelTiny [
 	<gtExample>
 	^ BrButton new
-		look: BrGlamorousButtonWithLabelLook new;
+		aptitude: BrGlamorousButtonWithLabelAptitude new;
 		label: 'Tiny';
 		beTinySize
 ]

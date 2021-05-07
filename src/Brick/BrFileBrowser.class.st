@@ -62,9 +62,9 @@ BrFileBrowser >> computeFolderParents [
 BrFileBrowser >> createBreadcrumb [
 	^ BrBreadcrumb new
 		fitContent;
-		look: (BrGlamorousBreadcrumbLook new separator: [
+		aptitude: (BrGlamorousBreadcrumbAptitude new separator: [
 			BrLabel new
-				look: (BrGlamorousLabelLook new thin foreground: Color gray);
+				aptitude: (BrGlamorousLabelAptitude new thin foreground: Color gray);
 				text: '/';
 				margin: (BlInsets left: 5 right: 5) ]).
 ]
@@ -88,7 +88,7 @@ BrFileBrowser >> createTable [
 	aTable column
 		title: 'Name' translated;
 		matchParent;
-		cellStencil: [ :each | BrLabel new look: BrGlamorousLabelLook new ];
+		cellStencil: [ :each | BrLabel new aptitude: BrGlamorousLabelAptitude new ];
 		dataBinder: [ :aLabel :eachItem | 
 			aLabel
 				text:
@@ -98,14 +98,14 @@ BrFileBrowser >> createTable [
 	aTable column 
 		title: 'Size' translated;
 		width: 100;
-		cellStencil: [ :each | BrLabel new look: BrGlamorousLabelLook new ];
+		cellStencil: [ :each | BrLabel new aptitude: BrGlamorousLabelAptitude new ];
 		dataBinder: [ :aLabel :eachItem |
 			aLabel text: (eachItem isDirectory
 				ifTrue: [ '-' ]
 				ifFalse: [ eachItem humanReadableSize ])].
 	aTable column 
 		title: 'Modified' translated;
-		cellStencil: [ :each | BrLabel new look: BrGlamorousLabelLook new ];
+		cellStencil: [ :each | BrLabel new aptitude: BrGlamorousLabelAptitude new ];
 		dataBinder: [ :aLabel :eachItem |
 			aLabel text: (String
 					streamContents: [ :s | 
@@ -123,7 +123,7 @@ BrFileBrowser >> createTable [
 					selectedObject := aWidgetElement viewModel
 						itemAt: theIndices first.
 					self folder: selectedObject ] ].
-	aTable addLook: BrColumnedListHeaderLook.
+	aTable addAptitude: BrColumnedListHeaderAptitude.
 
 	^ aTable
 ]
@@ -171,7 +171,7 @@ BrFileBrowser >> initialize [
 	self padding: (BlInsets all:10).
 	self addChildren: {
 		BrScrollPane new
-			look: BrScrollPaneLook;
+			aptitude: BrScrollPaneAptitude;
 			hMatchParent;
 			vFitContent;
 			content: breadcrumb.
@@ -188,7 +188,7 @@ BrFileBrowser >> updateDisplay [
 	breadcrumb removeAllItems.
 	self computeFolderParents do: [ :eachSegment |
 		breadcrumb addItem: (BrButton new
-			look: BrGlamorousLinkSquaredButtonWithLabelLook new glamorousRegularFont;
+			aptitude: BrGlamorousLinkSquaredButtonWithLabelAptitude new glamorousRegularFont;
 			geometry: (BlRoundedRectangleGeometry cornerRadius: 4);
 			label: eachSegment basename;
 			action: [ self folder: eachSegment ]) ].

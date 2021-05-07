@@ -20,19 +20,19 @@ BrPager >> hasPageAfter: aPageElement [
 BrPager >> initialize [
 	super initialize.
 	self initializeViewModel.
-	self initializeLook.
+	self initializeAptitude.
 	self initializeLayout
+]
+
+{ #category : #initialization }
+BrPager >> initializeAptitude [
+	self background: BrGlamorousColors backdropColor.
+	self aptitude: BrPagerScrollbarAptitude new + BrScrollablePagerAptitude new
 ]
 
 { #category : #initialization }
 BrPager >> initializeLayout [
 	self layout: BlLinearLayout vertical
-]
-
-{ #category : #initialization }
-BrPager >> initializeLook [
-	self background: BrGlamorousColors backdropColor.
-	self look: BrPagerScrollbarLook new + BrScrollablePagerLook new
 ]
 
 { #category : #initialization }

@@ -32,7 +32,7 @@ BrAnchoredGeometryExamples >> movingCorner [
 			(BlBorder
 				paint: BrGlamorousColors defaultButtonBorderColor asBlPaint
 				width: 1);
-		look: BrShadowLook new;
+		aptitude: BrShadowAptitude new;
 		yourself.
 	small := element children first.
 	big := element children second.

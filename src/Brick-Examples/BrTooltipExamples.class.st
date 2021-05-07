@@ -5,6 +5,16 @@ Class {
 }
 
 { #category : #accessing }
+BrTooltipExamples >> aptitude [
+	<gtExample>
+	| look |
+	look := BrWithTooltipAptitude new.
+	self assert: look visible equals: false.
+	self assert: (look stencil asStencil asElement isKindOf: BlElement).
+	^ look
+]
+
+{ #category : #accessing }
 BrTooltipExamples >> element [
 	<gtExample>
 	^ BlElement new
@@ -18,7 +28,7 @@ BrTooltipExamples >> elementWithModelAndLook [
 	| element model look |
 	element := self element.
 	model := self model.
-	look := self look.
+	look := self aptitude.
 	element
 		viewModel:
 			model
@@ -26,19 +36,9 @@ BrTooltipExamples >> elementWithModelAndLook [
 					(BrInteractiveModel new
 						addState: BrHoverModel new;
 						yourself).
-	element look: look.
+	element aptitude: look.
 	"self assert: look stencil equals: model stencil."
 	^ element
-]
-
-{ #category : #accessing }
-BrTooltipExamples >> look [
-	<gtExample>
-	| look |
-	look := BrWithTooltipLook new.
-	self assert: look visible equals: false.
-	self assert: (look stencil asStencil asElement isKindOf: BlElement).
-	^ look
 ]
 
 { #category : #'as yet unclassified' }
@@ -68,7 +68,7 @@ BrTooltipExamples >> removingAnchor [
 			c horizontal fitContent.
 			c vertical fitContent ];
 		padding: (BlInsets all: 20);
-		look: BrShadowLook;
+		aptitude: BrShadowAptitude;
 		background: Color white;
 		yourself.
 	container2 := BlElement new
@@ -77,11 +77,11 @@ BrTooltipExamples >> removingAnchor [
 			c horizontal fitContent.
 			c vertical fitContent ];
 		padding: (BlInsets all: 20);
-		look: BrShadowLook;
+		aptitude: BrShadowAptitude;
 		background: Color white;
 		yourself.
 	button := BrButton new
-		look: BrGlamorousButtonWithIconLook;
+		aptitude: BrGlamorousButtonWithIconAptitude;
 		icon: BrGlamorousVectorIcons remove;
 		label: 'Click to remove me';
 		action:

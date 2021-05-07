@@ -56,7 +56,7 @@ BrFileSelector >> buildUI [
 	self addChildren: {	
 		"scrollable horizontally only to accomodate the breadcrumb"
 		BrScrollPane new
-			look: BrScrollPaneLook;
+			aptitude: BrScrollPaneAptitude;
 			hMatchParent;
 			vFitContent;
 			content: breadcrumb.
@@ -102,7 +102,7 @@ BrFileSelector >> computeFolderParents [
 BrFileSelector >> createAddFolderButton [
 	|plusButton|
 	plusButton := BrButton new.
-	plusButton look: BrGlamorousButtonIconLook + BrGlamorousButtonRectangularLook.
+	plusButton aptitude: BrGlamorousButtonIconAptitude + BrGlamorousButtonRectangularAptitude.
 	plusButton icon: BrGlamorousIcons add.
 	plusButton action: [self replaceAddFolderWithEditor].
 	^ plusButton
@@ -118,9 +118,9 @@ BrFileSelector >> createBasicFileBrowser [
 BrFileSelector >> createBreadcrumb [
 	^ BrBreadcrumb new
 		fitContent;
-		look: (BrGlamorousBreadcrumbLook new separator: [
+		aptitude: (BrGlamorousBreadcrumbAptitude new separator: [
 			BrLabel new
-				look: (BrGlamorousLabelLook new thin foreground: Color gray);
+				aptitude: (BrGlamorousLabelAptitude new thin foreground: Color gray);
 				text: '/';
 				margin: (BlInsets left: 5 right: 5) ]).
 ]
@@ -129,7 +129,7 @@ BrFileSelector >> createBreadcrumb [
 BrFileSelector >> createOkButton [
 	| alignedButton |
 	okButton := BrButton new 
-			look: BrGlamorousButtonWithLabelLook new;
+			aptitude: BrGlamorousButtonWithLabelAptitude new;
 			label: 'OK';
 			action: [ self executeAction ];
 			disable;
@@ -165,7 +165,7 @@ BrFileSelector >> createTable [
 		title: 'Name' translated;
 		matchParent;
 		"width: 200;"
-		cellStencil: [ :each | BrLabel new look: BrGlamorousLabelLook new ];
+		cellStencil: [ :each | BrLabel new aptitude: BrGlamorousLabelAptitude new ];
 		dataBinder: [ :aLabel :eachItem | 
 			aLabel
 				text:
@@ -175,14 +175,14 @@ BrFileSelector >> createTable [
 	aTable column 
 		title: 'Size' translated;
 		width: 100;
-		cellStencil: [ :each | BrLabel new look: BrGlamorousLabelLook new ];
+		cellStencil: [ :each | BrLabel new aptitude: BrGlamorousLabelAptitude new ];
 		dataBinder: [ :aLabel :eachItem |
 			aLabel text: (eachItem isDirectory
 				ifTrue: [ '-' ]
 				ifFalse: [ eachItem humanReadableSize ])].
 	aTable column 
 		title: 'Modified' translated;
-		cellStencil: [ :each | BrLabel new look: BrGlamorousLabelLook new ];
+		cellStencil: [ :each | BrLabel new aptitude: BrGlamorousLabelAptitude new ];
 		dataBinder: [ :aLabel :eachItem |
 			aLabel text: (String
 					streamContents: [ :s | 
@@ -203,7 +203,7 @@ BrFileSelector >> createTable [
 	aTable
 		when: BrSelectionChanged 
 		do: [ :anEvent | okButton enable ].
-	aTable addLook: BrColumnedListHeaderLook.
+	aTable addAptitude: BrColumnedListHeaderAptitude.
 
 	^ aTable
 ]
@@ -292,7 +292,7 @@ BrFileSelector >> updateDisplay [
 	breadcrumb removeAllItems.
 	self computeFolderParents do: [ :eachSegment |
 		breadcrumb addItem: (BrButton new
-			look: BrGlamorousLinkSquaredButtonWithLabelLook new glamorousRegularFont;
+			aptitude: BrGlamorousLinkSquaredButtonWithLabelAptitude new glamorousRegularFont;
 			geometry: (BlRoundedRectangleGeometry cornerRadius: 4);
 			label: eachSegment basename;
 			action: [ self folder: eachSegment ]) ].

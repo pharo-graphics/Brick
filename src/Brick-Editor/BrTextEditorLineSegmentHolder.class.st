@@ -117,7 +117,7 @@ BrTextEditorLineSegmentHolder >> createSegmentElement [
 		constraintsDo: [ :c |
 			c horizontal matchParent.
 			c vertical fitContent ];
-		look: (BrLayoutResizerLook new
+		aptitude: (BrLayoutResizerAptitude new
 			hInherit;
 			vAnyToFitContent);
 		yourself

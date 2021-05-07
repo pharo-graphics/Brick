@@ -19,9 +19,9 @@ BrThemeElementProperty >> = anObject [
 { #category : #accessing }
 BrThemeElementProperty >> applyOnElement: anElement [
 	self flag: 'TODO find better than nil option?'.
-	anElement look
+	anElement aptitude
 		ifNil: [ (self theme newLookFor: anElement)
-				ifNotNil: [ :e | anElement look: e ] ]
+				ifNotNil: [ :e | anElement aptitude: e ] ]
 ]
 
 { #category : #accessing }

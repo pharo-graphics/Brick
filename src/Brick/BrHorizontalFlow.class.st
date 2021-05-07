@@ -11,5 +11,5 @@ Class {
 BrHorizontalFlow >> initialize [
 	super initialize.
 
-	self look: BrHorizontalFlowLook new
+	self aptitude: BrHorizontalFlowAptitude new
 ]

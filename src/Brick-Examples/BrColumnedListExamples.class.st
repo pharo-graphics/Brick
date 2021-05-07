@@ -63,7 +63,7 @@ BrColumnedListExamples >> addColorValueColumn [
 				constraintsDo: [ :c |
 					c horizontal matchParent.
 					c vertical fitContent ];
-				look: (BrTextLabelLook new text: '#',aHexString; thin; foreground: ((Color fromHexString: aHexString) contrastingBlackAndWhiteColor))  ].
+				aptitude: (BrTextLabelAptitude new text: '#',aHexString; thin; foreground: ((Color fromHexString: aHexString) contrastingBlackAndWhiteColor))  ].
 		
 	self assert: aColumnModel columns size equals: 3.
 	self assert: aColumnModel columns third title equals: 'Hex'.
@@ -82,7 +82,7 @@ BrColumnedListExamples >> columnedListElement [
 BrColumnedListExamples >> columnedListLook [
 	<gtExample>
 	
-	^ BrColumnedListLook new
+	^ BrColumnedListAptitude new
 ]
 
 { #category : #'examples - instance creation' }
@@ -119,7 +119,7 @@ BrColumnedListExamples >> columnedListWithLookAndModelForColors [
 	aColumnedListLook := self columnedListLook.
 
 	aColumnedListElement viewModel: aColumnedListModel.
-	aColumnedListElement look: aColumnedListLook.
+	aColumnedListElement aptitude: aColumnedListLook.
 
 	^ aColumnedListElement
 ]
@@ -133,7 +133,7 @@ BrColumnedListExamples >> compositeAllClassesAndPackage [
 		title: 'Class';
 		cellStencil: [
 			BrLabel new
-				look: BrGlamorousLabelLook new;
+				aptitude: BrGlamorousLabelAptitude new;
 				hMatchParent;
 				vFitContent ];
 		dataBinder: [ :aCellElement :aClass | aCellElement text: aClass name asString ].
@@ -141,7 +141,7 @@ BrColumnedListExamples >> compositeAllClassesAndPackage [
 		title: 'Package';
 		cellStencil: [
 			BrLabel new
-				look: BrGlamorousLabelLook new;
+				aptitude: BrGlamorousLabelAptitude new;
 				hMatchParent;
 				vFitContent ];
 		dataBinder: [ :aCellElement :aClass | aCellElement text: aClass package name asString ].

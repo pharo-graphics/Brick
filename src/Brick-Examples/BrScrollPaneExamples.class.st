@@ -26,7 +26,7 @@ BrScrollPaneExamples >> scrollpaneWithContentAndScrollbar [
 	<gtExample>
 	
 	^ BrScrollPane new
-		look: BrScrollPaneLook + BrGlamorousWithVerticalScrollbarLook;
+		aptitude: BrScrollPaneAptitude + BrGlamorousWithVerticalScrollbarAptitude;
 		content: self content
 ]
 
@@ -35,6 +35,6 @@ BrScrollPaneExamples >> scrollpaneWithContentWithoutScrollbar [
 	<gtExample>
 
 	^ BrScrollPane new
-		look: BrScrollPaneLook;
+		aptitude: BrScrollPaneAptitude;
 		content: self content
 ]

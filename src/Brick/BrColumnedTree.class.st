@@ -25,7 +25,7 @@ BrColumnedTree >> initialize [
 
 	self viewModel add: (columnedModel := BrColumnedModel new).
 
-	self look: BrColumnedTreeLook + BrGlamorousWithVerticalScrollbarLook
+	self aptitude: BrColumnedTreeAptitude + BrGlamorousWithVerticalScrollbarAptitude
 ]
 
 { #category : #'api - scripting' }
@@ -38,5 +38,5 @@ BrColumnedTree >> nodeType: aBrTreeNodeTypeStencilBuilderOrBlock [
 
 { #category : #'api - scripting' }
 BrColumnedTree >> rowStencil: aRowStencil [
-	self look rowStencilBuilder: aRowStencil
+	self aptitude rowStencilBuilder: aRowStencil
 ]

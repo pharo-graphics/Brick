@@ -5,12 +5,22 @@ Class {
 }
 
 { #category : #accessing }
+BrContextMenuExamples >> aptitude [
+	<gtExample>
+	| look |
+	look := BrWithContextMenuAptitude new.
+	self assert: look visible equals: false.
+	self assert: (look stencil asStencil asElement isKindOf: BlElement).
+	^ look
+]
+
+{ #category : #accessing }
 BrContextMenuExamples >> compact [
 	<gtExample>
 	| element |
 	element := self element.
-	element look:
-		(BrGlamorousWithContextMenuLook
+	element aptitude:
+		(BrGlamorousWithContextMenuAptitude
 			content: [
 				BrGlamorousSimpleContextMenuContent new
 					items:
@@ -36,9 +46,9 @@ BrContextMenuExamples >> elementWithContextMenuModelAndLook [
 	| element model look |
 	element := self element.
 	model := self modelForElement: element.
-	look := self look.
+	look := self aptitude.
 	element viewModel: model.
-	element look: look.
+	element aptitude: look.
 	self assert: look stencil equals: model stencil.
 	^ element
 ]
@@ -49,21 +59,11 @@ BrContextMenuExamples >> elementWithModelAndLook [
 	| element model look |
 	element := self element.
 	model := self model.
-	look := self look.
+	look := self aptitude.
 	element viewModel: model.
-	element look: look.
+	element aptitude: look.
 	self assert: look stencil equals: model stencil.
 	^ element
-]
-
-{ #category : #accessing }
-BrContextMenuExamples >> look [
-	<gtExample>
-	| look |
-	look := BrWithContextMenuLook new.
-	self assert: look visible equals: false.
-	self assert: (look stencil asStencil asElement isKindOf: BlElement).
-	^ look
 ]
 
 { #category : #accessing }
@@ -72,8 +72,8 @@ BrContextMenuExamples >> model [
 	| model |
 	model := BrWithContextMenuModel new
 		stencil: [ BrAnchoredElement new
-				look:
-					(BrContextMenuLook new
+				aptitude:
+					(BrContextMenuAptitude new
 						handle:
 							(BlElement new
 								size: 10 @ 10;
@@ -98,8 +98,8 @@ BrContextMenuExamples >> modelForElement: anElement [
 	| model |
 	model := BrWithContextMenuModel new
 		stencil: [ BrAnchoredElement new
-				look:
-					(BrGlamorousContextMenuLook new
+				aptitude:
+					(BrGlamorousContextMenuAptitude new
 						content:
 							(BrGlamorousSimpleContextMenuContent new
 								display:
