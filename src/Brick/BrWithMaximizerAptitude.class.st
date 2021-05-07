@@ -83,7 +83,7 @@ BrWithMaximizerAptitude >> maximizeElement: anElementToMaximize in: aHostElement
 	anElementToMaximize parent replaceChild: anElementToMaximize with: placeholderElement.
 	
 	aHostElement dispatchEvent: (BrMaximizerMaximizeWish new
-		maximizerLook: self;
+		maximizerAptitude: self;
 		elementToMaximize: anElementToMaximize;
 		preferredBackground: self preferredBackground).
 	

@@ -25,7 +25,7 @@ BrMaximizerMaximizeWish >> maximizerAptitude [
 ]
 
 { #category : #accessing }
-BrMaximizerMaximizeWish >> maximizerLook: anObject [
+BrMaximizerMaximizeWish >> maximizerAptitude: anObject [
 	maximizerLook := anObject
 ]
 
