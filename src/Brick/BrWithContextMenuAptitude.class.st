@@ -10,21 +10,21 @@ Class {
 	#category : #'Brick-Context Menu - Look'
 }
 
+{ #category : #'instance creation' }
+BrWithContextMenuAptitude class >> anchoredAptitude [
+	^ self anchoredAptitudeClass new
+]
+
 { #category : #accessing }
 BrWithContextMenuAptitude class >> anchoredAptitudeClass [
 	^ BrContextMenuAptitude
-]
-
-{ #category : #'instance creation' }
-BrWithContextMenuAptitude class >> anchoredLook [
-	^ self anchoredAptitudeClass new
 ]
 
 { #category : #accessing }
 BrWithContextMenuAptitude class >> content: anObject [
 	^ self stencil: [
 		BrAnchoredElement new
-			aptitude: (self anchoredLook
+			aptitude: (self anchoredAptitude
 				content: anObject asStencil asElement;
 				yourself);
 			yourself ]
@@ -34,7 +34,7 @@ BrWithContextMenuAptitude class >> content: anObject [
 BrWithContextMenuAptitude class >> handle: anObject content: anotherObject [
 	^ self stencil: [
 		BrAnchoredElement new
-			aptitude: (self anchoredLook
+			aptitude: (self anchoredAptitude
 				handle: anObject asStencil asElement;
 				content: anotherObject asStencil asElement;
 				yourself);

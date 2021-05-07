@@ -13,21 +13,21 @@ Class {
 	#category : #'Brick-Tooltip - Look'
 }
 
+{ #category : #'instance creation' }
+BrWithTooltipAptitude class >> anchoredAptitude [
+	^ self anchoredAptitudeClass new
+]
+
 { #category : #accessing }
 BrWithTooltipAptitude class >> anchoredAptitudeClass [
 	^ BrTooltipAptitude
 ]
 
 { #category : #'instance creation' }
-BrWithTooltipAptitude class >> anchoredLook [
-	^ self anchoredAptitudeClass new
-]
-
-{ #category : #'instance creation' }
 BrWithTooltipAptitude class >> content: anObject [
 	^ self stencil: [
 		BrAnchoredElement new
-			aptitude: (self anchoredLook
+			aptitude: (self anchoredAptitude
 				content: anObject asStencil asElement;
 				yourself);
 			yourself ]
@@ -37,7 +37,7 @@ BrWithTooltipAptitude class >> content: anObject [
 BrWithTooltipAptitude class >> handle: anObject content: anotherObject [
 	^ self stencil: [
 		BrAnchoredElement new
-			aptitude: (self anchoredLook
+			aptitude: (self anchoredAptitude
 				handle: anObject asStencil asElement;
 				content: anotherObject asStencil asElement;
 				yourself);
@@ -60,7 +60,7 @@ BrWithTooltipAptitude >> cancelShowLater [
 BrWithTooltipAptitude >> contentStencil: aStencil [
 	self stencil: [ 
 		BrAnchoredElement new
-			aptitude: (self class anchoredLook content: aStencil asStencil asElement) ]
+			aptitude: (self class anchoredAptitude content: aStencil asStencil asElement) ]
 ]
 
 { #category : #accessing }

@@ -10,20 +10,20 @@ Class {
 }
 
 { #category : #accessing }
-BrWithDropdownAptitude class >> anchoredAptitudeClass [
-	^ BrDropdownAptitude
+BrWithDropdownAptitude class >> anchoredAptitude [
+	^ self anchoredAptitudeClass new
 ]
 
 { #category : #accessing }
-BrWithDropdownAptitude class >> anchoredLook [
-	^ self anchoredAptitudeClass new
+BrWithDropdownAptitude class >> anchoredAptitudeClass [
+	^ BrDropdownAptitude
 ]
 
 { #category : #accessing }
 BrWithDropdownAptitude class >> content: anObject [
 	^ self stencil: [
 		BrAnchoredElement new
-			aptitude: (self anchoredLook
+			aptitude: (self anchoredAptitude
 				content: anObject asStencil asElement;
 				yourself);
 			yourself ]
@@ -43,7 +43,7 @@ BrWithDropdownAptitude class >> handle: anObject content: anotherObject lookDo: 
 		stencil: [
 			| anAnchoredLook |
 			
-			anAnchoredLook := self anchoredLook
+			anAnchoredLook := self anchoredAptitude
 				handle: anObject asStencil asElement;
 				content: anotherObject asStencil asElement;
 				yourself.
