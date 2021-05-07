@@ -20,7 +20,7 @@ BrMaximizerMaximizeWish >> elementToMaximize: anObject [
 ]
 
 { #category : #accessing }
-BrMaximizerMaximizeWish >> maximizerLook [
+BrMaximizerMaximizeWish >> maximizerAptitude [
 	^ maximizerLook
 ]
 
