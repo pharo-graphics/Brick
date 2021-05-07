@@ -1,10 +1,10 @@
 Class {
-	#name : #BrWithTooltipLook2,
+	#name : #BrWithTooltipAptitude2,
 	#superclass : #BrWithTooltipAptitude,
 	#category : #'Brick-Tooltip - Look'
 }
 
 { #category : #'as yet unclassified' }
-BrWithTooltipLook2 class >> isDeprecated [
+BrWithTooltipAptitude2 class >> isDeprecated [
 	^ true
 ]

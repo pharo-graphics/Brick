@@ -115,7 +115,7 @@ BrAnchoredExamples >> tooltip [
 		text: 'no transformation affects me!';
 		alignCenter.
 	^ BlElement new
-		aptitude: (BrGlamorousWithTooltipLook2 content: tip);
+		aptitude: (BrGlamorousWithTooltipAptitude2 content: tip);
 		background: Color red;
 		size: 80 @ 100;
 		addEventHandler: BlPullHandler new.
