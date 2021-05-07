@@ -10,13 +10,13 @@ Class {
 }
 
 { #category : #accessing }
-BrWithDropdownAptitude class >> anchoredLook [
-	^ self anchoredLookClass new
+BrWithDropdownAptitude class >> anchoredAptitudeClass [
+	^ BrDropdownAptitude
 ]
 
 { #category : #accessing }
-BrWithDropdownAptitude class >> anchoredLookClass [
-	^ BrDropdownAptitude
+BrWithDropdownAptitude class >> anchoredLook [
+	^ self anchoredAptitudeClass new
 ]
 
 { #category : #accessing }

@@ -5,6 +5,6 @@ Class {
 }
 
 { #category : #'as yet unclassified' }
-BrGlamorousWithTooltipAptitude class >> anchoredLookClass [
+BrGlamorousWithTooltipAptitude class >> anchoredAptitudeClass [
 	^ BrGlamorousTooltipAptitude
 ]

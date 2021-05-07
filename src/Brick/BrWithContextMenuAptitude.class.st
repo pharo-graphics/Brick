@@ -10,14 +10,14 @@ Class {
 	#category : #'Brick-Context Menu - Look'
 }
 
-{ #category : #'instance creation' }
-BrWithContextMenuAptitude class >> anchoredLook [
-	^ self anchoredLookClass new
+{ #category : #accessing }
+BrWithContextMenuAptitude class >> anchoredAptitudeClass [
+	^ BrContextMenuAptitude
 ]
 
-{ #category : #accessing }
-BrWithContextMenuAptitude class >> anchoredLookClass [
-	^ BrContextMenuAptitude
+{ #category : #'instance creation' }
+BrWithContextMenuAptitude class >> anchoredLook [
+	^ self anchoredAptitudeClass new
 ]
 
 { #category : #accessing }

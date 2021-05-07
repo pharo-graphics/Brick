@@ -13,14 +13,14 @@ Class {
 	#category : #'Brick-Tooltip - Look'
 }
 
-{ #category : #'instance creation' }
-BrWithTooltipAptitude class >> anchoredLook [
-	^ self anchoredLookClass new
+{ #category : #accessing }
+BrWithTooltipAptitude class >> anchoredAptitudeClass [
+	^ BrTooltipAptitude
 ]
 
-{ #category : #accessing }
-BrWithTooltipAptitude class >> anchoredLookClass [
-	^ BrTooltipAptitude
+{ #category : #'instance creation' }
+BrWithTooltipAptitude class >> anchoredLook [
+	^ self anchoredAptitudeClass new
 ]
 
 { #category : #'instance creation' }

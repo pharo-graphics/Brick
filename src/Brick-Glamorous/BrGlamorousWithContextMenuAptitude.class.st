@@ -5,6 +5,6 @@ Class {
 }
 
 { #category : #accessing }
-BrGlamorousWithContextMenuAptitude class >> anchoredLookClass [
+BrGlamorousWithContextMenuAptitude class >> anchoredAptitudeClass [
 	^ BrGlamorousContextMenuAptitude
 ]

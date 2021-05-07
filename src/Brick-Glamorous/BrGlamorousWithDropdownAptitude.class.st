@@ -9,6 +9,6 @@ Class {
 }
 
 { #category : #accessing }
-BrGlamorousWithDropdownAptitude class >> anchoredLookClass [
+BrGlamorousWithDropdownAptitude class >> anchoredAptitudeClass [
 	^ BrGlamorousDropdownAptitude
 ]
