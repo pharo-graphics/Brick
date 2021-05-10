@@ -1,6 +1,6 @@
 Class {
 	#name : #BrLookChangeExamples,
-	#superclass : #Object,
+	#superclass : #BlExamplesTest,
 	#category : #'Brick-Examples-Look'
 }
 

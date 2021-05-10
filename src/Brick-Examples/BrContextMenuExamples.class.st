@@ -1,6 +1,6 @@
 Class {
 	#name : #BrContextMenuExamples,
-	#superclass : #Object,
+	#superclass : #BlExamplesTest,
 	#category : #'Brick-Examples-Context Menu'
 }
 

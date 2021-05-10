@@ -29,7 +29,7 @@ ${example:BrProgressExamples>>#barAndTextBelow|codeExpanded=false|previewExpande
 "
 Class {
 	#name : #BrProgressExamples,
-	#superclass : #Object,
+	#superclass : #BlExamplesTest,
 	#category : #'Brick-Examples-Progress'
 }
 

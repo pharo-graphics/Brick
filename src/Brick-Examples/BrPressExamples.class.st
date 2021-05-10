@@ -1,6 +1,6 @@
 Class {
 	#name : #BrPressExamples,
-	#superclass : #Object,
+	#superclass : #BlExamplesTest,
 	#category : #'Brick-Examples-Press'
 }
 

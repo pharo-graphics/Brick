@@ -1,6 +1,6 @@
 Class {
 	#name : #BrLabelModelExamples,
-	#superclass : #Object,
+	#superclass : #BlExamplesTest,
 	#traits : 'TBrExamplesUtility',
 	#classTraits : 'TBrExamplesUtility classTrait',
 	#category : #'Brick-Examples-Label'

@@ -1,6 +1,6 @@
 Class {
 	#name : #BrInteractionExamples,
-	#superclass : #Object,
+	#superclass : #BlExamplesTest,
 	#category : #'Brick-Examples-Interaction'
 }
 

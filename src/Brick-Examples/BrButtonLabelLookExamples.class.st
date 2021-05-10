@@ -26,7 +26,7 @@ ${example:name=BrButtonLabelLookExamples>>#buttonWithModelFirstThenLook|expanded
 "
 Class {
 	#name : #BrButtonLabelLookExamples,
-	#superclass : #Object,
+	#superclass : #BlExamplesTest,
 	#category : #'Brick-Examples-Button'
 }
 

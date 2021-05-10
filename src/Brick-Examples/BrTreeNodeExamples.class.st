@@ -1,6 +1,6 @@
 Class {
 	#name : #BrTreeNodeExamples,
-	#superclass : #Object,
+	#superclass : #BlExamplesTest,
 	#category : #'Brick-Examples-Tree'
 }
 

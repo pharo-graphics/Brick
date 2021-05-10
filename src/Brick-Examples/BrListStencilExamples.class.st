@@ -1,6 +1,6 @@
 Class {
 	#name : #BrListStencilExamples,
-	#superclass : #Object,
+	#superclass : #BlExamplesTest,
 	#category : #'Brick-Examples-List'
 }
 

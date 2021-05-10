@@ -1,6 +1,6 @@
 Class {
 	#name : #BrTextEditorSegmentCollectorExamples,
-	#superclass : #Object,
+	#superclass : #BlExamplesTest,
 	#instVars : [
 		'largeFile'
 	],

@@ -1,6 +1,6 @@
 Class {
 	#name : #BrSimpleListByScripterExamples,
-	#superclass : #Object,
+	#superclass : #BlExamplesTest,
 	#traits : 'TBlDevScripterExamples',
 	#classTraits : 'TBlDevScripterExamples classTrait',
 	#category : #'Brick-Examples-List'

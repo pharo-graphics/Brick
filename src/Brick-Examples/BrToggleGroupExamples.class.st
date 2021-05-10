@@ -1,6 +1,6 @@
 Class {
 	#name : #BrToggleGroupExamples,
-	#superclass : #Object,
+	#superclass : #BlExamplesTest,
 	#category : #'Brick-Examples-Toggle'
 }
 

@@ -1,6 +1,6 @@
 Class {
 	#name : #BrNormalizerExamples,
-	#superclass : #Object,
+	#superclass : #BlExamplesTest,
 	#category : #'Brick-Glamorous-Normalizer'
 }
 

@@ -9,7 +9,7 @@ The ${class:BrColumnWidth}$ is an abstract class. There are examples for each ty
 "
 Class {
 	#name : #BrColumnWidthExamples,
-	#superclass : #Object,
+	#superclass : #BlExamplesTest,
 	#category : #'Brick-Examples-! Model - Column'
 }
 

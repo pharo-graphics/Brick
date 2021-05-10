@@ -12,7 +12,7 @@ ${example:BrGlamorousProgressExamples>>#barAndTextBelow_MainUsage|codeExpanded=f
 "
 Class {
 	#name : #BrGlamorousProgressExamples,
-	#superclass : #Object,
+	#superclass : #BlExamplesTest,
 	#instVars : [
 		'progressExamples'
 	],

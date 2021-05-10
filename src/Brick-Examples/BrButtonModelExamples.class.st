@@ -21,7 +21,7 @@ ${example:BrButtonModelExamples>>#clickOnElementWithButtonModel}$
 "
 Class {
 	#name : #BrButtonModelExamples,
-	#superclass : #Object,
+	#superclass : #BlExamplesTest,
 	#traits : 'TBrExamplesUtility',
 	#classTraits : 'TBrExamplesUtility classTrait',
 	#category : #'Brick-Examples-Button'

@@ -14,7 +14,7 @@ ${example:name=BrAccordionExamples>>#glamorousWithEditorExpandedWithFocus|noCode
 "
 Class {
 	#name : #BrAccordionExamples,
-	#superclass : #Object,
+	#superclass : #BlExamplesTest,
 	#category : #'Brick-Examples-Accordion'
 }
 

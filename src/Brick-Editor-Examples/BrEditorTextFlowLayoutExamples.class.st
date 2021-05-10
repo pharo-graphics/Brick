@@ -1,6 +1,6 @@
 Class {
 	#name : #BrEditorTextFlowLayoutExamples,
-	#superclass : #Object,
+	#superclass : #BlExamplesTest,
 	#category : #'Brick-Editor-Examples-Layout'
 }
 

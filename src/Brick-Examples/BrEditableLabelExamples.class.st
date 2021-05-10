@@ -1,6 +1,6 @@
 Class {
 	#name : #BrEditableLabelExamples,
-	#superclass : #Object,
+	#superclass : #BlExamplesTest,
 	#category : #'Brick-Examples-Editor'
 }
 

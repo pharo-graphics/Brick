@@ -1,6 +1,6 @@
 Class {
 	#name : #BrTextEditorSurroundMapExamples,
-	#superclass : #Object,
+	#superclass : #BlExamplesTest,
 	#category : #'Brick-Editor-Examples'
 }
 

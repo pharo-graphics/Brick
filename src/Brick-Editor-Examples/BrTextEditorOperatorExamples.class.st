@@ -1,6 +1,6 @@
 Class {
 	#name : #BrTextEditorOperatorExamples,
-	#superclass : #Object,
+	#superclass : #BlExamplesTest,
 	#traits : 'TBrTextEditorFixedMeasurerExamples',
 	#classTraits : 'TBrTextEditorFixedMeasurerExamples classTrait',
 	#category : #'Brick-Editor-Examples-Operators'

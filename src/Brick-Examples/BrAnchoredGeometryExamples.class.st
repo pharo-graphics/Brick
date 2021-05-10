@@ -1,6 +1,6 @@
 Class {
 	#name : #BrAnchoredGeometryExamples,
-	#superclass : #Object,
+	#superclass : #BlExamplesTest,
 	#category : #'Brick-Examples-Anchored'
 }
 

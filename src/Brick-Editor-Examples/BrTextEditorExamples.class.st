@@ -32,7 +32,7 @@
 "
 Class {
 	#name : #BrTextEditorExamples,
-	#superclass : #Object,
+	#superclass : #BlExamplesTest,
 	#classInstVars : [
 		'loremIpsum'
 	],

@@ -76,7 +76,7 @@ ${example:BrExamplesShowroom>>#columnedList|noCode}$
 "
 Class {
 	#name : #BrExamplesShowroom,
-	#superclass : #Object,
+	#superclass : #BlExamplesTest,
 	#category : #'Brick-Examples-! Showroom'
 }
 

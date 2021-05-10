@@ -1,6 +1,6 @@
 Class {
 	#name : #BrScrollPaneExamples,
-	#superclass : #Object,
+	#superclass : #BlExamplesTest,
 	#category : #'Brick-Examples-Scrollpane'
 }
 

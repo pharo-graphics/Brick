@@ -1,6 +1,6 @@
 Class {
 	#name : #BrCardExamples,
-	#superclass : #Object,
+	#superclass : #BlExamplesTest,
 	#category : #'Brick-Examples-Card'
 }
 

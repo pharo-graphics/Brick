@@ -1,6 +1,6 @@
 Class {
 	#name : #BrTextEditorSegmentCollectorExamples2,
-	#superclass : #Object,
+	#superclass : #BlExamplesTest,
 	#category : #'Brick-Editor-Examples'
 }
 

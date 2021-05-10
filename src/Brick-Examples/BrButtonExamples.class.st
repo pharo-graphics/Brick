@@ -48,7 +48,7 @@ ${example:BrButtonExamples>>#labelLookWithCommonAndSizeInteractions}$
 "
 Class {
 	#name : #BrButtonExamples,
-	#superclass : #Object,
+	#superclass : #BlExamplesTest,
 	#category : #'Brick-Examples-Button'
 }
 

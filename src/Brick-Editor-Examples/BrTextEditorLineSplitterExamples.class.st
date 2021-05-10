@@ -1,6 +1,6 @@
 Class {
 	#name : #BrTextEditorLineSplitterExamples,
-	#superclass : #Object,
+	#superclass : #BlExamplesTest,
 	#category : #'Brick-Editor-Examples'
 }
 

@@ -1,6 +1,6 @@
 Class {
 	#name : #BrCheckboxExamples,
-	#superclass : #Object,
+	#superclass : #BlExamplesTest,
 	#category : #'Brick-Examples-Checkbox'
 }
 

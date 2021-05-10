@@ -1,6 +1,6 @@
 Class {
 	#name : #BrEditorExamples,
-	#superclass : #Object,
+	#superclass : #BlExamplesTest,
 	#category : #'Brick-Examples-Editor'
 }
 

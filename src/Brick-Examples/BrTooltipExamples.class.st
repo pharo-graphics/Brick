@@ -1,6 +1,6 @@
 Class {
 	#name : #BrTooltipExamples,
-	#superclass : #Object,
+	#superclass : #BlExamplesTest,
 	#category : #'Brick-Examples-Tooltip'
 }
 

@@ -1,6 +1,6 @@
 Class {
 	#name : #BrAnchoredPositionerExamples,
-	#superclass : #Object,
+	#superclass : #BlExamplesTest,
 	#category : #'Brick-Examples-Anchored'
 }
 

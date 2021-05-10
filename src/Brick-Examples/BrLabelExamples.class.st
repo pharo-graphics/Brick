@@ -1,6 +1,6 @@
 Class {
 	#name : #BrLabelExamples,
-	#superclass : #Object,
+	#superclass : #BlExamplesTest,
 	#category : #'Brick-Examples-Label'
 }
 

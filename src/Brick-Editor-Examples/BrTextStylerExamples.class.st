@@ -3,7 +3,7 @@ Hello World *https://gtoolkit.com*
 "
 Class {
 	#name : #BrTextStylerExamples,
-	#superclass : #Object,
+	#superclass : #BlExamplesTest,
 	#category : #'Brick-Editor-Examples'
 }
 

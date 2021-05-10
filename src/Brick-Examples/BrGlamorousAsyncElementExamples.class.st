@@ -4,7 +4,7 @@ I exemplify ${class:BrGlamorousAsyncElementProgressPreviewStencil}$.
 "
 Class {
 	#name : #BrGlamorousAsyncElementExamples,
-	#superclass : #Object,
+	#superclass : #BlExamplesTest,
 	#instVars : [
 		'asyncExamples'
 	],

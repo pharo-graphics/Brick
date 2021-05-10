@@ -1,6 +1,6 @@
 Class {
 	#name : #BrTriangleExamples,
-	#superclass : #Object,
+	#superclass : #BlExamplesTest,
 	#category : #'Brick-Examples-Triangle'
 }
 

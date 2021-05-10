@@ -1,6 +1,6 @@
 Class {
 	#name : #BrExpanderExamples,
-	#superclass : #Object,
+	#superclass : #BlExamplesTest,
 	#category : #'Brick-Examples-Expander'
 }
 

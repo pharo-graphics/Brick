@@ -1,6 +1,6 @@
 Class {
 	#name : #BrTabExamples,
-	#superclass : #Object,
+	#superclass : #BlExamplesTest,
 	#category : #'Brick-Examples-Tab'
 }
 

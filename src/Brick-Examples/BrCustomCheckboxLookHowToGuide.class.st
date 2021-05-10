@@ -45,7 +45,7 @@ ${example:BrCustomCheckboxLookHowToGuide>>#_8_withPressedBackgroundAll|noCode=tr
 "
 Class {
 	#name : #BrCustomCheckboxLookHowToGuide,
-	#superclass : #Object,
+	#superclass : #BlExamplesTest,
 	#category : #'Brick-Examples-Checkbox'
 }
 

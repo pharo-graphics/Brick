@@ -3,7 +3,7 @@ I contain examples-tests of the editor backed up by line based segments
 "
 Class {
 	#name : #BrTextEditorLineSegmentExamples,
-	#superclass : #Object,
+	#superclass : #BlExamplesTest,
 	#category : #'Brick-Editor-Examples'
 }
 

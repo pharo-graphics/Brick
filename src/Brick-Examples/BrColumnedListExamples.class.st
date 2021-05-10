@@ -1,6 +1,6 @@
 Class {
 	#name : #BrColumnedListExamples,
-	#superclass : #Object,
+	#superclass : #BlExamplesTest,
 	#category : #'Brick-Examples-List'
 }
 

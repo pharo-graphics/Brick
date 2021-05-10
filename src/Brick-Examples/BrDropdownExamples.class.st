@@ -1,6 +1,6 @@
 Class {
 	#name : #BrDropdownExamples,
-	#superclass : #Object,
+	#superclass : #BlExamplesTest,
 	#category : #'Brick-Examples-Dropdown'
 }
 

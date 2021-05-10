@@ -1,6 +1,6 @@
 Class {
 	#name : #BrPagerExamples,
-	#superclass : #Object,
+	#superclass : #BlExamplesTest,
 	#category : #'Brick-Examples-Pager'
 }
 
