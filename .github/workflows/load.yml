@@ -21,4 +21,6 @@ jobs:
       - name: Load in new image usign build script
         run: scripts/build.sh
         shell: bash
-        timeout-minutes: 10
+      - name: Run tests
+        run: ./pharo Pharo.image test --fail-on-failure --fail-on-error Brick.*
+        shell: bash
