@@ -224,7 +224,7 @@ BrTextEditor >> defaultStylerEventHandler [
 
 { #category : #initialization }
 BrTextEditor >> defaultStylerStrategy [
-	^ BrTextStylerTaskItStrategy new
+	^ BrTextStylerSyncStrategy new
 ]
 
 { #category : #initialization }
