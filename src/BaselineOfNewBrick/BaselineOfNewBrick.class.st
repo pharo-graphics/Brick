@@ -27,9 +27,12 @@ BaselineOfNewBrick >> baseline: spec [
 			
 			package: #'Brick-Glamorous' with: [
 				spec requires: #(#'Brick') ];
+
+			package: #'Brick-Material' with: [
+				spec requires: #(#'Brick') ];
 			
 			package: #'Brick-Examples' with: [
-				spec requires: #(#'Brick-Glamorous') ]
+				spec requires: #(#'Brick-Glamorous' #'Brick-Material') ]
 			";
 			
 			package: #'Brick-DevTool' with: [
